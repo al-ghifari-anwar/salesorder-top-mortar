@@ -62,3 +62,6 @@ $route['produk'] = 'Produk';
 $route['produk/(:num)'] = 'Produk/produk_by_city/$1';
 $route['insert-produk'] = 'Produk/insert';
 $route['update-produk/(:num)'] = 'Produk/update/$1';
+//Auth
+$route['login'] = 'Auth';
+$route['logout'] = 'Auth/logout';
