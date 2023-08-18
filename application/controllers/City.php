@@ -1,0 +1,65 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class City extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('MCity');
+        $this->load->library('form_validation');
+    }
+
+    public function index()
+    {
+        $data['title'] = 'Kota';
+        $data['city'] = $this->MCity->getAll();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('City/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function insert()
+    {
+        $this->form_validation->set_rules('nama_city', 'Nama Kota', 'required');
+        $this->form_validation->set_rules('kode_city', 'Kode Kota', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Harap lengkapi form");
+            redirect('city');
+        } else {
+            $insert = $this->MCity->insert();
+
+            if ($insert) {
+                $this->session->set_flashdata('success', "Berhasil menyimpan data kota!");
+                redirect('city');
+            } else {
+                $this->session->set_flashdata('failed', "Gagal menyimpan data kota!");
+                redirect('city');
+            }
+        }
+    }
+
+    public function update($id)
+    {
+        $this->form_validation->set_rules('nama_city', 'Nama Kota', 'required');
+        $this->form_validation->set_rules('kode_city', 'Kode Kota', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Harap lengkapi form");
+            redirect('city');
+        } else {
+            $insert = $this->MCity->update($id);
+
+            if ($insert) {
+                $this->session->set_flashdata('success', "Berhasil mengubah data kota!");
+                redirect('city');
+            } else {
+                $this->session->set_flashdata('failed', "Gagal mengubah data kota!");
+                redirect('city');
+            }
+        }
+    }
+}
