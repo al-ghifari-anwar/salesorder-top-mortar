@@ -13,6 +13,12 @@ class MCity extends CI_Model
         return $query;
     }
 
+    public function getById($id)
+    {
+        $query = $this->db->get_where('tb_city', ['id_city' => $id])->row_array();
+        return $query;
+    }
+
     public function insert()
     {
         $post = $this->input->post();
