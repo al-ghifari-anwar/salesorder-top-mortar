@@ -65,3 +65,7 @@ $route['update-produk/(:num)'] = 'Produk/update/$1';
 //Auth
 $route['login'] = 'Auth';
 $route['logout'] = 'Auth/logout';
+// Surat Jalan
+$route['surat-jalan'] = 'SuratJalan';
+$route['surat-jalan/(:num)'] = 'SuratJalan/detail/$1';
+$route['insert-suratjalan'] = 'SuratJalan/insert';

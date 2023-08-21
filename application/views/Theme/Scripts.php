@@ -19,6 +19,10 @@
 <script src="<?= base_url('assets') ?>/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?= base_url('assets') ?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?= base_url('assets') ?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Select2 -->
+<script src="<?= base_url('assets') ?>/plugins/select2/js/select2.full.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="<?= base_url('assets') ?>/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script>
     $(function() {
         $('#table').DataTable({
@@ -31,6 +35,11 @@
             "responsive": true,
         });
     });
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
 </script>
 </body>
 
