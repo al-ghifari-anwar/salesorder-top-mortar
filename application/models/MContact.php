@@ -21,6 +21,7 @@ class MContact extends CI_Model
 
     public function getAllDefault()
     {
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city', 'LEFT');
         $query = $this->db->get('tb_contact')->result_array();
         return $query;
     }
