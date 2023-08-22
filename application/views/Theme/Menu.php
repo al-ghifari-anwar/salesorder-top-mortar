@@ -115,6 +115,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('toko') ?>" class="nav-link">
+                                <i class="fas fa-shopping-basket nav-icon"></i>
+                                <p>Toko</p>
+                            </a>
+                        </li>
+                        <li class="nav-header">Menu</li>
+                        <li class="nav-item">
                             <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
