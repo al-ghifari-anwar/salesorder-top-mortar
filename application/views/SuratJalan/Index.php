@@ -109,7 +109,7 @@
                     <input type="text" name="no_surat_jalan" class="form-control" value="<?= "DO-" . rand(10000000, 99999999) ?>" hidden>
                     <div class="form-group">
                         <label for="">Toko</label>
-                        <select class="form-control select2bs4" name="id_contact" style="width: 100%;">
+                        <select class="form-control select2bs4" name="id_contact" style="width: 100%;" id="select2bs4">
                             <?php foreach ($toko as $data) : ?>
                                 <option value="<?= $data['id_contact'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
                             <?php endforeach; ?>

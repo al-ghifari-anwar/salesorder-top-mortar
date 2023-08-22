@@ -15,7 +15,7 @@ class Toko extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Kota';
+        $data['title'] = 'Toko';
         $data['toko'] = $this->MContact->getAllDefault();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

@@ -53,7 +53,9 @@
                                         <th>Nama Toko</th>
                                         <th>Pemilik</th>
                                         <th>Nomor HP</th>
+                                        <th>Tgl Lahir</th>
                                         <th>Kota</th>
+                                        <th>Maps</th>
                                         <th>Alamat</th>
                                     </tr>
                                 </thead>
@@ -66,7 +68,9 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['store_owner'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
+                                            <td><?= $data['tgl_lahir'] ?></td>
                                             <td><?= $data['nama_city'] ?></td>
+                                            <td><?= $data['maps_url'] ?></td>
                                             <td><?= $data['address'] ?></td>
                                         </tr>
 
