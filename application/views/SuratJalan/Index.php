@@ -68,7 +68,7 @@
                                             <td><?= $data['nama_city'] ?></td>
                                             <td>
                                                 <a href="<?= base_url('surat-jalan/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
-                                                <a href="#" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -118,6 +118,29 @@
                     <div class="form-group">
                         <label for="">Order Number</label>
                         <input type="text" name="order_number" class="form-control">
+                    </div>
+                    <!-- <div class="mt-3">
+                        <label for=""><b>Shipping Detail:</b></label>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="">Ship To Name</label>
+                        <input type="text" name="ship_to_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Ship To Address</label>
+                        <textarea name="ship_to_address" id="" cols="30" rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Ship To Phone</label>
+                        <input type="text" name="ship_to_phone" class="form-control" placeholder="628xxx">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Kurir</label>
+                        <select class="form-control select2bs4" name="id_courier" style="width: 100%;">
+                            <?php foreach ($kurir as $data) : ?>
+                                <option value="<?= $data['id_user'] ?>"><?= $data['full_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>

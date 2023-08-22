@@ -12,10 +12,10 @@ class MContact extends CI_Model
     public $address;
     public $store_status;
 
-    public function getAll()
+    public function getAll($id_city)
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $query = $this->db->get('tb_contact')->result_array();
+        $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city])->result_array();
         return $query;
     }
 

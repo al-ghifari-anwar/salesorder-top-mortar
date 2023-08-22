@@ -41,8 +41,23 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h6><b>Toko:</b> <?= $toko['nama'] ?></h6>
-                            <h6><b>Nomor HP:</b> <?= $toko['nomorhp'] ?></h6>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5><b>Customer Detail:</b></h5>
+                                    <h6>Toko: <?= $toko['nama'] ?></h6>
+                                    <h6>Nomor HP: <?= $toko['nomorhp'] ?></h6>
+                                </div>
+                                <div class="col-4">
+                                    <h5><b>Shipping Detail:</b></h5>
+                                    <h6>Ship To Name: <?= $suratjalan['ship_to_name'] ?></h6>
+                                    <h6>Ship To Address: <?= $suratjalan['ship_to_address'] ?></h6>
+                                    <h6>Ship To Phone: <?= $suratjalan['ship_to_phone'] ?></h6>
+                                </div>
+                                <div class="col-4">
+                                    <h5><b>Courier Detail:</b></h5>
+                                    <h6>Name: <?= $suratjalan['full_name'] ?></h6>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,28 +73,67 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>No Surat Jalan</th>
-                                        <th>Toko</th>
-                                        <th>Nomor HP</th>
-                                        <th>Kota</th>
+                                        <th>Nama Produk</th>
+                                        <th>Harga</th>
+                                        <th>QTY</th>
+                                        <th>Is Free</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($suratjalan as $data) : ?>
+                                    foreach ($detail as $data) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['no_surat_jalan'] ?></td>
-                                            <td><?= $data['nama'] ?></td>
-                                            <td><?= $data['nomorhp'] ?></td>
-                                            <td><?= $data['nama_city'] ?></td>
+                                            <td><?= $data['nama_produk'] ?></td>
+                                            <td><?= $data['harga_produk'] ?></td>
+                                            <td><?= $data['qty_produk'] ?></td>
+                                            <td><?= $data['is_bonus'] == 1 ? 'Yes' : 'No' ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
-                                                <a href="#" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_detail_surat_jalan'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
+                                                <a href="<?= base_url('delete-detsuratjalan/') . $data['id_detail_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
+                                        <div class="modal fade" id="modal-edit<?= $data['id_detail_surat_jalan'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Ubah Data</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?= base_url('update-detsuratjalan/') . $data['id_detail_surat_jalan'] ?>" method="POST">
+                                                            <input type="text" name="id_detail_surat_jalan" class="form-control" value="<?= $data['id_detail_surat_jalan'] ?>" hidden>
+                                                            <input type="text" name="id_surat_jalan" class="form-control" value="<?= $data['id_surat_jalan'] ?>" hidden>
+                                                            <div class="form-group">
+                                                                <label for="">Produk</label>
+                                                                <select class="form-control select2bs4" name="id_produk" style="width: 100%;">
+                                                                    <?php foreach ($produk as $dataProduk) : ?>
+                                                                        <option value="<?= $dataProduk['id_produk'] ?>"><?= $dataProduk['nama_produk'] . " - " . "Rp. " . number_format($dataProduk['harga_produk'], 0, ',', '.')  ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">QTY</label>
+                                                                <input type="number" name="qty_produk" class="form-control" value="<?= $data['qty_produk'] ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <label for="">Is Free</label>
+                                                                        <input type="checkbox" name="is_bonus" id="" class="" <?= $data['is_bonus'] == 1 ? 'checked' : '' ?>>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-primary float-right">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -114,19 +168,27 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('insert-suratjalan') ?>" method="POST">
-                    <input type="text" name="no_surat_jalan" class="form-control" value="<?= "DO-" . rand(10000000, 99999999) ?>" hidden>
+                <form action="<?= base_url('insert-detsuratjalan') ?>" method="POST">
+                    <input type="text" name="id_surat_jalan" class="form-control" value="<?= $suratjalan['id_surat_jalan'] ?>" hidden>
                     <div class="form-group">
-                        <label for="">Toko</label>
-                        <select class="form-control select2bs4" name="id_contact" style="width: 100%;">
-                            <?php foreach ($toko as $data) : ?>
-                                <option value="<?= $data['id_contact'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
+                        <label for="">Produk</label>
+                        <select class="form-control select2bs4" name="id_produk" style="width: 100%;">
+                            <?php foreach ($produk as $data) : ?>
+                                <option value="<?= $data['id_produk'] ?>"><?= $data['nama_produk'] . " - " . "Rp. " . number_format($data['harga_produk'], 0, ',', '.')  ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Order Number</label>
-                        <input type="text" name="order_number" class="form-control">
+                        <label for="">QTY</label>
+                        <input type="number" name="qty_produk" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Is Free</label>
+                                <input type="checkbox" name="is_bonus" id="" class="">
+                            </div>
+                        </div>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>

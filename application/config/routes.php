@@ -66,6 +66,11 @@ $route['update-produk/(:num)'] = 'Produk/update/$1';
 $route['login'] = 'Auth';
 $route['logout'] = 'Auth/logout';
 // Surat Jalan
-$route['surat-jalan'] = 'SuratJalan';
+$route['surat-jalan'] = 'SuratJalan/city_list';
+$route['suratjalan/(:num)'] = 'SuratJalan/index/$1';
 $route['surat-jalan/(:num)'] = 'SuratJalan/detail/$1';
 $route['insert-suratjalan'] = 'SuratJalan/insert';
+$route['insert-detsuratjalan'] = 'SuratJalan/insertdetail';
+$route['update-detsuratjalan/(:num)'] = 'SuratJalan/updatedetail/$1';
+$route['delete-detsuratjalan/(:num)'] = 'SuratJalan/deletedetail/$1';
+$route['delete-suratjalan/(:num)'] = 'SuratJalan/delete/$1';
