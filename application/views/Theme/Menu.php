@@ -109,6 +109,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('kendaraan') ?>" class="nav-link">
+                                <i class="fas fa-truck nav-icon"></i>
+                                <p>Kendaraan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('produk') ?>" class="nav-link">
                                 <i class="fas fa-shopping-basket nav-icon"></i>
                                 <p>Produk</p>
@@ -116,7 +122,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('toko') ?>" class="nav-link">
-                                <i class="fas fa-shopping-basket nav-icon"></i>
+                                <i class="fas fa-store nav-icon"></i>
                                 <p>Toko</p>
                             </a>
                         </li>

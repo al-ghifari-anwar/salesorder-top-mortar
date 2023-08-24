@@ -76,3 +76,8 @@ $route['delete-detsuratjalan/(:num)'] = 'SuratJalan/deletedetail/$1';
 $route['delete-suratjalan/(:num)'] = 'SuratJalan/delete/$1';
 // Toko
 $route['toko'] = 'Toko';
+// Kendaraan
+$route['kendaraan'] = 'Kendaraan';
+$route['insert-kendaraan'] = 'Kendaraan/insert';
+$route['update-kendaraan/(:num)'] = 'Kendaraan/update/$1';
+$route['delete-kendaraan/(:num)'] = 'Kendaraan/delete/$1';

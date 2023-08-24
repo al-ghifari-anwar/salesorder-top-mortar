@@ -56,6 +56,8 @@
                                 <div class="col-4">
                                     <h5><b>Courier Detail:</b></h5>
                                     <h6>Name: <?= $suratjalan['full_name'] ?></h6>
+                                    <h6>Kendaraan: <?= $suratjalan['nama_kendaraan'] ?></h6>
+                                    <h6>No. Polisi: <?= $suratjalan['nopol_kendaraan'] ?></h6>
                                 </div>
                             </div>
                         </div>
