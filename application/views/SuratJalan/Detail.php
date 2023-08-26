@@ -53,11 +53,14 @@
                                     <h6>Ship To Address: <?= $suratjalan['ship_to_address'] ?></h6>
                                     <h6>Ship To Phone: <?= $suratjalan['ship_to_phone'] ?></h6>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3">
                                     <h5><b>Courier Detail:</b></h5>
                                     <h6>Name: <?= $suratjalan['full_name'] ?></h6>
                                     <h6>Kendaraan: <?= $suratjalan['nama_kendaraan'] ?></h6>
                                     <h6>No. Polisi: <?= $suratjalan['nopol_kendaraan'] ?></h6>
+                                </div>
+                                <div class="col-1">
+                                    <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-success">Finish</a>
                                 </div>
                             </div>
                         </div>

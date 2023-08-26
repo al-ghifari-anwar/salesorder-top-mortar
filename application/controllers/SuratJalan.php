@@ -103,6 +103,81 @@ class SuratJalan extends CI_Controller
         }
     }
 
+    public function finish($id)
+    {
+        $suratjalan = $this->MSuratJalan->getById($id);
+
+        $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
+        $template_id = '32b18403-e0ee-4cfc-9e2e-b28b95f24e37';
+        $integration_id = '31c076d5-ac80-4204-adc9-964c9b0c590b';
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                    "to_number": "' . $suratjalan['phone_user'] . '",
+                    "to_name": "' . $suratjalan['full_name'] . '",
+                    "message_template_id": "' . $template_id . '",
+                    "channel_integration_id": "' . $integration_id . '",
+                    "language": {
+                        "code": "id"
+                    },
+                    "parameters": {
+                        "body": [
+                        {
+                            "key": "1",
+                            "value": "nama",
+                            "value_text": "' . $suratjalan['full_name'] . '"
+                        },
+                        {
+                            "key": "2",
+                            "value": "store",
+                            "value_text": "' . $suratjalan['store_owner'] . '"
+                        },
+                        {
+                            "key": "3",
+                            "value": "address",
+                            "value_text": "' . $suratjalan['address'] . ', ' . $suratjalan['nama_city'] . '"
+                        },
+                        {
+                            "key": "4",
+                            "value": "no_surat",
+                            "value_text": "' . $suratjalan['no_surat_jalan'] . '"
+                        }
+                        ]
+                    }
+                    }',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $wa_token,
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $res = json_decode($response, true);
+
+        $status = $res['status'];
+
+        if ($status == "success") {
+            $this->session->set_flashdata('success', "Surat jalan berhasil dibuat!");
+            redirect('suratjalan/' . $suratjalan['id_city']);
+        } else {
+            $this->session->set_flashdata('failed', "Surat jalan gagal dibuat!");
+            redirect('suratjalan/' . $suratjalan['id_city']);
+        }
+    }
+
     public function deletedetail($id)
     {
         $insert = $this->MDetailSuratJalan->delete($id);

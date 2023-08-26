@@ -110,29 +110,30 @@
                     <div class="form-group">
                         <label for="">Toko</label>
                         <select class="form-control select2bs4" name="id_contact" style="width: 100%;" id="select2bs4">
+                            <option value="0">--- PLEASE SELECT STORE ---</option>
                             <?php foreach ($toko as $data) : ?>
-                                <option value="<?= $data['id_contact'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
+                                <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['store_owner'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label for="">Order Number</label>
-                        <input type="text" name="order_number" class="form-control">
+                        <input type="text" name="order_number" class="form-control" value="0">
                     </div>
                     <!-- <div class="mt-3">
                         <label for=""><b>Shipping Detail:</b></label>
                     </div> -->
                     <div class="form-group">
                         <label for="">Ship To Name</label>
-                        <input type="text" name="ship_to_name" class="form-control">
+                        <input type="text" name="ship_to_name" class="form-control" id="ship_to_name">
                     </div>
                     <div class="form-group">
                         <label for="">Ship To Address</label>
-                        <textarea name="ship_to_address" id="" cols="30" rows="3" class="form-control"></textarea>
+                        <textarea name="ship_to_address" id="ship_to_address" cols="30" rows="3" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="">Ship To Phone</label>
-                        <input type="text" name="ship_to_phone" class="form-control" placeholder="628xxx">
+                        <input type="text" name="ship_to_phone" id="ship_to_phone" class="form-control" placeholder="628xxx">
                     </div>
                     <div class="form-group">
                         <label for="">Kurir</label>
@@ -151,3 +152,16 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script>
+    // function getToko(selectObject) {
+    //     var value = selectObject.shiptoname;
+    //     console.log(value);
+    // }
+    document.getElementById("select2bs4").onchange = function() {
+        console.log(this.options[this.selectedIndex].getAttribute("shiptoname"));
+        console.log(this.options[this.selectedIndex].getAttribute("shipaddress"));
+        document.getElementById('ship_to_name').value = this.options[this.selectedIndex].getAttribute("shiptoname");
+        document.getElementById('ship_to_phone').value = this.options[this.selectedIndex].getAttribute("shipphone");
+        document.getElementById('ship_to_address').textContent = this.options[this.selectedIndex].getAttribute("shipaddress");
+    };
+</script>
