@@ -4,13 +4,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class MKendaraan extends CI_Model
 {
 
-    public $id_courier;
+    // public $id_courier;
     public $nama_kendaraan;
     public $nopol_kendaraan;
 
     public function getAll()
     {
-        $this->db->join('tb_user', 'tb_user.id_user = tb_kendaraan.id_courier');
         $query = $this->db->get('tb_kendaraan')->result_array();
         return $query;
     }
@@ -24,7 +23,7 @@ class MKendaraan extends CI_Model
     public function insert()
     {
         $post = $this->input->post();
-        $this->id_courier = $post['id_courier'];
+        // $this->id_courier = $post['id_courier'];
         $this->nama_kendaraan = $post['nama_kendaraan'];
         $this->nopol_kendaraan = $post['nopol_kendaraan'];
 
@@ -40,7 +39,7 @@ class MKendaraan extends CI_Model
     public function update($id)
     {
         $post = $this->input->post();
-        $this->id_courier = $post['id_courier'];
+        // $this->id_courier = $post['id_courier'];
         $this->nama_kendaraan = $post['nama_kendaraan'];
         $this->nopol_kendaraan = $post['nopol_kendaraan'];
 

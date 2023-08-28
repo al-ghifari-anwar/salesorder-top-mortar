@@ -60,7 +60,15 @@
                                     <h6>No. Polisi: <?= $suratjalan['nopol_kendaraan'] ?></h6>
                                 </div>
                                 <div class="col-1">
-                                    <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-success">Finish</a>
+                                    <?php if ($detail == null) { ?>
+                                        <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-success disabled">Finish</a>
+                                    <?php } else if ($detail != null && $suratjalan['is_finished'] == 0) { ?>
+                                        <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-success">Finish</a>
+                                    <?php } ?>
+
+                                    <?php if ($suratjalan['is_finished'] == 1) : ?>
+                                        <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-success disabled">Finish</a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +90,9 @@
                                         <th>Harga</th>
                                         <th>QTY</th>
                                         <th>Is Free</th>
-                                        <th>Aksi</th>
+                                        <?php if ($suratjalan['is_finished'] == 0) : ?>
+                                            <th>Aksi</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,10 +105,12 @@
                                             <td><?= $data['harga_produk'] ?></td>
                                             <td><?= $data['qty_produk'] ?></td>
                                             <td><?= $data['is_bonus'] == 1 ? 'Yes' : 'No' ?></td>
-                                            <td>
-                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_detail_surat_jalan'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('delete-detsuratjalan/') . $data['id_detail_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
-                                            </td>
+                                            <?php if ($suratjalan['is_finished'] == 0) : ?>
+                                                <td>
+                                                    <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_detail_surat_jalan'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
+                                                    <a href="<?= base_url('delete-detsuratjalan/') . $data['id_detail_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            <?php endif; ?>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_detail_surat_jalan'] ?>">
                                             <div class="modal-dialog">

@@ -106,43 +106,58 @@
             </div>
             <div class="modal-body">
                 <form action="<?= base_url('insert-suratjalan') ?>" method="POST">
-                    <input type="text" name="no_surat_jalan" class="form-control" value="<?= "DO-" . rand(10000000, 99999999) ?>" hidden>
-                    <div class="form-group">
-                        <label for="">Toko</label>
-                        <select class="form-control select2bs4" name="id_contact" style="width: 100%;" id="select2bs4">
-                            <option value="0">--- PLEASE SELECT STORE ---</option>
-                            <?php foreach ($toko as $data) : ?>
-                                <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['store_owner'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group" hidden>
-                        <label for="">Order Number</label>
-                        <input type="text" name="order_number" class="form-control" value="0">
-                    </div>
-                    <!-- <div class="mt-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="text" name="no_surat_jalan" class="form-control" value="<?= "DO-" . rand(10000000, 99999999) ?>" hidden>
+                            <div class="form-group">
+                                <label for="">Toko</label>
+                                <select class="form-control select2bs4" name="id_contact" style="width: 100%;" id="select2bs4">
+                                    <option value="0">--- PLEASE SELECT STORE ---</option>
+                                    <?php foreach ($toko as $data) : ?>
+                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['store_owner'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="">Order Number</label>
+                                <input type="text" name="order_number" class="form-control" value="0">
+                            </div>
+                            <!-- <div class="mt-3">
                         <label for=""><b>Shipping Detail:</b></label>
                     </div> -->
-                    <div class="form-group">
-                        <label for="">Ship To Name</label>
-                        <input type="text" name="ship_to_name" class="form-control" id="ship_to_name">
+                            <div class="form-group">
+                                <label for="">Ship To Name</label>
+                                <input type="text" name="ship_to_name" class="form-control" id="ship_to_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Ship To Address</label>
+                                <textarea name="ship_to_address" id="ship_to_address" cols="30" rows="3" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Ship To Phone</label>
+                                <input type="text" name="ship_to_phone" id="ship_to_phone" class="form-control" placeholder="628xxx">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Kurir</label>
+                                <select class="form-control select2bs4" name="id_courier" style="width: 100%;">
+                                    <?php foreach ($kurir as $data) : ?>
+                                        <option value="<?= $data['id_user'] ?>"><?= $data['full_name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Kendaraan</label>
+                                <select class="form-control select2bs4" name="id_kendaraan" style="width: 100%;">
+                                    <?php foreach ($kendaraan as $dataKend) : ?>
+                                        <option value="<?= $dataKend['id_kendaraan'] ?>"><?= $dataKend['nama_kendaraan'] . " - " . $dataKend['nopol_kendaraan'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Ship To Address</label>
-                        <textarea name="ship_to_address" id="ship_to_address" cols="30" rows="3" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Ship To Phone</label>
-                        <input type="text" name="ship_to_phone" id="ship_to_phone" class="form-control" placeholder="628xxx">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Kurir</label>
-                        <select class="form-control select2bs4" name="id_courier" style="width: 100%;">
-                            <?php foreach ($kurir as $data) : ?>
-                                <option value="<?= $data['id_user'] ?>"><?= $data['full_name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>
             </div>

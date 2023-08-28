@@ -16,6 +16,7 @@ class SuratJalan extends CI_Controller
         $this->load->model('MDetailSuratJalan');
         $this->load->model('MUser');
         $this->load->model('MCity');
+        $this->load->model('MKendaraan');
         $this->load->library('form_validation');
     }
 
@@ -36,6 +37,7 @@ class SuratJalan extends CI_Controller
         $data['suratjalan'] = $this->MSuratJalan->getAll();
         $data['toko'] = $this->MContact->getAll($id_city);
         $data['kurir'] = $this->MUser->getAll($id_city);
+        $data['kendaraan'] = $this->MKendaraan->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('SuratJalan/Index');
@@ -170,11 +172,12 @@ class SuratJalan extends CI_Controller
         $status = $res['status'];
 
         if ($status == "success") {
+            $this->db->update('tb_surat_jalan', ['is_finished' => 1], ['id_surat_jalan' => $suratjalan['id_surat_jalan']]);
             $this->session->set_flashdata('success', "Surat jalan berhasil dibuat!");
-            redirect('suratjalan/' . $suratjalan['id_city']);
+            redirect('surat-jalan');
         } else {
             $this->session->set_flashdata('failed', "Surat jalan gagal dibuat!");
-            redirect('suratjalan/' . $suratjalan['id_city']);
+            redirect('surat-jalan');
         }
     }
 

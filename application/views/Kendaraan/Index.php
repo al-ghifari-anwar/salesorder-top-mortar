@@ -50,8 +50,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Kota</th>
-                                        <th>Kode Kota</th>
+                                        <th>Nama Kendaraan</th>
+                                        <th>Nopol Kendaraan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -79,14 +79,6 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form action="<?= base_url('update-kendaraan/') . $data['id_kendaraan'] ?>" method="POST">
-                                                            <div class="form-group">
-                                                                <label for="">Kurir</label>
-                                                                <select class="form-control select2bs4" name="id_courier" style="width: 100%;">
-                                                                    <?php foreach ($kurir as $dataKurir) : ?>
-                                                                        <option value="<?= $dataKurir['id_user'] ?>"><?= $dataKurir['full_name'] . " - " . $dataKurir['nama_city'] ?></option>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                            </div>
                                                             <div class="form-group">
                                                                 <label for="">Nama Kendaraan</label>
                                                                 <input type="text" name="nama_kendaraan" id="" class="form-control" value="<?= $data['nama_kendaraan'] ?>">
@@ -136,14 +128,6 @@
             </div>
             <div class="modal-body">
                 <form action="<?= base_url('insert-kendaraan') ?>" method="POST">
-                    <div class="form-group">
-                        <label for="">Kurir</label>
-                        <select class="form-control select2bs4" name="id_courier" style="width: 100%;">
-                            <?php foreach ($kurir as $data) : ?>
-                                <option value="<?= $data['id_user'] ?>"><?= $data['full_name'] . " - " . $data['nama_city'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label for="">Nama Kendaraan</label>
                         <input type="text" name="nama_kendaraan" id="" class="form-control">
