@@ -114,7 +114,7 @@
                                 <select class="form-control select2bs4" name="id_contact" style="width: 100%;" id="select2bs4">
                                     <option value="0">--- PLEASE SELECT STORE ---</option>
                                     <?php foreach ($toko as $data) : ?>
-                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['store_owner'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
+                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['nama'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
