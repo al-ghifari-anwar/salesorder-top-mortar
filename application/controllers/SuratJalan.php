@@ -34,7 +34,7 @@ class SuratJalan extends CI_Controller
     public function index($id_city)
     {
         $data['title'] = 'Surat Jalan';
-        $data['suratjalan'] = $this->MSuratJalan->getAll();
+        $data['suratjalan'] = $this->MSuratJalan->getByCity($id_city);
         $data['toko'] = $this->MContact->getAll($id_city);
         $data['kurir'] = $this->MUser->getAll($id_city);
         $data['kendaraan'] = $this->MKendaraan->getAll();
