@@ -61,13 +61,13 @@
                                 </div>
                                 <div class="col-1">
                                     <?php if ($detail == null) { ?>
-                                        <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-success disabled">Finish</a>
+                                        <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-secondary disabled">Finish</a>
                                     <?php } else if ($detail != null && $suratjalan['is_finished'] == 0) { ?>
                                         <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-success">Finish</a>
                                     <?php } ?>
 
                                     <?php if ($suratjalan['is_finished'] == 1) : ?>
-                                        <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-success disabled">Finish</a>
+                                        <a href="<?= base_url('finish-suratjalan/') . $suratjalan['id_surat_jalan'] ?>" class="btn btn-secondary disabled">Finish</a>
                                     <?php endif; ?>
                                 </div>
                             </div>
