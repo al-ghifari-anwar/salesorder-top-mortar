@@ -53,6 +53,7 @@
                                         <th>Toko</th>
                                         <th>Nomor HP</th>
                                         <th>Kota</th>
+                                        <th>Closing</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -66,6 +67,14 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['nama_city'] ?></td>
+                                            <td>
+                                                <?php if ($data['is_closing'] == 0) : ?>
+                                                    <i class="fas fa-times-circle"></i>
+                                                <?php endif; ?>
+                                                <?php if ($data['is_closing'] == 1) : ?>
+                                                    <a href="https://saleswa.topmortarindonesia.com/img/<?= $data['proof_closing'] ?>" target="__blank">Image <i class="fas fa-external-link-alt"></i></a>
+                                                <?php endif; ?>
+                                            </td>
                                             <td>
                                                 <a href="<?= base_url('surat-jalan/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
                                                 <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>

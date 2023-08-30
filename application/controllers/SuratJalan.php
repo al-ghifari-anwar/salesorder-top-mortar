@@ -142,7 +142,7 @@ class SuratJalan extends CI_Controller
                         {
                             "key": "2",
                             "value": "store",
-                            "value_text": "' . $suratjalan['store_owner'] . '"
+                            "value_text": "' . $suratjalan['nama'] . '"
                         },
                         {
                             "key": "3",
