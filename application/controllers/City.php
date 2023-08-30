@@ -65,4 +65,17 @@ class City extends CI_Controller
             }
         }
     }
+
+    public function delete($id)
+    {
+        $insert = $this->MCity->delete($id);
+
+        if ($insert) {
+            $this->session->set_flashdata('success', "Berhasil menghapus data kota!");
+            redirect('city');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menghapus data kota!");
+            redirect('city');
+        }
+    }
 }

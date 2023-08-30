@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['city'] = 'City';
 $route['insert-city'] = 'City/insert';
 $route['update-city/(:num)'] = 'City/update/$1';
+$route['delete-city/(:num)'] = 'City/delete/$1';
 // Produk
 $route['produk'] = 'Produk';
 $route['produk/(:num)'] = 'Produk/produk_by_city/$1';

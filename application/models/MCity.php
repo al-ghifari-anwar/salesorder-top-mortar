@@ -48,4 +48,15 @@ class MCity extends CI_Model
             return false;
         }
     }
+
+    public function delete($id)
+    {
+        $query = $this->db->delete('tb_city', ['id_city' => $id]);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
