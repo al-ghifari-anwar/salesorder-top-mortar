@@ -126,7 +126,7 @@ class SuratJalan extends CI_Controller
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
                     "to_number": "' . $suratjalan['phone_user'] . '",
-                    "to_name": "' . $suratjalan['full_name'] . '",
+                    "to_name": "' . $suratjalan['nama'] . '",
                     "message_template_id": "' . $template_id . '",
                     "channel_integration_id": "' . $integration_id . '",
                     "language": {
@@ -137,7 +137,7 @@ class SuratJalan extends CI_Controller
                         {
                             "key": "1",
                             "value": "nama",
-                            "value_text": "' . $suratjalan['full_name'] . '"
+                            "value_text": "' . $suratjalan['nama'] . '"
                         },
                         {
                             "key": "2",
