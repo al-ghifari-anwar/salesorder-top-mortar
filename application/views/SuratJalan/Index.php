@@ -77,7 +77,9 @@
                                             </td>
                                             <td>
                                                 <a href="<?= base_url('surat-jalan/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
-                                                <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <?php if ($data['is_closing'] == 0) : ?>
+                                                    <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

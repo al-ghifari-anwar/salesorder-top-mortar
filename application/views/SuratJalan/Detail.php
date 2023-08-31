@@ -77,9 +77,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
-                                Tambah Produk
-                            </button>
+                            <?php if ($suratjalan['is_finished'] == 0) : ?>
+                                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
+                                    Tambah Produk
+                                </button>
+                            <?php endif; ?>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
