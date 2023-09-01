@@ -53,6 +53,7 @@
                                         <th>Toko</th>
                                         <th>Nomor HP</th>
                                         <th>Kota</th>
+                                        <th>Kurir</th>
                                         <th>Closing</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -67,6 +68,7 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['nama_city'] ?></td>
+                                            <td><?= $data['full_name'] ?></td>
                                             <td>
                                                 <?php if ($data['is_closing'] == 0) : ?>
                                                     <i class="fas fa-times-circle"></i>
