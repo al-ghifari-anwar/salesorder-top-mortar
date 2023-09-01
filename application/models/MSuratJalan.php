@@ -6,6 +6,7 @@ class MSuratJalan extends CI_Model
 
     public $no_surat_jalan;
     public $id_contact;
+    public $dalivery_date;
     public $order_number;
     public $ship_to_name;
     public $ship_to_address;
@@ -46,9 +47,11 @@ class MSuratJalan extends CI_Model
 
     public function insert()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $post = $this->input->post();
         $this->no_surat_jalan = $post['no_surat_jalan'];
         $this->id_contact = $post['id_contact'];
+        $this->dalivery_date = date("Y-m-d H:i:s");
         $this->order_number = $post['order_number'];
         $this->ship_to_name = $post['ship_to_name'];
         $this->ship_to_address = $post['ship_to_address'];
