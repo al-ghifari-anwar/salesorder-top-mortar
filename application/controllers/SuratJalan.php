@@ -200,10 +200,10 @@ class SuratJalan extends CI_Controller
 
         if ($insert) {
             $this->session->set_flashdata('success', "Berhasil megnhapus data suratjalan!");
-            redirect('suratjalan/' . $id);
+            redirect('surat-jalan');
         } else {
             $this->session->set_flashdata('failed', "Gagal megnhapus data suratjalan!");
-            redirect('suratjalan/' . $id);
+            redirect('surat-jalan');
         }
     }
 }

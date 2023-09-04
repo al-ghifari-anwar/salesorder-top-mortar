@@ -6,7 +6,9 @@ class MDetailSuratJalan extends CI_Model
 
     public $id_surat_jalan;
     public $id_produk;
+    public $price;
     public $qty_produk;
+    public $amount;
     public $is_bonus;
 
     public function getAll($id_surat_jalan)
@@ -28,10 +30,14 @@ class MDetailSuratJalan extends CI_Model
         $this->id_surat_jalan = $post['id_surat_jalan'];
         $this->id_produk = $post['id_produk'];
         $this->qty_produk = $post['qty_produk'];
+        $produk = $this->db->get_where('tb_produk', ['id_produk' => $post['id_produk']])->row_array();
+        $this->price = $produk['harga_produk'];
         if ($post['is_bonus'] == true) {
             $this->is_bonus = 1;
+            $this->amount = 0;
         } else {
             $this->is_bonus = 0;
+            $this->amount = $produk['harga_produk'] * $post['qty_produk'];
         }
 
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
