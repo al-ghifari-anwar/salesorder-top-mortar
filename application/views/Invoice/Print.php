@@ -1,3 +1,33 @@
+<?php
+function penyebut($nilai)
+{
+    $nilai = abs($nilai);
+    $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+    $temp = "";
+    if ($nilai < 12) {
+        $temp = " " . $huruf[$nilai];
+    } else if ($nilai < 20) {
+        $temp = penyebut($nilai - 10) . " belas";
+    } else if ($nilai < 100) {
+        $temp = penyebut($nilai / 10) . " puluh" . penyebut($nilai % 10);
+    } else if ($nilai < 200) {
+        $temp = " seratus" . penyebut($nilai - 100);
+    } else if ($nilai < 1000) {
+        $temp = penyebut($nilai / 100) . " ratus" . penyebut($nilai % 100);
+    } else if ($nilai < 2000) {
+        $temp = " seribu" . penyebut($nilai - 1000);
+    } else if ($nilai < 1000000) {
+        $temp = penyebut($nilai / 1000) . " ribu" . penyebut($nilai % 1000);
+    } else if ($nilai < 1000000000) {
+        $temp = penyebut($nilai / 1000000) . " juta" . penyebut($nilai % 1000000);
+    } else if ($nilai < 1000000000000) {
+        $temp = penyebut($nilai / 1000000000) . " milyar" . penyebut(fmod($nilai, 1000000000));
+    } else if ($nilai < 1000000000000000) {
+        $temp = penyebut($nilai / 1000000000000) . " trilyun" . penyebut(fmod($nilai, 1000000000000));
+    }
+    return $temp;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,20 +88,44 @@
         .text-left {
             text-align: left;
         }
+
+        .text-up {
+            vertical-align: top;
+        }
+
+        .text-bot {
+            vertical-align: bottom;
+        }
     </style>
     <!-- ORIGINAL -->
     <div class="row">
-        <div class="column">
+        <div class="column" style="width: 75%;">
             <!-- Store and City -->
             <table class="" style="margin-right: 50px;">
                 <tr>
                     <th class="text-left">
                         <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 150px;">
                     </th>
+                    <th class="text-left text-up">
+                        <h2>PT Top Mortar Indonesia</h2>
+                    </th>
                 </tr>
             </table>
+        </div>
+        <div class="column" style="width: 25%;">
+            <table>
+                <tr>
+                    <th class="text-right">
+                        <!-- <h5>COPY</h5> -->
+                    </th>
+                </tr>
+            </table>
+            <h1 class="text-right">Sales Invoice</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
             <!-- Bill To -->
-            <div style="margin-top: 10px;"></div>
             <div class="row">
                 <div class="column" style="width: 15%;">
                     <span>Bill To:</span>
@@ -160,7 +214,13 @@
     <!-- Totals and Payment -->
     <div class="row" style="margin-top: 20px;">
         <div class="column" style="width: 70%;">
-            <table class="border" style="width: 100%; margin-right: 20px;">
+            <table class="" style="width: 100%; margin-right: 20px;">
+                <tr>
+                    <td>Terbilang: </td>
+                    <td class="border"><?= penyebut($invoice['total_invoice']) ?></td>
+                </tr>
+            </table>
+            <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
                 <tr>
                     <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia</td>
                 </tr>
@@ -176,21 +236,37 @@
         </div>
     </div>
 
-    <hr style="margin-top: 50px; margin-bottom: 50px;">
+    <hr style="margin-top: 100px; margin-bottom: 10px;">
 
     <!-- COPY -->
     <div class="row">
-        <div class="column">
+        <div class="column" style="width: 75%;">
             <!-- Store and City -->
             <table class="" style="margin-right: 50px;">
                 <tr>
                     <th class="text-left">
                         <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 150px;">
                     </th>
+                    <th class="text-left text-up">
+                        <h2>PT Top Mortar Indonesia</h2>
+                    </th>
                 </tr>
             </table>
+        </div>
+        <div class="column" style="width: 25%;">
+            <table>
+                <tr>
+                    <th class="text-right">
+                        <h5>COPY</h5>
+                    </th>
+                </tr>
+            </table>
+            <h1 class="text-right">Sales Invoice</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
             <!-- Bill To -->
-            <div style="margin-top: 10px;"></div>
             <div class="row">
                 <div class="column" style="width: 15%;">
                     <span>Bill To:</span>
@@ -279,7 +355,13 @@
     <!-- Totals and Payment -->
     <div class="row" style="margin-top: 20px;">
         <div class="column" style="width: 70%;">
-            <table class="border" style="width: 100%; margin-right: 20px;">
+            <table class="" style="width: 100%; margin-right: 20px;">
+                <tr>
+                    <td>Terbilang: </td>
+                    <td class="border"><?= penyebut($invoice['total_invoice']) ?></td>
+                </tr>
+            </table>
+            <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
                 <tr>
                     <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia</td>
                 </tr>
