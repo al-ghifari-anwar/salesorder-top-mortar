@@ -20,6 +20,11 @@
             border-collapse: collapse;
         }
 
+        .border-r {
+            border-right: 1px solid black;
+            border-collapse: collapse;
+        }
+
         table,
         th,
         td {
@@ -57,12 +62,11 @@
     <div class="row">
         <div class="column">
             <!-- Store and City -->
-            <table class="border" style="margin-right: 50px;">
+            <table class="" style="margin-right: 50px;">
                 <tr>
-                    <th class="border"><?= $store['nama'] ?></th>
-                </tr>
-                <tr>
-                    <td><?= $store['nama_city'] ?></td>
+                    <th class="text-left">
+                        <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 150px;">
+                    </th>
                 </tr>
             </table>
             <!-- Bill To -->
@@ -74,7 +78,7 @@
                 <div class="column" style="width: 85%;">
                     <table class="border" style="margin-right: 50px;">
                         <tr>
-                            <th><?= $store['nama'] ?></th>
+                            <th class="text-left"><?= $store['nama'] ?></th>
                         </tr>
                         <tr>
                             <td><?= $store['address'] ?><br><?= $store['nomorhp'] ?></td>
@@ -91,7 +95,7 @@
                 <div class="column" style="width: 85%;">
                     <table class="border" style="margin-right: 50px;">
                         <tr>
-                            <th><?= $invoice['ship_to_name'] ?></th>
+                            <th class="text-left"><?= $invoice['ship_to_name'] ?></th>
                         </tr>
                         <tr>
                             <td><?= $invoice['ship_to_address'] ?><br><?= $invoice['ship_to_phone'] ?></td>
@@ -107,36 +111,20 @@
                     <th class="border">Invoice Number</th>
                 </tr>
                 <tr>
-                    <td class="border">
+                    <td class="border text-center">
                         <?= date('d M Y', strtotime($invoice['date_invoice'])) ?>
                     </td>
-                    <td class="border">
+                    <td class="border text-center">
                         <?= $invoice['no_invoice'] ?>
                     </td>
                 </tr>
                 <tr>
                     <th class="border">Terms</th>
-                    <th class="border">FOB</th>
-                </tr>
-                <tr>
-                    <td class="border"></td>
-                    <td class="border"></td>
-                </tr>
-                <tr>
-                    <th class="border">Ship Via</th>
                     <th class="border">Ship Date</th>
                 </tr>
                 <tr>
-                    <td class="border"><?= $kendaraan['nama_kendaraan'] . " + " . $courier['full_name'] ?></td>
-                    <td class="border"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
-                </tr>
-                <tr>
-                    <th class="border">PO. No.</th>
-                    <th class="border">Currency</th>
-                </tr>
-                <tr>
-                    <td class="border"></td>
-                    <td class="border">IDR</td>
+                    <td class="border text-center">30 Hari</td>
+                    <td class="border text-center"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
                 </tr>
             </table>
         </div>
@@ -152,20 +140,16 @@
                     <th class="border">QTY</th>
                     <th class="border">Item</th>
                     <th class="border">Unit Price</th>
-                    <th class="border">Disc</th>
-                    <th class="border">Tax</th>
                     <th class="border">Amount</th>
                 </tr>
                 <?php foreach ($produk as $dataProduk) : ?>
                     <tr>
-                        <td class="border"><?= $invoice['no_surat_jalan'] ?></td>
-                        <td class="border"><?= $dataProduk['nama_produk'] ?></td>
-                        <td class="border text-right"><?= $dataProduk['qty_produk'] ?></td>
-                        <td class="border">SAK</td>
-                        <td class="border text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
-                        <td class="border">0</td>
-                        <td class="border"></td>
-                        <td class="border text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
+                        <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
+                        <td class="border-r"><?= $dataProduk['nama_produk'] ?></td>
+                        <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
+                        <td class="border-r">SAK</td>
+                        <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
+                        <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -175,7 +159,7 @@
     <!-- Totals and Payment -->
     <div class="row" style="margin-top: 20px;">
         <div class="column" style="width: 70%;">
-            <table class="border" style="width: 100%; margin-right: 50px;">
+            <table class="border" style="width: 100%; margin-right: 20px;">
                 <tr>
                     <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia</td>
                 </tr>
@@ -183,14 +167,6 @@
         </div>
         <div class="column" style="width: 30%;">
             <table class="border">
-                <tr>
-                    <td>Subtotal:</td>
-                    <td class="text-right"><?= number_format($invoice['subtotal_invoice'], 0, '.', ',') ?></td>
-                </tr>
-                <tr>
-                    <td>PPN 10%:</td>
-                    <td class="text-right"><?= number_format(0, 0, '.', ',') ?></td>
-                </tr>
                 <tr>
                     <th class="text-left">Total Invoice:</th>
                     <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
