@@ -99,7 +99,7 @@ function penyebut($nilai)
     </style>
     <!-- ORIGINAL -->
     <div class="row">
-        <div class="column" style="width: 75%;">
+        <div class="column" style="width: 70%;">
             <!-- Store and City -->
             <table class="" style="margin-right: 50px;">
                 <tr>
@@ -112,7 +112,7 @@ function penyebut($nilai)
                 </tr>
             </table>
         </div>
-        <div class="column" style="width: 25%;">
+        <div class="column" style="width: 30%;">
             <table>
                 <tr>
                     <th class="text-right">
@@ -120,7 +120,14 @@ function penyebut($nilai)
                     </th>
                 </tr>
             </table>
-            <h1 class="text-right">Sales Invoice</h1>
+            <table>
+                <tr>
+                    <th class="text-bot" style="padding-top: 50px; padding-bottom: 0;">
+
+                        <h1 class="text-right text-bot">Sales Invoice</h1>
+                    </th>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="row">
@@ -212,7 +219,7 @@ function penyebut($nilai)
     </div>
 
     <!-- Totals and Payment -->
-    <div class="row" style="margin-top: 20px;">
+    <div class="row">
         <div class="column" style="width: 70%;">
             <table class="" style="width: 100%; margin-right: 20px;">
                 <tr>
@@ -240,7 +247,7 @@ function penyebut($nilai)
 
     <!-- COPY -->
     <div class="row">
-        <div class="column" style="width: 75%;">
+        <div class="column" style="width: 70%;">
             <!-- Store and City -->
             <table class="" style="margin-right: 50px;">
                 <tr>
@@ -253,7 +260,7 @@ function penyebut($nilai)
                 </tr>
             </table>
         </div>
-        <div class="column" style="width: 25%;">
+        <div class="column" style="width: 30%;">
             <table>
                 <tr>
                     <th class="text-right">
@@ -261,7 +268,14 @@ function penyebut($nilai)
                     </th>
                 </tr>
             </table>
-            <h1 class="text-right">Sales Invoice</h1>
+            <table>
+                <tr>
+                    <th class="text-bot" style="padding-top: 50px; padding-bottom: 0;">
+
+                        <h1 class="text-right text-bot">Sales Invoice</h1>
+                    </th>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="row">
@@ -353,7 +367,7 @@ function penyebut($nilai)
     </div>
 
     <!-- Totals and Payment -->
-    <div class="row" style="margin-top: 20px;">
+    <div class="row">
         <div class="column" style="width: 70%;">
             <table class="" style="width: 100%; margin-right: 20px;">
                 <tr>
