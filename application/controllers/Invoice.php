@@ -56,10 +56,10 @@ class Invoice extends CI_Controller
         $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
         // echo json_encode($this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']));
         // die;
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A5']);
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Invoice/Print', $data, true);
-        $mpdf->AddPage('L');
+        $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
