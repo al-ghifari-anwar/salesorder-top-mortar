@@ -38,7 +38,7 @@ class Invoice extends CI_Controller
         $data['title'] = 'Invoice';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
-        $data['invoice'] = $this->MInvoice->getAll();
+        $data['invoice'] = $this->MInvoice->getAll($id_city);
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Invoice/List');
