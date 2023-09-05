@@ -83,3 +83,7 @@ $route['kendaraan'] = 'Kendaraan';
 $route['insert-kendaraan'] = 'Kendaraan/insert';
 $route['update-kendaraan/(:num)'] = 'Kendaraan/update/$1';
 $route['delete-kendaraan/(:num)'] = 'Kendaraan/delete/$1';
+// Invoice
+$route['invoice'] = 'Invoice';
+$route['invoice/(:num)'] = 'Invoice/invoice_by_city/$1';
+$route['print-invoice/(:num)'] = 'Invoice/print/$1';

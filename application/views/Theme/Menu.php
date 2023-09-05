@@ -132,9 +132,20 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Surat Jalan
-                                    <span class="right badge badge-danger">New</span>
+                                    <!-- <span class="right badge badge-danger">New</span> -->
                                 </p>
                             </a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('invoice') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>
+                                    Invoice
+                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                </p>
+                            </a>
+
                         </li>
                     </ul>
                 </nav>
