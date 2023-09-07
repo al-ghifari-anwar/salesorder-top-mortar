@@ -104,7 +104,7 @@ function penyebut($nilai)
             <table class="" style="margin-right: 50px;">
                 <tr>
                     <th class="text-left">
-                        <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 150px;">
+                        <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
                     </th>
                     <th class="text-left text-up">
                         <h2>PT Top Mortar Indonesia</h2>
@@ -122,7 +122,7 @@ function penyebut($nilai)
             </table>
             <table>
                 <tr>
-                    <th class="text-bot" style="padding-top: 50px; padding-bottom: 0;">
+                    <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
 
                         <h1 class="text-right text-bot">Sales Invoice</h1>
                     </th>
@@ -131,14 +131,14 @@ function penyebut($nilai)
         </div>
     </div>
     <div class="row">
-        <div class="column">
+        <div class="column" style="width: 60%;">
             <!-- Bill To -->
             <div class="row">
-                <div class="column" style="width: 15%;">
+                <div class="column" style="width: 10%;">
                     <span>Bill To:</span>
                 </div>
-                <div class="column" style="width: 85%;">
-                    <table class="border" style="margin-right: 50px;">
+                <div class="column" style="width: 0%;">
+                    <table class="border" style="margin-right: 5px;">
                         <tr>
                             <th class="text-left"><?= $store['nama'] ?></th>
                         </tr>
@@ -151,11 +151,11 @@ function penyebut($nilai)
             <!-- Ship To -->
             <div style="margin-top: 10px;"></div>
             <div class="row">
-                <div class="column" style="width: 15%;">
+                <div class="column" style="width: 10%;">
                     <span>Ship To:</span>
                 </div>
-                <div class="column" style="width: 85%;">
-                    <table class="border" style="margin-right: 50px;">
+                <div class="column" style="width: 0%;">
+                    <table class="border" style="margin-right: 5px;">
                         <tr>
                             <th class="text-left"><?= $invoice['ship_to_name'] ?></th>
                         </tr>
@@ -166,7 +166,7 @@ function penyebut($nilai)
                 </div>
             </div>
         </div>
-        <div class="column">
+        <div class="column" style="width: 40%;">
             <table class="border">
                 <tr>
                     <th class="border">Invoice Date</th>
@@ -259,7 +259,7 @@ function penyebut($nilai)
             <table class="" style="margin-right: 50px;">
                 <tr>
                     <th class="text-left">
-                        <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 150px;">
+                        <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
                     </th>
                     <th class="text-left text-up">
                         <h2>PT Top Mortar Indonesia</h2>
@@ -277,7 +277,7 @@ function penyebut($nilai)
             </table>
             <table>
                 <tr>
-                    <th class="text-bot" style="padding-top: 50px; padding-bottom: 0;">
+                    <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
 
                         <h1 class="text-right text-bot">Sales Invoice</h1>
                     </th>
@@ -286,14 +286,14 @@ function penyebut($nilai)
         </div>
     </div>
     <div class="row">
-        <div class="column">
+        <div class="column" style="width: 60%;">
             <!-- Bill To -->
             <div class="row">
-                <div class="column" style="width: 15%;">
+                <div class="column" style="width: 10%;">
                     <span>Bill To:</span>
                 </div>
-                <div class="column" style="width: 85%;">
-                    <table class="border" style="margin-right: 50px;">
+                <div class="column" style="width: 0%;">
+                    <table class="border" style="margin-right: 5px;">
                         <tr>
                             <th class="text-left"><?= $store['nama'] ?></th>
                         </tr>
@@ -306,11 +306,11 @@ function penyebut($nilai)
             <!-- Ship To -->
             <div style="margin-top: 10px;"></div>
             <div class="row">
-                <div class="column" style="width: 15%;">
+                <div class="column" style="width: 10%;">
                     <span>Ship To:</span>
                 </div>
-                <div class="column" style="width: 85%;">
-                    <table class="border" style="margin-right: 50px;">
+                <div class="column" style="width: 0%;">
+                    <table class="border" style="margin-right: 5px;">
                         <tr>
                             <th class="text-left"><?= $invoice['ship_to_name'] ?></th>
                         </tr>
@@ -321,7 +321,7 @@ function penyebut($nilai)
                 </div>
             </div>
         </div>
-        <div class="column">
+        <div class="column" style="width: 40%;">
             <table class="border">
                 <tr>
                     <th class="border">Invoice Date</th>
