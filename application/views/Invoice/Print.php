@@ -42,7 +42,7 @@ function penyebut($nilai)
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
+            font-size: 10px;
         }
 
         .border {
@@ -107,7 +107,7 @@ function penyebut($nilai)
                         <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
                     </th>
                     <th class="text-left text-up">
-                        <h2>PT Top Mortar Indonesia</h2>
+                        <h3>PT Top Mortar Indonesia</h3>
                     </th>
                 </tr>
             </table>
@@ -140,10 +140,7 @@ function penyebut($nilai)
                 <div class="column" style="width: 0%;">
                     <table class="border" style="margin-right: 5px;">
                         <tr>
-                            <th class="text-left"><?= $store['nama'] ?></th>
-                        </tr>
-                        <tr>
-                            <td><?= $store['address'] ?><br><?= $store['nomorhp'] ?></td>
+                            <td><b><?= $store['nama'] ?></b><br><?= $store['address'] ?><br><?= $store['nomorhp'] ?></td>
                         </tr>
                     </table>
                 </div>
@@ -157,10 +154,7 @@ function penyebut($nilai)
                 <div class="column" style="width: 0%;">
                     <table class="border" style="margin-right: 5px;">
                         <tr>
-                            <th class="text-left"><?= $invoice['ship_to_name'] ?></th>
-                        </tr>
-                        <tr>
-                            <td><?= $invoice['ship_to_address'] ?><br><?= $invoice['ship_to_phone'] ?></td>
+                            <td><b><?= $invoice['ship_to_name'] ?></b><br><?= $invoice['ship_to_address'] ?><br><?= $invoice['ship_to_phone'] ?></td>
                         </tr>
                     </table>
                 </div>
@@ -221,13 +215,13 @@ function penyebut($nilai)
     <!-- Totals and Payment -->
     <div class="row">
         <div class="column" style="width: 70%;">
-            <table class="" style="width: 100%; margin-right: 20px;">
+            <table class="" style="width: 90%; margin-right: 20px;">
                 <tr>
                     <td>Terbilang: </td>
                     <td class="border"><?= penyebut($invoice['total_invoice']) ?></td>
                 </tr>
             </table>
-            <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
+            <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
                 <tr>
                     <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
                 </tr>
@@ -243,7 +237,7 @@ function penyebut($nilai)
             <table class="">
                 <tr>
                     <th class="text-center">
-                        <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 70px;">
+                        <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 50px;">
                     </th>
                 </tr>
             </table>
