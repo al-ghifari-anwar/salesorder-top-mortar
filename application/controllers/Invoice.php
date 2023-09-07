@@ -7,9 +7,7 @@ class Invoice extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('id_user') == null) {
-            redirect('login');
-        }
+
         $this->load->model('MCity');
         $this->load->model('MProduk');
         $this->load->model('MSuratJalan');
@@ -24,6 +22,9 @@ class Invoice extends CI_Controller
 
     public function index()
     {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
         $data['title'] = 'Invoice';
         $data['city'] = $this->MCity->getAll();
         $this->load->view('Theme/Header', $data);
@@ -35,6 +36,9 @@ class Invoice extends CI_Controller
 
     public function invoice_by_city($id_city)
     {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
         $data['title'] = 'Invoice';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
@@ -48,6 +52,9 @@ class Invoice extends CI_Controller
 
     public function print($id)
     {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
         $this->load->library('ciqrcode');
         $invoice = $this->MInvoice->getById($id);
         $data['invoice'] = $invoice;
@@ -80,5 +87,18 @@ class Invoice extends CI_Controller
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
+    }
+
+    public function confirm($id)
+    {
+        $confirm = $this->db->update('tb_invoice', ['is_printed' => 1, 'date_printed' => date("Y-m-d H:i:s")], ['id_invoice' => $id]);
+
+        if ($confirm) {
+            $this->session->set_flashdata('success', "Berhasil konfirmasi Invoice!");
+            redirect('login');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal konfirmasi Invoice!");
+            redirect('login');
+        }
     }
 }
