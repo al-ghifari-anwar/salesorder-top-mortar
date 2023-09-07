@@ -48,14 +48,32 @@ class Invoice extends CI_Controller
 
     public function print($id)
     {
+        $this->load->library('ciqrcode');
         $invoice = $this->MInvoice->getById($id);
         $data['invoice'] = $invoice;
         $data['store'] = $this->MContact->getById($invoice['id_contact']);
         $data['kendaraan'] = $this->MKendaraan->getById($invoice['id_kendaraan']);
         $data['courier'] = $this->MUser->getById($invoice['id_courier']);
         $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
-        // echo json_encode($this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']));
-        // die;
+        // Generate QR
+        $config['cacheable']    = true; //boolean, the default is true
+        $config['cachedir']             = './assets/'; //string, the default is application/cache/
+        $config['errorlog']             = './assets/'; //string, the default is application/logs/
+        $config['imagedir']             = './assets/img/qr/'; //direktori penyimpanan qr code
+        $config['quality']              = true; //boolean, the default is true
+        $config['size']                 = '1024'; //interger, the default is 1024
+        $config['black']                = array(224, 255, 255); // array, default is array(255,255,255)
+        $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
+        $this->ciqrcode->initialize($config);
+
+        $image_name = $invoice['id_invoice'] . '.png'; //buat name dari qr code sesuai dengan nim
+
+        $params['data'] = base_url('invoice-confirm/') . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
+        $params['level'] = 'H'; //H=High
+        $params['size'] = 10;
+        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+        $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Invoice/Print', $data, true);

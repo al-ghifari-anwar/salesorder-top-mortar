@@ -240,6 +240,13 @@ function penyebut($nilai)
                     <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
                 </tr>
             </table>
+            <table class="">
+                <tr>
+                    <th class="text-center">
+                        <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 70px;">
+                    </th>
+                </tr>
+            </table>
         </div>
     </div>
 
@@ -386,6 +393,13 @@ function penyebut($nilai)
                 <tr>
                     <th class="text-left">Total Invoice:</th>
                     <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
+                </tr>
+            </table>
+            <table class="">
+                <tr>
+                    <th class="text-center">
+                        <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 70px;">
+                    </th>
                 </tr>
             </table>
         </div>
