@@ -229,7 +229,7 @@ function penyebut($nilai)
             </table>
             <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
                 <tr>
-                    <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia</td>
+                    <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
                 </tr>
             </table>
         </div>
@@ -384,7 +384,7 @@ function penyebut($nilai)
             </table>
             <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
                 <tr>
-                    <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia</td>
+                    <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
                 </tr>
             </table>
         </div>
