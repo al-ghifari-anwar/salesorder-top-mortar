@@ -252,7 +252,7 @@ function penyebut($nilai)
 
     <!-- <hr style="margin-top: 0px; margin-bottom: 0px;"> -->
 
-    <div class="page">
+    <div class="page" style="margin-top: 25px;">
 
         <!-- COPY -->
         <div class="row">
