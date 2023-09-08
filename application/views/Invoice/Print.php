@@ -96,306 +96,315 @@ function penyebut($nilai)
         .text-bot {
             vertical-align: bottom;
         }
+
+        .page {
+            height: 50%;
+        }
     </style>
     <!-- ORIGINAL -->
-    <div class="row">
-        <div class="column" style="width: 70%;">
-            <!-- Store and City -->
-            <table class="" style="margin-right: 50px;">
-                <tr>
-                    <th class="text-left">
-                        <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
-                    </th>
-                    <th class="text-left text-up">
-                        <h3>PT Top Mortar Indonesia</h3>
-                    </th>
-                </tr>
-            </table>
-        </div>
-        <div class="column" style="width: 30%;">
-            <table>
-                <tr>
-                    <th class="text-right">
-                        <!-- <h5>COPY</h5> -->
-                    </th>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
-
-                        <h1 class="text-right text-bot">Sales Invoice</h1>
-                    </th>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column" style="width: 60%;">
-            <!-- Bill To -->
-            <div class="row">
-                <div class="column" style="width: 10%;">
-                    <span>Bill To:</span>
-                </div>
-                <div class="column" style="width: 0%;">
-                    <table class="border" style="margin-right: 5px;">
-                        <tr>
-                            <td><b><?= $store['nama'] ?></b><br><?= $store['address'] ?><br><?= $store['nomorhp'] ?></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <!-- Ship To -->
-            <div style="margin-top: 10px;"></div>
-            <div class="row">
-                <div class="column" style="width: 10%;">
-                    <span>Ship To:</span>
-                </div>
-                <div class="column" style="width: 0%;">
-                    <table class="border" style="margin-right: 5px;">
-                        <tr>
-                            <td><b><?= $invoice['ship_to_name'] ?></b><br><?= $invoice['ship_to_address'] ?><br><?= $invoice['ship_to_phone'] ?></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="column" style="width: 40%;">
-            <table class="border">
-                <tr>
-                    <th class="border">Invoice Date</th>
-                    <th class="border">Invoice Number</th>
-                </tr>
-                <tr>
-                    <td class="border text-center">
-                        <?= date('d M Y', strtotime($invoice['date_invoice'])) ?>
-                    </td>
-                    <td class="border text-center">
-                        <?= $invoice['no_invoice'] ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="border">Terms</th>
-                    <th class="border">Ship Date</th>
-                </tr>
-                <tr>
-                    <td class="border text-center">30 Hari</td>
-                    <td class="border text-center"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <!-- Products -->
-    <div class="row" style="margin-top: 10px;">
-        <div class="column" style="width: 100%;">
-            <table class="border" style="width: 100%;">
-                <tr>
-                    <th class="border">DO No.</th>
-                    <th class="border">Item</th>
-                    <th class="border">QTY</th>
-                    <th class="border">Item</th>
-                    <th class="border">Unit Price</th>
-                    <th class="border">Amount</th>
-                </tr>
-                <?php foreach ($produk as $dataProduk) : ?>
+    <div class="page">
+        <div class="row">
+            <div class="column" style="width: 70%;">
+                <!-- Store and City -->
+                <table class="" style="margin-right: 50px;">
                     <tr>
-                        <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
-                        <td class="border-r"><?= $dataProduk['nama_produk'] ?></td>
-                        <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
-                        <td class="border-r">SAK</td>
-                        <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
-                        <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
+                        <th class="text-left">
+                            <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
+                        </th>
+                        <th class="text-left text-up">
+                            <h3>PT Top Mortar Indonesia</h3>
+                        </th>
                     </tr>
-                <?php endforeach; ?>
-            </table>
-        </div>
-    </div>
-
-    <!-- Totals and Payment -->
-    <div class="row">
-        <div class="column" style="width: 70%;">
-            <table class="" style="width: 90%; margin-right: 20px;">
-                <tr>
-                    <td>Terbilang: </td>
-                    <td class="border"><?= penyebut($invoice['total_invoice']) ?></td>
-                </tr>
-            </table>
-            <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
-                <tr>
-                    <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
-                </tr>
-            </table>
-        </div>
-        <div class="column" style="width: 30%;">
-            <table class="border">
-                <tr>
-                    <th class="text-left">Total Invoice:</th>
-                    <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
-                </tr>
-            </table>
-            <table class="">
-                <tr>
-                    <th class="text-center">
-                        <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 50px;">
-                    </th>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <hr style="margin-top: 30px; margin-bottom: 5px;">
-
-    <!-- COPY -->
-    <div class="row">
-        <div class="column" style="width: 70%;">
-            <!-- Store and City -->
-            <table class="" style="margin-right: 50px;">
-                <tr>
-                    <th class="text-left">
-                        <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
-                    </th>
-                    <th class="text-left text-up">
-                        <h2>PT Top Mortar Indonesia</h2>
-                    </th>
-                </tr>
-            </table>
-        </div>
-        <div class="column" style="width: 30%;">
-            <table>
-                <tr>
-                    <th class="text-right">
-                        <h5>COPY</h5>
-                    </th>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
-
-                        <h1 class="text-right text-bot">Sales Invoice</h1>
-                    </th>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column" style="width: 60%;">
-            <!-- Bill To -->
-            <div class="row">
-                <div class="column" style="width: 10%;">
-                    <span>Bill To:</span>
-                </div>
-                <div class="column" style="width: 0%;">
-                    <table class="border" style="margin-right: 5px;">
-                        <tr>
-                            <th class="text-left"><?= $store['nama'] ?></th>
-                        </tr>
-                        <tr>
-                            <td><?= $store['address'] ?><br><?= $store['nomorhp'] ?></td>
-                        </tr>
-                    </table>
-                </div>
+                </table>
             </div>
-            <!-- Ship To -->
-            <div style="margin-top: 10px;"></div>
-            <div class="row">
-                <div class="column" style="width: 10%;">
-                    <span>Ship To:</span>
-                </div>
-                <div class="column" style="width: 0%;">
-                    <table class="border" style="margin-right: 5px;">
-                        <tr>
-                            <th class="text-left"><?= $invoice['ship_to_name'] ?></th>
-                        </tr>
-                        <tr>
-                            <td><?= $invoice['ship_to_address'] ?><br><?= $invoice['ship_to_phone'] ?></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="column" style="width: 40%;">
-            <table class="border">
-                <tr>
-                    <th class="border">Invoice Date</th>
-                    <th class="border">Invoice Number</th>
-                </tr>
-                <tr>
-                    <td class="border text-center">
-                        <?= date('d M Y', strtotime($invoice['date_invoice'])) ?>
-                    </td>
-                    <td class="border text-center">
-                        <?= $invoice['no_invoice'] ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="border">Terms</th>
-                    <th class="border">Ship Date</th>
-                </tr>
-                <tr>
-                    <td class="border text-center">30 Hari</td>
-                    <td class="border text-center"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <!-- Products -->
-    <div class="row" style="margin-top: 10px;">
-        <div class="column" style="width: 100%;">
-            <table class="border" style="width: 100%;">
-                <tr>
-                    <th class="border">DO No.</th>
-                    <th class="border">Item</th>
-                    <th class="border">QTY</th>
-                    <th class="border">Item</th>
-                    <th class="border">Unit Price</th>
-                    <th class="border">Amount</th>
-                </tr>
-                <?php foreach ($produk as $dataProduk) : ?>
+            <div class="column" style="width: 30%;">
+                <table>
                     <tr>
-                        <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
-                        <td class="border-r"><?= $dataProduk['nama_produk'] ?></td>
-                        <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
-                        <td class="border-r">SAK</td>
-                        <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
-                        <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
+                        <th class="text-right">
+                            <!-- <h5>COPY</h5> -->
+                        </th>
                     </tr>
-                <?php endforeach; ?>
-            </table>
+                </table>
+                <table>
+                    <tr>
+                        <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
+
+                            <h1 class="text-right text-bot">Sales Invoice</h1>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column" style="width: 60%;">
+                <!-- Bill To -->
+                <div class="row">
+                    <div class="column" style="width: 10%;">
+                        <span>Bill To:</span>
+                    </div>
+                    <div class="column" style="width: 0%;">
+                        <table class="border" style="margin-right: 5px;">
+                            <tr>
+                                <td><b><?= $store['nama'] ?></b><br><?= $store['address'] ?><br><?= $store['nomorhp'] ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- Ship To -->
+                <div style="margin-top: 10px;"></div>
+                <div class="row">
+                    <div class="column" style="width: 10%;">
+                        <span>Ship To:</span>
+                    </div>
+                    <div class="column" style="width: 0%;">
+                        <table class="border" style="margin-right: 5px;">
+                            <tr>
+                                <td><b><?= $invoice['ship_to_name'] ?></b><br><?= $invoice['ship_to_address'] ?><br><?= $invoice['ship_to_phone'] ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="column" style="width: 40%;">
+                <table class="border">
+                    <tr>
+                        <th class="border">Invoice Date</th>
+                        <th class="border">Invoice Number</th>
+                    </tr>
+                    <tr>
+                        <td class="border text-center">
+                            <?= date('d M Y', strtotime($invoice['date_invoice'])) ?>
+                        </td>
+                        <td class="border text-center">
+                            <?= $invoice['no_invoice'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="border">Terms</th>
+                        <th class="border">Ship Date</th>
+                    </tr>
+                    <tr>
+                        <td class="border text-center">30 Hari</td>
+                        <td class="border text-center"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Products -->
+        <div class="row" style="margin-top: 10px;">
+            <div class="column" style="width: 100%;">
+                <table class="border" style="width: 100%;">
+                    <tr>
+                        <th class="border">DO No.</th>
+                        <th class="border">Item</th>
+                        <th class="border">QTY</th>
+                        <th class="border">Item</th>
+                        <th class="border">Unit Price</th>
+                        <th class="border">Amount</th>
+                    </tr>
+                    <?php foreach ($produk as $dataProduk) : ?>
+                        <tr>
+                            <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
+                            <td class="border-r"><?= $dataProduk['nama_produk'] ?></td>
+                            <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
+                            <td class="border-r">SAK</td>
+                            <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
+                            <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+
+        <!-- Totals and Payment -->
+        <div class="row">
+            <div class="column" style="width: 70%;">
+                <table class="" style="width: 90%; margin-right: 20px;">
+                    <tr>
+                        <td>Terbilang: </td>
+                        <td class="border"><?= penyebut($invoice['total_invoice']) ?></td>
+                    </tr>
+                </table>
+                <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
+                    <tr>
+                        <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="column" style="width: 30%;">
+                <table class="border">
+                    <tr>
+                        <th class="text-left">Total Invoice:</th>
+                        <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
+                    </tr>
+                </table>
+                <table class="">
+                    <tr>
+                        <th class="text-center">
+                            <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 50px;">
+                        </th>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 
-    <!-- Totals and Payment -->
-    <div class="row">
-        <div class="column" style="width: 70%;">
-            <table class="" style="width: 100%; margin-right: 20px;">
-                <tr>
-                    <td>Terbilang: </td>
-                    <td class="border"><?= penyebut($invoice['total_invoice']) ?></td>
-                </tr>
-            </table>
-            <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
-                <tr>
-                    <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
-                </tr>
-            </table>
+    <!-- <hr style="margin-top: 0px; margin-bottom: 0px;"> -->
+
+    <div class="page">
+
+        <!-- COPY -->
+        <div class="row">
+            <div class="column" style="width: 70%;">
+                <!-- Store and City -->
+                <table class="" style="margin-right: 50px;">
+                    <tr>
+                        <th class="text-left">
+                            <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
+                        </th>
+                        <th class="text-left text-up">
+                            <h2>PT Top Mortar Indonesia</h2>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="column" style="width: 30%;">
+                <table>
+                    <tr>
+                        <th class="text-right">
+                            <h5>COPY</h5>
+                        </th>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
+
+                            <h1 class="text-right text-bot">Sales Invoice</h1>
+                        </th>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="column" style="width: 30%;">
-            <table class="border">
-                <tr>
-                    <th class="text-left">Total Invoice:</th>
-                    <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
-                </tr>
-            </table>
-            <table class="">
-                <tr>
-                    <th class="text-center">
-                        <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 50px;">
-                    </th>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="column" style="width: 60%;">
+                <!-- Bill To -->
+                <div class="row">
+                    <div class="column" style="width: 10%;">
+                        <span>Bill To:</span>
+                    </div>
+                    <div class="column" style="width: 0%;">
+                        <table class="border" style="margin-right: 5px;">
+                            <tr>
+                                <th class="text-left"><?= $store['nama'] ?></th>
+                            </tr>
+                            <tr>
+                                <td><?= $store['address'] ?><br><?= $store['nomorhp'] ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- Ship To -->
+                <div style="margin-top: 10px;"></div>
+                <div class="row">
+                    <div class="column" style="width: 10%;">
+                        <span>Ship To:</span>
+                    </div>
+                    <div class="column" style="width: 0%;">
+                        <table class="border" style="margin-right: 5px;">
+                            <tr>
+                                <th class="text-left"><?= $invoice['ship_to_name'] ?></th>
+                            </tr>
+                            <tr>
+                                <td><?= $invoice['ship_to_address'] ?><br><?= $invoice['ship_to_phone'] ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="column" style="width: 40%;">
+                <table class="border">
+                    <tr>
+                        <th class="border">Invoice Date</th>
+                        <th class="border">Invoice Number</th>
+                    </tr>
+                    <tr>
+                        <td class="border text-center">
+                            <?= date('d M Y', strtotime($invoice['date_invoice'])) ?>
+                        </td>
+                        <td class="border text-center">
+                            <?= $invoice['no_invoice'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="border">Terms</th>
+                        <th class="border">Ship Date</th>
+                    </tr>
+                    <tr>
+                        <td class="border text-center">30 Hari</td>
+                        <td class="border text-center"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Products -->
+        <div class="row" style="margin-top: 10px;">
+            <div class="column" style="width: 100%;">
+                <table class="border" style="width: 100%;">
+                    <tr>
+                        <th class="border">DO No.</th>
+                        <th class="border">Item</th>
+                        <th class="border">QTY</th>
+                        <th class="border">Item</th>
+                        <th class="border">Unit Price</th>
+                        <th class="border">Amount</th>
+                    </tr>
+                    <?php foreach ($produk as $dataProduk) : ?>
+                        <tr>
+                            <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
+                            <td class="border-r"><?= $dataProduk['nama_produk'] ?></td>
+                            <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
+                            <td class="border-r">SAK</td>
+                            <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
+                            <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+
+        <!-- Totals and Payment -->
+        <div class="row">
+            <div class="column" style="width: 70%;">
+                <table class="" style="width: 100%; margin-right: 20px;">
+                    <tr>
+                        <td>Terbilang: </td>
+                        <td class="border"><?= penyebut($invoice['total_invoice']) ?></td>
+                    </tr>
+                </table>
+                <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
+                    <tr>
+                        <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="column" style="width: 30%;">
+                <table class="border">
+                    <tr>
+                        <th class="text-left">Total Invoice:</th>
+                        <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
+                    </tr>
+                </table>
+                <table class="">
+                    <tr>
+                        <th class="text-center">
+                            <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 50px;">
+                        </th>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </body>
