@@ -67,7 +67,7 @@ class SuratJalan extends CI_Controller
         $data['suratjalan'] = $this->MSuratJalan->getNotClosing();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
-        $this->load->view('SuratJalan/Index');
+        $this->load->view('SuratJalan/NotClosing');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
