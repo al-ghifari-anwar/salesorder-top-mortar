@@ -392,7 +392,7 @@ function penyebut($nilai)
             <table class="">
                 <tr>
                     <th class="text-center">
-                        <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 70px;">
+                        <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 50px;">
                     </th>
                 </tr>
             </table>
