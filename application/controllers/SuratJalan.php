@@ -61,6 +61,17 @@ class SuratJalan extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function not_closing()
+    {
+        $data['title'] = 'Surat Jalan Belum Colsing';
+        $data['suratjalan'] = $this->MSuratJalan->getNotClosing();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('SuratJalan/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function insert()
     {
         $this->form_validation->set_rules('order_number', 'Order Number', 'required');

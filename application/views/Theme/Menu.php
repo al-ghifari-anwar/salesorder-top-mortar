@@ -126,7 +126,7 @@
                                 <p>Toko</p>
                             </a>
                         </li>
-                        <li class="nav-header">Menu</li>
+                        <li class="nav-header">Surat Jalan</li>
                         <li class="nav-item">
                             <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
@@ -135,11 +135,23 @@
                                     <!-- <span class="right badge badge-danger">New</span> -->
                                 </p>
                             </a>
-
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('sj-not-closing') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-times-circle"></i>
+                                <p>
+                                    Belum Closing
+                                    <?php
+                                    $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0]);
+                                    ?>
+                                    <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-header">Invoice</li>
+                        <li class="nav-item">
                             <a href="<?= base_url('invoice') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-file-alt"></i>
+                                <i class="nav-icon fas fa-file-invoice"></i>
                                 <p>
                                     Invoice
                                     <!-- <span class="right badge badge-danger">New</span> -->

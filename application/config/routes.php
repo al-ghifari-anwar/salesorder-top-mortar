@@ -76,6 +76,7 @@ $route['update-detsuratjalan/(:num)'] = 'SuratJalan/updatedetail/$1';
 $route['delete-detsuratjalan/(:num)'] = 'SuratJalan/deletedetail/$1';
 $route['delete-suratjalan/(:num)'] = 'SuratJalan/delete/$1';
 $route['finish-suratjalan/(:num)'] = 'SuratJalan/finish/$1';
+$route['sj-not-closing'] = 'SuratJalan/not_closing';
 // Toko
 $route['toko'] = 'Toko';
 // Kendaraan

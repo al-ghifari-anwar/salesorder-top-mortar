@@ -54,6 +54,7 @@
                                         <th>Nomor HP</th>
                                         <th>Kota</th>
                                         <th>Kurir</th>
+                                        <th>Tgl. SJ</th>
                                         <th>Closing</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -69,12 +70,13 @@
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['nama_city'] ?></td>
                                             <td><?= $data['full_name'] ?></td>
+                                            <td><?= date("d M Y", strtotime($data['dalivery_date'])) ?></td>
                                             <td>
                                                 <?php if ($data['is_closing'] == 0) : ?>
                                                     <i class="fas fa-times-circle"></i>
                                                 <?php endif; ?>
                                                 <?php if ($data['is_closing'] == 1) : ?>
-                                                    <a href="https://saleswa.topmortarindonesia.com/img/<?= $data['proof_closing'] ?>" target="__blank">Image <i class="fas fa-external-link-alt"></i></a>
+                                                    <a href="https://saleswa.topmortarindonesia.com/img/<?= $data['proof_closing'] ?>" target="__blank"><?= date("d M Y", strtotime($data['date_closing'])) ?> <i class="fas fa-external-link-alt"></i></a>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
