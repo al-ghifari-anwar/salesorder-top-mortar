@@ -26,4 +26,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/daterangepicker/daterangepicker.css">
 </head>

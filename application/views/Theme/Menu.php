@@ -157,7 +157,15 @@
                                     <!-- <span class="right badge badge-danger">New</span> -->
                                 </p>
                             </a>
-
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('rep-invoice') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-file-archive"></i>
+                                <p>
+                                    Laporan
+                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                </p>
+                            </a>
                         </li>
                     </ul>
                 </nav>

@@ -21,8 +21,13 @@
 <script src="<?= base_url('assets') ?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- Select2 -->
 <script src="<?= base_url('assets') ?>/plugins/select2/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="<?= base_url('assets') ?>/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url('assets') ?>/plugins/inputmask/jquery.inputmask.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="<?= base_url('assets') ?>/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- date-range-picker -->
+<script src="<?= base_url('assets') ?>/plugins/daterangepicker/daterangepicker.js"></script>
 <script>
     $(function() {
         $('#table').DataTable({
@@ -50,6 +55,8 @@
     $('#select2bs4').one('select2:open', function(e) {
         $('input.select2-search__field').prop('placeholder', 'Search...');
     });
+    //Date range picker
+    $('#reservation').daterangepicker()
 </script>
 </body>
 
