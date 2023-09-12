@@ -115,7 +115,7 @@ function penyebut($nilai)
         </tr>
         <?php foreach ($invoice as $dataInv) : ?>
             <tr>
-                <th class="text-left"><?= $dataInv['nama'] ?></th>
+                <th class="text-left"><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
                 <td colspan="4"></td>
             </tr>
             <?php
