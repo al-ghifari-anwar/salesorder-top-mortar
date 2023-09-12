@@ -124,13 +124,27 @@ function penyebut($nilai)
             foreach ($storeInv as $storeInv) : ?>
                 <?php
                 $totalStore += $storeInv['total_invoice'];
+                $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                 ?>
                 <tr>
                     <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
                     <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
-                    <td class="text-center"><?= 0 ?></td>
+                    <td class="text-center">
+                        <?php if ($storeInv['termin_payment'] == 0 || $storeInv['termin_payment'] == 1 || $storeInv['termin_payment'] == 2) { ?>
+                            <?= date("d M Y", strtotime($storeInv['date_invoice'])) ?>
+                        <?php } else { ?>
+                            <?= $jatuhTempo ?>
+                        <?php } ?>
+                    </td>
                     <td class="text-right"><?= number_format($storeInv['total_invoice'], 0, '.', ',') ?></td>
-                    <td class="text-center"><?= 0 ?></td>
+                    <td class="text-center">
+                        <?php
+                        $date1 = new DateTime(date("Y-m-d"));
+                        $date2 = new DateTime($jatuhTempo);
+                        $days  = $date2->diff($date1)->format('%a');
+                        echo $days;
+                        ?>
+                    </td>
                     <td class="text-center"><?= $storeInv['nama'] ?></td>
 
                 </tr>
