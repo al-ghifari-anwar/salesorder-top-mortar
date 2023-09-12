@@ -37,7 +37,7 @@ class Rekap extends CI_Controller
         $dateRange = $this->input->post("date_range");
         if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $invoice = $this->MInvoice->getGroupedContact(date('Y-m-d', strtotime($dates[0])), date('Y-m-d', strtotime($dates[1])));
+            $invoice = $this->MInvoice->getGroupedContact(date('Y-m-d', strtotime($dates[0] . " 00:00:00")), date('Y-m-d', strtotime($dates[1] . " 23:59:59")));
         } else {
             // $invoice = $this->MInvoice->getAll();
         }
