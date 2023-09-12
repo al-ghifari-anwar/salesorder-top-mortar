@@ -142,7 +142,7 @@ function penyebut($nilai)
                         $date1 = new DateTime(date("Y-m-d"));
                         $date2 = new DateTime($jatuhTempo);
                         $days  = $date2->diff($date1)->format('%a');
-                        echo $days;
+                        echo $days . " hari";
                         ?>
                     </td>
                     <td class="text-center"><?= $storeInv['nama'] ?></td>
