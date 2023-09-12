@@ -158,7 +158,15 @@ function penyebut($nilai)
                 <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore, 0, '.', ',') ?></th>
                 <td colspan="1"></td>
             </tr>
+            <?php
+            $totalAll += $totalStore;
+            ?>
         <?php endforeach; ?>
+        <tr>
+            : <th colspan="3" class="text-right">Total Keseluruhan: </th>
+            <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalAll, 0, '.', ',') ?></th>
+            <td colspan="1"></td>
+        </tr>
 
     </table>
 </body>
