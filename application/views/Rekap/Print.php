@@ -35,7 +35,7 @@ function penyebut($nilai)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $invoice['no_invoice'] ?></title>
+    <title><?= "Rekap Invoice Tgl " . date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></title>
 </head>
 
 <body>
@@ -145,7 +145,7 @@ function penyebut($nilai)
                         echo $days . " hari";
                         ?>
                     </td>
-                    <td class="text-center"><?= $storeInv['nama'] ?></td>
+                    <td class="text-left"><?= $storeInv['nama'] ?></td>
 
                 </tr>
             <?php endforeach; ?>
