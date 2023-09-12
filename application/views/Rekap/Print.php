@@ -111,12 +111,12 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Jatuh Tempo</th>
             <th style="border-bottom: 1px solid black;">Nilai Invoice</th>
             <th style="border-bottom: 1px solid black;">Umur bdsr<br>Jatuh Tempo</th>
-            <th style="border-bottom: 1px solid black;">Nama Pelanggan</th>
+            <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php foreach ($invoice as $dataInv) : ?>
             <tr>
                 <th class="text-left"><?= $dataInv['nama'] ?></th>
-                <td colspan="5"></td>
+                <td colspan="4"></td>
             </tr>
             <?php
             $storeInv = $this->MInvoice->getByStore($dateFrom, $dateTo, $dataInv['id_contact']);
@@ -149,14 +149,14 @@ function penyebut($nilai)
                         echo $operan . $days . " hari";
                         ?>
                     </td>
-                    <td class="text-left"><?= $storeInv['nama'] ?></td>
+                    <!-- <td class="text-left"><?= $storeInv['nama'] ?></td> -->
 
                 </tr>
             <?php endforeach; ?>
             <tr>
                 <td colspan="3"></td>
                 <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore, 0, '.', ',') ?></th>
-                <td colspan="2"></td>
+                <td colspan="1"></td>
             </tr>
         <?php endforeach; ?>
 
