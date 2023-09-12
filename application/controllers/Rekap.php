@@ -49,7 +49,7 @@ class Rekap extends CI_Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Rekap/Print', $data, true);
-        $mpdf->AddPage('L');
+        $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
