@@ -342,7 +342,13 @@ function penyebut($nilai)
                         <th class="border">Ship Date</th>
                     </tr>
                     <tr>
-                        <td class="border text-center">30 Hari</td>
+                        <td class="border text-center">
+                            <?php if ($store['termin_payment'] == 0 || $store['termin_payment'] == 1 || $store['termin_payment'] == 2) { ?>
+                                <?= "COD" ?>
+                            <?php } else { ?>
+                                <?= $store['termin_payment'] . " Hari" ?>
+                            <?php } ?>
+                        </td>
                         <td class="border text-center"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
                     </tr>
                 </table>
