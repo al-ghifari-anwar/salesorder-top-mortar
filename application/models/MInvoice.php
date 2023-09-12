@@ -40,7 +40,9 @@ class MInvoice extends CI_Model
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
         $this->db->order_by('tb_surat_jalan.id_contact', 'ASC');
         $this->db->group_by('tb_surat_jalan.id_contact');
-        $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <=' => $dateTo])->result_array();
+        $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <= ' => $dateTo])->result_array();
+        // echo $this->db->last_query();
+        // die;
         return $query;
     }
 
