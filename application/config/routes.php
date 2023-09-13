@@ -92,3 +92,6 @@ $route['invoice-confirm/(:num)'] = 'Invoice/confirm/$1';
 // Rekap Invoice
 $route['rep-invoice'] = 'Rekap';
 $route['report'] = 'Rekap/rekap';
+// Payment
+$route['payment'] = 'Payment';
+$route['payment-report'] = 'Payment/print';

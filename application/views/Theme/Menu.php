@@ -101,31 +101,43 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-header">Data</li>
+                        <!-- <li class="nav-header">Data</li> -->
                         <li class="nav-item">
-                            <a href="<?= base_url('city') ?>" class="nav-link">
-                                <i class="fas fa-map-marker-alt nav-icon"></i>
-                                <p>Kota</p>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-database"></i>
+                                <p>
+                                    Data
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('city') ?>" class="nav-link">
+                                        <i class="fas fa-map-marker-alt nav-icon"></i>
+                                        <p>Kota</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('kendaraan') ?>" class="nav-link">
+                                        <i class="fas fa-truck nav-icon"></i>
+                                        <p>Kendaraan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('produk') ?>" class="nav-link">
+                                        <i class="fas fa-shopping-basket nav-icon"></i>
+                                        <p>Produk</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('toko') ?>" class="nav-link">
+                                        <i class="fas fa-store nav-icon"></i>
+                                        <p>Toko</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('kendaraan') ?>" class="nav-link">
-                                <i class="fas fa-truck nav-icon"></i>
-                                <p>Kendaraan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('produk') ?>" class="nav-link">
-                                <i class="fas fa-shopping-basket nav-icon"></i>
-                                <p>Produk</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('toko') ?>" class="nav-link">
-                                <i class="fas fa-store nav-icon"></i>
-                                <p>Toko</p>
-                            </a>
-                        </li>
+
                         <li class="nav-header">Surat Jalan</li>
                         <li class="nav-item">
                             <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
@@ -162,7 +174,16 @@
                             <a href="<?= base_url('rep-invoice') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-file-archive"></i>
                                 <p>
-                                    Laporan
+                                    Rekap Invoice
+                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('payment') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                                <p>
+                                    Rincian Pembayaran
                                     <!-- <span class="right badge badge-danger">New</span> -->
                                 </p>
                             </a>
