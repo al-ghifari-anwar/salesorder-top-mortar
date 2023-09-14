@@ -95,3 +95,5 @@ $route['report'] = 'Rekap/rekap';
 // Payment
 $route['payment'] = 'Payment';
 $route['payment-report'] = 'Payment/print';
+$route['payment-transit'] = 'Payment/unmatch';
+$route['update-payment/(:num)'] = 'Payment/update/$1';

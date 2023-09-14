@@ -59,6 +59,16 @@ class MInvoice extends CI_Model
         return $query;
     }
 
+    public function getUnpaid()
+    {
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+        $this->db->join('tb_city', 'tb_contact.id_city = tb_city.id_city');
+        $this->db->order_by('tb_surat_jalan.id_contact', 'ASC');
+        $query = $this->db->get('tb_invoice')->result_array();
+        return $query;
+    }
+
     public function getById($id)
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');

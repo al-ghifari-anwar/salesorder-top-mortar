@@ -33,6 +33,31 @@ class Payment extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function unmatch()
+    {
+        $data['title'] = 'Pembayaran Transit';
+        $data['payment'] = $this->MPayment->getUnmatch();
+        $data['invoice'] = $this->MInvoice->getUnpaid();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Payment/Unmatch');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function update($id)
+    {
+        $update = $this->MPayment->setPaymentInv($id);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Success!");
+            redirect('payment-transit');
+        } else {
+            $this->session->set_flashdata('failed', "Failed!");
+            redirect('payment-transit');
+        }
+    }
+
     public function print()
     {
         $dateRange = $this->input->post("date_range");
@@ -43,6 +68,7 @@ class Payment extends CI_Controller
             // $invoice = $this->MInvoice->getAll();
         }
 
+        // echo json_encode($invoice);
         $data['invoice'] = $invoice;
         $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
         $data['dateTo'] = date("Y-m-d H:i:s", strtotime($dates[1] . " 23:59:59"));
