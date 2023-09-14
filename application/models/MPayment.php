@@ -12,9 +12,9 @@ class MPayment extends CI_Model
         return $query;
     }
 
-    public function getByIdInvoice($id_invoice)
+    public function getByIdInvoice($id_invoice, $dateFrom, $dateTo)
     {
-        $query = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice])->result_array();
+        $query = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice, 'date_payment >= ' => $dateFrom, 'date_payment <= ' => $dateTo])->result_array();
 
         return $query;
     }

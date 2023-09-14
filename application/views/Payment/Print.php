@@ -125,7 +125,7 @@ function penyebut($nilai)
                 <td colspan="2"></td>
             </tr>
             <?php
-            $payment = $this->MPayment->getByIdInvoice($dataInv['id_invoice']);
+            $payment = $this->MPayment->getByIdInvoice($dataInv['id_invoice'], $dateFrom, $dateTo);
             $totalPayment = 0;
             foreach ($payment as $payment) : ?>
                 <?php
