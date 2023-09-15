@@ -61,7 +61,7 @@ class Payment extends CI_Controller
 
     public function remove($id)
     {
-        $update = $this->MPayment->delete($id);
+        $update = $this->MPayment->remove($id);
 
         if ($update) {
             $this->session->set_flashdata('success', "Success delete payment!");

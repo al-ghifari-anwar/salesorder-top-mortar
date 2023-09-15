@@ -64,7 +64,7 @@
                                             <td><?= $data['remark_payment'] ?></td>
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_payment'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('delete-payment/') . $data['id_payment'] ?>" class="btn btn-danger"><i class="fas fa-remove-format"></i></a>
+                                                <a href="<?= base_url('remove-payment/') . $data['id_payment'] ?>" class="btn btn-danger" title="Abaikan"><i class="fas fa-remove-format"></i></a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_payment'] ?>">

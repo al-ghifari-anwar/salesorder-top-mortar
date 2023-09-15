@@ -21,7 +21,7 @@ class MPayment extends CI_Model
 
     public function getUnmatch()
     {
-        $query = $this->db->get_where('tb_payment', ['id_invoice' => 0])->result_array();
+        $query = $this->db->get_where('tb_payment', ['id_invoice' => 0, 'is_removed' => 0])->result_array();
 
         return $query;
     }
@@ -45,9 +45,9 @@ class MPayment extends CI_Model
         }
     }
 
-    public function delete($id)
+    public function remove($id)
     {
-        $query = $this->db->delete('tb_payment', ['id_payment' => $id]);
+        $query = $this->db->update('tb_payment', ['is_removed' => 1], ['id_payment' => $id]);
 
         if ($query) {
             return true;
