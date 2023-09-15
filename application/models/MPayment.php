@@ -44,4 +44,15 @@ class MPayment extends CI_Model
             return false;
         }
     }
+
+    public function delete($id)
+    {
+        $query = $this->db->delete('tb_payment', ['id_payment' => $id]);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

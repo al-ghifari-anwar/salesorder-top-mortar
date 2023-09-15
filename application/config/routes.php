@@ -97,3 +97,4 @@ $route['payment'] = 'Payment';
 $route['payment-report'] = 'Payment/print';
 $route['payment-transit'] = 'Payment/unmatch';
 $route['update-payment/(:num)'] = 'Payment/update/$1';
+$route['delete-payment/(:num)'] = 'Payment/remove/$1';

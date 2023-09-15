@@ -58,6 +58,20 @@ class Payment extends CI_Controller
         }
     }
 
+
+    public function remove($id)
+    {
+        $update = $this->MPayment->delete($id);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Success delete payment!");
+            redirect('payment-transit');
+        } else {
+            $this->session->set_flashdata('failed', "Failed delete payment!");
+            redirect('payment-transit');
+        }
+    }
+
     public function print()
     {
         $dateRange = $this->input->post("date_range");
