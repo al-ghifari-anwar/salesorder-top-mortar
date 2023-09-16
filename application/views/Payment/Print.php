@@ -121,8 +121,9 @@ function penyebut($nilai)
         </tr>
         <?php foreach ($invoice as $dataInv) : ?>
             <tr>
-                <th class="text-left"><?= $dataInv['no_invoice'] . " - " . date("d M Y", strtotime($dataInv['date_invoice'])) ?></th>
-                <td colspan="2"></td>
+                <th class="text-left"><?= $dataInv['no_invoice'] .  " - " . date("d M Y", strtotime($dataInv['date_invoice'])) ?></th>
+                <th><?= $dataInv['nama'] . " - " . $dataInv['nama_city'] ?></th>
+                <td colspan="1"></td>
             </tr>
             <?php
             $payment = $this->MPayment->getByIdInvoice($dataInv['id_invoice'], $dateFrom, $dateTo);
