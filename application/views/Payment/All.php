@@ -21,7 +21,7 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Pembayaran Transit</h1>
+                    <h1 class="m-0">Semua Pembayaran</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -41,15 +41,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="<?= base_url('all-payment') ?>" class="btn btn-primary float-right">
-                                Lihat Semua Pembayaran
-                            </a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>No. Invoice</th>
                                         <th>Nominal</th>
                                         <th>Tanggal</th>
                                         <th>Remark</th>
@@ -62,40 +60,14 @@
                                     foreach ($payment as $data) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
+                                            <td><?= $data['no_invoice'] ?></td>
                                             <td><?= number_format($data['amount_payment'], 0, '.', ',') ?></td>
                                             <td><?= date("d M Y", strtotime($data['date_payment'])) ?></td>
                                             <td><?= $data['remark_payment'] ?></td>
                                             <td>
-                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_payment'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('remove-payment/') . $data['id_payment'] ?>" class="btn btn-danger" title="Abaikan"><i class="fas fa-remove-format"></i></a>
+                                                <a href="<?= base_url('unassign-payment/') . $data['id_payment'] ?>" class="btn btn-danger" title="Unassign"><i class="fas fa-remove-format"></i></a>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="modal-edit<?= $data['id_payment'] ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Assign Invoice</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="<?= base_url('update-payment/') . $data['id_payment'] ?>" method="POST">
-                                                            <div class="form-group">
-                                                                <label for="">Invoice</label>
-                                                                <select class="form-control select2bs4" name="id_invoice" style="width: 100%;" id="select2bs4<?= $data['id_payment'] ?>">
-                                                                    <option value="0">--- PLEASE SELECT INVOICE ---</option>
-                                                                    <?php foreach ($invoice as $dataInv) : ?>
-                                                                        <option value="<?= $dataInv['id_invoice'] ?>"><?= $dataInv['no_invoice'] . " - " . $dataInv['nama'] . " - " . $dataInv['nama_city'] ?></option>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                            </div>
-                                                            <button class="btn btn-primary float-right">Simpan</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

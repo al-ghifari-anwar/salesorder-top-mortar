@@ -7,6 +7,7 @@ class MPayment extends CI_Model
 
     public function getAll()
     {
+        $this->db->join('tb_invoice', 'tb_invoice.id_invoice = tb_payment.id_invoice');
         $query = $this->db->get('tb_payment')->result_array();
 
         return $query;
@@ -24,6 +25,17 @@ class MPayment extends CI_Model
         $query = $this->db->get_where('tb_payment', ['id_invoice' => 0, 'is_removed' => 0])->result_array();
 
         return $query;
+    }
+
+    public function unassign($id)
+    {
+        $query = $this->db->update('tb_payment', ['id_invoice' => 0], ['id_payment' => $id]);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function setPaymentInv($id)

@@ -45,6 +45,31 @@ class Payment extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function all()
+    {
+        $data['title'] = 'Semua Pembayaran';
+        $data['payment'] = $this->MPayment->getAll();
+        $data['invoice'] = $this->MInvoice->getUnpaid();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Payment/All');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function unassign($id)
+    {
+        $unassign = $this->MPayment->unassign($id);
+
+        if ($unassign) {
+            $this->session->set_flashdata('success', "Success unassign payment!");
+            redirect('all-payment');
+        } else {
+            $this->session->set_flashdata('failed', "Failed unassign payment!");
+            redirect('all-payment');
+        }
+    }
+
     public function update($id)
     {
         $update = $this->MPayment->setPaymentInv($id);

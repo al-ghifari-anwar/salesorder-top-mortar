@@ -96,5 +96,7 @@ $route['report'] = 'Rekap/rekap';
 $route['payment'] = 'Payment';
 $route['payment-report'] = 'Payment/print';
 $route['payment-transit'] = 'Payment/unmatch';
+$route['all-payment'] = 'Payment/all';
+$route['unassign-payment/(:num)'] = 'Payment/unassign/$1';
 $route['update-payment/(:num)'] = 'Payment/update/$1';
 $route['remove-payment/(:num)'] = 'Payment/remove/$1';
