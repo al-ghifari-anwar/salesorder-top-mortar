@@ -123,7 +123,10 @@ function penyebut($nilai)
             $totalStore = 0;
             foreach ($storeInv as $storeInv) : ?>
                 <?php
-                $totalStore += $storeInv['total_invoice'];
+                $id_invoice = $storeInv['id_invoice'];
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
+                $totalStore += $sisaHutang;
                 $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                 ?>
                 <tr>
@@ -136,7 +139,7 @@ function penyebut($nilai)
                             <?= $jatuhTempo ?>
                         <?php } ?>
                     </td>
-                    <td class="text-right"><?= number_format($storeInv['total_invoice'], 0, '.', ',') ?></td>
+                    <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
                     <td class="text-center">
                         <?php
                         $date1 = new DateTime(date("Y-m-d"));
