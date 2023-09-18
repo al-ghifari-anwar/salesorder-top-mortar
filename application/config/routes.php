@@ -100,3 +100,6 @@ $route['all-payment'] = 'Payment/all';
 $route['unassign-payment/(:num)'] = 'Payment/unassign/$1';
 $route['update-payment/(:num)'] = 'Payment/update/$1';
 $route['remove-payment/(:num)'] = 'Payment/remove/$1';
+// Piutang
+$route['piutang'] = 'Piutang';
+$route['print-piutang'] = 'Piutang/print';
