@@ -52,7 +52,8 @@ class Piutang extends CI_Controller
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Piutang/Print', $data, true);
         $mpdf->AddPage('P');
-        $mpdf->WriteHTML($html);
+        echo json_encode($invoice);
+        // $mpdf->WriteHTML($html);
         // $mpdf->Output();
     }
 }
