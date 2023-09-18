@@ -85,6 +85,8 @@ class MInvoice extends CI_Model
         $query = $this->db->get_where('tb_invoice', ['date_payment >= ' => $dateFrom, 'date_payment <= ' => $dateTo, 'status_invoice' => 'waiting'])->result_array();
         // echo $this->db->last_query();
         // die;
+        echo $this->db->last_query();
+        die;
         return $query;
     }
 
