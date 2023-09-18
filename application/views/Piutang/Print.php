@@ -108,7 +108,7 @@ function penyebut($nilai)
         }
     </style>
     <h3 class="text-center">PT TOP MORTAR INDONESIA</h3>
-    <h1 class="text-center">Rincian Pembayaran Invoice</h1>
+    <h1 class="text-center">Rincian Piutang Invoice</h1>
     <h4 class="text-center">Tgl. <?= date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></h4>
     <table>
         <tr>

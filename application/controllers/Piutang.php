@@ -50,7 +50,7 @@ class Piutang extends CI_Controller
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Payment/Print', $data, true);
+        $html = $this->load->view('Piutang/Print', $data, true);
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
