@@ -42,15 +42,25 @@ class MPayment extends CI_Model
     {
         $post = $this->input->post();
         $this->id_invoice = $post['id_invoice'];
+        $id_invoice = $post['id_invoice'];
 
         $query = $this->db->update('tb_payment', $this, ['id_payment' => $id]);
 
         if ($query) {
-            $setInvStatus = $this->db->update('tb_invoice', ['status_invoice' => 'paid'], ['id_invoice' => $this->id_invoice]);
-            if ($setInvStatus) {
-                return true;
+            $getInv = $this->db->get_where('tb_invoice', ['id_invoice' => $this->id_invoice])->row_array();
+            $getTotalPayment = $this->db->query("SELECT SUM(amount_payment) AS amount_total FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+
+            if ($getInv['total_invoice'] == $getTotalPayment['amount_total']) {
+
+                $setInvStatus = $this->db->update('tb_invoice', ['status_invoice' => 'paid'], ['id_invoice' => $id_invoice]);
+
+                if ($setInvStatus) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                return true;
             }
         } else {
             return false;
