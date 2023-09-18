@@ -54,7 +54,7 @@ class MInvoice extends CI_Model
         $this->db->join('tb_city', 'tb_contact.id_city = tb_city.id_city');
         $this->db->order_by('tb_surat_jalan.id_contact', 'ASC');
         $this->db->group_by('tb_surat_jalan.id_contact');
-        $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <= ' => $dateTo, 'status_payment' => 'waiting'])->result_array();
+        $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <= ' => $dateTo, 'status_invoice' => 'waiting'])->result_array();
         // echo $this->db->last_query();
         // die;
         return $query;
@@ -85,8 +85,8 @@ class MInvoice extends CI_Model
         $query = $this->db->get_where('tb_invoice', ['date_payment >= ' => $dateFrom, 'date_payment <= ' => $dateTo, 'status_invoice' => 'waiting'])->result_array();
         // echo $this->db->last_query();
         // die;
-        echo $this->db->last_query();
-        die;
+        // echo $this->db->last_query();
+        // die;
         return $query;
     }
 

@@ -35,7 +35,7 @@ function penyebut($nilai)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= "Rincian Pembayaran Invoice Tgl " . date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></title>
+    <title><?= "Rekap Invoice Tgl " . date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></title>
 </head>
 
 <body>
@@ -100,78 +100,72 @@ function penyebut($nilai)
         .page {
             height: 50%;
         }
-
-        table,
-        th,
-        td {
-            border: 0px solid black;
-        }
     </style>
     <h3 class="text-center">PT TOP MORTAR INDONESIA</h3>
-    <h1 class="text-center">Rincian Piutang Invoice</h1>
+    <h1 class="text-center">Rekap Piutang Invoice</h1>
     <h4 class="text-center">Tgl. <?= date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></h4>
     <table>
         <tr>
-            <th style="border-bottom: 1px solid black;">No</th>
-            <th style="border-bottom: 1px solid black;">Tgl Cek</th>
-            <th style="border-bottom: 1px solid black;">Terbayar</th>
-            <!-- <th style="border-bottom: 1px solid black;">Nilai Invoice</th> -->
-            <!-- <th style="border-bottom: 1px solid black;">Umur bdsr<br>Jatuh Tempo</th> -->
+            <th style="border-bottom: 1px solid black;">No. Invoice</th>
+            <th style="border-bottom: 1px solid black;">Tgl. Invoice</th>
+            <th style="border-bottom: 1px solid black;">Jatuh Tempo</th>
+            <th style="border-bottom: 1px solid black;">Nilai Invoice</th>
+            <th style="border-bottom: 1px solid black;">Umur bdsr<br>Jatuh Tempo</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php foreach ($invoice as $dataInv) : ?>
             <tr>
-                <th class="text-left"><?= $dataInv['no_invoice'] .  " - " . date("d M Y", strtotime($dataInv['date_invoice'])) ?></th>
-                <th><?= $dataInv['nama'] . " - " . $dataInv['nama_city'] ?></th>
-                <td colspan="1"></td>
+                <th class="text-left"><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
+                <td colspan="4"></td>
             </tr>
             <?php
-            $payment = $this->MPayment->getByIdInvoice($dataInv['id_invoice'], $dateFrom, $dateTo);
-            $totalPayment = 0;
-            foreach ($payment as $payment) : ?>
+            $storeInv = $this->MInvoice->getByStore($dateFrom, $dateTo, $dataInv['id_contact']);
+            $totalStore = 0;
+            foreach ($storeInv as $storeInv) : ?>
                 <?php
-                $totalPayment += $payment['amount_payment'];
-                // $jatuhTempo = date('d M Y', strtotime("+" . $payment['termin_payment'] . " days", strtotime($payment['date_invoice'])));
+                $totalStore += $storeInv['total_invoice'];
+                $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                 ?>
                 <tr>
-                    <td class="text-center"><?= $payment['id_payment'] ?></td>
-                    <td class="text-center"><?= date("d M Y", strtotime($payment['date_payment'])) ?></td>
-                    <td class="text-right"><?= number_format($payment['amount_payment'], 0, '.', ',') ?></td>
-                    <!-- <td class="text-center">0</td> -->
-                    <!-- <td class="text-center">0</td> -->
-                    <!-- <td class="text-left"><?= $payment['nama'] ?></td> -->
+                    <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
+                    <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
+                    <td class="text-center">
+                        <?php if ($storeInv['termin_payment'] == 0 || $storeInv['termin_payment'] == 1 || $storeInv['termin_payment'] == 2) { ?>
+                            <?= date("d M Y", strtotime($storeInv['date_invoice'])) ?>
+                        <?php } else { ?>
+                            <?= $jatuhTempo ?>
+                        <?php } ?>
+                    </td>
+                    <td class="text-right"><?= number_format($storeInv['total_invoice'], 0, '.', ',') ?></td>
+                    <td class="text-center">
+                        <?php
+                        $date1 = new DateTime(date("Y-m-d"));
+                        $date2 = new DateTime($jatuhTempo);
+                        $days  = $date2->diff($date1)->format('%a');
+                        $operan = "";
+                        if ($date1 < $date2) {
+                            $operan = "-";
+                        }
+                        echo $operan . $days . " hari";
+                        ?>
+                    </td>
+                    <!-- <td class="text-left"><?= $storeInv['nama'] ?></td> -->
 
                 </tr>
             <?php endforeach; ?>
             <tr>
-                <th colspan="2" class="text-left">&nbsp;&nbsp;&nbsp;Total Dari <?= $dataInv['no_invoice'] ?></th>
-                <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalPayment, 0, '.', ',') ?></th>
-                <!-- <td colspan="1"></td> -->
-            </tr>
-            <tr>
-                <th colspan="2" class="text-right">Nilai Invoice</th>
-                <th class="text-right"><?= number_format($dataInv['total_invoice'], 0, '.', ',') ?></th>
-                <!-- <td colspan="1"></td> -->
-            </tr>
-            <tr>
-                <th colspan="2" class="text-right">Hutang Invoice</th>
-                <th class="text-right"><?= number_format($dataInv['total_invoice'] - $totalPayment, 0, '.', ',') ?></th>
-                <!-- <td colspan="1"></td> -->
-            </tr>
-            <tr style="height: 20px;">
-                <th colspan="3"></th>
+                <td colspan="3"></td>
+                <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore, 0, '.', ',') ?></th>
+                <td colspan="1"></td>
             </tr>
             <?php
-            $totalAll += $totalPayment;
+            $totalAll += $totalStore;
             ?>
         <?php endforeach; ?>
-        <tr style="height: 200px;">
-            <th colspan="3"></th>
-        </tr>
         <tr>
-            : <th colspan="2" class="text-right">Total Keseluruhan: </th>
+            : <th colspan="3" class="text-right">Total Keseluruhan: </th>
             <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalAll, 0, '.', ',') ?></th>
-            <!-- <td colspan="1"></td> -->
+            <td colspan="1"></td>
         </tr>
 
     </table>
