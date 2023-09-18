@@ -53,6 +53,6 @@ class Piutang extends CI_Controller
         $html = $this->load->view('Piutang/Print', $data, true);
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        // $mpdf->Output();
     }
 }
