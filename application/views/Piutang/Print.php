@@ -119,7 +119,7 @@ function penyebut($nilai)
                 <td colspan="4"></td>
             </tr>
             <?php
-            $storeInv = $this->MInvoice->getByStore($dateFrom, $dateTo, $dataInv['id_contact']);
+            $storeInv = $this->MInvoice->getByStorePiutang($dateFrom, $dateTo, $dataInv['id_contact']);
             $totalStore = 0;
             foreach ($storeInv as $storeInv) : ?>
                 <?php

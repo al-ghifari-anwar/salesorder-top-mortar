@@ -30,6 +30,15 @@ class MInvoice extends CI_Model
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
         $this->db->order_by('tb_surat_jalan.id_contact', 'ASC');
+        $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <=' => $dateTo, 'tb_surat_jalan.id_contact' => $id_contact])->result_array();
+        return $query;
+    }
+
+    public function getByStorePiutang($dateFrom = null, $dateTo = null, $id_contact)
+    {
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+        $this->db->order_by('tb_surat_jalan.id_contact', 'ASC');
         $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <=' => $dateTo, 'tb_surat_jalan.id_contact' => $id_contact, 'status_invoice' => 'waiting'])->result_array();
         return $query;
     }
