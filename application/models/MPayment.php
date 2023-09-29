@@ -8,6 +8,7 @@ class MPayment extends CI_Model
     public function getAll()
     {
         $this->db->join('tb_invoice', 'tb_invoice.id_invoice = tb_payment.id_invoice');
+        $this->db->order_by('date_payment', 'DESC');
         $query = $this->db->get('tb_payment')->result_array();
 
         return $query;
@@ -22,6 +23,7 @@ class MPayment extends CI_Model
 
     public function getUnmatch()
     {
+        $this->db->order_by('date_payment', 'DESC');
         $query = $this->db->get_where('tb_payment', ['id_invoice' => 0, 'is_removed' => 0])->result_array();
 
         return $query;
