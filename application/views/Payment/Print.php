@@ -130,13 +130,13 @@ function penyebut($nilai)
             $totalPayment = 0;
             foreach ($payment as $payment) : ?>
                 <?php
-                $totalPayment += $payment['amount_payment'];
+                $totalPayment += $payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment'];
                 // $jatuhTempo = date('d M Y', strtotime("+" . $payment['termin_payment'] . " days", strtotime($payment['date_invoice'])));
                 ?>
                 <tr>
                     <td class="text-center"><?= $payment['id_payment'] ?></td>
                     <td class="text-center"><?= date("d M Y", strtotime($payment['date_payment'])) ?></td>
-                    <td class="text-right"><?= number_format($payment['amount_payment'], 0, '.', ',') ?></td>
+                    <td class="text-right"><?= number_format($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment'], 0, '.', ',') ?></td>
                     <!-- <td class="text-center">0</td> -->
                     <!-- <td class="text-center">0</td> -->
                     <!-- <td class="text-left"><?= $payment['nama'] ?></td> -->

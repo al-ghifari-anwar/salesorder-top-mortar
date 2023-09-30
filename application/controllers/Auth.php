@@ -28,7 +28,7 @@ class Auth extends CI_Controller
             $username = $post['username'];
             $password = md5($post['password']);
 
-            $checkUsername = $this->db->get_where('tb_user', ['username' => $username, 'level_user' => 'admin'])->row_array();
+            $checkUsername = $this->db->get_where('tb_user', ['username' => $username, 'level_user' => 'admin', 'level_user' => 'superadmin'])->row_array();
 
             if ($checkUsername) {
                 if ($password == $checkUsername['password']) {
