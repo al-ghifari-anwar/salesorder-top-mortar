@@ -33,10 +33,18 @@ class MPayment extends CI_Model
 
     public function unassign($id)
     {
+        $getPayment = $this->db->get_where('tb_payment', ['id_payment' => $id])->row_array();
+
         $query = $this->db->update('tb_payment', ['id_invoice' => 0], ['id_payment' => $id]);
 
         if ($query) {
-            return true;
+            $unpaid = $this->db->update('tb_invoice', ['status_invoice' => 'waiting'], ['id_invoice' => $getPayment['id_invoice']]);
+
+            if ($unpaid) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
