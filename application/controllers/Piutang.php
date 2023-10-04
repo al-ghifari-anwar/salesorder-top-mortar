@@ -26,6 +26,7 @@ class Piutang extends CI_Controller
     public function index()
     {
         $data['title'] = 'Rincian Pembayaran';
+        $data['toko'] = $this->MContact->getAllDefault();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Piutang/Index');
@@ -36,9 +37,10 @@ class Piutang extends CI_Controller
     public function print()
     {
         $dateRange = $this->input->post("date_range");
+        $id_contact = $this->input->post("id_contact");
         if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
+            $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact);
         } else {
             // $invoice = $this->MInvoice->getAll();
         }

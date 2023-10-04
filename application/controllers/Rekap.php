@@ -25,6 +25,7 @@ class Rekap extends CI_Controller
     public function index()
     {
         $data['title'] = 'Rekap Invoice';
+        $data['toko'] = $this->MContact->getAllDefault();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Rekap/Index');
@@ -35,9 +36,10 @@ class Rekap extends CI_Controller
     public function rekap()
     {
         $dateRange = $this->input->post("date_range");
+        $id_contact = $this->input->post("id_contact");
         if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $invoice = $this->MInvoice->getGroupedContact(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
+            $invoice = $this->MInvoice->getGroupedContact(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact);
         } else {
             // $invoice = $this->MInvoice->getAll();
         }

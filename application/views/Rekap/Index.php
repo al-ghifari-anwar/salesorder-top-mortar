@@ -41,7 +41,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-10">
                                     <form action="<?= base_url('report') ?>" method="POST" target="_blank">
                                         <div class="row">
                                             <label>Date range:</label>
@@ -55,6 +55,15 @@
                                                     <input type="text" class="form-control float-right" id="reservation" name="date_range">
                                                 </div>
                                                 <!-- /.input group -->
+                                            </div>
+                                            <label for="">Toko:</label>
+                                            <div class="form-group">
+                                                <select name="id_contact" id="select2bs4" class="form-control select2bs4">
+                                                    <option value="0">Semua</option>
+                                                    <?php foreach ($toko as $toko) : ?>
+                                                        <option value="<?= $toko['id_contact'] ?>"><?= $toko['nama'] ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
