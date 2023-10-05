@@ -95,7 +95,6 @@
                                                                 <select class="form-control select2bs4" name="potongan" style="width: 100%;" id="select2bs4<?= $data['potongan'] ?>">
                                                                     <option value="0">--- PILIH JENIS POTONGAN ---</option>
                                                                     <option value="2000">COD + Transfer</option>
-                                                                    <option value="1000">COD + Tunai</option>
                                                                     <option value="1000">Bayar Sebelum 30 Hari</option>
                                                                 </select>
                                                             </div>
