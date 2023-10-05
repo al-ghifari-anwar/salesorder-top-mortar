@@ -128,6 +128,8 @@ function penyebut($nilai)
             <?php
             $payment = $this->MPayment->getByIdInvoice($dataInv['id_invoice'], $dateFrom, $dateTo);
             $totalPayment = 0;
+            $totalPotongan = 0;
+            $totalAdjustment = 0;
             foreach ($payment as $payment) : ?>
                 <?php
                 $totalPayment += $payment['amount_payment'];
