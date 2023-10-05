@@ -130,13 +130,15 @@ function penyebut($nilai)
             $totalPayment = 0;
             foreach ($payment as $payment) : ?>
                 <?php
-                $totalPayment += $payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment'];
+                $totalPayment += $payment['amount_payment'];
+                $totalPotongan += $payment['potongan_payment'];
+                $totalAdjustment += $payment['adjustment_payment'];
                 // $jatuhTempo = date('d M Y', strtotime("+" . $payment['termin_payment'] . " days", strtotime($payment['date_invoice'])));
                 ?>
                 <tr>
                     <td class="text-center"><?= $payment['id_payment'] ?></td>
                     <td class="text-center"><?= date("d M Y", strtotime($payment['date_payment'])) ?></td>
-                    <td class="text-right"><?= number_format($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment'], 0, '.', ',') ?></td>
+                    <td class="text-right"><?= number_format($payment['amount_payment'], 0, '.', ',') ?></td>
                     <!-- <td class="text-center">0</td> -->
                     <!-- <td class="text-center">0</td> -->
                     <!-- <td class="text-left"><?= $payment['nama'] ?></td> -->
@@ -149,13 +151,23 @@ function penyebut($nilai)
                 <!-- <td colspan="1"></td> -->
             </tr>
             <tr>
+                <th colspan="2" class="text-right">&nbsp;&nbsp;&nbsp;Jumlah Potongan </th>
+                <th class="text-right"><?= number_format($totalPotongan, 0, '.', ',') ?></th>
+                <!-- <td colspan="1"></td> -->
+            </tr>
+            <tr>
+                <th colspan="2" class="text-right">&nbsp;&nbsp;&nbsp;Jumlah Adjustment </th>
+                <th class="text-right"><?= number_format($totalAdjustment, 0, '.', ',') ?></th>
+                <!-- <td colspan="1"></td> -->
+            </tr>
+            <tr>
                 <th colspan="2" class="text-right">Nilai Invoice</th>
                 <th class="text-right"><?= number_format($dataInv['total_invoice'], 0, '.', ',') ?></th>
                 <!-- <td colspan="1"></td> -->
             </tr>
             <tr>
                 <th colspan="2" class="text-right">Hutang Invoice</th>
-                <th class="text-right"><?= number_format($dataInv['total_invoice'] - $totalPayment, 0, '.', ',') ?></th>
+                <th class="text-right"><?= number_format($dataInv['total_invoice'] - ($totalPayment + $totalPotongan + $totalAdjustment), 0, '.', ',') ?></th>
                 <!-- <td colspan="1"></td> -->
             </tr>
             <tr style="height: 20px;">
