@@ -42,7 +42,7 @@
                         <!-- small box -->
                         <div class="small-box bg-light">
                             <div class="inner">
-                                <h3><?= str_replace('TOP MORTAR', '', $data['nama_produk']) ?></h3>
+                                <p style="font-size: 20pt;"><b><?= str_replace('TOP MORTAR', '', $data['nama_produk']) ?></b></p>
 
                                 <p><?= $data['qty_produk'] ?> Sak</p>
                             </div>
