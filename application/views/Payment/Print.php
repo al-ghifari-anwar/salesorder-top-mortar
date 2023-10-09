@@ -127,6 +127,7 @@ function penyebut($nilai)
             </tr>
             <?php
             $payment = $this->MPayment->getByIdInvoice($dataInv['id_invoice'], $dateFrom, $dateTo);
+            $allPaymentInv = $this->MPayment->getTotalPaymentInv($dataInv['id_invoice']);
             $totalPayment = 0;
             $totalPotongan = 0;
             $totalAdjustment = 0;
@@ -169,7 +170,7 @@ function penyebut($nilai)
             </tr>
             <tr>
                 <th colspan="2" class="text-right">Hutang Invoice</th>
-                <th class="text-right"><?= number_format($dataInv['total_invoice'] - ($totalPayment + $totalPotongan + $totalAdjustment), 0, '.', ',') ?></th>
+                <th class="text-right"><?= number_format($dataInv['total_invoice'] - ($allPaymentInv['amount_payment'] + $totalPotongan + $totalAdjustment), 0, '.', ',') ?></th>
                 <!-- <td colspan="1"></td> -->
             </tr>
             <tr style="height: 20px;">
