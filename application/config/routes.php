@@ -103,3 +103,6 @@ $route['remove-payment/(:num)'] = 'Payment/remove/$1';
 // Piutang
 $route['piutang'] = 'Piutang';
 $route['print-piutang'] = 'Piutang/print';
+// Penjualan
+$route['penjualan'] = 'Penjualan/city_list';
+$route['penjualan/(:num)'] = 'Penjualan/index/$1';

@@ -171,41 +171,62 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('rep-invoice') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-file-archive"></i>
+                            <a href="<?= base_url('penjualan') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-archive"></i>
                                 <p>
-                                    Rekap Invoice
+                                    Penjualan
                                     <!-- <span class="right badge badge-danger">New</span> -->
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('payment') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-file"></i>
                                 <p>
-                                    Rincian Pembayaran
-                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                    Laporan
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('rep-invoice') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-file-archive"></i>
+                                        <p>
+                                            Rekap Invoice
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('payment') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                                        <p>
+                                            Rincian Pembayaran
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('piutang') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                                        <p>
+                                            Piutang
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('payment-transit') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-money-bill-wave-alt"></i>
+                                        <p>
+                                            Pembayaran Transit
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('piutang') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-money-bill-alt"></i>
-                                <p>
-                                    Piutang
-                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('payment-transit') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-money-bill-wave-alt"></i>
-                                <p>
-                                    Pembayaran Transit
-                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                </p>
-                            </a>
-                        </li>
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
