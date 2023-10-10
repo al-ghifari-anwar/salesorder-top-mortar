@@ -37,7 +37,11 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <?php foreach ($items as $data) : ?>
+                <?php
+                $totalQty = 0;
+                foreach ($items as $data) :
+                    $totalQty += $data['qty_produk'];
+                ?>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-light">
@@ -53,6 +57,22 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <p style="font-size: 20pt;"><b>TOTAL KESELURUHAN</b></p>
+
+                            <p><?= $totalQty ?> Sak</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <!-- <a href="<?= base_url('penjualan-detail/') . $data['id_produk'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a> -->
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
