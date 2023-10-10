@@ -21,7 +21,7 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Penjualan Produk</h1>
+                    <h1 class="m-0">Penjualan Produk - <?= $city['nama_city'] ?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -36,6 +36,29 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <form action="<?= base_url('penjualan/') . $city['id_city'] ?>" method="POST" target="_blank">
+                        <div class="row">
+                            <label>Date range:</label>
+                            <div class="form-group ml-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="reservation" name="date_range">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <div class="form-group ml-3">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="row">
                 <?php
                 $totalQty = 0;

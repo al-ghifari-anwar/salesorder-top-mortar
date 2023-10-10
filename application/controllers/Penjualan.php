@@ -34,7 +34,14 @@ class Penjualan extends CI_Controller
     public function index($id_city)
     {
         $data['title'] = 'Surat Jalan';
-        $data['items'] = $this->MDetailSuratJalan->getSoldItems($id_city);
+        $data['city'] = $this->MCity->getById($id_city);
+        $dateRange = $this->input->post("date_range");
+        if ($dateRange) {
+            $dates = explode("-", $dateRange);
+            $data['items'] = $this->MDetailSuratJalan->getSoldItemsByDate($id_city, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
+        } else {
+            $data['items'] = $this->MDetailSuratJalan->getSoldItems($id_city);
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Penjualan/Index');
@@ -54,17 +61,6 @@ class Penjualan extends CI_Controller
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('SuratJalan/Detail');
-        $this->load->view('Theme/Footer');
-        $this->load->view('Theme/Scripts');
-    }
-
-    public function not_closing()
-    {
-        $data['title'] = 'Surat Jalan Belum Colsing';
-        $data['suratjalan'] = $this->MSuratJalan->getNotClosing();
-        $this->load->view('Theme/Header', $data);
-        $this->load->view('Theme/Menu');
-        $this->load->view('SuratJalan/NotClosing');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
