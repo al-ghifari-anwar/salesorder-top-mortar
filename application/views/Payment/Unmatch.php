@@ -86,7 +86,7 @@
                                                                 <select class="form-control select2bs4" name="id_invoice" style="width: 100%;" id="select2bs4<?= $data['id_payment'] ?>">
                                                                     <option value="0">--- PLEASE SELECT INVOICE ---</option>
                                                                     <?php foreach ($invoice as $dataInv) : ?>
-                                                                        <option value="<?= $dataInv['id_invoice'] ?>"><?= $dataInv['no_invoice'] . " - " . $dataInv['nama'] . " - " . $dataInv['nama_city'] ?></option>
+                                                                        <option value="<?= $dataInv['id_invoice'] ?>"><?= $dataInv['no_invoice'] . " - " . $dataInv['nama'] . " - " . $dataInv['nama_city'] . "-" . $dataInv['store_owner'] ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>
                                                             </div>
