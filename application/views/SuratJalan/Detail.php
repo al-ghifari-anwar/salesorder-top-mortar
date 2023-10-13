@@ -139,14 +139,6 @@
                                                                 <label for="">QTY</label>
                                                                 <input type="number" name="qty_produk" class="form-control" value="<?= $data['qty_produk'] ?>">
                                                             </div>
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        <label for="">Is Free</label>
-                                                                        <input type="checkbox" name="is_bonus" id="" class="" <?= $data['is_bonus'] == 1 ? 'checked' : '' ?>>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>
                                                     </div>
@@ -200,14 +192,6 @@
                     <div class="form-group">
                         <label for="">QTY</label>
                         <input type="number" name="qty_produk" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="">Is Free</label>
-                                <input type="checkbox" name="is_bonus" id="" class="">
-                            </div>
-                        </div>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>

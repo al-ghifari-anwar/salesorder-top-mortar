@@ -46,6 +46,30 @@ class MDetailSuratJalan extends CI_Model
         return $query;
     }
 
+    public function setBonusItem($id_surat_jalan, $id_promo)
+    {
+        $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+        $this->db->select("tb_produk.id_produk, SUM(qty_produk) AS qty_produk, harga_produk ");
+        $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
+        $this->db->group_by("id_produk");
+        $items = $this->db->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->result_array();
+
+        foreach ($items as $item) {
+            $multiplier = $item['qty_produk'] / $promo['kelipatan_promo'];
+
+            if (floor($multiplier) > 0) {
+                $this->id_surat_jalan = $id_surat_jalan;
+                $this->id_produk = $item['id_produk'];
+                $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
+                $this->price = $item['harga_produk'];
+                $this->amount = 0;
+                $this->is_bonus = 1;
+
+                $this->db->insert('tb_detail_surat_jalan', $this);
+            }
+        }
+    }
+
     public function insert()
     {
         $post = $this->input->post();
@@ -54,13 +78,8 @@ class MDetailSuratJalan extends CI_Model
         $this->qty_produk = $post['qty_produk'];
         $produk = $this->db->get_where('tb_produk', ['id_produk' => $post['id_produk']])->row_array();
         $this->price = $produk['harga_produk'];
-        if ($post['is_bonus'] == true) {
-            $this->is_bonus = 1;
-            $this->amount = 0;
-        } else {
-            $this->is_bonus = 0;
-            $this->amount = $produk['harga_produk'] * $post['qty_produk'];
-        }
+        $this->amount = $produk['harga_produk'] * $post['qty_produk'];
+        $this->is_bonus = 0;
 
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
 
