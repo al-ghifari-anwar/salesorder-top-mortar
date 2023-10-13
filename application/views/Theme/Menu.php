@@ -137,39 +137,69 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="nav-header">Surat Jalan</li>
                         <li class="nav-item">
-                            <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-file"></i>
                                 <p>
                                     Surat Jalan
-                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-th"></i>
+                                        <p>
+                                            Surat Jalan
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('sj-not-closing') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-times-circle"></i>
+                                        <p>
+                                            Belum Closing
+                                            <?php
+                                            $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0]);
+                                            ?>
+                                            <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+
                         <li class="nav-item">
-                            <a href="<?= base_url('sj-not-closing') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-times-circle"></i>
-                                <p>
-                                    Belum Closing
-                                    <?php
-                                    $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0]);
-                                    ?>
-                                    <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-header">Invoice</li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('invoice') ?>" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file-invoice"></i>
                                 <p>
                                     Invoice
-                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('invoice') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>
+                                            Invoice
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('rep-invoice') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-file-archive"></i>
+                                        <p>
+                                            Rekap Invoice
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+
                         <li class="nav-item">
                             <a href="<?= base_url('penjualan') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-archive"></i>
@@ -183,34 +213,17 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
-                                    Laporan
+                                    Pembayaran
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= base_url('rep-invoice') ?>" class="nav-link">
-                                        <i class="nav-icon fas fa-file-archive"></i>
-                                        <p>
-                                            Rekap Invoice
-                                            <!-- <span class="right badge badge-danger">New</span> -->
-                                        </p>
-                                    </a>
-                                </li>
+
                                 <li class="nav-item">
                                     <a href="<?= base_url('payment') ?>" class="nav-link">
                                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
                                         <p>
                                             Rincian Pembayaran
-                                            <!-- <span class="right badge badge-danger">New</span> -->
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('piutang') ?>" class="nav-link">
-                                        <i class="nav-icon fas fa-money-bill-alt"></i>
-                                        <p>
-                                            Piutang
                                             <!-- <span class="right badge badge-danger">New</span> -->
                                         </p>
                                     </a>
@@ -226,7 +239,35 @@
                                 </li>
                             </ul>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-file"></i>
+                                <p>
+                                    Piutang
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('piutang') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                                        <p>
+                                            Piutang
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('jatuh-tempo') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                                        <p>
+                                            Piutang Jatuh Tempo
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

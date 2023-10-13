@@ -25,11 +25,22 @@ class Piutang extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Rincian Pembayaran';
+        $data['title'] = 'Piutang';
         $data['toko'] = $this->MContact->getAllDefault();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Piutang/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function jatuh_tempo()
+    {
+        $data['title'] = 'Piutang Jatuh Tempo';
+        $data['toko'] = $this->MContact->getAllDefault();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('JatuhTempo/Index');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
@@ -52,6 +63,26 @@ class Piutang extends CI_Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Piutang/Print', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
+
+    public function print_jatuh_tempo()
+    {
+        $dateRange = $this->input->post("date_range");
+        $id_contact = $this->input->post("id_contact");
+
+        // $dates = explode("-", $dateRange);
+        $invoice = $this->MInvoice->getInvoiceJatuhTempo();
+
+        $data['invoice'] = $invoice;
+        // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
+        // $data['dateTo'] = date("Y-m-d H:i:s", strtotime($dates[1] . " 23:59:59"));
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('JatuhTempo/Print', $data, true);
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
