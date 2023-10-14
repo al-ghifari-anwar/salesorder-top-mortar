@@ -21,7 +21,7 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Piutang Invoice</h1>
+                    <h1 class="m-0">Piutang Jatuh Tempo</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -55,15 +55,15 @@
                                                     <input type="text" class="form-control float-right" id="reservation" name="date_range">
                                                 </div>
                                             </div> -->
-                                            <!-- <label for="">Toko:</label>
-                                            <div class="form-group">
-                                                <select name="id_contact" id="select2bs4" class="form-control select2bs4">
+                                            <label for="">Kota: </label>
+                                            <div class="form-group ml-3">
+                                                <select name="id_city" id="select2bs4" class="form-control select2bs4">
                                                     <option value="0">Semua</option>
-                                                    <?php foreach ($toko as $toko) : ?>
-                                                        <option value="<?= $toko['id_contact'] ?>"><?= $toko['nama'] ?></option>
+                                                    <?php foreach ($city as $city) : ?>
+                                                        <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
-                                            </div> -->
+                                            </div>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Lihat</button>
                                             </div>

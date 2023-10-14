@@ -38,6 +38,7 @@ class Piutang extends CI_Controller
     {
         $data['title'] = 'Piutang Jatuh Tempo';
         $data['toko'] = $this->MContact->getAllDefault();
+        $data['city'] = $this->MCity->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('JatuhTempo/Index');
@@ -70,11 +71,10 @@ class Piutang extends CI_Controller
 
     public function print_jatuh_tempo()
     {
-        $dateRange = $this->input->post("date_range");
-        $id_contact = $this->input->post("id_contact");
+        $id_city = $this->input->post("id_city");
 
         // $dates = explode("-", $dateRange);
-        $invoice = $this->MInvoice->getInvoiceJatuhTempo();
+        $invoice = $this->MInvoice->getInvoiceJatuhTempo($id_city);
 
         $data['invoice'] = $invoice;
         // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
