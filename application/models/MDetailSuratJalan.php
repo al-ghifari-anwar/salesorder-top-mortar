@@ -78,8 +78,14 @@ class MDetailSuratJalan extends CI_Model
         $this->qty_produk = $post['qty_produk'];
         $produk = $this->db->get_where('tb_produk', ['id_produk' => $post['id_produk']])->row_array();
         $this->price = $produk['harga_produk'];
-        $this->amount = $produk['harga_produk'] * $post['qty_produk'];
-        $this->is_bonus = 0;
+        $retur = $post['is_retur'];
+        if ($retur == false) {
+            $this->amount = $produk['harga_produk'] * $post['qty_produk'];
+            $this->is_bonus = 0;
+        } else {
+            $this->amount = 0;
+            $this->is_bonus = 2;
+        }
 
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
 

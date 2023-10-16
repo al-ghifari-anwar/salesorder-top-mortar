@@ -91,7 +91,7 @@
                                         <th>Nama Produk</th>
                                         <th>Harga</th>
                                         <th>QTY</th>
-                                        <th>Is Free</th>
+                                        <th>Is Free / Retur</th>
                                         <?php if ($suratjalan['is_finished'] == 0) : ?>
                                             <th>Aksi</th>
                                         <?php endif; ?>
@@ -106,7 +106,7 @@
                                             <td><?= $data['nama_produk'] ?></td>
                                             <td><?= $data['harga_produk'] ?></td>
                                             <td><?= $data['qty_produk'] ?></td>
-                                            <td><?= $data['is_bonus'] == 1 ? 'Yes' : 'No' ?></td>
+                                            <td><?= $data['is_bonus'] == 1 || $data['is_bonus'] == 2 ? 'Yes' : 'No' ?></td>
                                             <?php if ($suratjalan['is_finished'] == 0) : ?>
                                                 <td>
                                                     <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_detail_surat_jalan'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
@@ -192,6 +192,14 @@
                     <div class="form-group">
                         <label for="">QTY</label>
                         <input type="number" name="qty_produk" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-3 ml-auto">
+                                <label for="">Is Retur?</label>
+                                <input type="checkbox" name="is_retur" id="">
+                            </div>
+                        </div>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>
