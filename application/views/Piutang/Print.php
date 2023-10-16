@@ -124,8 +124,8 @@ function penyebut($nilai)
             foreach ($storeInv as $storeInv) : ?>
                 <?php
                 $id_invoice = $storeInv['id_invoice'];
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $sisaHutang = $storeInv['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
                 $totalStore += $sisaHutang;
                 $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                 ?>
