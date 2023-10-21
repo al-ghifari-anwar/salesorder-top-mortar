@@ -18,9 +18,9 @@ class Piutang extends CI_Controller
         $this->load->model('MUser');
         $this->load->model('MPayment');
         $this->load->library('form_validation');
-        if ($this->session->userdata('id_user') == null) {
-            redirect('login');
-        }
+        // if ($this->session->userdata('id_user') == null) {
+        //     redirect('login');
+        // }
     }
 
     public function index()
