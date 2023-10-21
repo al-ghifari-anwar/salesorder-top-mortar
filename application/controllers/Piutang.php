@@ -77,6 +77,7 @@ class Piutang extends CI_Controller
         $invoice = $this->MInvoice->getInvoiceJatuhTempo($id_city);
 
         $data['invoice'] = $invoice;
+        $data['city'] = $this->MCity->getById($id_city);
         // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
         // $data['dateTo'] = date("Y-m-d H:i:s", strtotime($dates[1] . " 23:59:59"));
         // PDF
@@ -95,6 +96,7 @@ class Piutang extends CI_Controller
 
             // $dates = explode("-", $dateRange);
             $invoice = $this->MInvoice->getInvoiceJatuhTempo($id_city);
+            $data['city'] = $this->MCity->getById($id_city);
 
             $data['invoice'] = $invoice;
             // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));

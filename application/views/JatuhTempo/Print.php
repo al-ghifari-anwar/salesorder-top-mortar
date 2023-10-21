@@ -102,7 +102,7 @@ function penyebut($nilai)
         }
     </style>
     <h3 class="text-center">PT TOP MORTAR INDONESIA</h3>
-    <h1 class="text-center">Rekap Piutang Jatuh Tempo</h1>
+    <h1 class="text-center">Rekap Piutang Jatuh Tempo <?= $city['nama_city'] ?></h1>
     <h4 class="text-center">Per Tgl. <?= date("d M Y") ?></h4>
     <table>
         <tr>
