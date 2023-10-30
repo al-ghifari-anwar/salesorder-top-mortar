@@ -37,7 +37,38 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <?php foreach ($city as $data) : ?>
+                <div class="col-12">
+                    <form action="<?= base_url('penjualan') ?>" method="POST">
+                        <div class="row">
+                            <label>Date range:</label>
+                            <div class="form-group ml-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="reservation" name="date_range">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <div class="form-group ml-3">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <?php
+                $totalQty = 0;
+                foreach ($items as $item) {
+                    $totalQty += $item['qty_produk'];
+                }
+                ?>
+                <?php
+                foreach ($city as $data) :
+                ?>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-light">
@@ -53,6 +84,22 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <p style="font-size: 20pt;"><b>TOTAL KESELURUHAN</b></p>
+
+                            <p><?= $totalQty ?> Sak</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <!-- <a href="<?= base_url('penjualan-detail/') . $data['id_produk'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a> -->
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->

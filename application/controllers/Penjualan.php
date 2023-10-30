@@ -24,6 +24,13 @@ class Penjualan extends CI_Controller
     {
         $data['title'] = 'Produk';
         $data['city'] = $this->MCity->getAll();
+        $dateRange = $this->input->post("date_range");
+        if ($dateRange) {
+            $dates = explode("-", $dateRange);
+            $data['items'] = $this->MDetailSuratJalan->getSoldItemsByDate(null, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
+        } else {
+            $data['items'] = $this->MDetailSuratJalan->getSoldItems();
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Penjualan/CityList');

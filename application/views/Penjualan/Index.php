@@ -38,7 +38,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <form action="<?= base_url('penjualan/') . $city['id_city'] ?>" method="POST" target="_blank">
+                    <form action="<?= base_url('penjualan/') . $city['id_city'] ?>" method="POST">
                         <div class="row">
                             <label>Date range:</label>
                             <div class="form-group ml-3">

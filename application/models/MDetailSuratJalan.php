@@ -29,8 +29,11 @@ class MDetailSuratJalan extends CI_Model
         $this->db->select("nama_produk, SUM(qty_produk) AS qty_produk, tb_produk.id_produk");
         $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
+        if ($id_city != null) {
+            $this->db->where('id_city', $id_city);
+        }
         $this->db->group_by('tb_produk.id_produk');
-        $query = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing' => 1, 'tb_produk.id_city' => $id_city])->result_array();
+        $query = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing' => 1])->result_array();
 
         return $query;
     }
@@ -40,8 +43,11 @@ class MDetailSuratJalan extends CI_Model
         $this->db->select("nama_produk, SUM(qty_produk) AS qty_produk, tb_produk.id_produk");
         $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
+        if ($id_city != null) {
+            $this->db->where('id_city', $id_city);
+        }
         $this->db->group_by('tb_produk.id_produk');
-        $query = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing' => 1, 'tb_produk.id_city' => $id_city, 'tb_surat_jalan.date_closing >= ' => $dateFrom, 'tb_surat_jalan.date_closing <= ' => $dateTo])->result_array();
+        $query = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing' => 1, 'tb_surat_jalan.date_closing >= ' => $dateFrom, 'tb_surat_jalan.date_closing <= ' => $dateTo])->result_array();
 
         return $query;
     }
