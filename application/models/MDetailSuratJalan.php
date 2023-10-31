@@ -54,24 +54,26 @@ class MDetailSuratJalan extends CI_Model
 
     public function setBonusItem($id_surat_jalan, $id_promo)
     {
-        $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
-        $this->db->select("tb_produk.id_produk, SUM(qty_produk) AS qty_produk, harga_produk ");
-        $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
-        $this->db->group_by("id_produk");
-        $items = $this->db->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->result_array();
+        if ($id_promo != 0) {
+            $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+            $this->db->select("tb_produk.id_produk, SUM(qty_produk) AS qty_produk, harga_produk ");
+            $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
+            $this->db->group_by("id_produk");
+            $items = $this->db->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->result_array();
 
-        foreach ($items as $item) {
-            $multiplier = $item['qty_produk'] / $promo['kelipatan_promo'];
+            foreach ($items as $item) {
+                $multiplier = $item['qty_produk'] / $promo['kelipatan_promo'];
 
-            if (floor($multiplier) > 0) {
-                $this->id_surat_jalan = $id_surat_jalan;
-                $this->id_produk = $item['id_produk'];
-                $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
-                $this->price = $item['harga_produk'];
-                $this->amount = 0;
-                $this->is_bonus = 1;
+                if (floor($multiplier) > 0) {
+                    $this->id_surat_jalan = $id_surat_jalan;
+                    $this->id_produk = $item['id_produk'];
+                    $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
+                    $this->price = $item['harga_produk'];
+                    $this->amount = 0;
+                    $this->is_bonus = 1;
 
-                $this->db->insert('tb_detail_surat_jalan', $this);
+                    $this->db->insert('tb_detail_surat_jalan', $this);
+                }
             }
         }
     }
