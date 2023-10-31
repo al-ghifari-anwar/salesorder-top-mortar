@@ -109,3 +109,7 @@ $route['wh-tagihan'] = 'Piutang/webhook_tagihan';
 // Penjualan
 $route['penjualan'] = 'Penjualan/city_list';
 $route['penjualan/(:num)'] = 'Penjualan/index/$1';
+// Visit
+$route['visit'] = 'Visit';
+$route['visit/(:num)'] = 'Visit/visit_by_city/$1';
+$route['approve-visit/(:num)'] = 'Visit/approve/$1';
