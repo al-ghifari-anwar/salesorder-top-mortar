@@ -57,6 +57,7 @@
                                         <th>Kota</th>
                                         <th>Maps</th>
                                         <th>Alamat</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +73,7 @@
                                             <td><?= $data['nama_city'] ?></td>
                                             <td><?= $data['maps_url'] ?></td>
                                             <td><?= $data['address'] ?></td>
+                                            <td><?= $data['store_status'] ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>

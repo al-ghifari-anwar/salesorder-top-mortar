@@ -22,7 +22,7 @@ class MVisit extends CI_Model
 
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
-        $query = $this->db->get_where('tb_visit', ['date_visit >=' => $from_date, 'date_visit <=' => $to_date, 'tb_user.id_city' => $id_city, 'is_approved' => 0])->result_array();
+        $query = $this->db->get_where('tb_visit', ['date_visit >=' => $from_date, 'date_visit <=' => $to_date, 'tb_user.id_city' => $id_city, 'is_approved' => 0, 'is_deleted' => 0])->result_array();
 
         return $query;
     }
