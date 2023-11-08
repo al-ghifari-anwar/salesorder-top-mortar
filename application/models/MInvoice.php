@@ -25,11 +25,14 @@ class MInvoice extends CI_Model
         return $query;
     }
 
-    public function getByStore($dateFrom = null, $dateTo = null, $id_contact)
+    public function getByStore($dateFrom = null, $dateTo = null, $id_contact, $no_invoice)
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
         $this->db->order_by('tb_surat_jalan.id_contact', 'ASC');
+        if($no_invoice != 0){
+            $this->db->where('tb_invoice.id_surat_jalan', $no_invoice);
+        }
         $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <=' => $dateTo, 'tb_surat_jalan.id_contact' => $id_contact])->result_array();
         return $query;
     }
@@ -49,7 +52,7 @@ class MInvoice extends CI_Model
         return $query;
     }
 
-    public function getGroupedContact($dateFrom = null, $dateTo = null, $id_contact = null)
+    public function getGroupedContact($dateFrom = null, $dateTo = null, $id_contact = null, $no_invoice = null)
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
@@ -58,6 +61,9 @@ class MInvoice extends CI_Model
         $this->db->group_by('tb_surat_jalan.id_contact');
         if ($id_contact != 0) {
             $this->db->where('tb_contact.id_contact', $id_contact);
+        }
+        if($no_invoice != 0){
+            $this->db->where('tb_invoice.id_surat_jalan', $no_invoice);
         }
         $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <= ' => $dateTo])->result_array();
         // echo $this->db->last_query();

@@ -41,7 +41,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-10">
+                                <div class="col-12">
                                     <form action="<?= base_url('report') ?>" method="POST" target="_blank">
                                         <div class="row">
                                             <label>Date range:</label>
@@ -64,6 +64,10 @@
                                                         <option value="<?= $toko['id_contact'] ?>"><?= $toko['nama'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
+                                            </div>
+                                            <label for="">No Invoice:</label>
+                                            <div class="form-group">
+                                                <input type="text" name="no_invoice" id="" class="form-control" >
                                             </div>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
