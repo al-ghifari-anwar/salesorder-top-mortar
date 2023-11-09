@@ -99,8 +99,12 @@ class Piutang extends CI_Controller
             $id_city = $_GET['c'];
 
             // $dates = explode("-", $dateRange);
+            if($id_city == 0){
+                $data['city'] = ['nama_city'=>'Keseluruhan'];
+            } else {
+                $data['city'] = $this->MCity->getById($id_city);
+            }
             $invoice = $this->MInvoice->getInvoiceJatuhTempo($id_city);
-            $data['city'] = $this->MCity->getById($id_city);
 
             $data['invoice'] = $invoice;
             // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
