@@ -64,11 +64,33 @@ class MPayment extends CI_Model
         $getInv = $this->db->get_where('tb_invoice', ['id_invoice' => $id_invoice])->row_array();
         $id_surat_jalan = $getInv['id_surat_jalan'];
         $getItem = $this->db->query("SELECT SUM(qty_produk) AS qty_total FROM tb_detail_surat_jalan WHERE id_surat_jalan = '$id_surat_jalan' AND is_bonus = 0")->row_array();
+
+        $dateInvoice = $getInv['date_invoice'];
+
+        $date1 = new DateTime(date("Y-m-d"));
+        $date2 = new DateTime($dateInvoice);
+        $days  = $date2->diff($date1)->format('%a');
+        $operan = "";
+        if ($date1 < $date2) {
+            $operan = "-";
+        }
+        $days = $operan . $days;
+
+        
         $this->id_invoice = $post['id_invoice'];
         $this->potongan_payment = $post['potongan'] * $getItem['qty_total'];
         $this->adjustment_payment = $post['adjustment'];
 
-        $query = $this->db->update('tb_payment', $this, ['id_payment' => $id]);
+        if($post['potongan'] == "1000"){
+            if($days > 30) {
+                $this->session->set_flashdata('failed', "Tidak dapat menggunakan potongan karena invoice sudah lebih dari 30 hari!");
+                redirect('payment-transit');
+            } else {
+                $query = $this->db->update('tb_payment', $this, ['id_payment' => $id]);
+            }
+        } else {
+            $query = $this->db->update('tb_payment', $this, ['id_payment' => $id]);
+        }
 
         if ($query) {
             $getInv = $this->db->get_where('tb_invoice', ['id_invoice' => $this->id_invoice])->row_array();
