@@ -113,3 +113,7 @@ $route['penjualan/(:num)'] = 'Penjualan/index/$1';
 $route['visit'] = 'Visit';
 $route['visit/(:num)'] = 'Visit/visit_by_city/$1';
 $route['approve-visit/(:num)'] = 'Visit/approve/$1';
+// Voucher
+$route['voucher'] = 'Voucher';
+$route['reg-voucher/(:num)'] = 'Voucher/regist_voucher/$1';
+$route['claim'] = 'Voucher/claim';

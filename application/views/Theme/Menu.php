@@ -2,6 +2,7 @@
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <?php if($this->session->userdata('level_user') != null): ?>
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -68,6 +69,7 @@
                     </a>
                 </li>
             </ul>
+            <?php endif; ?>
         </nav>
         <!-- /.navbar -->
 
@@ -90,6 +92,7 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
+                    <?php if($this->session->userdata('level_user') != null): ?>
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -278,6 +281,7 @@
                             </ul>
                         </li>
                     </ul>
+                    <?php endif; ?>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>

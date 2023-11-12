@@ -83,14 +83,9 @@ class MPayment extends CI_Model
 
         if($post['potongan'] == "1000"){
             if($days > 30) {
-                $this->session->set_flashdata('failed', "Tidak dapat menggunakan potongan karena invoice sudah lebih dari 30 hari!");
-                redirect('payment-transit');
-            } else {
-                $query = $this->db->update('tb_payment', $this, ['id_payment' => $id]);
+                $this->potongan_payment = 0;
             }
-        } else {
-            $query = $this->db->update('tb_payment', $this, ['id_payment' => $id]);
-        }
+        } 
 
         if ($query) {
             $getInv = $this->db->get_where('tb_invoice', ['id_invoice' => $this->id_invoice])->row_array();
