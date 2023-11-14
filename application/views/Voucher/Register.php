@@ -57,12 +57,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Nomor Voucher</label>
-                                    <input type="text" name="no_voucher" id="" class="form-control">
+                                    <label for="">Nomor Voucher (Pisahkan dengan koma jika lebih dari satu)</label>
+                                    <input type="text" name="no_voucher" id="" class="form-control" placeholder="Contoh: 0213123, 123123">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Point Voucher</label>
-                                    <input type="number" name="point_voucher" id="" class="form-control" value="1">
+                                    <input type="number" name="point_voucher" id="" class="form-control" value="1" hidden>
                                 </div>
                                 <button class="btn btn-primary float-right">Simpan</button>
                             </form>

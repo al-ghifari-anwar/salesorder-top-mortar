@@ -10,17 +10,20 @@ class MVoucher extends CI_Model
     public function insert()
     {
         $post = $this->input->post();
-        $this->id_contact = $post['id_contact'];
-        $this->no_voucher = $post['no_voucher'];
-        $this->point_voucher = $post['point_voucher'];
+        
+        $no_vouchers = explode(",", $post['no_voucher']);
+        
+        $no = 0;
+        foreach($no_vouchers as $no_voucher){
+            $this->id_contact = $post['id_contact'];
+            $this->point_voucher = $post['point_voucher'];
+            $this->no_voucher = $no_voucher;
 
-        $query = $this->db->insert('tb_voucher', $this);
-
-        if($query){
-            return true;
-        } else {
-            return false;
+            $query = $this->db->insert('tb_voucher', $this);
         }
+
+
+        return true;
     }
 
     public function getByNomor()
@@ -46,7 +49,7 @@ class MVoucher extends CI_Model
             redirect('claim');
         } else {
             if($query['nomorhp'] != $nomorhp){
-                $this->session->set_flashdata('failed', "Nomot hp tidak sesuai!");
+                $this->session->set_flashdata('failed', "Nomor hp tidak sesuai!");
                 redirect('claim');
             } else {
                 if($days > 30){
