@@ -29,42 +29,15 @@ class MVoucher extends CI_Model
     public function getByNomor()
     {
         $post = $this->input->post();
-        $no_voucher = $post['no_voucher'];
-        $nomorhp = $post['nomorhp'];
 
-        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_voucher.id_contact');
-        $query = $this->db->get_where('tb_voucher', ['no_voucher' => $no_voucher])->row_array();
+        $count_vouchers = count(explode(",", $post['no_voucher']));
+        $no_vouchers = array_map('intval', explode(",", $post['no_voucher']));
+        $no_vouchers = implode("','", $no_vouchers);
 
-        $date1 = new DateTime(date("Y-m-d"));
-        $date2 = new DateTime(date("Y-m-d", strtotime($query['date_voucher'])));
-        $days  = $date2->diff($date1)->format('%a');
-        $operan = "";
-        if ($date1 < $date2) {
-            $operan = "-";
-        }
-        $days = $operan . $days;
+        $query = $this->db->query("SELECT tb_contact.id_contact, SUM(point_voucher) as point_voucher FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.no_voucher IN ('" . $no_vouchers . "')")->row_array();
 
-        if($query == null){
-            $this->session->set_flashdata('failed', "Voucher tidak valid!");
-            redirect('claim');
-        } else {
-            if($query['nomorhp'] != $nomorhp){
-                $this->session->set_flashdata('failed', "Nomor hp tidak sesuai!");
-                redirect('claim');
-            } else {
-                if($days > 30){
-                    $this->session->set_flashdata('failed', "Voucher sudah kadaluarsa!");
-                    redirect('claim');
-                } else {
-                    if($query['is_claimed'] == 1){
-                        $this->session->set_flashdata('failed', "Voucher sudah pernah di-claim!");
-                        redirect('claim');
-                    } else {
-                        return "OK";
-                    }
-                }
-            }
-        }
+        // echo json_encode($query);
+        // die;
 
     }
 }

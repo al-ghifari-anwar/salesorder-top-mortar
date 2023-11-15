@@ -60,7 +60,6 @@ class Voucher extends CI_Controller
     public function claim()
     {
         $this->form_validation->set_rules('no_voucher', 'Nomor Voucher', 'required');
-        $this->form_validation->set_rules('nomorhp', 'Nomor HP', 'required');
 
         if($this->form_validation->run() == false){
             $data['title'] = 'Claim Voucher';

@@ -47,12 +47,8 @@
                         <div class="card-body">
                             <form action="<?= base_url('claim') ?>" method="POST">
                                 <div class="form-group">
-                                    <label for="">Nomor Voucher</label>
-                                    <input type="text" name="no_voucher" id="" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Nomor HP</label>
-                                    <input type="text" name="nomorhp" id="" class="form-control" placeholder="Contoh: 628xxxxxxxxxx">
+                                    <label for="">Nomor Voucher (Pisahkan dengan koma apabila lebih dari satu)</label>
+                                    <input type="text" name="no_voucher" id="" class="form-control" placeholder="Contoh: 123456, 789123">
                                 </div>
                                 <button class="btn btn-primary float-right">Claim</button>
                             </form>

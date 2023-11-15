@@ -27,6 +27,7 @@ class Piutang extends CI_Controller
     {
         $data['title'] = 'Piutang';
         $data['toko'] = $this->MContact->getAllDefault();
+        $data['city'] = $this->MCity->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Piutang/Index');
@@ -50,9 +51,11 @@ class Piutang extends CI_Controller
     {
         $dateRange = $this->input->post("date_range");
         $id_contact = $this->input->post("id_contact");
+        $id_city = $this->input->post("id_city");
+        
         if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact);
+            $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact, $id_city);
         } else {
             // $invoice = $this->MInvoice->getAll();
         }
