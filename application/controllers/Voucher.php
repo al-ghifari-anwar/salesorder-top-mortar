@@ -69,6 +69,7 @@ class Voucher extends CI_Controller
             $this->load->view('Theme/Footer');
             $this->load->view('Theme/Scripts');
         } else {
+            $data['title'] = 'Claim Voucher';
             $claimed = $this->MVoucher->getByNomor();
             $data['claimed'] = $claimed;
             $data['toko'] = $this->MContact->getById($claimed['id_contact']);
