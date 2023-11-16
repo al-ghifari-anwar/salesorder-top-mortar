@@ -69,7 +69,78 @@ class Voucher extends CI_Controller
             $this->load->view('Theme/Footer');
             $this->load->view('Theme/Scripts');
         } else {
-            $this->MVoucher->getByNomor();
+            $claimed = $this->MVoucher->getByNomor();
+            $data['claimed'] = $claimed;
+            $data['toko'] = $this->MContact->getById($claimed['id_contact']);
+
+            $this->load->view('Theme/Header', $data);
+            $this->load->view('Theme/Menu');
+            $this->load->view('Voucher/Claimed');
+            $this->load->view('Theme/Footer');
+            $this->load->view('Theme/Scripts');
+        }
+    }
+
+    public function claimed()
+    {
+        $post = $this->input->post();
+
+        $nomor_hp = 
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                "to_number": "' . $nomor_hp . '",
+                "to_name": "' . $nama . '",
+                "message_template_id": "' . $template_id . '",
+                "channel_integration_id": "' . $integration_id . '",
+                "language": {
+                    "code": "id"
+                },
+                "parameters": {
+                    "body": [
+                    {
+                        "key": "1",
+                        "value": "nama",
+                        "value_text": "' . $nama . '"
+                    },
+                    {
+                        "key": "2",
+                        "value": "message",
+                        "value_text": "' . $message . '"
+                    },
+                    {
+                        "key": "3",
+                        "value": "sales",
+                        "value_text": "' . $full_name . '"
+                    }
+                    ]
+                }
+                }',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $wa_token,
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $res = json_decode($response, true);
+
+        $status = $res['status'];
+
+        if($status == 'success'){
+            redirect('voucher');
         }
     }
 }
