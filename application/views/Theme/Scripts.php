@@ -55,6 +55,13 @@
     $('#select2bs4').one('select2:open', function(e) {
         $('input.select2-search__field').prop('placeholder', 'Search...');
     });
+    //Initialize Select2 Elements
+    $('.select2bs41').select2({
+        theme: 'bootstrap4'
+    })
+    $('#select2bs41').one('select2:open', function(e) {
+        $('input.select2-search__field').prop('placeholder', 'Search...');
+    });
     //Date range picker
     $('#reservation').daterangepicker()
 </script>

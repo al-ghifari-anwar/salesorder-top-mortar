@@ -58,7 +58,7 @@
                                             </div>
                                             <label for="">Toko:</label>
                                             <div class="form-group">
-                                                <select name="id_contact" id="select2bs4" class="form-control select2bs4">
+                                                <select name="id_contact" id="select2bs41" class="form-control select2bs41">
                                                     <option value="0">Semua</option>
                                                     <?php foreach ($toko as $toko) : ?>
                                                         <option value="<?= $toko['id_contact'] ?>"><?= $toko['nama'] ?></option>
