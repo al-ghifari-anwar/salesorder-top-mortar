@@ -48,7 +48,7 @@
                             <form action="<?= base_url('claim') ?>" method="POST">
                                 <div class="form-group">
                                     <label for="">Nomor Voucher (Pisahkan dengan koma apabila lebih dari satu)</label>
-                                    <input type="text" name="no_voucher" id="" class="form-control" placeholder="Contoh: 123456, 789123">
+                                    <input type="text" name="no_voucher" id="" class="form-control" placeholder="Contoh: 123456, 789123" autocomplete="off">
                                 </div>
                                 <button class="btn btn-primary float-right">Cek</button>
                             </form>
