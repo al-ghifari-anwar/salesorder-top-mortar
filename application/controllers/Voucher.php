@@ -83,9 +83,19 @@ class Voucher extends CI_Controller
 
     public function claimed()
     {
+        $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
+        $template_id = '85f17083-255d-4340-af32-5dd22f483960';
+        $integration_id = '31c076d5-ac80-4204-adc9-964c9b0c590b';
+
         $post = $this->input->post();
 
-        $nomor_hp = 
+        $store = $this->MContact->getById($post['id_contact']);
+
+        $nomor_hp = "6282131426363";
+        $nama = "Bella";
+        $message = "Claim voucher dari toko " . $store['nama'] . " sebanyak " . $post['actual_vouchers'] . " point.";
+        $full_name = "Automated Message"; 
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -140,6 +150,10 @@ class Voucher extends CI_Controller
         $status = $res['status'];
 
         if($status == 'success'){
+            $this->session->set_flashdata('success', "Berhasil claim voucher!");
+            redirect('voucher');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal claim voucher!");
             redirect('voucher');
         }
     }
