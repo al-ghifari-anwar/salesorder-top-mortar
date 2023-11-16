@@ -45,9 +45,9 @@
                             </button> -->
                         </div>
                         <div class="card-body">
-                            <h5>Selamat <?= $toko['nama'] ?>, Anda mendapatkan <?= $claimed['actual_vouchers'] ?> point voucher yang dapat ditukarkan dengan <?= $claimed['actual_vouchers'] ?> Thinbed</h5>
+                            <h5>Selamat <?= $toko['nama'] ?>, anda mendapatkan <?= $claimed['actual_vouchers'] ?> point voucher yang dapat ditukarkan dengan <?= $claimed['actual_vouchers'] ?> Thinbed</h5>
                             <br>
-                            <h5>Ketuk claim dibawah dan hadiaah akan dikirim bersamaan dengan order berikutnya (Min 10 Sak)</h5>
+                            <h5>Ketuk claim dibawah dan hadiah akan dikirim bersamaan dengan order berikutnya (Min 10 Sak)</h5>
                             <form action="<?= base_url('claimed') ?>" method="POST">
                                 <div class="form-group">
                                     <input type="text" name="id_contact" id="" class="form-control" placeholder="Contoh: 123456, 789123" value="<?= $claimed['id_contact'] ?>" hidden>
