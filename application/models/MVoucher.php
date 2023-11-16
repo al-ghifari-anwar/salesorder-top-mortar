@@ -36,8 +36,8 @@ class MVoucher extends CI_Model
 
         $query = $this->db->query("SELECT tb_contact.id_contact, SUM(point_voucher) as point_voucher FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.no_voucher IN ('" . $no_vouchers . "')")->row_array();
 
-        echo $this->db->last_query();
-        die;
+        // echo $this->db->last_query();
+        // die;
 
         $data = [
             'count_vouchers' => $count_vouchers,
