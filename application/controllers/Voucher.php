@@ -91,10 +91,11 @@ class Voucher extends CI_Controller
         $post = $this->input->post();
 
         $store = $this->MContact->getById($post['id_contact']);
+        $vouchers = $post['vouchers_ori'];
 
         $nomor_hp = "6282131426363";
         $nama = "Bella";
-        $message = "Claim voucher dari toko " . $store['nama'] . " sebanyak " . $post['actual_vouchers'] . " point.";
+        $message = "Claim voucher dari toko " . $store['nama'] . " sebanyak " . $post['actual_vouchers'] . " point. Kode voucher: " . $vouchers;
         $full_name = "Automated Message"; 
 
         $curl = curl_init();
@@ -151,8 +152,69 @@ class Voucher extends CI_Controller
         $status = $res['status'];
 
         if($status == 'success'){
-            $this->session->set_flashdata('success', "Berhasil claim voucher!");
-            redirect('voucher');
+            $nomor_hp = $store['nomorhp'];
+            $nama = $store['nama'];
+            $message = "Anda telah claim voucher sebanyak " . $post['actual_vouchers'] . " point. Kode voucher: " . $vouchers;
+            $full_name = "PT Top Mortar Indonesia"; 
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                    "to_number": "' . $nomor_hp . '",
+                    "to_name": "' . $nama . '",
+                    "message_template_id": "' . $template_id . '",
+                    "channel_integration_id": "' . $integration_id . '",
+                    "language": {
+                        "code": "id"
+                    },
+                    "parameters": {
+                        "body": [
+                        {
+                            "key": "1",
+                            "value": "nama",
+                            "value_text": "' . $nama . '"
+                        },
+                        {
+                            "key": "2",
+                            "value": "message",
+                            "value_text": "' . $message . '"
+                        },
+                        {
+                            "key": "3",
+                            "value": "sales",
+                            "value_text": "' . $full_name . '"
+                        }
+                        ]
+                    }
+                    }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            $status = $res['status'];
+
+            if($status == 'success'){
+                
+                $this->session->set_flashdata('success', "Berhasil claim voucher!");
+                redirect('voucher');
+            }
         } else {
             $this->session->set_flashdata('failed', "Gagal claim voucher!");
             redirect('voucher');
