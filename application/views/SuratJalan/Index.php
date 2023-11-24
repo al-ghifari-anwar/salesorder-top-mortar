@@ -170,6 +170,10 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="">Pembayaran COD</label>
+                                <input type="checkbox" name="is_cod" id="is_cod" class="form-check-control">
+                            </div>
                         </div>
                     </div>
 

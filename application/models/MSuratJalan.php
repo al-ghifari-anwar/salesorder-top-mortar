@@ -13,6 +13,7 @@ class MSuratJalan extends CI_Model
     public $ship_to_phone;
     public $id_courier;
     public $id_kendaraan;
+    public $is_cod;
 
     public function getAll()
     {
@@ -68,6 +69,11 @@ class MSuratJalan extends CI_Model
         $this->ship_to_phone = $post['ship_to_phone'];
         $this->id_courier = $post['id_courier'];
         $this->id_kendaraan = $post['id_kendaraan'];
+        if($post['is_cod'] == true){
+            $this->is_cod = 1;
+        } else {
+            $this->is_cod = 0;
+        }
 
         $query = $this->db->insert('tb_surat_jalan', $this);
 
