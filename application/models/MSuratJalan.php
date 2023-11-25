@@ -69,7 +69,7 @@ class MSuratJalan extends CI_Model
         $this->ship_to_phone = $post['ship_to_phone'];
         $this->id_courier = $post['id_courier'];
         $this->id_kendaraan = $post['id_kendaraan'];
-        if($post['is_cod'] == true){
+        if ($post['is_cod'] == true) {
             $this->is_cod = 1;
         } else {
             $this->is_cod = 0;
@@ -78,6 +78,24 @@ class MSuratJalan extends CI_Model
         $query = $this->db->insert('tb_surat_jalan', $this);
 
         if ($query) {
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/invoice.php',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array('id_surat_jalan' => $this->db->last_query()),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
             redirect('surat-jalan/' . $this->db->insert_id());
         } else {
             $this->session->set_flashdata('failed', "Gagal menyimpan data surat jalan!");
