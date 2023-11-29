@@ -30,6 +30,21 @@ class Voucher extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function list_voucher($id_city)
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $data['title'] = 'Voucher List';
+        $data['city'] = $this->MCity->getAll();
+        $data['voucher'] = $this->MVoucher->getByCity($id_city);
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Voucher/List');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function regist_voucher($id_city)
     {
         $this->form_validation->set_rules('no_voucher', 'Nomor Voucher', 'required|is_unique[tb_voucher.no_voucher]');
@@ -37,7 +52,7 @@ class Voucher extends CI_Controller
         $data['title'] = 'Register Voucher';
         $data['id_city'] = $id_city;
 
-        if($this->form_validation->run() == false){
+        if ($this->form_validation->run() == false) {
             $data['store'] = $this->MContact->getAll($id_city);
             $this->load->view('Theme/Header', $data);
             $this->load->view('Theme/Menu');
@@ -47,7 +62,7 @@ class Voucher extends CI_Controller
         } else {
             $insert = $this->MVoucher->insert();
 
-            if($insert){
+            if ($insert) {
                 $this->session->set_flashdata('success', "Berhasil menyimpan voucher!");
                 redirect('reg-voucher/' . $id_city);
             } else {
@@ -61,7 +76,7 @@ class Voucher extends CI_Controller
     {
         $this->form_validation->set_rules('no_voucher', 'Nomor Voucher', 'required');
 
-        if($this->form_validation->run() == false){
+        if ($this->form_validation->run() == false) {
             $data['title'] = 'Claim Voucher';
             $this->load->view('Theme/Header', $data);
             $this->load->view('Theme/Menu');
@@ -96,7 +111,7 @@ class Voucher extends CI_Controller
         $nomor_hp = "6282131426363";
         $nama = "Bella";
         $message = "Claim voucher dari toko " . $store['nama'] . " sebanyak " . $post['actual_vouchers'] . " point. Kode voucher: " . $vouchers;
-        $full_name = "Automated Message"; 
+        $full_name = "Automated Message";
 
         $curl = curl_init();
 
@@ -151,11 +166,11 @@ class Voucher extends CI_Controller
 
         $status = $res['status'];
 
-        if($status == 'success'){
+        if ($status == 'success') {
             $nomor_hp = $store['nomorhp'];
             $nama = $store['nama'];
             $message = "Anda telah claim voucher sebanyak " . $post['actual_vouchers'] . " point. Kode voucher: " . $vouchers;
-            $full_name = "PT Top Mortar Indonesia"; 
+            $full_name = "PT Top Mortar Indonesia";
 
             $curl = curl_init();
 
@@ -210,8 +225,8 @@ class Voucher extends CI_Controller
 
             $status = $res['status'];
 
-            if($status == 'success'){
-                
+            if ($status == 'success') {
+
                 $this->session->set_flashdata('success', "Berhasil claim voucher!");
                 redirect('voucher');
             }

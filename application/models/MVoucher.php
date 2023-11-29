@@ -10,11 +10,11 @@ class MVoucher extends CI_Model
     public function insert()
     {
         $post = $this->input->post();
-        
+
         $no_vouchers = explode(",", $post['no_voucher']);
-        
+
         $no = 0;
-        foreach($no_vouchers as $no_voucher){
+        foreach ($no_vouchers as $no_voucher) {
             $this->id_contact = $post['id_contact'];
             $this->point_voucher = $post['point_voucher'];
             $this->no_voucher = $no_voucher;
@@ -51,7 +51,16 @@ class MVoucher extends CI_Model
         return $data;
     }
 
-    public function update_claim(){
-        
+    public function update_claim()
+    {
+    }
+
+    public function getByCity($id_city)
+    {
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_voucher.id_contact');
+        $this->db->order_by('tb_voucher.date_voucher', 'DESC');
+        $query = $this->db->get('tb_voucher')->result_array();
+
+        return $query;
     }
 }

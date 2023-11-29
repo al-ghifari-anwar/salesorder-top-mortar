@@ -118,3 +118,4 @@ $route['voucher'] = 'Voucher';
 $route['reg-voucher/(:num)'] = 'Voucher/regist_voucher/$1';
 $route['claim'] = 'Voucher/claim';
 $route['claimed'] = 'Voucher/claimed';
+$route['voucher-list/(:num)'] = 'Voucher/list_voucher/$1';

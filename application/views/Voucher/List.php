@@ -37,28 +37,41 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <?php foreach ($city as $data) : ?>
-                    <div class="col-6 col-md-3 col-lg-3">
-                        <!-- small box -->
-                        <div class="small-box bg-light">
-                            <div class="inner">
-                                <h3><?= $data['nama_city'] ?></h3>
-
-                                <p><?= $data['kode_city'] ?></p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-bag"></i>
-                            </div>
-                            <?php
-                            if ($this->session->userdata('id_user') == null) {
-                            ?>
-                                <a href="<?= base_url('reg-voucher/') . $data['id_city'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a>
-                            <?php } else { ?>
-                                <a href="<?= base_url('voucher-list/') . $data['id_city'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a>
-                            <?php } ?>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
+                                Tambah Data
+                            </button> -->
+                        </div>
+                        <div class="card-body">
+                            <table id="table" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No Voucher</th>
+                                        <th>Tanggal</th>
+                                        <th>Toko</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($voucher as $data) : ?>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= $data['no_voucher'] ?></td>
+                                            <td><?= date("d M Y", strtotime($data['date_voucher'])) ?></td>
+                                            <td><?= $data['nama'] ?></td>
+                                            <td><?= $data['is_claimed'] == 0 ? 'Not Claimed' : 'Claimed' ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
