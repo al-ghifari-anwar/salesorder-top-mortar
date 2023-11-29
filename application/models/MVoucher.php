@@ -59,7 +59,7 @@ class MVoucher extends CI_Model
     {
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_voucher.id_contact');
         $this->db->order_by('tb_voucher.date_voucher', 'DESC');
-        $query = $this->db->get('tb_voucher')->result_array();
+        $query = $this->db->get_where('tb_voucher', ['tb_contact.id_city' => $id_city])->result_array();
 
         return $query;
     }
