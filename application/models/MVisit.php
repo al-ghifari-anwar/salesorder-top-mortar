@@ -27,6 +27,16 @@ class MVisit extends CI_Model
         return $query;
     }
 
+    public function getByCityAndDate($id_city, $dateFrom, $dateTo, $id_user)
+    {
+        $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+        $this->db->group_by('tb_visit.id_contact');
+        $query = $this->db->get_where('tb_visit', ['tb_user.id_city' => $id_city, 'is_deleted' => 0, 'date_visit >=' => $dateFrom, 'date_visit <= ' => $dateTo, 'tb_user.id_user' => $id_user])->result_array();
+
+        return $query;
+    }
+
     public function approve($id)
     {
         $this->is_approved = 1;

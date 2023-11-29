@@ -40,10 +40,21 @@ class Visit extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
+
+        $dateRange = $this->input->post("date_range");
+        $id_user = $this->input->post("id_user");
+
+        if ($dateRange) {
+            $dates = explode("-", $dateRange);
+            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_user);
+        } else {
+            // $invoice = $this->MInvoice->getAll();
+            $data['visit'] = $this->MVisit->getAllByCity($id_city);
+        }
         $data['title'] = 'Visit';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
-        $data['visit'] = $this->MVisit->getAllByCity($id_city);
+        $data['id_city'] = $id_city;
         // echo json_encode($data);
         // die;
         $this->load->view('Theme/Header', $data);
