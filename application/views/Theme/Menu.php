@@ -202,12 +202,20 @@
                                     </li>
                                 </ul>
                             </li>
-
                             <li class="nav-item">
                                 <a href="<?= base_url('visit') ?>" class="nav-link">
                                     <i class="nav-icon fas fa-location-arrow"></i>
                                     <p>
                                         Visit
+                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('lap-kurir') ?>" class="nav-link">
+                                    <i class="nav-icon fas fa-truck-moving"></i>
+                                    <p>
+                                        Laporan Kurir
                                         <!-- <span class="right badge badge-danger">New</span> -->
                                     </p>
                                 </a>

@@ -22,7 +22,19 @@ class MVisit extends CI_Model
 
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
-        $query = $this->db->get_where('tb_visit', ['tb_user.id_city' => $id_city, 'is_approved' => 0, 'is_deleted' => 0])->result_array();
+        $query = $this->db->get_where('tb_visit', ['tb_user.id_city' => $id_city, 'is_approved' => 0, 'is_deleted' => 0, 'tb_user.level_user' => 'sales'])->result_array();
+
+        return $query;
+    }
+
+    public function getKurirByCity($id_city)
+    {
+        $from_date = date("Y-m-d 00:00:00");
+        $to_date = date("Y-m-d 23:59:59");
+
+        $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
+        $this->db->join('tb_gudang', 'tb_gudang.id_gudang = tb_visit.id_contact');
+        $query = $this->db->get_where('tb_visit', ['tb_user.id_city' => $id_city, 'is_approved' => 0, 'is_deleted' => 0, 'tb_user.level_user' => 'courier'])->result_array();
 
         return $query;
     }
