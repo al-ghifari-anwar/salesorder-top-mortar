@@ -19,9 +19,12 @@ class MVoucher extends CI_Model
             $this->point_voucher = $post['point_voucher'];
             $this->no_voucher = $no_voucher;
 
-            $query = $this->db->insert('tb_voucher', $this);
-        }
+            $cek = $this->db->get_where('tb_voucher', ['no_voucher' => $no_voucher])->result_array();
 
+            if ($cek == null) {
+                $query = $this->db->insert('tb_voucher', $this);
+            }
+        }
 
         return true;
     }
