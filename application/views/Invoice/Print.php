@@ -243,14 +243,14 @@ function penyebut($nilai)
             </div>
             <div class="column" style="width: 30%;">
                 <table class="border">
-                    <tr>
+                    <!-- <tr>
                         <th class="text-left">Subtotal Invoice:</th>
                         <th class="text-right"><?= number_format($totalAmount, 0, '.', ',') ?></th>
                     </tr>
                     <tr>
                         <th class="text-left">Potongan Invoice:</th>
                         <th class="text-right">-<?= number_format($totalAmount - $invoice['total_invoice'], 0, '.', ',') ?></th>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <th class="text-left">Total Invoice:</th>
                         <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
