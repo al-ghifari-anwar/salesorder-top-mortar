@@ -220,8 +220,8 @@ function penyebut($nilai)
                             <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
                             <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
                         </tr>
+                        <?php $totalAmount += $dataProduk['amount']; ?>
                     <?php endforeach; ?>
-                    <?php $totalAmount += $dataProduk['amount']; ?>
                 </table>
             </div>
         </div>
@@ -389,8 +389,8 @@ function penyebut($nilai)
                             <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
                             <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
                         </tr>
+                        <?php $totalAmount += $dataProduk['amount'] ?>
                     <?php endforeach; ?>
-                    <?php $totalAmount += $dataProduk['amount'] ?>
                 </table>
             </div>
         </div>
