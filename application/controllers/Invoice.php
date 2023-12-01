@@ -71,15 +71,15 @@ class Invoice extends CI_Controller
         $config['size']                 = '1024'; //interger, the default is 1024
         $config['black']                = array(224, 255, 255); // array, default is array(255,255,255)
         $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
-        // $this->ciqrcode->initialize($config);
+        $this->ciqrcode->initialize($config);
 
         $image_name = $invoice['id_invoice'] . '.png'; //buat name dari qr code sesuai dengan nim
 
-        // $params['data'] = base_url('invoice-confirm/') . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
-        // $params['level'] = 'H'; //H=High
-        // $params['size'] = 10;
-        // $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
-        // $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+        $params['data'] = base_url('invoice-confirm/') . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
+        $params['level'] = 'H'; //H=High
+        $params['size'] = 10;
+        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+        $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);

@@ -100,6 +100,11 @@ function penyebut($nilai)
         .page {
             height: 50%;
         }
+
+        .skinny {
+            margin: 0 0 0 0;
+            padding: 0 0 0 0;
+        }
     </style>
     <!-- ORIGINAL -->
     <div class="page">
