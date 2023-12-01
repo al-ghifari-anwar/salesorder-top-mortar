@@ -210,7 +210,7 @@ function penyebut($nilai)
                         <th class="border">Amount</th>
                     </tr>
                     <?php
-                    $totalAmount = 0;
+                    // $totalAmount = 0;
                     foreach ($produk as $dataProduk) : ?>
                         <tr>
                             <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
