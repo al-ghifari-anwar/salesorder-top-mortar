@@ -76,16 +76,16 @@ class MPayment extends CI_Model
         }
         $days = $operan . $days;
 
-        
+
         $this->id_invoice = $post['id_invoice'];
         $this->potongan_payment = $post['potongan'] * $getItem['qty_total'];
         $this->adjustment_payment = $post['adjustment'];
 
-        if($post['potongan'] == "1000"){
-            if($days > 30) {
+        if ($post['potongan'] == "1000") {
+            if ($days > 35) {
                 $this->potongan_payment = 0;
             }
-        } 
+        }
 
         $query = $this->db->update('tb_payment', $this, ['id_payment' => $id]);
 
