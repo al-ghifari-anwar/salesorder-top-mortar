@@ -209,7 +209,9 @@ function penyebut($nilai)
                         <th class="border">Unit Price</th>
                         <th class="border">Amount</th>
                     </tr>
-                    <?php foreach ($produk as $dataProduk) : ?>
+                    <?php
+                    $totalAmount = 0;
+                    foreach ($produk as $dataProduk) : ?>
                         <tr>
                             <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
                             <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "" : "" ?></b></td>
@@ -219,6 +221,7 @@ function penyebut($nilai)
                             <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
                         </tr>
                     <?php endforeach; ?>
+                    <?php $totalAmount += $dataProduk['amount']; ?>
                 </table>
             </div>
         </div>
@@ -240,6 +243,14 @@ function penyebut($nilai)
             </div>
             <div class="column" style="width: 30%;">
                 <table class="border">
+                    <tr>
+                        <th class="text-left">Subtotal Invoice:</th>
+                        <th class="text-right"><?= number_format($totalAmount, 0, '.', ',') ?></th>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Potongan Invoice:</th>
+                        <th class="text-right">-<?= number_format($totalAmount - $invoice['total_invoice'], 0, '.', ',') ?></th>
+                    </tr>
                     <tr>
                         <th class="text-left">Total Invoice:</th>
                         <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
