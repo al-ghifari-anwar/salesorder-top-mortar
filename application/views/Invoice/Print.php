@@ -215,17 +215,17 @@ function penyebut($nilai)
                         <th class="border">Amount</th>
                     </tr>
                     <?php
-                    // $totalAmount = 0;
+                    $totalAmount = 0;
                     foreach ($produk as $dataProduk) : ?>
                         <tr>
                             <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
-                            <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "" : "" ?></b></td>
+                            <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "(Retur)" : "" ?></b></td>
                             <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
                             <td class="border-r">SAK</td>
                             <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
                             <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
                         </tr>
-                        <?php $totalAmount += $dataProduk['amount']; ?>
+                        <?php $totalAmount += $dataProduk['amount'] ?>
                     <?php endforeach; ?>
                 </table>
             </div>
