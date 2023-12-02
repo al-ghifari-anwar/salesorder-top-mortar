@@ -226,6 +226,7 @@ class Voucher extends CI_Controller
             $status = $res['status'];
 
             if ($status == 'success') {
+                $this->MVoucher->update_claim($vouchers);
                 $this->session->set_flashdata('success', "Berhasil claim voucher!");
                 redirect('voucher');
             }

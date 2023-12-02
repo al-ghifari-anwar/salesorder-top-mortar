@@ -38,24 +38,33 @@ class MVoucher extends CI_Model
         $no_vouchers = implode("','", $no_vouchers);
         $vouchers_ori = $post['no_voucher'];
 
-        $query = $this->db->query("SELECT tb_contact.id_contact, SUM(point_voucher) as point_voucher FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.no_voucher IN ('" . $no_vouchers . "')")->row_array();
+        $query = $this->db->query("SELECT tb_contact.id_contact, SUM(point_voucher) as point_voucher FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.is_claimed = 0 AND tb_voucher.no_voucher IN ('" . $no_vouchers . "')")->row_array();
 
-        // echo $this->db->last_query();
+        // echo json_encode($query);
         // die;
+        if ($query['point_voucher'] != null) {
+            $data = [
+                'count_vouchers' => $count_vouchers,
+                'actual_vouchers' => $query['point_voucher'],
+                'id_contact' => $query['id_contact'],
+                'invalid_voucher' => $count_vouchers - $query['point_voucher'],
+                'voucher_ori' => $vouchers_ori
+            ];
 
-        $data = [
-            'count_vouchers' => $count_vouchers,
-            'actual_vouchers' => $query['point_voucher'],
-            'id_contact' => $query['id_contact'],
-            'invalid_voucher' => $count_vouchers - $query['point_voucher'],
-            'voucher_ori' => $vouchers_ori
-        ];
-
-        return $data;
+            return $data;
+        } else {
+            $this->session->set_flashdata('failed', "Kode voucher sudah pernah di claim!");
+            redirect('claim');
+        }
     }
 
-    public function update_claim()
+    public function update_claim($vouchers)
     {
+        $count_vouchers = count(explode(",", $vouchers));
+        $no_vouchers = array_map('strval', explode(",", $vouchers));
+        $no_vouchers = implode("','", $no_vouchers);
+
+        $query = $this->db->query("UPDATE tb_voucher SET is_claimed = 1 WHERE no_voucher IN ('" . $no_vouchers . "')");
     }
 
     public function getByCity($id_city)
