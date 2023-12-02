@@ -249,36 +249,7 @@
                                         </p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-file"></i>
-                                        <p>
-                                            Pembayaran
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
 
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('payment') ?>" class="nav-link">
-                                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                                                <p>
-                                                    Rincian Pembayaran
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('payment-transit') ?>" class="nav-link">
-                                                <i class="nav-icon fas fa-money-bill-wave-alt"></i>
-                                                <p>
-                                                    Pembayaran Transit
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                                </p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-file"></i>
@@ -309,6 +280,36 @@
                                     </ul>
                                 </li>
                             <?php endif; ?>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>
+                                        Pembayaran
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('payment') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                                            <p>
+                                                Rincian Pembayaran
+                                                <!-- <span class="right badge badge-danger">New</span> -->
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('payment-transit') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-money-bill-wave-alt"></i>
+                                            <p>
+                                                Pembayaran Transit
+                                                <!-- <span class="right badge badge-danger">New</span> -->
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     <?php endif; ?>
                 </nav>
