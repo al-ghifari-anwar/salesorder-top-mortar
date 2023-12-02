@@ -97,206 +97,218 @@
                             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="<?= base_url() ?>" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Dashboard
                                     </p>
                                 </a>
                             </li>
+                            <?php if ($this->session->userdata('level_user') == 'superadmin') : ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('distributor') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-warehouse"></i>
+                                        <p>
+                                            Distributor
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <!-- <li class="nav-header">Data</li> -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-database"></i>
-                                    <p>
-                                        Data
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('city') ?>" class="nav-link">
-                                            <i class="fas fa-map-marker-alt nav-icon"></i>
-                                            <p>Kota</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('kendaraan') ?>" class="nav-link">
-                                            <i class="fas fa-truck nav-icon"></i>
-                                            <p>Kendaraan</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('produk') ?>" class="nav-link">
-                                            <i class="fas fa-shopping-basket nav-icon"></i>
-                                            <p>Produk</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('toko') ?>" class="nav-link">
-                                            <i class="fas fa-store nav-icon"></i>
-                                            <p>Toko</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-file"></i>
-                                    <p>
-                                        Surat Jalan
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-th"></i>
-                                            <p>
-                                                Surat Jalan
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('sj-not-closing') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-times-circle"></i>
-                                            <p>
-                                                Belum Closing
-                                                <?php
-                                                $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0]);
-                                                ?>
-                                                <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <?php if ($this->session->userdata('level_user') != 'superadmin') : ?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-database"></i>
+                                        <p>
+                                            Data
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('city') ?>" class="nav-link">
+                                                <i class="fas fa-map-marker-alt nav-icon"></i>
+                                                <p>Kota</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('kendaraan') ?>" class="nav-link">
+                                                <i class="fas fa-truck nav-icon"></i>
+                                                <p>Kendaraan</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('produk') ?>" class="nav-link">
+                                                <i class="fas fa-shopping-basket nav-icon"></i>
+                                                <p>Produk</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('toko') ?>" class="nav-link">
+                                                <i class="fas fa-store nav-icon"></i>
+                                                <p>Toko</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-file"></i>
+                                        <p>
+                                            Surat Jalan
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-th"></i>
+                                                <p>
+                                                    Surat Jalan
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('sj-not-closing') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-times-circle"></i>
+                                                <p>
+                                                    Belum Closing
+                                                    <?php
+                                                    $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0]);
+                                                    ?>
+                                                    <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-file-invoice"></i>
-                                    <p>
-                                        Invoice
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('invoice') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-file-invoice"></i>
-                                            <p>
-                                                Invoice
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('rep-invoice') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-file-archive"></i>
-                                            <p>
-                                                Rekap Invoice
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('visit') ?>" class="nav-link">
-                                    <i class="nav-icon fas fa-location-arrow"></i>
-                                    <p>
-                                        Visit
-                                        <!-- <span class="right badge badge-danger">New</span> -->
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('lap-kurir') ?>" class="nav-link">
-                                    <i class="nav-icon fas fa-truck-moving"></i>
-                                    <p>
-                                        Laporan Kurir
-                                        <!-- <span class="right badge badge-danger">New</span> -->
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('voucher') ?>" class="nav-link">
-                                    <i class="nav-icon fas fa-ticket-alt"></i>
-                                    <p>
-                                        Voucher
-                                        <!-- <span class="right badge badge-danger">New</span> -->
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('penjualan') ?>" class="nav-link">
-                                    <i class="nav-icon fas fa-archive"></i>
-                                    <p>
-                                        Penjualan
-                                        <!-- <span class="right badge badge-danger">New</span> -->
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-file"></i>
-                                    <p>
-                                        Pembayaran
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>
+                                            Invoice
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('invoice') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-file-invoice"></i>
+                                                <p>
+                                                    Invoice
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('rep-invoice') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-file-archive"></i>
+                                                <p>
+                                                    Rekap Invoice
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('visit') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-location-arrow"></i>
+                                        <p>
+                                            Visit
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('lap-kurir') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-truck-moving"></i>
+                                        <p>
+                                            Laporan Kurir
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('voucher') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-ticket-alt"></i>
+                                        <p>
+                                            Voucher
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('penjualan') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-archive"></i>
+                                        <p>
+                                            Penjualan
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-file"></i>
+                                        <p>
+                                            Pembayaran
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
 
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('payment') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                                            <p>
-                                                Rincian Pembayaran
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('payment-transit') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-money-bill-wave-alt"></i>
-                                            <p>
-                                                Pembayaran Transit
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-file"></i>
-                                    <p>
-                                        Piutang
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('piutang') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-money-bill-alt"></i>
-                                            <p>
-                                                Piutang
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('jatuh-tempo') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-money-bill-alt"></i>
-                                            <p>
-                                                Piutang Jatuh Tempo
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('payment') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                                                <p>
+                                                    Rincian Pembayaran
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('payment-transit') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-money-bill-wave-alt"></i>
+                                                <p>
+                                                    Pembayaran Transit
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-file"></i>
+                                        <p>
+                                            Piutang
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('piutang') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-money-bill-alt"></i>
+                                                <p>
+                                                    Piutang
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('jatuh-tempo') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-money-bill-alt"></i>
+                                                <p>
+                                                    Piutang Jatuh Tempo
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                     <?php endif; ?>
                 </nav>

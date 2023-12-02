@@ -52,7 +52,8 @@
                                 <div class="form-group">
                                     <input type="text" name="id_contact" id="" class="form-control" placeholder="Contoh: 123456, 789123" value="<?= $claimed['id_contact'] ?>" hidden>
                                     <input type="text" names="point_vouchers" value="<?= $claimed['actual_vouchers'] ?>" hidden>
-                                    <input type="text" name="voucher_ori" value="<?= $claimed['voucher_ori'] ?>">
+                                    <input type="text" name="vouchers_ori" value="<?= $claimed['voucher_ori'] ?>" hidden>
+                                    <input type="text" name="actual_vouchers" id="" value="<?= $claimed['actual_vouchers'] ?>" hidden>
                                 </div>
                                 <button class="btn btn-primary float-right">Claim</button>
                             </form>
