@@ -52,7 +52,7 @@ class Piutang extends CI_Controller
         $dateRange = $this->input->post("date_range");
         $id_contact = $this->input->post("id_contact");
         $id_city = $this->input->post("id_city");
-        
+
         if ($dateRange) {
             $dates = explode("-", $dateRange);
             $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact, $id_city);
@@ -88,6 +88,8 @@ class Piutang extends CI_Controller
         // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
         // $data['dateTo'] = date("Y-m-d H:i:s", strtotime($dates[1] . " 23:59:59"));
         // PDF
+        // echo json_encode($invoice);
+        // die;
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('JatuhTempo/Print', $data, true);
@@ -102,8 +104,8 @@ class Piutang extends CI_Controller
             $id_city = $_GET['c'];
 
             // $dates = explode("-", $dateRange);
-            if($id_city == 0){
-                $data['city'] = ['nama_city'=>'Keseluruhan'];
+            if ($id_city == 0) {
+                $data['city'] = ['nama_city' => 'Keseluruhan'];
             } else {
                 $data['city'] = $this->MCity->getById($id_city);
             }
