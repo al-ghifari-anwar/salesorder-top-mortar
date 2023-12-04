@@ -6,10 +6,11 @@ class MCity extends CI_Model
 
     public $nama_city;
     public $kode_city;
+    public $id_distributor;
 
     public function getAll()
     {
-        $query = $this->db->get('tb_city')->result_array();
+        $query = $this->db->get_where('tb_city', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         return $query;
     }
 
@@ -24,6 +25,7 @@ class MCity extends CI_Model
         $post = $this->input->post();
         $this->nama_city = $post['nama_city'];
         $this->kode_city = $post['kode_city'];
+        $this->id_distributor = $this->session->userdata('id_distributor');
 
         $query = $this->db->insert('tb_city', $this);
 

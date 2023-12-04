@@ -11,8 +11,9 @@ class MInvoice extends CI_Model
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $this->db->order_by('id_invoice', 'DESC');
-        $query = $this->db->get('tb_invoice')->result_array();
+        $query = $this->db->get_where('tb_invoice', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         return $query;
     }
 
@@ -65,7 +66,7 @@ class MInvoice extends CI_Model
         if ($no_invoice != 0) {
             $this->db->where('tb_invoice.id_surat_jalan', $no_invoice);
         }
-        $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <= ' => $dateTo])->result_array();
+        $query = $this->db->get_where('tb_invoice', ['date_invoice >= ' => $dateFrom, 'date_invoice <= ' => $dateTo, 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         // echo $this->db->last_query();
         // die;
         return $query;
@@ -90,7 +91,7 @@ class MInvoice extends CI_Model
         if ($id_city != 0) {
             $this->db->where('tb_city.id_city', $id_city);
         }
-        $query = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting'])->result_array();
+        $query = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         // echo $this->db->last_query();
         // die;
         return $query;
@@ -100,11 +101,12 @@ class MInvoice extends CI_Model
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $this->db->order_by('tb_surat_jalan.id_contact', 'ASC');
         if ($id_city != 0) {
             $this->db->where('tb_contact.id_city', $id_city);
         }
-        $query = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting'])->result_array();
+        $query = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         // echo $this->db->last_query();
         // die;
         return $query;
@@ -121,7 +123,7 @@ class MInvoice extends CI_Model
         if ($id_contact != 0) {
             $this->db->where('tb_contact.id_contact', $id_contact);
         }
-        $query = $this->db->get_where('tb_invoice', ['date_payment >= ' => $dateFrom, 'date_payment <= ' => $dateTo])->result_array();
+        $query = $this->db->get_where('tb_invoice', ['date_payment >= ' => $dateFrom, 'date_payment <= ' => $dateTo, 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         // echo $this->db->last_query();
         // die;
         return $query;

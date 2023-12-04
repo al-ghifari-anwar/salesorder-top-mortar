@@ -28,6 +28,7 @@ class Auth extends CI_Controller
             $username = $post['username'];
             $password = md5($post['password']);
 
+            $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
             $checkUsername = $this->db->get_where('tb_user', ['username' => $username])->row_array();
 
             if ($checkUsername) {
@@ -37,7 +38,8 @@ class Auth extends CI_Controller
                         'full_name' => $checkUsername['full_name'],
                         'username' => $checkUsername['username'],
                         'level_user' => $checkUsername['level_user'],
-                        'phone_user' => $checkUsername['phone_user']
+                        'phone_user' => $checkUsername['phone_user'],
+                        'id_distributor' => $checkUsername['id_distributor']
                     ];
                     $this->session->set_userdata($data);
                     redirect('Dashboard');

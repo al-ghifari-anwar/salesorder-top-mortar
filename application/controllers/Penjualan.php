@@ -40,7 +40,7 @@ class Penjualan extends CI_Controller
 
     public function index($id_city)
     {
-        $data['title'] = 'Surat Jalan';
+        $data['title'] = 'Penjualan Produk';
         $data['city'] = $this->MCity->getById($id_city);
         $dateRange = $this->input->post("date_range");
         if ($dateRange) {
@@ -58,7 +58,7 @@ class Penjualan extends CI_Controller
 
     public function detail($id)
     {
-        $data['title'] = 'Surat Jalan';
+        $data['title'] = 'Penjualan Produk';
         $data['suratjalan'] = $this->MSuratJalan->getById($id);
         $suratjalan = $this->MSuratJalan->getById($id);
         $data['toko'] = $this->MContact->getById($suratjalan['id_contact']);
