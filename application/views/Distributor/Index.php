@@ -64,7 +64,7 @@
                                             <td><?= $data['nama_distributor'] ?></td>
                                             <td><?= $data['nomorhp_distributor'] ?></td>
                                             <td>
-                                                <a class="btn btn-success" data-toggle="modal" data-target="#modal-user-dist<?= $data['id_distributor'] ?>" title="Edit"><i class="fas fa-user"></i></a>
+                                                <a class="btn btn-success" data-toggle="modal" data-target="#modal-user-dist<?= $data['id_distributor'] ?>" title="Tambah Akun Admin"><i class="fas fa-user"></i></a>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_distributor'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
                                                 <a href="<?= base_url('delete-dist/') . $data['id_distributor'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
