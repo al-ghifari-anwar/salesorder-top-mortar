@@ -13,20 +13,34 @@ class MVoucher extends CI_Model
 
         $no_vouchers = explode(",", $post['no_voucher']);
 
-        $no = 0;
-        foreach ($no_vouchers as $no_voucher) {
-            $this->id_contact = $post['id_contact'];
-            $this->point_voucher = $post['point_voucher'];
-            $this->no_voucher = $no_voucher;
+        $voucherBermasalah = '';
+        $status = 'good';
 
-            $cek = $this->db->get_where('tb_voucher', ['no_voucher' => $no_voucher])->result_array();
-
-            if ($cek == null) {
-                $query = $this->db->insert('tb_voucher', $this);
+        foreach ($no_vouchers as $cekLenght) {
+            $cekLenght = str_replace(' ', '', $cekLenght);
+            if (strlen($cekLenght) != 5) {
+                $voucherBermasalah .= $cekLenght . ", ";
+                $status = 'problem';
             }
         }
 
-        return true;
+        $no = 0;
+        foreach ($no_vouchers as $no_voucher) {
+            $no_voucher = str_replace(' ', '', $no_voucher);
+            if (strlen($no_voucher) == 5) {
+                $this->id_contact = $post['id_contact'];
+                $this->point_voucher = $post['point_voucher'];
+                $this->no_voucher = $no_voucher;
+
+                $cek = $this->db->get_where('tb_voucher', ['no_voucher' => $no_voucher])->result_array();
+
+                if ($cek == null) {
+                    $query = $this->db->insert('tb_voucher', $this);
+                }
+            }
+        }
+
+        return array("status" => $status, "voucher_bermasalah" => $voucherBermasalah);
     }
 
     public function getByNomor()

@@ -62,11 +62,11 @@ class Voucher extends CI_Controller
         } else {
             $insert = $this->MVoucher->insert();
 
-            if ($insert) {
-                $this->session->set_flashdata('success', "Berhasil menyimpan voucher!");
+            if ($insert["status"] == "good") {
+                $this->session->set_flashdata('success', "Berhasil menyimpan voucher! ");
                 redirect('reg-voucher/' . $id_city);
-            } else {
-                $this->session->set_flashdata('failed', "Gagal menyimpan voucher!");
+            } else if ($insert["status"] == "problem") {
+                $this->session->set_flashdata('success', "Beberapa voucher telah tersimpan. " . $insert['voucher_bermasalah'] . " tidak tersimpan karena salah format (5 digit)");
                 redirect('reg-voucher/' . $id_city);
             }
         }
