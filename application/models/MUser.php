@@ -4,7 +4,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class MUser extends CI_Model
 {
 
+    public $username;
     public $full_name;
+    public $password;
+    public $level_user;
+    public $id_city;
+    public $phone_user;
+    public $id_distributor;
 
     public function getAll($id_city)
     {
@@ -23,5 +29,30 @@ class MUser extends CI_Model
     {
         $query = $this->db->get_where('tb_user', ['id_user' => $id])->row_array();
         return $query;
+    }
+
+    public function insert()
+    {
+        $post = $this->input->post();
+
+        if (strlen($post['password']) < 8) {
+            $this->session->set_flashdata('failed', "Password minimal 8 karakter!");
+            redirect('distributor');
+        }
+        $this->username = $post['username'];
+        $this->full_name = $post['full_name'];
+        $this->password = md5($post['password']);
+        $this->level_user = 'admin';
+        $this->id_city = 0;
+        $this->phone_user = $post['phone_user'];
+        $this->id_distributor = $post['id_distributor'];
+
+        $query = $this->db->insert('tb_user', $this);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

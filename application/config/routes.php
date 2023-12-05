@@ -127,3 +127,4 @@ $route['distributor'] = 'Distributor';
 $route['insert-dist'] = 'Distributor/insert';
 $route['update-dist/(:num)'] = 'Distributor/update/$1';
 $route['delete-dist/(:num)'] = 'Distributor/delete/$1';
+$route['add-dist-user'] = 'Distributor/add_user';

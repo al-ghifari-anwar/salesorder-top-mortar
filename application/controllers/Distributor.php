@@ -11,6 +11,7 @@ class Distributor extends CI_Controller
         }
         $this->load->model('MCity');
         $this->load->model('MDistributor');
+        $this->load->model('MUser');
         $this->load->library('form_validation');
     }
 
@@ -41,6 +42,26 @@ class Distributor extends CI_Controller
                 redirect('distributor');
             } else {
                 $this->session->set_flashdata('failed', "Gagal menyimpan data distributor!");
+                redirect('distributor');
+            }
+        }
+    }
+
+    public function add_user()
+    {
+        $this->form_validation->set_rules('password', 'Password', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Gagal menbuat akun admin distributor!");
+            redirect('distributor');
+        } else {
+            $insert = $this->MUser->insert();
+
+            if ($insert) {
+                $this->session->set_flashdata('success', "Berhasil menambah akun admin!");
+                redirect('distributor');
+            } else {
+                $this->session->set_flashdata('failed', "Gagal menambah akun admin!");
                 redirect('distributor');
             }
         }

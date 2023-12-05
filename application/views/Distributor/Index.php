@@ -64,6 +64,7 @@
                                             <td><?= $data['nama_distributor'] ?></td>
                                             <td><?= $data['nomorhp_distributor'] ?></td>
                                             <td>
+                                                <a class="btn btn-success" data-toggle="modal" data-target="#modal-user-dist<?= $data['id_distributor'] ?>" title="Edit"><i class="fas fa-user"></i></a>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_distributor'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
                                                 <a href="<?= base_url('delete-dist/') . $data['id_distributor'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
@@ -98,6 +99,40 @@
                                                                     <option value="pusat">Pusat</option>
                                                                 </select>
                                                             </div>
+                                                            <button class="btn btn-primary float-right">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="modal-user-dist<?= $data['id_distributor'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Tambah Admin Distributor</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?= base_url('add-dist-user') ?>" method="POST">
+                                                            <div class="form-group">
+                                                                <label for="">Username</label>
+                                                                <input type="text" name="username" id="" class="form-control" placeholder="Huruf kecil tanpa spasi. Contoh: user1">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Nama Lengkap</label>
+                                                                <input type="text" name="full_name" class="form-control">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Password (Minimal 8 Karakter)</label>
+                                                                <input type="password" name="password" class="form-control">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Nomor HP</label>
+                                                                <input type="text" name="phone_user" class="form-control">
+                                                            </div>
+                                                            <input type="text" name="id_distributor" value="<?= $data['id_distributor'] ?>" hidden>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>
                                                     </div>
