@@ -53,7 +53,7 @@ class Voucher extends CI_Controller
         $data['id_city'] = $id_city;
 
         if ($this->form_validation->run() == false) {
-            $data['store'] = $this->MContact->getAll($id_city);
+            $data['store'] = $this->MContact->getAllForVouchers($id_city);
             $this->load->view('Theme/Header', $data);
             $this->load->view('Theme/Menu');
             $this->load->view('Voucher/Register');
