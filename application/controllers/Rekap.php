@@ -38,7 +38,7 @@ class Rekap extends CI_Controller
         $dateRange = $this->input->post("date_range");
         $id_contact = $this->input->post("id_contact");
         $no_invoice = $this->input->post("no_invoice");
-        if($no_invoice == null){
+        if ($no_invoice == null) {
             $no_invoice = 0;
         }
         if ($dateRange) {

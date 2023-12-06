@@ -114,192 +114,193 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Umur Hutang</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
-        <tr>
-            <th colspan="6">Umur Hutang 0 - 7 Hari</th>
-        </tr>
-        <?php foreach ($invoice as $storeInv) : ?>
-            <?php
-            $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
-            $date1 = new DateTime(date("Y-m-d"));
-            $date2 = new DateTime($jatuhTempo);
-            $days  = $date2->diff($date1)->format('%a');
-            $operan = "";
-            if ($date1 < $date2) {
-                $operan = "-";
-            }
-            $daysWithOperan = $operan . $days;
-            ?>
-            <?php if ($daysWithOperan >= 0 && $daysWithOperan <= 7) : ?>
+        <?php if ($invoice != null) : ?>
+            <tr>
+                <th colspan="6">Umur Hutang 0 - 7 Hari</th>
+            </tr>
+            <?php foreach ($invoice as $storeInv) : ?>
                 <?php
-                $id_invoice = $storeInv['id_invoice'];
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
-                $totalStore1 += $sisaHutang;
-
+                $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($jatuhTempo);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $daysWithOperan = $operan . $days;
                 ?>
+                <?php if ($daysWithOperan >= 0 && $daysWithOperan <= 7) : ?>
+                    <?php
+                    $id_invoice = $storeInv['id_invoice'];
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
+                    $totalStore1 += $sisaHutang;
 
-                <tr>
-                    <td class="text-center"><?= $storeInv['nama'] ?></td>
-                    <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
-                    <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
-                    <td class="text-center">
-                        <?php if ($storeInv['termin_payment'] == 0 || $storeInv['termin_payment'] == 1 || $storeInv['termin_payment'] == 2) { ?>
-                            <?= date("d M Y", strtotime($storeInv['date_invoice'])) ?>
-                        <?php } else { ?>
-                            <?= $jatuhTempo ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
-                    <td class="text-center">
-                        <?php
-                        echo $operan . $days . " hari";
-                        ?>
-                    </td>
-                    <!-- <td class="text-left"><?= $storeInv['nama'] ?></td> -->
+                    ?>
 
-                </tr>
-                <!-- <tr>
+                    <tr>
+                        <td class="text-center"><?= $storeInv['nama'] ?></td>
+                        <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
+                        <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
+                        <td class="text-center">
+                            <?php if ($storeInv['termin_payment'] == 0 || $storeInv['termin_payment'] == 1 || $storeInv['termin_payment'] == 2) { ?>
+                                <?= date("d M Y", strtotime($storeInv['date_invoice'])) ?>
+                            <?php } else { ?>
+                                <?= $jatuhTempo ?>
+                            <?php } ?>
+                        </td>
+                        <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
+                        <td class="text-center">
+                            <?php
+                            echo $operan . $days . " hari";
+                            ?>
+                        </td>
+                        <!-- <td class="text-left"><?= $storeInv['nama'] ?></td> -->
+
+                    </tr>
+                    <!-- <tr>
                     <td colspan="4"></td>
                     <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore1, 0, '.', ',') ?></th>
                     <td colspan="1"></td>
                 </tr> -->
+                    <?php
+                    $totalAll += $totalStore1;
+                    ?>
+                <?php endif; ?>
+
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="4"></td>
+                <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore1, 0, '.', ',') ?></th>
+                <td colspan="1"></td>
+            </tr>
+            <tr>
+                <th colspan="6">Umur Hutang 8 - 15 Hari</th>
+            </tr>
+            <?php foreach ($invoice as $storeInv2) : ?>
                 <?php
-                $totalAll += $totalStore1;
+                $jatuhTempo = date('d M Y', strtotime("+" . $storeInv2['termin_payment'] . " days", strtotime($storeInv2['date_invoice'])));
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($jatuhTempo);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $daysWithOperan = $operan . $days;
                 ?>
-            <?php endif; ?>
+                <?php if ($daysWithOperan >= 8 && $daysWithOperan <= 15) : ?>
+                    <?php
+                    $id_invoice = $storeInv2['id_invoice'];
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $storeInv2['total_invoice'] - $payment['amount_payment'];
+                    $totalStore2 += $sisaHutang;
 
-        <?php endforeach; ?>
-        <tr>
-            <td colspan="4"></td>
-            <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore1, 0, '.', ',') ?></th>
-            <td colspan="1"></td>
-        </tr>
-        <tr>
-            <th colspan="6">Umur Hutang 8 - 15 Hari</th>
-        </tr>
-        <?php foreach ($invoice as $storeInv2) : ?>
-            <?php
-            $jatuhTempo = date('d M Y', strtotime("+" . $storeInv2['termin_payment'] . " days", strtotime($storeInv2['date_invoice'])));
-            $date1 = new DateTime(date("Y-m-d"));
-            $date2 = new DateTime($jatuhTempo);
-            $days  = $date2->diff($date1)->format('%a');
-            $operan = "";
-            if ($date1 < $date2) {
-                $operan = "-";
-            }
-            $daysWithOperan = $operan . $days;
-            ?>
-            <?php if ($daysWithOperan >= 8 && $daysWithOperan <= 15) : ?>
-                <?php
-                $id_invoice = $storeInv2['id_invoice'];
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $sisaHutang = $storeInv2['total_invoice'] - $payment['amount_payment'];
-                $totalStore2 += $sisaHutang;
+                    ?>
 
-                ?>
+                    <tr>
+                        <td class="text-center"><?= $storeInv2['nama'] ?></td>
+                        <td class="text-center"><?= $storeInv2['no_invoice'] ?></td>
+                        <td class="text-center"><?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?></td>
+                        <td class="text-center">
+                            <?php if ($storeInv2['termin_payment'] == 0 || $storeInv2['termin_payment'] == 1 || $storeInv2['termin_payment'] == 2) { ?>
+                                <?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?>
+                            <?php } else { ?>
+                                <?= $jatuhTempo ?>
+                            <?php } ?>
+                        </td>
+                        <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
+                        <td class="text-center">
+                            <?php
+                            echo $operan . $days . " hari";
+                            ?>
+                        </td>
+                        <!-- <td class="text-left"><?= $storeInv2['nama'] ?></td> -->
 
-                <tr>
-                    <td class="text-center"><?= $storeInv2['nama'] ?></td>
-                    <td class="text-center"><?= $storeInv2['no_invoice'] ?></td>
-                    <td class="text-center"><?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?></td>
-                    <td class="text-center">
-                        <?php if ($storeInv2['termin_payment'] == 0 || $storeInv2['termin_payment'] == 1 || $storeInv2['termin_payment'] == 2) { ?>
-                            <?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?>
-                        <?php } else { ?>
-                            <?= $jatuhTempo ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
-                    <td class="text-center">
-                        <?php
-                        echo $operan . $days . " hari";
-                        ?>
-                    </td>
-                    <!-- <td class="text-left"><?= $storeInv2['nama'] ?></td> -->
-
-                </tr>
-                <!-- <tr>
+                    </tr>
+                    <!-- <tr>
                     <td colspan="4"></td>
                     <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore2, 0, '.', ',') ?></th>
                     <td colspan="1"></td>
                 </tr> -->
+                    <?php
+                    $totalAll += $totalStore2;
+                    ?>
+                <?php endif; ?>
+
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="4"></td>
+                <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore2, 0, '.', ',') ?></th>
+                <td colspan="1"></td>
+            </tr>
+            <tr>
+                <th colspan="6">Umur Hutang Lebih Dari 15 Hari</th>
+            </tr>
+            <?php foreach ($invoice as $storeInv3) : ?>
                 <?php
-                $totalAll += $totalStore2;
+                $jatuhTempo = date('d M Y', strtotime("+" . $storeInv3['termin_payment'] . " days", strtotime($storeInv3['date_invoice'])));
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($jatuhTempo);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $daysWithOperan = $operan . $days;
                 ?>
-            <?php endif; ?>
+                <?php if ($daysWithOperan >= 16) : ?>
+                    <?php
+                    $id_invoice = $storeInv3['id_invoice'];
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $storeInv3['total_invoice'] - $payment['amount_payment'];
+                    $totalStore3 += $sisaHutang;
 
-        <?php endforeach; ?>
-        <tr>
-            <td colspan="4"></td>
-            <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore2, 0, '.', ',') ?></th>
-            <td colspan="1"></td>
-        </tr>
-        <tr>
-            <th colspan="6">Umur Hutang Lebih Dari 15 Hari</th>
-        </tr>
-        <?php foreach ($invoice as $storeInv3) : ?>
-            <?php
-            $jatuhTempo = date('d M Y', strtotime("+" . $storeInv3['termin_payment'] . " days", strtotime($storeInv3['date_invoice'])));
-            $date1 = new DateTime(date("Y-m-d"));
-            $date2 = new DateTime($jatuhTempo);
-            $days  = $date2->diff($date1)->format('%a');
-            $operan = "";
-            if ($date1 < $date2) {
-                $operan = "-";
-            }
-            $daysWithOperan = $operan . $days;
-            ?>
-            <?php if ($daysWithOperan >= 16) : ?>
-                <?php
-                $id_invoice = $storeInv3['id_invoice'];
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $sisaHutang = $storeInv3['total_invoice'] - $payment['amount_payment'];
-                $totalStore3 += $sisaHutang;
+                    ?>
 
-                ?>
+                    <tr>
+                        <td class="text-center"><?= $storeInv3['nama'] ?></td>
+                        <td class="text-center"><?= $storeInv3['no_invoice'] ?></td>
+                        <td class="text-center"><?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?></td>
+                        <td class="text-center">
+                            <?php if ($storeInv3['termin_payment'] == 0 || $storeInv3['termin_payment'] == 1 || $storeInv3['termin_payment'] == 2) { ?>
+                                <?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?>
+                            <?php } else { ?>
+                                <?= $jatuhTempo ?>
+                            <?php } ?>
+                        </td>
+                        <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
+                        <td class="text-center">
+                            <?php
+                            echo $operan . $days . " hari";
+                            ?>
+                        </td>
+                        <!-- <td class="text-left"><?= $storeInv3['nama'] ?></td> -->
 
-                <tr>
-                    <td class="text-center"><?= $storeInv3['nama'] ?></td>
-                    <td class="text-center"><?= $storeInv3['no_invoice'] ?></td>
-                    <td class="text-center"><?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?></td>
-                    <td class="text-center">
-                        <?php if ($storeInv3['termin_payment'] == 0 || $storeInv3['termin_payment'] == 1 || $storeInv3['termin_payment'] == 2) { ?>
-                            <?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?>
-                        <?php } else { ?>
-                            <?= $jatuhTempo ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
-                    <td class="text-center">
-                        <?php
-                        echo $operan . $days . " hari";
-                        ?>
-                    </td>
-                    <!-- <td class="text-left"><?= $storeInv3['nama'] ?></td> -->
-
-                </tr>
-                <!-- <tr>
+                    </tr>
+                    <!-- <tr>
                     <td colspan="4"></td>
                     <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore3, 0, '.', ',') ?></th>
                     <td colspan="1"></td>
                 </tr> -->
-                <?php
-                $totalAll += $totalStore3;
-                ?>
-            <?php endif; ?>
+                    <?php
+                    $totalAll += $totalStore3;
+                    ?>
+                <?php endif; ?>
 
-        <?php endforeach; ?>
-        <tr>
-            <td colspan="4"></td>
-            <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore3, 0, '.', ',') ?></th>
-            <td colspan="1"></td>
-        </tr>
-        <!-- <tr>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="4"></td>
+                <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore3, 0, '.', ',') ?></th>
+                <td colspan="1"></td>
+            </tr>
+            <!-- <tr>
             : <th colspan="4" class="text-right">Total Keseluruhan: </th>
             <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalAll, 0, '.', ',') ?></th>
             <td colspan="1"></td>
         </tr> -->
-
+        <?php endif; ?>
     </table>
 </body>
 

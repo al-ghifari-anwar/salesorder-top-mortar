@@ -119,76 +119,77 @@ function penyebut($nilai)
             <!-- <th style="border-bottom: 1px solid black;">Umur bdsr<br>Jatuh Tempo</th> -->
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
-        <?php foreach ($invoice as $dataInv) : ?>
-            <tr>
-                <th class="text-left"><?= $dataInv['no_invoice'] .  " - " . date("d M Y", strtotime($dataInv['date_invoice'])) ?></th>
-                <th><?= $dataInv['nama'] . " - " . $dataInv['nama_city'] ?></th>
-                <td colspan="1"></td>
-            </tr>
-            <?php
-            $payment = $this->MPayment->getByIdInvoice($dataInv['id_invoice'], $dateFrom, $dateTo);
-            $allPaymentInv = $this->MPayment->getTotalPaymentInv($dataInv['id_invoice']);
-            $totalPayment = 0;
-            $totalPotongan = 0;
-            $totalAdjustment = 0;
-            foreach ($payment as $payment) : ?>
-                <?php
-                $totalPayment += $payment['amount_payment'];
-                $totalPotongan += $payment['potongan_payment'];
-                $totalAdjustment += $payment['adjustment_payment'];
-                // $jatuhTempo = date('d M Y', strtotime("+" . $payment['termin_payment'] . " days", strtotime($payment['date_invoice'])));
-                ?>
+        <?php if ($invoice != null) : ?>
+            <?php foreach ($invoice as $dataInv) : ?>
                 <tr>
-                    <td class="text-center"><?= $payment['id_payment'] ?></td>
-                    <td class="text-center"><?= date("d M Y", strtotime($payment['date_payment'])) ?></td>
-                    <td class="text-right"><?= number_format($payment['amount_payment'], 0, '.', ',') ?></td>
-                    <!-- <td class="text-center">0</td> -->
-                    <!-- <td class="text-center">0</td> -->
-                    <!-- <td class="text-left"><?= $payment['nama'] ?></td> -->
-
+                    <th class="text-left"><?= $dataInv['no_invoice'] .  " - " . date("d M Y", strtotime($dataInv['date_invoice'])) ?></th>
+                    <th><?= $dataInv['nama'] . " - " . $dataInv['nama_city'] ?></th>
+                    <td colspan="1"></td>
                 </tr>
+                <?php
+                $payment = $this->MPayment->getByIdInvoice($dataInv['id_invoice'], $dateFrom, $dateTo);
+                $allPaymentInv = $this->MPayment->getTotalPaymentInv($dataInv['id_invoice']);
+                $totalPayment = 0;
+                $totalPotongan = 0;
+                $totalAdjustment = 0;
+                foreach ($payment as $payment) : ?>
+                    <?php
+                    $totalPayment += $payment['amount_payment'];
+                    $totalPotongan += $payment['potongan_payment'];
+                    $totalAdjustment += $payment['adjustment_payment'];
+                    // $jatuhTempo = date('d M Y', strtotime("+" . $payment['termin_payment'] . " days", strtotime($payment['date_invoice'])));
+                    ?>
+                    <tr>
+                        <td class="text-center"><?= $payment['id_payment'] ?></td>
+                        <td class="text-center"><?= date("d M Y", strtotime($payment['date_payment'])) ?></td>
+                        <td class="text-right"><?= number_format($payment['amount_payment'], 0, '.', ',') ?></td>
+                        <!-- <td class="text-center">0</td> -->
+                        <!-- <td class="text-center">0</td> -->
+                        <!-- <td class="text-left"><?= $payment['nama'] ?></td> -->
+
+                    </tr>
+                <?php endforeach; ?>
+                <tr>
+                    <th colspan="2" class="text-left">&nbsp;&nbsp;&nbsp;Total Dari <?= $dataInv['no_invoice'] ?></th>
+                    <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalPayment, 0, '.', ',') ?></th>
+                    <!-- <td colspan="1"></td> -->
+                </tr>
+                <tr>
+                    <th colspan="2" class="text-right">&nbsp;&nbsp;&nbsp;Jumlah Potongan </th>
+                    <th class="text-right"><?= number_format($totalPotongan, 0, '.', ',') ?></th>
+                    <!-- <td colspan="1"></td> -->
+                </tr>
+                <tr>
+                    <th colspan="2" class="text-right">&nbsp;&nbsp;&nbsp;Jumlah Adjustment </th>
+                    <th class="text-right"><?= number_format($totalAdjustment, 0, '.', ',') ?></th>
+                    <!-- <td colspan="1"></td> -->
+                </tr>
+                <tr>
+                    <th colspan="2" class="text-right">Nilai Invoice</th>
+                    <th class="text-right"><?= number_format($dataInv['total_invoice'], 0, '.', ',') ?></th>
+                    <!-- <td colspan="1"></td> -->
+                </tr>
+                <tr>
+                    <th colspan="2" class="text-right">Hutang Invoice</th>
+                    <th class="text-right"><?= number_format($dataInv['total_invoice'] - ($allPaymentInv['amount_payment'] + $totalPotongan + $totalAdjustment), 0, '.', ',') ?></th>
+                    <!-- <td colspan="1"></td> -->
+                </tr>
+                <tr style="height: 20px;">
+                    <th colspan="3"></th>
+                </tr>
+                <?php
+                $totalAll += $totalPayment;
+                ?>
             <?php endforeach; ?>
-            <tr>
-                <th colspan="2" class="text-left">&nbsp;&nbsp;&nbsp;Total Dari <?= $dataInv['no_invoice'] ?></th>
-                <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalPayment, 0, '.', ',') ?></th>
-                <!-- <td colspan="1"></td> -->
-            </tr>
-            <tr>
-                <th colspan="2" class="text-right">&nbsp;&nbsp;&nbsp;Jumlah Potongan </th>
-                <th class="text-right"><?= number_format($totalPotongan, 0, '.', ',') ?></th>
-                <!-- <td colspan="1"></td> -->
-            </tr>
-            <tr>
-                <th colspan="2" class="text-right">&nbsp;&nbsp;&nbsp;Jumlah Adjustment </th>
-                <th class="text-right"><?= number_format($totalAdjustment, 0, '.', ',') ?></th>
-                <!-- <td colspan="1"></td> -->
-            </tr>
-            <tr>
-                <th colspan="2" class="text-right">Nilai Invoice</th>
-                <th class="text-right"><?= number_format($dataInv['total_invoice'], 0, '.', ',') ?></th>
-                <!-- <td colspan="1"></td> -->
-            </tr>
-            <tr>
-                <th colspan="2" class="text-right">Hutang Invoice</th>
-                <th class="text-right"><?= number_format($dataInv['total_invoice'] - ($allPaymentInv['amount_payment'] + $totalPotongan + $totalAdjustment), 0, '.', ',') ?></th>
-                <!-- <td colspan="1"></td> -->
-            </tr>
-            <tr style="height: 20px;">
+            <tr style="height: 200px;">
                 <th colspan="3"></th>
             </tr>
-            <?php
-            $totalAll += $totalPayment;
-            ?>
-        <?php endforeach; ?>
-        <tr style="height: 200px;">
-            <th colspan="3"></th>
-        </tr>
-        <tr>
-            : <th colspan="2" class="text-right">Total Keseluruhan: </th>
-            <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalAll, 0, '.', ',') ?></th>
-            <!-- <td colspan="1"></td> -->
-        </tr>
-
+            <tr>
+                : <th colspan="2" class="text-right">Total Keseluruhan: </th>
+                <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalAll, 0, '.', ',') ?></th>
+                <!-- <td colspan="1"></td> -->
+            </tr>
+        <?php endif; ?>
     </table>
 </body>
 

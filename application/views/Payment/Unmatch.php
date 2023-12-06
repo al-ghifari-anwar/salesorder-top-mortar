@@ -98,7 +98,7 @@
                                                                     <option value="1000">Bayar Sebelum 30 Hari</option>
                                                                 </select>
                                                             </div>
-                                                            <?php if ($this->session->userdata('level_user') == 'superadmin') : ?>
+                                                            <?php if ($this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'finance') : ?>
                                                                 <div class="form-group">
                                                                     <label for="">Adjustment</label>
                                                                     <input type="number" name="adjustment" id="" class="form-control" value="0">
