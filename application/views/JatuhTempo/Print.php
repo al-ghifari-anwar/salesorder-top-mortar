@@ -156,14 +156,7 @@ function penyebut($nilai)
                             echo $operan . $days . " hari";
                             ?>
                         </td>
-                        <!-- <td class="text-left"><?= $storeInv['nama'] ?></td> -->
-
                     </tr>
-                    <!-- <tr>
-                    <td colspan="4"></td>
-                    <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore1, 0, '.', ',') ?></th>
-                    <td colspan="1"></td>
-                </tr> -->
                     <?php
                     $totalAll += $totalStore1;
                     ?>
@@ -216,14 +209,8 @@ function penyebut($nilai)
                             echo $operan . $days . " hari";
                             ?>
                         </td>
-                        <!-- <td class="text-left"><?= $storeInv2['nama'] ?></td> -->
 
                     </tr>
-                    <!-- <tr>
-                    <td colspan="4"></td>
-                    <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore2, 0, '.', ',') ?></th>
-                    <td colspan="1"></td>
-                </tr> -->
                     <?php
                     $totalAll += $totalStore2;
                     ?>
@@ -276,14 +263,8 @@ function penyebut($nilai)
                             echo $operan . $days . " hari";
                             ?>
                         </td>
-                        <!-- <td class="text-left"><?= $storeInv3['nama'] ?></td> -->
 
                     </tr>
-                    <!-- <tr>
-                    <td colspan="4"></td>
-                    <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore3, 0, '.', ',') ?></th>
-                    <td colspan="1"></td>
-                </tr> -->
                     <?php
                     $totalAll += $totalStore3;
                     ?>
@@ -295,11 +276,6 @@ function penyebut($nilai)
                 <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore3, 0, '.', ',') ?></th>
                 <td colspan="1"></td>
             </tr>
-            <!-- <tr>
-            : <th colspan="4" class="text-right">Total Keseluruhan: </th>
-            <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalAll, 0, '.', ',') ?></th>
-            <td colspan="1"></td>
-        </tr> -->
         <?php endif; ?>
     </table>
 </body>
