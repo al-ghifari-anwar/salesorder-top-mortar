@@ -175,7 +175,9 @@
                                                 <p>
                                                     Belum Closing
                                                     <?php
-                                                    $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0]);
+                                                    $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+                                                    $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+                                                    $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0, 'tb_city.id_distributor' => $this->session->userdata('id_distributor')]);
                                                     ?>
                                                     <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
                                                 </p>
