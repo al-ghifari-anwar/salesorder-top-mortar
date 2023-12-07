@@ -242,7 +242,7 @@ function penyebut($nilai)
                 </table>
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
                     <tr>
-                        <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
+                        <td>Payment: BCA No Rekening <?= $this->session->userdata('jenis_distributor') == 'pusat' ? '8880762231' : '8880964519' ?> atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
                     </tr>
                 </table>
             </div>
@@ -286,7 +286,7 @@ function penyebut($nilai)
                             <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
                         </th>
                         <th class="text-left text-up">
-                            <h3>PT Top Mortar Indonesia</h3>
+                            <h3><?= $this->session->userdata('nama_distributor') ?></h3>
                         </th>
                     </tr>
                 </table>
@@ -411,7 +411,7 @@ function penyebut($nilai)
                 </table>
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
                     <tr>
-                        <td>Payment: BCA No Rekening 8880762231 atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
+                        <td>Payment: BCA No Rekening <?= $this->session->userdata('jenis_distributor') == 'pusat' ? '8880762231' : '8880964519' ?> atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b></td>
                     </tr>
                 </table>
             </div>

@@ -40,7 +40,8 @@ class Auth extends CI_Controller
                         'level_user' => $checkUsername['level_user'],
                         'phone_user' => $checkUsername['phone_user'],
                         'id_distributor' => $checkUsername['id_distributor'],
-                        'nama_distributor' => $checkUsername['nama_distributor']
+                        'nama_distributor' => $checkUsername['nama_distributor'],
+                        'jenis_distributor' => $checkUsername['jenis_distributor']
                     ];
                     $this->session->set_userdata($data);
                     redirect('Dashboard');
