@@ -7,10 +7,11 @@ class MKendaraan extends CI_Model
     // public $id_courier;
     public $nama_kendaraan;
     public $nopol_kendaraan;
+    public $id_distributor;
 
     public function getAll()
     {
-        $query = $this->db->get('tb_kendaraan')->result_array();
+        $query = $this->db->get_where('tb_kendaraan', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         return $query;
     }
 
@@ -26,6 +27,7 @@ class MKendaraan extends CI_Model
         // $this->id_courier = $post['id_courier'];
         $this->nama_kendaraan = $post['nama_kendaraan'];
         $this->nopol_kendaraan = $post['nopol_kendaraan'];
+        $this->id_distributor = $this->session->userdata('id_distributor');
 
         $query = $this->db->insert('tb_kendaraan', $this);
 
@@ -42,6 +44,7 @@ class MKendaraan extends CI_Model
         // $this->id_courier = $post['id_courier'];
         $this->nama_kendaraan = $post['nama_kendaraan'];
         $this->nopol_kendaraan = $post['nopol_kendaraan'];
+        $this->id_distributor = $this->session->userdata('id_distributor');
 
         $query = $this->db->update('tb_kendaraan', $this, ['id_kendaraan' => $id]);
 

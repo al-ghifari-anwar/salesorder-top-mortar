@@ -117,7 +117,7 @@ function penyebut($nilai)
                             <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
                         </th>
                         <th class="text-left text-up">
-                            <h3>PT Top Mortar Indonesia</h3>
+                            <h3><?= $this->session->userdata('nama_distributor') ?></h3>
                         </th>
                     </tr>
                 </table>

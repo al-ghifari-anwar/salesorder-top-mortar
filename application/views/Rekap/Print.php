@@ -101,7 +101,7 @@ function penyebut($nilai)
             height: 50%;
         }
     </style>
-    <h3 class="text-center">PT TOP MORTAR INDONESIA</h3>
+    <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Rekap Invoice</h1>
     <h4 class="text-center">Tgl. <?= date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></h4>
     <table>
