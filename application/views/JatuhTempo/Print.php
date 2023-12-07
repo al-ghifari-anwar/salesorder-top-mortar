@@ -101,7 +101,7 @@ function penyebut($nilai)
             height: 50%;
         }
     </style>
-    <h3 class="text-center">PT TOP MORTAR INDONESIA</h3>
+    <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Rekap Piutang Jatuh Tempo <?= $city['nama_city'] ?></h1>
     <h4 class="text-center">Per Tgl. <?= date("d M Y") ?></h4>
     <table>
