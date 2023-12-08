@@ -22,7 +22,7 @@ class Voucher extends CI_Controller
     public function index()
     {
         $data['title'] = 'Voucher';
-        $data['city'] = $this->MCity->getAll();
+        $data['city'] = $this->MCity->getAllGlobal();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Voucher/Index');
