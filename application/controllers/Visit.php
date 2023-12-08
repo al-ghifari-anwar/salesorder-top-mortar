@@ -43,10 +43,11 @@ class Visit extends CI_Controller
 
         $dateRange = $this->input->post("date_range");
         $id_user = $this->input->post("id_user");
+        $bulan = $this->input->post("bulan");
 
-        if ($dateRange) {
+        if ($bulan) {
             $dates = explode("-", $dateRange);
-            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_user);
+            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, $id_user, $bulan);
         } else {
             // $invoice = $this->MInvoice->getAll();
             $data['visit'] = $this->MVisit->getAllByCity($id_city);

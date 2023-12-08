@@ -45,7 +45,7 @@
                                 <div class="col-12">
                                     <form action="" method="POST">
                                         <div class="row">
-                                            <label>Date range:</label>
+                                            <!-- <label>Date range:</label>
                                             <div class="form-group ml-3">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -59,11 +59,27 @@
                                                     ?>
                                                     <input type="text" class="form-control float-right" id="reservation" name="date_range">
                                                 </div>
-                                                <!-- /.input group -->
-                                            </div>
+                                            </div> -->
                                             <?php
                                             $user = $this->db->get_where('tb_user', ['id_city' => $id_city, 'level_user' => 'sales'])->result_array();
                                             ?>
+                                            <label for="">Bulan:</label>
+                                            <div class="form-group">
+                                                <select name="bulan" id="select2bs4" class="form-control select2bs4">
+                                                    <option value="1">Januari</option>
+                                                    <option value="2">Februari</option>
+                                                    <option value="3">Maret</option>
+                                                    <option value="4">April</option>
+                                                    <option value="5">Mei</option>
+                                                    <option value="6">Juni</option>
+                                                    <option value="7">Juli</option>
+                                                    <option value="8">Agustus</option>
+                                                    <option value="9">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
                                             <label for="">Sales:</label>
                                             <div class="form-group">
                                                 <select name="id_user" id="select2bs4" class="form-control select2bs4">
