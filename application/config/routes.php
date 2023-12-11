@@ -128,3 +128,7 @@ $route['insert-dist'] = 'Distributor/insert';
 $route['update-dist/(:num)'] = 'Distributor/update/$1';
 $route['delete-dist/(:num)'] = 'Distributor/delete/$1';
 $route['add-dist-user'] = 'Distributor/add_user';
+// Sales Rekap
+$route['rekap-sales'] = 'Sales';
+$route['rekap-sales/(:num)'] = 'Sales/rekap_fee/$1';
+$route['print-rekap-sales'] = 'Sales/print_rekap';

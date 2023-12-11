@@ -15,6 +15,24 @@ class MVisit extends CI_Model
         return $query;
     }
 
+    public function getGroupedContact($id_user, $id_city, $month)
+    {
+        $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
+        $this->db->where('MONTH(date_visit)', $month);
+        $this->db->where('tb_user.level_user', 'sales');
+        if ($id_user != 0) {
+            $this->db->where('tb_visit.id_user', $id_user);
+        }
+        $this->db->where('tb_user.id_city', $id_city);
+        $this->db->group_by('tb_user.id_user');
+        $query = $this->db->get('tb_visit')->result_array();
+        // echo $this->db->last_query();
+        // die;
+
+        return $query;
+    }
+
     public function getAllByCity($id_city)
     {
         $from_date = date("Y-m-d 00:00:00");

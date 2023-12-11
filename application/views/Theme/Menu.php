@@ -216,13 +216,33 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url('visit') ?>" class="nav-link">
-                                        <i class="nav-icon fas fa-location-arrow"></i>
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-users"></i>
                                         <p>
-                                            Visit
-                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                            Sales
+                                            <i class="right fas fa-angle-left"></i>
                                         </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('visit') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-location-arrow"></i>
+                                                <p>
+                                                    Visit
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('rekap-sales') ?>" class="nav-link">
+                                                <i class="nav-icon fab fa-paypal"></i>
+                                                <p>
+                                                    Fee
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('lap-kurir') ?>" class="nav-link">
