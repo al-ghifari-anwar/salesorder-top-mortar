@@ -115,7 +115,7 @@ function penyebut($nilai)
         </tr>
         <?php if ($sales != null) : ?>
             <?php
-
+            $total_visit = 0;
             foreach ($sales as $dataSales) : ?>
                 <tr>
                     <th class="text-left"><?= $dataSales['full_name'] . " - " . $dataSales['kode_city'] ?></th>
@@ -123,7 +123,11 @@ function penyebut($nilai)
                 </tr>
                 <?php
                 // Get All Visit
+                $this->db->group_by('tb_visit.id_contact');
                 $visit = $this->db->get_where('tb_visit', ['id_user' => $dataSales['id_user']])->result_array();
+                // echo json_encode($visit);
+                // die;
+                $total_visit = count($visit);
 
                 $total_tokoAktif = 0;
                 $total_penjualan = 0;
@@ -148,7 +152,7 @@ function penyebut($nilai)
                     <td class="text-center">0</td>
                     <td class="text-center">0</td>
                     <td class="text-center"><?= $total_penjualan ?></td>
-                    <td class="text-center"><?= $total_tokoAktif ?></td>
+                    <td class="text-center"><?= $total_visit ?></td>
                 </tr>
                 <tr>
                     <th class="text-center">Total Fee</th>

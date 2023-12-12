@@ -23,7 +23,7 @@ class Sales extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
-        $data['title'] = 'Visit';
+        $data['title'] = 'Rekap Sales';
         $data['city'] = $this->MCity->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -37,7 +37,7 @@ class Sales extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
-        $data['title'] = 'Visit';
+        $data['title'] = 'Rekap Sales';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
         $data['id_city'] = $id_city;
