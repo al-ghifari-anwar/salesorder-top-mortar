@@ -103,7 +103,7 @@ function penyebut($nilai)
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Rekap Sales</h1>
-    <h4 class="text-center">Bulan <?= date("F", strtotime($month)) ?></h4>
+    <h4 class="text-center">Bulan <?= date("F", strtotime("2023-" . $month . "-01")) ?></h4>
     <table>
         <tr>
             <th style="border-bottom: 1px solid black;">Sales</th>
@@ -111,7 +111,7 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Pasif -> Aktif</th>
             <th style="border-bottom: 1px solid black;">Aktif -> Pasif</th>
             <th style="border-bottom: 1px solid black;">Penjualan</th>
-            <th style="border-bottom: 1px solid black;">Total Toko Aktif</th>
+            <th style="border-bottom: 1px solid black;">Total Visit</th>
         </tr>
         <?php if ($sales != null) : ?>
             <?php
