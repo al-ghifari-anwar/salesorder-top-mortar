@@ -72,9 +72,9 @@
                                                     <option value="7" <?= $month == 7 ? 'selected' : '' ?>>Juli</option>
                                                     <option value="8" <?= $month == 8 ? 'selected' : '' ?>>Agustus</option>
                                                     <option value="9" <?= $month == 9 ? 'selected' : '' ?>>September</option>
-                                                    <option value="10 <?= $month == 10 ? 'selected' : '' ?>">Oktober</option>
-                                                    <option value="11 <?= $month == 11 ? 'selected' : '' ?>">November</option>
-                                                    <option value="12 <?= $month == 12 ? 'selected' : '' ?>">Desember</option>
+                                                    <option value="10" <?= $month == 10 ? 'selected' : '' ?>>Oktober</option>
+                                                    <option value="11" <?= $month == 11 ? 'selected' : '' ?>>November</option>
+                                                    <option value="12" <?= $month == 12 ? 'selected' : '' ?>>Desember</option>
                                                 </select>
                                             </div>
                                             <label for="">Sales:</label>
