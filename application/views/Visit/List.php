@@ -125,10 +125,30 @@
                                             <td><?= date("H:i - d M Y", strtotime($data['date_visit'])) ?></td>
                                             <td><?= $data['laporan_visit'] ?></td>
                                             <td>
-                                                <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve"><i class="fas fa-check-circle"></i></a>
+                                                <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve" data-toggle="modal" data-target="#modal-approve<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
                                             </td>
                                         </tr>
-
+                                        <div class="modal fade" id="modal-approve<?= $data['id_visit'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Approval</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?= base_url('approve-visit/' . $data['id_visit']) ?>" method="POST">
+                                                            <div class="form-group">
+                                                                <label for="">Pesan Approve</label>
+                                                                <textarea name="approve_message" id="" cols="30" rows="5" class="form-control"></textarea>
+                                                            </div>
+                                                            <button class="btn btn-primary float-right">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

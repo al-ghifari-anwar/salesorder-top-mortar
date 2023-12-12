@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class MVisit extends CI_Model
 {
     public $is_approved;
+    public $approve_message;
 
     public function getAll()
     {
@@ -82,7 +83,9 @@ class MVisit extends CI_Model
 
     public function approve($id)
     {
+        $post = $this->input->post();
         $this->is_approved = 1;
+        $this->approve_message = $post['approve_message'];
 
         $query = $this->db->update('tb_visit', $this, ['id_visit' => $id]);
 
