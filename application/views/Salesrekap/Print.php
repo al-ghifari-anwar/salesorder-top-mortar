@@ -135,8 +135,11 @@ function penyebut($nilai)
                 // Get Penjualan
                 $this->db->select('SUM(qty_produk) AS total_qty');
                 $this->db->join('tb_surat_jalan', 'tb_detail_surat_jalan.id_surat_jalan = tb_surat_jalan.id_surat_jalan');
-                $penjualan = $this->db->get_where('tb_detail_surat_jalan', ['MONTH(date_closing)' => $month])->row_array();
+                $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+                $penjualan = $this->db->get_where('tb_detail_surat_jalan', ['MONTH(date_closing)' => $month, 'id_city' => $city['id_city']])->row_array();
                 $total_penjualan += $penjualan['total_qty'];
+                // echo $this->db->last_query();
+                // die;
 
                 // Get Toko Aktif
                 $tokoAktif = $this->db->get_where('tb_contact', ['store_status' => 'active'])->result_array();
