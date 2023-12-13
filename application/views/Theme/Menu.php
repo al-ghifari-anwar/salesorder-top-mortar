@@ -321,15 +321,17 @@
                                             </p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('payment-transit') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-money-bill-wave-alt"></i>
-                                            <p>
-                                                Pembayaran Transit
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
+                                    <?php if ($this->session->userdata('level_user') == 'finance') : ?>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('payment-transit') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-money-bill-wave-alt"></i>
+                                                <p>
+                                                    Pembayaran Transit
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
                         </ul>
