@@ -78,9 +78,10 @@
                                                 </select>
                                             </div>
                                             <label for="">Sales:</label>
+                                            <!-- <input type="text" value="0" name="id_user" hidden> -->
                                             <div class="form-group">
                                                 <select name="id_user" id="select2bs4" class="form-control select2bs4">
-                                                    <option value="0">Semua</option>
+                                                    <!-- <option value="0">Semua</option> -->
                                                     <?php foreach ($user as $user) : ?>
                                                         <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] ?></option>
                                                     <?php endforeach; ?>

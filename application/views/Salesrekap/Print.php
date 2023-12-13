@@ -131,18 +131,16 @@ function penyebut($nilai)
 
                 $total_tokoAktif = 0;
                 $total_penjualan = 0;
-                foreach ($visit as $visit) {
-                    // Get Penjualan
-                    $this->db->select('SUM(qty_produk) AS total_qty');
-                    $this->db->join('tb_surat_jalan', 'tb_detail_surat_jalan.id_surat_jalan = tb_surat_jalan.id_surat_jalan');
-                    $penjualan = $this->db->get_where('tb_detail_surat_jalan', ['id_contact' => $visit['id_contact'], 'MONTH(date_closing)' => $month])->row_array();
-                    // echo $this->db->last_query();
-                    // die;
-                    $total_penjualan += $penjualan['total_qty'];
-                    // Get Toko Aktif
-                    $tokoAktif = $this->db->get_where('tb_contact', ['store_status' => 'active', 'id_contact' => $visit['id_contact']])->result_array();
-                    $total_tokoAktif += count($tokoAktif);
-                }
+
+                // Get Penjualan
+                $this->db->select('SUM(qty_produk) AS total_qty');
+                $this->db->join('tb_surat_jalan', 'tb_detail_surat_jalan.id_surat_jalan = tb_surat_jalan.id_surat_jalan');
+                $penjualan = $this->db->get_where('tb_detail_surat_jalan', ['MONTH(date_closing)' => $month])->row_array();
+                $total_penjualan += $penjualan['total_qty'];
+
+                // Get Toko Aktif
+                $tokoAktif = $this->db->get_where('tb_contact', ['store_status' => 'active'])->result_array();
+                $total_tokoAktif += count($tokoAktif);
                 // echo $total_penjualan;
                 // die;
                 ?>
