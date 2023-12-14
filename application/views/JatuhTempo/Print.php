@@ -207,26 +207,28 @@ function penyebut($nilai)
 
                 ?>
 
-                <tr>
-                    <td class="text-center"><?= $storeInv2['nama'] ?></td>
-                    <td class="text-center"><?= $storeInv2['no_invoice'] ?></td>
-                    <td class="text-center"><?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?></td>
-                    <td class="text-center">
-                        <?php if ($storeInv2['termin_payment'] == 0 || $storeInv2['termin_payment'] == 1 || $storeInv2['termin_payment'] == 2) { ?>
-                            <?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?>
-                        <?php } else { ?>
-                            <?= $jatuhTempo ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
-                    <td class="text-center">
-                        <?php
-                        echo $operan . $days . " hari";
-                        ?>
-                    </td>
-                    <!-- <td class="text-left"><?= $storeInv2['nama'] ?></td> -->
+                <?php if ($sisaHutang > 0) : ?>
+                    <tr>
+                        <td class="text-center"><?= $storeInv2['nama'] ?></td>
+                        <td class="text-center"><?= $storeInv2['no_invoice'] ?></td>
+                        <td class="text-center"><?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?></td>
+                        <td class="text-center">
+                            <?php if ($storeInv2['termin_payment'] == 0 || $storeInv2['termin_payment'] == 1 || $storeInv2['termin_payment'] == 2) { ?>
+                                <?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?>
+                            <?php } else { ?>
+                                <?= $jatuhTempo ?>
+                            <?php } ?>
+                        </td>
+                        <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
+                        <td class="text-center">
+                            <?php
+                            echo $operan . $days . " hari";
+                            ?>
+                        </td>
+                        <!-- <td class="text-left"><?= $storeInv2['nama'] ?></td> -->
 
-                </tr>
+                    </tr>
+                <?php endif; ?>
                 <!-- <tr>
                     <td colspan="4"></td>
                     <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore2, 0, '.', ',') ?></th>
@@ -266,27 +268,28 @@ function penyebut($nilai)
                 $totalStore3 += $sisaHutang;
 
                 ?>
+                <?php if ($sisaHutang > 0) : ?>
+                    <tr>
+                        <td class="text-center"><?= $storeInv3['nama'] ?></td>
+                        <td class="text-center"><?= $storeInv3['no_invoice'] ?></td>
+                        <td class="text-center"><?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?></td>
+                        <td class="text-center">
+                            <?php if ($storeInv3['termin_payment'] == 0 || $storeInv3['termin_payment'] == 1 || $storeInv3['termin_payment'] == 2) { ?>
+                                <?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?>
+                            <?php } else { ?>
+                                <?= $jatuhTempo ?>
+                            <?php } ?>
+                        </td>
+                        <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
+                        <td class="text-center">
+                            <?php
+                            echo $operan . $days . " hari";
+                            ?>
+                        </td>
+                        <!-- <td class="text-left"><?= $storeInv3['nama'] ?></td> -->
 
-                <tr>
-                    <td class="text-center"><?= $storeInv3['nama'] ?></td>
-                    <td class="text-center"><?= $storeInv3['no_invoice'] ?></td>
-                    <td class="text-center"><?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?></td>
-                    <td class="text-center">
-                        <?php if ($storeInv3['termin_payment'] == 0 || $storeInv3['termin_payment'] == 1 || $storeInv3['termin_payment'] == 2) { ?>
-                            <?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?>
-                        <?php } else { ?>
-                            <?= $jatuhTempo ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
-                    <td class="text-center">
-                        <?php
-                        echo $operan . $days . " hari";
-                        ?>
-                    </td>
-                    <!-- <td class="text-left"><?= $storeInv3['nama'] ?></td> -->
-
-                </tr>
+                    </tr>
+                <?php endif; ?>
                 <!-- <tr>
                     <td colspan="4"></td>
                     <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore3, 0, '.', ',') ?></th>
