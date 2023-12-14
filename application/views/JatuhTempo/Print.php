@@ -145,26 +145,28 @@ function penyebut($nilai)
 
                 ?>
 
-                <tr>
-                    <td class="text-center"><?= $storeInv['nama'] ?></td>
-                    <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
-                    <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
-                    <td class="text-center">
-                        <?php if ($storeInv['termin_payment'] == 0 || $storeInv['termin_payment'] == 1 || $storeInv['termin_payment'] == 2) { ?>
-                            <?= date("d M Y", strtotime($storeInv['date_invoice'])) ?>
-                        <?php } else { ?>
-                            <?= $jatuhTempo ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
-                    <td class="text-center">
-                        <?php
-                        echo $operan . $days . " hari";
-                        ?>
-                    </td>
-                    <!-- <td class="text-left"><?= $storeInv['nama'] ?></td> -->
+                <?php if ($sisaHutang > 0) : ?>
+                    <tr>
+                        <td class="text-center"><?= $storeInv['nama'] ?></td>
+                        <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
+                        <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
+                        <td class="text-center">
+                            <?php if ($storeInv['termin_payment'] == 0 || $storeInv['termin_payment'] == 1 || $storeInv['termin_payment'] == 2) { ?>
+                                <?= date("d M Y", strtotime($storeInv['date_invoice'])) ?>
+                            <?php } else { ?>
+                                <?= $jatuhTempo ?>
+                            <?php } ?>
+                        </td>
+                        <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
+                        <td class="text-center">
+                            <?php
+                            echo $operan . $days . " hari";
+                            ?>
+                        </td>
+                        <!-- <td class="text-left"><?= $storeInv['nama'] ?></td> -->
 
-                </tr>
+                    </tr>
+                <?php endif; ?>
                 <!-- <tr>
                     <td colspan="4"></td>
                     <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore1, 0, '.', ',') ?></th>
