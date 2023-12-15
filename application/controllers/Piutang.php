@@ -103,6 +103,7 @@ class Piutang extends CI_Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $id_city = $_GET['c'];
+            $id_distributor = $_GET['dst'];
 
             // $dates = explode("-", $dateRange);
             if ($id_city == 0) {
@@ -110,7 +111,7 @@ class Piutang extends CI_Controller
             } else {
                 $data['city'] = $this->MCity->getById($id_city);
             }
-            $invoice = $this->MInvoice->getInvoiceJatuhTempo($id_city);
+            $invoice = $this->MInvoice->getInvoiceJatuhTempo($id_city, $id_distributor);
 
             $data['invoice'] = $invoice;
             // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));

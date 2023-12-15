@@ -97,7 +97,7 @@ class MInvoice extends CI_Model
         return $query;
     }
 
-    public function getInvoiceJatuhTempo($id_city)
+    public function getInvoiceJatuhTempo($id_city, $id_distributor)
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
@@ -106,7 +106,7 @@ class MInvoice extends CI_Model
         if ($id_city != 0) {
             $this->db->where('tb_contact.id_city', $id_city);
         }
-        $query = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        $query = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'id_distributor' => $id_distributor])->result_array();
         // echo $this->db->last_query();
         // die;
         return $query;
