@@ -57,7 +57,7 @@
                                                 </div>
                                             </div> -->
                                             <?php
-                                            $user = $this->db->get_where('tb_user', ['id_city' => $id_city, 'level_user' => 'sales'])->result_array();
+                                            $user = $this->db->get_where('tb_user', ['id_city' => $id_city, 'level_user' => 'sales', 'is_sales' => 1])->result_array();
                                             $month = date("m");
                                             ?>
                                             <label for="">Bulan:</label>
