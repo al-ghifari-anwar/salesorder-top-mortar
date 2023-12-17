@@ -75,9 +75,10 @@ class Piutang extends CI_Controller
     public function print_jatuh_tempo()
     {
         $id_city = $this->input->post("id_city");
+        $id_distributor = $this->session->userdata('id_distributor');
 
         // $dates = explode("-", $dateRange);
-        $invoice = $this->MInvoice->getInvoiceJatuhTempo($id_city);
+        $invoice = $this->MInvoice->getInvoiceJatuhTempo($id_city, $id_distributor);
 
         $data['invoice'] = $invoice;
         if ($id_city != 0) {
