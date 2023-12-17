@@ -283,7 +283,11 @@ function penyebut($nilai)
                         <td class="text-right"><?= number_format($sisaHutang, 0, '.', ',') ?></td>
                         <td class="text-center">
                             <?php
-                            echo $operan . $days . " hari";
+                            if ($days != 0) {
+                                echo $operan . $days . " hari";
+                            } else {
+                                echo "Hari ini";
+                            }
                             ?>
                         </td>
                         <!-- <td class="text-left"><?= $storeInv3['nama'] ?></td> -->
