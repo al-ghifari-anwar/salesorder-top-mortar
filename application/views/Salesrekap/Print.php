@@ -147,7 +147,7 @@ function penyebut($nilai)
 
                 // Get Toko Data -> Aktif
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
-                $dataToActive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city']])->result_array();
+                $dataToActive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city'], 'status_from' => 'data', 'status_to' => 'active'])->result_array();
                 $total_dataToActive = count($dataToActive);
                 // echo $total_penjualan;
                 // die;
