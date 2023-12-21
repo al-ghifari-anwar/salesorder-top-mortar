@@ -132,3 +132,7 @@ $route['add-dist-user'] = 'Distributor/add_user';
 $route['rekap-sales'] = 'Sales';
 $route['rekap-sales/(:num)'] = 'Sales/rekap_fee/$1';
 $route['print-rekap-sales'] = 'Sales/print_rekap';
+// status Rekap
+$route['rekap-status'] = 'Status';
+$route['rekap-status/(:num)'] = 'Status/rekap_fee/$1';
+$route['print-rekap-status'] = 'Status/print_rekap';

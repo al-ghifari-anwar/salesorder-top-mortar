@@ -242,6 +242,15 @@
                                                 </p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('rekap-status') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-info-circle"></i>
+                                                <p>
+                                                    Rekap Detail Status
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
