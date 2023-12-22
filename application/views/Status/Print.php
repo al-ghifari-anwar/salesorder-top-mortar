@@ -107,7 +107,7 @@ function penyebut($nilai)
     <table>
         <tr>
             <th style="border-bottom: 1px solid black;">Nama Toko</th>
-            <th style="border-bottom: 1px solid black;">Alamat</th>
+            <th style="border-bottom: 1px solid black;">Tgl Order</th>
             <th style="border-bottom: 1px solid black;">Nomor HP</th>
         </tr>
         <?php if ($store != null) : ?>
@@ -115,10 +115,15 @@ function penyebut($nilai)
                 <th class="text-center" colspan="3">Data -> Active</th>
             </tr>
             <?php foreach ($store as $store1) : ?>
+                <?php
+                $this->db->select("MAX(date_closing) as date_order");
+                $this->db->group_by('id_contact');
+                $lastOrder = $this->db->get_where('tb_surat_jalan', ['id_contact' => $store1['id_contact'], 'is_closing' => 1])->row_array()
+                ?>
                 <?php if ($store1['status_from'] == 'data' && $store1['status_to'] == 'active') : ?>
                     <tr>
                         <td class="text-center"><?= $store1['nama'] ?></td>
-                        <td class="text-center"><?= $store1['address'] ?></td>
+                        <td class="text-center"><?= date("d M, Y", $lastOrder['date_order']) ?></td>
                         <td class="text-center"><?= $store1['nomorhp'] ?></td>
                     </tr>
                 <?php endif; ?>
@@ -127,10 +132,15 @@ function penyebut($nilai)
                 <th class="text-center" colspan="3">Passive -> Active</th>
             </tr>
             <?php foreach ($store as $store2) : ?>
+                <?php
+                $this->db->select("MAX(date_closing) as date_order");
+                $this->db->group_by('id_contact');
+                $lastOrder = $this->db->get_where('tb_surat_jalan', ['id_contact' => $store2['id_contact'], 'is_closing' => 1])->row_array()
+                ?>
                 <?php if ($store2['status_from'] == 'passive' && $store2['status_to'] == 'active') : ?>
                     <tr>
                         <td class="text-center"><?= $store2['nama'] ?></td>
-                        <td class="text-center"><?= $store2['address'] ?></td>
+                        <td class="text-center"><?= date("d M, Y", $lastOrder['date_order']) ?></td>
                         <td class="text-center"><?= $store2['nomorhp'] ?></td>
                     </tr>
                 <?php endif; ?>
@@ -139,10 +149,15 @@ function penyebut($nilai)
                 <th class="text-center" colspan="3">Active -> Passive</th>
             </tr>
             <?php foreach ($store as $store3) : ?>
+                <?php
+                $this->db->select("MAX(date_closing) as date_order");
+                $this->db->group_by('id_contact');
+                $lastOrder = $this->db->get_where('tb_surat_jalan', ['id_contact' => $store3['id_contact'], 'is_closing' => 1])->row_array()
+                ?>
                 <?php if ($store3['status_from'] == 'active' && $store3['status_to'] == 'passive') : ?>
                     <tr>
                         <td class="text-center"><?= $store3['nama'] ?></td>
-                        <td class="text-center"><?= $store3['address'] ?></td>
+                        <td class="text-center"><?= date("d M, Y", $lastOrder['date_order']) ?></td>
                         <td class="text-center"><?= $store3['nomorhp'] ?></td>
                     </tr>
                 <?php endif; ?>
