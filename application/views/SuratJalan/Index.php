@@ -129,7 +129,7 @@
                                 <select class="form-control select2bs4" name="id_contact" style="width: 100%;" id="select2bs4">
                                     <option value="0">--- PLEASE SELECT STORE ---</option>
                                     <?php foreach ($toko as $data) : ?>
-                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['nama'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
+                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['nama'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>" reputation="<?= $data['reputation'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -174,6 +174,16 @@
                                 <label for="">Pembayaran COD</label>
                                 <input type="checkbox" name="is_cod" id="is_cod" class="form-check-control">
                             </div>
+                            <div class="form-group" id="alert-bad" hidden>
+                                <div class="alert alert-danger fade show" role="alert">
+                                    <strong>Status Toko Tidak Bagus</strong>
+                                </div>
+                            </div>
+                            <div class="form-group" id="alert-good" hidden>
+                                <div class="alert alert-success fade show" role="alert">
+                                    <strong>Status Toko Bagus</strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -197,5 +207,13 @@
         document.getElementById('ship_to_name').value = this.options[this.selectedIndex].getAttribute("shiptoname");
         document.getElementById('ship_to_phone').value = this.options[this.selectedIndex].getAttribute("shipphone");
         document.getElementById('ship_to_address').textContent = this.options[this.selectedIndex].getAttribute("shipaddress");
+        var rep = this.options[this.selectedIndex].getAttribute("reputation");
+        if (rep == 'good') {
+            document.getElementById('alert-good').hidden = false;
+            document.getElementById('alert-bad').hidden = true;
+        } else {
+            document.getElementById('alert-good').hidden = true;
+            document.getElementById('alert-bad').hidden = false;
+        }
     };
 </script>
