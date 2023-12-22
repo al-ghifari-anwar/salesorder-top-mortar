@@ -123,7 +123,7 @@ function penyebut($nilai)
                 <?php if ($store1['status_from'] == 'data' && $store1['status_to'] == 'active') : ?>
                     <tr>
                         <td class="text-center"><?= $store1['nama'] ?></td>
-                        <td class="text-center"><?= date("d M, Y", $lastOrder['date_order']) ?></td>
+                        <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
                         <td class="text-center"><?= $store1['nomorhp'] ?></td>
                     </tr>
                 <?php endif; ?>
@@ -140,7 +140,7 @@ function penyebut($nilai)
                 <?php if ($store2['status_from'] == 'passive' && $store2['status_to'] == 'active') : ?>
                     <tr>
                         <td class="text-center"><?= $store2['nama'] ?></td>
-                        <td class="text-center"><?= date("d M, Y", $lastOrder['date_order']) ?></td>
+                        <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
                         <td class="text-center"><?= $store2['nomorhp'] ?></td>
                     </tr>
                 <?php endif; ?>
@@ -157,7 +157,7 @@ function penyebut($nilai)
                 <?php if ($store3['status_from'] == 'active' && $store3['status_to'] == 'passive') : ?>
                     <tr>
                         <td class="text-center"><?= $store3['nama'] ?></td>
-                        <td class="text-center"><?= date("d M, Y", $lastOrder['date_order']) ?></td>
+                        <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
                         <td class="text-center"><?= $store3['nomorhp'] ?></td>
                     </tr>
                 <?php endif; ?>
