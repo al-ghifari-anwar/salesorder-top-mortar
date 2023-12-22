@@ -108,7 +108,7 @@ function penyebut($nilai)
         <tr>
             <th style="border-bottom: 1px solid black;">Nama Toko</th>
             <th style="border-bottom: 1px solid black;">Tgl Order</th>
-            <th style="border-bottom: 1px solid black;">Nomor HP</th>
+            <th style="border-bottom: 1px solid black;">Kota</th>
         </tr>
         <?php if ($store != null) : ?>
             <tr>
@@ -124,7 +124,7 @@ function penyebut($nilai)
                     <tr>
                         <td class="text-center"><?= $store1['nama'] ?></td>
                         <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
-                        <td class="text-center"><?= $store1['nomorhp'] ?></td>
+                        <td class="text-center"><?= $store1['nama_city'] ?></td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -141,7 +141,7 @@ function penyebut($nilai)
                     <tr>
                         <td class="text-center"><?= $store2['nama'] ?></td>
                         <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
-                        <td class="text-center"><?= $store2['nomorhp'] ?></td>
+                        <td class="text-center"><?= $store2['nama_city'] ?></td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -158,7 +158,7 @@ function penyebut($nilai)
                     <tr>
                         <td class="text-center"><?= $store3['nama'] ?></td>
                         <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
-                        <td class="text-center"><?= $store3['nomorhp'] ?></td>
+                        <td class="text-center"><?= $store3['nama_city'] ?></td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
