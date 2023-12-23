@@ -17,6 +17,7 @@ class SuratJalan extends CI_Controller
         $this->load->model('MUser');
         $this->load->model('MCity');
         $this->load->model('MKendaraan');
+        $this->load->model('MVoucher');
         $this->load->library('form_validation');
     }
 
@@ -54,6 +55,7 @@ class SuratJalan extends CI_Controller
         $toko = $this->MContact->getById($suratjalan['id_contact']);
         $data['produk'] = $this->MProduk->getByCity($toko['id_city']);
         $data['detail'] = $this->MDetailSuratJalan->getAll($suratjalan['id_surat_jalan']);
+        $data['vouchers'] = $this->MVoucher->getByIdContact($suratjalan['id_contact']);
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('SuratJalan/Detail');

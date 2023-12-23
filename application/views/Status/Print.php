@@ -154,7 +154,7 @@ function penyebut($nilai)
                 $this->db->group_by('id_contact');
                 $lastOrder = $this->db->get_where('tb_surat_jalan', ['id_contact' => $store3['id_contact'], 'is_closing' => 1])->row_array()
                 ?>
-                <?php if ($store3['status_from'] == 'active' && $store3['status_to'] == 'passive') : ?>
+                <?php if ($store3['status_from'] == 'active' && $store3['status_to'] == 'passive' && $lastOrder != null) : ?>
                     <tr>
                         <td class="text-center"><?= $store3['nama'] ?></td>
                         <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>

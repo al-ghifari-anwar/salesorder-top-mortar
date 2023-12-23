@@ -43,6 +43,15 @@ class MVoucher extends CI_Model
         return array("status" => $status, "voucher_bermasalah" => $voucherBermasalah);
     }
 
+    public function getByIdContact($id_contact)
+    {
+        // $this->db->join('tb_contact', 'tb_contact.id_contact = tb_voucher.id_contact');
+        $this->db->order_by('tb_voucher.date_voucher', 'DESC');
+        $query = $this->db->get_where('tb_voucher', ['tb_voucher.id_contact' => $id_contact])->result_array();
+
+        return $query;
+    }
+
     public function getByNomor()
     {
         $post = $this->input->post();
