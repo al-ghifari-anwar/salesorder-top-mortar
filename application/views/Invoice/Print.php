@@ -219,7 +219,7 @@ function penyebut($nilai)
                     foreach ($produk as $dataProduk) : ?>
                         <tr>
                             <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
-                            <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "(Retur)" : "" ?></b></td>
+                            <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "(Retur)" : "" ?></b> <?= $dataProduk['no_voucher'] == null ? '' : "(" . $dataProduk['no_voucher'] . ")" ?></td>
                             <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
                             <td class="border-r">SAK</td>
                             <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
@@ -388,7 +388,7 @@ function penyebut($nilai)
                     foreach ($produk as $dataProduk) : ?>
                         <tr>
                             <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
-                            <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "(Retur)" : "" ?></b></td>
+                            <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "(Retur)" : "" ?></b> <?= $dataProduk['no_voucher'] == null ? '' : "(" . $dataProduk['no_voucher'] . ")" ?></td>
                             <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
                             <td class="border-r">SAK</td>
                             <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
