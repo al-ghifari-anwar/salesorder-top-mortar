@@ -10,6 +10,7 @@ class MDetailSuratJalan extends CI_Model
     public $qty_produk;
     public $amount;
     public $is_bonus;
+    public $no_voucher;
 
     public function getAll($id_surat_jalan)
     {
@@ -89,12 +90,19 @@ class MDetailSuratJalan extends CI_Model
         $produk = $this->db->get_where('tb_produk', ['id_produk' => $post['id_produk']])->row_array();
         $this->price = $produk['harga_produk'];
         $retur = $post['is_retur'];
+        $is_voucher = $post['is_voucher'];
+
         if ($retur == false) {
             $this->amount = $produk['harga_produk'] * $post['qty_produk'];
             $this->is_bonus = 0;
         } else {
             $this->amount = 0;
             $this->is_bonus = 2;
+        }
+
+        if ($is_voucher == true) {
+            $this->no_voucher = $post['no_vouchers'];
+            $this->is_bonus = 1;
         }
 
         $query = $this->db->insert('tb_detail_surat_jalan', $this);

@@ -202,7 +202,7 @@
                         <div class="row">
                             <div class="col-5 mr-auto">
                                 <label for="">Gunakan Voucher</label>
-                                <input type="checkbox" name="is_voucher" id="is_voucher" onclick="setVoucher()">
+                                <input type="checkbox" name="is_voucher" id="is_voucher">
                             </div>
                             <div class="col-3 ml-auto">
                                 <label for="">Is Retur?</label>
@@ -221,7 +221,8 @@
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                 <strong><i class="fas fa-exclamation-triangle"></i></strong> Toko ini memiliki <?= count($vouchers) ?> kode voucher. (<?= $vouchersStr ?>)
                             </div>
-                        <?php endif ?>
+                            <input type="text" value="<?= $vouchersStr ?>" name="no_vouchers">
+                        <?php endif; ?>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>
@@ -232,19 +233,3 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<script>
-    function setVoucher() {
-        var jmlVoucher = <?= count($vouchers) ?>;
-        var is_voucher = document.getElementById("is_voucher");
-        if (is_voucher.checked == true) {
-            console.log("VOucher");
-            // console.log("voucher: " + jmlVoucher);
-            // document.getElementById("qty_produk").value = jmlVoucher;
-            // document.getElementById("qty_produk").disabled = true;
-        } else {
-            console.log("No VOucher");
-            // document.getElementById("qty_produk").value = "0";
-            // document.getElementById("qty_produk").disabled = false;
-        }
-    }
-</script>
