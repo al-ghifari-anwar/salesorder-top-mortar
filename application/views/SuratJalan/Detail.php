@@ -108,7 +108,7 @@
                                     foreach ($detail as $data) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['nama_produk'] ?></td>
+                                            <td><?= $data['nama_produk'] ?> <b><?= $data['no_voucher'] == null ? '' : '(' . $data['no_voucher'] . ')' ?></b></td>
                                             <td><?= $data['harga_produk'] ?></td>
                                             <td><?= $data['qty_produk'] ?></td>
                                             <td><?= $data['is_bonus'] == 1 || $data['is_bonus'] == 2 ? 'Yes' : 'No' ?></td>
