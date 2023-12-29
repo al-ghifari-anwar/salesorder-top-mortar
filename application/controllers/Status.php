@@ -58,10 +58,13 @@ class Status extends CI_Controller
 
         $data['city'] = $this->MCity->getById($id_city);
         // $data['sales'] = $this->MVisit->getGroupedContact($id_user, $id_city, $month);
+        $this->db->select("id_status_change, tb_status_change.id_contact, MAX(tb_status_change.created_at) AS created_at");
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $this->db->group_by('tb_status_change.id_contact');
         $data['store'] = $this->db->get_where('tb_status_change', ['MONTH(tb_status_change.created_at) ' => $month, 'tb_contact.id_city' => $id_city])->result_array();
+        // echo $this->db->last_query();
+        // die;
         $data['month'] = $month;
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);

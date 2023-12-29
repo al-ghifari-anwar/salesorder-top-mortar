@@ -21,11 +21,11 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Tambah Voucher</h1>
+                    <h1 class="m-0">Claim Voucher</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Tambah Voucher</a></li>
+                        <!-- <li class="breadcrumb-item"><a href="#">Tambah Voucher</a></li> -->
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -40,9 +40,9 @@
                 <div class="col-12 col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <!-- <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
-                                Lihat Semua Voucher
-                            </button> -->
+                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-tutor">
+                                Tutorial
+                            </button>
                         </div>
                         <div class="card-body">
                             <form action="<?= base_url('claim') ?>" method="POST">
