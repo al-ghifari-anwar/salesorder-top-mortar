@@ -58,7 +58,7 @@ class Status extends CI_Controller
 
         $data['city'] = $this->MCity->getById($id_city);
         // $data['sales'] = $this->MVisit->getGroupedContact($id_user, $id_city, $month);
-        $this->db->select("id_status_change, tb_status_change.id_contact, MAX(tb_status_change.created_at) AS created_at");
+        $this->db->select("MAX(id_status_change) AS id_status_change, tb_status_change.id_contact, MAX(tb_status_change.created_at) AS created_at");
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $this->db->group_by('tb_status_change.id_contact');
