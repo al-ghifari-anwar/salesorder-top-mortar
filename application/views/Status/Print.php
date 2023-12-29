@@ -138,7 +138,7 @@ function penyebut($nilai)
                 <?php
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
                 $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-                $store2 = $this->db->get_where('tb_status_change', ['id_status_change ' => $store1['id_status_change']])->row_array();
+                $store2 = $this->db->get_where('tb_status_change', ['id_status_change ' => $store2['id_status_change']])->row_array();
                 $this->db->select("MAX(date_closing) as date_order");
                 $this->db->group_by('id_contact');
                 $lastOrder = $this->db->get_where('tb_surat_jalan', ['id_contact' => $store2['id_contact'], 'is_closing' => 1])->row_array()
@@ -158,7 +158,7 @@ function penyebut($nilai)
                 <?php
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
                 $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-                $store3 = $this->db->get_where('tb_status_change', ['id_status_change ' => $store1['id_status_change']])->row_array();
+                $store3 = $this->db->get_where('tb_status_change', ['id_status_change ' => $store3['id_status_change']])->row_array();
                 $this->db->select("MAX(date_closing) as date_order");
                 $this->db->group_by('id_contact');
                 $lastOrder = $this->db->get_where('tb_surat_jalan', ['id_contact' => $store3['id_contact'], 'is_closing' => 1])->row_array()
