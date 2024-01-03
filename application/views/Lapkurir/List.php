@@ -42,45 +42,33 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <!-- <div class="col-12">
-                                    <form action="" method="POST">
-                                        <div class="row">
-                                            <label>Date range:</label>
-                                            <div class="form-group ml-3">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                    <?php
-                                                    $dateFrom = date("m/d/Y", strtotime("26th day of previous month"));
-                                                    $dateTo = date("m/d/Y", strtotime("25th day of current month"));
-                                                    ?>
-                                                    <input type="text" class="form-control float-right" id="reservation" name="date_range">
-                                                </div>
-                                            </div>
-                                            <?php
-                                            $user = $this->db->get_where('tb_user', ['id_city' => $id_city, 'level_user' => 'sales'])->result_array();
-                                            ?>
-                                            <label for="">Sales:</label>
-                                            <div class="form-group">
-                                                <select name="id_user" id="select2bs4" class="form-control select2bs4">
-                                                    <option value="0">Semua</option>
-                                                    <?php foreach ($user as $user) : ?>
-                                                        <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <div class="form-group ml-3">
-                                                <button type="submit" class="btn btn-primary">Filter</button>
-                                            </div>
+                                <form action="<?= base_url('lap-absen/' . $id_city . "/" . 'courier') ?>" method="POST" target="__blank">
+                                    <div class="row">
+                                        <?php
+                                        $month = date("m")
+                                        ?>
+                                        <label for="">Bulan:</label>
+                                        <div class="form-group">
+                                            <select name="bulan" id="select2bs4" class="form-control select2bs4">
+                                                <option value="1" <?= $month == 1 ? 'selected' : '' ?>>Januari</option>
+                                                <option value="2" <?= $month == 2 ? 'selected' : '' ?>>Februari</option>
+                                                <option value="3" <?= $month == 3 ? 'selected' : '' ?>>Maret</option>
+                                                <option value="4" <?= $month == 4 ? 'selected' : '' ?>>April</option>
+                                                <option value="5" <?= $month == 5 ? 'selected' : '' ?>>Mei</option>
+                                                <option value="6" <?= $month == 6 ? 'selected' : '' ?>>Juni</option>
+                                                <option value="7" <?= $month == 7 ? 'selected' : '' ?>>Juli</option>
+                                                <option value="8" <?= $month == 8 ? 'selected' : '' ?>>Agustus</option>
+                                                <option value="9" <?= $month == 9 ? 'selected' : '' ?>>September</option>
+                                                <option value="10" <?= $month == 10 ? 'selected' : '' ?>>Oktober</option>
+                                                <option value="11" <?= $month == 11 ? 'selected' : '' ?>>November</option>
+                                                <option value="12" <?= $month == 12 ? 'selected' : '' ?>>Desember</option>
+                                            </select>
                                         </div>
-                                    </form>
-                                </div> -->
-                                <!-- <div class="col-5">
-                                    <a href="<?= base_url('report') ?>" class="btn btn-primary float-right">Semua</a>
-                                </div> -->
+                                        <div class="form-group ml-3">
+                                            <button type="submit" class="btn btn-primary">Cetak Absen</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="card-body">

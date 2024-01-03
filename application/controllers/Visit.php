@@ -120,4 +120,22 @@ class Visit extends CI_Controller
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
+
+    public function lap_absen($id_city, $type)
+    {
+        $post = $this->input->post();
+        $month = $post['bulan'];
+
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['user'] = $this->MVisit->getGroupedContactGlobal($id_city, $month, $type);
+        $data['month'] = $month;
+        $data['type'] = $type;
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Visit/Print', $data, true);
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
 }
