@@ -45,7 +45,7 @@
                             </button> -->
                         </div>
                         <div class="card-body">
-                            <form action="<?= base_url('reg-voucher/' . $id_city) ?>" method="POST">
+                            <!-- <form action="<?= base_url('reg-voucher/' . $id_city) ?>" method="POST">
                                 <input type="text" name="no_surat_jalan" class="form-control" value="<?= "DO-" . rand(10000000, 99999999) ?>" hidden>
                                 <div class="form-group">
                                     <label for="">Toko</label>
@@ -64,7 +64,7 @@
                                     <input type="number" name="point_voucher" id="" class="form-control" value="1" hidden>
                                 </div>
                                 <button class="btn btn-primary float-right">Simpan</button>
-                            </form>
+                            </form> -->
                         </div>
                     </div>
                 </div>
