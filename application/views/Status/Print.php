@@ -100,6 +100,14 @@ function penyebut($nilai)
         .page {
             height: 50%;
         }
+
+        .bg-green {
+            background-color: green;
+        }
+
+        .bg-red {
+            background-color: red;
+        }
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Rekap Status Toko</h1>
@@ -109,6 +117,7 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Nama Toko</th>
             <th style="border-bottom: 1px solid black;">Tgl Order</th>
             <th style="border-bottom: 1px solid black;">Kota</th>
+            <th style="border-bottom: 1px solid black;">Reputation</th>
         </tr>
         <?php if ($store != null) : ?>
             <tr>
@@ -128,6 +137,7 @@ function penyebut($nilai)
                         <td class="text-center"><?= $store1['nama'] ?></td>
                         <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
                         <td class="text-center"><?= $store1['nama_city'] ?></td>
+                        <td class="text-center <?= $store1['reputation'] == 'good' ? 'bg-green' : 'bg-red' ?>"><?= $store1['reputation'] ?></td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -148,6 +158,7 @@ function penyebut($nilai)
                         <td class="text-center"><?= $store2['nama'] ?></td>
                         <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
                         <td class="text-center"><?= $store2['nama_city'] ?></td>
+                        <td class="text-center <?= $store2['reputation'] == 'good' ? 'bg-green' : 'bg-red' ?>"><?= $store2['reputation'] ?></td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -168,6 +179,7 @@ function penyebut($nilai)
                         <td class="text-center"><?= $store3['nama'] ?></td>
                         <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_order'])) ?></td>
                         <td class="text-center"><?= $store3['nama_city'] ?></td>
+                        <td class="text-center <?= $store3['reputation'] == 'good' ? 'bg-green' : 'bg-red' ?>"><?= $store3['reputation'] ?></td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
