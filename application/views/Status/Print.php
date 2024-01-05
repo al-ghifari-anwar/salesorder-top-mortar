@@ -121,7 +121,7 @@ function penyebut($nilai)
         </tr>
         <?php if ($store != null) : ?>
             <tr>
-                <th class="text-center" colspan="3">Data -> Active</th>
+                <th class="text-center" colspan="4">Data -> Active</th>
             </tr>
             <?php foreach ($store as $store1) : ?>
                 <?php
@@ -142,7 +142,7 @@ function penyebut($nilai)
                 <?php endif; ?>
             <?php endforeach; ?>
             <tr>
-                <th class="text-center" colspan="3">Passive -> Active</th>
+                <th class="text-center" colspan="4">Passive -> Active</th>
             </tr>
             <?php foreach ($store as $store2) : ?>
                 <?php
@@ -163,7 +163,7 @@ function penyebut($nilai)
                 <?php endif; ?>
             <?php endforeach; ?>
             <tr>
-                <th class="text-center" colspan="3">Active -> Passive</th>
+                <th class="text-center" colspan="4">Active -> Passive</th>
             </tr>
             <?php foreach ($store as $store3) : ?>
                 <?php
