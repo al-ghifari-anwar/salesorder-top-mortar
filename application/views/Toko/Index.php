@@ -41,6 +41,30 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
+                            <form action="" method="POST">
+                                <div class="row">
+                                    <label for="">Kota</label>
+                                    <div class="form-group ml-3">
+                                        <select name="id_city" id="select2bs4" class="form-control select2bs4">
+                                            <option value="0">Semua</option>
+                                            <?php foreach ($city as $city) : ?>
+                                                <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <label for="">Status</label>
+                                    <div class="form-group ml-3">
+                                        <select name="status" id="select2bs4" class="form-control select2bs4">
+                                            <option value="data">Data (Kuning)</option>
+                                            <option value="active">Aktif (Hijau)</option>
+                                            <option value="passive">Pasif (Abu-abu)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group ml-3">
+                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                    </div>
+                                </div>
+                            </form>
                             <!-- <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                 Tambah Data
                             </button> -->

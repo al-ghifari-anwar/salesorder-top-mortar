@@ -33,6 +33,16 @@ class MContact extends CI_Model
         return $query;
     }
 
+    public function getByCityStatus($id_city, $status)
+    {
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        if ($id_city != 0) {
+            $this->db->where('tb_city.id_city', $id_city);
+        }
+        $query = $this->db->get_where('tb_contact', ['store_status' => $status])->result_array();
+        return $query;
+    }
+
     public function getById($id)
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
