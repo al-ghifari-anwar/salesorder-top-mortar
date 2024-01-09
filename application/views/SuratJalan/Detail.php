@@ -200,10 +200,12 @@
                     </div>
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-5 mr-auto">
-                                <label for="">Gunakan Voucher</label>
-                                <input type="checkbox" name="is_voucher" id="is_voucher">
-                            </div>
+                            <?php if ($vouchers != null) : ?>
+                                <div class="col-5 mr-auto">
+                                    <label for="">Gunakan Voucher</label>
+                                    <input type="checkbox" name="is_voucher" id="is_voucher">
+                                </div>
+                            <?php endif; ?>
                             <div class="col-3 ml-auto">
                                 <label for="">Is Retur?</label>
                                 <input type="checkbox" name="is_retur" id="">
