@@ -40,9 +40,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <!-- <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
-                                Tambah Data
-                            </button> -->
+                            <?php if ($this->session->userdata('level_user') == 'salesleader') : ?>
+                                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
+                                    Tambah Voucher
+                                </button>
+                            <?php endif; ?>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
@@ -89,3 +91,36 @@
     </div>
 </aside>
 <!-- /.control-sidebar -->
+
+<div class="modal fade" id="modal-insert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data Kota</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('insert-city') ?>" method="POST">
+                    <div class="form-group">
+                        <label for="">Nama Toko</label>
+                        <select name="id_contact" id="select2bs4" class="select2bs4">
+                            <?php foreach ($contact as $contact) : ?>
+                                <option value="<?= $contact['id_contact'] ?>"><?= $contact['nama'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Jumlah Voucher</label>
+                        <input type="number" name="jml_voucher" class="form-control">
+                    </div>
+                    <button class="btn btn-primary float-right">Simpan</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -38,6 +38,7 @@ class Voucher extends CI_Controller
         $data['title'] = 'Voucher List';
         $data['city'] = $this->MCity->getAll();
         $data['voucher'] = $this->MVoucher->getByCity($id_city);
+        $data['contact'] = $this->MContact->getAllForVouchers($id_city);
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Voucher/List');
@@ -47,28 +48,116 @@ class Voucher extends CI_Controller
 
     public function regist_voucher($id_city)
     {
-        $this->form_validation->set_rules('no_voucher', 'Nomor Voucher', 'required|is_unique[tb_voucher.no_voucher]');
+        date_default_timezone_set('Asia/Jakarta');
 
-        $data['title'] = 'Register Voucher';
-        $data['id_city'] = $id_city;
+        $curl = curl_init();
+        $id_contact = $_POST['id_contact'];
+        $jml_voucher = $_POST['jml_voucher'];
 
-        if ($this->form_validation->run() == false) {
-            $data['store'] = $this->MContact->getAllForVouchers($id_city);
-            $this->load->view('Theme/Header', $data);
-            $this->load->view('Theme/Menu');
-            $this->load->view('Voucher/Register');
-            $this->load->view('Theme/Footer');
-            $this->load->view('Theme/Scripts');
-        } else {
-            $insert = $this->MVoucher->insert();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://saleswa.topmortarindonesia.cominsertVoucher.php?j=' . $jml_voucher . '&s=' . $id_contact,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
 
-            if ($insert["status"] == "good") {
-                $this->session->set_flashdata('success', "Berhasil menyimpan voucher! ");
-                redirect('reg-voucher/' . $id_city);
-            } else if ($insert["status"] == "problem") {
-                $this->session->set_flashdata('success', "Beberapa voucher telah tersimpan. " . $insert['voucher_bermasalah'] . " tidak tersimpan karena salah format (5 digit)");
-                redirect('reg-voucher/' . $id_city);
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $res = json_decode($response, true);
+
+        $status = $res['status'];
+
+        if ($status == 'ok') {
+            // Get Qontak
+            $id_distributor = $this->session->userdata('id_distributor');
+            $qontak = $this->db->query("SELECT * FROM tb_qontak WHERE id_distributor = '$id_distributor'")->row_array();
+            $template_id = "750b1da6-d14f-4549-99b4-999cdfa6e708";
+            $integration_id = $qontak['integration_id'];
+            $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
+
+            // Get Contacts
+            $contact = $this->MContact->getById($id_contact);
+
+            // Get Vuchers
+            $dateNow = date("m-d");
+            $getVoucher = $this->db->query("SELECT * FROM tb_voucher WHERE id_contact = '$id_contact' AND is_claimed = 0 AND date_voucher LIKE '%$dateNow%' ")->result_array();
+            $vouchers = "";
+            foreach ($getVoucher as $voucherArr) {
+                $vouchers .= $voucherArr['no_voucher'] . ",";
             }
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                                        "to_number": "' . $contact['nomorhp'] . '",
+                                        "to_name": "' . $contact['nama'] . '",
+                                        "message_template_id": "' . $template_id . '",
+                                        "channel_integration_id": "' . $integration_id . '",
+                                        "language": {
+                                            "code": "id"
+                                        },
+                                        "parameters": {
+                                            "body": [
+                                                {
+                                                    "key": "1",
+                                                    "value": "nama",
+                                                    "value_text": "' . $contact['nama'] . '"
+                                                },
+                                                {
+                                                    "key": "2",
+                                                    "value": "jml_voucher",
+                                                    "value_text": "' . $jml_voucher . '"
+                                                },
+                                                {
+                                                    "key": "3",
+                                                    "value": "no_voucher",
+                                                    "value_text": "' . $vouchers . '"
+                                                },
+                                                {
+                                                    "key": "4",
+                                                    "value": "date_voucher",
+                                                    "value_text": "' . date("d M, Y", strtotime("+30 days")) . '"
+                                                }
+                                            ]
+                                        }
+                                        }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            $status = $res['status'];
+
+            if ($status == 'success') {
+                $this->session->set_flashdata('success', "Berhasil kirim voucher!");
+                redirect('voucher-list/' . $id_city);
+            } else {
+                $this->session->set_flashdata('warning', "Berhasil kirim voucher, tapi notif tidak terkirim!");
+                redirect('voucher-list/' . $id_city);
+            }
+        } else {
+            $this->session->set_flashdata('failed', "Gagal kirim voucher!");
+            redirect('voucher-list/' . $id_city);
         }
     }
 
