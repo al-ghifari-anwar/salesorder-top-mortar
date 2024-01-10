@@ -24,7 +24,11 @@ class Status extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Rekap Status';
-        $data['city'] = $this->MCity->getAll();
+        if ($this->session->userdata('id_city') == '12') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Status/Index');
