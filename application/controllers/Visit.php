@@ -27,7 +27,11 @@ class Visit extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Visit';
-        $data['city'] = $this->MCity->getAll();
+        if ($this->session->userdata('id_city') == '12') {
+            $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Visit/Index');
