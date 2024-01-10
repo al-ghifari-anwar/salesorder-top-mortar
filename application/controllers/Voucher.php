@@ -22,7 +22,11 @@ class Voucher extends CI_Controller
     public function index()
     {
         $data['title'] = 'Voucher';
-        $data['city'] = $this->MCity->getAllGlobal();
+        if ($this->session->userdata('id_city') == '12') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => 0])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Voucher/Index');
