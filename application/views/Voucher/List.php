@@ -102,7 +102,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('insert-city') ?>" method="POST">
+                <form action="<?= base_url('reg-voucher/' . $id_city) ?>" method="POST">
                     <div class="form-group">
                         <label for="">Nama Toko</label>
                         <select name="id_contact" id="select2bs4" class="select2bs4">

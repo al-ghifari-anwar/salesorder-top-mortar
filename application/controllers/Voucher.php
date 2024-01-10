@@ -39,6 +39,7 @@ class Voucher extends CI_Controller
         $data['city'] = $this->MCity->getAll();
         $data['voucher'] = $this->MVoucher->getByCity($id_city);
         $data['contact'] = $this->MContact->getAllForVouchers($id_city);
+        $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Voucher/List');
