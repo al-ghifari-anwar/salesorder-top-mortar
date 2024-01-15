@@ -60,7 +60,7 @@ class Voucher extends CI_Controller
         $jml_voucher = $_POST['jml_voucher'];
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/insertVoucher.php?j=' . $jml_voucher . '&s=' . $id_contact,
+            CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/insertVoucher.php?j=' . $jml_voucher . '&s=' . $id_contact . '&t=m',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
