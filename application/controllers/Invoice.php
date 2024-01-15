@@ -26,7 +26,11 @@ class Invoice extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Invoice';
-        $data['city'] = $this->MCity->getAll();
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Invoice/Index');

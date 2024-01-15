@@ -24,7 +24,7 @@ class Sales extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Rekap Sales';
-        if ($this->session->userdata('id_city') == '12') {
+        if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
             $data['city'] = $this->MCity->getAll();
