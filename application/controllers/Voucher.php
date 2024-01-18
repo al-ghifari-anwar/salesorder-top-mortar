@@ -22,8 +22,8 @@ class Voucher extends CI_Controller
     public function index()
     {
         $data['title'] = 'Voucher';
-        if ($this->session->userdata('id_city') == '12') {
-            $data['city'] = $this->db->get_where('tb_city', ['id_city' => 0])->result_array();
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
             $data['city'] = $this->MCity->getAll();
         }
