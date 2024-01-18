@@ -181,7 +181,7 @@ function penyebut($nilai)
                         $total_activeToPassive++;
                     }
                 }
-                echo $dataActivePassive;
+                echo json_encode($dataActivePassive);
                 die;
                 ?>
                 <tr>
