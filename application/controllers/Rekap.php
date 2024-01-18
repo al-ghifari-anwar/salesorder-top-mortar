@@ -25,7 +25,11 @@ class Rekap extends CI_Controller
     public function index()
     {
         $data['title'] = 'Rekap Invoice';
-        $data['toko'] = $this->MContact->getAllDefault();
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
+        } else {
+            $data['toko'] = $this->MContact->getAllDefault();
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Rekap/Index');
