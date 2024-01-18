@@ -180,8 +180,8 @@ function penyebut($nilai)
                     if ($dataActivePassive['status_from'] == 'active' && $dataActivePassive['status_to'] == 'passive') {
                         $total_activeToPassive++;
                     }
+                    echo json_encode($dataActivePassive);
                 }
-                echo json_encode($dataActivePassive);
                 die;
                 ?>
                 <tr>
