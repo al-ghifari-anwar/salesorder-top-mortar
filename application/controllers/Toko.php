@@ -19,14 +19,26 @@ class Toko extends CI_Controller
         $post = $this->input->post();
         $data['title'] = 'Toko';
 
-        if ($post) {
-            $id_city = $post['id_city'];
-            $status = $post['status'];
-            $data['toko'] = $this->MContact->getByCityStatus($id_city, $status);
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $id_city = $this->session->userdata('id_city');
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $id_city])->result_array();
+            if ($post) {
+                $id_city = $post['id_city'];
+                $status = $post['status'];
+                $data['toko'] = $this->MContact->getByCityStatus($id_city, $status);
+            } else {
+                $data['toko'] = $this->MContact->getAll($id_city);
+            }
         } else {
-            $data['toko'] = $this->MContact->getAllDefault();
+            $data['city'] = $this->MCity->getAll();
+            if ($post) {
+                $id_city = $post['id_city'];
+                $status = $post['status'];
+                $data['toko'] = $this->MContact->getByCityStatus($id_city, $status);
+            } else {
+                $data['toko'] = $this->MContact->getAllDefault();
+            }
         }
-        $data['city'] = $this->MCity->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Toko/Index');

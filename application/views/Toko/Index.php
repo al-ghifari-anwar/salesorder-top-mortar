@@ -46,7 +46,9 @@
                                     <label for="">Kota</label>
                                     <div class="form-group ml-3">
                                         <select name="id_city" id="select2bs4" class="form-control select2bs4">
-                                            <option value="0">Semua</option>
+                                            <?php if ($this->session->userdata('level_user') != 'admin_c') : ?>
+                                                <option value="0">Semua</option>
+                                            <?php endif; ?>
                                             <?php foreach ($city as $city) : ?>
                                                 <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
                                             <?php endforeach; ?>
