@@ -181,8 +181,8 @@ function penyebut($nilai)
                         $total_activeToPassive++;
                     }
                 }
-                // echo $total_penjualan;
-                // die;
+                echo $dataActivePassive;
+                die;
                 ?>
                 <tr>
                     <td></td>
