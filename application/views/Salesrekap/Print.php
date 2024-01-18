@@ -179,9 +179,9 @@ function penyebut($nilai)
                     $dataActivePassive = $this->db->get_where('tb_status_change', ['id_status_change ' => $activeToPassive['id_status_change']])->row_array();
                     if ($dataActivePassive['status_from'] == 'active' && $dataActivePassive['status_to'] == 'passive') {
                         $total_activeToPassive++;
-                        echo json_encode($dataActivePassive);
                     }
                 }
+                echo json_encode($activeToPassive);
                 die;
                 ?>
                 <tr>
