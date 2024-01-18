@@ -174,7 +174,7 @@ function penyebut($nilai)
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
                 $this->db->group_by('tb_status_change.id_contact');
                 $activeToPassive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city'], 'status_from' => 'active', 'status_to' => 'passive', 'MONTH(tb_status_change.created_at)' => $month])->result_array();
-                echo json_encode($activeToPassive);
+                echo $this->db->last_query();
                 die;
                 $total_activeToPassive = 0;
                 foreach ($activeToPassive as $activeToPassive) {
