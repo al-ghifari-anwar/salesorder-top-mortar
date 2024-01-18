@@ -153,7 +153,7 @@ function penyebut($nilai)
                 $total_dataToActive = 0;
                 foreach ($dataToActive as $dataToActive) {
                     $dataDataActive = $this->db->get_where('tb_status_change', ['id_status_change ' => $dataToActive['id_status_change']])->row_array();
-                    if ($dataDataActive['status_from'] == 'active' && $dataDataActive['status_to'] == 'passive') {
+                    if ($dataDataActive['status_from'] == 'data' && $dataDataActive['status_to'] == 'active') {
                         $total_dataToActive++;
                     }
                 }
@@ -165,7 +165,7 @@ function penyebut($nilai)
                 $total_passiveToActive = 0;
                 foreach ($passiveToActive as $passiveToActive) {
                     $dataPassiveActive = $this->db->get_where('tb_status_change', ['id_status_change ' => $passiveToActive['id_status_change']])->row_array();
-                    if ($dataPassiveActive['status_from'] == 'active' && $dataPassiveActive['status_to'] == 'passive') {
+                    if ($dataPassiveActive['status_from'] == 'passive' && $dataPassiveActive['status_to'] == 'active') {
                         $total_passiveToActive++;
                     }
                 }
