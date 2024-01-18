@@ -126,6 +126,9 @@ class MInvoice extends CI_Model
         if ($id_contact != 0) {
             $this->db->where('tb_contact.id_contact', $id_contact);
         }
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $this->db->where('tb_city.id_city', $this->session->userdata('id_city'));
+        }
         $query = $this->db->get_where('tb_invoice', ['date_payment >= ' => $dateFrom, 'date_payment <= ' => $dateTo, 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         // echo $this->db->last_query();
         // die;
