@@ -23,7 +23,11 @@ class Penjualan extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Produk';
-        $data['city'] = $this->MCity->getAll();
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
         $dateRange = $this->input->post("date_range");
         if ($dateRange) {
             $dates = explode("-", $dateRange);
