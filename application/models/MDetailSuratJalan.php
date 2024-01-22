@@ -107,6 +107,7 @@ class MDetailSuratJalan extends CI_Model
         }
 
         if ($is_voucher == true) {
+            $this->amount = 0;
             $this->no_voucher = $post['no_vouchers'];
             $this->is_bonus = 1;
         }
