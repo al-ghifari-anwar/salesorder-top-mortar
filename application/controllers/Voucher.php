@@ -82,7 +82,7 @@ class Voucher extends CI_Controller
             // Get Qontak
             $id_distributor = $this->session->userdata('id_distributor');
             $qontak = $this->db->query("SELECT * FROM tb_qontak WHERE id_distributor = '$id_distributor'")->row_array();
-            $template_id = "7352c89d-ec94-4c1a-bbd6-ff0003e9c2a1";
+            $template_id = "c4504076-8fc7-44a0-9534-9f6ebc3e56e5";
             $integration_id = $qontak['integration_id'];
             $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
 
@@ -115,6 +115,19 @@ class Voucher extends CI_Controller
                                             "code": "id"
                                         },
                                         "parameters": {
+                                            "header":{
+                                                "format":"IMAGE",
+                                                "params": [
+                                                    {
+                                                        "key":"url",
+                                                        "value":"https://saleswa.topmortarindonesia.com/img/vc_passive.jpg"
+                                                    },
+                                                    {
+                                                        "key":"filename",
+                                                        "value":"bday.jpg"
+                                                    }
+                                                ]
+                                            },
                                             "body": [
                                                 {
                                                     "key": "1",
