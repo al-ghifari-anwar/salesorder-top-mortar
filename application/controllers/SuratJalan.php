@@ -226,4 +226,24 @@ class SuratJalan extends CI_Controller
             redirect('surat-jalan');
         }
     }
+
+    public function print($id)
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $suratjalan = $this->MSuratJalan->getById($id);
+        $data['suratjalan'] = $suratjalan;
+        $data['store'] = $this->MContact->getById($suratjalan['id_contact']);
+        $data['kendaraan'] = $this->MKendaraan->getById($suratjalan['id_kendaraan']);
+        $data['courier'] = $this->MUser->getById($suratjalan['id_courier']);
+        $data['produk'] = $this->MDetailSuratJalan->getAll($suratjalan['id_surat_jalan']);
+
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('SuratJalan/Print', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
 }
