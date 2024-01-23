@@ -141,7 +141,11 @@ class Visit extends CI_Controller
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Visit/Print', $data, true);
+        if ($type == 'courier') {
+            $html = $this->load->view('Visit/Print', $data, true);
+        } else if ($type == 'sales') {
+            $html = $this->load->view('Visit/PrintSales', $data, true);
+        }
         $mpdf->AddPage('L');
         $mpdf->WriteHTML($html);
         $mpdf->Output();

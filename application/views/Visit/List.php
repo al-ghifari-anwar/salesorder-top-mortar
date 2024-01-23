@@ -43,7 +43,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <form action="" method="POST">
+                                    <form action="<?= base_url('lap-absen/' . $id_city . "/" . 'sales') ?>" method="POST" target="__blank">
                                         <div class="row">
                                             <!-- <label>Date range:</label>
                                             <div class="form-group ml-3">
@@ -80,7 +80,7 @@
                                                     <option value="12">Desember</option>
                                                 </select>
                                             </div>
-                                            <label for="">Sales:</label>
+                                            <!-- <label for="">Sales:</label>
                                             <div class="form-group">
                                                 <select name="id_user" id="select2bs4" class="form-control select2bs4">
                                                     <option value="0">Semua</option>
@@ -88,7 +88,7 @@
                                                         <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
                                             </div>
