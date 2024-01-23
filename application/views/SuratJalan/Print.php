@@ -186,7 +186,7 @@ function penyebut($nilai)
 
         <!-- Totals and Payment -->
         <div class="row">
-            <p>Kurir: <?= $courier['full_name'] ?></p>
+            <p>Kurir: <?= $suratjalan['full_name'] ?></p>
             <p>Kendaraan: <?= $kendaraan['nama_kendaraan'] ?></p>
             <p>No. Polisi: <?= $kendaraan['nopol_kendaraan'] ?></p>
         </div>
@@ -283,7 +283,7 @@ function penyebut($nilai)
 
         <!-- Totals and Payment -->
         <div class="row">
-            <p>Kurir: <?= $courier['full_name'] ?></p>
+            <p>Kurir: <?= $suratjalan['full_name'] ?></p>
             <p>Kendaraan: <?= $kendaraan['nama_kendaraan'] ?></p>
             <p>No. Polisi: <?= $kendaraan['nopol_kendaraan'] ?></p>
         </div>
