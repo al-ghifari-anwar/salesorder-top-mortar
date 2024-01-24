@@ -54,6 +54,7 @@
                                         <th>No Voucher</th>
                                         <th>Tanggal</th>
                                         <th>Toko</th>
+                                        <th>Type</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -66,6 +67,7 @@
                                             <td><?= $data['no_voucher'] ?></td>
                                             <td><?= date("d M Y", strtotime($data['date_voucher'])) ?></td>
                                             <td><?= $data['nama'] ?></td>
+                                            <td><?= $data['type_voucher'] ?></td>
                                             <td><?= $data['is_claimed'] == 0 ? 'Not Claimed' : 'Claimed' ?></td>
                                         </tr>
                                     <?php endforeach; ?>
