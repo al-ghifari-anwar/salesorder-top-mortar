@@ -139,3 +139,7 @@ $route['rekap-status/(:num)'] = 'Status/rekap_fee/$1';
 $route['print-rekap-status'] = 'Status/print_rekap';
 // Absen
 $route['lap-absen/(:num)/(:any)'] = 'Visit/lap_absen/$1/$2';
+// MArketing Message
+$route['marketing'] = 'Marketing';
+$route['insert-marketing'] = 'Marketing/insert';
+$route['delete-marketing/(:num)'] = 'Marketing/delete/$1';

@@ -115,7 +115,18 @@
                                 </li>
                             <?php endif; ?>
                             <!-- <li class="nav-header">Data</li> -->
-                            <?php if ($this->session->userdata('level_user') != 'superadmin') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'marketing') : ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('marketing') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-shopping-bag"></i>
+                                        <p>
+                                            Marketing
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($this->session->userdata('level_user') != 'superadmin' && $this->session->userdata('level_user') != 'marketing') : ?>
                                 <?php if ($this->session->userdata('level_user') != 'salesleader') : ?>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
@@ -319,7 +330,7 @@
                                     </li>
                                 <?php endif; ?>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') != 'salesleader') : ?>
+                            <?php if ($this->session->userdata('level_user') != 'salesleader' && $this->session->userdata('level_user') != 'marketing') : ?>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-file"></i>
