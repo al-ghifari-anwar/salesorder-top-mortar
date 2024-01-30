@@ -208,15 +208,24 @@ class Voucher extends CI_Controller
     {
         $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
         $template_id = '85f17083-255d-4340-af32-5dd22f483960';
-        $integration_id = '31c076d5-ac80-4204-adc9-964c9b0c590b';
+        // $integration_id = '31c076d5-ac80-4204-adc9-964c9b0c590b';
 
         $post = $this->input->post();
 
         $store = $this->MContact->getById($post['id_contact']);
+        $id_distributor = $store['id_distributor'];
         $vouchers = $post['vouchers_ori'];
 
-        $nomor_hp = "6282131426363";
-        $nama = "Bella";
+        $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+        $integration_id = $qontak['integration_id'];
+
+        if ($id_distributor == 1) {
+            $nomor_hp = '6287757904850';
+        } else {
+            $nomor_hp = '6281128500888';
+        }
+
+        $nama = "Admin";
         $message = "Claim voucher dari toko " . $store['nama'] . " sebanyak " . $post['actual_vouchers'] . " point. Kode voucher: " . $vouchers;
         $full_name = "Automated Message";
 
