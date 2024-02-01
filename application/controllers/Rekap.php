@@ -22,14 +22,30 @@ class Rekap extends CI_Controller
         }
     }
 
-    public function index()
+    public function city_list()
     {
         $data['title'] = 'Rekap Invoice';
         if ($this->session->userdata('level_user') == 'admin_c') {
-            $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Rekap/CityList');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function index($id_city)
+    {
+        $data['title'] = 'Rekap Invoice';
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['toko'] = $this->MContact->getAll($id_city);
         } else {
             $data['toko'] = $this->MContact->getAllDefault();
         }
+        $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Rekap/Index');
@@ -42,12 +58,13 @@ class Rekap extends CI_Controller
         $dateRange = $this->input->post("date_range");
         $id_contact = $this->input->post("id_contact");
         $no_invoice = $this->input->post("no_invoice");
+        $id_city = $this->input->post("id_city");
         if ($no_invoice == null) {
             $no_invoice = 0;
         }
         if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $invoice = $this->MInvoice->getGroupedContact(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact, $no_invoice);
+            $invoice = $this->MInvoice->getGroupedContact(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact, $no_invoice, $id_city);
         } else {
             // $invoice = $this->MInvoice->getAll();
         }

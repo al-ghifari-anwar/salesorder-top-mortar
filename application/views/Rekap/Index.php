@@ -67,8 +67,9 @@
                                             </div>
                                             <label for="">No Invoice:</label>
                                             <div class="form-group">
-                                                <input type="text" name="no_invoice" id="" class="form-control" >
+                                                <input type="text" name="no_invoice" id="" class="form-control">
                                             </div>
+                                            <input type="text" name="id_city" value="<?= $id_city ?>" hidden>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
                                             </div>
