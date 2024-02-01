@@ -220,7 +220,7 @@ class Voucher extends CI_Controller
         $integration_id = $qontak['integration_id'];
 
         if ($id_distributor == 1) {
-            $nomor_hp = '6287757904850';
+            $nomor_hp = '6282131426363';
         } else {
             $nomor_hp = '6281128500888';
         }
