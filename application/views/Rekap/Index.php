@@ -56,6 +56,15 @@
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
+                                            <label for="">Kota:</label>
+                                            <div class="form-group">
+                                                <select name="id_city" id="select2bs4" class="form-control select2bs4">
+                                                    <option value="0">Semua</option>
+                                                    <?php foreach ($city as $city) : ?>
+                                                        <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
                                             <label for="">Toko:</label>
                                             <div class="form-group">
                                                 <select name="id_contact" id="select2bs4" class="form-control select2bs4">
@@ -69,7 +78,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="no_invoice" id="" class="form-control">
                                             </div>
-                                            <input type="text" name="id_city" value="<?= $id_city ?>" hidden>
+                                            <!-- <input type="text" name="id_city" value="<?= $id_city ?>" hidden> -->
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
                                             </div>

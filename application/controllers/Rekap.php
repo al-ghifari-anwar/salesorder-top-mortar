@@ -41,9 +41,11 @@ class Rekap extends CI_Controller
     {
         $data['title'] = 'Rekap Invoice';
         if ($this->session->userdata('level_user') == 'admin_c') {
-            $data['toko'] = $this->MContact->getAll($id_city);
+            $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
+            $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));
         } else {
             $data['toko'] = $this->MContact->getAllDefault();
+            $data['city'] = $this->MCity->getAll();
         }
         $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
