@@ -217,7 +217,7 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="<?= base_url('rekap-city') ?>" class="nav-link">
+                                                <a href="<?= base_url('rep-invoice/0') ?>" class="nav-link">
                                                     <i class="nav-icon fas fa-file-archive"></i>
                                                     <p>
                                                         Rekap Invoice
