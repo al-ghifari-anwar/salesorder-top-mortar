@@ -68,7 +68,17 @@
                                             <td><?= date("d M Y", strtotime($data['date_voucher'])) ?></td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['type_voucher'] ?></td>
-                                            <td><?= $data['is_claimed'] == 0 ? 'Not Claimed' : 'Claimed' ?></td>
+                                            <td>
+                                                <?php
+                                                $dateNow = date('Y-m-d');
+                                                $dateExp = date("Y-m-d", strtotime($data['exp_date']));
+                                                ?>
+                                                <?php if ($dateExp >= $dateNow) { ?>
+                                                    <?= $data['is_claimed'] == 0 ? 'Not Claimed' : 'Claimed' ?>
+                                                <?php } else { ?>
+                                                    <?= 'Expired' ?>
+                                                <?php } ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
