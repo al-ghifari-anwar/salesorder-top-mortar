@@ -278,7 +278,11 @@ function penyebut($nilai)
                 <?php
                 $id_invoice = $storeInv3['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $sisaHutang = $storeInv3['total_invoice'] - $payment['amount_payment'];
+                if ($payment) {
+                    $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
+                } else {
+                    $sisaHutang = $storeInv['total_invoice'];
+                }
                 $totalStore3 += $sisaHutang;
 
                 ?>
