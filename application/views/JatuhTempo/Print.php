@@ -134,12 +134,13 @@ function penyebut($nilai)
                 $operan = "-";
             }
             $daysWithOperan = $operan . $days;
-            // echo $daysWithOperan;
+            // echo $jatuhTempo;
             // die;
             ?>
             <?php if ($daysWithOperan >= 0 && $daysWithOperan <= 7) :
             ?>
                 <?php
+                print_r("Akk");
                 $id_invoice = $storeInv['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
                 if ($payment) {
