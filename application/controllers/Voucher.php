@@ -219,11 +219,11 @@ class Voucher extends CI_Controller
         $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
         $integration_id = $qontak['integration_id'];
 
-        if ($id_distributor == 1) {
-            $nomor_hp = '6282131426363';
-        } else {
-            $nomor_hp = '6281128500888';
-        }
+        // if ($id_distributor == 1) {
+        $nomor_hp = '6282131426363';
+        // } else {
+        //     $nomor_hp = '6281128500888';
+        // }
 
         $nama = "Admin";
         $message = "Claim voucher dari toko " . $store['nama'] . " sebanyak " . $post['actual_vouchers'] . " point. Kode voucher: " . $vouchers;
