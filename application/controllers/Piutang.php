@@ -126,7 +126,7 @@ class Piutang extends CI_Controller
             // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
             // $data['dateTo'] = date("Y-m-d H:i:s", strtotime($dates[1] . " 23:59:59"));
             // PDF
-            $this->load->view('JatuhTempo/Print', $data, true);
+            $this->load->view('JatuhTempo/Print', $data);
             // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
             // $mpdf->SetMargins(0, 0, 5);
             // $html = $this->load->view('JatuhTempo/Print', $data, true);
