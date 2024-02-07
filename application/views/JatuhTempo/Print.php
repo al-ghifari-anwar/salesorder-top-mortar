@@ -134,8 +134,8 @@ function penyebut($nilai)
                 $operan = "-";
             }
             $daysWithOperan = $operan . $days;
-            echo $daysWithOperan;
-            die;
+            // echo $daysWithOperan;
+            // die;
             ?>
             <?php if ($daysWithOperan >= 0 && $daysWithOperan <= 7) :
             ?>
