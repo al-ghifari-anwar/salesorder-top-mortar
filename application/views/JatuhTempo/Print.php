@@ -134,7 +134,7 @@ function penyebut($nilai)
                 $operan = "-";
             }
             $daysWithOperan = $operan . $days;
-            echo $jatuhTempo;
+            echo $daysWithOperan;
             die;
             ?>
             <?php if ($daysWithOperan >= 0 && $daysWithOperan <= 7) :
