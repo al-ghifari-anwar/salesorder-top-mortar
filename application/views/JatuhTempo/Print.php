@@ -277,7 +277,7 @@ function penyebut($nilai)
             ?>
             <?php if ($daysWithOperan >= 16) : ?>
                 <?php
-                echo "AWDAWDA";
+                // echo "AWDAWDA";
                 $id_invoice = $storeInv3['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
                 if ($payment) {
