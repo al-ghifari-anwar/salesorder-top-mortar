@@ -129,8 +129,8 @@ class Piutang extends CI_Controller
             $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
             $mpdf->SetMargins(0, 0, 5);
             $html = $this->load->view('JatuhTempo/Print', $data, true);
-            $mpdf->AddPage('P');
-            $mpdf->WriteHTML($html);
+            // $mpdf->AddPage('P');
+            // $mpdf->WriteHTML($html);
             // $mpdf->Output();
         }
     }
