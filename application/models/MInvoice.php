@@ -115,8 +115,8 @@ class MInvoice extends CI_Model
             $this->db->where('tb_contact.id_city', $id_city);
         }
         $query = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'id_distributor' => $id_distributor])->result_array();
-        echo $this->db->last_query();
-        die;
+        // echo $this->db->last_query();
+        // die;
         return $query;
     }
 
