@@ -196,7 +196,7 @@ class SuratJalan extends CI_Controller
             $this->session->set_flashdata('success', "Surat jalan berhasil dibuat!");
             redirect('surat-jalan');
         } else {
-            $this->session->set_flashdata('failed', "Surat jalan gagal dibuat!");
+            $this->session->set_flashdata('failed', "Surat jalan terbuat, tetapi notif WA tidak terkirim ke kurir...");
             redirect('surat-jalan');
         }
     }
