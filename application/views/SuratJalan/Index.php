@@ -133,7 +133,25 @@
                                 <select class="form-control select2bs4" name="id_contact" style="width: 100%;" id="select2bs4">
                                     <option value="0">--- PLEASE SELECT STORE ---</option>
                                     <?php foreach ($toko as $data) : ?>
-                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['nama'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>" reputation="<?= $data['reputation'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
+                                        <?php
+                                        $id_contact = $data['id_contact'];
+                                        $lastInv = $this->db->query("SELECT MAX(id_invoice) AS id_invoice, MAX(date_invoice) AS date_invoice FROM tb_invoice JOIN tb_surat_jalan ON tb_invoice.id_surat_jalan = tb_surat_jalan.id_surat_jalan WHERE tb_surat_jalan.id_contact = '$id_contact' AND status_invoice = 'waiting'")->row_array();
+
+                                        if ($lastInv['date_invoice'] != null) {
+                                            $jatuhTempo = date('d M Y', strtotime("+" . $data['termin_payment'] . " days", strtotime($lastInv['date_invoice'])));
+                                            $date1 = new DateTime(date("Y-m-d"));
+                                            $date2 = new DateTime($jatuhTempo);
+                                            $days  = $date2->diff($date1)->format('%a');
+                                            $operan = "";
+                                            if ($date1 < $date2) {
+                                                $operan = "-";
+                                            }
+                                            $daysWithOperan = $operan . $days;
+                                        } else {
+                                            $daysWithOperan = 0;
+                                        }
+                                        ?>
+                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['nama'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>" reputation="<?= $data['reputation'] ?>" jatemdays="<?= $daysWithOperan ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -188,6 +206,11 @@
                                     <strong>Status Toko Bagus</strong>
                                 </div>
                             </div>
+                            <div class="form-group" id="alert-jatem" hidden>
+                                <div class="alert alert-warning fade show" role="alert">
+                                    <strong>Toko masih memiliki tanggungan jatuh tempo</strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -206,11 +229,14 @@
     //     console.log(value);
     // }
     document.getElementById("select2bs4").onchange = function() {
+        //Print data toko di field
         console.log(this.options[this.selectedIndex].getAttribute("shiptoname"));
         console.log(this.options[this.selectedIndex].getAttribute("shipaddress"));
         document.getElementById('ship_to_name').value = this.options[this.selectedIndex].getAttribute("shiptoname");
         document.getElementById('ship_to_phone').value = this.options[this.selectedIndex].getAttribute("shipphone");
         document.getElementById('ship_to_address').textContent = this.options[this.selectedIndex].getAttribute("shipaddress");
+
+        // Notif reputasi toko
         var rep = this.options[this.selectedIndex].getAttribute("reputation");
         if (rep == 'good') {
             document.getElementById('alert-good').hidden = false;
@@ -218,6 +244,13 @@
         } else {
             document.getElementById('alert-good').hidden = true;
             document.getElementById('alert-bad').hidden = false;
+        }
+
+        var daysJatem = this.options[this.selectedIndex].getAttribute("jatemdays");
+        if (daysJatem > 7) {
+            document.getElementById('alert-jatem').hidden = false;
+        } else {
+            document.getElementById('alert-jatem').hidden = true;
         }
     };
 </script>
