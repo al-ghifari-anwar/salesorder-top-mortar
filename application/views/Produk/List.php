@@ -66,6 +66,7 @@
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_produk'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
                                                 <a href="#" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <a class="btn btn-success" data-toggle="modal" data-target="#modal-stok<?= $data['id_produk'] ?>" title="Tambah Stok"><i class="fas fa-archive"></i></a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_produk'] ?>">
@@ -87,6 +88,28 @@
                                                             <div class="form-group">
                                                                 <label for="">Harga Produk</label>
                                                                 <input type="text" name="harga_produk" class="form-control" value="<?= $data['harga_produk'] ?>">
+                                                            </div>
+                                                            <button class="btn btn-primary float-right">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="modal-stok<?= $data['id_produk'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Tambah Stok Produk</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?= base_url('insert-stok/') . $data['id_produk'] ?>" method="POST">
+                                                            <input type="text" name="id_city" value="<?= $city['id_city'] ?>" hidden>
+                                                            <div class="form-group">
+                                                                <label for="">Jumlah</label>
+                                                                <input type="number" name="jml_stok" class="form-control" value="1">
                                                             </div>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>
