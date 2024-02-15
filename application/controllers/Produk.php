@@ -64,6 +64,26 @@ class Produk extends CI_Controller
         }
     }
 
+    public function insert_stok($id)
+    {
+        $this->form_validation->set_rules('jml_stok', 'Jumlah', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Harap lengkapi form");
+            redirect('produk');
+        } else {
+            $insert = $this->db->insert('tb_stok', ['id_produk' => $id, 'jml_stok' => $this->input->post('jml_stok')]);
+
+            if ($insert) {
+                $this->session->set_flashdata('success', "Berhasil menambah stok produk!");
+                redirect('produk');
+            } else {
+                $this->session->set_flashdata('failed', "Gagal menambah stok produk!");
+                redirect('produk');
+            }
+        }
+    }
+
     public function update($id)
     {
         $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required');
