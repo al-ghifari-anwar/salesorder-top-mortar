@@ -130,7 +130,11 @@ class SuratJalan extends CI_Controller
 
         $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
         $template_id = '32b18403-e0ee-4cfc-9e2e-b28b95f24e37';
-        $integration_id = '31c076d5-ac80-4204-adc9-964c9b0c590b';
+
+        $id_distributor = $this->session->userdata('id_distributor');
+
+        $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+        $integration_id = $qontak['integration_id'];
 
         $curl = curl_init();
 
