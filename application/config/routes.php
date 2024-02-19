@@ -148,3 +148,6 @@ $route['insert-marketing'] = 'Marketing/insert';
 $route['delete-marketing/(:num)'] = 'Marketing/delete/$1';
 // Notif
 $route['notif-passive'] = 'Notif/notif_passive';
+// Stok
+$route['stok'] = 'Stok';
+$route['stok/(:num)'] = 'Stok/list/$1';

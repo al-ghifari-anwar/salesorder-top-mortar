@@ -277,6 +277,15 @@
                                         </a>
                                     </li>
                                 <?php endif; ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('stok') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-truck-loading"></i>
+                                        <p>
+                                            Laporan Stok
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
                                 <?php if ($this->session->userdata('id_distributor') != '2') : ?>
                                     <li class="nav-item">
                                         <a href="<?= base_url('voucher') ?>" class="nav-link">
