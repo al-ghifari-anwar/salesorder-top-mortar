@@ -118,7 +118,7 @@ function penyebut($nilai)
             <?php foreach ($user as $user) : ?>
                 <?php
                 $this->db->group_by('DATE(tb_visit.date_visit)');
-                $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $user['id_user'], 'DATE(tb_visit.date_visit)' => $month])->result_array();
+                $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $user['id_user'], 'MONTH(tb_visit.date_visit)' => $month])->result_array();
                 ?>
                 <tr>
                     <th colspan="7" class="border text-left" style="color: blue;"><?= $user['full_name'] ?></th>
