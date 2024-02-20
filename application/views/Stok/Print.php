@@ -125,7 +125,7 @@ function penyebut($nilai)
                 $id_city = $city['id_city'];
 
                 $pemasukan = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' AND created_at > '$dateFrom' AND 'created_at' < '$dateTo'")->row_array();
-                $pengeluaran = $this->db->query("SELECT SUM(qty_produk) AS qty_produk FROM tb_detail_surat_jalan JOIN tb_surat_jalan ON tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan JOIN tb_produk ON tb_detail_surat_jalan.id_produk = tb_produk.id_produk WHERE id_produk = '$id_produk' AND dalivery_date > '$dateFrom' AND dalivery_date < '$dateTo' AND id_city = '$id_city' GROUP BY tb_produk.id_produk")->row_array();
+                $pengeluaran = $this->db->query("SELECT SUM(qty_produk) AS qty_produk FROM tb_detail_surat_jalan JOIN tb_surat_jalan ON tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan JOIN tb_produk ON tb_detail_surat_jalan.id_produk = tb_produk.id_produk WHERE tb_detail_surat_jalan.id_produk = '$id_produk' AND dalivery_date > '$dateFrom' AND dalivery_date < '$dateTo' AND id_city = '$id_city' GROUP BY tb_detail_surat_jalan.id_produk")->row_array();
 
                 $valPemasukan = $pemasukan['jml_stok'] == null ? 0 : $pemasukan['jml_stok'];
                 $valPengeluaran = $pengeluaran['qty_produk'] == null ? 0 : $pengeluaran['qty_produk'];
