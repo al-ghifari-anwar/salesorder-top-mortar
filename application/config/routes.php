@@ -151,3 +151,4 @@ $route['notif-passive'] = 'Notif/notif_passive';
 // Stok
 $route['stok'] = 'Stok';
 $route['stok/(:num)'] = 'Stok/list/$1';
+$route['cetak-stok'] = 'Stok/lap_stok';

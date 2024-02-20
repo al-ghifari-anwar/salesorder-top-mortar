@@ -45,6 +45,9 @@
                                     Tambah Voucher
                                 </button>
                             <?php endif; ?>
+                            <a class="btn btn-success float-right" href="<?= base_url('cetak-voucher') ?>">
+                                Laporan Voucher
+                            </a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">

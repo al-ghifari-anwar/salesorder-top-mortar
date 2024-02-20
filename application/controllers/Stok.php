@@ -36,6 +36,7 @@ class Stok extends CI_Controller
     public function list($id_city)
     {
         $data['title'] = 'Stok Produk';
+        $data['id_city'] = $id_city;
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -46,5 +47,23 @@ class Stok extends CI_Controller
         $this->load->view('Stok/List');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
+    }
+
+    public function lap_stok()
+    {
+        $post = $this->input->post();
+        $dateRange = $post["date_range"];
+        $id_city = $post["id_city"];
+
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['produk'] = $this->db->get_where("tb_produk", ['id_city' => $id_city])->result_array();
+        $data['dates'] = explode("-", $dateRange);
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Stok/Print', $data, true);
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }
