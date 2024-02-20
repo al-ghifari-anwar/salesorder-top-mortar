@@ -58,6 +58,7 @@ class Stok extends CI_Controller
         $data['city'] = $this->MCity->getById($id_city);
         $data['produk'] = $this->db->get_where("tb_produk", ['id_city' => $id_city])->result_array();
         $data['dates'] = explode("-", $dateRange);
+        // $this->load->view('Stok/Print', $data);
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
