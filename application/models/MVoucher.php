@@ -56,12 +56,40 @@ class MVoucher extends CI_Model
     {
         $post = $this->input->post();
 
-        $count_vouchers = count(explode(",", $post['no_voucher']));
-        $no_vouchers = array_map('strval', explode(",", $post['no_voucher']));
+        $vouchersArr[] = $post['no_voucher1'];
+        $vouchersOri = $post['no_voucher1'];
+        if ($post['no_voucher2'] != null) {
+            $vouchersArr[] = $post['no_voucher2'];
+            $vouchersOri .= ", " . $post['no_voucher2'];
+        }
+        if ($post['no_voucher3'] != null) {
+            $vouchersArr[] = $post['no_voucher3'];
+            $vouchersOri .= ", " . $post['no_voucher3'];
+        }
+        if ($post['no_voucher4'] != null) {
+            $vouchersArr[] = $post['no_voucher4'];
+            $vouchersOri .= $post['no_voucher4'];
+        }
+        if ($post['no_voucher5'] != null) {
+            $vouchersArr[] = $post['no_voucher5'];
+            $vouchersOri .= ", " . $post['no_voucher5'];
+        }
+
+        // echo json_encode($vouchersArr);
+        // die;
+
+        $count_vouchers = count($vouchersArr);
+        $no_vouchers = $vouchersArr;
         $no_vouchers = implode("','", $no_vouchers);
-        $vouchers_ori = $post['no_voucher'];
+        $vouchers_ori = "";
 
         $query = $this->db->query("SELECT tb_contact.id_contact, SUM(point_voucher) as point_voucher FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.is_claimed = 0 AND tb_voucher.no_voucher IN ('" . $no_vouchers . "')")->row_array();
+
+        $getKode = $this->db->query("SELECT * FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.is_claimed = 0 AND tb_voucher.no_voucher IN ('" . $no_vouchers . "')")->result_array();
+
+        foreach ($getKode as $getKode) {
+            $vouchers_ori .= $getKode['no_voucher'] . ", ";
+        }
 
         // echo json_encode($query);
         // die;

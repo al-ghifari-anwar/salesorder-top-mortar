@@ -47,8 +47,12 @@
                         <div class="card-body">
                             <form action="<?= base_url('claim') ?>" method="POST">
                                 <div class="form-group">
-                                    <label for="">Nomor Voucher (Pisahkan dengan koma apabila lebih dari satu)</label>
-                                    <input type="text" name="no_voucher" id="" class="form-control" placeholder="Contoh: 123456, 789123" autocomplete="off">
+                                    <label for="">Nomor Voucher </label>
+                                    <input type="text" name="no_voucher1" id="" class="form-control mb-3" placeholder="Voucher 1" autocomplete="off" pattern="\d*" maxlength="5">
+                                    <input type="text" name="no_voucher2" id="" class="form-control mb-3" placeholder="Voucher 2" autocomplete="off" pattern="\d*" maxlength="5">
+                                    <input type="text" name="no_voucher3" id="" class="form-control mb-3" placeholder="Voucher 3" autocomplete="off" pattern="\d*" maxlength="5">
+                                    <input type="text" name="no_voucher4" id="" class="form-control mb-3" placeholder="Voucher 4" autocomplete="off" pattern="\d*" maxlength="5">
+                                    <input type="text" name="no_voucher5" id="" class="form-control mb-3" placeholder="Voucher 5" autocomplete="off" pattern="\d*" maxlength="5">
                                 </div>
                                 <button class="btn btn-primary float-right">Cek</button>
                             </form>
