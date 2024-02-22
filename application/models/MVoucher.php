@@ -88,7 +88,7 @@ class MVoucher extends CI_Model
         $getKode = $this->db->query("SELECT * FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.is_claimed = 0 AND tb_voucher.no_voucher IN ('" . $no_vouchers . "')")->result_array();
 
         foreach ($getKode as $getKode) {
-            $vouchers_ori .= $getKode['no_voucher'] . ", ";
+            $vouchers_ori .= $getKode['no_voucher'] . ",";
         }
 
         // echo json_encode($query);
