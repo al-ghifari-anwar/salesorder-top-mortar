@@ -107,9 +107,26 @@ class MDetailSuratJalan extends CI_Model
         }
 
         if ($is_voucher == true) {
-            $this->amount = 0;
-            $this->no_voucher = $post['no_vouchers'];
-            $this->is_bonus = 1;
+            $jmlVoucher = $post['jml_voucher'];
+            if ($this->qty_produk > $jmlVoucher) {
+                $this->session->set_flashdata('failed', "Jumlah item tidak sesuai dengan jumlah voucher!");
+                redirect('surat-jalan/' . $this->id_surat_jalan);
+            } else {
+                $this->amount = 0;
+                $this->no_voucher = $post['no_vouchers'];
+                $this->is_bonus = 1;
+                $id_surat_jalan = $this->id_surat_jalan;
+                $no_voucher = $this->no_voucher;
+
+                $cekProdukVc = $this->db->query("SELECT * FROM tb_detail_surat_jalan WHERE id_surat_jalan = '$id_surat_jalan' AND no_voucher IN ('" . $no_voucher . "')")->result_array();
+
+                // echo json_encode($cekProdukVc);
+                // die;
+                if ($cekProdukVc != null) {
+                    $this->session->set_flashdata('failed', "Produk dengan voucher telah ditambahkan, tidak bisa menambahkan lagi!");
+                    redirect('surat-jalan/' . $this->id_surat_jalan);
+                }
+            }
         }
 
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
