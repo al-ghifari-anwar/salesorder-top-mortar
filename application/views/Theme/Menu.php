@@ -286,17 +286,17 @@
                                         </p>
                                     </a>
                                 </li>
-                                <?php if ($this->session->userdata('id_distributor') != '2') : ?>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('voucher') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-ticket-alt"></i>
-                                            <p>
-                                                Voucher
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                <?php endif ?>
+                                <!-- <?php if ($this->session->userdata('id_distributor') != '2') : ?> -->
+                                <li class="nav-item">
+                                    <a href="<?= base_url('voucher') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-ticket-alt"></i>
+                                        <p>
+                                            Voucher
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <!-- <?php endif ?> -->
                                 <?php if ($this->session->userdata('level_user') != 'salesleader') : ?>
                                     <li class="nav-item">
                                         <a href="<?= base_url('penjualan') ?>" class="nav-link">

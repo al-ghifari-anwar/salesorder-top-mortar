@@ -40,7 +40,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <?php if ($this->session->userdata('level_user') == 'salesleader') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'salesleader' && $this->session->userdata('id_distributor') == 1) : ?>
                                 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                     Tambah Voucher
                                 </button>
