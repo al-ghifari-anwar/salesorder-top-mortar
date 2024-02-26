@@ -79,7 +79,7 @@ class Voucher extends CI_Controller
             $html = $this->load->view('Voucher/PrintClaimed', $data, true);
         } else if ($berdasarkan == 'not-claimed') {
             $dateNow = date("Y-m-d 01:00:00");
-            $data['voucher'] = $this->db->query("SELECT * FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.is_claimed = 0 AND tb_contact.id_city = '$id_city'")->result_array();
+            $data['voucher'] = $this->db->query("SELECT * FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.is_claimed = 0 AND tb_contact.id_city = '$id_city' AND tb_voucher.exp_date > '$dateNow'")->result_array();
             $html = $this->load->view('Voucher/PrintNotClaimed', $data, true);
         }
         $mpdf->AddPage('L');
