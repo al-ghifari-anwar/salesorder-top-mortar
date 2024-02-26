@@ -120,6 +120,7 @@ function penyebut($nilai)
             <th class="border">Nomor HP</th>
             <th class="border">Status</th>
             <th class="border">Reputasi</th>
+            <th class="border">Tgl Expired</th>
         </tr>
         <?php if ($contact != null) : ?>
             <?php
@@ -135,6 +136,7 @@ function penyebut($nilai)
                     <td class="text-left border-r"><?= $contact['nomorhp']; ?></td>
                     <td class="text-left border-r"><?= $contact['store_status']; ?></td>
                     <td class="text-left border-r <?= $contact['reputation'] == 'good' ? 'bg-green' : 'bg-red' ?>"><?= $contact['reputation']; ?></td>
+                    <td class="text-left border-r"><?= date("d M, Y", strtotime($contact['exp_date'])) ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>
