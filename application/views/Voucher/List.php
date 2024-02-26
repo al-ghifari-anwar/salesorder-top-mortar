@@ -82,9 +82,9 @@
                                                     <?= $data['is_claimed'] == 0 ? 'Not Claimed' : 'Claimed' ?>
                                                 <?php } else { ?>
                                                     <?php if ($dateExp >= $dateNow) { ?>
-                                                        <?= 'Expired' ?>
-                                                    <?php } else { ?>
                                                         <?= 'Not Claimed' ?>
+                                                    <?php } else { ?>
+                                                        <?= 'Expired' ?>
                                                     <?php } ?>
                                                 <?php } ?>
                                             </td>
