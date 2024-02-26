@@ -138,7 +138,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('approve-visit/' . $data['id_visit']) ?>" method="POST">
+                                                        <form action="<?= base_url('approve-visit/' . $data['id_visit'] . "/" . $id_city) ?>" method="POST">
                                                             <div class="form-group">
                                                                 <label for="">Pesan Approve</label>
                                                                 <textarea name="approve_message" id="" cols="30" rows="5" class="form-control"></textarea>

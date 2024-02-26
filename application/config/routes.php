@@ -116,7 +116,7 @@ $route['penjualan/(:num)'] = 'Penjualan/index/$1';
 // Visit
 $route['visit'] = 'Visit';
 $route['visit/(:num)'] = 'Visit/visit_by_city/$1';
-$route['approve-visit/(:num)'] = 'Visit/approve/$1';
+$route['approve-visit/(:num)/(:num)'] = 'Visit/approve/$1/$2';
 // Laporan Kurir
 $route['lap-kurir'] = 'Visit/lapkurir_city_list';
 $route['lap-kurir/(:num)'] = 'Visit/lapkurir_by_city/$1';

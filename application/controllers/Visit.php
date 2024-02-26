@@ -69,16 +69,16 @@ class Visit extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function approve($id)
+    public function approve($id, $id_city)
     {
         $approve = $this->MVisit->approve($id);
 
         if ($approve) {
             $this->session->set_flashdata('success', "Berhasil approve visit!");
-            redirect('visit');
+            redirect('visit/' . $id_city);
         } else {
             $this->session->set_flashdata('failed', "Gagal approve visit!");
-            redirect('visit');
+            redirect('visit/' . $id_city);
         }
     }
 
