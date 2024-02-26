@@ -126,7 +126,7 @@
                 <form action="<?= base_url('reg-voucher/' . $id_city) ?>" method="POST">
                     <div class="form-group">
                         <label for="">Nama Toko</label>
-                        <select name="id_contact" id="select2bs4" class="select2bs4">
+                        <select name="id_contact" id="select2bs41" class="select2bs41">
                             <?php foreach ($contact as $contact) : ?>
                                 <option value="<?= $contact['id_contact'] ?>"><?= $contact['nama'] ?></option>
                             <?php endforeach; ?>
