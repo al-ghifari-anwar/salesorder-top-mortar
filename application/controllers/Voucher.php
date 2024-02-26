@@ -67,7 +67,7 @@ class Voucher extends CI_Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         if ($berdasarkan == 'belum-terima') {
-            $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NULL AND tb_contact.id_city = '$id_city' AND store_status = 'passive'")->result_array();
+            $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NULL AND tb_contact.id_city = '$id_city' AND store_status IN ('data','passive','blacklist','active')")->result_array();
             $html = $this->load->view('Voucher/PrintNotRechieved', $data, true);
         } else if ($berdasarkan == 'expired') {
             $dateNow = date("Y-m-d 01:00:00");
