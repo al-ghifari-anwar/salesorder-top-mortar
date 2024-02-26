@@ -56,6 +56,7 @@
                                         <th>No</th>
                                         <th>No Voucher</th>
                                         <th>Tanggal</th>
+                                        <th>Expired Date</th>
                                         <th>Toko</th>
                                         <th>Type</th>
                                         <th>Status</th>
@@ -69,6 +70,7 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['no_voucher'] ?></td>
                                             <td><?= date("d M Y", strtotime($data['date_voucher'])) ?></td>
+                                            <td><?= date("d M Y", strtotime($data['exp_date'])) ?></td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['type_voucher'] ?></td>
                                             <td>
