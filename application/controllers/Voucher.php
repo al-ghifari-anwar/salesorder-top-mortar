@@ -73,6 +73,14 @@ class Voucher extends CI_Controller
             $dateNow = date("Y-m-d 01:00:00");
             $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NOT NULL AND tb_contact.id_city = '1' AND store_status = 'passive' AND tb_voucher.exp_date < '$dateNow' GROUP BY tb_contact.id_contact")->result_array();
             $html = $this->load->view('Voucher/PrintExpired', $data, true);
+        } else if ($berdasarkan == 'claimed') {
+            $dateNow = date("Y-m-d 01:00:00");
+            $data['voucher'] = $this->db->query("SELECT * FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.is_claimed = 1 AND tb_contact.id_city = '$id_city'")->result_array();
+            $html = $this->load->view('Voucher/PrintClaimed', $data, true);
+        } else if ($berdasarkan == 'not-claimed') {
+            $dateNow = date("Y-m-d 01:00:00");
+            $data['voucher'] = $this->db->query("SELECT * FROM tb_voucher JOIN tb_contact ON tb_contact.id_contact = tb_voucher.id_contact WHERE tb_voucher.is_claimed = 0 AND tb_contact.id_city = '$id_city'")->result_array();
+            $html = $this->load->view('Voucher/PrintNotClaimed', $data, true);
         }
         $mpdf->AddPage('L');
         $mpdf->WriteHTML($html);
