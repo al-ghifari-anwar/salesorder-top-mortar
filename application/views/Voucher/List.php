@@ -155,6 +155,7 @@
                         <label for="">Berdasarkan</label>
                         <select name="berdasarkan" id="select2bs4" class="select2bs4">
                             <option value="belum-terima">Toko yang belum menerima voucher</option>
+                            <option value="expired">Toko dengan voucher expired</option>
                         </select>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>

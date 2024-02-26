@@ -61,13 +61,19 @@ class Voucher extends CI_Controller
         $berdasarkan = $post["berdasarkan"];
 
         $data['city'] = $this->MCity->getById($id_city);
-        $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NULL AND tb_contact.id_city = '$id_city' AND store_status = 'passive'")->result_array();
-        $data['dates'] = explode("-", $dateRange);
+        // $data['dates'] = explode("-", $dateRange);
         // $this->load->view('Stok/Print', $data);
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Voucher/PrintNotRechieved', $data, true);
+        if ($berdasarkan == 'belum-terima') {
+            $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NULL AND tb_contact.id_city = '$id_city' AND store_status = 'passive'")->result_array();
+            $html = $this->load->view('Voucher/PrintNotRechieved', $data, true);
+        } else if ($berdasarkan == 'expired') {
+            $dateNow = date("Y-m-d 01:00:00");
+            $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NOT NULL AND tb_contact.id_city = '1' AND store_status = 'passive' AND tb_voucher.exp_date < '$dateNow'")->result_array();
+            $html = $this->load->view('Voucher/PrintExpired', $data, true);
+        }
         $mpdf->AddPage('L');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
