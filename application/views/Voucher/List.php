@@ -45,7 +45,7 @@
                                     Tambah Voucher
                                 </button>
                             <?php endif; ?>
-                            <a class="btn btn-success float-right" href="<?= base_url('cetak-voucher') ?>">
+                            <a class="btn btn-success float-right" data-toggle="modal" data-target="#modal-laporan">
                                 Laporan Voucher
                             </a>
                         </div>
@@ -129,6 +129,33 @@
                     <div class="form-group">
                         <label for="">Jumlah Voucher</label>
                         <input type="number" name="jml_voucher" class="form-control">
+                    </div>
+                    <button class="btn btn-primary float-right">Simpan</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-laporan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Filter Laporan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('lap-voucher/' . $id_city) ?>" method="POST" target="__blank">
+                    <div class="form-group">
+                        <label for="">Berdasarkan</label>
+                        <select name="berdasarkan" id="select2bs4" class="select2bs4">
+                            <option value="belum-terima">Toko yang belum menerima voucher</option>
+                        </select>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>

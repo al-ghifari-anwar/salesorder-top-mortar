@@ -51,6 +51,28 @@ class Voucher extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function laporan_voucher($id_city)
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+
+        $post = $this->input->post();
+        $berdasarkan = $post["berdasarkan"];
+
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NULL AND tb_contact.id_city = '$id_city' AND store_status = 'passive'")->result_array();
+        $data['dates'] = explode("-", $dateRange);
+        // $this->load->view('Stok/Print', $data);
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Voucher/PrintNotRechieved', $data, true);
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
+
     public function regist_voucher($id_city)
     {
         date_default_timezone_set('Asia/Jakarta');

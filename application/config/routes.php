@@ -126,6 +126,7 @@ $route['reg-voucher/(:num)'] = 'Voucher/regist_voucher/$1';
 $route['claim'] = 'Voucher/claim';
 $route['claimed'] = 'Voucher/claimed';
 $route['voucher-list/(:num)'] = 'Voucher/list_voucher/$1';
+$route['lap-voucher/(:num)'] = 'Voucher/laporan_voucher/$1';
 // Distributor
 $route['distributor'] = 'Distributor';
 $route['insert-dist'] = 'Distributor/insert';
