@@ -96,7 +96,7 @@
                                             <td><?= date("H:i - d M Y", strtotime($data['date_visit'])) ?></td>
                                             <td><?= $data['laporan_visit'] ?></td>
                                             <td>
-                                                <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve"><i class="fas fa-check-circle"></i></a>
+                                                <a href="<?= base_url('approve-visit/' . $data['id_visit'] . '/' . $id_city) ?>" class="btn btn-success" title="Approve"><i class="fas fa-check-circle"></i></a>
                                             </td>
                                         </tr>
 
