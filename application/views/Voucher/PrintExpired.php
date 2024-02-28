@@ -128,16 +128,22 @@ function penyebut($nilai)
             foreach ($contact as $contact) : ?>
                 <?php
                 $id_city = $city['id_city'];
+                $id_contact = $contact['id_contact'];
+                $dateNow = date("Y-m-d");
+                $getStoreVc = $this->db->query("SELECT COUNT(*) AS jml_vc FROM tb_voucher WHERE id_contact = '$id_contact'")->row_array();
+                $getStoreExpVc = $this->db->query("SELECT COUNT(*) AS jml_exp FROM tb_voucher WHERE id_contact = '$id_contact' AND DATE(exp_date) < '$dateNow'")->row_array();
                 ?>
-                <tr>
-                    <td class="text-center border-r"><?= $no++; ?></td>
-                    <td class="text-left border-r"><?= $contact['nama']; ?></td>
-                    <td class="text-left border-r"><?= $contact['address']; ?></td>
-                    <td class="text-left border-r"><?= $contact['nomorhp']; ?></td>
-                    <td class="text-left border-r"><?= $contact['store_status']; ?></td>
-                    <td class="text-left border-r <?= $contact['reputation'] == 'good' ? 'bg-green' : 'bg-red' ?>"><?= $contact['reputation']; ?></td>
-                    <td class="text-left border-r"><?= date("d M, Y", strtotime($contact['exp_date'])) ?></td>
-                </tr>
+                <?php if ($getStoreVc['jml_vc'] == $getStoreExpVc['jml_exp']) : ?>
+                    <tr>
+                        <td class="text-center border-r"><?= $no++; ?></td>
+                        <td class="text-left border-r"><?= $contact['nama']; ?></td>
+                        <td class="text-left border-r"><?= $contact['address']; ?></td>
+                        <td class="text-left border-r"><?= $contact['nomorhp']; ?></td>
+                        <td class="text-left border-r"><?= $contact['store_status']; ?></td>
+                        <td class="text-left border-r <?= $contact['reputation'] == 'good' ? 'bg-green' : 'bg-red' ?>"><?= $contact['reputation']; ?></td>
+                        <td class="text-left border-r"><?= date("d M, Y", strtotime($contact['exp_date'])) ?></td>
+                    </tr>
+                <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
     </table>
