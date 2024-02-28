@@ -71,7 +71,7 @@ class Voucher extends CI_Controller
             $html = $this->load->view('Voucher/PrintNotRechieved', $data, true);
         } else if ($berdasarkan == 'expired') {
             $dateNow = date("Y-m-d 23:59:59");
-            $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NOT NULL AND tb_contact.id_city = '$id_city' GROUP BY tb_contact.id_contact")->result_array();
+            $data['contact'] = $this->db->query("SELECT * FROM tb_contact LEFT JOIN tb_voucher ON tb_voucher.id_contact = tb_contact.id_contact WHERE tb_voucher.id_voucher IS NOT NULL AND tb_contact.id_city = '$id_city' AND tb_voucher.exp_date < '$dateNow' GROUP BY tb_contact.id_contact")->result_array();
             $html = $this->load->view('Voucher/PrintExpired', $data, true);
         } else if ($berdasarkan == 'claimed') {
             $dateNow = date("Y-m-d 23:59:59");
