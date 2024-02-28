@@ -133,16 +133,18 @@ function penyebut($nilai)
                 $getStoreVc = $this->db->query("SELECT COUNT(*) AS jml_vc FROM tb_voucher WHERE id_contact = '$id_contact' AND is_claimed = 0")->row_array();
                 $getStoreExpVc = $this->db->query("SELECT COUNT(*) AS jml_exp FROM tb_voucher WHERE id_contact = '$id_contact' AND DATE(exp_date) < '$dateNow' AND is_claimed = 0")->row_array();
                 ?>
-                <?php if ($getStoreVc['jml_vc'] == $getStoreExpVc['jml_exp']) : ?>
-                    <tr>
-                        <td class="text-center border-r"><?= $no++; ?></td>
-                        <td class="text-left border-r"><?= $contact['nama']; ?></td>
-                        <td class="text-left border-r"><?= $contact['address']; ?></td>
-                        <td class="text-left border-r"><?= $contact['nomorhp']; ?></td>
-                        <td class="text-left border-r"><?= $contact['store_status']; ?></td>
-                        <td class="text-left border-r <?= $contact['reputation'] == 'good' ? 'bg-green' : 'bg-red' ?>"><?= $contact['reputation']; ?></td>
-                        <td class="text-left border-r"><?= date("d M, Y", strtotime($contact['exp_date'])) ?></td>
-                    </tr>
+                <?php if ($getStoreVc['jml_vc'] != 0 && $getStoreExpVc['jml_exp'] != 0) : ?>
+                    <?php if ($getStoreVc['jml_vc'] == $getStoreExpVc['jml_exp']) : ?>
+                        <tr>
+                            <td class="text-center border-r"><?= $no++; ?></td>
+                            <td class="text-left border-r"><?= $contact['nama']; ?></td>
+                            <td class="text-left border-r"><?= $contact['address']; ?></td>
+                            <td class="text-left border-r"><?= $contact['nomorhp']; ?></td>
+                            <td class="text-left border-r"><?= $contact['store_status']; ?></td>
+                            <td class="text-left border-r <?= $contact['reputation'] == 'good' ? 'bg-green' : 'bg-red' ?>"><?= $contact['reputation']; ?></td>
+                            <td class="text-left border-r"><?= date("d M, Y", strtotime($contact['exp_date'])) ?></td>
+                        </tr>
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
