@@ -130,8 +130,8 @@ function penyebut($nilai)
                 $id_city = $city['id_city'];
                 $id_contact = $contact['id_contact'];
                 $dateNow = date("Y-m-d");
-                $getStoreVc = $this->db->query("SELECT COUNT(*) AS jml_vc FROM tb_voucher WHERE id_contact = '$id_contact'")->row_array();
-                $getStoreExpVc = $this->db->query("SELECT COUNT(*) AS jml_exp FROM tb_voucher WHERE id_contact = '$id_contact' AND DATE(exp_date) < '$dateNow'")->row_array();
+                $getStoreVc = $this->db->query("SELECT COUNT(*) AS jml_vc FROM tb_voucher WHERE id_contact = '$id_contact' AND is_claimed = 0")->row_array();
+                $getStoreExpVc = $this->db->query("SELECT COUNT(*) AS jml_exp FROM tb_voucher WHERE id_contact = '$id_contact' AND DATE(exp_date) < '$dateNow' AND is_claimed = 0")->row_array();
                 ?>
                 <?php if ($getStoreVc['jml_vc'] == $getStoreExpVc['jml_exp']) : ?>
                     <tr>
