@@ -98,6 +98,16 @@ class MDetailSuratJalan extends CI_Model
         $retur = $post['is_retur'];
         $is_voucher = $post['is_voucher'];
 
+        if ($this->price == 0) {
+            $this->session->set_flashdata('failed', "Terjadi kesalahan, harap input ulang produk");
+            redirect('surat-jalan/' . $post['id_surat_jalan']);
+        }
+
+        if ($produk['harga_produk'] ==  0) {
+            $this->session->set_flashdata('failed', "Terjadi kesalahan, harap input ulang produk");
+            redirect('surat-jalan/' . $post['id_surat_jalan']);
+        }
+
         if ($retur == false) {
             $this->amount = $produk['harga_produk'] * $post['qty_produk'];
             $this->is_bonus = 0;
