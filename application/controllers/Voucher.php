@@ -387,4 +387,118 @@ class Voucher extends CI_Controller
             redirect('voucher');
         }
     }
+
+    public function regist_manual($id_city)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+
+        $curl = curl_init();
+        $id_contact = $_POST['id_contact'];
+        $jml_voucher = $_POST['jml_voucher'];
+
+        $status = 'ok';
+
+        if ($status == 'ok') {
+            // Get Qontak
+            $id_distributor = $this->session->userdata('id_distributor');
+            $qontak = $this->db->query("SELECT * FROM tb_qontak WHERE id_distributor = '$id_distributor'")->row_array();
+            $template_id = "c4504076-8fc7-44a0-9534-9f6ebc3e56e5";
+            $integration_id = $qontak['integration_id'];
+            $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
+
+            // Get Contacts
+            $contact = $this->MContact->getById($id_contact);
+
+            // Get Vuchers
+            // $dateNow = date("m-d");
+            $dateNow = "03-04";
+            $getVoucher = $this->db->query("SELECT * FROM tb_voucher WHERE id_contact = '$id_contact' AND is_claimed = 0 AND date_voucher LIKE '%$dateNow%' ")->result_array();
+            $vouchers = "";
+            foreach ($getVoucher as $voucherArr) {
+                $vouchers .= $voucherArr['no_voucher'] . ",";
+            }
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                                        "to_number": "' . $contact['nomorhp'] . '",
+                                        "to_name": "' . $contact['nama'] . '",
+                                        "message_template_id": "' . $template_id . '",
+                                        "channel_integration_id": "' . $integration_id . '",
+                                        "language": {
+                                            "code": "id"
+                                        },
+                                        "parameters": {
+                                            "header":{
+                                                "format":"IMAGE",
+                                                "params": [
+                                                    {
+                                                        "key":"url",
+                                                        "value":"https://saleswa.topmortarindonesia.com/img/vc_passive.jpg"
+                                                    },
+                                                    {
+                                                        "key":"filename",
+                                                        "value":"bday.jpg"
+                                                    }
+                                                ]
+                                            },
+                                            "body": [
+                                                {
+                                                    "key": "1",
+                                                    "value": "nama",
+                                                    "value_text": "' . $contact['nama'] . '"
+                                                },
+                                                {
+                                                    "key": "2",
+                                                    "value": "jml_voucher",
+                                                    "value_text": "' . $jml_voucher . '"
+                                                },
+                                                {
+                                                    "key": "3",
+                                                    "value": "no_voucher",
+                                                    "value_text": "' . $vouchers . '"
+                                                },
+                                                {
+                                                    "key": "4",
+                                                    "value": "date_voucher",
+                                                    "value_text": "' . date("d M, Y", strtotime("+30 days")) . '"
+                                                }
+                                            ]
+                                        }
+                                        }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            $status = $res['status'];
+
+            if ($status == 'success') {
+                // $this->session->set_flashdata('success', "Berhasil kirim voucher!");
+                // redirect('voucher-list/' . $id_city);
+                echo "Success notif";
+            } else {
+                // $this->session->set_flashdata('warning', "Berhasil kirim voucher, tapi notif tidak terkirim!");
+                // redirect('voucher-list/' . $id_city);
+                echo "Failed notif";
+            }
+        } else {
+            // $this->session->set_flashdata('failed', "Gagal kirim voucher!");
+            // redirect('voucher-list/' . $id_city);
+        }
+    }
 }
