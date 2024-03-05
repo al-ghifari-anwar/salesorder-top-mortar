@@ -400,7 +400,8 @@ class Voucher extends CI_Controller
 
         if ($status == 'ok') {
             // Get Qontak
-            $id_distributor = $this->session->userdata('id_distributor');
+            // $id_distributor = $this->session->userdata('id_distributor');
+            $id_distributor = 1;
             $qontak = $this->db->query("SELECT * FROM tb_qontak WHERE id_distributor = '$id_distributor'")->row_array();
             $template_id = "c4504076-8fc7-44a0-9534-9f6ebc3e56e5";
             $integration_id = $qontak['integration_id'];
