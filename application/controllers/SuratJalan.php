@@ -190,8 +190,8 @@ class SuratJalan extends CI_Controller
 
         curl_close($curl);
 
-        echo $response;
-        die;
+        // echo $response;
+        // die;
 
         $res = json_decode($response, true);
 
