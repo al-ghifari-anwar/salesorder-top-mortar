@@ -492,6 +492,7 @@ class Voucher extends CI_Controller
                 // $this->session->set_flashdata('success', "Berhasil kirim voucher!");
                 // redirect('voucher-list/' . $id_city);
                 echo "Success notif";
+                echo $response;
             } else {
                 // $this->session->set_flashdata('warning', "Berhasil kirim voucher, tapi notif tidak terkirim!");
                 // redirect('voucher-list/' . $id_city);
