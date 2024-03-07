@@ -41,7 +41,7 @@ class SuratJalan extends CI_Controller
         $data['title'] = 'Surat Jalan';
         $data['suratjalan'] = $this->MSuratJalan->getByCity($id_city);
         $data['toko'] = $this->MContact->getAll($id_city);
-        $data['kurir'] = $this->MUser->getAll($id_city);
+        $data['kurir'] = $this->MUser->getAllDefault();
         $data['kendaraan'] = $this->MKendaraan->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

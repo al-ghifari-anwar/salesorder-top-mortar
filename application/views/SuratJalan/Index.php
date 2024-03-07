@@ -180,7 +180,7 @@
                                 <label for="">Kurir</label>
                                 <select class="form-control select2bs4" name="id_courier" style="width: 100%;">
                                     <?php foreach ($kurir as $data) : ?>
-                                        <option value="<?= $data['id_user'] ?>"><?= $data['full_name'] ?></option>
+                                        <option value="<?= $data['id_user'] ?>"><?= $data['full_name'] . " - " . $data['nama_city'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
