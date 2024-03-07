@@ -56,6 +56,17 @@
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
+                                            <div class="col-3">
+                                                <label for="">Kota:</label>
+                                                <div class="row">
+                                                    <select name="id_city" id="select2bs41" class="form-control select2bs41">
+                                                        <option value="0">Semua</option>
+                                                        <?php foreach ($city as $city) : ?>
+                                                            <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <label for="">Toko:</label>
                                             <div class="form-group">
                                                 <select name="id_contact" id="select2bs4" class="form-control select2bs4">

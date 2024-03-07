@@ -26,6 +26,7 @@ class Payment extends CI_Controller
     public function index()
     {
         $data['title'] = 'Rincian Pembayaran';
+        $data['city'] = $this->MCity->getAll();
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
         } else {
@@ -106,9 +107,10 @@ class Payment extends CI_Controller
     {
         $dateRange = $this->input->post("date_range");
         $id_contact = $this->input->post("id_contact");
+        $id_city = $this->input->post('id_city');
         if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $invoice = $this->MInvoice->getAllByDate(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact);
+            $invoice = $this->MInvoice->getAllByDate(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact, $id_city);
         } else {
             // $invoice = $this->MInvoice->getAll();
         }
