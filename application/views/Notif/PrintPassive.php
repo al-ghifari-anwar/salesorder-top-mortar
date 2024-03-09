@@ -135,6 +135,31 @@ function penyebut($nilai)
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
+        <tr>
+            <th colspan="3" class="text-center">Akan passive dalam 2 minggu</th>
+        </tr>
+        <?php if ($contact_active != null) : ?>
+            <?php foreach ($contact_active as $contact_active) : ?>
+                <?php
+                $id_contact = $contact_active['id_contact'];
+                $lastOrder = $this->db->query("SELECT MAX(date_closing) as date_closing, id_contact FROM tb_surat_jalan WHERE id_contact = '$id_contact' AND is_closing = 1 GROUP BY id_contact")->row_array();
+                ?>
+                <?php if ($lastOrder != null) : ?>
+                    <?php
+                    $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
+                    $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
+                    $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
+                    ?>
+                    <?php if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) : ?>
+                        <tr>
+                            <td><?= $contact_active['nama'] ?></td>
+                            <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_closing'])) ?></td>
+                            <td class="text-center"><?= $contact_active['reputation'] ?></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </table>
 </body>
 
