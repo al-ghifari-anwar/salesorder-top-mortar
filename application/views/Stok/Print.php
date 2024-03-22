@@ -127,9 +127,11 @@ function penyebut($nilai)
                 $pemasukan = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' AND created_at > '$dateFrom' AND created_at < '$dateTo'")->row_array();
                 $pengeluaran = $this->db->query("SELECT SUM(qty_produk) AS qty_produk FROM tb_detail_surat_jalan JOIN tb_surat_jalan ON tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan WHERE tb_detail_surat_jalan.id_produk = '$id_produk' AND date_closing > '$dateFrom' AND date_closing < '$dateTo' AND is_closing = 1")->row_array();
                 // echo $this->db->last_query() . "<br>";
+                $jumlahAwal = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' AND created_at < '$dateFrom' ");
 
                 $valPemasukan = $pemasukan['jml_stok'] == null ? 0 : $pemasukan['jml_stok'];
                 $valPengeluaran = $pengeluaran['qty_produk'] == null ? 0 : $pengeluaran['qty_produk'];
+                $valJumlahAwal = $jumlahAwal['jml_stok'] == null ? 0 : $jumlahAwal['jml_stok'];
                 ?>
                 <tr>
                     <td class="text-center border-r"><?= $no++; ?></td>
