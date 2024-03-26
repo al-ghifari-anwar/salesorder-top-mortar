@@ -93,7 +93,7 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <?php if ($this->session->userdata('level_user') != null) : ?>
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                             <li class="nav-item">
@@ -242,6 +242,15 @@
                                                 <i class="nav-icon fas fa-location-arrow"></i>
                                                 <p>
                                                     Visit
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('rencana-visit') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-map-marked"></i>
+                                                <p>
+                                                    Rencana Visit
                                                     <!-- <span class="right badge badge-danger">New</span> -->
                                                 </p>
                                             </a>

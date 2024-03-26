@@ -35,7 +35,7 @@ function penyebut($nilai)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= "Rekap Sales " . $city['nama_city']  ?></title>
+    <title><?= "Rekap Rencana Visit " . $city['nama_city']  ?></title>
 </head>
 
 <body>
@@ -102,7 +102,7 @@ function penyebut($nilai)
         }
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
-    <h1 class="text-center">Absen Sales <?= $city['nama_city'] ?></h1>
+    <h1 class="text-center">Absen Sales <?= $city['nama_city'] ?> (Rencana Visit)</h1>
     <h4 class="text-center">Bulan <?= date("F", strtotime("2023-" . $month . "-01")) ?></h4>
     <table class="border">
         <tr>
@@ -121,12 +121,10 @@ function penyebut($nilai)
                 $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $user['id_user'], 'MONTH(date_visit)' => $month])->result_array();
 
                 $this->db->select("COUNT(*) AS total_visit");
-                $this->db->group_by('id_contact');
-                $total = $this->db->get_where('tb_visit', ['id_user' => $user['id_user'], 'MONTH(date_visit)' => $month])->num_rows();
-
+                $total = $this->db->get_where('tb_visit', ['id_user' => $user['id_user'], 'MONTH(date_visit)' => $month])->row_array();
                 ?>
                 <tr>
-                    <th colspan="7" class="border text-left" style="color: blue;"><?= $user['full_name'] ?> | Total: <?= $total ?></th>
+                    <th colspan="7" class="border text-left" style="color: blue;"><?= $user['full_name'] ?> | Total: <?= $total['total_visit'] ?></th>
                 </tr>
                 <?php foreach ($dateGroup as $dateGroup) : ?>
                     <tr>

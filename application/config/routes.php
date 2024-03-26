@@ -117,6 +117,10 @@ $route['penjualan/(:num)'] = 'Penjualan/index/$1';
 $route['visit'] = 'Visit';
 $route['visit/(:num)'] = 'Visit/visit_by_city/$1';
 $route['approve-visit/(:num)/(:num)'] = 'Visit/approve/$1/$2';
+// Rencana Visit
+$route['rencana-visit'] = 'Visit/rencana_visit';
+$route['rencana-visit/(:num)'] = 'Visit/rencana_visit_by_city/$1';
+$route['approve-visit/(:num)/(:num)'] = 'Visit/approve/$1/$2';
 // Laporan Kurir
 $route['lap-kurir'] = 'Visit/lapkurir_city_list';
 $route['lap-kurir/(:num)'] = 'Visit/lapkurir_by_city/$1';
@@ -144,6 +148,7 @@ $route['rekap-status/(:num)'] = 'Status/rekap_fee/$1';
 $route['print-rekap-status'] = 'Status/print_rekap';
 // Absen
 $route['lap-absen/(:num)/(:any)'] = 'Visit/lap_absen/$1/$2';
+$route['lap-absen-renvis/(:num)/(:any)'] = 'Visit/lap_absen_renvis/$1/$2';
 // MArketing Message
 $route['marketing'] = 'Marketing';
 $route['insert-marketing'] = 'Marketing/insert';

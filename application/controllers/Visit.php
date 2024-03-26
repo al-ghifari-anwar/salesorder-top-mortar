@@ -150,4 +150,74 @@ class Visit extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
+
+    public function rencana_visit()
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $data['title'] = 'Visit';
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('RencanaVisit/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function rencana_visit_by_city($id_city)
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+
+        $dateRange = $this->input->post("date_range");
+        $id_user = $this->input->post("id_user");
+        $bulan = $this->input->post("bulan");
+
+        if ($bulan) {
+            $dates = explode("-", $dateRange);
+            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, $id_user, $bulan);
+        } else {
+            // $invoice = $this->MInvoice->getAll();
+            $data['visit'] = $this->MVisit->getAllByCity($id_city);
+        }
+        $data['title'] = 'Visit';
+        $data['cities'] = $this->MCity->getAll();
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['id_city'] = $id_city;
+        // echo json_encode($data);
+        // die;
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('RencanaVisit/List');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function lap_absen_renvis($id_city, $type)
+    {
+        $post = $this->input->post();
+        $month = $post['bulan'];
+
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['user'] = $this->MVisit->getGroupedContactGlobal($id_city, $month, $type);
+        $data['month'] = $month;
+        $data['type'] = $type;
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        if ($type == 'courier') {
+            $html = $this->load->view('Visit/Print', $data, true);
+        } else if ($type == 'sales') {
+            $html = $this->load->view('RencanaVisit/PrintSales', $data, true);
+        }
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
 }
