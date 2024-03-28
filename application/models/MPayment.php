@@ -100,14 +100,19 @@ class MPayment extends CI_Model
         $query = $this->db->update('tb_payment', $this, ['id_payment' => $id]);
 
         if ($query) {
+            $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
             $getInv = $this->db->get_where('tb_invoice', ['id_invoice' => $this->id_invoice])->row_array();
             $getTotalPayment = $this->db->query("SELECT SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+
+            $date = date("Y-m-d H:i:s");
 
             if ($getInv['total_invoice'] == $getTotalPayment['amount_total']) {
 
                 $setInvStatus = $this->db->update('tb_invoice', ['status_invoice' => 'paid'], ['id_invoice' => $id_invoice]);
 
                 if ($setInvStatus) {
+                    $removeRenvis = $this->db->update('tb_rencana_visit', ['is_visited' => 1, 'date_visit' => $date], ['id_contact' => $getInv['id_contact'], 'type_rencana' => 'jatem']);
+
                     return true;
                 } else {
                     return false;
