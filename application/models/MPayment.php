@@ -111,7 +111,7 @@ class MPayment extends CI_Model
                 $setInvStatus = $this->db->update('tb_invoice', ['status_invoice' => 'paid'], ['id_invoice' => $id_invoice]);
 
                 if ($setInvStatus) {
-                    $removeRenvis = $this->db->update('tb_rencana_visit', ['is_visited' => 1, 'date_visit' => $date], ['id_contact' => $getInv['id_contact'], 'type_rencana' => 'jatem']);
+                    $removeRenvis = $this->db->update('tb_rencana_visit', ['is_visited' => 1, 'visit_date' => $date], ['id_contact' => $getInv['id_contact'], 'type_rencana' => 'jatem']);
 
                     return true;
                 } else {
