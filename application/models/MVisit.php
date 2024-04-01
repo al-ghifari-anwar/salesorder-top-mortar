@@ -39,7 +39,11 @@ class MVisit extends CI_Model
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         $this->db->where('MONTH(date_visit)', $month);
-        $this->db->where('tb_user.level_user', $type);
+        if ($type != 'sales') {
+            $this->db->where('tb_user.level_user', $type);
+        } else {
+            $this->db->where('tb_user.level_user IN', "('sales', 'penagihan')");
+        }
         $this->db->where('tb_user.id_city', $id_city);
         $this->db->group_by('tb_user.id_user');
         $query = $this->db->get('tb_visit')->result_array();
