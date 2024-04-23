@@ -368,6 +368,15 @@
                                                 </p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('payment?hist=1') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-store-alt"></i>
+                                                <p>
+                                                    Histori Toko
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
                                         <?php if ($this->session->userdata('level_user') == 'finance') : ?>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('payment-transit') ?>" class="nav-link">

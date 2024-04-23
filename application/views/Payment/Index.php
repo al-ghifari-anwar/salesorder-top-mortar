@@ -21,7 +21,12 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Rincian Pembayaran</h1>
+                    <?php if (!isset($_GET['hist'])) : ?>
+                        <h1 class="m-0">Rincian Pembayaran</h1>
+                    <?php endif; ?>
+                    <?php if (isset($_GET['hist'])) : ?>
+                        <h1 class="m-0">Histori Toko</h1>
+                    <?php endif; ?>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -52,7 +57,12 @@
                                                             <i class="far fa-calendar-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control float-right" id="reservation" name="date_range" value="<?= "09/01/2023 - " .  date("m/d/Y") ?>">
+                                                    <?php if (isset($_GET['hist'])) : ?>
+                                                        <input type="text" class="form-control float-right" id="reservation" name="date_range" value="<?= "09/01/2023 - " .  date("m/d/Y") ?>">
+                                                    <?php endif; ?>
+                                                    <?php if (!isset($_GET['hist'])) : ?>
+                                                        <input type="text" class="form-control float-right" id="reservation" name="date_range">
+                                                    <?php endif; ?>
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
