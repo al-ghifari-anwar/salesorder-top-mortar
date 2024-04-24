@@ -135,7 +135,7 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader') : ?>
                                 <?php if ($this->session->userdata('level_user') != 'salesleader') : ?>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
@@ -284,7 +284,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <?php if ($this->session->userdata('level_user') != 'salesleader') : ?>
+                                <?php if ($this->session->userdata('level_user') == 'salesleader') : ?>
                                     <li class="nav-item">
                                         <a href="<?= base_url('lap-kurir') ?>" class="nav-link">
                                             <i class="nav-icon fas fa-truck-moving"></i>
@@ -316,7 +316,7 @@
                                     </li>
                                 <?php endif ?>
 
-                                <?php if ($this->session->userdata('level_user') != 'salesleader') : ?>
+                                <?php if ($this->session->userdata('level_user') == 'salesleader') : ?>
                                     <li class="nav-item">
                                         <a href="<?= base_url('penjualan') ?>" class="nav-link">
                                             <i class="nav-icon fas fa-archive"></i>
