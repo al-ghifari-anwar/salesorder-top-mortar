@@ -159,3 +159,7 @@ $route['notif-passive'] = 'Notif/notif_passive';
 $route['stok'] = 'Stok';
 $route['stok/(:num)'] = 'Stok/list/$1';
 $route['cetak-stok'] = 'Stok/lap_stok';
+// Surat Jalan
+$route['renvis'] = 'Renvis/city_list';
+$route['renvis/(:num)'] = 'Renvis/index/$1';
+$route['insert-renvis'] = 'Renvis/insert';
