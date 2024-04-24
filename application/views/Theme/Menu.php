@@ -94,8 +94,6 @@
                 <nav class="mt-2">
                     <?php if ($this->session->userdata('level_user') != null) : ?>
                         <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-                            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
                             <li class="nav-item">
                                 <a href="<?= base_url() ?>" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -104,6 +102,17 @@
                                     </p>
                                 </a>
                             </li>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'sales') : ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('renvis') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-calendar-plus"></i>
+                                        <p>
+                                            Rencana Visit
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php endif ?>
                             <?php if ($this->session->userdata('level_user') == 'superadmin') : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('distributor') ?>" class="nav-link">
@@ -126,7 +135,7 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') != 'superadmin' && $this->session->userdata('level_user') != 'marketing') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'admin') : ?>
                                 <?php if ($this->session->userdata('level_user') != 'salesleader') : ?>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
@@ -306,17 +315,7 @@
                                         </a>
                                     </li>
                                 <?php endif ?>
-                                <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'sales') : ?>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('renvis') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-calendar-plus"></i>
-                                            <p>
-                                                Rencana Visit
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
-                                <?php endif ?>
+
                                 <?php if ($this->session->userdata('level_user') != 'salesleader') : ?>
                                     <li class="nav-item">
                                         <a href="<?= base_url('penjualan') ?>" class="nav-link">
@@ -359,7 +358,7 @@
                                     </li>
                                 <?php endif; ?>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') != 'salesleader' && $this->session->userdata('level_user') != 'marketing') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c') : ?>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-file"></i>
