@@ -186,7 +186,7 @@ function penyebut($nilai)
                     </tr>
                     <tr>
                         <th class="border">Terms</th>
-                        <th class="border">Ship Date</th>
+                        <th class="border">Jatuh Tempo</th>
                     </tr>
                     <tr>
                         <td class="border text-center">
@@ -196,7 +196,12 @@ function penyebut($nilai)
                                 <?= $store['termin_payment'] . " Hari" ?>
                             <?php } ?>
                         </td>
-                        <td class="border text-center"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
+                        <td class="border text-center">
+                            <?php
+                            $jatuhTempo = date('d M Y', strtotime("+" . $store['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                            ?>
+                            <?= date('d M Y', strtotime($jatuhTempo)) ?>
+                        </td>
                     </tr>
                 </table>
             </div>
