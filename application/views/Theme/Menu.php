@@ -316,7 +316,7 @@
                                     </li>
                                 <?php endif ?>
 
-                                <?php if ($this->session->userdata('level_user') == 'salesleader') : ?>
+                                <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'admin_c') : ?>
                                     <li class="nav-item">
                                         <a href="<?= base_url('penjualan') ?>" class="nav-link">
                                             <i class="nav-icon fas fa-archive"></i>
