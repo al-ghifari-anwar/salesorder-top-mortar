@@ -172,71 +172,72 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="nav-icon fas fa-file"></i>
-                                            <p>
-                                                Surat Jalan
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
-                                                    <i class="nav-icon fas fa-th"></i>
-                                                    <p>
-                                                        Surat Jalan
-                                                        <!-- <span class="right badge badge-danger">New</span> -->
-                                                    </p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('sj-not-closing') ?>" class="nav-link">
-                                                    <i class="nav-icon fas fa-times-circle"></i>
-                                                    <p>
-                                                        Belum Closing
-                                                        <?php
-                                                        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
-                                                        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-                                                        $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0, 'tb_city.id_distributor' => $this->session->userdata('id_distributor')]);
-                                                        ?>
-                                                        <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
-                                                    </p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="nav-icon fas fa-file-invoice"></i>
-                                            <p>
-                                                Invoice
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('invoice') ?>" class="nav-link">
-                                                    <i class="nav-icon fas fa-file-invoice"></i>
-                                                    <p>
-                                                        Invoice
-                                                        <!-- <span class="right badge badge-danger">New</span> -->
-                                                    </p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('rep-invoice/0') ?>" class="nav-link">
-                                                    <i class="nav-icon fas fa-file-archive"></i>
-                                                    <p>
-                                                        Rekap Invoice
-                                                        <!-- <span class="right badge badge-danger">New</span> -->
-                                                    </p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
                                 <?php endif; ?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-file"></i>
+                                        <p>
+                                            Surat Jalan
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-th"></i>
+                                                <p>
+                                                    Surat Jalan
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('sj-not-closing') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-times-circle"></i>
+                                                <p>
+                                                    Belum Closing
+                                                    <?php
+                                                    $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+                                                    $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+                                                    $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0, 'tb_city.id_distributor' => $this->session->userdata('id_distributor')]);
+                                                    ?>
+                                                    <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>
+                                            Invoice
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('invoice') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-file-invoice"></i>
+                                                <p>
+                                                    Invoice
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('rep-invoice/0') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-file-archive"></i>
+                                                <p>
+                                                    Rekap Invoice
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-users"></i>
