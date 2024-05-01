@@ -53,8 +53,8 @@
                                         <th>Nomor HP</th>
                                         <th>Status</th>
                                         <th>Reputasi</th>
-                                        <th>Tgl Ditambah</th>
-                                        <th>Counter</th>
+                                        <th>Tgl Aktif</th>
+                                        <th>Interval</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -68,20 +68,8 @@
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
-                                            <td><?= date("d F, Y", strtotime($data['created_at'])) ?></td>
-                                            <td>
-                                                <?php
-                                                $date1 = new DateTime(date("Y-m-d"));
-                                                $date2 = new DateTime(date("Y-m-d", strtotime($data['created_at'])));
-                                                $days  = $date2->diff($date1)->format('%a');
-                                                $operan = "";
-                                                if ($date1 < $date2) {
-                                                    $operan = "";
-                                                }
-                                                $daysWithOperan = $operan . $days;
-                                                echo $daysWithOperan . " Hari";
-                                                ?>
-                                            </td>
+                                            <td><?= date("d F, Y", strtotime($data['date_renvis'])) ?></td>
+                                            <td><?= $data['interval_renvis'] ?> Hari</td>
                                             <td></td>
                                         </tr>
                                     <?php endforeach; ?>
