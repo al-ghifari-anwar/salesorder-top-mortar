@@ -139,11 +139,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Tanggal Rencana Visit:</label>
-                                <input type="date" class="form-control" name="date_renvis">
+                                <input type="date" class="form-control" name="date_renvis" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Interval (Hari)</label>
-                                <input type="number" class="form-control" name="interval_renvis" value="1">
+                                <input type="number" class="form-control" name="interval_renvis" value="1" required>
                             </div>
                         </div>
 
