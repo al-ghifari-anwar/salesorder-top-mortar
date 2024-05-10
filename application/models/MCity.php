@@ -50,6 +50,7 @@ class MCity extends CI_Model
         $post = $this->input->post();
         $this->nama_city = $post['nama_city'];
         $this->kode_city = $post['kode_city'];
+        $this->id_distributor = $this->session->userdata('id_distributor');
 
         $query = $this->db->update('tb_city', $this, ['id_city' => $id]);
 
