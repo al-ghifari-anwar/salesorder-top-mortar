@@ -123,7 +123,7 @@ function penyebut($nilai)
                 </tr>
                 <?php
                 // Get All Visit
-                $this->db->group_by('tb_visit.id_contact');
+                // $this->db->group_by('tb_visit.id_contact');
                 $visit = $this->db->get_where('tb_visit', ['id_user' => $dataSales['id_user'], 'MONTH(date_visit)' => $month])->result_array();
                 // echo json_encode($visit);
                 // die;
