@@ -113,6 +113,8 @@ class MPayment extends CI_Model
                 if ($setInvStatus) {
                     $removeRenvis = $this->db->update('tb_rencana_visit', ['is_visited' => 1, 'visit_date' => $date], ['id_contact' => $getInv['id_contact'], 'type_rencana' => 'jatem']);
 
+                    $renoveRenvisJatem = $this->db->update('tb_renvis_jatem', ['is_visited' => 1, 'visit_date' => $date], ['id_invoice' => $id_invoice]);
+
                     return true;
                 } else {
                     return false;
