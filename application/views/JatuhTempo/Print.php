@@ -143,7 +143,6 @@ function penyebut($nilai)
             <?php if ($daysWithOperan >= 0 && $daysWithOperan <= 7) :
             ?>
                 <?php
-                $no07++;
                 // print_r("If 1");
                 $id_invoice = $storeInv['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
@@ -152,7 +151,8 @@ function penyebut($nilai)
 
                 ?>
 
-                <?php if ($sisaHutang > 0) : ?>
+                <?php if ($sisaHutang > 0) :
+                    $no07++; ?>
                     <tr>
                         <td class="text-center"><?= $no07 ?></td>
                         <td class="text-center"><?= $storeInv['nama'] ?></td>
@@ -214,7 +214,6 @@ function penyebut($nilai)
             ?>
             <?php if ($daysWithOperan >= 8 && $daysWithOperan <= 15) : ?>
                 <?php
-                $no815++;
                 $id_invoice = $storeInv2['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
                 $sisaHutang = $storeInv2['total_invoice'] - $payment['amount_payment'];
@@ -222,7 +221,8 @@ function penyebut($nilai)
 
                 ?>
 
-                <?php if ($sisaHutang > 0) : ?>
+                <?php if ($sisaHutang > 0) :
+                    $no815++; ?>
                     <tr>
                         <td class="text-center"><?= $no815 ?></td>
                         <td class="text-center"><?= $storeInv2['nama'] ?></td>
