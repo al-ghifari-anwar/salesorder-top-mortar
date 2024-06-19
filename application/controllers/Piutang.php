@@ -82,6 +82,7 @@ class Piutang extends CI_Controller
 
     public function print_jatuh_tempo()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $id_city = $this->input->post("id_city");
         $id_distributor = $this->session->userdata('id_distributor');
 
