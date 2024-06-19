@@ -112,6 +112,7 @@ function penyebut($nilai)
         $totalAll = 0;
         ?>
         <tr>
+            <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Nama Toko</th>
             <th style="border-bottom: 1px solid black;">No. Invoice</th>
             <th style="border-bottom: 1px solid black;">Tgl. Invoice</th>
@@ -123,7 +124,9 @@ function penyebut($nilai)
         <tr>
             <th colspan="6">Umur Hutang 0 - 7 Hari</th>
         </tr>
-        <?php foreach ($invoice as $storeInv) : ?>
+        <?php
+        $no07 = 0;
+        foreach ($invoice as $storeInv) : ?>
             <?php
             $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
@@ -140,6 +143,7 @@ function penyebut($nilai)
             <?php if ($daysWithOperan >= 0 && $daysWithOperan <= 7) :
             ?>
                 <?php
+                $no07++;
                 // print_r("If 1");
                 $id_invoice = $storeInv['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
@@ -150,6 +154,7 @@ function penyebut($nilai)
 
                 <?php if ($sisaHutang > 0) : ?>
                     <tr>
+                        <td class="text-center"><?= $no07 ?></td>
                         <td class="text-center"><?= $storeInv['nama'] ?></td>
                         <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
@@ -193,7 +198,9 @@ function penyebut($nilai)
         <tr>
             <th colspan="6">Umur Hutang 8 - 15 Hari</th>
         </tr>
-        <?php foreach ($invoice as $storeInv2) : ?>
+        <?php
+        $no815 = 0;
+        foreach ($invoice as $storeInv2) : ?>
             <?php
             $jatuhTempo = date('d M Y', strtotime("+" . $storeInv2['termin_payment'] . " days", strtotime($storeInv2['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
@@ -207,6 +214,7 @@ function penyebut($nilai)
             ?>
             <?php if ($daysWithOperan >= 8 && $daysWithOperan <= 15) : ?>
                 <?php
+                $no815++;
                 $id_invoice = $storeInv2['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
                 $sisaHutang = $storeInv2['total_invoice'] - $payment['amount_payment'];
@@ -216,6 +224,7 @@ function penyebut($nilai)
 
                 <?php if ($sisaHutang > 0) : ?>
                     <tr>
+                        <td class="text-center"><?= $no815 ?></td>
                         <td class="text-center"><?= $storeInv2['nama'] ?></td>
                         <td class="text-center"><?= $storeInv2['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?></td>
@@ -259,7 +268,9 @@ function penyebut($nilai)
         <tr>
             <th colspan="6">Umur Hutang Lebih Dari 15 Hari</th>
         </tr>
-        <?php foreach ($invoice as $storeInv3) : ?>
+        <?php
+        $no16 = 0;
+        foreach ($invoice as $storeInv3) : ?>
             <?php
             $jatuhTempo = date('d M Y', strtotime("+" . $storeInv3['termin_payment'] . " days", strtotime($storeInv3['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
@@ -274,6 +285,7 @@ function penyebut($nilai)
             <?php if ($daysWithOperan >= 16) : ?>
                 <?php
                 // echo "AWDAWDA";
+                $no16++;
                 $id_invoice = $storeInv3['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
                 $sisaHutang = $storeInv3['total_invoice'] - $payment['amount_payment'];
@@ -282,6 +294,7 @@ function penyebut($nilai)
                 ?>
                 <?php if ($sisaHutang > 0) : ?>
                     <tr>
+                        <td class="text-center"><?= $no16 ?></td>
                         <td class="text-center"><?= $storeInv3['nama'] ?></td>
                         <td class="text-center"><?= $storeInv3['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?></td>
