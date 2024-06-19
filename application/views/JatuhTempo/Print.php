@@ -285,14 +285,16 @@ function penyebut($nilai)
             <?php if ($daysWithOperan >= 16) : ?>
                 <?php
                 // echo "AWDAWDA";
-                $no16++;
                 $id_invoice = $storeInv3['id_invoice'];
                 $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
                 $sisaHutang = $storeInv3['total_invoice'] - $payment['amount_payment'];
                 $totalStore3 += $sisaHutang;
 
                 ?>
-                <?php if ($sisaHutang > 0) : ?>
+                <?php if ($sisaHutang > 0) :
+
+                    $no16++;
+                ?>
                     <tr>
                         <td class="text-center"><?= $no16 ?></td>
                         <td class="text-center"><?= $storeInv3['nama'] ?></td>
