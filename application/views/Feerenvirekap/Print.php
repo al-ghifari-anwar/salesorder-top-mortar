@@ -118,7 +118,7 @@ function penyebut($nilai)
                     $id_user = $sales['id_user'];
                     $this->db->select("DATE(date_visit) as date_visit");
                     $this->db->group_by("DATE(date_visit)");
-                    $getDateVisit = $this->db->get_where('tb_visit', ['id_user' => $id_user])->result_array();
+                    $getDateVisit = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'MONTH(date_visit)' => $month])->result_array();
 
                     $totalToko = 0;
                     foreach ($getDateVisit as $getDateVisit) {
@@ -129,7 +129,7 @@ function penyebut($nilai)
                         $totalToko += $getGroupedContact['jml_toko'];
                     }
                     ?>
-                    <td class="text-left"><?= $totalToko ?></td>
+                    <td class="text-center"><?= $totalToko ?></td>
                     <td class="text-left"></td>
                 </tr>
             <?php endforeach; ?>
