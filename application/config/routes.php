@@ -163,3 +163,7 @@ $route['cetak-stok'] = 'Stok/lap_stok';
 $route['renvis'] = 'Renvis/city_list';
 $route['renvis/(:num)'] = 'Renvis/index/$1';
 $route['insert-renvis'] = 'Renvis/insert';
+// Fee Renvi
+$route['feerenvi'] = 'Feerenvi';
+$route['feerenvi/(:num)'] = 'Feerenvi/rekap_fee/$1';
+$route['feerenvi/print'] = 'Feerenvi/print_rekap';

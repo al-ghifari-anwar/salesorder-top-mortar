@@ -275,6 +275,15 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="<?= base_url('feerenvi') ?>" class="nav-link">
+                                                <i class="nav-icon fab fa-paypal"></i>
+                                                <p>
+                                                    Fee Renvi
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('rekap-status') ?>" class="nav-link">
                                                 <i class="nav-icon fas fa-info-circle"></i>
                                                 <p>
