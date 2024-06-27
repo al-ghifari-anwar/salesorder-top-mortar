@@ -114,6 +114,23 @@ function penyebut($nilai)
             <?php foreach ($sales as $sales) : ?>
                 <tr>
                     <td class="text-left"><?= $sales['full_name'] ?></td>
+                    <?php
+                    $id_user = $sales['id_user'];
+                    $this->db->select("DATE(date_visit) as date_visit");
+                    $this->db->group_by("DATE(date_visit)");
+                    $getDateVisit = $this->db->get_where('tb_visit', ['id_user' => $id_user])->result_array();
+
+                    $totalToko = 0;
+                    foreach ($getDateVisit as $getDateVisit) {
+                        $date = $getDateVisit['date_visit'];
+                        $this->db->select("COUNT(*) AS jml_toko");
+                        $this->db->group_by('tb_visit.id_contact');
+                        $getGroupedContact = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => $date])->row_array();
+                        $totalToko += $getGroupedContact['jml_toko'];
+                    }
+                    ?>
+                    <td class="text-left"><?= $totalToko ?></td>
+                    <td class="text-left"></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>
