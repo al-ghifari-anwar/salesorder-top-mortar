@@ -43,6 +43,9 @@
                             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                 Tambah Data
                             </button>
+                            <a href="<?= base_url('renvis/print/') . $id_city ?>" class="btn btn-success mx-3 float-right" target="__blank">
+                                Cetak Data
+                            </a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">

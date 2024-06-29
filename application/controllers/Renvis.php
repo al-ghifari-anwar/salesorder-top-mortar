@@ -43,6 +43,7 @@ class Renvis extends CI_Controller
         $this->db->select("tb_antrian_renvis.*, tb_contact.nama, tb_contact.nomorhp, tb_contact.id_city, tb_contact.store_status, tb_contact.store_owner, tb_contact.maps_url, tb_contact.created_at AS created_at_store, tb_contact.reputation");
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_antrian_renvis.id_contact');
         $data['renvis'] = $this->db->get_where('tb_antrian_renvis', ['id_city' => $id_city])->result_array();
+        $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Renvis/Index');
@@ -90,5 +91,18 @@ class Renvis extends CI_Controller
             $this->session->set_flashdata('failed', "Gagal megnhapus data renvi!");
             redirect('renvis');
         }
+    }
+
+    public function print($id_city)
+    {
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['contacts'] = $this->MContact->getAll($id_city);
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Renvis/Print', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }
