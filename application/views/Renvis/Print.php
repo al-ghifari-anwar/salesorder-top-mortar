@@ -35,7 +35,7 @@ function penyebut($nilai)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= "Rekap Invoice Tgl " . date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></title>
+    <title>Data Renvi <?= $city['nama_city'] ?></title>
 </head>
 
 <body>
@@ -107,7 +107,7 @@ function penyebut($nilai)
     <table>
         <tr>
             <th style="border-bottom: 1px solid black;">No.</th>
-            <th style="border-bottom: 1px solid black;">Toko</th>
+            <th style="border-bottom: 1px solid black;">Toko (<?= count($contacts) ?>)</th>
             <th style="border-bottom: 1px solid black;">No. HP</th>
             <th style="border-bottom: 1px solid black;">Rencana Visit</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
