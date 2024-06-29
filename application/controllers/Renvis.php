@@ -39,7 +39,7 @@ class Renvis extends CI_Controller
     public function index($id_city)
     {
         $data['title'] = 'Rencana Visit';
-        $data['toko'] = $this->MContact->getAll($id_city);
+        $data['toko'] = $this->MContact->getAllForRenvis($id_city);
         $this->db->select("tb_antrian_renvis.*, tb_contact.nama, tb_contact.nomorhp, tb_contact.id_city, tb_contact.store_status, tb_contact.store_owner, tb_contact.maps_url, tb_contact.created_at AS created_at_store, tb_contact.reputation");
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_antrian_renvis.id_contact');
         $data['renvis'] = $this->db->get_where('tb_antrian_renvis', ['id_city' => $id_city])->result_array();
