@@ -77,16 +77,18 @@ class Renvis extends CI_Controller
         }
     }
 
-    public function delete($id)
+    public function delete($id, $id_contact)
     {
-        $insert = $this->MSuratJalan->delete($id);
+        $insert = $this->db->delete('tb_antrian_renvis', ['id_antrian_renvis' => $id]);
+
+        $this->db->update('tb_rencana_visit', ['is_visited' => 1, 'visit_date' => date('Y-m-d H:i:s')], ['id_contact' => $id_contact]);
 
         if ($insert) {
-            $this->session->set_flashdata('success', "Berhasil megnhapus data suratjalan!");
-            redirect('surat-jalan');
+            $this->session->set_flashdata('success', "Berhasil megnhapus data renvi!");
+            redirect('renvis');
         } else {
-            $this->session->set_flashdata('failed', "Gagal megnhapus data suratjalan!");
-            redirect('surat-jalan');
+            $this->session->set_flashdata('failed', "Gagal megnhapus data renvi!");
+            redirect('renvis');
         }
     }
 }

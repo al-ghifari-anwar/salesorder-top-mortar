@@ -70,7 +70,9 @@
                                             <td><?= $data['reputation'] ?></td>
                                             <td><?= date("d F, Y", strtotime($data['date_renvis'])) ?></td>
                                             <td><?= $data['interval_renvis'] ?> Hari</td>
-                                            <td></td>
+                                            <td>
+                                                <a href="<?= base_url('renvis/delete/' . $data['id_antrian_renvis'] . "/" . $data['id_contact']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
