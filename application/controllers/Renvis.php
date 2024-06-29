@@ -96,7 +96,7 @@ class Renvis extends CI_Controller
     public function print($id_city)
     {
         $data['city'] = $this->MCity->getById($id_city);
-        $data['contacts'] = $this->MContact->getAll($id_city);
+        $data['contacts'] = $this->MContact->getAllNoFilter($id_city);
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
