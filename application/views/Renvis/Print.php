@@ -114,23 +114,35 @@ function penyebut($nilai)
         </tr>
         <?php if ($contacts != null) :
             $no = 1;
+            $total_renvi = 0;
+            $total_blmrenvi = 0;
         ?>
             <?php foreach ($contacts as $contact) : ?>
                 <tr>
                     <td><?= $no++; ?></td>
                     <td><?= $contact['nama'] ?></td>
                     <td><?= $contact['nomorhp'] ?></td>
-                    <td>
+                    <td class="text-center">
                         <?php
                         $id_contact = $contact['id_contact'];
                         $getAntrianRenvi = $this->db->query("SELECT * FROM tb_antrian_renvis WHERE id_contact = '$id_contact'")->row_array();
 
-                        echo $getAntrianRenvi == null ? 'Belum' : 'Ya'
+                        echo $getAntrianRenvi == null ? 'Belum' : 'Ya';
+                        $total_renvi += $getAntrianRenvi == null ? 0 : 1;
+                        $total_blmrenvi += $getAntrianRenvi == null ? 1 : 0;
                         ?>
 
                     </td>
                 </tr>
             <?php endforeach; ?>
+            <tr>
+                <th colspan="3" class="text-right">Sudah Masuk Renvi</th>
+                <th class="text-center"><?= $total_renvi ?></th>
+            </tr>
+            <tr>
+                <th colspan="3" class="text-right">Belum Masuk Renvi</th>
+                <th class="text-center"><?= $total_blmrenvi ?></th>
+            </tr>
         <?php endif; ?>
     </table>
 </body>
