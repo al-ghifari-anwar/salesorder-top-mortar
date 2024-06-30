@@ -276,7 +276,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="<?= base_url('feerenvi') ?>" class="nav-link">
-                                                <i class="nav-icon fab fa-location-arrow"></i>
+                                                <i class="nav-icon fas fa-location-arrow"></i>
                                                 <p>
                                                     Total Renvi
                                                     <!-- <span class="right badge badge-danger">New</span> -->
