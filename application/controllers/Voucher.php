@@ -59,7 +59,7 @@ class Voucher extends CI_Controller
         // $this->load->view('Stok/Print', $data);
         $data['dateNow'] = date("Y-m-d");
         $this->db->join('tb_voucher', 'tb_contact.id_contact = tb_voucher.id_contact', 'left');
-        $data['contacts'] = $this->db->get_where('tb_contact', ['is_claimed' => 0, 'tb_contact.id_city' => $id_city]);
+        $data['contacts'] = $this->db->get_where('tb_contact', ['is_claimed' => 0, 'tb_contact.id_city' => $id_city])->result_array();
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
