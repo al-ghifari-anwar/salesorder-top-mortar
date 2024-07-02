@@ -117,7 +117,7 @@ function penyebut($nilai)
             $no = 1;
         ?>
             <?php foreach ($contacts as $contact) : ?>
-                <?php if ($contact['store_status'] == 'passive' || $contact['store_status'] == 'data') : ?>
+                <?php if ($contact['store_status'] == 'passive' || $contact['store_status'] == 'data') { ?>
                     <?php if (date("Y-m-d", strtotime($contact['exp_date'])) < date("Y-m-d")) : ?>
                         <?php if ($contact['reputation'] == 'good') : ?>
                             <tr>
@@ -129,8 +129,7 @@ function penyebut($nilai)
                             </tr>
                         <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
-                <?php if ($contact['id_voucher'] == null) : ?>
+                <?php } else if ($contact['id_voucher'] == null) { ?>
                     <tr>
                         <td><?= "K" ?></td>
                         <td><?= $contact['nama'] ?></td>
@@ -138,7 +137,7 @@ function penyebut($nilai)
                         <td><?= $contact['store_status'] ?></td>
                         <td><?= $contact['reputation'] ?></td>
                     </tr>
-                <?php endif; ?>
+                <?php } ?>
             <?php endforeach; ?>
         <?php endif; ?>
     </table>
