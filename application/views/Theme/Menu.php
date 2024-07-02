@@ -237,7 +237,35 @@
                                         </li>
                                     </ul>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-map-marked"></i>
+                                        <p>
+                                            Visit
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('feerenvi') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-location-arrow"></i>
+                                                <p>
+                                                    Total Renvi
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('cusvisit') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-location-arrow"></i>
+                                                <p>
+                                                    Customer Visit
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-users"></i>

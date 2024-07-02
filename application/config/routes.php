@@ -167,3 +167,7 @@ $route['insert-renvis'] = 'Renvis/insert';
 $route['feerenvi'] = 'Feerenvi';
 $route['feerenvi/(:num)'] = 'Feerenvi/rekap_fee/$1';
 $route['feerenvi/print'] = 'Feerenvi/print_rekap';
+// Cus Visit
+$route['cusvisit'] = 'Cusvisit/city_list';
+$route['cusvisit/(:num)'] = 'Cusvisit/index/$1';
+$route['cusvisit/print/(:num)'] = 'Cusvisit/print/$1';
