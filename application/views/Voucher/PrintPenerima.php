@@ -1,6 +1,6 @@
 <?php
-echo json_encode($contacts);
-die;
+// echo json_encode($contacts);
+// die;
 function penyebut($nilai)
 {
     $nilai = abs($nilai);
