@@ -130,6 +130,15 @@ function penyebut($nilai)
                         <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
+                <?php if ($contact['id_voucher'] == null) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $contact['nama'] ?></td>
+                        <td><?= $contact['address'] ?></td>
+                        <td><?= $contact['store_status'] ?></td>
+                        <td><?= $contact['reputation'] ?></td>
+                    </tr>
+                <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
     </table>
