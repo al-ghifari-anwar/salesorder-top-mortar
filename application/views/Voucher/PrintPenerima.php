@@ -117,14 +117,9 @@ function penyebut($nilai)
             $no = 1;
         ?>
             <?php foreach ($contacts as $contact) : ?>
-                <?php if ($contact['store_status'] == 'passive' || $contact['reputation'] == 'data') : ?>
-                    <?php if ($contact['reputation'] == 'good') : ?>
-                        <?php
-                        $id_contact = $contact['id_contact'];
-                        $this->db->group_by('tb_voucher.id_contact');
-                        $getVoucherNotClaim = $this->db->get_where('tb_voucher', ['id_contact' => $id_contact, 'is_claimed' => 0, 'DATE(exp_date) <' => date("Y-m-d")])->row_array();
-                        ?>
-                        <?php if ($getVoucherNotClaim != null) : ?>
+                <?php if ($contact['store_status'] == 'passive' || $contact['store_status'] == 'data') : ?>
+                    <?php if (date("Y-m-d", strtotime($contact['exp_date'])) < date("Y-m-d")) : ?>
+                        <?php if ($contact['reputation'] == 'good') : ?>
                             <tr>
                                 <td><?= $no++; ?></td>
                                 <td><?= $contact['nama'] ?></td>

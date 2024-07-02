@@ -53,11 +53,13 @@ class Voucher extends CI_Controller
 
     public function laporan_penerima($id_city)
     {
+        date_default_timezone_set('Asia/Jakarta');
         $data['city'] = $this->MCity->getById($id_city);
         // $data['dates'] = explode("-", $dateRange);
         // $this->load->view('Stok/Print', $data);
         $data['dateNow'] = date("Y-m-d");
-        $data['contacts'] = $this->MContact->getAllNoFilter($id_city);
+        $this->db->join('tb_voucher', 'tb_contact.id_contact = tb_voucher.id_contact', 'left');
+        $data['contacts'] = $this->db->get_where('tb_contact', ['is_claimed' => 0, 'tb_contact.id_city' => $id_city]);
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
