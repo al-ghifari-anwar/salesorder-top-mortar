@@ -140,8 +140,8 @@ function penyebut($nilai)
                 <?php endif; ?>
             <?php endforeach; ?>
             <tr>
-                <td class="text-right" colspan="4">Total Visit</td>
-                <td class="text-center"><?= $total_visit ?></td>
+                <td class="text-right border" colspan="4">Total Visit</td>
+                <td class="text-center border"><?= $total_visit ?></td>
             </tr>
         <?php endif; ?>
     </table>
