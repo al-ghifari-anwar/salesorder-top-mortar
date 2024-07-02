@@ -115,7 +115,7 @@ function penyebut($nilai)
         </tr>
         <?php if ($contacts != null) :
             $no = 1;
-            $total_visit += $getVisit['jmlVisit'];
+            $total_visit = 0;
         ?>
             <?php foreach ($contacts as $contact) : ?>
                 <?php
@@ -123,10 +123,10 @@ function penyebut($nilai)
                 $this->db->select('COUNT(*) as jmlVisit');
                 $this->db->group_by('DATE(tb_visit.date_visit)');
                 $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo])->row_array();
-                $total_visit = 0;
+
                 ?>
                 <?php if ($getVisit != null) :
-
+                    $total_visit += $getVisit['jmlVisit'];
                 ?>
                     <tr>
                         <td><?= $no++; ?></td>
