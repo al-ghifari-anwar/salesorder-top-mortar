@@ -115,6 +115,7 @@ function penyebut($nilai)
         </tr>
         <?php if ($contacts != null) :
             $no = 1;
+            $total_visit += $getVisit['jmlVisit'];
         ?>
             <?php foreach ($contacts as $contact) : ?>
                 <?php
@@ -125,7 +126,7 @@ function penyebut($nilai)
                 $total_visit = 0;
                 ?>
                 <?php if ($getVisit != null) :
-                    $total_visit += $getVisit['jmlVisit'];
+
                 ?>
                     <tr>
                         <td><?= $no++; ?></td>
