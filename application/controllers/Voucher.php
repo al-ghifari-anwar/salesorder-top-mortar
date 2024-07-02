@@ -51,6 +51,22 @@ class Voucher extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function laporan_penerima($id_city)
+    {
+        $data['city'] = $this->MCity->getById($id_city);
+        // $data['dates'] = explode("-", $dateRange);
+        // $this->load->view('Stok/Print', $data);
+        $data['dateNow'] = date("Y-m-d");
+        $data['contacts'] = $this->MContact->getAllNoFilter($id_city);
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Voucher/PrintPenerima', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
+
     public function laporan_voucher($id_city)
     {
         if ($this->session->userdata('id_user') == null) {
