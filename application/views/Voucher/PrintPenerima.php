@@ -35,7 +35,7 @@ function penyebut($nilai)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penerima Voucher <?= $city['nama_city'] ?></title>
+    <title>Kelayakan Penerima Voucher <?= $city['nama_city'] ?></title>
 </head>
 
 <body>
@@ -102,7 +102,7 @@ function penyebut($nilai)
         }
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
-    <h1 class="text-center">Penerima Voucher <?= $city['nama_city'] ?></h1>
+    <h1 class="text-center">Kelayakan Penerima Voucher <?= $city['nama_city'] ?></h1>
     <h4 class="text-center">Tgl. <?= date("d M Y", strtotime($dateNow)) ?></h4>
     <table>
         <tr>
