@@ -132,7 +132,7 @@ function penyebut($nilai)
                 <?php endif; ?>
                 <?php if ($contact['id_voucher'] == null) : ?>
                     <tr>
-                        <td><?= $no++; ?></td>
+                        <td><?= "K" ?></td>
                         <td><?= $contact['nama'] ?></td>
                         <td><?= $contact['address'] ?></td>
                         <td><?= $contact['store_status'] ?></td>
