@@ -122,20 +122,26 @@ function penyebut($nilai)
                 $this->db->select('COUNT(*) as jmlVisit');
                 $this->db->group_by('DATE(tb_visit.date_visit)');
                 $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo])->row_array();
+                $total_visit = 0;
                 ?>
-                <?php if ($getVisit != null) : ?>
+                <?php if ($getVisit != null) :
+                    $total_visit += $getVisit['jmlVisit'];
+                ?>
                     <tr>
                         <td><?= $no++; ?></td>
                         <td><?= $contact['nama'] ?></td>
                         <td><?= $contact['address'] ?></td>
                         <td><?= $contact['nomorhp'] ?></td>
                         <td class="text-center">
-
                             <?= $getVisit == null ? 0 : $getVisit['jmlVisit'] ?>
                         </td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
+            <tr>
+                <td class="text-right" colspan="4">Total Visit</td>
+                <td class="text-center"><?= $total_visit ?></td>
+            </tr>
         <?php endif; ?>
     </table>
 </body>
