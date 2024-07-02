@@ -117,20 +117,22 @@ function penyebut($nilai)
             $no = 1;
         ?>
             <?php foreach ($contacts as $contact) : ?>
-                <?php if ($contact['store_status'] == 'passive' && $contact['reputation'] == 'good') : ?>
-                    <?php
-                    $id_contact = $contact['id_contact'];
-                    $this->db->group_by('tb_voucher.id_contact');
-                    $getVoucherNotClaim = $this->db->get_where('tb_voucher', ['id_contact' => $id_contact, 'is_claimed' => 0, 'DATE(exp_date) >' => date("Y-m-d")])->row_array();
-                    ?>
-                    <?php if ($getVoucherNotClaim != null) : ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $contact['nama'] ?></td>
-                            <td><?= $contact['address'] ?></td>
-                            <td><?= $contact['store_status'] ?></td>
-                            <td><?= $contact['reputation'] ?></td>
-                        </tr>
+                <?php if ($contact['store_status'] == 'passive' || $contact['reputation'] == 'data') : ?>
+                    <?php if ($contact['reputation'] == 'good') : ?>
+                        <?php
+                        $id_contact = $contact['id_contact'];
+                        $this->db->group_by('tb_voucher.id_contact');
+                        $getVoucherNotClaim = $this->db->get_where('tb_voucher', ['id_contact' => $id_contact, 'is_claimed' => 0, 'DATE(exp_date) <' => date("Y-m-d")])->row_array();
+                        ?>
+                        <?php if ($getVoucherNotClaim != null) : ?>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $contact['nama'] ?></td>
+                                <td><?= $contact['address'] ?></td>
+                                <td><?= $contact['store_status'] ?></td>
+                                <td><?= $contact['reputation'] ?></td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
             <?php endforeach; ?>
