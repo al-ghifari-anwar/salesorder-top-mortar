@@ -122,13 +122,15 @@ function penyebut($nilai)
                 <?php if ($contact['store_status'] == 'passive' || $contact['store_status'] == 'data') { ?>
                     <?php if (date("Y-m-d", strtotime($contact['exp_date'])) < date("Y-m-d")) : ?>
                         <?php if ($contact['reputation'] == 'good') : ?>
-                            <tr>
-                                <td><?= $no++; ?></td>
-                                <td><?= $contact['nama'] . "(" . $contact['id_contact'] . ")" ?></td>
-                                <td><?= $contact['address'] ?></td>
-                                <td><?= $contact['store_status'] ?></td>
-                                <td><?= $contact['reputation'] ?></td>
-                            </tr>
+                            <?php if ($contact['is_claimed'] == 0) : ?>
+                                <tr>
+                                    <td><?= $no++; ?></td>
+                                    <td><?= $contact['nama'] . "(" . $contact['id_contact'] . ")" ?></td>
+                                    <td><?= $contact['address'] ?></td>
+                                    <td><?= $contact['store_status'] ?></td>
+                                    <td><?= $contact['reputation'] ?></td>
+                                </tr>
+                            <?php endif; ?>
                         <?php endif; ?>
                     <?php endif; ?>
                 <?php } else if ($contact['id_voucher'] == null) { ?>

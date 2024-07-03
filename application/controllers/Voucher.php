@@ -60,7 +60,7 @@ class Voucher extends CI_Controller
         $data['dateNow'] = date("Y-m-d");
         // $this->db->join('tb_voucher', 'tb_contact.id_contact = tb_voucher.id_contact', 'LEFT');
         // $data['contacts'] = $this->db->get_where('tb_contact', ['is_claimed' => 0, 'tb_contact.id_city' => $id_city])->result_array();
-        $data['contacts'] = $this->db->query("SELECT tc.*, MAX(date_voucher) as date_voucher, MAX(exp_date) as exp_date, MAX(id_voucher) as id_voucher FROM tb_contact tc LEFT JOIN tb_voucher tv ON tv.id_contact = tc.id_contact WHERE tc.id_city = $id_city GROUP BY tc.id_contact")->result_array();
+        $data['contacts'] = $this->db->query("SELECT tc.*, MAX(date_voucher) as date_voucher, MAX(exp_date) as exp_date, MAX(id_voucher) as id_voucher, MAX(is_claimed) as is_claimed FROM tb_contact tc LEFT JOIN tb_voucher tv ON tv.id_contact = tc.id_contact WHERE tc.id_city = $id_city GROUP BY tc.id_contact")->result_array();
         // $this->load->view('Voucher/PrintPenerima', $data);
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
