@@ -124,7 +124,7 @@ function penyebut($nilai)
                         <?php if ($contact['reputation'] == 'good') : ?>
                             <tr>
                                 <td><?= $no++; ?></td>
-                                <td><?= $contact['nama'] ?></td>
+                                <td><?= $contact['nama'] . "(" . $contact['id_contact'] . ")" ?></td>
                                 <td><?= $contact['address'] ?></td>
                                 <td><?= $contact['store_status'] ?></td>
                                 <td><?= $contact['reputation'] ?></td>
@@ -135,7 +135,7 @@ function penyebut($nilai)
                     <?php if ($contact['store_status'] == 'passive' || $contact['store_status'] == 'data') : ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $contact['nama'] ?></td>
+                            <td><?= $contact['nama'] . "(" . $contact['id_contact'] . ")" ?></td>
                             <td><?= $contact['address'] ?></td>
                             <td><?= $contact['store_status'] ?></td>
                             <td><?= $contact['reputation'] ?></td>
