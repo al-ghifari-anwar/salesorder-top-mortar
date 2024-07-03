@@ -132,13 +132,15 @@ function penyebut($nilai)
                         <?php endif; ?>
                     <?php endif; ?>
                 <?php } else if ($contact['id_voucher'] == null) { ?>
-                    <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $contact['nama'] ?></td>
-                        <td><?= $contact['address'] ?></td>
-                        <td><?= $contact['store_status'] ?></td>
-                        <td><?= $contact['reputation'] ?></td>
-                    </tr>
+                    <?php if ($contact['store_status'] == 'passive' || $contact['store_status'] == 'data') : ?>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= $contact['nama'] ?></td>
+                            <td><?= $contact['address'] ?></td>
+                            <td><?= $contact['store_status'] ?></td>
+                            <td><?= $contact['reputation'] ?></td>
+                        </tr>
+                    <?php endif; ?>
                 <?php } ?>
             <?php endforeach; ?>
         <?php endif; ?>
