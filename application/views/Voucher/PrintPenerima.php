@@ -119,17 +119,19 @@ function penyebut($nilai)
             $no = 1;
         ?>
             <?php foreach ($contacts as $contact) : ?>
-                <?php if ($contact['store_status'] == 'passive' || $contact['store_status'] == 'data') { ?>
-                    <?php if (date("Y-m-d", strtotime($contact['exp_date'])) < date("Y-m-d")) : ?>
-                        <?php if ($contact['reputation'] == 'good') : ?>
-                            <?php if ($contact['is_claimed'] == 0) : ?>
-                                <tr>
-                                    <td><?= $no++; ?></td>
-                                    <td><?= $contact['nama'] . "(" . $contact['id_contact'] . ")" ?></td>
-                                    <td><?= $contact['address'] ?></td>
-                                    <td><?= $contact['store_status'] ?></td>
-                                    <td><?= $contact['reputation'] ?></td>
-                                </tr>
+                <?php if ($contact['id_voucher'] != null) { ?>
+                    <?php if ($contact['store_status'] == 'passive' || $contact['store_status'] == 'data') : ?>
+                        <?php if (date("Y-m-d", strtotime($contact['exp_date'])) < date("Y-m-d")) : ?>
+                            <?php if ($contact['reputation'] == 'good') : ?>
+                                <?php if ($contact['is_claimed'] == 0) : ?>
+                                    <tr>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $contact['nama'] . "(" . $contact['id_contact'] . ")" ?></td>
+                                        <td><?= $contact['address'] ?></td>
+                                        <td><?= $contact['store_status'] ?></td>
+                                        <td><?= $contact['reputation'] ?></td>
+                                    </tr>
+                                <?php endif; ?>
                             <?php endif; ?>
                         <?php endif; ?>
                     <?php endif; ?>
