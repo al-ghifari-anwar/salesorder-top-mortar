@@ -40,14 +40,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <?php if ($this->session->userdata('level_user') == 'salesleader' && $this->session->userdata('id_distributor') == 1) : ?>
+                            <?php if ($this->session->userdata('level_user') == 'salesleader') : ?>
+                                <button type="button" class="btn btn-primary float-right mx-1" data-toggle="modal" data-target="#modal-insert">
+                                    Tambah Voucher
+                                </button>
                             <?php endif; ?>
-                            <button type="button" class="btn btn-primary float-right mx-1" data-toggle="modal" data-target="#modal-insert">
-                                Tambah Voucher
-                            </button>
-                            <a class="btn btn-success float-right mx-1" data-toggle="modal" data-target="#modal-laporan">
+                            <!-- <a class="btn btn-success float-right mx-1" data-toggle="modal" data-target="#modal-laporan">
                                 Laporan Voucher
-                            </a>
+                            </a> -->
                             <a href="<?= base_url('vc-penerima/') . $id_city  ?>" class="btn btn-primary float-right mx-1" target="__blank">
                                 Laporan Penerima
                             </a>
