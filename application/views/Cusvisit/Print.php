@@ -120,9 +120,9 @@ function penyebut($nilai)
             <?php foreach ($contacts as $contact) : ?>
                 <?php
                 $id_contact = $contact['id_contact'];
-                $this->db->select('COUNT(*) as jmlVisit');
+                // $this->db->select('COUNT(*) as jmlVisit');
                 $this->db->group_by('DATE(tb_visit.date_visit)');
-                $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'source_visit !=' => 'normal'])->row_array();
+                $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'source_visit !=' => 'normal'])->num_rows();
 
                 ?>
                 <?php if ($getVisit != null) :
@@ -134,7 +134,7 @@ function penyebut($nilai)
                         <td><?= $contact['address'] ?></td>
                         <td><?= $contact['nomorhp'] ?></td>
                         <td class="text-center">
-                            <?= $getVisit == null ? 0 : $getVisit['jmlVisit'] ?>
+                            <?= $getVisit == null ? 0 : $getVisit ?>
                         </td>
                     </tr>
                 <?php endif; ?>
