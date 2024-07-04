@@ -126,7 +126,7 @@ function penyebut($nilai)
 
                 ?>
                 <?php if ($getVisit != null) :
-                    $total_visit += $getVisit['jmlVisit'];
+                    $total_visit += $getVisit;
                 ?>
                     <tr>
                         <td><?= $no++; ?></td>
