@@ -108,6 +108,7 @@ function penyebut($nilai)
         <tr>
             <th class="border">Basecamp</th>
             <th class="border">Contact</th>
+            <th class="border">Category</th>
             <th class="border">Purpose</th>
             <th class="border">Feedback</th>
             <th class="border">Date</th>
@@ -136,6 +137,7 @@ function penyebut($nilai)
                         <tr class="border">
                             <td class="border"><?= $visit['nama_gudang'] ?></td>
                             <td class="border"><?= $visit['nomorhp_gudang'] ?></td>
+                            <td class="border"><?= $visit['source_visit'] ?></td>
                             <td class="border"><?= $visit['laporan_visit'] ?></td>
                             <td class="border"><?= $visit['approve_message'] ?></td>
                             <td class="border"><?= date("d M, Y", strtotime($visit['date_visit'])) ?></td>
