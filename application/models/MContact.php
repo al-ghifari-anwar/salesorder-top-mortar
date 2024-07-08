@@ -28,7 +28,7 @@ class MContact extends CI_Model
 
     public function getAllForRenvis($id_city)
     {
-        $query = $this->db->query("SELECT * FROM tb_contact JOIN tb_city ON tb_city.id_city = tb_contact.id_city WHERE tb_contact.id_city = '$id_city' AND tb_contact.id_contact NOT IN (SELECT id_contact FROM tb_atrian_renvis)")->result_array();
+        $query = $this->db->query("SELECT * FROM tb_contact JOIN tb_city ON tb_city.id_city = tb_contact.id_city WHERE tb_contact.id_city = '$id_city' AND tb_contact.id_contact NOT IN (SELECT id_contact FROM tb_antrian_renvis)")->result_array();
         return $query;
     }
 
