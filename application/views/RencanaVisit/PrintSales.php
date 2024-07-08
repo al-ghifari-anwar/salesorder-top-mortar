@@ -140,7 +140,15 @@ function penyebut($nilai)
                         <tr class="border">
                             <td class="border"><?= $visit['nama'] ?></td>
                             <td class="border"><?= $visit['address'] ?></td>
-                            <td class="border"><?= $visit['source_visit'] ?></td>
+                            <td class="border">
+                                <?php
+                                if ($visit['source_visit'] == 'jatem1' || $visit['source_visit'] == 'jatem2' || $visit['source_visit'] == 'jatem3' || $visit['source_visit'] == 'weekly') {
+                                    echo "Penagihan";
+                                } else {
+                                    echo "Passive";
+                                }
+                                ?>
+                            </td>
                             <td class="border"><?= $visit['laporan_visit'] ?></td>
                             <td class="border"><?= $visit['approve_message'] ?></td>
                             <td class="border"><?= date("d M, Y", strtotime($visit['date_visit'])) ?></td>
