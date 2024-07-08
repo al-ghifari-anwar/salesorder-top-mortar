@@ -82,7 +82,7 @@ class Marketing extends CI_Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI"
+                "Authorization: Bearer _GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw"
             ],
         ]);
 
