@@ -141,7 +141,7 @@ function penyebut($nilai)
                 ?>
                     <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= $contact['nama'] ?></td>
+                        <td><?= $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
                         <td><?= $contact['address'] ?></td>
                         <td><?= $contact['nomorhp'] ?></td>
                         <td class="text-center">
