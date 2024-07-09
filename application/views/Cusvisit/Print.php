@@ -110,23 +110,36 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Toko</th>
             <th style="border-bottom: 1px solid black;">Address</th>
             <th style="border-bottom: 1px solid black;">No. HP</th>
-            <th style="border-bottom: 1px solid black;">No of Visit</th>
+            <th style="border-bottom: 1px solid black;">Visit Tagihan</th>
+            <th style="border-bottom: 1px solid black;">Visit Passive</th>
+            <th style="border-bottom: 1px solid black;">Total</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php if ($contacts != null) :
             $no = 1;
-            $total_visit = 0;
+            $total_visitTagihan = 0;
+            $total_visitPassive = 0;
         ?>
             <?php foreach ($contacts as $contact) : ?>
                 <?php
                 $id_contact = $contact['id_contact'];
                 // $this->db->select('COUNT(*) as jmlVisit');
                 $this->db->group_by('DATE(tb_visit.date_visit)');
-                $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'source_visit !=' => 'normal'])->num_rows();
+                $this->db->where('source_visit', 'jatem1');
+                $this->db->or_where('source_visit', 'jatem2');
+                $this->db->or_where('source_visit', 'jatem3');
+                $this->db->or_where('source_visit', 'weekly');
+                $getVisitTagihan = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo])->num_rows();
+                // Passive
+                $this->db->group_by('DATE(tb_visit.date_visit)');
+                $this->db->where('source_visit', 'voucher');
+                $this->db->or_where('source_visit', 'passive');
+                $getVisitPassive = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo])->num_rows();
 
                 ?>
                 <?php if ($getVisit != null) :
-                    $total_visit += $getVisit;
+                    $total_visitTagihan += $getVisitTagihan;
+                    $total_visitPassive += $getVisitPassive;
                 ?>
                     <tr>
                         <td><?= $no++; ?></td>
@@ -134,14 +147,20 @@ function penyebut($nilai)
                         <td><?= $contact['address'] ?></td>
                         <td><?= $contact['nomorhp'] ?></td>
                         <td class="text-center">
-                            <?= $getVisit == null ? 0 : $getVisit ?>
+                            <?= $getVisitTagihan == null ? 0 : $getVisitTagihan ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $getVisitPassive == null ? 0 : $getVisitPassive ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $getVisitTagihan + $getVisitPassive ?>
                         </td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
             <tr>
                 <td class="text-right border" colspan="4">Total Visit</td>
-                <td class="text-center border"><?= $total_visit ?></td>
+                <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive ?></td>
             </tr>
         <?php endif; ?>
     </table>
