@@ -137,7 +137,7 @@ function penyebut($nilai)
                 $getVisitPassive = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo])->num_rows();
 
                 ?>
-                <?php if ($getVisit != null) :
+                <?php if ($getVisitTagihan != null) :
                     $total_visitTagihan += $getVisitTagihan;
                     $total_visitPassive += $getVisitPassive;
                 ?>
