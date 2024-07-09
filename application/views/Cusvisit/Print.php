@@ -128,9 +128,9 @@ function penyebut($nilai)
                 $getVisitTagihan = 0;
                 $getVisitPassive = 0;
                 foreach ($getVisit as $getVisit) {
-                    if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly') {
+                    if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly' || $getVisit['source_visit'] == 'renvipenagihan') {
                         $getVisitTagihan += 1;
-                    } else if ($getVisit['source_visit'] == 'voucher' || $getVisit['source_visit'] == 'passive') {
+                    } else if ($getVisit['source_visit'] == 'voucher' || $getVisit['source_visit'] == 'passive' || $getVisit['source_visit'] == 'renvisales') {
                         $getVisitPassive += 1;
                     }
                 }
