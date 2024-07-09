@@ -123,21 +123,19 @@ function penyebut($nilai)
             <?php foreach ($contacts as $contact) : ?>
                 <?php
                 $id_contact = $contact['id_contact'];
-                // $this->db->select('COUNT(*) as jmlVisit');
-                $this->db->group_by('DATE(tb_visit.date_visit)');
-                $this->db->where('source_visit', 'jatem1');
-                $this->db->or_where('source_visit', 'jatem2');
-                $this->db->or_where('source_visit', 'jatem3');
-                $this->db->or_where('source_visit', 'weekly');
-                $getVisitTagihan = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo])->num_rows();
-                // Passive
-                $this->db->group_by('DATE(tb_visit.date_visit)');
-                $this->db->where('source_visit', 'voucher');
-                $this->db->or_where('source_visit', 'passive');
-                $getVisitPassive = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo])->num_rows();
+                $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'source_visit !=' => 'normal'])->result_array();
 
+                $getVisitTagihan = 0;
+                $getVisitPassive = 0;
+                foreach ($getVisit as $getVisit) {
+                    if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly') {
+                        $getVisitTagihan += 1;
+                    } else if ($getVisit['source_visit'] == 'voucher' || $getVisit['source_visit'] == 'passive') {
+                        $getVisitPassive += 1;
+                    }
+                }
                 ?>
-                <?php if ($getVisitTagihan != null) :
+                <?php if ($getVisit != null) :
                     $total_visitTagihan += $getVisitTagihan;
                     $total_visitPassive += $getVisitPassive;
                 ?>
