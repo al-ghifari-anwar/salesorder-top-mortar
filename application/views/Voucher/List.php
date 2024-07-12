@@ -120,7 +120,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Kota</h4>
+                <h4 class="modal-title">Tambah Data Toko</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -131,7 +131,7 @@
                         <label for="">Nama Toko</label>
                         <select name="id_contact" id="select2bs41" class="select2bs41">
                             <?php foreach ($contact as $contact) : ?>
-                                <option value="<?= $contact['id_contact'] ?>"><?= $contact['nama'] ?></option>
+                                <option value="<?= $contact['id_contact'] ?>"><?= $contact['nama'] . " - " . $contact['store_status'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
