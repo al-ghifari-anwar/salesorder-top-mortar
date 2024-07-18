@@ -79,27 +79,41 @@
                                         <th>Nama Toko</th>
                                         <th>Pemilik</th>
                                         <th>Nomor HP</th>
+                                        <th>Nomor HP 2</th>
                                         <th>Tgl Lahir</th>
                                         <th>Kota</th>
                                         <th>Maps</th>
                                         <th>Alamat</th>
                                         <th>Status</th>
+                                        <th>Promo</th>
+                                        <th>Termin</th>
+                                        <th>Reputation</th>
+                                        <th>Payment Method</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
                                     foreach ($toko as $data) : ?>
+                                        <?php
+                                        $id_promo = $data['id_promo'];
+                                        $getPromo = $this->db->get('tb_promo', ['id_promo' => $id_promo])->row_array();
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['store_owner'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
+                                            <td><?= $data['nomorhp_2'] ?></td>
                                             <td><?= $data['tgl_lahir'] ?></td>
                                             <td><?= $data['nama_city'] ?></td>
                                             <td><?= $data['maps_url'] ?></td>
                                             <td><?= $data['address'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
+                                            <td><?= $getPromo['nama_promo'] ?></td>
+                                            <td><?= $data['termin_payment'] ?></td>
+                                            <td><?= $data['reputation'] ?></td>
+                                            <td><?= $data['payment_method'] ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
