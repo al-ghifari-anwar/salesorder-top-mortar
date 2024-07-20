@@ -149,7 +149,7 @@ function penyebut($nilai)
                                 }
                                 ?>
                             </td>
-                            <td class="border"><?= $visit['laporan_visit'] ?></td>
+                            <td class="border"><?= $visit['laporan_visit'] ?> <?= $visit['pay_date'] != null ? ' - Tanggal dijanjikan: ' . date("d F Y", strtotime($visit['pay_date'])) : ''  ?> </td>
                             <td class="border"><?= $visit['approve_message'] ?></td>
                             <td class="border"><?= date("d M, Y", strtotime($visit['date_visit'])) ?></td>
                             <td class="border"><?= $visit['distance_visit'] ?></td>
