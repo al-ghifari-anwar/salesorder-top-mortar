@@ -160,12 +160,6 @@ function penyebut($nilai)
                         </td>
                     </tr>
                 <?php endif; ?>
-                <?php if ($getVisit == null) : ?>
-                    <tr>
-                        <td><?= $no++; ?> (<?= $contact['id_contact'] ?>)</td>
-                        <td colspan="6"><?= "No Data" ?></td>
-                    </tr>
-                <?php endif; ?>
             <?php endforeach; ?>
             <tr>
                 <td class="text-right border" colspan="4">Total Visit</td>
