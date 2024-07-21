@@ -115,6 +115,11 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Total</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
+        <?php if ($contacts == null) : ?>
+            <tr>
+                <td colspan="7">No Data</td>
+            </tr>
+        <?php endif; ?>
         <?php if ($contacts != null) :
             $no = 1;
             $total_visitTagihan = 0;
