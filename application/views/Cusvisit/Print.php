@@ -162,7 +162,7 @@ function penyebut($nilai)
                 <?php endif; ?>
                 <?php if ($getVisit == null) : ?>
                     <tr>
-                        <td><?= $no++; ?></td>
+                        <td><?= $no++; ?> (<?= $contact['id_contact'] ?>)</td>
                         <td colspan="6"><?= "No Data" ?></td>
                     </tr>
                 <?php endif; ?>
