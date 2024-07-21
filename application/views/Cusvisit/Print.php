@@ -160,7 +160,7 @@ function penyebut($nilai)
                         </td>
                     </tr>
                 <?php endif; ?>
-                <?php if ($getVisit != null) : ?>
+                <?php if ($getVisit -= null) : ?>
                     <tr>
                         <td><?= $no++; ?></td>
                         <td colspan="6"><?= "No Data" ?></td>
