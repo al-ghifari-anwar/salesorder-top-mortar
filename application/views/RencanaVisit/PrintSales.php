@@ -132,9 +132,10 @@ function penyebut($nilai)
                         <th colspan="7" class="border text-left"><?= date("d/m/Y", strtotime($dateGroup['date_visit'])) ?></th>
                     </tr>
                     <?php
+                    $id_city = $city['id_city'];
                     $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                     $this->db->order_by('tb_visit.date_visit', 'DESC');
-                    $visitByDate = $this->db->get_where('tb_visit', ['id_user' => $dateGroup['id_user'], 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'is_deleted' => 0])->result_array();
+                    $visitByDate = $this->db->get_where('tb_visit', ['id_user' => $dateGroup['id_user'], 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'is_deleted' => 0, 'tb_contact.id_city' => $id_city])->result_array();
                     ?>
                     <?php foreach ($visitByDate as $visit) : ?>
                         <tr class="border">
