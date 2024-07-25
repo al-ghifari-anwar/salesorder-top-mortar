@@ -124,6 +124,7 @@ function penyebut($nilai)
                     <td class="text-left border-r" colspan="9"><?= $city['nama_city']; ?></td>
                 </tr>
                 <?php
+                $id_city = $city['id_city'];
                 $this->db->join('tb_invoice', 'tb_invoice.id_surat_jalan = tb_log_bca_test.id_surat_jalan');
                 $getLog = $this->db->get_where('tb_log_bca_test', ['id_city' => $id_city, 'DATE(transaction_date) >= ' => $dateFrom, 'DATE(transaction_date) <= ' => $dateTo])->result_array();
                 ?>
