@@ -172,3 +172,6 @@ $route['feerenvi/print'] = 'Feerenvi/print_rekap';
 $route['cusvisit'] = 'Cusvisit/city_list';
 $route['cusvisit/(:num)'] = 'Cusvisit/index/$1';
 $route['cusvisit/print/(:num)'] = 'Cusvisit/print/$1';
+// Laporan Auto Transfer Test
+$route['autotransfertest'] = 'AutoTransferTest';
+$route['autotransfertest/print'] = 'AutoTransferTest/print';

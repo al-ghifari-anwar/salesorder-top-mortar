@@ -435,6 +435,15 @@
                                                     </p>
                                                 </a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('payment-transit') ?>" class="nav-link">
+                                                    <i class="nav-icon fas fa-money-bill-wave-alt"></i>
+                                                    <p>
+                                                        Laporan Test Auto Transfer
+                                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
                                         <?php endif; ?>
                                     </ul>
                                 </li>
