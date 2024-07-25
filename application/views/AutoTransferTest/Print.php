@@ -107,7 +107,8 @@ function penyebut($nilai)
     <table class="border">
         <tr>
             <th class="border">No.</th>
-            <th class="border">Invoice</th>
+            <th class="border">SJ</th>
+            <th class="border">Toko</th>
             <th class="border">Rek. Asal</th>
             <th class="border">Rek. Tujuan</th>
             <th class="border">Ref. No</th>
@@ -126,6 +127,8 @@ function penyebut($nilai)
                 <?php
                 $id_city = $city['id_city'];
                 $this->db->join('tb_invoice', 'tb_invoice.id_surat_jalan = tb_log_bca_test.id_surat_jalan');
+                $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_log_bca_test.id_surat_jalan');
+                $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
                 $getLog = $this->db->get_where('tb_log_bca_test', ['id_city' => $id_city, 'DATE(transaction_date) >= ' => $dateFrom, 'DATE(transaction_date) <= ' => $dateTo])->result_array();
                 ?>
                 <?php
@@ -133,7 +136,8 @@ function penyebut($nilai)
                 foreach ($getLog as $log) : ?>
                     <tr>
                         <td class="text-center border-r"><?= $no++; ?></td>
-                        <td class="text-left border-r"><?= $log['no_invoice']; ?></td>
+                        <td class="text-left border-r"><?= $log['no_surat_jalan']; ?></td>
+                        <td class="text-left border-r"><?= $log['nama']; ?></td>
                         <td class="text-left border-r"><?= $log['norek_asal'] ?></td>
                         <td class="text-left border-r"><?= $city['norek_city'] ?></td>
                         <td class="text-left border-r"><?= $log['reference_no'] ?></td>
