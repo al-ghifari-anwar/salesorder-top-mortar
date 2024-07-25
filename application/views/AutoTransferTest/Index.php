@@ -42,7 +42,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <form action="<?= base_url('cetak-stok') ?>" method="POST" target="_blank">
+                                    <form action="<?= base_url('autotransfertest/print') ?>" method="POST" target="_blank">
                                         <div class="row">
                                             <label>Date range:</label>
                                             <div class="form-group ml-3">
@@ -56,8 +56,6 @@
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
-
-                                            <input type="text" name="id_city" value="<?= $id_city ?>" hidden>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
                                             </div>
