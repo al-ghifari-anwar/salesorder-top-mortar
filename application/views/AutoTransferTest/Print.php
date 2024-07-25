@@ -122,7 +122,7 @@ function penyebut($nilai)
 
             foreach ($city as $city) : ?>
                 <tr>
-                    <td class="text-left border" colspan="9"><?= $city['nama_city']; ?></td>
+                    <td class="text-left border" colspan="10"><?= $city['nama_city']; ?></td>
                 </tr>
                 <?php
                 $id_city = $city['id_city'];
