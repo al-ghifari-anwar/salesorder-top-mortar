@@ -35,15 +35,21 @@ class AutoTransferTest extends CI_Controller
         $dateRange = $post["date_range"];
         $id_city = $post["id_city"];
 
-        $data['city'] = $this->MCity->getById($id_city);
-        $data['produk'] = $this->db->get_where("tb_produk", ['id_city' => $id_city])->result_array();
-        $data['dates'] = explode("-", $dateRange);
+        $dates = explode("-", $dateRange);
+        $dateFrom = date("Y-m-d", strtotime($dates[0]));
+        $dateTo = date("Y-m-d", strtotime($dates[1]));
+        $data['dates'] = $dates;
+        $this->db->join('tb_city', 'tb_city.id_city = tb_log_bca_test.id_city');
+        $this->db->group_by('tb_log_bca_test.id_city');
+        $data['city'] = $this->db->get_where('tb_log_bca_test', ['DATE(transaction_date) >=' => $dateFrom, 'DATE(transaction_date) <= ' => $dateTo])->result_array();
+        $data['dateFrom'] = $dateFrom;
+        $data['dateTo'] = $dateTo;
         // $this->load->view('Stok/Print', $data);
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Stok/Print', $data, true);
-        $mpdf->AddPage('L');
+        $html = $this->load->view('AutoTransferTest/Print', $data, true);
+        $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
