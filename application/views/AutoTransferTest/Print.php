@@ -42,7 +42,7 @@ function penyebut($nilai)
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 8px;
+            font-size: 12px;
         }
 
         .border {

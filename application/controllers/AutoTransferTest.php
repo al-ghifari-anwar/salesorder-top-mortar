@@ -49,7 +49,7 @@ class AutoTransferTest extends CI_Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('AutoTransferTest/Print', $data, true);
-        $mpdf->AddPage('P');
+        $mpdf->AddPage('L');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
