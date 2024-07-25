@@ -44,13 +44,13 @@ class AutoTransferTest extends CI_Controller
         $data['city'] = $this->db->get_where('tb_log_bca_test', ['DATE(transaction_date) >=' => $dateFrom, 'DATE(transaction_date) <= ' => $dateTo])->result_array();
         $data['dateFrom'] = $dateFrom;
         $data['dateTo'] = $dateTo;
-        // $this->load->view('Stok/Print', $data);
+        $this->load->view('AutoTransferTest/Print', $data);
         // PDF
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('AutoTransferTest/Print', $data, true);
-        $mpdf->AddPage('P');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        // $mpdf->SetMargins(0, 0, 5);
+        // $html = $this->load->view('AutoTransferTest/Print', $data, true);
+        // $mpdf->AddPage('P');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output();
     }
 }
