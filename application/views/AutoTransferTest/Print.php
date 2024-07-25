@@ -129,7 +129,7 @@ function penyebut($nilai)
                 $this->db->join('tb_invoice', 'tb_invoice.id_surat_jalan = tb_log_bca_test.id_surat_jalan');
                 $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_log_bca_test.id_surat_jalan');
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
-                $getLog = $this->db->get_where('tb_log_bca_test', ['id_city' => $id_city, 'DATE(transaction_date) >= ' => $dateFrom, 'DATE(transaction_date) <= ' => $dateTo])->result_array();
+                $getLog = $this->db->get_where('tb_log_bca_test', ['tb_log_bca_test.id_city' => $id_city, 'DATE(transaction_date) >= ' => $dateFrom, 'DATE(transaction_date) <= ' => $dateTo])->result_array();
                 ?>
                 <?php
                 $no = 1;
