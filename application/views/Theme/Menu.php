@@ -436,7 +436,7 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="<?= base_url('payment-transit') ?>" class="nav-link">
+                                                <a href="<?= base_url('autotransfertest') ?>" class="nav-link">
                                                     <i class="nav-icon fas fa-money-bill-wave-alt"></i>
                                                     <p>
                                                         Laporan Test Auto Transfer
