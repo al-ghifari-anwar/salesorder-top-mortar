@@ -121,7 +121,7 @@ function penyebut($nilai)
 
             foreach ($city as $city) : ?>
                 <tr>
-                    <td class="text-left border-r" colspan="8"><?= $city['nama_city']; ?></td>
+                    <td class="text-left border-r" colspan="9"><?= $city['nama_city']; ?></td>
                 </tr>
                 <?php
                 $this->db->join('tb_invoice', 'tb_invoice.id_surat_jalan = tb_log_bca_test.id_surat_jalan');
