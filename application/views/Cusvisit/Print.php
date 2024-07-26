@@ -128,7 +128,7 @@ function penyebut($nilai)
             <?php foreach ($contacts as $contact) : ?>
                 <?php
                 $id_contact = $contact['id_contact'];
-                $this->db->group_by('(tb_visit.date_visit)');
+                $this->db->group_by('DATE(tb_visit.date_visit)');
                 $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'source_visit !=' => 'normal'])->result_array();
 
                 $getVisitTagihan = 0;
