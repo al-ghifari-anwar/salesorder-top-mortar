@@ -106,6 +106,7 @@ function penyebut($nilai)
     <h4 class="text-center">Tgl. <?= date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></h4>
     <table>
         <tr>
+            <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">No. Invoice</th>
             <th style="border-bottom: 1px solid black;">Tgl. Invoice</th>
             <th style="border-bottom: 1px solid black;">Jatuh Tempo</th>
@@ -113,11 +114,14 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Umur bdsr<br>Jatuh Tempo</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
-        <?php if ($invoice != null) : ?>
+        <?php if ($invoice != null) :
+            $no = 1;
+        ?>
             <?php foreach ($invoice as $dataInv) : ?>
                 <tr>
+                    <th><?= $no++ ?></th>
                     <th class="text-left"><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                 </tr>
                 <?php
                 $storeInv = $this->MInvoice->getByStorePiutang($dateFrom, $dateTo, $dataInv['id_contact']);
@@ -133,6 +137,7 @@ function penyebut($nilai)
                     <?php if ($sisaHutang != 0) : ?>
 
                         <tr>
+                            <td></td>
                             <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
                             <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
                             <td class="text-center">
@@ -161,7 +166,7 @@ function penyebut($nilai)
                     <?php endif; ?>
                 <?php endforeach; ?>
                 <tr>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                     <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore, 0, '.', ',') ?></th>
                     <td colspan="1"></td>
                 </tr>
@@ -170,7 +175,7 @@ function penyebut($nilai)
                 ?>
             <?php endforeach; ?>
             <tr>
-                : <th colspan="3" class="text-right">Total Keseluruhan: </th>
+                : <th colspan="4" class="text-right">Total Keseluruhan: </th>
                 <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalAll, 0, '.', ',') ?></th>
                 <td colspan="1"></td>
             </tr>
