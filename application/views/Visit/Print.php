@@ -118,8 +118,9 @@ function penyebut($nilai)
         <?php if ($user != null) : ?>
             <?php foreach ($user as $user) : ?>
                 <?php
+                $id_user = $user['id_user'];
                 $this->db->group_by('DATE(tb_visit.date_visit)');
-                $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $user['id_user'], 'MONTH(tb_visit.date_visit)' => $month])->result_array();
+                $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $id_user, 'MONTH(tb_visit.date_visit)' => $month])->result_array();
                 ?>
                 <tr>
                     <th colspan="7" class="border text-left" style="color: blue;"><?= $user['full_name'] ?></th>
@@ -129,9 +130,10 @@ function penyebut($nilai)
                         <th colspan="7" class="border text-left"><?= date("d/m/Y", strtotime($dateGroup['date_visit'])) ?></th>
                     </tr>
                     <?php
+                    $id_user = $dateGroup['id_user'];
                     $this->db->join('tb_gudang', 'tb_gudang.id_gudang = tb_visit.id_contact');
                     $this->db->order_by('tb_visit.date_visit', 'DESC');
-                    $visitByDate = $this->db->get_where('tb_visit', ['DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'is_deleted' => 0, 'id_user' => $dateGroup['id_user']])->result_array();
+                    $visitByDate = $this->db->get_where('tb_visit', ['DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'is_deleted' => 0, 'id_user' => $id_user])->result_array();
                     ?>
                     <?php foreach ($visitByDate as $visit) : ?>
                         <tr class="border">
