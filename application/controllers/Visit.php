@@ -135,15 +135,16 @@ class Visit extends CI_Controller
         $month = $post['bulan'];
 
         $data['city'] = $this->MCity->getById($id_city);
-        $data['user'] = $this->MVisit->getGroupedContactGlobal($id_city, $month, $type);
         $data['month'] = $month;
         $data['type'] = $type;
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         if ($type == 'courier') {
+            $data['user'] = $this->MVisit->getGroupedCourierGlobal($id_city, $month, $type);
             $html = $this->load->view('Visit/Print', $data, true);
         } else if ($type == 'sales') {
+            $data['user'] = $this->MVisit->getGroupedContactGlobal($id_city, $month, $type);
             $html = $this->load->view('Visit/PrintSales', $data, true);
         }
         $mpdf->AddPage('L');
