@@ -111,7 +111,7 @@ class Visit extends CI_Controller
 
         if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_user);
+            $data['visit'] = $this->MVisit->getByCityAndDateCourier($id_city, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_user);
         } else {
             // $invoice = $this->MInvoice->getAll();
             $data['visit'] = $this->MVisit->getKurirByCity($id_city);
