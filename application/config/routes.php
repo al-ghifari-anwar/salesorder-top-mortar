@@ -175,3 +175,7 @@ $route['cusvisit/print/(:num)'] = 'Cusvisit/print/$1';
 // Laporan Auto Transfer Test
 $route['autotransfertest'] = 'AutoTransferTest';
 $route['autotransfertest/print'] = 'AutoTransferTest/print';
+// Voucher Tukang
+$route['vctukang'] = 'Vctukang';
+$route['vctukang/verify'] = 'Vctukang/verify';
+$route['vctukang/toko/(:num)/(:num)'] = 'Vctukang/toko/$1/$2';
