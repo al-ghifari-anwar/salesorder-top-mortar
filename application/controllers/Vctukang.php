@@ -62,7 +62,7 @@ class Vctukang extends CI_Controller
                     $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
                     $this->ciqrcode->initialize($config);
 
-                    $image_name = $no_seri['id_invoice'] . '.png'; //buat name dari qr code sesuai dengan nim
+                    $image_name = $no_seri . '.png'; //buat name dari qr code sesuai dengan nim
 
                     $params['data'] = base_url('vctukang/') . $getTukang['id_tukang']; //data yang akan di jadikan QR CODE
                     $params['level'] = 'H'; //H=High
