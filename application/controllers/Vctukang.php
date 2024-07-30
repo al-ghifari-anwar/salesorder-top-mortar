@@ -163,45 +163,90 @@ class Vctukang extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function list_voucher($id_city)
-    {
-        if ($this->session->userdata('id_user') == null) {
-            redirect('login');
-        }
-        $data['title'] = 'Voucher List';
-        $data['city'] = $this->MCity->getAll();
-        $data['voucher'] = $this->MVoucher->getByCity($id_city);
-        $data['contact'] = $this->MContact->getAllForVouchers($id_city);
-        $data['id_city'] = $id_city;
-        $this->load->view('Theme/Header', $data);
-        $this->load->view('Theme/Menu');
-        $this->load->view('Voucher/List');
-        $this->load->view('Theme/Footer');
-        $this->load->view('Theme/Scripts');
-    }
-
     public function claim()
     {
-        $this->form_validation->set_rules('no_voucher1', 'Nomor Voucher', 'required');
+        $post = $this->input->post();
+        $id_tukang = $post['id_tukang'];
+        $to_name = $post['to_name'];
+        $id_bank = $post['id_bank'];
+        $to_account = $post['to_account'];
 
-        if ($this->form_validation->run() == false) {
-            $data['title'] = 'Claim Voucher';
-            $this->load->view('Theme/Header', $data);
-            $this->load->view('Theme/Menu');
-            $this->load->view('Voucher/ClaimForm');
-            $this->load->view('Theme/Footer');
-            $this->load->view('Theme/Scripts');
+        $getBank = $this->db->get_where('tb_bank', ['id_bank' => $id_bank])->row_array();
+
+        if ($getBank['is_bca'] == 1) {
+            // TF intrabank
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://apibca.topmortarindonesia.com/snapIntrabankVctukang.php?to=' . $to_account,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+
+            $response = curl_exec($curl);
+
+            $res = json_decode($response);
+            curl_close($curl);
+
+
+            if ($res['status'] == 'ok') {
+                $data = [
+                    'id_tukang' => $id_tukang,
+                    'id_contact' => 0,
+                    'claim_date' => date("Y-m-d H:i:s"),
+                    'no_seri' => $getTukang['nomorhp']
+                ];
+                $this->db->insert('tb_voucher_tukang', $data);
+
+                $this->session->set_flashdata('success', "Berhasil claim voucher");
+                redirect('vctukang/toko/' . $id_tukang);
+            } else {
+                $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
+                redirect('vctukang/toko/' . $id_tukang);
+            }
         } else {
-            $data['title'] = 'Claim Voucher';
-            $claimed = $this->MVoucher->getByNomor();
-            $data['claimed'] = $claimed;
-            $data['toko'] = $this->MContact->getById($claimed['id_contact']);
+            // TF interbank
+            $bank_code = $getBank['swift_bank'];
+            $to_name = str_replace(" ", "%20", $to_name);
+            $curl = curl_init();
 
-            $this->load->view('Theme/Header', $data);
-            $this->load->view('Theme/Menu');
-            $this->load->view('Voucher/Claimed');
-            $this->load->view('Theme/Footer');
-            $this->load->view('Theme/Scripts');
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://apibca.topmortarindonesia.com/snapInterbankVctukang.php?to=$to_account&to_name=$to_name&bank_code=$bank_code",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+
+            $response = curl_exec($curl);
+
+            $res = json_decode($response);
+            curl_close($curl);
+
+
+            if ($res['status'] == 'ok') {
+                $data = [
+                    'id_tukang' => $id_tukang,
+                    'id_contact' => 0,
+                    'claim_date' => date("Y-m-d H:i:s"),
+                    'no_seri' => $getTukang['nomorhp']
+                ];
+                $this->db->insert('tb_voucher_tukang', $data);
+
+                $this->session->set_flashdata('success', "Berhasil claim voucher");
+                redirect('vctukang/toko/' . $id_tukang);
+            } else {
+                $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
+                redirect('vctukang/toko/' . $id_tukang);
+            }
         }
     }
 }
