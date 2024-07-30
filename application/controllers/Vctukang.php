@@ -50,12 +50,6 @@ class Vctukang extends CI_Controller
                     $this->session->set_flashdata('failed', "Nomor seri sudah pernah di claim!");
                     redirect('vctukang');
                 } else {
-                    $id_distributor = $getTukang['id_distributor'];
-                    $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
-                    $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
-                    $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
-                    $integration_id = $qontak['integration_id'];
-
                     // Generate QR
                     $this->load->library('ciqrcode');
                     $config['cacheable']    = true; //boolean, the default is true
@@ -75,6 +69,83 @@ class Vctukang extends CI_Controller
                     $params['size'] = 10;
                     $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
                     $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
+                    $id_distributor = $getTukang['id_distributor'];
+                    $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+                    $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
+                    $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+                    $integration_id = $qontak['integration_id'];
+                    // Data
+                    $nomor_hp = $getTukang['nomorhp'];
+                    $nama = $getTukang['nama'];
+
+
+                    $message = "Halo " . $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
+                    // Send message
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => '{
+                                "to_number": "' . $nomor_hp . '",
+                                "to_name": "' . $nama . '",
+                                "message_template_id": "' . $template_id . '",
+                                "channel_integration_id": "' . $integration_id . '",
+                                "language": {
+                                    "code": "id"
+                                },
+                                "parameters": {
+                                    "header":{
+                                        "format":"IMAGE",
+                                        "params": [
+                                            {
+                                                "key":"url",
+                                                "value":"https://order.topmortarindonesia.com/img/qr-vctukang' . $no_seri . '.png"
+                                            },
+                                            {
+                                                "key":"filename",
+                                                "value":"qrtukang.png"
+                                            }
+                                        ]
+                                    },
+                                    "body": [
+                                        {
+                                            "key": "1",
+                                            "value": "nama",
+                                            "value_text": "' . $message . '"
+                                        }
+                                    ]
+                                }
+                                }',
+                        CURLOPT_HTTPHEADER => array(
+                            'Authorization: Bearer ' . $wa_token,
+                            'Content-Type: application/json'
+                        ),
+                    ));
+
+                    $response = curl_exec($curl);
+
+                    curl_close($curl);
+
+                    $res = json_decode($response, true);
+                    // echo $response;
+
+                    $status = $res['status'];
+
+                    if ($status == "success") {
+                        $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
+                        redirect('vctukang');
+                    } else {
+                        $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
+                        redirect('vctukang');
+                    }
                 }
             }
         }
