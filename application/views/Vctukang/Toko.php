@@ -50,7 +50,7 @@
                                     <label for="">Nama Tukang</label>
                                     <input type="text" name="nama_tukang" id="" class="form-control" value="<?= $tukang['nama'] ?>" readonly>
                                 </div>
-                                <input type="text" value="<?= $tukang['id_tukang'] ?>" hidden>
+                                <input type="text" value="<?= $tukang['id_tukang'] ?>" name="id_tukang" hidden>
                                 <hr>
                                 <h6 class="text-center">Informasi Rekening Toko</h6>
                                 <div class="form-group">
