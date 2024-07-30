@@ -37,7 +37,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-7">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="text-center">Claim Voucher Tukang</h5>
