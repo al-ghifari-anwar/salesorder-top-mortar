@@ -206,7 +206,7 @@ class Vctukang extends CI_Controller
                 $this->session->set_flashdata('success', "Berhasil claim voucher");
                 redirect('vctukang/toko/' . $id_tukang);
             } else {
-                $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
+                $this->session->set_flashdata('failed', "Gagal claim voucher, silahkan coba lagi!");
                 redirect('vctukang/toko/' . $id_tukang);
             }
         } else {
@@ -244,7 +244,7 @@ class Vctukang extends CI_Controller
                 $this->session->set_flashdata('success', "Berhasil claim voucher");
                 redirect('vctukang/toko/' . $id_tukang);
             } else {
-                $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
+                $this->session->set_flashdata('failed', "Gagal claim voucher, silahkan coba lagi!");
                 redirect('vctukang/toko/' . $id_tukang);
             }
         }
