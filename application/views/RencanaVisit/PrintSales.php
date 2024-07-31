@@ -119,20 +119,19 @@ function penyebut($nilai)
             <?php foreach ($user as $user) : ?>
                 <?php
                 $id_city = $city['id_city'];
+                $id_user = $user['id_user'];
 
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                 $this->db->group_by('DATE(tb_visit.date_visit)');
                 $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $user['id_user'], 'MONTH(date_visit)' => $month, 'tb_contact.id_city' => $id_city])->result_array();
 
-                $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
-                $this->db->select("COUNT(*) AS total_visit");
-                // $this->db->group_by('DATE(tb_visit.date_visit)');
-                $total = $this->db->get_where('tb_visit', ['id_user' => $user['id_user'], 'MONTH(date_visit)' => $month, 'tb_contact.id_city' => $id_city])->row_array();
                 ?>
                 <tr>
-                    <th colspan="7" class="border text-left" style="color: blue;"><?= $user['full_name'] ?> | Total: <?= $total['total_visit'] ?></th>
+                    <th colspan="7" class="border text-left" style="color: blue;"><?= $user['full_name'] ?> | </th>
                 </tr>
-                <?php foreach ($dateGroup as $dateGroup) : ?>
+                <?php
+                $total = 0;
+                foreach ($dateGroup as $dateGroup) : ?>
                     <tr>
                         <th colspan="7" class="border text-left"><?= date("d/m/Y", strtotime($dateGroup['date_visit'])) ?></th>
                     </tr>
@@ -141,6 +140,12 @@ function penyebut($nilai)
                     $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                     $this->db->order_by('tb_visit.date_visit', 'DESC');
                     $visitByDate = $this->db->get_where('tb_visit', ['id_user' => $dateGroup['id_user'], 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'is_deleted' => 0, 'tb_contact.id_city' => $id_city])->result_array();
+
+                    $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+                    $this->db->select("COUNT(*) AS total_visit");
+                    $this->db->group_by('tb_visit.id_contact');
+                    $total = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => $dateGroup['date_visit'], 'tb_contact.id_city' => $id_city])->num_rows();
+                    $total += $total;
                     ?>
                     <?php foreach ($visitByDate as $visit) : ?>
                         <tr class="border">
@@ -163,6 +168,9 @@ function penyebut($nilai)
                         </tr>
                     <?php endforeach; ?>
                 <?php endforeach; ?>
+                <tr>
+                    <th colspan="7" class="border text-left" style="color: blue;">Total <?= $total ?></th>
+                </tr>
             <?php endforeach; ?>
         <?php endif; ?>
     </table>
