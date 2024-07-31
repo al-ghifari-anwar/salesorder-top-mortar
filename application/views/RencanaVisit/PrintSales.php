@@ -144,8 +144,8 @@ function penyebut($nilai)
                     $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                     $this->db->select("COUNT(*) AS total_visit");
                     $this->db->group_by('tb_visit.id_contact');
-                    $total = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => $dateGroup['date_visit'], 'tb_contact.id_city' => $id_city])->num_rows();
-                    $total += $total;
+                    $getTotal = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => $dateGroup['date_visit'], 'tb_contact.id_city' => $id_city])->num_rows();
+                    $total += $getTotal;
                     ?>
                     <?php foreach ($visitByDate as $visit) : ?>
                         <tr class="border">
