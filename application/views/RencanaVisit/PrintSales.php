@@ -169,7 +169,7 @@ function penyebut($nilai)
                     <?php endforeach; ?>
                 <?php endforeach; ?>
                 <tr>
-                    <th colspan="7" class="border text-left" style="color: blue;">Total <?= $total ?></th>
+                    <th colspan="7" class="border text-left" style="color: blue;">Total: <?= $total ?></th>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>
