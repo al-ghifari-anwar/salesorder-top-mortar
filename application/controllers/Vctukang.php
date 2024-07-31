@@ -32,6 +32,7 @@ class Vctukang extends CI_Controller
     public function verify()
     {
         $no_seri = $this->input->post("no_seri");
+        $no_seri = "62" + substr($no_seri, 1);
 
         if ($no_seri == null) {
             $this->session->set_flashdata('failed', "Nomor seri tidak boleh kosong!");
@@ -190,9 +191,9 @@ class Vctukang extends CI_Controller
 
             $response = curl_exec($curl);
 
-            $res = json_decode($response);
             curl_close($curl);
 
+            $res = json_decode($response, true);
 
             if ($res['status'] == 'ok') {
                 $data = [
@@ -228,9 +229,9 @@ class Vctukang extends CI_Controller
 
             $response = curl_exec($curl);
 
-            $res = json_decode($response);
             curl_close($curl);
 
+            $res = json_decode($response, true);
 
             if ($res['status'] == 'ok') {
                 $data = [
