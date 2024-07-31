@@ -126,7 +126,7 @@ function penyebut($nilai)
 
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                 $this->db->select("COUNT(*) AS total_visit");
-                $this->db->group_by('id_contact');
+                $this->db->group_by('tb_visit.id_contact');
                 $total = $this->db->get_where('tb_visit', ['id_user' => $user['id_user'], 'MONTH(date_visit)' => $month, 'tb_contact.id_city' => $id_city])->row_array();
                 ?>
                 <tr>
