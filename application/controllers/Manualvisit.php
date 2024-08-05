@@ -13,6 +13,7 @@ class Manualvisit extends CI_Controller
         $this->load->model('MContact');
         $this->load->model('MUser');
         $this->load->library('form_validation');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
