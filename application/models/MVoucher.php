@@ -105,7 +105,7 @@ class MVoucher extends CI_Model
 
             return $data;
         } else {
-            $this->session->set_flashdata('failed', "Kode voucher sudah pernah di claim!");
+            $this->session->set_flashdata('failed', "Kode voucher sudah pernah di claim atau expired!");
             redirect('claim');
         }
     }
