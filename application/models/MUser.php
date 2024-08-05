@@ -18,6 +18,12 @@ class MUser extends CI_Model
         return $query;
     }
 
+    public function getAllForManualRenvi($id_city)
+    {
+        $query = $this->db->get_where('tb_user', ['id_city' => $id_city])->result_array();
+        return $query;
+    }
+
     public function getAllDefault()
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
