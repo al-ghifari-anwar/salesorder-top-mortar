@@ -34,7 +34,7 @@ class Manualvisit extends CI_Controller
     {
         $data['title'] = 'Manual Visit';
         $data['contacts'] = $this->MContact->getAll($id_city);
-        $data['users'] = $this->MUser->getAllForManualRenvi()($id_city);
+        $data['users'] = $this->MUser->getAllForManualRenvi($id_city);
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Manualvisit/Detail');
