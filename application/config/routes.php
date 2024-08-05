@@ -182,3 +182,4 @@ $route['vctukang/toko/(:num)/'] = 'Vctukang/toko/$1/';
 // Manual visit
 $route['manualvisit'] = 'Manualvisit';
 $route['manualvisit/(:num)'] = 'Manualvisit/city/$1';
+$route['manualvisit/insert'] = 'Manualvisit/insert';

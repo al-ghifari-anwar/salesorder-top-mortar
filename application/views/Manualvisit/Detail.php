@@ -40,7 +40,7 @@
                 <div class="col-8">
                     <div class="card">
                         <div class="card-body">
-                            <form action="" method="POST">
+                            <form action="<?= base_url('manualvisit/insert') ?>" method="POST">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -79,6 +79,7 @@
                                     </div>
                                 </div>
                                 <input type="text" name="manual_user" value="<?= $this->session->userdata('id_user') ?>" hidden>
+                                <button type="submit" class="btn btn-primary btn-block">Save</button>
                             </form>
                         </div>
                     </div>

@@ -44,35 +44,47 @@ class Manualvisit extends CI_Controller
 
     public function insert()
     {
-        $this->form_validation->set_rules('nama_city', 'Nama Kota', 'required');
-        $this->form_validation->set_rules('kode_city', 'Kode Kota', 'required');
+        $post = $this->input->post();
 
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('failed', "Harap lengkapi form");
-            redirect('city');
-        } else {
-            $insert = $this->MCity->insert();
+        $id_contact = $post['id_contact'];
+        $id_user = $post['id_user'];
+        $source_visit = $post['source_visit'];
+        $laporan_visit = $post['laporan_visit'];
+        $manual_user = $post['manual_user'];
 
-            if ($insert) {
-                $this->session->set_flashdata('success', "Berhasil menyimpan data kota!");
-                redirect('city');
-            } else {
-                $this->session->set_flashdata('failed', "Gagal menyimpan data kota!");
-                redirect('city');
-            }
-        }
-    }
+        $data = [
+            'id_contact' => $id_contact,
+            'distance_visit' => 0.001,
+            'laporan_visit' => $laporan_visit,
+            'source_visit' => $source_visit,
+            'id_user' => $id_user,
+            'date_visit' => date("Y-m-d H:i:s"),
+            'is_manual' => 1,
+            'manual_user' => $manual_user
+        ];
 
-    public function delete($id)
-    {
-        $insert = $this->MCity->delete($id);
+        $insert = $this->db->insert('tb_visit', $data);
 
         if ($insert) {
-            $this->session->set_flashdata('success', "Berhasil menghapus data kota!");
-            redirect('city');
+            $visitDate = date("Y-m-d");
+            if ($source_visit == 'jatem3') {
+                $this->db->query("UPDATE tb_rencana_visit SET is_visited = 1, visit_date = '$visitDate' WHERE id_contact = '$id_contact' AND type_rencana = 'jatem'");
+
+                $this->db->query("UPDATE tb_renvis_jatem SET is_visited = 1, visit_date = '$visitDate' WHERE id_contact = '$id_contact' AND type_renvis = 'jatem3'");
+            } else {
+                if ($source_visit == 'jatem2') {
+                    $this->db->query("UPDATE tb_renvis_jatem SET is_visited = 1, visit_date = '$visitDate' WHERE id_contact = '$id_contact' AND type_renvis = 'jatem2'");
+                } else if ($source_visit == 'jatem1') {
+                    $this->db->query("UPDATE tb_renvis_jatem SET is_visited = 1, visit_date = '$visitDate' WHERE id_contact = '$id_contact' AND type_renvis = 'jatem1'");
+                } else if ($source_visit == 'weekly') {
+                    $this->db->query("UPDATE tb_rencana_visit SET is_visited = 1, visit_date = '$visitDate' WHERE id_contact = '$id_contact' AND type_rencana = 'tagih_mingguan'");
+                }
+            }
+            $this->session->set_flashdata('success', "Berhasil menambah visit!");
+            redirect('manualvisit');
         } else {
-            $this->session->set_flashdata('failed', "Gagal menghapus data kota!");
-            redirect('city');
+            $this->session->set_flashdata('failed', "Gagal menambah visit!");
+            redirect('manualvisit');
         }
     }
 }
