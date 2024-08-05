@@ -179,3 +179,6 @@ $route['autotransfertest/print'] = 'AutoTransferTest/print';
 $route['vctukang'] = 'Vctukang';
 $route['vctukang/verify'] = 'Vctukang/verify';
 $route['vctukang/toko/(:num)/'] = 'Vctukang/toko/$1/';
+// Manual visit
+$route['manualvisit'] = 'Manualvisit';
+$route['manualvisit/(:num)'] = 'Manualvisit/city/$1';

@@ -264,6 +264,15 @@
                                                 </p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('manualvisit') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-map-marker"></i>
+                                                <p>
+                                                    Manual Visit
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
