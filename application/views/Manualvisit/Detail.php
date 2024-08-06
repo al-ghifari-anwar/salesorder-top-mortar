@@ -61,6 +61,11 @@
                                                 <?php endforeach ?>
                                             </select>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="">Nominal Pembayaran</label>
+                                            <input type="text" name="pay_value" class="form-control" required>
+                                            <input type="text" name="is_pay" value="pay" hidden>
+                                        </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
