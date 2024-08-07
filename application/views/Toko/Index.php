@@ -89,6 +89,7 @@
                                         <th>Termin</th>
                                         <th>Reputation</th>
                                         <th>Payment Method</th>
+                                        <th>Mingguan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -114,6 +115,7 @@
                                             <td><?= $data['termin_payment'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
                                             <td><?= $data['payment_method'] ?></td>
+                                            <td><?= $data['tagih_mingguan'] == 1 ? 'Yes' : 'No' ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
