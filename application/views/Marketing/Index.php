@@ -60,9 +60,55 @@
                                 <br>
                                 <p class="card-text">Minggu Ke <?= $marketing['week_marketing_message'] ?></p>
                                 <a href="<?= base_url('delete-marketing/') . $marketing['id_marketing_message'] ?>" class="btn btn-danger">Delete</a>
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit">Edit</a>
                             </div>
                         </div>
                     </div>
+                    <div class="modal fade" id="modal-edit">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <!-- <h4 class="modal-title">Tambah Data Kota</h4> -->
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="<?= base_url('update-marketing/') . $marketing['id_marketing_message'] ?>" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="">Nama Kontenr</label>
+                                            <input type="text" name="nama_marketing_message" class="form-control" value="<?= $marketing['nama_marketing_message'] ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Template Qontak</label>
+                                            <select name="template_id" id="" class="form-control select2bs4">
+                                                <?php foreach ($templates as $template) : ?>
+                                                    <option value="<?= $template['id'] ?>"><?= $template['name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Image</label>
+                                            <input type="file" name="image_marketing_message" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Body</label>
+                                            <textarea name="body_marketing_message" id="" cols="30" rows="5" class="form-control"><?= $marketing['body_marketing_message'] ?></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Minggu Ke</label>
+                                            <input type="number" name="week_marketing_message" class="form-control" value="<?= $marketing['week_marketing_message'] ?>">
+                                        </div>
+                                        <input type=" text" value="data" name="target_status" hidden>
+                                        <button class="btn btn-primary float-right">Simpan</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 <?php endforeach; ?>
             </div>
             <!-- /.row -->

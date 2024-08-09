@@ -154,6 +154,7 @@ $route['lap-absen-renvis/(:num)/(:any)'] = 'Visit/lap_absen_renvis/$1/$2';
 $route['marketing'] = 'Marketing';
 $route['insert-marketing'] = 'Marketing/insert';
 $route['delete-marketing/(:num)'] = 'Marketing/delete/$1';
+$route['update-marketing/(:num)'] = 'Marketing/update/$1';
 // Notif
 $route['notif-passive'] = 'Notif/notif_passive';
 // Stok

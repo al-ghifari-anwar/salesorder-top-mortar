@@ -56,6 +56,27 @@ class Marketing extends CI_Controller
         }
     }
 
+    public function update($id)
+    {
+        $this->form_validation->set_rules('nama_marketing_message', 'Nama Konten', 'required');
+        $this->form_validation->set_rules('week_marketing_message', 'Minggu Ke', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Harap isi form dengan lengkap");
+            redirect('marketing');
+        } else {
+            $insert = $this->MMarketingMessage->update($id);
+
+            if ($insert) {
+                $this->session->set_flashdata('success', "Berhasil mengubah konten");
+                redirect('marketing');
+            } else {
+                $this->session->set_flashdata('failed', "Gagal mengubah konten");
+                redirect('marketing');
+            }
+        }
+    }
+
     public function delete($id)
     {
         $delete = $this->MMarketingMessage->delete($id);

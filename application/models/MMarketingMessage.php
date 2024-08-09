@@ -51,29 +51,35 @@ class MMarketingMessage extends CI_Model
         }
     }
 
-    // public function update($id)
-    // {
-    //     $post = $this->input->post();
+    public function update($id)
+    {
+        $post = $this->input->post();
 
-    //     $upload = $this->uploadImage($post['nama_marketing_message']);
-    //     if ($upload['status'] == 'success') {
-    //         $this->nama_marketing_message = $post['nama_marketing_message'];
-    //         $this->template_id = $post['template_id'];
-    //         $this->image_marketing_message = $upload['file_name'];
-    //         $this->body_marketing_message = $post['body_marketing_message'];
-    //         $this->week_marketing_message = $post['week_marketing_message'];
-    //         $this->target_status = $post['target_status'];
-    //         $this->id_distributor = $this->session->userdata('id_distributor');
+        $getMarketing = $this->db->get_where('tb_marketing_message', ['id_marketing_message' => $id])->row_array();
 
-    //         $query = $this->db->update('tb_marketing_message', $this, ['id_marketing_message' => $id]);
+        $this->image_marketing_message = $getMarketing['image_marketing_message'];
+        $upload = $this->uploadImage($post['nama_marketing_message']);
+        // echo json_encode($upload);
+        // die;
+        if ($upload['status'] == 'success') {
+            $data = $upload['message'];
+            $this->image_marketing_message = $data['file_name'];
+        }
+        $this->nama_marketing_message = $post['nama_marketing_message'];
+        $this->template_id = $post['template_id'];
+        $this->body_marketing_message = $post['body_marketing_message'];
+        $this->week_marketing_message = $post['week_marketing_message'];
+        $this->target_status = $post['target_status'];
+        $this->id_distributor = $this->session->userdata('id_distributor');
 
-    //         if ($query) {
-    //             return true;
-    //         } else {
-    //             return false;
-    //         }
-    //     }
-    // }
+        $query = $this->db->update('tb_marketing_message', $this, ['id_marketing_message' => $id]);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function delete($id)
     {
