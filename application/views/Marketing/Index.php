@@ -60,11 +60,11 @@
                                 <br>
                                 <p class="card-text">Minggu Ke <?= $marketing['week_marketing_message'] ?></p>
                                 <a href="<?= base_url('delete-marketing/') . $marketing['id_marketing_message'] ?>" class="btn btn-danger">Delete</a>
-                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit">Edit</a>
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $marketing['id_marketing_konten'] ?>">Edit</a>
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="modal-edit">
+                    <div class="modal fade" id="modal-edit<?= $marketing['id_marketing_konten'] ?>">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
