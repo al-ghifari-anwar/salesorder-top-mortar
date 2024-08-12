@@ -164,7 +164,7 @@ function penyebut($nilai)
                 <?php if ($getVisit == null) : ?>
                     <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
+                        <td><?= "[Belum Divisit]" . $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
                         <td><?= $contact['address'] ?></td>
                         <td><?= $contact['nomorhp'] ?></td>
                         <td class="text-center">
