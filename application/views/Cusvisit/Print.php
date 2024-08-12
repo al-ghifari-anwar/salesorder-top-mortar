@@ -161,6 +161,23 @@ function penyebut($nilai)
                         </td>
                     </tr>
                 <?php endif; ?>
+                <?php if ($getVisit == null) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
+                        <td><?= $contact['address'] ?></td>
+                        <td><?= $contact['nomorhp'] ?></td>
+                        <td class="text-center">
+                            <?= 0 ?>
+                        </td>
+                        <td class="text-center">
+                            <?= 0 ?>
+                        </td>
+                        <td class="text-center">
+                            <?= 0 ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
             <?php endforeach; ?>
             <tr>
                 <td class="text-right border" colspan="4">Total Visit</td>
