@@ -16,6 +16,7 @@ class Vctukang extends CI_Controller
         $this->load->model('MKendaraan');
         $this->load->model('MUser');
         $this->load->model('MVoucher');
+        $this->load->model('MVoucherTukang');
         $this->load->library('form_validation');
     }
 
@@ -45,11 +46,18 @@ class Vctukang extends CI_Controller
                 $this->session->set_flashdata('failed', "Nomor seri tidak terdaftar!");
                 redirect('vctukang');
             } else {
-                $getClaimed = $this->db->get_where('tb_voucher_tukang', ['no_seri' => $no_seri])->row_array();
+                $id_tukang = $getTukang['id_tukang'];
 
-                if ($getClaimed) {
-                    $this->session->set_flashdata('failed', "Nomor seri sudah pernah di claim!");
-                    redirect('vctukang');
+                $getVoucherTukang = $this->db->get_where('tb_voucher_tukang', ['no_seri' => $no_seri])->row_array();
+
+                if ($getVoucherTukang) {
+                    if ($getVoucherTukang['is_claimed'] == 1) {
+                        $this->session->set_flashdata('failed', "Nomor seri sudah pernah di claim!");
+                        redirect('vctukang');
+                    } else {
+                        $this->session->set_flashdata('failed', "Nomor seri sudah terverifikasi, silahkan kunjungi toko untuk claim");
+                        redirect('vctukang');
+                    }
                 } else {
                     // Generate QR
                     $this->load->library('ciqrcode');
@@ -65,7 +73,9 @@ class Vctukang extends CI_Controller
 
                     $image_name = $no_seri . '.png'; //buat name dari qr code sesuai dengan nim
 
-                    $params['data'] = base_url('vctukang/toko/') . $getTukang['id_tukang']; //data yang akan di jadikan QR CODE
+                    $voucherCode = md5("Top" . md5($id_tukang));
+
+                    $params['data'] = $voucherCode; //data yang akan di jadikan QR CODE
                     $params['level'] = 'H'; //H=High
                     $params['size'] = 10;
                     $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
@@ -141,6 +151,8 @@ class Vctukang extends CI_Controller
                     $status = $res['status'];
 
                     if ($status == "success") {
+                        $this->MVoucherTukang->create();
+
                         $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
                         redirect('vctukang');
                     } else {
