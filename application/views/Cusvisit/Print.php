@@ -164,7 +164,12 @@ function penyebut($nilai)
                 <?php if ($getVisit == null) : ?>
                     <tr>
                         <td><?= $no++; ?></td>
-                        <td style="color: red;"><?= "[Belum Divisit] " . $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
+                        <?php if ($contact['store_status'] == 'passive') : ?>
+                            <td style="color: red;"><?= "[Belum Divisit] " . $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
+                        <?php endif; ?>
+                        <?php if ($contact['store_status'] == 'active') : ?>
+                            <td style="color: green;"><?= "[Active] " . $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
+                        <?php endif; ?>
                         <td><?= $contact['address'] ?></td>
                         <td><?= $contact['nomorhp'] ?></td>
                         <td class="text-center">
