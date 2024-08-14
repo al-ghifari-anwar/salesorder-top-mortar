@@ -170,6 +170,9 @@ function penyebut($nilai)
                         <?php if ($contact['store_status'] == 'active') : ?>
                             <td style="color: green;"><?= "[Active] " . $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
                         <?php endif; ?>
+                        <?php if ($contact['store_status'] == 'data') : ?>
+                            <td style="color: yellow;"><?= "[Data] " . $contact['nama'] . " (" . $contact['id_contact'] . ")" ?></td>
+                        <?php endif; ?>
                         <td><?= $contact['address'] ?></td>
                         <td><?= $contact['nomorhp'] ?></td>
                         <td class="text-center">
