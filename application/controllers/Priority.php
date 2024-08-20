@@ -45,7 +45,7 @@ class Priority extends CI_Controller
             $nama = $post['nama'];
             $tgl_lahir = $post['tgl_lahir'];
             $address = $post['address'];
-            $id_catcus = $post['catcus'];
+            $id_catcus = $post['id_catcus'];
 
             if ($nomorhp == null) {
                 $this->session->set_flashdata('failed', "Nomor seri tidak boleh kosong!");
