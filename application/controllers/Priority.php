@@ -76,6 +76,7 @@ class Priority extends CI_Controller
                     $id_tukang = $this->db->insert_id();
 
                     if ($insert) {
+                        $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
                         $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $nomorhp])->row_array();
                         $getVoucherTukang = $this->db->get_where('tb_voucher_tukang', ['no_seri' => $nomorhp])->row_array();
 
@@ -185,8 +186,6 @@ class Priority extends CI_Controller
                                 $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
                                 redirect('priority/' . $id_contact);
                             } else {
-                                echo $res;
-                                die;
                                 $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
                                 redirect('priority/' . $id_contact);
                             }
