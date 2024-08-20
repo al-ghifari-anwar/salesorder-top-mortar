@@ -184,3 +184,6 @@ $route['vctukang/toko/(:num)/'] = 'Vctukang/toko/$1/';
 $route['manualvisit'] = 'Manualvisit';
 $route['manualvisit/(:num)'] = 'Manualvisit/city/$1';
 $route['manualvisit/insert'] = 'Manualvisit/insert';
+// Pirority
+$route['priority/(:num)'] = 'Priority/index/$1';
+$route['priority/verify/(:num)'] = 'Priority/verify/$1';
