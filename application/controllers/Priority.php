@@ -185,6 +185,8 @@ class Priority extends CI_Controller
                                 $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
                                 redirect('priority/' . $id_contact);
                             } else {
+                                echo $res;
+                                die;
                                 $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
                                 redirect('priority/' . $id_contact);
                             }
