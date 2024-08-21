@@ -215,7 +215,7 @@ class Priority extends CI_Controller
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://apibca.topmortarindonesia.com/snapIntrabankPriority/. . $id_contactphp?to=' . $to_account,
+                    CURLOPT_URL => 'https://apibca.topmortarindonesia.com/snapIntrabankVctukang.php?to=' . $to_account,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -241,10 +241,10 @@ class Priority extends CI_Controller
                     $this->db->insert('tb_voucher_tukang', $data);
 
                     $this->session->set_flashdata('success', "Berhasil claim voucher");
-                    redirect('priority// . $id_contacttoko/' . $id_tukang);
+                    redirect('vctukang/toko/' . $id_tukang);
                 } else {
                     $this->session->set_flashdata('failed', "Gagal claim voucher, silahkan coba lagi!");
-                    redirect('priority// . $id_contacttoko/' . $id_tukang);
+                    redirect('vctukang/toko/' . $id_tukang);
                 }
             } else {
                 // TF interbank
@@ -253,7 +253,7 @@ class Priority extends CI_Controller
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://apibca.topmortarindonesia.com/snapInterbankPriority/. . $id_contactphp?to=$to_account&to_name=$to_name&bank_code=$bank_code",
+                    CURLOPT_URL => "https://apibca.topmortarindonesia.com/snapInterbankVctukang.php?to=$to_account&to_name=$to_name&bank_code=$bank_code",
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -279,15 +279,15 @@ class Priority extends CI_Controller
                     $this->db->insert('tb_voucher_tukang', $data);
 
                     $this->session->set_flashdata('success', "Berhasil claim voucher");
-                    redirect('priority// . $id_contacttoko/' . $id_tukang);
+                    redirect('vctukang/toko/' . $id_tukang);
                 } else {
                     $this->session->set_flashdata('failed', "Gagal claim voucher, silahkan coba lagi!");
-                    redirect('priority// . $id_contacttoko/' . $id_tukang);
+                    redirect('vctukang/toko/' . $id_tukang);
                 }
             }
         } else {
             $this->session->set_flashdata('failed', "Nomor seri sudah terpakai!");
-            redirect('priority// . $id_contacttoko/' . $id_tukang);
+            redirect('vctukang/toko/' . $id_tukang);
         }
     }
 }

@@ -8,6 +8,7 @@ class MVoucherTukang extends CI_Model
     public $no_seri;
     public $updated_at;
     public $exp_at;
+    public $id_md5;
 
     public function create($id_tukang, $no_seri)
     {
@@ -16,6 +17,7 @@ class MVoucherTukang extends CI_Model
         $this->no_seri = $no_seri;
         $this->updated_at = date("Y-m-d H:i:s");
         $this->exp_at = date("Y-m-d", strtotime("+1 week"));
+        $this->id_md5 = md5("Top" . md5($id_tukang));
 
         $query = $this->db->insert('tb_voucher_tukang', $this);
 
