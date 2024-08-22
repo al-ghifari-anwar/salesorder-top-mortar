@@ -113,6 +113,15 @@
                                     </a>
                                 </li>
                             <?php endif ?>
+                            <li class="nav-item">
+                                <a href="<?= base_url('absen') ?>" class="nav-link">
+                                    <i class="nav-icon fas fa-calendar-check"></i>
+                                    <p>
+                                        Absen Harian
+                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                    </p>
+                                </a>
+                            </li>
                             <?php if ($this->session->userdata('level_user') == 'superadmin') : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('distributor') ?>" class="nav-link">

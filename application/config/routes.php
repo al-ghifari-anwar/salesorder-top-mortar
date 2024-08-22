@@ -187,3 +187,6 @@ $route['manualvisit/insert'] = 'Manualvisit/insert';
 // Pirority
 $route['priority/(:num)'] = 'Priority/index/$1';
 $route['priority/verify/(:num)'] = 'Priority/verify/$1';
+// Absen
+$route['absen'] = 'Absen';
+$route['absen/print'] = 'Absen/print';

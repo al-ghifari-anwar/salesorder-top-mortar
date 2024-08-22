@@ -18,6 +18,12 @@ class MUser extends CI_Model
         return $query;
     }
 
+    public function getByIdDist($id_distributor)
+    {
+        $query = $this->db->get_where('tb_user', ['id_distributor' => $id_distributor])->result_array();
+        return $query;
+    }
+
     public function getAllForManualRenvi($id_city)
     {
         $query = $this->db->get_where('tb_user', ['id_city' => $id_city])->result_array();
