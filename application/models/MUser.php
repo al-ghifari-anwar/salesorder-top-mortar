@@ -20,7 +20,7 @@ class MUser extends CI_Model
 
     public function getByIdDist($id_distributor)
     {
-        $query = $this->db->get_where('tb_user', ['id_distributor' => $id_distributor, 'password !=' => '0', 'level_user !=' => 'admin_c'])->result_array();
+        $query = $this->db->get_where('tb_user', ['id_distributor' => $id_distributor, 'password !=' => '0'])->result_array();
         return $query;
     }
 

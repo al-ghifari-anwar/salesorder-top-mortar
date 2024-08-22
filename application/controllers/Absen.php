@@ -52,13 +52,13 @@ class Absen extends CI_Controller
         $data['periods'] = $periods;
 
         // Test
-        // $this->load->view('Cusvisit/Print', $data);
+        $this->load->view('Absen/Print', $data);
         // PDF
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Absen/Print', $data, true);
-        $mpdf->AddPage('L');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        // $mpdf->SetMargins(0, 0, 5);
+        // $html = $this->load->view('Absen/Print', $data, true);
+        // $mpdf->AddPage('L');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output();
     }
 }
