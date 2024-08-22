@@ -23,7 +23,7 @@ class MUser extends CI_Model
         $this->db->where('level_user', 'courier');
         $this->db->or_where('level_user', 'sales', NULL, FALSE);
         $this->db->or_where('level_user', 'penagihan', NULL, FALSE);
-        $query = $this->db->get_where('tb_user', ['id_distributor' => $id_distributor, 'password !=' => '0'])->result_array();
+        $query = $this->db->get_where('tb_user', ['id_distributor' => $id_distributor, 'password !=' => '0'], 27)->result_array();
         return $query;
     }
 
