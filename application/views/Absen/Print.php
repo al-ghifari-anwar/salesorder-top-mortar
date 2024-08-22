@@ -135,8 +135,9 @@ function penyebut($nilai)
                     $id_user = $user['id_user'];
                     $tgl = $period_user->format("d");
                     $day = $period_user->format("l");
+                    $date = $period_user->format("Y-m-d");
 
-                    $absen = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => $tgl, 'source_visit' => 'absen_in'])->row_array();
+                    $absen = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => $date, 'source_visit' => 'absen_in'])->row_array();
                     ?>
                     <th class="border <?= $day == 'Sunday' ? 'bg-red' : '' ?>"><?= $absen != null ? 'Y' : '' ?></th>
                 <?php endforeach; ?>
