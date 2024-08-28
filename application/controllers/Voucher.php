@@ -400,7 +400,9 @@ class Voucher extends CI_Controller
             $status = $res['status'];
 
             if ($status == 'success') {
+                $id_contact = $store['id_contact'];
                 $this->MVoucher->update_claim($vouchers);
+                $this->db->update('tb_rencana_visit', ['is_visited' => 1], ['id_contact' => $id_contact, 'type_rencana' => 'voucher']);
                 $this->session->set_flashdata('success', "Berhasil claim voucher!");
                 redirect('voucher');
             }
