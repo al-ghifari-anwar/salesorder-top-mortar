@@ -65,6 +65,10 @@
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="">Nota</label>
+                                    <input type="file" name="foto_nota" id="" class="form-control">
+                                </div>
                                 <button type="submit" class="btn btn-primary">Kirim</button>
                             </form>
                         </div>
