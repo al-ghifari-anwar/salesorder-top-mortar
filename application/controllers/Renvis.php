@@ -82,7 +82,7 @@ class Renvis extends CI_Controller
     {
         $insert = $this->db->delete('tb_antrian_renvis', ['id_antrian_renvis' => $id]);
 
-        $this->db->update('tb_rencana_visit', ['is_visited' => 1, 'visit_date' => date('Y-m-d H:i:s')], ['id_contact' => $id_contact]);
+        $this->db->update('tb_rencana_visit', ['is_visited' => 1], ['id_contact' => $id_contact]);
 
         if ($insert) {
             $this->session->set_flashdata('success', "Berhasil megnhapus data renvi!");
