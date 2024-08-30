@@ -69,6 +69,10 @@
                                     <label for="">Nota</label>
                                     <input type="file" name="foto_nota" id="" class="form-control">
                                 </div>
+                                <div class="form-group">
+                                    <label for="">Nominal Pembelian</label>
+                                    <input type="text" name="nominal" id="" class="form-control" required>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Kirim</button>
                             </form>
                         </div>
