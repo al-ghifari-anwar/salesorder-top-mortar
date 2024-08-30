@@ -116,6 +116,7 @@ class Priority extends CI_Controller
                             $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
                             $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
                             $integration_id = $qontak['integration_id'];
+                            $wa_token = $qontak['token'];
                             // Data
                             $nomor_hp = $getTukang['nomorhp'];
                             $nama = $getTukang['nama'];

@@ -136,6 +136,7 @@ class SuratJalan extends CI_Controller
 
         $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
         $integration_id = $qontak['integration_id'];
+        $wa_token = $qontak['token'];
 
         $curl = curl_init();
 
