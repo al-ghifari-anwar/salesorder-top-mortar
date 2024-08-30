@@ -27,4 +27,27 @@ class MVoucherTukang extends CI_Model
             return false;
         }
     }
+
+    public function createPriority($id_tukang, $no_seri, $id_contact, $nominal, $nota)
+    {
+        $data = [
+            'id_tukang' => $id_tukang,
+            'id_contact' => $id_contact,
+            'no_seri' => $no_seri,
+            'updated_at' => date("Y-m-d H:i:s"),
+            'exp_at' => date("Y-m-d", strtotime("+1 week")),
+            'id_md5' => md5("Top" . md5($id_tukang)),
+            'is_priority' => 1,
+            'nota_pembelian' => $nota,
+            'nominal_pembelian' => $nominal
+        ];
+
+        $query = $this->db->insert('tb_voucher_tukang', $data);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

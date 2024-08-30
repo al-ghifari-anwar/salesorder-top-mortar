@@ -276,6 +276,7 @@ class Voucher extends CI_Controller
 
         $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
         $integration_id = $qontak['integration_id'];
+        $wa_token = $qontak['token'];
 
         // if ($id_distributor == 1) {
         $nomor_hp = '6282131426363';

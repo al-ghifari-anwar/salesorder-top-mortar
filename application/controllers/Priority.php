@@ -48,7 +48,7 @@ class Priority extends CI_Controller
             $id_catcus = $post['id_catcus'];
 
             if ($nomorhp == null) {
-                $this->session->set_flashdata('failed', "Nomor seri tidak boleh kosong!");
+                $this->session->set_flashdata('failed', "Nomor hp tidak boleh kosong!");
                 redirect('priority/' . $id_contact);
             } else {
                 $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
@@ -181,7 +181,7 @@ class Priority extends CI_Controller
                             $status = $res['status'];
 
                             if ($status == "success") {
-                                $this->MVoucherTukang->create($id_tukang, $nomorhp);
+                                $this->MVoucherTukang->createPriority($id_tukang, $nomorhp, $id_contact);
 
                                 $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
                                 redirect('priority/' . $id_contact);
