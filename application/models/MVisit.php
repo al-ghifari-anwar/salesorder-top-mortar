@@ -41,6 +41,7 @@ class MVisit extends CI_Model
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $this->db->where('MONTH(date_visit)', $month);
+        $this->db->where('YEAR(date_visit)', date("Y"));
         if ($type != 'sales') {
             $this->db->where('tb_user.level_user', $type);
         } else {
@@ -61,6 +62,7 @@ class MVisit extends CI_Model
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         $this->db->join('tb_gudang', 'tb_gudang.id_gudang = tb_visit.id_contact');
         $this->db->where('MONTH(date_visit)', $month);
+        $this->db->where('YEAR(date_visit)', date("Y"));
         if ($type != 'sales') {
             $this->db->where('tb_user.level_user', $type);
         } else {
@@ -132,6 +134,7 @@ class MVisit extends CI_Model
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $this->db->where('MONTH(date_visit) =', $bulan);
+        $this->db->where('YEAR(date_visit) =', date("Y"));
         $this->db->group_by('tb_visit.id_contact');
         $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'tb_user.id_user' => $id_user, 'is_approved' => 0, 'is_deleted' => 0,])->result_array();
 
