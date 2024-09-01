@@ -68,14 +68,26 @@
                 ?>
                 <?php
                 foreach ($city as $data) :
+                    if ($dates) {
+                        $itemsCity = $this->MDetailSuratJalan->getSoldItemsByDate($data['id_city'], date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
+                    } else {
+                        $itemsCity = $this->MDetailSuratJalan->getSoldItems($data['id_city']);
+                    }
                 ?>
                     <div class="col-lg-3 col-6">
+                        <?php
+                        $totalItemCity = 0;
+                        foreach ($itemsCity as $itemsCity) {
+                            $totalItemCity += $itemsCity['qty_produk'];
+                        }
+                        ?>
                         <!-- small box -->
                         <div class="small-box bg-light">
                             <div class="inner">
                                 <h3><?= $data['nama_city'] ?></h3>
 
                                 <p><?= $data['kode_city'] ?></p>
+                                <h5>Total Penjualan: <?= $totalItemCity ?></h5>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>

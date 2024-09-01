@@ -32,7 +32,9 @@ class Penjualan extends CI_Controller
         if ($dateRange) {
             $dates = explode("-", $dateRange);
             $data['items'] = $this->MDetailSuratJalan->getSoldItemsByDate(null, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
+            $data['dates'] = $dates;
         } else {
+            $data['dates'] = null;
             $data['items'] = $this->MDetailSuratJalan->getSoldItems();
         }
         $this->load->view('Theme/Header', $data);
