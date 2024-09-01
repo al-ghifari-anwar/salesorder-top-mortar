@@ -63,7 +63,10 @@ $route['produk'] = 'Produk';
 $route['produk/(:num)'] = 'Produk/produk_by_city/$1';
 $route['insert-produk'] = 'Produk/insert';
 $route['update-produk/(:num)'] = 'Produk/update/$1';
+// Stok Produk
 $route['insert-stok/(:num)'] = 'Produk/insert_stok/$1';
+$route['move-stok/(:num)'] = 'Produk/move_stok/$1';
+$route['produk/(:num)/(:num)'] = 'Produk/stok_by_produk/$1/$2';
 //Auth
 $route['login'] = 'Auth';
 $route['logout'] = 'Auth/logout';

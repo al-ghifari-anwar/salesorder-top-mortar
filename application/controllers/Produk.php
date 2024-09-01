@@ -43,6 +43,20 @@ class Produk extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function stok_by_produk($id_city, $id_produk)
+    {
+        $data['title'] = 'Stok Produk';
+        $data['cities'] = $this->MCity->getAll();
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['produk'] = $this->MProduk->getById($id_produk);
+        $data['stok'] = $this->db->get_where('tb_stok', ['id_produk' => $id_produk])->result_array();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Produk/StokList');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function insert()
     {
         $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required');
@@ -68,18 +82,63 @@ class Produk extends CI_Controller
     {
         $this->form_validation->set_rules('jml_stok', 'Jumlah', 'required');
 
+        $post = $this->input->post();
+
+        $id_city = $post['id_city'];
+
+        $id_produk = $post['id_produk'];
+
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('failed', "Harap lengkapi form");
-            redirect('produk');
+            redirect('produk/' . $id_city . "/" . $id_produk);
         } else {
             $insert = $this->db->insert('tb_stok', ['id_produk' => $id, 'jml_stok' => $this->input->post('jml_stok')]);
 
             if ($insert) {
                 $this->session->set_flashdata('success', "Berhasil menambah stok produk!");
-                redirect('produk');
+                redirect('produk/' . $id_city . "/" . $id_produk);
             } else {
                 $this->session->set_flashdata('failed', "Gagal menambah stok produk!");
-                redirect('produk');
+                redirect('produk/' . $id_city . "/" . $id_produk);
+            }
+        }
+    }
+
+    public function move_stok($id)
+    {
+        $this->form_validation->set_rules('jml_stok', 'Jumlah', 'required');
+
+        $post = $this->input->post();
+
+        $id_city = $post['id_city'];
+        $id_city_tujuan = $post['id_city_tujuan'];
+        $jml_stok = $post['jml_stok'];
+
+        $id_produk = $post['id_produk'];
+        $nama_produk = $post['nama_produk'];
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Harap lengkapi form");
+            redirect('produk/' . $id_city . "/" . $id_produk);
+        } else {
+            $insert = $this->db->insert('tb_stok', ['id_produk' => $id, 'jml_stok' => $jml_stok, 'status_stok' => 'out']);
+
+            if ($insert) {
+                $getProduk = $this->db->get_where('tb_produk', ['nama_produk' => $nama_produk, 'id_city' => $id_city_tujuan])->row_array();
+                $id_produk = $getProduk['id_produk'];
+
+                $insert = $this->db->insert('tb_stok', ['id_produk' => $id_produk, 'jml_stok' => $jml_stok, 'status_stok' => 'in']);
+
+                if ($insert) {
+                    $this->session->set_flashdata('success', "Berhasil menambah stok produk!");
+                    redirect('produk/' . $id_city . "/" . $id_produk);
+                } else {
+                    $this->session->set_flashdata('failed', "Gagal menambah stok produk!");
+                    redirect('produk/' . $id_city . "/" . $id_produk);
+                }
+            } else {
+                $this->session->set_flashdata('failed', "Gagal menambah stok produk!");
+                redirect('produk/' . $id_city . "/" . $id_produk);
             }
         }
     }

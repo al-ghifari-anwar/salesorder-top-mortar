@@ -20,6 +20,12 @@ class MProduk extends CI_Model
         return $query;
     }
 
+    public function getById($id_produk)
+    {
+        $query = $this->db->get_where('tb_produk', ['id_produk' => $id_produk])->row_array();
+        return $query;
+    }
+
     public function insert()
     {
         $post = $this->input->post();
