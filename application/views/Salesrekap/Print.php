@@ -124,7 +124,7 @@ function penyebut($nilai)
                 <?php
                 // Get All Visit
                 // $this->db->group_by('tb_visit.id_contact');
-                $visit = $this->db->get_where('tb_visit', ['id_user' => $dataSales['id_user'], 'MONTH(date_visit)' => $month])->result_array();
+                $visit = $this->db->get_where('tb_visit', ['id_user' => $dataSales['id_user'], 'MONTH(date_visit)' => $month, 'YEAR(date_visit)' => date("Y")])->result_array();
                 // echo json_encode($visit);
                 // die;
                 $total_visit = count($visit);
@@ -136,7 +136,7 @@ function penyebut($nilai)
                 $this->db->select('SUM(qty_produk) AS total_qty');
                 $this->db->join('tb_surat_jalan', 'tb_detail_surat_jalan.id_surat_jalan = tb_surat_jalan.id_surat_jalan');
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
-                $penjualan = $this->db->get_where('tb_detail_surat_jalan', ['MONTH(date_closing)' => $month, 'id_city' => $city['id_city']])->row_array();
+                $penjualan = $this->db->get_where('tb_detail_surat_jalan', ['MONTH(date_closing)' => $month, 'YEAR(date_closing)' => date("Y"), 'id_city' => $city['id_city']])->row_array();
                 $total_penjualan += $penjualan['total_qty'];
                 // echo $this->db->last_query();
                 // die;
@@ -149,7 +149,7 @@ function penyebut($nilai)
                 $this->db->select("MAX(id_status_change) AS id_status_change, tb_status_change.id_contact, MAX(tb_status_change.created_at) AS created_at");
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
                 $this->db->group_by('tb_status_change.id_contact');
-                $dataToActive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city'], 'MONTH(tb_status_change.created_at)' => $month])->result_array();
+                $dataToActive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city'], 'MONTH(tb_status_change.created_at)' => $month, 'YEAR(tb_status_change.created_at)' => date("Y")])->result_array();
                 $total_dataToActive = 0;
                 foreach ($dataToActive as $dataToActive) {
                     $dataDataActive = $this->db->get_where('tb_status_change', ['id_status_change ' => $dataToActive['id_status_change']])->row_array();
@@ -161,7 +161,7 @@ function penyebut($nilai)
                 $this->db->select("MAX(id_status_change) AS id_status_change, tb_status_change.id_contact, MAX(tb_status_change.created_at) AS created_at");
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
                 $this->db->group_by('tb_status_change.id_contact');
-                $passiveToActive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city'], 'MONTH(tb_status_change.created_at)' => $month])->result_array();
+                $passiveToActive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city'], 'MONTH(tb_status_change.created_at)' => $month, 'YEAR(tb_status_change.created_at)' => date("Y")])->result_array();
                 $total_passiveToActive = 0;
                 foreach ($passiveToActive as $passiveToActive) {
                     $dataPassiveActive = $this->db->get_where('tb_status_change', ['id_status_change ' => $passiveToActive['id_status_change']])->row_array();
@@ -173,7 +173,7 @@ function penyebut($nilai)
                 $this->db->select("MAX(id_status_change) AS id_status_change, tb_status_change.id_contact, MAX(tb_status_change.created_at) AS created_at");
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
                 $this->db->group_by('tb_status_change.id_contact');
-                $activeToPassive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city'], 'MONTH(tb_status_change.created_at)' => $month])->result_array();
+                $activeToPassive = $this->db->get_where('tb_status_change', ['tb_contact.id_city' => $city['id_city'], 'MONTH(tb_status_change.created_at)' => $month, 'YEAR(tb_status_change.created_at)' => date("Y")])->result_array();
                 // echo $this->db->last_query();
                 // die;
                 $total_activeToPassive = 0;
