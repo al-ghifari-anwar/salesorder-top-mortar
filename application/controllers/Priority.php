@@ -49,6 +49,11 @@ class Priority extends CI_Controller
             $nominal = $post['nominal'];
             $nota = "SS";
 
+            if ($nominal < 200000) {
+                $this->session->set_flashdata('failed', "Minimal pembelanjaan adalah 200.000 ribu!");
+                redirect('priority/' . $id_contact);
+            }
+
             if ($nomorhp == null) {
                 $this->session->set_flashdata('failed', "Nomor hp tidak boleh kosong!");
                 redirect('priority/' . $id_contact);
