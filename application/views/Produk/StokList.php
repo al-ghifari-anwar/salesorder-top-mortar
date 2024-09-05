@@ -66,8 +66,7 @@
                                             <td><?= $data['jml_stok'] ?></td>
                                             <td><?= date("d F Y", strtotime($data['created_at'])) ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-danger m-1" title="Hapus"><i class="fas fa-trash"></i></a>
-
+                                                <a href="<?= base_url('delete-stok/' . $city['id_city'] . '/' . $produk['id_produk'] . '/' . $data['id_stok']) ?>" class="btn btn-danger m-1" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

@@ -67,6 +67,7 @@ $route['update-produk/(:num)'] = 'Produk/update/$1';
 $route['insert-stok/(:num)'] = 'Produk/insert_stok/$1';
 $route['move-stok/(:num)'] = 'Produk/move_stok/$1';
 $route['produk/(:num)/(:num)'] = 'Produk/stok_by_produk/$1/$2';
+$route['delete-stok/(:num)/(:num)/(:num)'] = 'Produk/delete_stok/$1/$2/$3';
 //Auth
 $route['login'] = 'Auth';
 $route['logout'] = 'Auth/logout';

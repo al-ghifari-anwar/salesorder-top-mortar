@@ -143,6 +143,19 @@ class Produk extends CI_Controller
         }
     }
 
+    public function delete_stok($id_city, $id_produk, $id_stok)
+    {
+        $delete = $this->db->delete('tb_stok', ['id_stok' => $id_stok]);
+
+        if ($delete) {
+            $this->session->set_flashdata('success', "Berhasil menghapus stok produk!");
+            redirect('produk/' . $id_city . "/" . $id_produk);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menghapus stok produk!");
+            redirect('produk/' . $id_city . "/" . $id_produk);
+        }
+    }
+
     public function update($id)
     {
         $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required');
