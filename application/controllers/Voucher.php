@@ -140,8 +140,9 @@ class Voucher extends CI_Controller
             $qontak = $this->db->query("SELECT * FROM tb_qontak WHERE id_distributor = '$id_distributor'")->row_array();
             $template_id = "c4504076-8fc7-44a0-9534-9f6ebc3e56e5";
             $integration_id = $qontak['integration_id'];
+            $wa_token = $qontak['token'];
             // $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
-            $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+            // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
 
             // Get Contacts
             $contact = $this->MContact->getById($id_contact);
