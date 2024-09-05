@@ -25,7 +25,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Visit</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('prioritystore') ?>">Toko Prioritas</a></li>
                         <li class="breadcrumb-item active"><?= $city['nama_city'] ?></li>
                     </ol>
                 </div><!-- /.col -->
@@ -51,6 +51,7 @@
                                         <th>Toko</th>
                                         <th>Status</th>
                                         <th>Reputation</th>
+                                        <th>Kuota</th>
                                         <th>QR</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -64,6 +65,7 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
+                                            <td><?= $data['quota_priority'] ?></td>
                                             <td>
                                                 <a href="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" target="__blank">
                                                     <img src="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" alt="" class="img-fluid" width="100">

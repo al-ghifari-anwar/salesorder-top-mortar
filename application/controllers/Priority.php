@@ -49,6 +49,13 @@ class Priority extends CI_Controller
             $nominal = $post['nominal'];
             $nota = "SS";
 
+            $getCountVoucherTukang = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->num_rows();
+
+            if ($getCountVoucherTukang >= $getContact['quota_priority']) {
+                $this->session->set_flashdata('failed', "Kuota penukaran promo toko ini telah habis!");
+                redirect('priority/' . $id_contact);
+            }
+
             if ($nominal < 200000) {
                 $this->session->set_flashdata('failed', "Minimal pembelanjaan adalah 200.000 ribu!");
                 redirect('priority/' . $id_contact);
@@ -119,7 +126,7 @@ class Priority extends CI_Controller
                             $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
                             $id_distributor = $getTukang['id_distributor'];
-                            $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+                            // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
                             $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
                             $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
                             $integration_id = $qontak['integration_id'];

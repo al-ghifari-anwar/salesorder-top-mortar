@@ -56,6 +56,7 @@ class PriorityStore extends CI_Controller
         $post = $this->input->post();
 
         $id_contact = $post['id_contact'];
+        $quota_priority = 200;
 
         $getContact = $this->MContact->getById($id_contact);
 
@@ -83,7 +84,7 @@ class PriorityStore extends CI_Controller
         $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
         $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
-        $update = $this->db->update('tb_contact', ['is_priority' => 1, 'qr_toko' => $image_name], ['id_contact' => $id_contact]);
+        $update = $this->db->update('tb_contact', ['is_priority' => 1, 'qr_toko' => $image_name, 'quota_priority' => $quota_priority], ['id_contact' => $id_contact]);
 
         if ($update) {
             $this->session->set_flashdata('success', "Berhasil menambah toko prioritas!");
