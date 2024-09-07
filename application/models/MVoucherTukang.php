@@ -9,6 +9,7 @@ class MVoucherTukang extends CI_Model
     public $updated_at;
     public $exp_at;
     public $id_md5;
+    public $type_voucher;
 
     public function create($id_tukang, $no_seri)
     {
@@ -18,6 +19,7 @@ class MVoucherTukang extends CI_Model
         $this->updated_at = date("Y-m-d H:i:s");
         $this->exp_at = date("Y-m-d", strtotime("+1 week"));
         $this->id_md5 = md5("Top" . md5($id_tukang));
+        $this->type_voucher = 'voucher';
 
         $query = $this->db->insert('tb_voucher_tukang', $this);
 
@@ -39,7 +41,8 @@ class MVoucherTukang extends CI_Model
             'id_md5' => md5("Top" . md5($id_tukang)),
             'is_priority' => 1,
             'nota_pembelian' => $nota,
-            'nominal_pembelian' => $nominal
+            'nominal_pembelian' => $nominal,
+            'type_voucher' => 'priority'
         ];
 
         $query = $this->db->insert('tb_voucher_tukang', $data);
