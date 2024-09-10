@@ -200,3 +200,12 @@ $route['prioritystore/(:num)'] = 'PriorityStore/index/$1';
 $route['prioritystore/add'] = 'PriorityStore/add';
 $route['prioritystore/delete/(:num)'] = 'PriorityStore/delete/$1';
 $route['prioritystore/penukaran/(:num)'] = 'PriorityStore/penukaran/$1';
+// Tokopromo Store
+$route['tokopromostore'] = 'TokopromoStore/city_list';
+$route['tokopromostore/(:num)'] = 'TokopromoStore/index/$1';
+$route['tokopromostore/add'] = 'TokopromoStore/add';
+$route['tokopromostore/delete/(:num)'] = 'TokopromoStore/delete/$1';
+$route['tokopromostore/penukaran/(:num)'] = 'TokopromoStore/penukaran/$1';
+// Tokopromo
+$route['tokopromo/(:num)'] = 'Tokopromo/index/$1';
+$route['tokopromo/verify/(:num)'] = 'Tokopromo/verify/$1';

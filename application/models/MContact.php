@@ -40,6 +40,13 @@ class MContact extends CI_Model
         return $query;
     }
 
+    public function getAllTokopromo($id_city)
+    {
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city, 'is_priority' => 1, 'is_tokopromo' => 1])->result_array();
+        return $query;
+    }
+
     public function getAllForRenvis($id_city)
     {
         $query = $this->db->query("SELECT * FROM tb_contact JOIN tb_city ON tb_city.id_city = tb_contact.id_city WHERE tb_contact.id_city = '$id_city' AND tb_contact.id_contact NOT IN (SELECT id_contact FROM tb_antrian_renvis)")->result_array();

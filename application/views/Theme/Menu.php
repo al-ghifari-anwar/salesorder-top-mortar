@@ -142,6 +142,16 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin') : ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('prioritystore') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-medal"></i>
+                                        <p>
+                                            Top Mortar Toko Promo
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <!-- <li class="nav-header">Data</li> -->
                             <?php if ($this->session->userdata('level_user') == 'marketing') : ?>
                                 <li class="nav-item">
