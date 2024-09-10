@@ -63,7 +63,11 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= date("d F Y", strtotime($data['claim_date'])) ?></td>
                                             <td><?= $data['nominal_pembelian'] ?></td>
-                                            <td><?= base_url('assets/img/img_nota/') . $data['nota_pembelian'] ?></td>
+                                            <td>
+                                                <a href="<?= base_url('assets/img/img_nota/') .  $data['nota_pembelian'] ?>" target="__blank">
+                                                    <img src="<?= base_url('assets/img/img_nota/') .  $data['nota_pembelian'] ?>" alt="" class="img-fluid" width="100">
+                                                </a>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
