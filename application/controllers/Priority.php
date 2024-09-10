@@ -47,7 +47,7 @@ class Priority extends CI_Controller
             $address = $post['address'];
             $id_catcus = $post['id_catcus'];
             $nominal = $post['nominal'];
-            // $nota = "SS";
+            $nota = "error.png";
             $uploadImage = $this->uploadImage($nomorhp);
             if ($uploadImage['status'] == 'success') {
                 $nota = $uploadImage['file_name'];
@@ -218,7 +218,7 @@ class Priority extends CI_Controller
         }
     }
 
-    private function uploadImage($name)
+    public function uploadImage($name)
     {
         $file_name = "nota_" . $name . "_pic_" . date('Y-m-d H-i-s');
         $config['upload_path']          = FCPATH . '/assets/img/img_nota/';
