@@ -41,7 +41,7 @@ class TokopromoStore extends CI_Controller
     {
         $data['title'] = 'Top Mortar Toko Promo';
         $data['contacts'] = $this->MContact->getAllForPriority($id_city);
-        $data['contactPriors'] = $this->MContact->getAllPriority($id_city);
+        $data['contactPriors'] = $this->MContact->getAllTokopromo($id_city);
         $data['city'] = $this->MCity->getById($id_city);
         $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
