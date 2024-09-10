@@ -73,6 +73,7 @@
                                             </td>
                                             <td>
                                                 <a href="<?= base_url('prioritystore/delete/') . $data['id_contact'] ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data?')"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('prioritystore/penukaran/') . $data['id_contact'] ?>" class="btn btn-success"><i class="fas fa-ticket-alt"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
