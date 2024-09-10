@@ -199,3 +199,4 @@ $route['prioritystore'] = 'PriorityStore/city_list';
 $route['prioritystore/(:num)'] = 'PriorityStore/index/$1';
 $route['prioritystore/add'] = 'PriorityStore/add';
 $route['prioritystore/delete/(:num)'] = 'PriorityStore/delete/$1';
+$route['prioritystore/penukaran/(:num)'] = 'PriorityStore/penukaran/$1';

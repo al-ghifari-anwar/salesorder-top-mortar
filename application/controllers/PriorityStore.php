@@ -95,6 +95,18 @@ class PriorityStore extends CI_Controller
         }
     }
 
+    public function penukaran($id_contact)
+    {
+        $data['title'] = 'Penukaran Top Mortar Priority';
+        $data['contact'] = $this->MContact->getById($id_contact);
+        $data['vouchers'] = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->result_array();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('ProrityStore/Penukaran');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function delete($id_contact)
     {
         $getContact = $this->MContact->getById($id_contact);
