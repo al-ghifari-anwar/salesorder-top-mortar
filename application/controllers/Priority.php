@@ -47,7 +47,13 @@ class Priority extends CI_Controller
             $address = $post['address'];
             $id_catcus = $post['id_catcus'];
             $nominal = $post['nominal'];
-            $nota = "SS";
+            // $nota = "SS";
+            $uploadImage = $this->uploadImage($nomorhp);
+            if ($uploadImage['status'] == 'success') {
+                $nota = $uploadImage['file_name'];
+            } else {
+                $nota = 'error.png';
+            }
 
             $getCountVoucherTukang = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->num_rows();
 
@@ -208,6 +214,36 @@ class Priority extends CI_Controller
                     }
                 }
             }
+        }
+    }
+
+    private function uploadImage($name)
+    {
+        $file_name = "nota_" . $name . "_pic_" . date('Y-m-d H-i-s');
+        $config['upload_path']          = FCPATH . '/assets/img/img_nota/';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png';
+        $config['file_name']            = $file_name;
+        $config['overwrite']            = true;
+        $config['max_size']             = 51200; // 50MB
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('foto_nota')) {
+            $data = [
+                'status' => 'failed',
+                'message' => $this->upload->display_errors()
+            ];
+
+            return $data;
+        } else {
+            $uploaded_data = $this->upload->data();
+
+            $data = [
+                'status' => 'success',
+                'file_name' => $uploaded_data['file_name']
+            ];
+
+            return $data;
         }
     }
 
