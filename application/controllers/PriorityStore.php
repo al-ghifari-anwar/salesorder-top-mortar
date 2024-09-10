@@ -99,6 +99,7 @@ class PriorityStore extends CI_Controller
     {
         $data['title'] = 'Penukaran Top Mortar Priority';
         $data['contact'] = $this->MContact->getById($id_contact);
+        $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
         $data['vouchers'] = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->result_array();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
