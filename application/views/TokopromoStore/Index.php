@@ -41,7 +41,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-add">Tambah Toko Prioritas</a>
+                            <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-add">Tambah Toko Promo</a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
@@ -104,13 +104,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Toko Prioritas</h4>
+                <h4 class="modal-title">Tambah Toko Promo</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('prioritystore/add') ?>" method="POST">
+                <form action="<?= base_url('tokopromostore/add') ?>" method="POST">
                     <div class="form-group">
                         <label for="">Toko</label>
                         <select name="id_contact" id="select2bs4" class="form-control select2bs4">
