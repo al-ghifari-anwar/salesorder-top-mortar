@@ -144,7 +144,7 @@ class Tokopromo extends CI_Controller
                             $nama = $getTukang['nama'];
 
 
-                            $message = $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
+                            $message = $nama . " tukarkan voucher diskon Rp. 5.000 dengan cara tunjukkan qr ini pada toko. ";
                             // Send message
                             $curl = curl_init();
 
