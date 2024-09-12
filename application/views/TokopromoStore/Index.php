@@ -72,8 +72,8 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="<?= base_url('prioritystore/delete/') . $data['id_contact'] ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data?')"><i class="fas fa-trash"></i></a>
-                                                <a href="<?= base_url('prioritystore/penukaran/') . $data['id_contact'] ?>" class="btn btn-success"><i class="fas fa-ticket-alt"></i>&nbsp;List Penukaran</a>
+                                                <a href="<?= base_url('tokopromostore/delete/') . $data['id_contact'] ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data?')"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('tokopromostore/penukaran/') . $data['id_contact'] ?>" class="btn btn-success"><i class="fas fa-ticket-alt"></i>&nbsp;List Penukaran</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
