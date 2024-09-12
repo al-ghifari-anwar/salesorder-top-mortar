@@ -37,7 +37,7 @@ class Tokopromo extends CI_Controller
         $getContact = $this->MContact->getById($id_contact);
         if ($getContact['is_tokopromo'] == 0) {
             $this->session->set_flashdata('failed', "Toko tidak terdaftar dalam program Top Mortar Toko Promo");
-            redirect('priority/' . $id_contact);
+            redirect('tokopromo/' . $id_contact);
         } else {
             $post = $this->input->post();
             $nomorhp = $post['nomorhp'];
@@ -52,9 +52,9 @@ class Tokopromo extends CI_Controller
             if ($uploadImage['status'] == 'success') {
                 $nota = $uploadImage['file_name'];
             } else {
-                $nota = "error.png";
-                // $this->session->set_flashdata('failed', $uploadImage['message']);
-                // redirect('priority/' . $id_contact);
+                // $nota = "error.png";
+                $this->session->set_flashdata('failed', $uploadImage['message']);
+                redirect('priority/' . $id_contact);
             }
 
             $getCountVoucherTukang = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact, 'type_voucher' => 'tokopromo'])->num_rows();
@@ -105,10 +105,10 @@ class Tokopromo extends CI_Controller
                         if ($getVoucherTukang) {
                             if ($getVoucherTukang['is_claimed'] == 1) {
                                 $this->session->set_flashdata('failed', "Nomor sudah pernah di claim!");
-                                redirect('priority/' . $id_contact);
+                                redirect('tokopromo/' . $id_contact);
                             } else {
                                 $this->session->set_flashdata('failed', "Nomor sudah terverifikasi, silahkan kunjungi toko untuk claim");
-                                redirect('priority/' . $id_contact);
+                                redirect('tokopromo/' . $id_contact);
                             }
                         } else {
                             // Generate QR
@@ -207,10 +207,10 @@ class Tokopromo extends CI_Controller
                                 $this->MVoucherTukang->createTokopromo($id_tukang, $nomorhp, $id_contact, $nominal, $nota);
 
                                 $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
-                                redirect('priority/' . $id_contact);
+                                redirect('tokopromo/' . $id_contact);
                             } else {
                                 $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
-                                redirect('priority/' . $id_contact);
+                                redirect('tokopromo/' . $id_contact);
                             }
                         }
                     }

@@ -40,7 +40,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="<?= base_url('priority/verify/') . $contact['id_contact'] ?>" method="POST">
+                            <form action="<?= base_url('priority/verify/') . $contact['id_contact'] ?>" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="">Nama Lengkap</label>
                                     <input type="text" name="nama" id="" class="form-control" required>

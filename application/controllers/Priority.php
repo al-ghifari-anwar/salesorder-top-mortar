@@ -52,9 +52,9 @@ class Priority extends CI_Controller
             if ($uploadImage['status'] == 'success') {
                 $nota = $uploadImage['file_name'];
             } else {
-                $nota = "error.png";
-                // $this->session->set_flashdata('failed', $uploadImage['message']);
-                // redirect('priority/' . $id_contact);
+                // $nota = "error.png";
+                $this->session->set_flashdata('failed', $uploadImage['message']);
+                redirect('priority/' . $id_contact);
             }
 
             $getCountVoucherTukang = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->num_rows();
