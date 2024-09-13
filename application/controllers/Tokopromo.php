@@ -83,7 +83,7 @@ class Tokopromo extends CI_Controller
                     $data = [
                         'nama' => $nama,
                         'nomorhp' => $nomorhp,
-                        'tgl_lahir' => date("Y-m-d", strtotime($tgl_lahir)),
+                        'tgl_lahir' => $tgl_lahir != "" ? date("Y-m-d", strtotime($tgl_lahir)) : "0000-00-00",
                         'id_city' => $getContact['id_city'],
                         'maps_url' => 0,
                         'address' => $address,
