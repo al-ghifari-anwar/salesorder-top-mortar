@@ -25,7 +25,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Surat Jalan</li>
+                        <li class="breadcrumb-item active">Penjualan</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -111,6 +111,28 @@
                         </div>
                         <!-- <a href="<?= base_url('penjualan-detail/') . $data['id_produk'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a> -->
                     </div>
+                </div>
+                <div class="row">
+                    <?php
+                    $totalQty = 0;
+                    foreach ($items as $data) :
+                        $totalQty += $data['qty_produk'];
+                    ?>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-light">
+                                <div class="inner">
+                                    <p style="font-size: 20pt;"><b><?= str_replace('TOP MORTAR', '', $data['nama_produk']) ?></b></p>
+
+                                    <p><?= $data['qty_produk'] ?> Sak</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <!-- <a href="<?= base_url('penjualan-detail/') . $data['id_produk'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a> -->
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <!-- /.row -->
