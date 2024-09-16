@@ -61,6 +61,42 @@ class MDetailSuratJalan extends CI_Model
         return $query;
     }
 
+    public function getSoldItemsGlobal($id_city = null)
+    {
+        $this->db->select("nama_produk, SUM(qty_produk) AS qty_produk, tb_produk.id_produk");
+        $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_produk.id_city');
+        if ($id_city != null) {
+            $this->db->where('tb_city.id_city', $id_city);
+        }
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $this->db->where('tb_city.id_city', $this->session->userdata('id_city'));
+        }
+        $this->db->group_by('tb_produk.nama_produk');
+        $query = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing' => 1, 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+
+        return $query;
+    }
+
+    public function getSoldItemsByDateGlobal($id_city = null, $dateFrom = null, $dateTo = null)
+    {
+        $this->db->select("nama_produk, SUM(qty_produk) AS qty_produk, tb_produk.id_produk");
+        $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_produk.id_city');
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $this->db->where('tb_city.id_city', $this->session->userdata('id_city'));
+        }
+        if ($id_city != null) {
+            $this->db->where('tb_city.id_city', $id_city);
+        }
+        $this->db->group_by('tb_produk.nama_produk');
+        $query = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing' => 1, 'tb_surat_jalan.date_closing >= ' => $dateFrom, 'tb_surat_jalan.date_closing <= ' => $dateTo, 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+
+        return $query;
+    }
+
     public function setBonusItem($id_surat_jalan, $id_promo)
     {
         if ($id_promo != 0) {
