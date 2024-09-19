@@ -60,12 +60,16 @@
                                     <?php
                                     $no = 1;
                                     foreach ($contactPriors as $data) : ?>
+                                        <?php
+                                        $id_contact = $data['id_contact'];
+                                        $getCountVoucher = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->num_rows();
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
-                                            <td><?= $data['quota_priority'] ?></td>
+                                            <td><?= $data['quota_priority'] - $getCountVoucher ?></td>
                                             <td>
                                                 <a href="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" target="__blank">
                                                     <img src="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" alt="" class="img-fluid" width="100">

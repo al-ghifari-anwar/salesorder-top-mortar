@@ -36,7 +36,7 @@ class MContact extends CI_Model
     public function getAllPriority($id_city)
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city, 'is_priority' => 1])->result_array();
+        $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city, 'is_priority' => 1, 'is_tokopromo' => 0])->result_array();
         return $query;
     }
 
