@@ -139,6 +139,16 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form action="<?= base_url('approve-visit/' . $data['id_visit'] . "/" . $id_city) ?>" method="POST">
+                                                            <?php if ($this->session->userdata('id_distributor') == 4): ?>
+                                                                <div class="form-group">
+                                                                    <label for="">Proyek</label>
+                                                                    <select name="id_proyek" id="" class="form-control select2bs4">
+                                                                        <?php foreach ($proyeks as $proyek): ?>
+                                                                            <option value="<?= $proyek['id_proyek'] ?>"><?= $proyek['name_proyek'] . " - " . $proyek['alamat_proyek'] ?></option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
+                                                            <?php endif; ?>
                                                             <div class="form-group">
                                                                 <label for="">Pesan Approve</label>
                                                                 <textarea name="approve_message" id="" cols="30" rows="5" class="form-control"></textarea>

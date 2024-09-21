@@ -17,6 +17,7 @@ class Visit extends CI_Controller
         $this->load->model('MKendaraan');
         $this->load->model('MUser');
         $this->load->model('MVisit');
+        $this->load->model('MProyek');
         $this->load->library('form_validation');
         // $this->load->library('phpqrcode/qrlib');
     }
@@ -56,6 +57,7 @@ class Visit extends CI_Controller
             // $invoice = $this->MInvoice->getAll();
             $data['visit'] = $this->MVisit->getAllByCity($id_city);
         }
+        $data['proyeks'] = $this->MProyek->getAll();
         $data['title'] = 'Visit';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
@@ -73,7 +75,15 @@ class Visit extends CI_Controller
     {
         $approve = $this->MVisit->approve($id);
 
+        $getVisit = $this->db->get_where('tb_visit', ['id_visit' => $id])->row_array();
+        $id_contact = $getVisit['id_contact'];
+
         if ($approve) {
+            $post = $this->input->post();
+            if (isset($post['id_proyek'])) {
+                $id_proyek = $post['id_proyek'];
+                $this->db->update('tb_contact', ['id_proyek' => $id_proyek], ['id_contact' => $id_contact]);
+            }
             $this->session->set_flashdata('success', "Berhasil approve visit!");
             redirect('visit/' . $id_city);
         } else {
