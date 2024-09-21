@@ -152,6 +152,17 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
+                            <?php if ($this->session->userdata('id_distributor') == 4) : ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('proyek') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-project-diagram"></i>
+                                        <p>
+                                            Proyek
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <!-- <li class="nav-header">Data</li> -->
                             <?php if ($this->session->userdata('level_user') == 'marketing') : ?>
                                 <li class="nav-item">

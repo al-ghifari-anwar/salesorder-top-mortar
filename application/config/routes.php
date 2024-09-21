@@ -209,3 +209,8 @@ $route['tokopromostore/penukaran/(:num)'] = 'TokopromoStore/penukaran/$1';
 // Tokopromo
 $route['tokopromo/(:num)'] = 'Tokopromo/index/$1';
 $route['tokopromo/verify/(:num)'] = 'Tokopromo/verify/$1';
+// Proyek
+$route['proyek'] = 'Proyek';
+$route['insert-proyek'] = 'Proyek/insert';
+$route['update-proyek/(:num)'] = 'Proyek/update/$1';
+$route['delete-proyek/(:num)'] = 'Proyek/delete/$1';
