@@ -61,7 +61,7 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
-                                            <td><?= date("d F Y", strtotime($data['claim_date'])) ?></td>
+                                            <td><?= $data['is_claimed'] == 0 ? 'GAGAL' : date("d F Y", strtotime($data['claim_date'])) ?></td>
                                             <td><?= $data['nominal_pembelian'] ?></td>
                                             <td>
                                                 <a href="<?= base_url('assets/img/img_nota/') .  $data['nota_pembelian'] ?>" target="__blank">
