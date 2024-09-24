@@ -86,6 +86,7 @@ $route['sj-not-closing'] = 'SuratJalan/not_closing';
 $route['print-tempinv/(:num)'] = 'SuratJalan/print_tempinv/$1';
 // Toko
 $route['toko'] = 'Toko';
+$route['insert-toko'] = 'Toko/insert';
 // Kendaraan
 $route['kendaraan'] = 'Kendaraan';
 $route['insert-kendaraan'] = 'Kendaraan/insert';

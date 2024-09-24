@@ -18,6 +18,7 @@ class Toko extends CI_Controller
     {
         $post = $this->input->post();
         $data['title'] = 'Toko';
+        $data['cities'] = $this->MCity->getAll();
 
         if ($this->session->userdata('level_user') == 'admin_c') {
             $id_city = $this->session->userdata('id_city');
@@ -44,5 +45,30 @@ class Toko extends CI_Controller
         $this->load->view('Toko/Index');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
+    }
+
+    public function insert()
+    {
+        $post = $this->input->post();
+        $data = [
+            'nama' => $post['nama'],
+            'nomorhp' => $post['nomorhp'],
+            'id_city' => $post['id_city'],
+            'termin_payment' => $post['termin_payment'],
+            'store_owner' => '',
+            'tgl_lahir' => '0000-00-00',
+            'maps_url' => '',
+            'nomor_cat_1' => ''
+        ];
+
+        $insert = $this->db->insert('tb_contact', $data);
+
+        if ($insert) {
+            $this->session->set_flashdata('success', "Berhasil menyimpan data toko!");
+            redirect('toko');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menyimpan data toko!");
+            redirect('toko');
+        }
     }
 }

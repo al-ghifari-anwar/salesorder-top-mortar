@@ -67,9 +67,11 @@
                                     </div>
                                 </div>
                             </form>
-                            <!-- <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
-                                Tambah Data
-                            </button> -->
+                            <?php if ($this->session->userdata('id_distributor') == 4): ?>
+                                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
+                                    Tambah Data
+                                </button>
+                            <?php endif; ?>
                         </div>
                         <div class="card-body">
                             <table id="table-print" class="table table-bordered table-striped">
@@ -146,27 +148,33 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Kota</h4>
+                <h4 class="modal-title">Tambah Toko</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('insert-city') ?>" method="POST">
+                <form action="<?= base_url('insert-toko') ?>" method="POST">
                     <div class="form-group">
-                        <label for="">Nama Kota</label>
-                        <input type="text" name="nama_city" id="" class="form-control">
+                        <label for="">Nama</label>
+                        <input type="text" name="nama" id="" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="">Kode Kota</label>
-                        <input type="text" name="kode_city" class="form-control">
+                        <label for="">Nomor HP</label>
+                        <input type="text" name="nomorhp" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="">Kota</label>
+                        <select name="id_city" id="" class="form-control select2bs4">
+                            <?php foreach ($cities as $cityToko): ?>
+                                <option value="<?= $cityToko['id_city'] ?>"><?= $cityToko['nama_city'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <input type="text" value="30" name="termin_payment" hidden>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
