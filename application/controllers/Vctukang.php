@@ -326,7 +326,7 @@ class Vctukang extends CI_Controller
                         $status = $res['status'];
 
                         if ($status == "success") {
-                            $this->MVoucherTukang->createTokopromo($id_tukang, $nomorhp, $id_contact, $nominal, $nota);
+                            $this->MVoucherTukang->create($id_tukang, $nomorhp);
 
                             $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
                             redirect('vctukang/self');
