@@ -227,6 +227,8 @@ class Tokopromo extends CI_Controller
         $config['file_name']            = $file_name;
         $config['overwrite']            = true;
         $config['max_size']             = 51200; // 50MB
+        $config['quality']              = '50%';
+        $config['maintain_ratio']       = true;
 
         $this->load->library('upload', $config);
 
