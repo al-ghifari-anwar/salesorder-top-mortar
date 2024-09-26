@@ -152,6 +152,14 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
+                            <li class="nav-item">
+                                <a href="<?= base_url('akunseller') ?>" class="nav-link">
+                                    <i class="nav-icon fas fa-user-check"></i>
+                                    <p>
+                                        Akun Top Seller
+                                    </p>
+                                </a>
+                            </li>
                             <?php if ($this->session->userdata('id_distributor') == 4) : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('proyek') ?>" class="nav-link">
