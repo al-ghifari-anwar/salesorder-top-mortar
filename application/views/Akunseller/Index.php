@@ -21,12 +21,11 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"><?= $title ?> - <?= $city['nama_city'] ?></h1>
+                    <h1 class="m-0"><?= $title ?> </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?= base_url('prioritystore') ?>">Toko Prioritas</a></li>
-                        <li class="breadcrumb-item active"><?= $city['nama_city'] ?></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('prioritystore') ?>">Toko Seller</a></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -52,6 +51,7 @@
                                         <th>Status</th>
                                         <th>Reputation</th>
                                         <th>Kuota</th>
+                                        <th>Kota</th>
                                         <!-- <th>Aksi</th> -->
                                     </tr>
                                 </thead>
@@ -69,6 +69,7 @@
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
                                             <td><?= $data['quota_priority'] - $getCountVoucher ?></td>
+                                            <td><?= $data['nama_city'] ?></td>
                                             <!-- <td>
                                                 <a href="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" target="__blank">
                                                     <img src="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" alt="" class="img-fluid" width="100">
@@ -102,29 +103,3 @@
     </div>
 </aside>
 <!-- /.control-sidebar -->
-
-<div class="modal fade" id="modal-add">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Toko Promo</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="<?= base_url('tokopromostore/add') ?>" method="POST">
-                    <div class="form-group">
-                        <label for="">Toko</label>
-                        <select name="id_contact" id="select2bs4" class="form-control select2bs4">
-                            <?php foreach ($contacts as $contact) : ?>
-                                <option value="<?= $contact['id_contact'] ?>"><?= $contact['nama'] . " - " . $contact['nomorhp'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary float-right">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
