@@ -50,6 +50,7 @@
                                         <th>Toko</th>
                                         <th>Status</th>
                                         <th>Reputation</th>
+                                        <th>Tgl Join</th>
                                         <th>Kuota</th>
                                         <th>Kota</th>
                                         <!-- <th>Aksi</th> -->
@@ -62,12 +63,16 @@
                                         <?php
                                         $id_contact = $data['id_contact'];
                                         $getCountVoucher = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->num_rows();
+
+                                        $this->db->order_by('created_at', 'DESC');
+                                        $getTglJoin = $this->db->get_where('tb_otp_toko', ['id_contact' => $id_contact], 1)->row_array();
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
+                                            <td><?= date('d F Y', strtotime($getTglJoin['created_at'])) ?></td>
                                             <td><?= $data['quota_priority'] - $getCountVoucher ?></td>
                                             <td><?= $data['nama_city'] ?></td>
                                             <!-- <td>
