@@ -50,11 +50,11 @@
                                     <input type="text" name="nomorhp" id="" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Tanggal Lahir (Opsional)</label>
+                                    <label for="">Tanggal Lahir (Tidak Wajib Diisi)</label>
                                     <input type="date" name="tgl_lahir" id="" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Alamat (Opsional)</label>
+                                    <label for="">Alamat (Tidak Wajib Diisi)</label>
                                     <textarea name="address" class="form-control" id="" cols="30" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
