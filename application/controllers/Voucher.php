@@ -174,7 +174,7 @@ class Voucher extends CI_Controller
                                         },
                                         "parameters": {
                                             "header":{
-                                                "format":"IMAGE",
+                                                "format":"VIDEO",
                                                 "params": [
                                                     {
                                                         "key":"url",
