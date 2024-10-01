@@ -80,7 +80,11 @@
                                                 } else if ($data['is_priority'] == 1 && $data['is_tokopromo'] == 1) {
                                                     echo "Toko Promo";
                                                 } else if ($data['is_priority'] == 0 && $data['is_tokopromo'] == 0) {
-                                                    echo "Default";
+                                                    if ($data['quota_priority'] == 0) {
+                                                        echo "Default";
+                                                    } else if ($data['quota_priority'] > 0) {
+                                                        echo "Non Aktif";
+                                                    }
                                                 } ?>
                                             </td>
                                             <td><?= $data['quota_priority'] - $getCountVoucher ?></td>
