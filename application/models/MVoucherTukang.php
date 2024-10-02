@@ -14,6 +14,7 @@ class MVoucherTukang extends CI_Model
     public function getForPenukaran($dateFrom, $dateTo)
     {
         $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
+        $this->db->join('tb_skill', 'tb_skill.id_skill = tb_tukang.id_skill');
         $this->db->order_by('tb_voucher_tukang.claim_date', 'DESC');
         $result = $this->db->get_where('tb_voucher_tukang', ['is_claimed' => 1, 'DATE(claim_date) >=' => $dateFrom,  'DATE(claim_date) <=' => $dateTo])->result_array();
 

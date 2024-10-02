@@ -82,6 +82,9 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Tukang</th>
+                                        <th>Skill</th>
+                                        <th>Nomor HP</th>
+                                        <th>Toko</th>
                                         <th>Tanggal Claim</th>
                                         <th>Nominal</th>
                                         <th>Nota</th>
@@ -91,9 +94,16 @@
                                     <?php
                                     $no = 1;
                                     foreach ($vouchers as $data) : ?>
+                                        <?php
+                                        $id_contact = $data['id_contact'];
+                                        $getContact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
+                                            <td><?= $data['nama_skill'] ?></td>
+                                            <td><?= $data['nomorhp'] ?></td>
+                                            <td><?= $getContact['nama'] ?></td>
                                             <td><?= date("d F Y", strtotime($data['claim_date'])) ?></td>
                                             <td><?= $data['nominal_pembelian'] ?></td>
                                             <td>
