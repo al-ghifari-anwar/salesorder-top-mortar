@@ -41,7 +41,40 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <!-- <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-add">Tambah Toko Prioritas</a> -->
+                            <div class="row">
+                                <div class="col-10">
+                                    <form action="<?= base_url('print-piutang') ?>" method="POST" target="_blank">
+                                        <div class="row">
+                                            <label>Date range:</label>
+                                            <div class="form-group ml-3">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control float-right" id="reservation" name="date_range">
+                                                </div>
+                                                <!-- /.input group -->
+                                            </div>
+                                            <!-- <label for="">Kota:</label>
+                                            <div class="form-group">
+                                                <select name="id_city" id="select2bs4" class="form-control select2bs4">
+                                                    <?php if ($this->session->userdata('level_user') != 'admin_c') : ?>
+                                                        <option value="0">Semua</option>
+                                                    <?php endif; ?>
+                                                    <?php foreach ($city as $city) : ?>
+                                                        <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div> -->
+                                            <div class="form-group ml-3">
+                                                <button type="submit" class="btn btn-primary">Filter</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
