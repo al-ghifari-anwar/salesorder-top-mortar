@@ -54,7 +54,6 @@ class Akunseller extends CI_Controller
     public function penukaran()
     {
         $data['title'] = 'Penukaran Voucher Tukang Top Mortar';
-        $data['contact'] = $this->MContact->getById($id_contact);
         $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
         $data['vouchers'] = $this->db->get_where('tb_voucher_tukang', ['is_claimed' => 1])->result_array();
         $this->load->view('Theme/Header', $data);
