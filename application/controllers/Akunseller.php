@@ -16,6 +16,7 @@ class Akunseller extends CI_Controller
         $this->load->model('MContact');
         $this->load->model('MKendaraan');
         $this->load->model('MUser');
+        $this->load->model('MVoucherTukang');
         $this->load->library('form_validation');
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
