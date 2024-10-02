@@ -85,6 +85,7 @@
                                         <th>Skill</th>
                                         <th>Nomor HP</th>
                                         <th>Toko</th>
+                                        <th>Kota</th>
                                         <th>Tanggal Claim</th>
                                         <th>Nominal</th>
                                         <th>Nota</th>
@@ -96,6 +97,7 @@
                                     foreach ($vouchers as $data) : ?>
                                         <?php
                                         $id_contact = $data['id_contact'];
+                                        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
                                         $getContact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
                                         ?>
                                         <tr>
@@ -104,6 +106,7 @@
                                             <td><?= $data['nama_skill'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $getContact['nama'] ?></td>
+                                            <td><?= $getContact['nama_city'] ?></td>
                                             <td><?= date("d F Y", strtotime($data['claim_date'])) ?></td>
                                             <td><?= $data['nominal_pembelian'] ?></td>
                                             <td>
