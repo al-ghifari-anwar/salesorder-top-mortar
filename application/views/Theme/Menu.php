@@ -153,13 +153,33 @@
                                 </li>
                             <?php endif; ?>
                             <li class="nav-item">
-                                <a href="<?= base_url('akunseller') ?>" class="nav-link">
-                                    <i class="nav-icon fas fa-user-check"></i>
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-google-play"></i>
                                     <p>
-                                        Akun Top Seller
+                                        Top Seller
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('akunseller') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-user-check"></i>
+                                            <p>
+                                                Akun Top Seller
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('akunseller/penukaran') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-ticket-alt"></i>
+                                            <p>
+                                                Rekap Penukaran
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                             <?php if ($this->session->userdata('id_distributor') == 4) : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('proyek') ?>" class="nav-link">
