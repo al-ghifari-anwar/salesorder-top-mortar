@@ -54,9 +54,14 @@ class Akunseller extends CI_Controller
     public function penukaran()
     {
         $data['title'] = 'Penukaran Voucher Tukang Top Mortar';
-        $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
-        $this->db->order_by('tb_voucher_tukang.claim_date', 'DESC');
-        $data['vouchers'] = $this->db->get_where('tb_voucher_tukang', ['is_claimed' => 1])->result_array();
+        $dateRange = $this->input->post("date_range");
+
+        if ($dateRange) {
+            $dates = explode("-", $dateRange);
+            $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d", strtotime($dates[0])), date("Y-m-d", strtotime($dates[1])));
+        } else {
+            $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d"), date("Y-m-d"));
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Akunseller/Penukaran');
