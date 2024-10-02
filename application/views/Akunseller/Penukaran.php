@@ -21,12 +21,12 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"><?= $title ?> - <?= $contact['nama'] ?></h1>
+                    <h1 class="m-0"><?= $title ?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?= base_url('prioritystore') ?>">Toko Prioritas</a></li>
-                        <li class="breadcrumb-item active"><?= $contact['nama'] ?></li>
+                        <li class="breadcrumb-item"><a href="#">Top Seller</a></li>
+                        <li class="breadcrumb-item active">Penukaran</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
