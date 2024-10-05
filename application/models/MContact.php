@@ -26,17 +26,17 @@ class MContact extends CI_Model
         return $query;
     }
 
-    public function getAllForPriority($id_city)
+    public function getAllForPriority()
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city, 'tb_contact.store_status' => 'active', 'tb_contact.address !=' => '', 'tb_contact.maps_url !=' => '', 'tb_contact.termin_payment IS NOT NULL' => null, 'reputation' => 'good'])->result_array();
+        $query = $this->db->get_where('tb_contact', ['tb_contact.store_status' => 'active', 'tb_contact.address !=' => '', 'tb_contact.maps_url !=' => '', 'tb_contact.termin_payment IS NOT NULL' => null, 'reputation' => 'good'])->result_array();
         return $query;
     }
 
-    public function getAllPriority($id_city)
+    public function getAllPriority()
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city, 'is_priority' => 1, 'is_tokopromo' => 0])->result_array();
+        $query = $this->db->get_where('tb_contact', ['is_priority' => 1, 'is_tokopromo' => 0])->result_array();
         return $query;
     }
 

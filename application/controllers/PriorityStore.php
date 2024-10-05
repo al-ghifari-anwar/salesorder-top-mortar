@@ -37,13 +37,13 @@ class PriorityStore extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function index($id_city)
+    public function index()
     {
         $data['title'] = 'Top Mortar Priority';
-        $data['contacts'] = $this->MContact->getAllForPriority($id_city);
-        $data['contactPriors'] = $this->MContact->getAllPriority($id_city);
-        $data['city'] = $this->MCity->getById($id_city);
-        $data['id_city'] = $id_city;
+        $data['contacts'] = $this->MContact->getAllForPriority();
+        $data['contactPriors'] = $this->MContact->getAllPriority();
+        // $data['city'] = $this->MCity->getById($id_city);
+        // $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('ProrityStore/Index');
