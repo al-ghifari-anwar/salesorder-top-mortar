@@ -72,7 +72,7 @@
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['address'] ?></td>
                                             <td><?= $data['nama_city'] ?></td>
-                                            <td><?= date("d F Y", strtotime($data['tgl_lahir'])) ?></td>
+                                            <td><?= $data['tgl_lahir'] == '0000-00-00' ? "" : date("d F Y", strtotime($data['tgl_lahir'])) ?></td>
                                             <td>
                                                 <a href="#" class="btn btn-success">Valid&nbsp;<i class="fas fa-check-circle"></i></a>
                                             </td>
