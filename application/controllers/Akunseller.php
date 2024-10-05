@@ -73,12 +73,38 @@ class Akunseller extends CI_Controller
     public function data_tukang()
     {
         $data['title'] = 'Validasi Voucher Tukang Top Mortar';
+        $data['catcuss'] = $this->db->get('tb_catcus')->result_array();
         $data['vouchers'] = $this->MVoucherTukang->getForValidasi();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Akunseller/DataTukang');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
+    }
+
+    public function validasi($id_tukang)
+    {
+        $post = $this->input->post();
+        $tgl_lahir = $post['tgl_lahir'];
+        $address = $post['address'];
+        $id_catcus = $post['id_catcus'];
+
+        $data = [
+            'tgl_lahir' => $tgl_lahir,
+            'address' => $address,
+            'id_catcus' => $id_catcus,
+            'is_valid' => 1
+        ];
+
+        $update = $this->db->update('tb_tukang', $data, ['id_tukang' => $id_tukang]);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Berhasil meng-validasi tukang!");
+            redirect('akunseller/datatukang/');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal meng-validasi tukang");
+            redirect('akunseller/datatukang/');
+        }
     }
 
     public function delete($id_contact)
