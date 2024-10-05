@@ -34,6 +34,7 @@ class Vctukang extends CI_Controller
     {
         $data['title'] = 'Voucher Tukang';
         // $data['contact'] = $this->MContact->getById($id_contact);
+        $this->db->not_like('nama_city', 'TKP');
         $data['cities'] = $this->db->get('tb_city')->result_array();
         $data['catcus'] = $this->db->get('tb_catcus')->result_array();
         $this->load->view('Theme/Header', $data);
