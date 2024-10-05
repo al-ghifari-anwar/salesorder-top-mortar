@@ -177,6 +177,14 @@
                                             </p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('akunseller/datatukang') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-user-shield"></i>
+                                            <p>
+                                                Validasi Data Tukang
+                                            </p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 

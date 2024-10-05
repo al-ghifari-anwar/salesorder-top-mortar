@@ -70,6 +70,17 @@ class Akunseller extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function data_tukang()
+    {
+        $data['title'] = 'Validasi Voucher Tukang Top Mortar';
+        $data['vouchers'] = $this->MVoucherTukang->getForValidasi();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Akunseller/DataTukang');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function delete($id_contact)
     {
         $getContact = $this->MContact->getById($id_contact);

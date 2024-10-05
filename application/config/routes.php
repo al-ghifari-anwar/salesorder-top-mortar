@@ -220,4 +220,5 @@ $route['delete-proyek/(:num)'] = 'Proyek/delete/$1';
 // Akunseller
 $route['akunseller'] = 'Akunseller/index';
 $route['akunseller/penukaran'] = 'Akunseller/penukaran';
+$route['akunseller/datatukang'] = 'Akunseller/data_tukang';
 // $route['akunseller/(:num)'] = 'Akunseller/index/$1';
