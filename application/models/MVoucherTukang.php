@@ -26,6 +26,7 @@ class MVoucherTukang extends CI_Model
         $this->db->join('tb_skill', 'tb_skill.id_skill = tb_tukang.id_skill');
         $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
         $this->db->order_by('tb_tukang.id_tukang', 'DESC');
+        $this->db->where('tb_city.id_distributor', $this->session->userdata('id_distributor'));
         $result = $this->db->get_where('tb_tukang', ['is_valid' => 0])->result_array();
 
         return $result;
