@@ -222,4 +222,5 @@ $route['akunseller'] = 'Akunseller/index';
 $route['akunseller/penukaran'] = 'Akunseller/penukaran';
 $route['akunseller/datatukang'] = 'Akunseller/data_tukang';
 $route['akunseller/validasi/(:num)'] = 'Akunseller/validasi/$1';
+$route['akunseller/deletetukang/(:num)'] = 'Akunseller/delete_tukang/$1';
 // $route['akunseller/(:num)'] = 'Akunseller/index/$1';

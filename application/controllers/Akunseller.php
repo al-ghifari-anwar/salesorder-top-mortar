@@ -107,6 +107,19 @@ class Akunseller extends CI_Controller
         }
     }
 
+    public function delete_tukang($id_tukang)
+    {
+        $update = $this->db->delete('tb_tukang', ['id_tukang' => $id_tukang]);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Berhasil menghapus tukang!");
+            redirect('akunseller/datatukang/');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menghapus tukang");
+            redirect('akunseller/datatukang/');
+        }
+    }
+
     public function delete($id_contact)
     {
         $getContact = $this->MContact->getById($id_contact);

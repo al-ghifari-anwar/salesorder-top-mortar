@@ -75,6 +75,7 @@
                                             <td><?= $data['tgl_lahir'] == '0000-00-00' ? "" : date("d F Y", strtotime($data['tgl_lahir'])) ?></td>
                                             <td>
                                                 <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-validate<?= $data['id_tukang'] ?>">Valid&nbsp;<i class="fas fa-check-circle"></i></a>
+                                                <a href="<?= base_url('akunseller/deletetukang/') . $data['id_tukang'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-validate<?= $data['id_tukang'] ?>">
