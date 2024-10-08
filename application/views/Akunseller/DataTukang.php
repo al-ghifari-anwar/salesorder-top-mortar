@@ -53,6 +53,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Tukang</th>
+                                        <th>Status</th>
                                         <th>Skill</th>
                                         <th>Nomor HP</th>
                                         <th>Alamat</th>
@@ -68,6 +69,7 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
+                                            <td><?= $data['is_self'] == 1 ? 'Mandiri' : 'By Sales' ?></td>
                                             <td><?= $data['nama_skill'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['address'] ?></td>
