@@ -318,7 +318,8 @@ class Vctukang extends CI_Controller
                     'tukang_status' => 'data',
                     'ktp_tukang' => '',
                     'id_skill' => 1,
-                    'id_catcus' => $id_catcus
+                    'id_catcus' => $id_catcus,
+                    'is_self' => 1
                 ];
 
                 $insert = $this->db->insert('tb_tukang', $data);
