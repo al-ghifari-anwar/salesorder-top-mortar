@@ -26,8 +26,9 @@ class MKonten extends CI_Model
         $post = $this->input->post();
         $upload = $this->uploadImage($post['img_konten']);
         if ($upload['status'] == 'success') {
+            $data = $upload['message'];
             $this->title_konten = $post['title_konten'];
-            $this->img_konten = $post['img_konten'];
+            $this->img_konten = $data['file_name'];
             $this->link_konten = $post['link_konten'];
             $this->updated_at = $post['updated_at'];
 
@@ -83,7 +84,7 @@ class MKonten extends CI_Model
         $file_name = str_replace(' ', '-', $nama);
         $config['upload_path']          = FCPATH . '/assets/img/content_img/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png';
-        $config['file_name']            = $file_name;
+        $config['file_name']            = $file_name . date("Y-m-d-H-i-s");
         $config['overwrite']            = true;
         $config['max_size']             = 5000; //5MB
 
