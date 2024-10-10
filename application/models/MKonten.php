@@ -56,7 +56,7 @@ class MKonten extends CI_Model
         $upload = $this->uploadImage($post['img_konten']);
         if ($upload['status'] == 'success') {
             $data = $upload['message'];
-            $this->img_konten = $data['img_konten'];
+            $this->img_konten = $data['file_name'];
         }
 
         $query = $this->db->update('tb_konten', $this, ['id_konten' => $id]);
