@@ -80,7 +80,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('kontenseller/update/') . $data['id_konten'] ?>" method="POST">
+                                                        <form action="<?= base_url('kontenseller/update/') . $data['id_konten'] ?>" method="POST" enctype="multipart/form-data">
                                                             <div class="form-group">
                                                                 <label for="">Judul konten</label>
                                                                 <input type="text" name="title_konten" id="" class="form-control" value="<?= $data['title_konten'] ?>">
@@ -133,7 +133,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('kontenseller/add') ?>" method="POST">
+                <form action="<?= base_url('kontenseller/add') ?>" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="">Judul konten</label>
                         <input type="text" name="title_konten" id="" class="form-control">
