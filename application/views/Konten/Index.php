@@ -71,7 +71,7 @@
                                             </td>
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_konten'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('kontenseller/delete') . $data['id_konten'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('kontenseller/delete/') . $data['id_konten'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_konten'] ?>">
