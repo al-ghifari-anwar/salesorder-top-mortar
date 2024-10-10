@@ -185,6 +185,14 @@
                                             </p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('kontenseller') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-user-shield"></i>
+                                            <p>
+                                                Banner Konten
+                                            </p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 

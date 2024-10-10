@@ -224,3 +224,8 @@ $route['akunseller/datatukang'] = 'Akunseller/data_tukang';
 $route['akunseller/validasi/(:num)'] = 'Akunseller/validasi/$1';
 $route['akunseller/deletetukang/(:num)'] = 'Akunseller/delete_tukang/$1';
 // $route['akunseller/(:num)'] = 'Akunseller/index/$1';
+// Konten
+$route['kontenseller'] = 'Konten';
+$route['kontenseller/add'] = 'Konten/insert';
+$route['kontenseller/update/(:num)'] = 'Konten/update/$1';
+$route['kontenseller/delete/(:num)'] = 'Konten/delete/$1';
