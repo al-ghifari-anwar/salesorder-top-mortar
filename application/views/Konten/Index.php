@@ -67,7 +67,7 @@
                                                 <a href="<?= $data['link_konten'] ?>" target="__blank"><?= $data['link_konten'] ?></a>
                                             </td>
                                             <td>
-                                                <img src="<?= base_url('assets/img/content_img/') . $data['img_konten'] ?>" alt="">
+                                                <img src="<?= base_url('assets/img/content_img/') . $data['img_konten'] ?>" alt="" class="img-fluid" width="150">
                                             </td>
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_konten'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
