@@ -30,7 +30,7 @@ class MKonten extends CI_Model
             $this->title_konten = $post['title_konten'];
             $this->img_konten = $data['file_name'];
             $this->link_konten = $post['link_konten'];
-            $this->updated_at = $post['updated_at'];
+            $this->updated_at = date("Y-m-d H:i:s");
 
             $query = $this->db->insert('tb_konten', $this);
 
@@ -52,7 +52,7 @@ class MKonten extends CI_Model
         $this->title_konten = $post['title_konten'];
         $this->img_konten = $getKonten['img_konten'];
         $this->link_konten = $post['link_konten'];
-        $this->updated_at = $post['updated_at'];
+        $this->updated_at = date("Y-m-d H:i:s");
         $upload = $this->uploadImage($post['img_konten']);
         if ($upload['status'] == 'success') {
             $data = $upload['message'];
