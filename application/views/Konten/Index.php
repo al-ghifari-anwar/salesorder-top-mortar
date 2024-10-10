@@ -63,7 +63,9 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['title_konten'] ?></td>
-                                            <td><?= $data['link_konten'] ?></td>
+                                            <td>
+                                                <a href="<?= $data['link_konten'] ?>"><?= $data['link_konten'] ?></a>
+                                            </td>
                                             <td><?= $data['img_konten'] ?></td>
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_konten'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
