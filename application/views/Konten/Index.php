@@ -64,9 +64,11 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['title_konten'] ?></td>
                                             <td>
-                                                <a href="<?= $data['link_konten'] ?>"><?= $data['link_konten'] ?></a>
+                                                <a href="<?= $data['link_konten'] ?>" target="__blank"><?= $data['link_konten'] ?></a>
                                             </td>
-                                            <td><?= $data['img_konten'] ?></td>
+                                            <td>
+                                                <img src="<?= base_url('assets/img/content_img/') . $data['img_konten'] ?>" alt="">
+                                            </td>
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_konten'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
                                                 <a href="<?= base_url('delete-konten/') . $data['id_konten'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
