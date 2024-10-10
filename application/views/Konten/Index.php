@@ -133,7 +133,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('kontenseller/insert') ?>" method="POST">
+                <form action="<?= base_url('kontenseller/add') ?>" method="POST">
                     <div class="form-group">
                         <label for="">Judul konten</label>
                         <input type="text" name="title_konten" id="" class="form-control">
