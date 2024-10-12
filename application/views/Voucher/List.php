@@ -77,6 +77,10 @@
                                             <td><?= date("d M Y", strtotime($data['exp_date'])) ?></td>
                                             <td>
                                                 <?php
+                                                $dateNow = date('Y-m-d');
+                                                $dateExp = date("Y-m-d", strtotime($data['exp_date']));
+                                                ?>
+                                                <?php
                                                 if ($data['is_claimed'] == 0) {
                                                     if ($dateExp >= $dateNow) {
                                                         echo 'YES';
