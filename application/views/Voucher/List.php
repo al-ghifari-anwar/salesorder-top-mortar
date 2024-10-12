@@ -83,12 +83,18 @@
                                                 <?php
                                                 if ($data['is_claimed'] == 0) {
                                                     if ($dateExp >= $dateNow) {
-                                                        echo 'YES';
+                                                ?>
+                                                        <p class="text-success">YES</p>
+                                                    <?php
                                                     } else {
-                                                        echo 'NO';
+                                                    ?>
+                                                        <p class="text-danger">NO</p>
+                                                    <?php
                                                     }
                                                 } else {
-                                                    echo "NO";
+                                                    ?>
+                                                    <p class="text-danger">NO</p>
+                                                <?php
                                                 }
                                                 ?>
                                             </td>
