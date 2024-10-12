@@ -60,6 +60,7 @@
                                         <th>No Voucher</th>
                                         <th>Tanggal</th>
                                         <th>Expired Date</th>
+                                        <th>Is Active</th>
                                         <th>Toko</th>
                                         <th>Type</th>
                                         <th>Status</th>
@@ -74,6 +75,19 @@
                                             <td><?= $data['no_voucher'] ?></td>
                                             <td><?= date("d M Y", strtotime($data['date_voucher'])) ?></td>
                                             <td><?= date("d M Y", strtotime($data['exp_date'])) ?></td>
+                                            <td>
+                                                <?php
+                                                if ($data['is_claimed'] == 0) {
+                                                    if ($dateExp >= $dateNow) {
+                                                        echo 'YES';
+                                                    } else {
+                                                        echo 'NO';
+                                                    }
+                                                } else {
+                                                    echo "NO";
+                                                }
+                                                ?>
+                                            </td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['type_voucher'] ?></td>
                                             <td>
