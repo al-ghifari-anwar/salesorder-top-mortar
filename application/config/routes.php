@@ -229,3 +229,8 @@ $route['kontenseller'] = 'Konten';
 $route['kontenseller/add'] = 'Konten/insert';
 $route['kontenseller/update/(:num)'] = 'Konten/update/$1';
 $route['kontenseller/delete/(:num)'] = 'Konten/delete/$1';
+// Checlist Visit
+$route['checklist-visit'] = 'VisitQuestion';
+$route['checklist-visit/add'] = 'VisitQuestion/create';
+$route['checklist-visit/update/(:num)'] = 'VisitQuestion/update/$1';
+$route['checklist-visit/delete/(:num)'] = 'VisitQuestion/destroy/$1';

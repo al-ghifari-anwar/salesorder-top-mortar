@@ -369,6 +369,15 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
+                                            <a href="<?= base_url('checklist-visit') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-question"></i>
+                                                <p>
+                                                    Checklist Visit
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('visit') ?>" class="nav-link">
                                                 <i class="nav-icon fas fa-location-arrow"></i>
                                                 <p>
