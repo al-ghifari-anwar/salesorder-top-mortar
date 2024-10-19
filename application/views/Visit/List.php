@@ -125,6 +125,7 @@
                                             <td><?= date("H:i - d M Y", strtotime($data['date_visit'])) ?></td>
                                             <td><?= $data['laporan_visit'] ?> <?= $data['pay_date'] != null ? ' - Tanggal dijanjikan: ' . date("d F Y", strtotime($data['pay_date'])) : ''  ?></td>
                                             <td>
+                                                <a href="#" class="btn btn-primary" title="Detail" data-toggle="modal" data-target="#modal-detail<?= $data['id_visit'] ?>"><i class="fas fa-eye"></i></a>
                                                 <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve" data-toggle="modal" data-target="#modal-approve<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
                                             </td>
                                         </tr>
@@ -155,6 +156,40 @@
                                                             </div>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal Detail -->
+                                        <div class="modal fade" id="modal-detail<?= $data['id_visit'] ?>">
+                                            <?php
+                                            $id_visit = $data['id_visit'];
+                                            $this->db->group_by('tb_visit_answer.text_question');
+                                            $getVisitQuestion = $this->db->get_where('tb_visit_answer', ['id_visit' => $id_visit])->result_array();
+                                            ?>
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Detail Checklist Visit</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <?php
+                                                        $no = 1;
+                                                        foreach ($getVisitQuestion as $visitQuestion): ?>
+                                                            <?php
+                                                            $text_question = $visitQuestion['text_question'];
+                                                            $getAnswers = $this->db->get_where('tb_visit_answer', ['id_visit' => $id_visit, 'text_question' => $text_question])->result_array();
+                                                            ?>
+                                                            <h6><?= $no++ ?>. <?= $visitQuestion['text_question'] ?></h6>
+                                                            <?php foreach ($getAnswers as $answer): ?>
+                                                                <ul>
+                                                                    <p class=""><?= $answer['text_answer'] ?></p>
+                                                                </ul>
+                                                            <?php endforeach; ?>
+                                                        <?php endforeach; ?>
                                                     </div>
                                                 </div>
                                             </div>
