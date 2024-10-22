@@ -45,7 +45,7 @@ class MVisitQuestion extends CI_Model
     {
         $post = $this->input->post();
         $this->text_question = $post['text_question'];
-        $this->is_required = $post['is_required'];
+        $this->is_required = 0;
         $this->answer_type = $post['answer_type'];
         $this->answer_option = $post['answer_option'];
         $this->udpated_at = date("Y-m-d H:i:s");
