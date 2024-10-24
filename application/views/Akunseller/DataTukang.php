@@ -69,7 +69,7 @@
                                     foreach ($vouchers as $data) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['nama'] ?></td>
+                                            <td><?= $data['is_demo'] == 1 ? 'Demo - ' : '' . $data['nama'] ?></td>
                                             <td><?= $data['is_self'] == 1 ? 'Mandiri' : 'By Sales' ?></td>
                                             <td><?= $data['nama_skill'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
