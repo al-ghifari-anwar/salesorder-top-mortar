@@ -187,7 +187,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="<?= base_url('kontenseller') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-user-shield"></i>
+                                            <i class="nav-icon fas fa-images"></i>
                                             <p>
                                                 Banner Konten
                                             </p>
@@ -252,6 +252,12 @@
                                                 <a href="<?= base_url('toko') ?>" class="nav-link">
                                                     <i class="fas fa-store nav-icon"></i>
                                                     <p>Toko</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('tukang') ?>" class="nav-link">
+                                                    <i class="fas fa-user-astronaut nav-icon"></i>
+                                                    <p>Tukang</p>
                                                 </a>
                                             </li>
                                         </ul>

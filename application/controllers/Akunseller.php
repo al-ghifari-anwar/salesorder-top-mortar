@@ -74,6 +74,7 @@ class Akunseller extends CI_Controller
     {
         $data['title'] = 'Validasi Voucher Tukang Top Mortar';
         $data['catcuss'] = $this->db->get('tb_catcus')->result_array();
+        $data['skills'] = $this->db->get('tb_skill')->result_array();
         $data['vouchers'] = $this->MVoucherTukang->getForValidasi();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -88,12 +89,16 @@ class Akunseller extends CI_Controller
         $tgl_lahir = $post['tgl_lahir'];
         $address = $post['address'];
         $id_catcus = $post['id_catcus'];
+        $nama = $post['nama'];
+        $id_skill = $post['id_skill'];
 
         $data = [
             'tgl_lahir' => $tgl_lahir,
             'address' => $address,
             'id_catcus' => $id_catcus,
-            'is_valid' => 1
+            'is_valid' => 1,
+            'nama' => $nama,
+            'id_skill' => $id_skill
         ];
 
         $update = $this->db->update('tb_tukang', $data, ['id_tukang' => $id_tukang]);

@@ -67,7 +67,7 @@
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($vouchers as $data) : ?>
+                                    foreach ($tukangs as $data) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
@@ -80,62 +80,27 @@
                                             <td><?= $data['tgl_lahir'] == '0000-00-00' ? "" : date("d F Y", strtotime($data['tgl_lahir'])) ?></td>
                                             <td><?= $data['created_at'] == '0000-00-00' ? "" : date("d F Y", strtotime($data['created_at'])) ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-validate<?= $data['id_tukang'] ?>">Valid&nbsp;<i class="fas fa-check-circle"></i></a>
+                                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-validate<?= $data['id_tukang'] ?>">Atur Demo&nbsp;<i class="fas fa-recycle"></i></a>
                                                 <a href="<?= base_url('akunseller/deletetukang/') . $data['id_tukang'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-validate<?= $data['id_tukang'] ?>">
-                                            <div class="modal-dialog modal-lg">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Validasi Data Tukang</h4>
+                                                        <h4 class="modal-title">Atur Tukang Demo</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <form action="<?= base_url('akunseller/validasi/' . $data['id_tukang']) ?>" method="POST">
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label for="">Nama</label>
-                                                                        <input type="text" name="nama" class="form-control" value="<?= $data['nama'] ?>">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">Nomor HP</label>
-                                                                        <input type="text" class="form-control" value="<?= $data['nomorhp'] ?>" readonly>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">Kota</label>
-                                                                        <input type="text" class="form-control" value="<?= $data['nama_city'] ?>" readonly>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">Skill</label>
-                                                                        <select name="id_skill" id="" class="form-control select2bs4">
-                                                                            <?php foreach ($skills as $skill): ?>
-                                                                                <option value="<?= $skill['id_skill'] ?>" <?= $skill['id_skill'] == $data['id_skill'] ? 'selected' : '' ?>><?= $skill['nama_skill'] ?></option>
-                                                                            <?php endforeach ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label for="">Tgl Lahir</label>
-                                                                        <input type="date" class="form-control" name="tgl_lahir" value="<?= $data['tgl_lahir'] ?>">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">Alamat</label>
-                                                                        <textarea name="address" id="" cols="30" rows="3" class="form-control"><?= $data['address'] ?></textarea>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">Kategori</label>
-                                                                        <select name="id_catcus" id="" class="form-control select2bs4">
-                                                                            <?php foreach ($catcuss as $catcus): ?>
-                                                                                <option value="<?= $catcus['id_catcus'] ?>" <?= $data['id_catcus'] == $catcus['id_catcus'] ? 'selected' : '' ?>><?= $catcus['name_catcus'] ?></option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+                                                            <div class="form-group">
+                                                                <label for="">Pilih</label>
+                                                                <select name="is_demo" id="" class="form-control select2bs4">
+                                                                    <option value="1">Jadikan Demo</option>
+                                                                    <option value="0">Keluarkan Dari Demo</option>
+                                                                </select>
                                                             </div>
                                                             <button class="btn btn-primary float-right">Validasi</button>
                                                         </form>

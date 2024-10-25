@@ -234,3 +234,5 @@ $route['checklist-visit'] = 'VisitQuestion';
 $route['checklist-visit/add'] = 'VisitQuestion/create';
 $route['checklist-visit/update/(:num)'] = 'VisitQuestion/update/$1';
 $route['checklist-visit/delete/(:num)'] = 'VisitQuestion/destroy/$1';
+// Tukang
+$route['tukang'] = 'Tukang';
