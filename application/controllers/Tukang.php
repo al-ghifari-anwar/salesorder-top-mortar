@@ -133,7 +133,7 @@ class Tukang extends CI_Controller
                                             "params": [
                                                 {
                                                     "key":"url",
-                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/' . $image_name . '.png"
+                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/' . $id_tukang . date("Y-m-d") . '.png"
                                                 },
                                                 {
                                                     "key":"filename",
