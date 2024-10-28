@@ -68,6 +68,7 @@ class Tukang extends CI_Controller
         $id_tukang = $post['id_tukang'];
         $id_md5 = md5("Top" . md5($id_tukang . date("Y-m-d")));
 
+        $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
         $getTukang = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
 
         $query = $this->MVoucherTukang->createVoucherDigital($id_tukang, 0, 0, 0);
@@ -96,7 +97,7 @@ class Tukang extends CI_Controller
             $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
             $id_distributor = $getTukang['id_distributor'];
-            $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+            // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
             $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
             $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
             $integration_id = $qontak['integration_id'];
@@ -169,7 +170,7 @@ class Tukang extends CI_Controller
                 $this->session->set_flashdata('success', "Berhasil kirim voucher!");
                 redirect('sebarvctukang/' . $id_city);
             } else {
-                $this->session->set_flashdata('failed', "Gagal kirim notif voucher! " . $res['error']['messages'][0]);
+                $this->session->set_flashdata('failed', "Gagal kirim notif voucher! " . $res['error']['messages'][0] . $id_distributor);
                 redirect('sebarvctukang/' . $id_city);
             }
         } else {
