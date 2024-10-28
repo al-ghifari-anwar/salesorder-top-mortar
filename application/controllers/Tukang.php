@@ -66,12 +66,112 @@ class Tukang extends CI_Controller
     {
         $post = $this->input->post();
         $id_tukang = $post['id_tukang'];
+        $id_md5 = md5("Top" . md5($id_tukang . date("Y-m-d")));
+
+        $getTukang = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
 
         $query = $this->MVoucherTukang->createVoucherDigital($id_tukang, 0, 0, 0);
 
         if ($query) {
-            $this->session->set_flashdata('success', "Berhasil kirim voucher!");
-            redirect('sebarvctukang/' . $id_city);
+            // Generate QR
+            $this->load->library('ciqrcode');
+            $config['cacheable']    = true; //boolean, the default is true
+            $config['cachedir']             = './assets/'; //string, the default is application/cache/
+            $config['errorlog']             = './assets/'; //string, the default is application/logs/
+            $config['imagedir']             = './assets/img/qr/'; //direktori penyimpanan qr code
+            $config['quality']              = true; //boolean, the default is true
+            $config['size']                 = '1024'; //interger, the default is 1024
+            $config['black']                = array(224, 255, 255); // array, default is array(255,255,255)
+            $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
+            $this->ciqrcode->initialize($config);
+
+            $image_name = $id_tukang . date("Y-m-d") . '.png'; //buat name dari qr code sesuai dengan nim
+
+            $voucherCode = $id_md5;
+
+            $params['data'] = $voucherCode; //data yang akan di jadikan QR CODE
+            $params['level'] = 'H'; //H=High
+            $params['size'] = 10;
+            $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
+            $id_distributor = $getTukang['id_distributor'];
+            $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+            $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
+            $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+            $integration_id = $qontak['integration_id'];
+            $wa_token = $qontak['token'];
+            // Data
+            $nomor_hp = $getTukang['nomorhp'];
+            $nama = $getTukang['nama'];
+
+
+            $message = "Halo " . $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
+            // Send message
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                                    "to_number": "' . $nomor_hp . '",
+                                    "to_name": "' . $nama . '",
+                                    "message_template_id": "' . $template_id . '",
+                                    "channel_integration_id": "' . $integration_id . '",
+                                    "language": {
+                                        "code": "id"
+                                    },
+                                    "parameters": {
+                                        "header":{
+                                            "format":"IMAGE",
+                                            "params": [
+                                                {
+                                                    "key":"url",
+                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/' . $image_name . '.png"
+                                                },
+                                                {
+                                                    "key":"filename",
+                                                    "value":"qrtukang.png"
+                                                }
+                                            ]
+                                        },
+                                        "body": [
+                                            {
+                                                "key": "1",
+                                                "value": "nama",
+                                                "value_text": "' . $message . '"
+                                            }
+                                        ]
+                                    }
+                                    }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+            // echo $response;
+
+            $status = $res['status'];
+
+            if ($status == 'success') {
+                $this->session->set_flashdata('success', "Berhasil kirim voucher!");
+                redirect('sebarvctukang/' . $id_city);
+            } else {
+                $this->session->set_flashdata('failed', "Gagal kirim notif voucher!");
+                redirect('sebarvctukang/' . $id_city);
+            }
         } else {
             $this->session->set_flashdata('failed', "Gagal kirim voucher!");
             redirect('sebarvctukang/' . $id_city);
