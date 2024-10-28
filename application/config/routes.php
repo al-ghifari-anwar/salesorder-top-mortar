@@ -236,3 +236,7 @@ $route['checklist-visit/update/(:num)'] = 'VisitQuestion/update/$1';
 $route['checklist-visit/delete/(:num)'] = 'VisitQuestion/destroy/$1';
 // Tukang
 $route['tukang'] = 'Tukang';
+// Sebar Voucher Tukang
+$route['sebarvctukang'] = 'Tukang/sebar_vc_city';
+$route['sebarvctukang/(:num)'] = 'Tukang/sebar_vc/$1';
+$route['sebarvctukang/create/(:num)'] = 'Tukang/create_vc/$1';

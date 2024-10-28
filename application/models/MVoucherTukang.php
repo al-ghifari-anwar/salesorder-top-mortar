@@ -21,6 +21,16 @@ class MVoucherTukang extends CI_Model
         return $result;
     }
 
+    public function getVoucherDigital($id_city)
+    {
+        $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang', 'LEFT');
+        $this->db->join('tb_skill', 'tb_skill.id_skill = tb_tukang.id_skill', 'LEFT');
+        $this->db->order_by('tb_voucher_tukang.created_at', 'DESC');
+        $result = $this->db->get_where('tb_voucher_tukang', ['type_voucher' => 'digi_voucher', 'id_city' => $id_city])->result_array();
+
+        return $result;
+    }
+
     public function getForValidasi()
     {
         $this->db->join('tb_skill', 'tb_skill.id_skill = tb_tukang.id_skill');
@@ -88,6 +98,29 @@ class MVoucherTukang extends CI_Model
             'nota_pembelian' => $nota,
             'nominal_pembelian' => $nominal,
             'type_voucher' => 'tokopromo'
+        ];
+
+        $query = $this->db->insert('tb_voucher_tukang', $data);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function createVoucherDigital($id_tukang, $no_seri, $id_contact, $nominal)
+    {
+        $data = [
+            'id_tukang' => $id_tukang,
+            'id_contact' => $id_contact,
+            'no_seri' => $no_seri,
+            'updated_at' => date("Y-m-d H:i:s"),
+            'exp_at' => date("Y-m-d", strtotime("+1 week")),
+            'id_md5' => md5("Top" . md5($id_tukang . date("Y-m-d"))),
+            'is_priority' => 1,
+            'nominal_pembelian' => $nominal,
+            'type_voucher' => 'digi_voucher'
         ];
 
         $query = $this->db->insert('tb_voucher_tukang', $data);
