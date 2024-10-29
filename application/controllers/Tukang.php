@@ -66,7 +66,7 @@ class Tukang extends CI_Controller
     {
         $post = $this->input->post();
         $id_tukang = $post['id_tukang'];
-        $id_md5 = md5("Top" . md5($id_tukang . date("Y-m-d")));
+        $id_md5 = md5("Top" . md5($id_tukang . date("Y-m-d-H-i-s")));
 
         $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
         $getTukang = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
@@ -86,7 +86,7 @@ class Tukang extends CI_Controller
             $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
             $this->ciqrcode->initialize($config);
 
-            $image_name = $id_tukang . date("Y-m-d") . '.png'; //buat name dari qr code sesuai dengan nim
+            $image_name = $id_tukang . date("Y-m-d-H-i-s") . '.png'; //buat name dari qr code sesuai dengan nim
 
             $voucherCode = $id_md5;
 
@@ -135,7 +135,7 @@ class Tukang extends CI_Controller
                                             "params": [
                                                 {
                                                     "key":"url",
-                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/' . $id_tukang . date("Y-m-d") . '.png"
+                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/' . $id_tukang . date("Y-m-d-H-i-s") . '.png"
                                                 },
                                                 {
                                                     "key":"filename",
