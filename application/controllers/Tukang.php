@@ -66,13 +66,13 @@ class Tukang extends CI_Controller
     {
         $post = $this->input->post();
         $id_tukang = $post['id_tukang'];
-        $rand = rand(1000000000, 9999999999);
-        $id_md5 = md5("Top" . md5($id_tukang . date("Y-m-d-H-i-s") . $rand));
+        // $rand = rand(1000000000, 9999999999);
+        $id_md5 = md5("Top" . md5($id_tukang . date("Y-m-d-H-i-s")));
 
         $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
         $getTukang = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
 
-        $query = $this->MVoucherTukang->createVoucherDigital($id_tukang, 0, 0, 0);
+        $query = $this->MVoucherTukang->createVoucherDigital($id_tukang, 0, 0, 0, $id_md5);
 
         if ($query) {
             // Generate QR

@@ -109,7 +109,7 @@ class MVoucherTukang extends CI_Model
         }
     }
 
-    public function createVoucherDigital($id_tukang, $no_seri, $id_contact, $nominal)
+    public function createVoucherDigital($id_tukang, $no_seri, $id_contact, $nominal, $idMd5)
     {
         $data = [
             'id_tukang' => $id_tukang,
@@ -117,7 +117,7 @@ class MVoucherTukang extends CI_Model
             'no_seri' => $no_seri,
             'updated_at' => date("Y-m-d H:i:s"),
             'exp_at' => date("Y-m-d", strtotime("+1 week")),
-            'id_md5' => md5("Top" . md5($id_tukang . date("Y-m-d"))),
+            'id_md5' => $idMd5,
             'is_priority' => 1,
             'nominal_pembelian' => $nominal,
             'type_voucher' => 'digi_voucher'
