@@ -541,25 +541,23 @@
                                                 </p>
                                             </a>
                                         </li>
-                                        <?php if ($this->session->userdata('level_user') == 'finance') : ?>
+                                        <?php if ($this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'finance_c') : ?>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('payment-transit') ?>" class="nav-link">
                                                     <i class="nav-icon fas fa-money-bill-wave-alt"></i>
                                                     <p>
                                                         Pembayaran Transit
-                                                        <!-- <span class="right badge badge-danger">New</span> -->
                                                     </p>
                                                 </a>
                                             </li>
-                                            <li class="nav-item">
+                                            <!-- <li class="nav-item">
                                                 <a href="<?= base_url('autotransfertest') ?>" class="nav-link">
                                                     <i class="nav-icon fas fa-money-bill-wave-alt"></i>
                                                     <p>
                                                         Laporan Test Auto Transfer
-                                                        <!-- <span class="right badge badge-danger">New</span> -->
                                                     </p>
                                                 </a>
-                                            </li>
+                                            </li> -->
                                         <?php endif; ?>
                                     </ul>
                                 </li>

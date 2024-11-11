@@ -26,7 +26,11 @@ class Tukang extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Tukang Top Mortar';
-        $data['tukangs'] = $this->db->get('tb_tukang')->result_array();
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['tukangs'] = $this->db->get('tb_tukang', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['tukangs'] = $this->db->get('tb_tukang')->result_array();
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Tukang/Index');

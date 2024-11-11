@@ -42,7 +42,11 @@ class Akunseller extends CI_Controller
     {
         $data['title'] = 'Top Mortar Seller';
         // $data['contacts'] = $this->MContact->getAllForPriority($id_city);
-        $data['contactPriors'] = $this->MContact->getAllTopSeller();
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['contactPriors'] = $this->MContact->getAllTopSellerCity($this->session->userdata('id_city'));
+        } else {
+            $data['contactPriors'] = $this->MContact->getAllTopSeller();
+        }
         // $data['city'] = $this->MCity->getById($id_city);
         // $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
