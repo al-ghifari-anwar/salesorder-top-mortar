@@ -1,4 +1,7 @@
 <?php
+
+use Endroid\QrCode\QrCode;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Tukang extends CI_Controller
@@ -79,27 +82,25 @@ class Tukang extends CI_Controller
         $query = $this->MVoucherTukang->createVoucherDigital($id_tukang, 0, 0, 0, $id_md5);
 
         if ($query) {
-            // Generate QR
-            $this->load->library('ciqrcode');
-            $config['cacheable']    = true; //boolean, the default is true
-            $config['cachedir']             = './assets/'; //string, the default is application/cache/
-            $config['errorlog']             = './assets/'; //string, the default is application/logs/
-            $config['imagedir']             = './assets/img/qr/'; //direktori penyimpanan qr code
-            $config['quality']              = true; //boolean, the default is true
-            $config['size']                 = '1024'; //interger, the default is 1024
-            $config['black']                = array(224, 255, 255); // array, default is array(255,255,255)
-            $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
-            $this->ciqrcode->initialize($config);
-
             $image_name = $id_tukang . date("Y-m-d") . '.png'; //buat name dari qr code sesuai dengan nim
 
             $voucherCode = $id_md5;
+            // Generate QR
+            $qrCode = new QrCode();
+            $qrCode->setText($voucherCode)
+                ->setSize(300)
+                ->setPadding(10)
+                ->setErrorCorrection('high')
+                ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
+                ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
+                // Path to your logo with transparency
+                ->setLogo(FCPATH . "./assets/img/logo_retina.png")
+                // Set the size of your logo, default is 48
+                ->setLogoSize(98)
+                ->setImageType(QrCode::IMAGE_TYPE_PNG);
 
-            $params['data'] = $voucherCode; //data yang akan di jadikan QR CODE
-            $params['level'] = 'H'; //H=High
-            $params['size'] = 10;
-            $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
-            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+            $image_name = $id_tukang . date("Y-m-d") . '.png';
+            $qrCode->save(FCPATH . "./assets/img/qr/" . $image_name);
 
             $id_distributor = $getTukang['id_distributor'];
             // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
