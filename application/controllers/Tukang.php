@@ -1,6 +1,10 @@
 <?php
 
-use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Writer\PngWriter;
+use claviska\SimpleImage;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -82,25 +86,32 @@ class Tukang extends CI_Controller
         $query = $this->MVoucherTukang->createVoucherDigital($id_tukang, 0, 0, 0, $id_md5);
 
         if ($query) {
+            // Read Logo File
+            $logoPath = FCPATH . "./assets/img/logo_retina.png";
+            $logoImageReader = new SimpleImage();
+            $logoImageReader->fromFile($logoPath)->bestFit(100, 100);
+            // Next, create a slightly larger image,
+            // fill it with a rounded white square,
+            // and overlay the resized logo
+            $logoImageBuilder = new SimpleImage();
+            $logoImageBuilder->fromNew(110, 110)->roundedRectangle(0, 0, 110, 110, 10, 'white', 'filled')->overlay($logoImageReader);
+
+            $logoData = $logoImageBuilder->toDataUri('image/png', 100);
+
             $image_name = $id_tukang . date("Y-m-d") . '.png'; //buat name dari qr code sesuai dengan nim
 
             $voucherCode = $id_md5;
             // Generate QR
-            $qrCode = new QrCode();
-            $qrCode->setText($voucherCode)
-                ->setSize(300)
-                ->setPadding(10)
-                ->setErrorCorrection('high')
-                ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
-                ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
-                // Path to your logo with transparency
-                ->setLogo(FCPATH . "./assets/img/logo_retina.png")
-                // Set the size of your logo, default is 48
-                ->setLogoSize(98)
-                ->setImageType(QrCode::IMAGE_TYPE_PNG);
-
-            $image_name = $id_tukang . date("Y-m-d") . '.png';
-            $qrCode->save(FCPATH . "./assets/img/qr/" . $image_name);
+            $qrCode = Builder::create()
+                ->writer(new PngWriter())
+                ->writerOptions([])
+                ->data($voucherCode)
+                ->logoPath($logoData)
+                ->logoResizeToWidth(100)
+                ->encoding(new Encoding('ISO-8859-1'))
+                ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+                ->build()
+                ->saveToFile(FCPATH . "./assets/img/qr/" . $image_name);
 
             $id_distributor = $getTukang['id_distributor'];
             // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
@@ -170,6 +181,7 @@ class Tukang extends CI_Controller
 
             $res = json_decode($response, true);
             // echo $response;
+            // die;
 
             $status = $res['status'];
 
