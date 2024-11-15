@@ -113,6 +113,17 @@ class Tukang extends CI_Controller
                 ->build()
                 ->saveToFile(FCPATH . "./assets/img/qr/" . $image_name);
 
+            $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
+            $qrImageLoader = new SimpleImage();
+            $qrImageLoader->fromFile($qrPath)->bestFit(100, 100);
+
+            $frameBuilder = new SimpleImage();
+            $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
+                ->autoOrient()
+                ->resize(300, 300)
+                ->overlay($qrImageLoader, 'center', 1, 0, -18)
+                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+
             $id_distributor = $getTukang['id_distributor'];
             // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
             // $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
@@ -152,7 +163,7 @@ class Tukang extends CI_Controller
                                             "params": [
                                                 {
                                                     "key":"url",
-                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/' . $id_tukang . date("Y-m-d") . '.png"
+                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $id_tukang . date("Y-m-d") . '.png"
                                                 },
                                                 {
                                                     "key":"filename",
