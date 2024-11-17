@@ -116,12 +116,12 @@ class Tukang extends CI_Controller
 
             $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
             $qrImageLoader = new SimpleImage();
-            $qrImageLoader->fromFile($qrPath)->resize(400, 400);
+            $qrImageLoader->fromFile($qrPath)->resize(380, 380);
 
             $frameBuilder = new SimpleImage();
             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                 ->autoOrient()
-                ->overlay($qrImageLoader, 'center', 1, 0, -40)
+                ->overlay($qrImageLoader, 'center', 1, 0, -45)
                 ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
             $id_distributor = $getTukang['id_distributor'];
