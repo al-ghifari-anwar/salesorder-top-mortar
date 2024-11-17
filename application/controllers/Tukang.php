@@ -116,7 +116,7 @@ class Tukang extends CI_Controller
 
             $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
             $qrImageLoader = new SimpleImage();
-            $qrImageLoader->fromFile($qrPath)->resize(500, 500);
+            $qrImageLoader->fromFile($qrPath)->resize(400, 400);
 
             $frameBuilder = new SimpleImage();
             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
