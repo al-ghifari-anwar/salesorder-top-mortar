@@ -110,7 +110,7 @@ class Tukang extends CI_Controller
                 ->logoResizeToWidth(100)
                 ->encoding(new Encoding('ISO-8859-1'))
                 ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-                ->size(2000)
+                ->size(500)
                 ->build()
                 ->saveToFile(FCPATH . "./assets/img/qr/" . $image_name);
 
