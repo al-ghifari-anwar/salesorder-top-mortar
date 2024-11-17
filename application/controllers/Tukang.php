@@ -89,7 +89,7 @@ class Tukang extends CI_Controller
             // Read Logo File
             $logoPath = FCPATH . "./assets/img/logo_retina.png";
             $logoImageReader = new SimpleImage();
-            $logoImageReader->fromFile($logoPath)->resize(1000, 1000);
+            $logoImageReader->fromFile($logoPath)->resize(100, 100);
             // Next, create a slightly larger image,
             // fill it with a rounded white square,
             // and overlay the resized logo
@@ -106,11 +106,11 @@ class Tukang extends CI_Controller
                 ->writer(new PngWriter())
                 ->writerOptions([])
                 ->data($voucherCode)
+                ->size(120)
                 ->logoPath($logoData)
                 ->logoResizeToWidth(100)
                 ->encoding(new Encoding('ISO-8859-1'))
                 ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-                ->size(120)
                 ->build()
                 ->saveToFile(FCPATH . "./assets/img/qr/" . $image_name);
 
