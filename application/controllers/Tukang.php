@@ -106,7 +106,6 @@ class Tukang extends CI_Controller
                 ->writer(new PngWriter())
                 ->writerOptions([])
                 ->data($voucherCode)
-                ->size(120)
                 ->logoPath($logoData)
                 ->logoResizeToWidth(100)
                 ->encoding(new Encoding('ISO-8859-1'))
