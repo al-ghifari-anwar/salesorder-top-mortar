@@ -89,7 +89,7 @@ class Tukang extends CI_Controller
             // Read Logo File
             $logoPath = FCPATH . "./assets/img/logo_retina.png";
             $logoImageReader = new SimpleImage();
-            $logoImageReader->fromFile($logoPath)->bestFit(100, 100);
+            $logoImageReader->fromFile($logoPath)->resize(1000, 1000);
             // Next, create a slightly larger image,
             // fill it with a rounded white square,
             // and overlay the resized logo
