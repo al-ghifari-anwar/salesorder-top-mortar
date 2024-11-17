@@ -98,7 +98,7 @@ class Tukang extends CI_Controller
 
             $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
-            $image_name = $id_tukang . date("Y-m-d") . '.png'; //buat name dari qr code sesuai dengan nim
+            $image_name = $id_tukang . $id_md5 . date("Y-m-d") . '.png'; //buat name dari qr code sesuai dengan nim
 
             $voucherCode = $id_md5;
             // Generate QR
@@ -162,7 +162,7 @@ class Tukang extends CI_Controller
                                             "params": [
                                                 {
                                                     "key":"url",
-                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $id_tukang . date("Y-m-d") . '.png"
+                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $id_md5 . $id_tukang . date("Y-m-d") . '.png"
                                                 },
                                                 {
                                                     "key":"filename",
