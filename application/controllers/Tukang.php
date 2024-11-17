@@ -89,7 +89,7 @@ class Tukang extends CI_Controller
             // Read Logo File
             $logoPath = FCPATH . "./assets/img/logo_retina.png";
             $logoImageReader = new SimpleImage();
-            $logoImageReader->fromFile($logoPath)->resize(100, 100);
+            $logoImageReader->fromFile($logoPath)->bestFit(100, 100);
             // Next, create a slightly larger image,
             // fill it with a rounded white square,
             // and overlay the resized logo
@@ -115,7 +115,7 @@ class Tukang extends CI_Controller
 
             $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
             $qrImageLoader = new SimpleImage();
-            $qrImageLoader->fromFile($qrPath)->bestFit(200, 200);
+            $qrImageLoader->fromFile($qrPath)->bestFit(100, 100);
 
             $frameBuilder = new SimpleImage();
             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
