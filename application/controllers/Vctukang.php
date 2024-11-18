@@ -88,7 +88,7 @@ class Vctukang extends CI_Controller
                         $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
                         // Generate QR
-                        $image_name = $no_seri . '.png';
+                        $image_name = $no_seri . date("Y-m-d-H-i-s") . '.png';
 
                         $voucherCode = md5("Top" . md5($id_tukang));
 
@@ -152,7 +152,7 @@ class Vctukang extends CI_Controller
                                             "params": [
                                                 {
                                                     "key":"url",
-                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $no_seri . '.png"
+                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
                                                 },
                                                 {
                                                     "key":"filename",
