@@ -380,27 +380,44 @@ class Vctukang extends CI_Controller
                             redirect('vctukang/self');
                         }
                     } else {
-                        // Generate QR
-                        $this->load->library('ciqrcode');
-                        $config['cacheable']    = true; //boolean, the default is true
-                        $config['cachedir']             = './assets/'; //string, the default is application/cache/
-                        $config['errorlog']             = './assets/'; //string, the default is application/logs/
-                        $config['imagedir']             = './assets/img/qr/'; //direktori penyimpanan qr code
-                        $config['quality']              = true; //boolean, the default is true
-                        $config['size']                 = '1024'; //interger, the default is 1024
-                        $config['black']                = array(224, 255, 255); // array, default is array(255,255,255)
-                        $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
-                        $this->ciqrcode->initialize($config);
+                        // Read Logo File
+                        $logoPath = FCPATH . "./assets/img/logo_retina.png";
+                        $logoImageReader = new SimpleImage();
+                        $logoImageReader->fromFile($logoPath)->bestFit(100, 100);
+                        // Next, create a slightly larger image,
+                        // fill it with a rounded white square,
+                        // and overlay the resized logo
+                        $logoImageBuilder = new SimpleImage();
+                        $logoImageBuilder->fromNew(110, 110)->roundedRectangle(0, 0, 110, 110, 10, 'white', 'filled')->overlay($logoImageReader);
 
+                        $logoData = $logoImageBuilder->toDataUri('image/png', 100);
+
+                        // Generate QR
                         $image_name = $nomorhp . '.png'; //buat name dari qr code sesuai dengan nim
 
                         $voucherCode = md5("Top" . md5($id_tukang));
 
-                        $params['data'] = $voucherCode; //data yang akan di jadikan QR CODE
-                        $params['level'] = 'H'; //H=High
-                        $params['size'] = 10;
-                        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
-                        $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+                        $qrCode = Builder::create()
+                            ->writer(new PngWriter())
+                            ->writerOptions([])
+                            ->data($voucherCode)
+                            ->size(500)
+                            ->logoPath($logoData)
+                            ->logoResizeToWidth(100)
+                            ->encoding(new Encoding('ISO-8859-1'))
+                            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+                            ->build()
+                            ->saveToFile(FCPATH . "./assets/img/qr/" . $image_name);
+
+                        $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
+                        $qrImageLoader = new SimpleImage();
+                        $qrImageLoader->fromFile($qrPath)->resize(370, 370);
+
+                        $frameBuilder = new SimpleImage();
+                        $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
+                            ->autoOrient()
+                            ->overlay($qrImageLoader, 'center', 1, 0, -65)
+                            ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                         $id_distributor = $getTukang['id_distributor'];
                         // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
@@ -440,7 +457,7 @@ class Vctukang extends CI_Controller
                                                 "params": [
                                                     {
                                                         "key":"url",
-                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/' . $nomorhp . '.png"
+                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $nomorhp . '.png"
                                                     },
                                                     {
                                                         "key":"filename",
