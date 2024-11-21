@@ -16,7 +16,8 @@ class MCity extends CI_Model
 
     public function getAllNoLogin()
     {
-        $query = $this->db->get_where('tb_city')->result_array();
+        $this->db->join('tb_distributor', 'tb_distributor.id_distributor = tb_city.id_distributor');
+        $query = $this->db->get_where('tb_city', ['jenis_distributor !=' => 'dist'])->result_array();
         return $query;
     }
 
