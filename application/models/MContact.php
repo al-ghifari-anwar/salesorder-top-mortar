@@ -63,6 +63,14 @@ class MContact extends CI_Model
         return $query;
     }
 
+    public function getAllTopSellerCityNoLogin($id_city)
+    {
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $this->db->where('tb_city.id_distributor', '1');
+        $query = $this->db->get_where('tb_contact', ['tb_contact.pass_contact !=' => '0', 'tb_contact.id_city' => $id_city])->result_array();
+        return $query;
+    }
+
     public function getAllForRenvis($id_city)
     {
         $query = $this->db->query("SELECT * FROM tb_contact JOIN tb_city ON tb_city.id_city = tb_contact.id_city WHERE tb_contact.id_city = '$id_city' AND tb_contact.id_contact NOT IN (SELECT id_contact FROM tb_antrian_renvis)")->result_array();

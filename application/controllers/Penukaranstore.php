@@ -39,7 +39,7 @@ class Penukaranstore extends CI_Controller
     {
         $data['title'] = 'Lokasi Penukaran Voucher';
         // $data['contacts'] = $this->MContact->getAllForPriority($id_city);
-        $data['contactPriors'] = $this->MContact->getAllTopSellerCity($id_city);
+        $data['contactPriors'] = $this->MContact->getAllTopSellerCityNoLogin($id_city);
         // $data['city'] = $this->MCity->getById($id_city);
         // $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
