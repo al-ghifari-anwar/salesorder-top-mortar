@@ -35,17 +35,49 @@ class Penukaranstore extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function index($id_city)
+    public function index($id_city = null)
     {
         $data['title'] = 'Lokasi Penukaran Voucher';
-        // $data['contacts'] = $this->MContact->getAllForPriority($id_city);
+
         $data['contactPriors'] = $this->MContact->getAllTopSellerCityNoLogin($id_city);
-        // $data['city'] = $this->MCity->getById($id_city);
-        // $data['id_city'] = $id_city;
-        $this->load->view('Theme/Header', $data);
-        $this->load->view('Theme/Menu');
-        $this->load->view('Penukaranstore/Index');
-        $this->load->view('Theme/Footer');
-        $this->load->view('Theme/Scripts');
+
+        $PublicIP = $this->get_client_ip();
+        // $PublicIP = getenv('REMOTE_ADDR');
+        $json     = file_get_contents("http://ipinfo.io/$PublicIP/geo");
+        $json     = json_decode($json, true);
+        // $country  = $json['country'];
+        // $region   = $json['region'];
+        // $city     = $json['city'];
+
+        echo json_encode($PublicIP);
+        die;
+
+        // $this->load->view('Theme/Header', $data);
+        // $this->load->view('Theme/Menu');
+        // $this->load->view('Penukaranstore/Index');
+        // $this->load->view('Theme/Footer');
+        // $this->load->view('Theme/Scripts');
+    }
+
+    function get_client_ip()
+    {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else if (isset($_SERVER['HTTP_X_FORWARDED'])) {
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        } else if (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        } else if (isset($_SERVER['HTTP_FORWARDED'])) {
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        } else if (isset($_SERVER['REMOTE_ADDR'])) {
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        } else {
+            $ipaddress = 'UNKNOWN';
+        }
+
+        return $ipaddress;
     }
 }
