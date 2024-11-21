@@ -41,8 +41,8 @@ class Penukaranstore extends CI_Controller
 
         $data['contactPriors'] = $this->MContact->getAllTopSellerCityNoLogin($id_city);
 
-        $PublicIP = $this->get_client_ip();
-        // $PublicIP = getenv('REMOTE_ADDR');
+        // $PublicIP = $this->get_client_ip();
+        $PublicIP = getenv('REMOTE_ADDR');
         $json     = file_get_contents("http://ipinfo.io/$PublicIP/geo");
         $json     = json_decode($json, true);
         // $country  = $json['country'];
