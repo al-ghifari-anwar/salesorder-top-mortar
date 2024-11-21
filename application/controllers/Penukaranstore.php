@@ -49,7 +49,7 @@ class Penukaranstore extends CI_Controller
         // $region   = $json['region'];
         // $city     = $json['city'];
 
-        echo json_encode($PublicIP);
+        echo json_encode($json);
         die;
 
         // $this->load->view('Theme/Header', $data);
