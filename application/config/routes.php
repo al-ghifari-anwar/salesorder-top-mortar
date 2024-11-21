@@ -240,3 +240,6 @@ $route['tukang'] = 'Tukang';
 $route['sebarvctukang'] = 'Tukang/sebar_vc_city';
 $route['sebarvctukang/(:num)'] = 'Tukang/sebar_vc/$1';
 $route['sebarvctukang/create/(:num)'] = 'Tukang/create_vc/$1';
+// Penukaran Store
+$route['penukaranstore'] = 'Penukaranstore/city_list';
+$route['penukaranstore/(:num)'] = 'Penukaranstore/index/$1';
