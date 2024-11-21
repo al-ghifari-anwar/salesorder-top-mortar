@@ -242,4 +242,6 @@ $route['sebarvctukang/(:num)'] = 'Tukang/sebar_vc/$1';
 $route['sebarvctukang/create/(:num)'] = 'Tukang/create_vc/$1';
 // Penukaran Store
 $route['penukaranstore'] = 'Penukaranstore/index';
+$route['penukaranstore/add_latlong'] = 'Penukaranstore/add_latlong';
+$route['penukaranstore/list'] = 'Penukaranstore/list';
 // $route['penukaranstore/(:num)'] = 'Penukaranstore/index/$1';
