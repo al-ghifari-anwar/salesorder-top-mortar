@@ -23,7 +23,6 @@
                 long: longitude
             },
             success: function(data) {
-                alert(data);
                 window.location.replace(window.location.origin + "/salesorder/penukaranstore/list");
             }
         });
