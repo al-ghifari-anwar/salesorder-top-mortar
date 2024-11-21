@@ -37,7 +37,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-6 mx-auto">
+                <div class="col-12 col-md-6 col-lg-6 mx-auto">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="text-center">Ketuk Tombol Di Bawah Untuk Menampilkan Toko Terdekat</h5>
@@ -45,7 +45,7 @@
                         <div class="card-body">
 
                             <div class="row">
-                                <div class="col-12 col-md-6 col-lg-6 mx-auto">
+                                <div class="col-6 mx-auto">
                                     <button class="btn btn-primary rounded-pill px-3 float-center btn-block" onclick="getLocation()">Tampilkan</button>
                                     <!-- <p id="demo"></p> -->
                                 </div>
