@@ -185,7 +185,7 @@ class Priority extends CI_Controller
 
 
                             // $message = $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
-                            $message = "Halo " . $nama . "*Beli Top Mortar, Kembaliannya bisa buat beli Kopi!* \\\\n Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja \\\\n SK: \\\\n QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar ";
+                            $message = "Halo " . $nama . "*Beli Top Mortar, Kembaliannya bisa buat beli Kopi!* \\\\n Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja \\\\n SK: \\\\n QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar\\\\n Lihat Lokasi Toko: \\\\n https://order.topmortarindonesia.com/penukaranstore  ";
                             // Send message
                             $curl = curl_init();
 
