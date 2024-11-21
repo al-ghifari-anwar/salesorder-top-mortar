@@ -44,21 +44,24 @@
                             $store_location = explode(',', $contact['maps_url']);
                             $lat_store = $store_location[0];
                             $long_store = $store_location[1];
+                            $link_maps = "https://www.google.com/maps/place/" . $contact['maps_url'];
 
                             $distance = $this->MContact->vincentyGreatCircleDistance($loc_user['lat'], $loc_user['long'], $lat_store, $long_store)
                             ?>
                             <?php if ($distance <= 2000): ?>
                                 <div class="col-12 col-sm-6 col-md-3">
-                                    <div class="info-box shadow-none">
-                                        <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-store"></i></span>
+                                    <a href="<?= $link_maps ?>" class="text-decoration-none" target="_blank">
+                                        <div class="info-box shadow-none">
+                                            <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-store"></i></span>
 
-                                        <div class="info-box-content">
-                                            <span class="info-box-text"><?= $contact['nama'] ?></span>
-                                            <span class="info-box-number">
-                                                Jarak: <?= number_format($distance, 2, ',', '.') ?> Meter
-                                            </span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text"><?= $contact['nama'] ?></span>
+                                                <span class="info-box-number">
+                                                    Jarak: <?= number_format($distance, 2, ',', '.') ?> Meter
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
