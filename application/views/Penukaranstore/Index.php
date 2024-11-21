@@ -45,7 +45,7 @@
                         <div class="card-body">
 
                             <div class="row">
-                                <div class="col-6 mx-auto">
+                                <div class="col-12 col-md-6 col-lg-6 mx-auto">
                                     <button class="btn btn-primary rounded-pill px-3 float-center btn-block" onclick="getLocation()">Tampilkan</button>
                                     <!-- <p id="demo"></p> -->
                                 </div>
