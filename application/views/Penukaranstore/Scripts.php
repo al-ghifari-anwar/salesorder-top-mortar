@@ -17,13 +17,13 @@
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: window.location.origin + "/salesorder/penukaranstore/add_latlong",
+            url: window.location.origin + "/penukaranstore/add_latlong",
             data: {
                 lat: latitude,
                 long: longitude
             },
             success: function(data) {
-                window.location.replace(window.location.origin + "/salesorder/penukaranstore/list");
+                window.location.replace(window.location.origin + "/penukaranstore/list");
             }
         });
     }
