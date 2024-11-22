@@ -94,7 +94,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('akunseller/validasi/' . $data['id_tukang']) ?>" method="POST">
+                                                        <form action="<?= base_url('tukang/demo/' . $data['id_tukang']) ?>" method="POST">
                                                             <div class="form-group">
                                                                 <label for="">Pilih</label>
                                                                 <select name="is_demo" id="" class="form-control select2bs4">

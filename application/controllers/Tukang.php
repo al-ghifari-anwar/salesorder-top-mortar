@@ -45,6 +45,21 @@ class Tukang extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function demo($id_tukang)
+    {
+        $is_demo = $this->input->post('is_demo');
+
+        $query = $this->db->update('tb_tukang', ['is_demo' => $is_demo], ['id_tukang' => $id_tukang]);
+
+        if ($query) {
+            $this->session->set_flashdata('success', "Sukses ubah status demo!");
+            redirect('tukang');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal ubah status demo!");
+            redirect('tukang');
+        }
+    }
+
     public function sebar_vc_city()
     {
         $data['title'] = 'Sebar Voucher Tukang';
