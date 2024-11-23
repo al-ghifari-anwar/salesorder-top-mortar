@@ -50,7 +50,7 @@
 
                             $distance = $this->MContact->vincentyGreatCircleDistance($loc_user['lat'], $loc_user['long'], $lat_store, $long_store);
                             ?>
-                            <?php if ($distance >= 7000):
+                            <?php if ($distance <= 7000):
                                 $count += 1;
                             ?>
                                 <div class="col-12 col-sm-6 col-md-3">
