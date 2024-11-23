@@ -46,7 +46,7 @@
                             $long_store = $store_location[1];
                             $link_maps = "https://www.google.com/maps/place/" . $contact['maps_url'];
 
-                            $distance = $this->MContact->vincentyGreatCircleDistance($loc_user['lat'], $loc_user['long'], $lat_store, $long_store)
+                            $distance = $this->MContact->vincentyGreatCircleDistance($loc_user['lat'], $loc_user['long'], $lat_store, $long_store);
                             ?>
                             <?php if ($distance <= 7000): ?>
                                 <div class="col-12 col-sm-6 col-md-3">
