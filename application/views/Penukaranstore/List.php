@@ -39,7 +39,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="row">
-                        <?php foreach ($contactPriors as $contact): ?>
+                        <?php
+                        $count = 0;
+                        foreach ($contactPriors as $contact): ?>
                             <?php
                             $store_location = explode(',', $contact['maps_url']);
                             $lat_store = $store_location[0];
@@ -48,11 +50,13 @@
 
                             $distance = $this->MContact->vincentyGreatCircleDistance($loc_user['lat'], $loc_user['long'], $lat_store, $long_store);
                             ?>
-                            <?php if ($distance <= 7000): ?>
+                            <?php if ($distance >= 7000):
+                                $count += 1;
+                            ?>
                                 <div class="col-12 col-sm-6 col-md-3">
                                     <a href="<?= $link_maps ?>" class="text-decoration-none" target="_blank">
                                         <div class="info-box shadow-none">
-                                            <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-store"></i></span>
+                                            <span class="info-box-icon bg-primary elevation-1"><img src="<?= base_url('assets/img/icon_store.png') ?>" alt=""></span>
 
                                             <div class="info-box-content">
                                                 <span class="info-box-text"><?= $contact['nama'] ?></span>
@@ -65,6 +69,12 @@
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
+                        <?php if ($count < 1): ?>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <p class="text-center">Mohon Maaf tidak ada toko dalam radius anda. Ketuk tombol dibawah untuk ke halaman depan.</p>
+                                <a href="<?= base_url('penukaranstore') ?>" class="btn btn-primary btn-block">Kembali Ke Halaman Depan</a>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
