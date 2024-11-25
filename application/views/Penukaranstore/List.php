@@ -38,7 +38,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <p class="text-center">Voucher dapat ditukarkan pada toko berlogo &nbsp;<i class="fas fa-ticket-alt text-danger"></i></p>
+                    <p class="text-center">Voucher dapat ditukarkan pada toko berlogo &nbsp;<i class="fas fa-ticket-alt text-danger"></i>. Klik untuk melihat lokasi toko</p>
                     <div class="row">
                         <?php
                         $count = 0;
