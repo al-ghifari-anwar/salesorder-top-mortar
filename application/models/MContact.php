@@ -75,7 +75,8 @@ class MContact extends CI_Model
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $this->db->where('tb_city.id_distributor', '1');
-        $query = $this->db->get_where('tb_contact', ['tb_contact.pass_contact !=' => '0', 'tb_contact.maps_url != ' => '', 'tb_contact.store_status' => 'active'])->result_array();
+        $this->db->not_like('tb_contact.maps_url', 'https');
+        $query = $this->db->get_where('tb_contact', ['tb_contact.store_status' => 'active'])->result_array();
         return $query;
     }
 
