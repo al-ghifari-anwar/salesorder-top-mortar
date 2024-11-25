@@ -38,7 +38,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <p class="text-center">Voucher dapat ditukarkan pada toko berlogo &nbsp;<i class="fas fa-ticket-alt text-primary"></i></p>
+                    <p class="text-center">Voucher dapat ditukarkan pada toko berlogo &nbsp;<i class="fas fa-ticket-alt text-danger"></i></p>
                     <div class="row">
                         <?php
                         $count = 0;
@@ -69,7 +69,7 @@
                                                         <?= $contact['nama'] ?>
                                                     </span>
                                                     <span class="info-box-number">
-                                                        Jarak: <?= number_format($distance, 2, ',', '.') ?> Meter
+                                                        Jarak: <?= number_format($distance, 0, ',', '.') ?> Meter
                                                     </span>
                                                 </div>
                                             </div>
