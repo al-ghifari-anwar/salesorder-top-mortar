@@ -64,7 +64,7 @@
                                                 <div class="info-box-content">
                                                     <span class="info-box-text">
                                                         <?php if ($contact['pass_contact'] != '0'): ?>
-                                                            <i class="fas fa-ticket-alt"></i>&nbsp;
+                                                            <i class="fas fa-ticket-alt text-danger"></i>&nbsp;
                                                         <?php endif; ?>
                                                         <?= $contact['nama'] ?>
                                                     </span>
