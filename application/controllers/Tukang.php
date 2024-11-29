@@ -83,7 +83,7 @@ class Tukang extends CI_Controller
     {
         $data['title'] = 'Data Tukang Top Mortar';
         $data['city'] = $this->MCity->getById($id_city);
-        $data['tukangs'] = $this->db->get_where('tb_tukang', ['id_city' => $id_city])->result_array();
+        $data['tukangs'] = $this->db->get_where('tb_tukang', ['id_city' => $id_city, 'is_valid' => 1])->result_array();
         $data['vctukangs'] = $this->MVoucherTukang->getVoucherDigital($id_city);
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
