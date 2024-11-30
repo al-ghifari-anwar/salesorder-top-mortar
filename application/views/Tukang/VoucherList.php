@@ -139,7 +139,11 @@
                         <label for="">Pilih Tukang</label>
                         <select name="id_tukang" id="select2bs41" class="select2bs41">
                             <?php foreach ($tukangs as $tukang) : ?>
-                                <option value="<?= $tukang['id_tukang'] ?>"><?= $tukang['nama'] . " - " . $tukang['nomorhp'] ?></option>
+                                <?php
+                                $id_tukang = $tukang['id_tukang'];
+                                $getVoucher = $this->db->get_where('tb_voucher_tukang', ['id_tukang' => $id_tukang, 'type_voucher' => 'digi_voucher']);
+                                ?>
+                                <option value="<?= $tukang['id_tukang'] ?>"><?= $getVoucher == null ? '[Belum Sebar]' : '[Sdh Sebar]' ?><?= $tukang['nama'] . " - " . $tukang['nomorhp'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
