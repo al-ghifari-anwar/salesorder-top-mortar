@@ -35,15 +35,17 @@ class MContact extends CI_Model
 
     public function getAllPriority()
     {
+        $id_distributor = $this->session->userdata('id_distributor');
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $query = $this->db->get_where('tb_contact', ['is_priority' => 1, 'is_tokopromo' => 0])->result_array();
+        $query = $this->db->get_where('tb_contact', ['is_priority' => 1, 'is_tokopromo' => 0, 'id_distributor' => $id_distributor])->result_array();
         return $query;
     }
 
     public function getAllTokopromo()
     {
+        $id_distributor = $this->session->userdata('id_distributor');
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $query = $this->db->get_where('tb_contact', ['is_priority' => 1, 'is_tokopromo' => 1])->result_array();
+        $query = $this->db->get_where('tb_contact', ['is_priority' => 1, 'is_tokopromo' => 1, 'id_distributor' => $id_distributor])->result_array();
         return $query;
     }
 
