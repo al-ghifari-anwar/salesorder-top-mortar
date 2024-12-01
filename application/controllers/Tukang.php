@@ -32,14 +32,17 @@ class Tukang extends CI_Controller
 
     public function index()
     {
+        $id_distributor = $this->session->userdata('id_distrobutor');
         $data['title'] = 'Data Tukang Top Mortar';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
             $this->db->join('tb_skill', 'tb_skill.id_skill = tb_tukang.id_skill');
             $data['tukangs'] = $this->db->get('tb_tukang', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
+            $id_distributor = $this->session->userdata('id_distrobutor');
             $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
             $this->db->join('tb_skill', 'tb_skill.id_skill = tb_tukang.id_skill');
+            $this->db->where('id_distributor', $id_distributor);
             $data['tukangs'] = $this->db->get('tb_tukang')->result_array();
         }
         $this->load->view('Theme/Header', $data);
