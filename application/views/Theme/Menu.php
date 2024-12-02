@@ -123,38 +123,14 @@
                                                 </p>
                                             </a>
                                         </li>
-                                        <!-- <li class="nav-item">
-                                            <a href="<?= base_url('akunseller/penukaran') ?>" class="nav-link">
-                                                <i class="nav-icon fas fa-ticket-alt"></i>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('qontak') ?>" class="nav-link">
+                                                <i class="nav-icon fab fa-whatsapp"></i>
                                                 <p>
-                                                    Rekap Penukaran
+                                                    Qontak
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('akunseller/datatukang') ?>" class="nav-link">
-                                                <i class="nav-icon fas fa-user-shield"></i>
-                                                <p>
-                                                    Validasi Data Tukang
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('kontenseller') ?>" class="nav-link">
-                                                <i class="nav-icon fas fa-images"></i>
-                                                <p>
-                                                    Banner Konten
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('sebarvctukang') ?>" class="nav-link">
-                                                <i class="nav-icon fas fa-ticket-alt"></i>
-                                                <p>
-                                                    Sebar Voucher Tukang
-                                                </p>
-                                            </a>
-                                        </li> -->
                                     </ul>
                                 </li>
                             <?php endif; ?>
