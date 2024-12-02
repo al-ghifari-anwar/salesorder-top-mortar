@@ -60,9 +60,6 @@ class MCompany extends CI_Model
         if ($upload['status'] == 'success') {
             $data = $upload['message'];
             $this->img_company = $data['file_name'];
-        } else {
-            $this->session->set_flashdata('success', $upload['message']);
-            redirect('company');
         }
         $this->updated_at = date("Y-m-d H:i:s");
 
