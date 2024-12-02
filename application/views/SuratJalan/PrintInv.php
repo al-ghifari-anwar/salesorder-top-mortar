@@ -27,6 +27,8 @@ function penyebut($nilai)
     }
     return $temp;
 }
+
+$getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->session->userdata('id_distributor')])->row_array();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,10 +121,10 @@ function penyebut($nilai)
                 <table class="" style="margin-right: 50px;">
                     <tr>
                         <th class="text-left">
-                            <img src="<?= base_url('assets/img/logo_retina.png') ?>" style="width: 100px;">
+                            <img src="<?= base_url('assets/img/company_img/') . $getCompany['img_company'] ?>" style="width: 100px;">
                         </th>
                         <th class="text-left text-up">
-                            <h3><?= $this->session->userdata('nama_distributor') ?></h3>
+                            <h3><?= $getCompany['name_company'] ?></h3>
                         </th>
                     </tr>
                 </table>

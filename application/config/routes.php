@@ -245,3 +245,6 @@ $route['penukaranstore'] = 'Penukaranstore/index';
 $route['penukaranstore/add_latlong'] = 'Penukaranstore/add_latlong';
 $route['penukaranstore/list'] = 'Penukaranstore/list';
 // $route['penukaranstore/(:num)'] = 'Penukaranstore/index/$1';
+// Company
+$route['company'] = 'Company';
+$route['company/update/(:num)'] = 'Company/update/$1';

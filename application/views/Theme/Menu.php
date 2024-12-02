@@ -1,4 +1,7 @@
 <body class="hold-transition sidebar-mini">
+    <?php
+    $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->session->userdata('id_distributor')])->row_array();
+    ?>
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -77,7 +80,7 @@
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="<?= base_url('assets/img/logo_retina.png') ?>" alt="Logo" class="brand-image" style="opacity: .8">
+                <img src="<?= base_url('assets/img/company_img/') . $getCompany['img_company'] ?>" alt="Logo" class="brand-image" style="opacity: .8">
                 <span class="brand-text font-weight-light">.</span>
             </a>
 
@@ -102,57 +105,59 @@
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-gear-alt"></i>
-                                    <p>
-                                        Setting
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('akunseller') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-user-check"></i>
-                                            <p>
-                                                Akun Top Seller
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('akunseller/penukaran') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-ticket-alt"></i>
-                                            <p>
-                                                Rekap Penukaran
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('akunseller/datatukang') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-user-shield"></i>
-                                            <p>
-                                                Validasi Data Tukang
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('kontenseller') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-images"></i>
-                                            <p>
-                                                Banner Konten
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('sebarvctukang') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-ticket-alt"></i>
-                                            <p>
-                                                Sebar Voucher Tukang
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <?php if ($this->session->userdata('level_user') == 'admin'): ?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-cog"></i>
+                                        <p>
+                                            Setting
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('company') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-building"></i>
+                                                <p>
+                                                    Company Data
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('akunseller/penukaran') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-ticket-alt"></i>
+                                                <p>
+                                                    Rekap Penukaran
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('akunseller/datatukang') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-user-shield"></i>
+                                                <p>
+                                                    Validasi Data Tukang
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('kontenseller') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-images"></i>
+                                                <p>
+                                                    Banner Konten
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('sebarvctukang') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-ticket-alt"></i>
+                                                <p>
+                                                    Sebar Voucher Tukang
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
                             <li class="nav-item">
                                 <a href="<?= base_url('absen') ?>" class="nav-link">
                                     <i class="nav-icon fas fa-calendar-check"></i>
