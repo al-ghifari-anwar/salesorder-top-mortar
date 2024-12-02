@@ -104,7 +104,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-gear"></i>
+                                    <i class="nav-icon fas fa-gear-alt"></i>
                                     <p>
                                         Setting
                                         <i class="right fas fa-angle-left"></i>
