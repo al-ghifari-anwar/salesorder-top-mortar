@@ -248,3 +248,6 @@ $route['penukaranstore/list'] = 'Penukaranstore/list';
 // Company
 $route['company'] = 'Company';
 $route['company/update/(:num)'] = 'Company/update/$1';
+// Company
+$route['qontak'] = 'Qontak';
+$route['qontak/update/(:num)'] = 'Qontak/update/$1';
