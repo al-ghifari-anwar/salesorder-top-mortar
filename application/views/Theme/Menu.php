@@ -123,7 +123,7 @@
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a href="<?= base_url('akunseller/penukaran') ?>" class="nav-link">
                                                 <i class="nav-icon fas fa-ticket-alt"></i>
                                                 <p>
@@ -154,7 +154,7 @@
                                                     Sebar Voucher Tukang
                                                 </p>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </li>
                             <?php endif; ?>
