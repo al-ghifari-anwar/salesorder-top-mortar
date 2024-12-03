@@ -141,9 +141,9 @@
                             <?php foreach ($tukangs as $tukang) : ?>
                                 <?php
                                 $id_tukang = $tukang['id_tukang'];
-                                $getVoucher = $this->db->get_where('tb_voucher_tukang', ['id_tukang' => $id_tukang, 'type_voucher' => 'digi_voucher']);
+                                $getVoucher = $this->db->get_where('tb_voucher_tukang', ['id_tukang' => $id_tukang, 'type_voucher' => 'digi_voucher'])->row_array();
                                 ?>
-                                <option value="<?= $tukang['id_tukang'] ?>"><?= $getVoucher == null ? '[Belum Sebar]' : '[Sdh Sebar]' ?><?= $tukang['nama'] . " - " . $tukang['nomorhp'] ?></option>
+                                <option value="<?= $tukang['id_tukang'] ?>"><?= $getVoucher == null ? '[Belum Sebar] ' : '[Sdh Sebar] ' ?><?= $tukang['nama'] . " - " . $tukang['nomorhp'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
