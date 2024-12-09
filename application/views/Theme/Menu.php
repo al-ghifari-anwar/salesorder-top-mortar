@@ -136,13 +136,33 @@
                             <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'sales' || $this->session->userdata('level_user') == 'salesleader') : ?>
                                 <li class="nav-item">
-                                    <a href="<?= base_url('renvis') ?>" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-calendar-plus"></i>
                                         <p>
-                                            Rencana Visit
-                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                            Input Rencana Visit
+                                            <i class="right fas fa-angle-left"></i>
                                         </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('renvis') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-calendar-plus"></i>
+                                                <p>
+                                                    Rencana Visit
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('renvimg') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-calendar-plus"></i>
+                                                <p>
+                                                    Renvi MG
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             <?php endif ?>
                             <li class="nav-item">

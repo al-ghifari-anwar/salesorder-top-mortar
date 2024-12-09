@@ -251,3 +251,7 @@ $route['company/update/(:num)'] = 'Company/update/$1';
 // Company
 $route['qontak'] = 'Qontak';
 $route['qontak/update/(:num)'] = 'Qontak/update/$1';
+// Renvi MG
+$route['renvimg'] = 'Renvimg/city_list';
+$route['renvimg/(:num)'] = 'Renvimg/index/$1';
+$route['renvimg/insert'] = 'Renvimg/insert';
