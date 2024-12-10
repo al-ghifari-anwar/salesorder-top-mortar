@@ -105,7 +105,7 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['nama_skill'] ?></td>
                                             <td><?= $data['nomorhp'] != null ? $data['nomorhp'] : $data['no_seri'] ?></td>
-                                            <td><?= $getContact['nama'] ?></td>
+                                            <td><?= $id_contact . " " . $getContact['nama'] ?></td>
                                             <td><?= $getContact['nama_city'] ?></td>
                                             <td><?= date("d F Y", strtotime($data['claim_date'])) ?></td>
                                             <td><?= $data['nominal_pembelian'] ?></td>
