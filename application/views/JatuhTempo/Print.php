@@ -114,6 +114,7 @@ function penyebut($nilai)
         <tr>
             <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Nama Toko</th>
+            <th style="border-bottom: 1px solid black;">Kota</th>
             <th style="border-bottom: 1px solid black;">No. Invoice</th>
             <th style="border-bottom: 1px solid black;">Tgl. Invoice</th>
             <th style="border-bottom: 1px solid black;">Jatuh Tempo</th>
@@ -155,7 +156,8 @@ function penyebut($nilai)
                     $no07++; ?>
                     <tr>
                         <td class="text-center"><?= $no07 ?></td>
-                        <td class="text-center"><?= $storeInv['nama'] . " - " . $storeInv['kode_city'] ?></td>
+                        <td class="text-center"><?= $storeInv['nama'] ?></td>
+                        <td class="text-center"><?= $storeInv['kode_city'] ?></td>
                         <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
                         <td class="text-center">
