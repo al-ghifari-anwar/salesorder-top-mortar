@@ -155,7 +155,7 @@ function penyebut($nilai)
                     $no07++; ?>
                     <tr>
                         <td class="text-center"><?= $no07 ?></td>
-                        <td class="text-center"><?= $storeInv['nama'] ?></td>
+                        <td class="text-center"><?= $storeInv['nama'] . " - " . $storeInv['kode_city'] ?></td>
                         <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
                         <td class="text-center">
