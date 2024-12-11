@@ -41,8 +41,8 @@ class Absen extends CI_Controller
         $data['dateTo'] = date("Y-m-d", strtotime($dates[1]));
         $data['users'] = $this->MUser->getByIdDist($this->session->userdata('id_distributor'));
 
-        $start = date("Y-m-01");
-        $end = date("Y-m-01", strtotime("+1 month"));
+        $start = date("Y-m-01", strtotime($dates[0]));
+        $end = date("Y-m-01", strtotime("+1 month", strtotime($dates[1])));
         // $start = date("2024-08-01");
         // $end = date("2024-09-01", strtotime("+1 month"));
         $periods = new DatePeriod(
