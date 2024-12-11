@@ -90,7 +90,7 @@ class MContact extends CI_Model
 
     public function getAllForRenviMg($id_city)
     {
-        $query = $this->db->query("SELECT * FROM tb_contact JOIN tb_city ON tb_city.id_city = tb_contact.id_city WHERE tb_contact.id_city = '$id_city' AND reputation != 'bad' AND store_status != 'blacklist' AND tb_contact.id_contact NOT IN (SELECT id_contact FROM tb_rencana_visit WHERE type_rencana = 'mg')")->result_array();
+        $query = $this->db->query("SELECT * FROM tb_contact JOIN tb_city ON tb_city.id_city = tb_contact.id_city WHERE tb_contact.id_city = '$id_city' AND reputation != 'bad' AND store_status != 'blacklist' AND tb_contact.id_contact NOT IN (SELECT id_contact FROM tb_rencana_visit WHERE type_rencana = 'mg' AND is_visited = 0)")->result_array();
         return $query;
     }
 
