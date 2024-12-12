@@ -20,8 +20,8 @@ class MVoucherTukang extends CI_Model
         $this->db->order_by('tb_voucher_tukang.claim_date', 'DESC');
         $result = $this->db->get_where('tb_voucher_tukang', ['is_claimed' => 1, 'DATE(claim_date) >=' => $dateFrom,  'DATE(claim_date) <=' => $dateTo, 'id_distributor' => $id_distributor])->result_array();
 
-        echo $this->db->last_query();
-        die;
+        // echo $this->db->last_query();
+        // die;
 
         return $result;
     }

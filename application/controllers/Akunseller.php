@@ -67,8 +67,8 @@ class Akunseller extends CI_Controller
             $dates = explode("-", $dateRange);
             $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d", strtotime($dates[0])), date("Y-m-d", strtotime($dates[1])));
         }
-        echo json_encode($data);
-        die;
+        // echo json_encode($data);
+        // die;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Akunseller/Penukaran');
