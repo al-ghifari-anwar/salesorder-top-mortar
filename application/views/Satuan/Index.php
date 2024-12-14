@@ -124,7 +124,7 @@
                 <form action="<?= base_url('satuan/create') ?>" method="POST">
                     <div class="form-group">
                         <label for="">Nama Satuan</label>
-                        <input type="text" name="nama_city" id="" class="form-control">
+                        <input type="text" name="name_satuan" id="" class="form-control">
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>
