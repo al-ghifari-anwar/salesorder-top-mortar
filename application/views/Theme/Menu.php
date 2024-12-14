@@ -291,6 +291,12 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
+                                                <a href="<?= base_url('satuan') ?>" class="nav-link">
+                                                    <i class="fas fa-layer-group nav-icon"></i>
+                                                    <p>Satuan</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
                                                 <a href="<?= base_url('city') ?>" class="nav-link">
                                                     <i class="fas fa-map-marker-alt nav-icon"></i>
                                                     <p>Kota</p>
