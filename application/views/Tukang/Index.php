@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="table" class="table table-bordered table-striped">
+                            <table id="table-print" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
