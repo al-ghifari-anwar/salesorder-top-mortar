@@ -50,7 +50,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Kota</th>
+                                        <th>Nama Satuan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
