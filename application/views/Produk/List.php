@@ -51,6 +51,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Produk</th>
+                                        <th>Satuan</th>
                                         <th>Harga Produk</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -62,6 +63,7 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama_produk'] ?></td>
+                                            <td><?= $data['name_satuan'] ?></td>
                                             <td>Rp. <?= number_format($data['harga_produk'], 0, ',', '.') ?></td>
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_produk'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
