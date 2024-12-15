@@ -228,7 +228,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                             <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
                             <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "(Retur)" : "" ?></b> <?= $dataProduk['no_voucher'] == null ? '' : "(" . $dataProduk['no_voucher'] . ")" ?></td>
                             <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
-                            <td class="border-r">SAK</td>
+                            <td class="border-r"><?= $dataProduk['name_satuan'] ?></td>
                             <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
                             <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
                         </tr>
@@ -397,7 +397,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                             <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
                             <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "(Retur)" : "" ?></b> <?= $dataProduk['no_voucher'] == null ? '' : "(" . $dataProduk['no_voucher'] . ")" ?></td>
                             <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
-                            <td class="border-r">SAK</td>
+                            <td class="border-r"><?= $dataProduk['name_satuan'] ?></td>
                             <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
                             <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
                         </tr>
