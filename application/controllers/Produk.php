@@ -12,6 +12,7 @@ class Produk extends CI_Controller
         }
         $this->load->model('MCity');
         $this->load->model('MProduk');
+        $this->load->model('MSatuan');
         $this->load->library('form_validation');
     }
 
@@ -36,6 +37,7 @@ class Produk extends CI_Controller
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
         $data['produk'] = $this->MProduk->getByCity($id_city);
+        $data['satuans'] = $this->MSatuan->get();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Produk/List');

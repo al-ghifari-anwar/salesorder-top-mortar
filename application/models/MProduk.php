@@ -5,6 +5,7 @@ class MProduk extends CI_Model
 {
 
     public $nama_produk;
+    public $id_satuan;
     public $id_city;
     public $harga_produk;
 
@@ -30,6 +31,7 @@ class MProduk extends CI_Model
     {
         $post = $this->input->post();
         $this->nama_produk = $post['nama_produk'];
+        $this->id_satuan = $post['id_satuan'];
         $this->id_city = $post['id_city'];
         $this->harga_produk = $post['harga_produk'];
 
@@ -46,6 +48,7 @@ class MProduk extends CI_Model
     {
         $post = $this->input->post();
         $this->nama_produk = $post['nama_produk'];
+        $this->id_satuan = $post['id_satuan'];
         $this->id_city = $post['id_city'];
         $this->harga_produk = $post['harga_produk'];
 

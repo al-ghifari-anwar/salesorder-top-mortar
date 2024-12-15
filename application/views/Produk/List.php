@@ -85,6 +85,12 @@
                                                                 <label for="">Nama Produk</label>
                                                                 <input type="text" name="nama_produk" id="" class="form-control" value="<?= $data['nama_produk'] ?>">
                                                             </div>
+                                                            <label for="">Satuan</label>
+                                                            <select name="id_satuan" id="" class="form-control select2bs4">
+                                                                <?php foreach ($satuans as $satuan): ?>
+                                                                    <option value="<?= $satuan['id_satuan'] ?>" <?= $satuan['id_satuan'] == $data['id_satuan'] ? 'selected' : '' ?>><?= $satuan['name_satuan'] ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
                                                             <input type="text" name="id_city" value="<?= $city['id_city'] ?>" hidden>
                                                             <div class="form-group">
                                                                 <label for="">Harga Produk</label>
@@ -157,6 +163,14 @@
                     <div class="form-group">
                         <label for="">Nama Produk</label>
                         <input type="text" name="nama_produk" id="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Satuan</label>
+                        <select name="id_satuan" id="" class="form-control select2bs4">
+                            <?php foreach ($satuans as $satuan): ?>
+                                <option value="<?= $satuan['id_satuan'] ?>"><?= $satuan['name_satuan'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <input type="text" name="id_city" value="<?= $city['id_city'] ?>" hidden>
                     <div class="form-group">
