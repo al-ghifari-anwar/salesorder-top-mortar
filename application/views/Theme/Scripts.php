@@ -32,6 +32,9 @@
 <script src="<?= base_url('assets') ?>/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
     $(function() {
+        bsCustomFileInput.init();
+    });
+    $(function() {
         $('#table').DataTable({
             "paging": true,
             "lengthChange": false,
