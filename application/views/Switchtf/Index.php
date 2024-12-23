@@ -64,10 +64,12 @@
                                             <td><?= $data['nama_distributor'] ?></td>
                                             <td><?= $data['status_switch_tf'] == 1 ? 'Aktif' : 'Tidak Aktif' ?></td>
                                             <td>
-                                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                    <input type="checkbox" class="custom-control-input" id="customSwitch3" <?= $data['status_switch_tf'] == 1 ? 'checked' : '' ?>>
-                                                    <label class="custom-control-label" for="customSwitch3">Tekan Untuk Merubah Status Auto Transfer</label>
-                                                </div>
+                                                <form action="<?= base_url('switchtf/update/') . $data['id_switch_tf'] ?>" method="post">
+                                                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                        <input type="checkbox" onchange="$('#form').submit()" class="custom-control-input" id="customSwitch3" <?= $data['status_switch_tf'] == 1 ? 'checked' : '' ?>>
+                                                        <label class="custom-control-label" for="customSwitch3">Tekan Untuk Merubah Status Auto Transfer</label>
+                                                    </div>
+                                                </form>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_switch_tf'] ?>">
