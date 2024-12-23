@@ -28,6 +28,8 @@
 <script src="<?= base_url('assets') ?>/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- date-range-picker -->
 <script src="<?= base_url('assets') ?>/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bs-custom-file-input -->
+<script src="<?= base_url('assets') ?>/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
     $(function() {
         $('#table').DataTable({
