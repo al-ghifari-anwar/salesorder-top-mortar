@@ -64,7 +64,10 @@
                                             <td><?= $data['nama_distributor'] ?></td>
                                             <td><?= $data['status_switch_tf'] == 1 ? 'Aktif' : 'Tidak Aktif' ?></td>
                                             <td>
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                                    <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>
+                                                </div>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_switch_tf'] ?>">
