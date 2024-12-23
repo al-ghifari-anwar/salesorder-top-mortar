@@ -64,8 +64,7 @@
                                             <td><?= $data['nama_distributor'] ?></td>
                                             <td><?= $data['status_switch_tf'] == 1 ? 'Aktif' : 'Tidak Aktif' ?></td>
                                             <td>
-                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_switch_tf'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('delete-city/') . $data['id_switch_tf'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <input type="checkbox" class="custom-control-input" id="customSwitch3">
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_switch_tf'] ?>">
