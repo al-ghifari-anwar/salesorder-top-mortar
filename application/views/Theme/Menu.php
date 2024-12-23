@@ -279,6 +279,19 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin') : ?>
+                                <?php if ($this->session->userdata('id_distributor') == '1') : ?>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('switchtf') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-money-bill-wave"></i>
+                                            <p>
+                                                Switch Auto Transfer
+                                                <!-- <span class="right badge badge-danger">New</span> -->
+                                            </p>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'courier') : ?>
                                 <?php if ($this->session->userdata('level_user') != 'sales') : ?>
                                     <li class="nav-item">
