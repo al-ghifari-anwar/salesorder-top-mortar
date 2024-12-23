@@ -68,7 +68,7 @@
                                                 <a href="<?= base_url('delete-city/') . $data['id_switch_tf'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="modal-edit<?= $data['id_city'] ?>">
+                                        <div class="modal fade" id="modal-edit<?= $data['id_switch_tf'] ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -78,7 +78,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('update-city/') . $data['id_city'] ?>" method="POST">
+                                                        <form action="<?= base_url('update-city/') . $data['id_switch_tf'] ?>" method="POST">
                                                             <div class="form-group">
                                                                 <label for="">Nama Kota</label>
                                                                 <input type="text" name="nama_city" id="" class="form-control" value="<?= $data['nama_city'] ?>">
