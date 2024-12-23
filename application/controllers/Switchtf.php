@@ -27,22 +27,22 @@ class Switchtf extends CI_Controller
 
     public function update($id)
     {
-        $this->form_validation->set_rules('nama_switchtf', 'Nama Kota', 'required');
-        $this->form_validation->set_rules('kode_switchtf', 'Kode Kota', 'required');
+        $post = $this->input->post();
 
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('failed', "Harap lengkapi form");
+        $status_switch_tf = $post['status_switch_tf'] == true ? 1 : 0;
+
+        $data = [
+            'status_switch_tf' => $status_switch_tf
+        ];
+
+        $insert = $this->db->update('tb_switch_tf', $data, ['id_switch_tf' => $id]);
+
+        if ($insert) {
+            $this->session->set_flashdata('success', "Berhasil mengubah status auto transfer!");
             redirect('switchtf');
         } else {
-            $insert = $this->MSwitchtf->update($id);
-
-            if ($insert) {
-                $this->session->set_flashdata('success', "Berhasil mengubah data kota!");
-                redirect('switchtf');
-            } else {
-                $this->session->set_flashdata('failed', "Gagal mengubah data kota!");
-                redirect('switchtf');
-            }
+            $this->session->set_flashdata('failed', "Gagal mengubah status auto transfer!");
+            redirect('switchtf');
         }
     }
 }
