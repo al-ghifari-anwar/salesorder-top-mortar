@@ -66,7 +66,7 @@
                                             <td>
                                                 <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                                     <input type="checkbox" class="custom-control-input" id="customSwitch3" <?= $data['status_switch_tf'] == 1 ? 'checked' : '' ?>>
-                                                    <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>
+                                                    <label class="custom-control-label" for="customSwitch3">Tekan Untuk Merubah Status Auto Transfer</label>
                                                 </div>
                                             </td>
                                         </tr>
