@@ -17,7 +17,7 @@ class Switchtf extends CI_Controller
     {
         $data['title'] = 'Switch Auto Transfer';
         $this->db->join('tb_distributor', 'tb_distributor.id_distributor = tb_switch_tf.id_distributor');
-        $data['switchtf'] = $this->db->get('tb_switch_tf');
+        $data['switchtf'] = $this->db->get('tb_switch_tf')->result_array();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Switchtf/Index');
