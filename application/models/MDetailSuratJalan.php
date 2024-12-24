@@ -131,7 +131,7 @@ class MDetailSuratJalan extends CI_Model
         $this->id_produk = $post['id_produk'];
         $this->qty_produk = $post['qty_produk'];
         $produk = $this->db->get_where('tb_produk', ['id_produk' => $post['id_produk']])->row_array();
-        $this->price = $produk['harga_produk'];
+        $this->price = $post['harga_produk'];
         $retur = $post['is_retur'];
         $is_voucher = $post['is_voucher'];
 
