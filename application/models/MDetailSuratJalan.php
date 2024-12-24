@@ -146,7 +146,7 @@ class MDetailSuratJalan extends CI_Model
         }
 
         if ($retur == false) {
-            $this->amount = $produk['harga_produk'] * $post['qty_produk'];
+            $this->amount = $post['harga_produk'] * $post['qty_produk'];
             $this->is_bonus = 0;
         } else {
             $this->amount = 0;
