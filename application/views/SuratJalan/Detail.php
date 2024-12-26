@@ -193,7 +193,7 @@
                     <input type="text" name="id_surat_jalan" class="form-control" value="<?= $suratjalan['id_surat_jalan'] ?>" hidden>
                     <div class="form-group">
                         <label for="">Produk</label>
-                        <select class="form-control select2bs4 id_produk" name="id_produk" style="width: 100%;">
+                        <select class="form-control select2bs4 id_produk" id="id_produk" name="id_produk" style="width: 100%;">
                             <?php foreach ($produk as $data) : ?>
                                 <option value="<?= $data['id_produk'] ?>" price="<?= $data['harga_produk'] ?>"><?= $data['nama_produk'] . " - " . "Rp. " . number_format($data['harga_produk'], 0, ',', '.')  ?></option>
                             <?php endforeach; ?>
@@ -259,11 +259,15 @@
                     <input type="text" name="id_surat_jalan" class="form-control" value="<?= $suratjalan['id_surat_jalan'] ?>" hidden>
                     <div class="form-group">
                         <label for="">Produk</label>
-                        <select class="form-control select2bs4" name="id_produk" style="width: 100%;">
+                        <select class="form-control select2bs4" id="id_produk_vc" name="id_produk" style="width: 100%;">
                             <?php foreach ($produk as $data) : ?>
-                                <option value="<?= $data['id_produk'] ?>"><?= $data['nama_produk'] . " - " . "Rp. " . number_format($data['harga_produk'], 0, ',', '.')  ?></option>
+                                <option value="<?= $data['id_produk'] ?>" price="<?= $data['harga_produk'] ?>"><?= $data['nama_produk'] . " - " . "Rp. " . number_format($data['harga_produk'], 0, ',', '.')  ?></option>
                             <?php endforeach; ?>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Harga</label>
+                        <input type="number" name="harga_produk" class="form-control" id="harga_produk_vc" readonly>
                     </div>
                     <div class="form-group">
                         <label for="">QTY</label>
@@ -309,9 +313,15 @@
 <!-- /.modal -->
 
 <script>
-    document.getElementById("select2bs4").onchange = function() {
+    document.getElementById("id_produk").onchange = function() {
         //Print data toko di field
         console.log(this.options[this.selectedIndex].getAttribute("price"));
         document.getElementById('harga_produk').textContent = this.options[this.selectedIndex].getAttribute("price");
+    };
+
+    document.getElementById("id_produk_vc").onchange = function() {
+        //Print data toko di field
+        console.log(this.options[this.selectedIndex].getAttribute("price"));
+        document.getElementById('harga_produk_vc').textContent = this.options[this.selectedIndex].getAttribute("price");
     };
 </script>
