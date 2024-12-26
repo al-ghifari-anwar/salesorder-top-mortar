@@ -194,6 +194,7 @@
                     <div class="form-group">
                         <label for="">Produk</label>
                         <select class="form-control select2bs4 id_produk" id="id_produk" name="id_produk" style="width: 100%;">
+                            <option value="0">=== PILIH PRODUK ===</option>
                             <?php foreach ($produk as $data) : ?>
                                 <option value="<?= $data['id_produk'] ?>" price="<?= $data['harga_produk'] ?>"><?= $data['nama_produk'] . " - " . "Rp. " . number_format($data['harga_produk'], 0, ',', '.')  ?></option>
                             <?php endforeach; ?>
@@ -260,6 +261,7 @@
                     <div class="form-group">
                         <label for="">Produk</label>
                         <select class="form-control select2bs4" id="id_produk_vc" name="id_produk" style="width: 100%;">
+                            <option value="0">=== PILIH PRODUK ===</option>
                             <?php foreach ($produk as $data) : ?>
                                 <option value="<?= $data['id_produk'] ?>" price="<?= $data['harga_produk'] ?>"><?= $data['nama_produk'] . " - " . "Rp. " . number_format($data['harga_produk'], 0, ',', '.')  ?></option>
                             <?php endforeach; ?>
