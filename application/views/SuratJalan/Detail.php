@@ -316,12 +316,12 @@
     document.getElementById("id_produk").onchange = function() {
         //Print data toko di field
         console.log(this.options[this.selectedIndex].getAttribute("price"));
-        document.getElementById('harga_produk').textContent = this.options[this.selectedIndex].getAttribute("price");
+        document.getElementById('harga_produk').value = this.options[this.selectedIndex].getAttribute("price");
     };
 
     document.getElementById("id_produk_vc").onchange = function() {
         //Print data toko di field
         console.log(this.options[this.selectedIndex].getAttribute("price"));
-        document.getElementById('harga_produk_vc').textContent = this.options[this.selectedIndex].getAttribute("price");
+        document.getElementById('harga_produk_vc').value = this.options[this.selectedIndex].getAttribute("price");
     };
 </script>
