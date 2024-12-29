@@ -86,7 +86,7 @@
                                                 $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
                                                 $getPayment = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice])->row_array();
 
-                                                $sisaHutang = $invoice['total_invoice'] - $getPayment['amount_total'];
+                                                $sisaHutang = $invoice['total_invoice'];
 
                                                 if ($invoice['total_invoice'] > 0) {
                                                     $total0to7 += $sisaHutang;
