@@ -562,7 +562,7 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
-                                                <a href="<?= base_url('piutang') ?>" class="nav-link">
+                                                <a href="<?= base_url('rekap-piutang') ?>" class="nav-link">
                                                     <i class="nav-icon fas fa-paperclip"></i>
                                                     <p>
                                                         Rekap

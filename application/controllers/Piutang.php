@@ -114,7 +114,7 @@ class Piutang extends CI_Controller
         $data['title'] = 'Rekap Piutang';
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
-        $this->load->view('Piutang/Index');
+        $this->load->view('Piutang/Rekap');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
