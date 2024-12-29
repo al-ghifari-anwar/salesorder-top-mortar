@@ -40,55 +40,37 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="row">
-                                <div class="col-10">
-                                    <form action="<?= base_url('print-piutang') ?>" method="POST" target="_blank">
-                                        <div class="row">
-                                            <label>Date range:</label>
-                                            <div class="form-group ml-3">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="text" class="form-control float-right" id="reservation" name="date_range" value="<?= "09/01/2023 - " .  date("m/d/Y") ?>">
-                                                </div>
-                                                <!-- /.input group -->
-                                            </div>
-                                            <label for="">Toko:</label>
-                                            <div class="form-group">
-                                                <select name="id_contact" id="select2bs41" class="form-control select2bs41">
-                                                    <option value="0">Semua</option>
-                                                    <?php foreach ($toko as $toko) : ?>
-                                                        <option value="<?= $toko['id_contact'] ?>"><?= $toko['nama'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <label for="">Kota:</label>
-                                            <div class="form-group">
-                                                <select name="id_city" id="select2bs4" class="form-control select2bs4">
-                                                    <?php if ($this->session->userdata('level_user') != 'admin_c') : ?>
-                                                        <option value="0">Semua</option>
-                                                    <?php endif; ?>
-                                                    <?php foreach ($city as $city) : ?>
-                                                        <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <div class="form-group ml-3">
-                                                <button type="submit" class="btn btn-primary">Filter</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- <div class="col-5">
-                                    <a href="<?= base_url('report') ?>" class="btn btn-primary float-right">Semua</a>
-                                </div> -->
-                            </div>
+                            <h4>Rekap Piutang Per <?= date("d F Y") ?></h4>
                         </div>
                         <div class="card-body">
-
+                            <table class="table table-bordered" id="example1">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>KOTA</th>
+                                        <th>0 - 7 Hari</th>
+                                        <th>8 - 15 Hari</th>
+                                        <th>16+</th>
+                                        <th>Piutang</th>
+                                        <th>Prosentase</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($city as $data): ?>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= $data['nama_city'] ?></td>
+                                            <td><?= 0 ?></td>
+                                            <td><?= 0 ?></td>
+                                            <td><?= 0 ?></td>
+                                            <td><?= 0 ?></td>
+                                            <td><?= 0 ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -112,6 +112,7 @@ class Piutang extends CI_Controller
     public function rekap()
     {
         $data['title'] = 'Rekap Piutang';
+        $data['city'] = $this->MCity->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Piutang/Rekap');
