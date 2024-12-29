@@ -43,7 +43,7 @@
                             <h4 class="text-center">Rekap Piutang Per <?= date("d F Y") ?></h4>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered" id="example1">
+                            <table class="table table-bordered" id="table">
                                 <thead>
                                     <tr>
                                         <th>No</th>
