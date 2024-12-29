@@ -59,12 +59,65 @@
                                     <?php
                                     $no = 1;
                                     foreach ($city as $data): ?>
+                                        <?php
+                                        $id_city = $data['id_city'];
+
+                                        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_invoice');
+                                        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+                                        $getInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'tb_contact.id_city' => $id_city])->result_array();
+
+                                        $total0to7 = 0;
+                                        $total8to15 = 0;
+                                        $total16 = 0;
+                                        foreach ($getInvoice as $invoice) {
+                                            $id_invoice = $invoice['id_invoice'];
+                                            // Calculate Hari
+                                            $jatuhTempo = date('d M Y', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                                            $date1 = new DateTime(date("Y-m-d"));
+                                            $date2 = new DateTime($jatuhTempo);
+                                            $days  = $date2->diff($date1)->format('%a');
+                                            $operan = "";
+                                            if ($date1 < $date2) {
+                                                $operan = "-";
+                                            }
+                                            $days = $operan . $days;
+
+                                            if ($days >= "0" && $days <= "7") {
+                                                $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
+                                                $getPayment = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice])->row_array();
+
+                                                $sisaHutang = $invoice['total_invoice'] - $getPayment['amount_total'];
+
+                                                if ($invoice['total_invoice'] > 0) {
+                                                    $total0to7 += $sisaHutang;
+                                                }
+                                            } else if ($days > "7" && $days <= "15") {
+                                                $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
+                                                $getPayment = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice])->row_array();
+
+                                                $sisaHutang = $invoice['total_invoice'] - $getPayment['amount_total'];
+
+                                                if ($invoice['total_invoice'] > 0) {
+                                                    $total8to15 += $sisaHutang;
+                                                }
+                                            } else if ($days > "15") {
+                                                $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
+                                                $getPayment = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice])->row_array();
+
+                                                $sisaHutang = $invoice['total_invoice'] - $getPayment['amount_total'];
+
+                                                if ($invoice['total_invoice'] > 0) {
+                                                    $total16 += $sisaHutang;
+                                                }
+                                            }
+                                        }
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama_city'] ?></td>
-                                            <td><?= 0 ?></td>
-                                            <td><?= 0 ?></td>
-                                            <td><?= 0 ?></td>
+                                            <td>Rp. <?= number_format($total0to7, 0, ',', '.') ?></td>
+                                            <td>Rp. <?= number_format($total8to15, 0, ',', '.') ?></td>
+                                            <td>Rp. <?= number_format($total16, 0, ',', '.') ?></td>
                                             <td><?= 0 ?></td>
                                             <td><?= 0 ?></td>
                                         </tr>
