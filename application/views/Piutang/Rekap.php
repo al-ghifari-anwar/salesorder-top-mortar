@@ -40,14 +40,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Rekap Piutang Per <?= date("d F Y") ?></h4>
+                            <h4 class="text-center">Rekap Piutang Per <?= date("d F Y") ?></h4>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered" id="example1">
                                 <thead>
                                     <tr>
-                                        <th>NO</th>
-                                        <th>KOTA</th>
+                                        <th>No</th>
+                                        <th>Kota</th>
                                         <th>0 - 7 Hari</th>
                                         <th>8 - 15 Hari</th>
                                         <th>16+</th>
