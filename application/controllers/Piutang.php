@@ -109,6 +109,16 @@ class Piutang extends CI_Controller
         $mpdf->Output();
     }
 
+    public function rekap()
+    {
+        $data['title'] = 'Rekap Piutang';
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Piutang/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function webhook_tagihan()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {

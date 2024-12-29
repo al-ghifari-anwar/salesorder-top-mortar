@@ -563,6 +563,15 @@
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                                 <a href="<?= base_url('piutang') ?>" class="nav-link">
+                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <p>
+                                                        Rekap
+                                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('piutang') ?>" class="nav-link">
                                                     <i class="nav-icon fas fa-money-bill-alt"></i>
                                                     <p>
                                                         Piutang
