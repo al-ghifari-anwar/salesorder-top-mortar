@@ -71,7 +71,7 @@
                             <div class="inner">
                                 <p style="font-size: 20pt;"><b><?= str_replace('TOP MORTAR', '', $data['nama_produk']) ?></b></p>
 
-                                <p><?= $data['qty_produk'] ?> Sak</p>
+                                <p><?= $data['qty_produk'] ?> <?= $data['name_satuan'] ?></p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
