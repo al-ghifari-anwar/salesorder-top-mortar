@@ -88,7 +88,7 @@
                         <div class="inner">
                             <p style="font-size: 20pt;"><b>TOTAL KESELURUHAN</b></p>
 
-                            <p><?= $totalQty ?> Sak</p>
+                            <p><?= $totalQty ?></p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
