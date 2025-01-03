@@ -91,7 +91,7 @@
                                             // $totalStore1 += $sisaHutang;
 
                                             if ($days >= "0" && $days <= "7") {
-                                                $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
+                                                $this->db->select("SUM(amount_payment) AS amount_total");
                                                 $getPayment = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice])->row_array();
 
                                                 $sisaHutang = $invoice['total_invoice'] - $getPayment['amount_total'];
@@ -101,7 +101,7 @@
                                                     $totalAll0to7 += $sisaHutang;
                                                 }
                                             } else if ($days > "7" && $days <= "15") {
-                                                $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
+                                                $this->db->select("SUM(amount_payment) AS amount_total");
                                                 $getPayment = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice])->row_array();
 
                                                 $sisaHutang = $invoice['total_invoice'] - $getPayment['amount_total'];
@@ -111,7 +111,7 @@
                                                     $totalAll8to15 += $sisaHutang;
                                                 }
                                             } else if ($days > "15") {
-                                                $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
+                                                $this->db->select("SUM(amount_payment) AS amount_total");
                                                 $getPayment = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice])->row_array();
 
                                                 $sisaHutang = $invoice['total_invoice'] - $getPayment['amount_total'];
