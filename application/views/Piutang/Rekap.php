@@ -69,6 +69,9 @@
                                         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
                                         $getInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'tb_contact.id_city' => $id_city])->result_array();
 
+                                        $this->db->select('SUM(tb_invoice.total_invoice) AS total_invoice');
+                                        $getPiutangTotal = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'tb_contact.id_city' => $id_city])->row_array();
+
                                         $total0to7 = 0;
                                         $total8to15 = 0;
                                         $total16 = 0;
@@ -129,7 +132,7 @@
                                             <td>Rp. <?= number_format($total0to7, 0, ',', '.') ?></td>
                                             <td>Rp. <?= number_format($total8to15, 0, ',', '.') ?></td>
                                             <td>Rp. <?= number_format($total16, 0, ',', '.') ?></td>
-                                            <td><?= 0 ?></td>
+                                            <td>Rp. <?= number_format($getPiutangTotal['total_invoice'], 0, ',', '.') ?></td>
                                             <td><?= 0 ?></td>
                                         </tr>
                                     <?php endforeach; ?>
