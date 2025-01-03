@@ -156,7 +156,7 @@
                                         <th>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></th>
                                         <th>Rp. <?= number_format($totalAllPiutang, 0, ',', '.') ?></th>
                                         <th>
-                                            <?php if ($total16 > 0): ?>
+                                            <?php if ($totalAll16 > 0): ?>
                                                 <?= number_format(($totalAll16 / $totalAllPiutang) * 100, 2, '.', ',') ?>%
                                             <?php endif; ?>
                                         </th>
