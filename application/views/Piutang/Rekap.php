@@ -61,6 +61,7 @@
                                     $totalAll0to7 = 0;
                                     $totalAll8to15 = 0;
                                     $totalAll16 = 0;
+                                    $totalPiutang = 0;
                                     foreach ($city as $data): ?>
                                         <?php
                                         $id_city = $data['id_city'];
@@ -69,10 +70,12 @@
                                         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
                                         $getInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'tb_contact.id_city' => $id_city])->result_array();
 
-                                        $this->db->select('SUM(tb_invoice.total_invoice) AS total_invoice');
-                                        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
-                                        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
-                                        $getPiutangTotal = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'tb_contact.id_city' => $id_city])->row_array();
+                                        foreach ($getInvoice as $invoiceTotal) {
+                                            $id_invoice = $invoiceTotal['id_invoice'];
+                                            $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                                            $sisaHutang = $invoiceTotal['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
+                                            $totalPiutang += $sisaHutang;
+                                        }
 
                                         $total0to7 = 0;
                                         $total8to15 = 0;
