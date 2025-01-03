@@ -136,12 +136,12 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Total</th>
-                                        <td>Rp. <?= number_format($totalAll0to7, 0, ',', '.') ?></td>
-                                        <td>Rp. <?= number_format($totalAll8to15, 0, ',', '.') ?></td>
-                                        <td>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></td>
-                                        <td><?= 0 ?></td>
-                                        <td><?= 0 ?></td>
+                                        <th colspan="2">Total</th>
+                                        <th>Rp. <?= number_format($totalAll0to7, 0, ',', '.') ?></th>
+                                        <th>Rp. <?= number_format($totalAll8to15, 0, ',', '.') ?></th>
+                                        <th>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></th>
+                                        <th><?= 0 ?></th>
+                                        <th><?= 0 ?></th>
                                     </tr>
                                 </tfoot>
                             </table>
