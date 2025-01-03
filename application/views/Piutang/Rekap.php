@@ -61,7 +61,7 @@
                                     $totalAll0to7 = 0;
                                     $totalAll8to15 = 0;
                                     $totalAll16 = 0;
-                                    $totalPiutang = 0;
+                                    $totalAllPiutang = 0;
                                     foreach ($city as $data): ?>
                                         <?php
                                         $id_city = $data['id_city'];
@@ -75,11 +75,13 @@
                                             $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
                                             $sisaHutang = $invoiceTotal['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
                                             $totalPiutang += $sisaHutang;
+                                            $totalAllPiutang += $sisaHutang;
                                         }
 
                                         $total0to7 = 0;
                                         $total8to15 = 0;
                                         $total16 = 0;
+                                        $totalPiutang = 0;
                                         foreach ($getInvoice as $invoice) {
                                             $id_invoice = $invoice['id_invoice'];
                                             // Calculate Hari
@@ -148,7 +150,7 @@
                                         <th>Rp. <?= number_format($totalAll0to7, 0, ',', '.') ?></th>
                                         <th>Rp. <?= number_format($totalAll8to15, 0, ',', '.') ?></th>
                                         <th>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></th>
-                                        <th><?= 0 ?></th>
+                                        <th>Rp. <?= number_format($totalAllPiutang, 0, ',', '.') ?></th>
                                         <th><?= 0 ?></th>
                                     </tr>
                                 </tfoot>
