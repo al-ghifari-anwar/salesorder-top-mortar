@@ -137,7 +137,7 @@
                                             <td>Rp. <?= number_format($total0to7, 0, ',', '.') ?></td>
                                             <td>Rp. <?= number_format($total8to15, 0, ',', '.') ?></td>
                                             <td>Rp. <?= number_format($total16, 0, ',', '.') ?></td>
-                                            <td>Rp. <?= number_format($getPiutangTotal['total_invoice'], 0, ',', '.') ?></td>
+                                            <td>Rp. <?= number_format($totalPiutang, 0, ',', '.') ?></td>
                                             <td><?= 0 ?></td>
                                         </tr>
                                     <?php endforeach; ?>
