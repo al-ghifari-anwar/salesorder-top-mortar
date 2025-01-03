@@ -58,6 +58,9 @@
                                 <tbody>
                                     <?php
                                     $no = 1;
+                                    $totalAll0to7 = 0;
+                                    $totalAll8to15 = 0;
+                                    $totalAll16 = 0;
                                     foreach ($city as $data): ?>
                                         <?php
                                         $id_city = $data['id_city'];
@@ -95,6 +98,7 @@
 
                                                 if ($invoice['total_invoice'] > 0) {
                                                     $total0to7 += $sisaHutang;
+                                                    $totalAll0to7 += $sisaHutang;
                                                 }
                                             } else if ($days > "7" && $days <= "15") {
                                                 $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
@@ -104,6 +108,7 @@
 
                                                 if ($invoice['total_invoice'] > 0) {
                                                     $total8to15 += $sisaHutang;
+                                                    $totalAll8to15 += $sisaHutang;
                                                 }
                                             } else if ($days > "15") {
                                                 $this->db->select("SUM(amount_payment + potongan_payment + adjustment_payment) AS amount_total");
@@ -113,6 +118,7 @@
 
                                                 if ($invoice['total_invoice'] > 0) {
                                                     $total16 += $sisaHutang;
+                                                    $totalAll16 += $sisaHutang;
                                                 }
                                             }
                                         }
@@ -128,6 +134,16 @@
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>Rp. <?= number_format($totalAll0to7, 0, ',', '.') ?></td>
+                                        <td>Rp. <?= number_format($totalAll8to15, 0, ',', '.') ?></td>
+                                        <td>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></td>
+                                        <td><?= 0 ?></td>
+                                        <td><?= 0 ?></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
