@@ -47,6 +47,7 @@
     });
 
     $("#table-print").DataTable({
+        "paging": false,
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
