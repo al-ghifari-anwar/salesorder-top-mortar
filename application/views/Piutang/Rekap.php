@@ -140,7 +140,11 @@
                                             <td>Rp. <?= number_format($total8to15, 0, ',', '.') ?></td>
                                             <td>Rp. <?= number_format($total16, 0, ',', '.') ?></td>
                                             <td>Rp. <?= number_format($totalPiutang, 0, ',', '.') ?></td>
-                                            <td><?= number_format(($total16 / $totalPiutang) * 100, 2, '.', ',') ?>%</td>
+                                            <td>
+                                                <?php if ($total16 > 0): ?>
+                                                    <?= number_format(($total16 / $totalPiutang) * 100, 2, '.', ',') ?>%
+                                                <?php endif; ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -151,7 +155,11 @@
                                         <th>Rp. <?= number_format($totalAll8to15, 0, ',', '.') ?></th>
                                         <th>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></th>
                                         <th>Rp. <?= number_format($totalAllPiutang, 0, ',', '.') ?></th>
-                                        <th><?= number_format(($totalAll16 / $totalAllPiutang) * 100, 2, '.', ',') ?>%</th>
+                                        <th>
+                                            <?php if ($total16 > 0): ?>
+                                                <?= number_format(($totalAll16 / $totalAllPiutang) * 100, 2, '.', ',') ?>%
+                                            <?php endif; ?>
+                                        </th>
                                     </tr>
                                 </tfoot>
                             </table>
