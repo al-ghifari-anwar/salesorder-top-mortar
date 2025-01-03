@@ -70,6 +70,7 @@
                                         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
                                         $getInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'tb_contact.id_city' => $id_city])->result_array();
 
+                                        $totalPiutang = 0;
                                         foreach ($getInvoice as $invoiceTotal) {
                                             $id_invoice = $invoiceTotal['id_invoice'];
                                             $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
@@ -81,7 +82,6 @@
                                         $total0to7 = 0;
                                         $total8to15 = 0;
                                         $total16 = 0;
-                                        $totalPiutang = 0;
                                         foreach ($getInvoice as $invoice) {
                                             $id_invoice = $invoice['id_invoice'];
                                             // Calculate Hari
