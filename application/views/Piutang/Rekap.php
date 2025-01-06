@@ -144,6 +144,9 @@
                                                 <?php if ($total16 > 0): ?>
                                                     <?= number_format(($total16 / $totalPiutang) * 100, 2, '.', ',') ?>%
                                                 <?php endif; ?>
+                                                <?php if ($total16 <= 0): ?>
+                                                    <?= number_format(0, 2, '.', ',') ?>%
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -158,9 +161,6 @@
                                         <th>
                                             <?php if ($totalAll16 > 0): ?>
                                                 <?= number_format(($totalAll16 / $totalAllPiutang) * 100, 2, '.', ',') ?>%
-                                            <?php endif; ?>
-                                            <?php if ($totalAll16 <= 0): ?>
-                                                <?= number_format(0, 2, '.', ',') ?>%
                                             <?php endif; ?>
                                         </th>
                                     </tr>
