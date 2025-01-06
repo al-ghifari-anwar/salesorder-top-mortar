@@ -159,7 +159,7 @@
                                             <?php if ($totalAll16 > 0): ?>
                                                 <?= number_format(($totalAll16 / $totalAllPiutang) * 100, 2, '.', ',') ?>%
                                             <?php endif; ?>
-                                            <?php if ($totalAll16 < 0): ?>
+                                            <?php if ($totalAll16 <= 0): ?>
                                                 <?= number_format(0, 2, '.', ',') ?>%
                                             <?php endif; ?>
                                         </th>
