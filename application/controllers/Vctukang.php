@@ -491,11 +491,12 @@ class Vctukang extends CI_Controller
                         // echo $response;
 
                         $status = $res['status'];
+                        $data = $res['data'][0];
 
                         if ($status == "success") {
                             $this->MVoucherTukang->create($id_tukang, $nomorhp);
 
-                            $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
+                            $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp! Id: " . $data['id']);
                             redirect('vctukang/self');
                         } else {
                             $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
