@@ -184,7 +184,7 @@ class Tokopromo extends CI_Controller
 
 
                             // $message = $nama . " tukarkan voucher diskon Rp. 5.000 dengan cara tunjukkan qr ini pada toko. ";
-                            $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!* Dapatkan *Potongan Langsung Rp.5,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja \\\\nSK: QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortarLihat \\\nLokasi Toko: https://order.topmortarindonesia.com/penukaranstore  ";
+                            $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!* Dapatkan *Potongan Langsung Rp.5,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja \\\\nSK: QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortarLihat \\\\nLokasi Toko: https://order.topmortarindonesia.com/penukaranstore  ";
                             // Send message
                             $curl = curl_init();
 
