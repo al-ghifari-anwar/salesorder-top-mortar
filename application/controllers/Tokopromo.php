@@ -243,12 +243,10 @@ class Tokopromo extends CI_Controller
 
                             $status = $res['status'];
 
-                            $data = $res['data'][0];
-
                             if ($status == "success") {
                                 $this->MVoucherTukang->createTokopromo($id_tukang, $nomorhp, $id_contact, $nominal, $nota);
 
-                                $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp! Id: " . $data['id']);
+                                $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp! Id: " . json_encode($res));
                                 redirect('tokopromo/' . $id_contact);
                             } else {
                                 $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
