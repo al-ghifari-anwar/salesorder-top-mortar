@@ -87,22 +87,23 @@ class Tokopromo extends CI_Controller
                         $this->session->set_flashdata('failed', "Nomor anda sudah terdaftar dan tidak dapat mendapat potongan lagi");
                         redirect('tokopromo/' . $id_contact);
                     } else if ($getTukang['is_demo'] == 1) {
-                        $data = [
-                            'nama' => $nama,
-                            'nomorhp' => $nomorhp,
-                            'tgl_lahir' => $tgl_lahir != "" ? date("Y-m-d", strtotime($tgl_lahir)) : "0000-00-00",
-                            'id_city' => $getContact['id_city'],
-                            'maps_url' => 0,
-                            'address' => $address,
-                            'tukang_status' => 'data',
-                            'ktp_tukang' => '',
-                            'id_skill' => 1,
-                            'id_catcus' => $id_catcus
-                        ];
+                        // $data = [
+                        //     'nama' => $nama,
+                        //     'nomorhp' => $nomorhp,
+                        //     'tgl_lahir' => $tgl_lahir != "" ? date("Y-m-d", strtotime($tgl_lahir)) : "0000-00-00",
+                        //     'id_city' => $getContact['id_city'],
+                        //     'maps_url' => 0,
+                        //     'address' => $address,
+                        //     'tukang_status' => 'data',
+                        //     'ktp_tukang' => '',
+                        //     'id_skill' => 1,
+                        //     'id_catcus' => $id_catcus
+                        // ];
 
-                        $insert = $this->db->insert('tb_tukang', $data);
+                        // $insert = $this->db->insert('tb_tukang', $data);
 
-                        $id_tukang = $this->db->insert_id();
+                        $insert = true;
+                        $id_tukang = $getTukang['id_tukang'];
 
                         if ($insert) {
                             $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
