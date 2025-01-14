@@ -118,7 +118,7 @@ class Vctukang extends CI_Controller
                         $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                             ->autoOrient()
                             ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                            ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                            ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
 
                         $id_distributor = $getTukang['id_distributor'];
                         $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
@@ -239,7 +239,7 @@ class Vctukang extends CI_Controller
                     $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                         ->autoOrient()
                         ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                        ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                        ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
 
                     $id_distributor = $getTukang['id_distributor'];
                     $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
@@ -420,7 +420,7 @@ class Vctukang extends CI_Controller
                             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                                 ->autoOrient()
                                 ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
 
                             $id_distributor = $getTukang['id_distributor'];
                             // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
@@ -576,7 +576,7 @@ class Vctukang extends CI_Controller
                         $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                             ->autoOrient()
                             ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                            ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                            ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
 
                         $id_distributor = $getTukang['id_distributor'];
                         // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';

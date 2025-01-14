@@ -165,7 +165,7 @@ class Tokopromo extends CI_Controller
                             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_tokopromo.png")
                                 ->autoOrient()
                                 ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
 
                             // $params['data'] = $voucherCode;
                             // $params['level'] = 'H';
@@ -334,7 +334,7 @@ class Tokopromo extends CI_Controller
                             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_tokopromo.png")
                                 ->autoOrient()
                                 ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
 
                             // $params['data'] = $voucherCode;
                             // $params['level'] = 'H';

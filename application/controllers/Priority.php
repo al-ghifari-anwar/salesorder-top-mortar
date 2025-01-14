@@ -166,7 +166,7 @@ class Priority extends CI_Controller
                                 $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                                     ->autoOrient()
                                     ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                                    ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                                    ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
 
                                 // $params['data'] = $voucherCode;
                                 // $params['level'] = 'H';
@@ -337,7 +337,7 @@ class Priority extends CI_Controller
                             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                                 ->autoOrient()
                                 ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
 
                             // $params['data'] = $voucherCode;
                             // $params['level'] = 'H';
