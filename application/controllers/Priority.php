@@ -166,7 +166,7 @@ class Priority extends CI_Controller
                                 $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                                     ->autoOrient()
                                     ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                                    ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
+                                    ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                                 // $params['data'] = $voucherCode;
                                 // $params['level'] = 'H';
@@ -213,7 +213,7 @@ class Priority extends CI_Controller
                                                 "params": [
                                                     {
                                                         "key":"url",
-                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $nomorhp . '.png"
+                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
                                                     },
                                                     {
                                                         "key":"filename",
@@ -337,7 +337,7 @@ class Priority extends CI_Controller
                             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                                 ->autoOrient()
                                 ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
+                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                             // $params['data'] = $voucherCode;
                             // $params['level'] = 'H';
@@ -384,7 +384,7 @@ class Priority extends CI_Controller
                                                 "params": [
                                                     {
                                                         "key":"url",
-                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $nomorhp . '.png"
+                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
                                                     },
                                                     {
                                                         "key":"filename",
