@@ -142,7 +142,7 @@ class Tokopromo extends CI_Controller
 
                             $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
-                            $image_name = $nomorhp . '.png';
+                            $image_name = $nomorhp . date("YmdHis") .  '.png';
                             $voucherCode = md5("Top" . md5($id_tukang));
 
                             $qrCode = Builder::create()
@@ -165,7 +165,7 @@ class Tokopromo extends CI_Controller
                             $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_tokopromo.png")
                                 ->autoOrient()
                                 ->overlay($qrImageLoader, 'center', 1, 0, -65)
-                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name . date("YmdHis"), 'image/png');
+                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                             // $params['data'] = $voucherCode;
                             // $params['level'] = 'H';
@@ -311,7 +311,7 @@ class Tokopromo extends CI_Controller
 
                             $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
-                            $image_name = $nomorhp . '.png';
+                            $image_name = $nomorhp . date("YmdHis") . '.png';
                             $voucherCode = md5("Top" . md5($id_tukang));
 
                             $qrCode = Builder::create()

@@ -142,7 +142,7 @@ class Priority extends CI_Controller
 
                                 $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
-                                $image_name = $nomorhp . '.png';
+                                $image_name = $nomorhp . date("YmdHis") . '.png';
 
                                 $voucherCode = md5("Top" . md5($id_tukang));
 
@@ -313,7 +313,7 @@ class Priority extends CI_Controller
 
                             $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
-                            $image_name = $nomorhp . '.png';
+                            $image_name = $nomorhp . date("YmdHis") . '.png';
 
                             $voucherCode = md5("Top" . md5($id_tukang));
 

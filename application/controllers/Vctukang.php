@@ -94,7 +94,7 @@ class Vctukang extends CI_Controller
                         $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
                         // Generate QR
-                        $image_name = $no_seri  . '.png';
+                        $image_name = $no_seri  . date("YmdHis") . '.png';
 
                         $voucherCode = md5("Top" . md5($id_tukang));
 
@@ -215,7 +215,7 @@ class Vctukang extends CI_Controller
                     $logoData = $logoImageBuilder->toDataUri('image/png', 100);
                     // Generate QR
 
-                    $image_name = $no_seri . '.png'; //buat name dari qr code sesuai dengan nim
+                    $image_name = $no_seri . date("YmdHis") . '.png'; //buat name dari qr code sesuai dengan nim
 
                     $voucherCode = md5("Top" . md5($id_tukang));
 
@@ -396,7 +396,7 @@ class Vctukang extends CI_Controller
                             $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
                             // Generate QR
-                            $image_name = $nomorhp . '.png'; //buat name dari qr code sesuai dengan nim
+                            $image_name = $nomorhp . date("YmdHis") . '.png'; //buat name dari qr code sesuai dengan nim
 
                             $voucherCode = md5("Top" . md5($id_tukang));
 
@@ -552,7 +552,7 @@ class Vctukang extends CI_Controller
                         $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
                         // Generate QR
-                        $image_name = $nomorhp . '.png'; //buat name dari qr code sesuai dengan nim
+                        $image_name = $nomorhp . date("YmdHis") . '.png'; //buat name dari qr code sesuai dengan nim
 
                         $voucherCode = md5("Top" . md5($id_tukang));
 
