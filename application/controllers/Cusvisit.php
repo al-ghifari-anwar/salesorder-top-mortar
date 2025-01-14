@@ -18,6 +18,7 @@ class Cusvisit extends CI_Controller
         $this->load->model('MCity');
         $this->load->model('MKendaraan');
         $this->load->model('MVoucher');
+        $this->load->model('MUser');
         $this->load->library('form_validation');
         date_default_timezone_set('Asia/Jakarta');
     }

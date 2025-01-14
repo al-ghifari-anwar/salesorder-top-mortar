@@ -134,10 +134,17 @@ function penyebut($nilai)
                 $getVisitTagihan = 0;
                 $getVisitPassive = 0;
                 foreach ($getVisit as $getVisit) {
-                    if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly' || $getVisit['source_visit'] == 'renvipenagihan') {
-                        $getVisitTagihan += 1;
-                    } else if ($getVisit['source_visit'] == 'voucher' || $getVisit['source_visit'] == 'passive' || $getVisit['source_visit'] == 'renvisales') {
-                        $getVisitPassive += 1;
+                    $id_user = $getVisit['id_user'];
+                    $user = $this->MUser->getById($getUserVisit['id_user']);
+
+                    if ($user['level_user'] != 'marketing') {
+                        if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly' || $getVisit['source_visit'] == 'renvipenagihan') {
+                            $getVisitTagihan += 1;
+                        } else if ($getVisit['source_visit'] == 'voucher' || $getVisit['source_visit'] == 'passive' || $getVisit['source_visit'] == 'renvisales') {
+                            $getVisitPassive += 1;
+                        }
+                    } else {
+                        continue;
                     }
                 }
                 ?>
