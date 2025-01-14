@@ -135,7 +135,7 @@ function penyebut($nilai)
                 $getVisitPassive = 0;
                 foreach ($getVisit as $getVisit) {
                     $id_user = $getVisit['id_user'];
-                    $user = $this->MUser->getById($getUserVisit['id_user']);
+                    $user = $this->MUser->getById($id_user);
 
                     if ($user['level_user'] != 'marketing') {
                         if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly' || $getVisit['source_visit'] == 'renvipenagihan') {
