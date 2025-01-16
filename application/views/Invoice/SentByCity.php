@@ -50,7 +50,7 @@
                                         <th>No Invoice</th>
                                         <th>No DO</th>
                                         <th>Total</th>
-                                        <th>Aksi</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,9 +62,7 @@
                                             <td><?= $data['no_invoice'] ?></td>
                                             <td><?= $data['no_surat_jalan'] ?></td>
                                             <td>Rp. <?= number_format($data['total_invoice'], 0, ',', '.') ?></td>
-                                            <td>
-                                                <!-- <a href="<?= base_url('print-invoice/' . $data['id_invoice']) ?>" class="btn btn-success" title="Hapus" target="__blank"><i class="fas fa-print"></i></a> -->
-                                            </td>
+                                            <td><?= $data['is_rechieved'] == 1 ? 'Terkirim pada, ' . date("d F Y", strtotime($data['date_rechieved'])) : 'Belum Terkirim' ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
