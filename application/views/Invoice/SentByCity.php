@@ -58,9 +58,8 @@
                                     $no = 1;
                                     foreach ($invoice as $data) : ?>
                                         <?php
-                                        $date_rechieved = date("Y-m-d", strtotime($data['date_rechieved']));
                                         $date1 = new DateTime(date("Y-m-d"));
-                                        $date2 = new DateTime($data['date_rechieved']);
+                                        $date2 = new DateTime($data['date_invoice']);
                                         $days  = $date2->diff($date1)->format('%a');
                                         $operan = "";
                                         if ($date1 < $date2) {
