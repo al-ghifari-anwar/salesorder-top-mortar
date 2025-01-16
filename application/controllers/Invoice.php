@@ -95,14 +95,28 @@ class Invoice extends CI_Controller
 
     public function confirm($id)
     {
-        $confirm = $this->db->update('tb_invoice', ['is_printed' => 1, 'date_printed' => date("Y-m-d H:i:s")], ['id_invoice' => $id]);
+        $invoice = $this->db->get_where('tb_invoice', ['id_invoice' => $id])->row_array();
 
-        if ($confirm) {
-            $this->session->set_flashdata('success', "Berhasil konfirmasi Invoice!");
-            redirect('login');
-        } else {
-            $this->session->set_flashdata('failed', "Gagal konfirmasi Invoice!");
-            redirect('login');
+        if ($invoice['is_printed'] == 0) {
+            $confirm = $this->db->update('tb_invoice', ['is_printed' => 1, 'date_printed' => date("Y-m-d H:i:s")], ['id_invoice' => $id]);
+
+            if ($confirm) {
+                $this->session->set_flashdata('success', "Berhasil konfirmasi Invoice!");
+                redirect('login');
+            } else {
+                $this->session->set_flashdata('failed', "Gagal konfirmasi Invoice!");
+                redirect('login');
+            }
+        } else if ($invoice['is_printed'] == 1) {
+            $confirm = $this->db->update('tb_invoice', ['is_rechieved' => 1, 'date_rechieved' => date("Y-m-d H:i:s")], ['id_invoice' => $id]);
+
+            if ($confirm) {
+                $this->session->set_flashdata('success', "Terimakasih, invoice telah diterima!");
+                redirect('login');
+            } else {
+                $this->session->set_flashdata('failed', "Gagal merubah status penerimaan Invoice!");
+                redirect('login');
+            }
         }
     }
 }
