@@ -72,7 +72,7 @@
                                             <td><?= $data['no_invoice'] ?></td>
                                             <td><?= $data['no_surat_jalan'] ?></td>
                                             <td>Rp. <?= number_format($data['total_invoice'], 0, ',', '.') ?></td>
-                                            <td><?= $data['is_rechieved'] == 1 ? 'Diterima pada, ' . date("d F Y", strtotime($data['date_rechieved'])) : 'Belum diterima selama ' . $days . 'hari dari tanggal cetak' ?></td>
+                                            <td><?= $data['is_rechieved'] == 1 ? 'Diterima pada, ' . date("d F Y", strtotime($data['date_rechieved'])) : 'Belum diterima selama <b>' . $days . ' hari</b> dari tanggal cetak' ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
