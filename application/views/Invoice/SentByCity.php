@@ -57,12 +57,23 @@
                                     <?php
                                     $no = 1;
                                     foreach ($invoice as $data) : ?>
+                                        <?php
+                                        $date_rechieved = $data['date_rechieved'];
+                                        $date1 = new DateTime(date("Y-m-d"));
+                                        $date2 = new DateTime($date_rechieved);
+                                        $days  = $date2->diff($date1)->format('%a');
+                                        $operan = "";
+                                        if ($date1 < $date2) {
+                                            $operan = "-";
+                                        }
+                                        $days = $operan . $days;
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['no_invoice'] ?></td>
                                             <td><?= $data['no_surat_jalan'] ?></td>
                                             <td>Rp. <?= number_format($data['total_invoice'], 0, ',', '.') ?></td>
-                                            <td><?= $data['is_rechieved'] == 1 ? 'Diterima pada, ' . date("d F Y", strtotime($data['date_rechieved'])) : 'Belum Diterima' ?></td>
+                                            <td><?= $data['is_rechieved'] == 1 ? 'Diterima pada, ' . date("d F Y", strtotime($data['date_rechieved'])) : 'Belum diterima selama ' . $days . ' dari tanggal cetak' ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
