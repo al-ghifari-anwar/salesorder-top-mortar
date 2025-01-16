@@ -54,6 +54,40 @@ class Invoice extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function sent()
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $data['title'] = 'Sent Invoice';
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Invoice/Sent');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function sent_by_city($id_city)
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $data['title'] = 'Invoice';
+        $data['cities'] = $this->MCity->getAll();
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['invoice'] = $this->MInvoice->getAll($id_city);
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Invoice/SentByCity');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function print($id)
     {
         if ($this->session->userdata('id_user') == null) {

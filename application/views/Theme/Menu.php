@@ -396,6 +396,15 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="<?= base_url('invoice/sent') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-train"></i>
+                                                <p>
+                                                    Sent Invoice
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('rep-invoice/0') ?>" class="nav-link">
                                                 <i class="nav-icon fas fa-file-archive"></i>
                                                 <p>

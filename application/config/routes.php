@@ -97,6 +97,8 @@ $route['invoice'] = 'Invoice';
 $route['invoice/(:num)'] = 'Invoice/invoice_by_city/$1';
 $route['print-invoice/(:num)'] = 'Invoice/print/$1';
 $route['invoice-confirm/(:num)'] = 'Invoice/confirm/$1';
+$route['invoice/sent'] = 'Invoice/sent';
+$route['invoice/sent/(:num)'] = 'Invoice/sent_by_city/$1;
 // Rekap Invoice
 $route['rekap-city'] = 'Rekap/city_list';
 $route['rep-invoice/(:num)'] = 'Rekap/index/$1';
