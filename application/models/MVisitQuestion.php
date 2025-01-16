@@ -6,6 +6,7 @@ class MVisitQuestion extends CI_Model
     public $is_required;
     public $answer_type;
     public $answer_option;
+    public $id_distributor;
     public $udpated_at;
 
     public function get()
@@ -30,6 +31,7 @@ class MVisitQuestion extends CI_Model
         $this->is_required = 0;
         $this->answer_type = $post['answer_type'];
         $this->answer_option = $post['answer_option'] == "" ? null : $post['answer_option'];
+        $this->id_distributor = $this->session->userdata('id_distributor');
         $this->udpated_at = date("Y-m-d H:i:s");
 
         $result = $this->db->insert('tb_visit_question', $this);
@@ -48,6 +50,7 @@ class MVisitQuestion extends CI_Model
         $this->is_required = 0;
         $this->answer_type = $post['answer_type'];
         $this->answer_option = $post['answer_option'] == "" ? null : $post['answer_option'];
+        $this->id_distributor = $this->session->userdata('id_distributor');
         $this->udpated_at = date("Y-m-d H:i:s");
 
         $result = $this->db->update('tb_visit_question', $this, ['id_visit_question' => $id]);
