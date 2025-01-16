@@ -65,7 +65,7 @@
                                         if ($date1 < $date2) {
                                             $operan = "-";
                                         }
-                                        $days = $operan . $days;
+                                        $days = $days;
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
