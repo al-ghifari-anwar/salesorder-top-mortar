@@ -273,6 +273,14 @@
                                             </p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('analisa/active') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-money-check"></i>
+                                            <p>
+                                                Active Bayar Rutin
+                                            </p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 

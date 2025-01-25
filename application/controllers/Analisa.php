@@ -42,4 +42,27 @@ class Analisa extends CI_Controller
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
+
+    public function active()
+    {
+        $data['title'] = 'Toko Passive Dengan Pembayaran Bagus';
+
+        $id_city = $this->input->post("id_city");
+
+        $data['citys'] = $this->MCity->getAll();
+        $data['contacts'] = $this->MContact->getAllDefault();
+        $data['selected_city'] = ['id_city' => '0', 'nama_city' => 'Keseluruhan'];
+
+        if ($id_city) {
+            $data['contacts'] = $this->MContact->getAllNoFilter($id_city);
+            $data['selected_city'] = $this->MCity->getById($id_city);
+        }
+        // echo json_encode($data);
+        // die;
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Analisa/Active');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
 }

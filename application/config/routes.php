@@ -260,3 +260,4 @@ $route['renvimg/(:num)'] = 'Renvimg/index/$1';
 $route['renvimg/insert'] = 'Renvimg/insert';
 // Analisa
 $route['analisa/passive'] = 'Analisa/passive';
+$route['analisa/active'] = 'Analisa/active';

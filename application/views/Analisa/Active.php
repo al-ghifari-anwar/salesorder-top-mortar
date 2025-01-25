@@ -84,7 +84,7 @@
                                     <?php
                                     $no = 1;
                                     foreach ($contacts as $contact) : ?>
-                                        <?php if ($contact['store_status'] == 'passive'): ?>
+                                        <?php if ($contact['store_status'] == 'active'): ?>
                                             <?php
                                             $count_late_payment = 0;
                                             $invoices = $this->MInvoice->getByIdContact($contact['id_contact']);
