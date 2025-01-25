@@ -28,9 +28,11 @@ class Analisa extends CI_Controller
 
         $data['citys'] = $this->MCity->getAll();
         $data['contacts'] = $this->MContact->getAllDefault();
+        $data['selected_city'] = ['id_city' => '0', 'nama_city' => 'Keseluruhan'];
 
         if ($id_city) {
             $data['contacts'] = $this->MContact->getAllNoFilter($id_city);
+            $data['selected_city'] = $this->MCity->getById($id_city);
         }
         // echo json_encode($data);
         // die;

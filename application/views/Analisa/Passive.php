@@ -21,7 +21,7 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">List Kota</h1>
+                    <h1 class="m-0"><?= $title . " " . $selected_city['nama_city'] ?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -52,7 +52,7 @@
                                                         <option value="0">Semua</option>
                                                     <?php endif; ?>
                                                     <?php foreach ($citys as $city) : ?>
-                                                        <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
+                                                        <option value="<?= $city['id_city'] ?>" <?= $city['id_city'] == $selected_city['id_city'] ? 'selected' : '' ?>><?= $city['nama_city'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
