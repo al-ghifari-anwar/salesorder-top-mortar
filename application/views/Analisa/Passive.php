@@ -88,6 +88,7 @@
                                             <?php
                                             $count_late_payment = 0;
                                             $invoices = $this->MInvoice->getByIdContact($contact['id_contact']);
+                                            $payments = null;
                                             foreach ($invoices as $invoice) {
                                                 $payments = $this->MPayment->getByIdInvoiceOnly($invoice['id_invoice']);
 
