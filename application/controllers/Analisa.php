@@ -45,7 +45,7 @@ class Analisa extends CI_Controller
 
     public function active()
     {
-        $data['title'] = 'Toko Passive Dengan Pembayaran Bagus';
+        $data['title'] = 'Toko Active Dengan Pembayaran Bagus';
 
         $id_city = $this->input->post("id_city");
 
