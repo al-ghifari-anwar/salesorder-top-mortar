@@ -258,3 +258,5 @@ $route['qontak/update/(:num)'] = 'Qontak/update/$1';
 $route['renvimg'] = 'Renvimg/city_list';
 $route['renvimg/(:num)'] = 'Renvimg/index/$1';
 $route['renvimg/insert'] = 'Renvimg/insert';
+// Analisa
+$route['analisa/passive'] = 'Analisa/passive';

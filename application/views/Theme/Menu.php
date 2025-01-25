@@ -256,6 +256,26 @@
                                 </ul>
                             </li>
 
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-line"></i>
+                                    <p>
+                                        Analisa
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('analisa/passive') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-money-check"></i>
+                                            <p>
+                                                Passive Bayar Rutin
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                             <?php if ($this->session->userdata('id_distributor') == 4) : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('proyek') ?>" class="nav-link">
