@@ -26,6 +26,13 @@ class MContact extends CI_Model
         return $query;
     }
 
+    public function getAllByStatusAndCity($id_city, $store_status)
+    {
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city, 'store_status' => $store_status])->result_array();
+        return $query;
+    }
+
     public function getAllForPriority()
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
@@ -105,6 +112,13 @@ class MContact extends CI_Model
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city', 'LEFT');
         $query = $this->db->get_where('tb_contact', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        return $query;
+    }
+
+    public function getAllByStatus($store_status)
+    {
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city', 'LEFT');
+        $query = $this->db->get_where('tb_contact', ['id_distributor' => $this->session->userdata('id_distributor'), 'store_status' => $store_status])->result_array();
         return $query;
     }
 

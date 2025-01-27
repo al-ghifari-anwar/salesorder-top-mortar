@@ -27,11 +27,11 @@ class Analisa extends CI_Controller
         $id_city = $this->input->post("id_city");
 
         $data['citys'] = $this->MCity->getAll();
-        $data['contacts'] = $this->MContact->getAllDefault();
+        $data['contacts'] = $this->MContact->getAllByStatus('passive');
         $data['selected_city'] = ['id_city' => '0', 'nama_city' => 'Keseluruhan'];
 
         if ($id_city) {
-            $data['contacts'] = $this->MContact->getAllNoFilter($id_city);
+            $data['contacts'] = $this->MContact->getAllByStatusAndCity($id_city, 'passive');
             $data['selected_city'] = $this->MCity->getById($id_city);
         }
         // echo json_encode($data);
@@ -50,11 +50,11 @@ class Analisa extends CI_Controller
         $id_city = $this->input->post("id_city");
 
         $data['citys'] = $this->MCity->getAll();
-        $data['contacts'] = $this->MContact->getAllDefault();
+        $data['contacts'] = $this->MContact->getAllByStatus('active');
         $data['selected_city'] = ['id_city' => '0', 'nama_city' => 'Keseluruhan'];
 
         if ($id_city) {
-            $data['contacts'] = $this->MContact->getAllNoFilter($id_city);
+            $data['contacts'] = $this->MContact->getAllByStatusAndCity($id_city, 'active');
             $data['selected_city'] = $this->MCity->getById($id_city);
         }
         // echo json_encode($data);
