@@ -264,4 +264,4 @@ $route['analisa/active'] = 'Analisa/active';
 // Referal
 $route['referal/(:any)'] = 'Referal/index/$1';
 $route['referal/verify/(:any)'] = 'Referal/verify/$1';
-$route['referal/complete'] = 'Referal/complete';
+$route['referal/complete/verify'] = 'Referal/complete_verify';

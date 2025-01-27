@@ -179,10 +179,10 @@ class Referal extends CI_Controller
                         $this->db->update('tb_voucher_tukang', ['is_claimed' => 1], ['id_voucher_tukang' => $id_voucher_old]);
 
                         $this->session->set_flashdata('success', "Berhasil mengirim voucher, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
-                        redirect('referal/complete');
+                        redirect('referal/complete/verify');
                     } else {
                         $this->session->set_flashdata('failed', "Gagal mengirim voucher, silahkan coba lagi!");
-                        redirect('referal/complete');
+                        redirect('referal/complete/verify');
                     }
                 } else {
                     $this->session->set_flashdata('failed', "Nomor HP sudah terdaftar!");
@@ -331,17 +331,17 @@ class Referal extends CI_Controller
                         $this->db->update('tb_voucher_tukang', ['is_claimed' => 1], ['id_voucher_tukang' => $id_voucher_old]);
 
                         $this->session->set_flashdata('success', "Berhasil mengirim voucher, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
-                        redirect('referal/complete');
+                        redirect('referal/complete/verify');
                     } else {
                         $this->session->set_flashdata('failed', "Gagal mengirim voucher, silahkan coba lagi!");
-                        redirect('referal/complete');
+                        redirect('referal/complete/verify');
                     }
                 }
             }
         }
     }
 
-    public function complete()
+    public function complete_verify()
     {
         $data['title'] = 'Referal Voucher';
         $this->load->view('Theme/Header', $data);
