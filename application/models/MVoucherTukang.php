@@ -28,6 +28,7 @@ class MVoucherTukang extends CI_Model
 
     public function getByIdMd5($id_md5)
     {
+        $this->db->order_by('created_at', 'DESC');
         $result = $this->db->get_where('tb_voucher_tukang', ['id_md5' => $id_md5])->row_array();
 
         return $result;
