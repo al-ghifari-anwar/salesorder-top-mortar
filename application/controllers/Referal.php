@@ -77,7 +77,7 @@ class Referal extends CI_Controller
                     // Generate QR
                     $image_name = $no_seri  . date("YmdHis") . '.png';
 
-                    $voucherCode = md5("Top" . md5($id_tukang));
+                    $voucherCode = md5("Top" . md5($getTukang['id_tukang']));
 
                     $qrCode = Builder::create()
                         ->writer(new PngWriter())
