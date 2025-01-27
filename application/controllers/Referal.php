@@ -1,5 +1,12 @@
 <?php
 
+
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Writer\PngWriter;
+use claviska\SimpleImage;
+
 class Referal extends CI_Controller
 {
     public function __construct()
