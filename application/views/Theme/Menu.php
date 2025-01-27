@@ -79,8 +79,10 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="<?= base_url('assets/img/company_img/') . $getCompany['img_company'] ?>" alt="Logo" class="brand-image" style="opacity: .8">
+            <a href="<?= base_url() ?>" class="brand-link">
+                <?php if ($this->session->userdata('id_user') != null): ?>
+                    <img src="<?= base_url('assets/img/company_img/') . $getCompany['img_company'] ?>" alt="Logo" class="brand-image" style="opacity: .8">
+                <?php endif; ?>
                 <span class="brand-text font-weight-light">.</span>
             </a>
 

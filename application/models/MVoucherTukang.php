@@ -26,6 +26,13 @@ class MVoucherTukang extends CI_Model
         return $result;
     }
 
+    public function getByIdMd5($id_md5)
+    {
+        $result = $this->db->get_where('tb_voucher_tukang', ['id_md5' => $id_md5])->row_array();
+
+        return $result;
+    }
+
     public function getVoucherDigital($id_city)
     {
         $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang', 'LEFT');
