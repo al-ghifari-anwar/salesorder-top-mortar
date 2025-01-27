@@ -55,7 +55,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="<?= base_url('referal/verify/' . $voucher['id_voucher']) ?>" method="POST">
+                                    <form action="<?= base_url('referal/verify/' . $voucher['id_voucher_tukang']) ?>" method="POST">
                                         <div class="form-group">
                                             <label for="">Masukkan nama</label>
                                             <input type="text" name="nama" id="" class="form-control">
