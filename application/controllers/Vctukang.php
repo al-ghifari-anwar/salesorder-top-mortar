@@ -132,7 +132,7 @@ class Vctukang extends CI_Controller
 
 
                         // $message = "Halo " . $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
-                        $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja SK: QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top morta Lihat Lokasi Toko: https://order.topmortarindonesia.com/penukaranstore ";
+                        $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja SK: QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top morta Lihat Lokasi Toko: https://order.topmortarindonesia.com/penukaranstore . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
                         // Send message
                         $curl = curl_init();
 
@@ -253,7 +253,7 @@ class Vctukang extends CI_Controller
 
 
                     // $message = "Halo " . $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
-                    $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore ";
+                    $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
                     // Send message
                     $curl = curl_init();
 
@@ -434,7 +434,7 @@ class Vctukang extends CI_Controller
 
 
                             // $message = $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
-                            $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore ";
+                            $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
                             // Send message
                             $curl = curl_init();
 
@@ -590,7 +590,7 @@ class Vctukang extends CI_Controller
 
 
                         // $message = $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
-                        $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore ";
+                        $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
                         // Send message
                         $curl = curl_init();
 
