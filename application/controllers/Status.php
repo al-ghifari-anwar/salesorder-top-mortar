@@ -67,7 +67,7 @@ class Status extends CI_Controller
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_status_change.id_contact');
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $this->db->group_by('tb_status_change.id_contact');
-        $data['store'] = $this->db->get_where('tb_status_change', ['MONTH(tb_status_change.created_at) ' => $month, 'YEAR(tb_status_change.created_at) ' => $year, 'tb_contact.id_city' => $id_city])->result_array();
+        $data['store'] = $this->db->get_where('tb_status_change', ['MONTH(tb_status_change.created_at) ' => $month, 'YEAR(tb_status_change.created_at) ' => $year, 'tb_contact.id_city' => $id_city, 'tb_status_change.status_from !=' => 'active', 'tb_status_change.status_to != ', 'active'])->result_array();
         // echo $this->db->last_query();
         // die;
         $data['month'] = $month;
