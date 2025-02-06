@@ -77,6 +77,14 @@
                                                     <option value="12" <?= $month == 12 ? 'selected' : '' ?>>Desember</option>
                                                 </select>
                                             </div>
+                                            <div class="mx-2"></div>
+                                            <label for="">Tahun:</label>
+                                            <div class="form-group">
+                                                <select name="tahun" id="select2bs4" class="form-control select2bs4">
+                                                    <option value="2025">2025</option>
+                                                    <option value="2024">2024</option>
+                                                </select>
+                                            </div>
                                             <input type="text" value="<?= $id_city ?>" name="id_city" hidden>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
