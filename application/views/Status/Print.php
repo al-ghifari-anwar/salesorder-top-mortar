@@ -111,7 +111,7 @@ function penyebut($nilai)
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Rekap Status Toko</h1>
-    <h4 class="text-center">Bulan <?= date("F", strtotime("2023-" . $month . "-01")) ?></h4>
+    <h4 class="text-center">Bulan <?= date("F", strtotime($year . "-" . $month . "-01")) ?></h4>
     <table>
         <tr>
             <th style="border-bottom: 1px solid black;">Nama Toko</th>

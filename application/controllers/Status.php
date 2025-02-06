@@ -58,7 +58,7 @@ class Status extends CI_Controller
     {
         $post = $this->input->post();
         $month = $post['bulan'];
-        $year = $post['year'];
+        $year = $post['tahun'];
         $id_city = $post['id_city'];
 
         $data['city'] = $this->MCity->getById($id_city);
@@ -71,6 +71,7 @@ class Status extends CI_Controller
         // echo $this->db->last_query();
         // die;
         $data['month'] = $month;
+        $data['year'] = $year;
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
