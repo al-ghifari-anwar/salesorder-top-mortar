@@ -1,6 +1,12 @@
 <body class="hold-transition sidebar-mini">
     <div id="loading-screen">
         <div class="loader"></div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <h5>&nbsp;&nbsp;Sedang mengambil data...</h5>
+            </div>
+        </div>
     </div>
 
     <?php
