@@ -145,12 +145,3 @@
     </div>
 </aside>
 <!-- /.control-sidebar -->
-<script>
-    document.onreadystatechange = function() {
-        if (document.readyState !== "complete") {
-            document.getElementById("loading-screen").classList.remove("hidden");
-        } else {
-            document.getElementById("loading-screen").classList.add("hidden");
-        }
-    };
-</script>

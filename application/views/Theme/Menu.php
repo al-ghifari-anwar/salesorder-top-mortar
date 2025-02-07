@@ -1,8 +1,13 @@
 <body class="hold-transition sidebar-mini">
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
+
     <?php
     $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->session->userdata('id_distributor')])->row_array();
     ?>
     <div class="wrapper">
+
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <?php if ($this->session->userdata('level_user') != null) : ?>

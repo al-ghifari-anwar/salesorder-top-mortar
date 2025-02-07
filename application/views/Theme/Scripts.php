@@ -71,6 +71,34 @@
     //Date range picker
     $('#reservation').daterangepicker()
 </script>
+<!-- Loading -->
+<script>
+    $(document).ready(function() {
+        $("#loading-screen").fadeOut();
+
+        $("a").on("click", function(e) {
+            let target = $(this).attr("href");
+
+            // Cek apakah link valid dan bukan '#' atau JavaScript void
+            if (target && target !== "#" && !target.startsWith("javascript")) {
+                e.preventDefault(); // Cegah perpindahan halaman langsung
+
+                $("#loading-screen").fadeIn(); // Tampilkan loading screen
+
+                setTimeout(function() {
+                    window.location.href = target; // Setelah delay, pindah halaman
+                }, 300);
+            }
+        });
+    });
+    // Solusi untuk masalah "Back" browser: hilangkan loading saat halaman ditampilkan dari cache
+    $(window).on("pageshow", function(event) {
+        if (event.originalEvent.persisted) {
+            console.log("Back button ditekan, menghilangkan loading...");
+            $("#loading-screen").fadeOut();
+        }
+    });
+</script>
 </body>
 
 </html>
