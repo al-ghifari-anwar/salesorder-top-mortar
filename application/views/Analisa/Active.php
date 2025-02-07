@@ -37,6 +37,9 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <div id="loading-screen">
+                <div class="loader"></div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -142,3 +145,12 @@
     </div>
 </aside>
 <!-- /.control-sidebar -->
+<script>
+    document.onreadystatechange = function() {
+        if (document.readyState !== "complete") {
+            document.getElementById("loading-screen").classList.remove("hidden");
+        } else {
+            document.getElementById("loading-screen").classList.add("hidden");
+        }
+    };
+</script>

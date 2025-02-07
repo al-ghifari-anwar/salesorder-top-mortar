@@ -28,4 +28,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- daterange picker -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="<?= base_url('assets') ?>/css/styles.css">
 </head>
