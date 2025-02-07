@@ -37,9 +37,6 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <div id="loading-screen">
-                <div class="loader"></div>
-            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
