@@ -79,6 +79,16 @@
         $("a").on("click", function(e) {
             let target = $(this).attr("href");
 
+            if (
+                !target ||
+                target === "#" ||
+                target.startsWith("javascript") ||
+                $(this).attr("data-toggle") === "modal" ||
+                $(this).attr("data-target")
+            ) {
+                return;
+            }
+
             // Cek apakah link valid dan bukan '#' atau JavaScript void
             if (target && target !== "#" && !target.startsWith("javascript")) {
                 e.preventDefault(); // Cegah perpindahan halaman langsung
