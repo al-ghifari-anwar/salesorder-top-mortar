@@ -43,7 +43,7 @@ class Watzap extends CI_Controller
 
         $resArray = json_decode($response, true);
 
-        if ($resArray['message'] == 'Successfully') {
+        if ($resArray['status'] == 200) {
             $arrayWatzapTukang = [
                 'status_watzap_tukang' => 'sent',
                 'updated_at' => date('Y-m-d H:i:s')
