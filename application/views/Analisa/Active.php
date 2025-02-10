@@ -90,7 +90,7 @@
                                         <?php if ($contact['store_status'] == 'active'): ?>
                                             <?php
                                             $count_late_payment = 0;
-                                            $invoices = $this->MInvoice->getByIdContact($contact['id_contact']);
+                                            $invoices = $this->MInvoice->getByIdContactNoMerch($contact['id_contact']);
                                             $payments = null;
                                             foreach ($invoices as $invoice) {
                                                 $payments = $this->MPayment->getByIdInvoiceOnly($invoice['id_invoice']);
