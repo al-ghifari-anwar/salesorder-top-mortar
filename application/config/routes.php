@@ -265,3 +265,5 @@ $route['analisa/active'] = 'Analisa/active';
 $route['referal/(:any)'] = 'Referal/index/$1';
 $route['referal/verify/(:any)'] = 'Referal/verify/$1';
 $route['referal/complete/verify'] = 'Referal/complete_verify';
+// Trial Watzap
+$route['watzap/trial/tukang'] = 'Watzap/sendTrialTukang';
