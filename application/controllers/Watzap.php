@@ -26,7 +26,7 @@ class Watzap extends CI_Controller
             $dataSending["phone_no"] = $phone;
             $dataSending["message"] = "Halo " . $name . ", ini adalah trial Konten video";
             $dataSending["url"] = "https://order.topmortarindonesia.com/assets/vids/test_video.mp4";
-            $dataSending["separate_caption"] = "0";
+            $dataSending["separate_caption"] = "1";
 
             $curl = curl_init();
             curl_setopt_array($curl, array(
