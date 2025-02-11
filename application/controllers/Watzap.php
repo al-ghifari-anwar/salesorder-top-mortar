@@ -11,6 +11,7 @@ class Watzap extends CI_Controller
 
     public function sendTrialTukang()
     {
+        // https://order.topmortarindonesia.com/assets/vids/test_video.mp4
         $this->output->set_content_type('application/json');
         $watzapTukang = $this->MWatzaptukang->getSingleWaiting();
 
@@ -23,11 +24,13 @@ class Watzap extends CI_Controller
             $dataSending["api_key"] = "OG0UMAWHV6SJ0GL2";
             $dataSending["number_key"] = "liVWjKEiV6aImQ5M";
             $dataSending["phone_no"] = $phone;
-            $dataSending["message"] = "Halo " . $name . ", ini adalah trial WA";
+            $dataSending["message"] = "Halo " . $name . ", ini adalah trial Konten video";
+            $dataSending["url"] = "https://order.topmortarindonesia.com/assets/vids/test_video.mp4";
+            $dataSending["separate_caption"] = "0";
 
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://api.watzap.id/v1/send_message',
+                CURLOPT_URL => 'https://api.watzap.id/v1/send_image_message',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
