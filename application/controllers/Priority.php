@@ -70,7 +70,7 @@ class Priority extends CI_Controller
                 redirect('priority/' . $id_contact);
             }
 
-            if ($nominal < 200000) {
+            if ($nominal < 50000) {
                 $this->session->set_flashdata('failed', "Minimal pembelanjaan adalah 200.000 ribu!");
                 redirect('priority/' . $id_contact);
             }

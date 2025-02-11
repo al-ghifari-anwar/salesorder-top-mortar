@@ -70,7 +70,7 @@ class Tokopromo extends CI_Controller
                 redirect('tokopromo/' . $id_contact);
             }
 
-            if ($nominal < 70000) {
+            if ($nominal < 50000) {
                 $this->session->set_flashdata('failed', "Minimal pembelanjaan adalah 70.000 ribu!");
                 redirect('tokopromo/' . $id_contact);
             }
