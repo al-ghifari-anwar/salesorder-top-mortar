@@ -40,7 +40,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <!-- <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-add">Tambah Toko Promo</a> -->
+                            <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-quota">Tambah Quota Toko</a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
@@ -73,7 +73,7 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
-                                            <td><?= date('d F Y', strtotime($getTglJoin['created_at'])) ?></td>
+                                            <td><?= ($getTglJoin) ? date('d F Y', strtotime($getTglJoin['created_at'])) : '-' ?></td>
                                             <td>
                                                 <?php if ($data['is_priority'] == 1 && $data['is_tokopromo'] == 0) {
                                                     echo "Priority";
@@ -122,3 +122,37 @@
     </div>
 </aside>
 <!-- /.control-sidebar -->
+
+<div class="modal fade" id="modal-quota">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Quota Toko</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('akunseller/addquota') ?>" method="POST">
+                    <div class="form-group">
+                        <label for="">Toko</label>
+                        <select name="id_contact" id="" class="form-control select2bs4">
+                            <option value="0">Pilih Toko</option>
+                            <?php foreach ($contactPriors as $contactPrior): ?>
+                                <option value="<?= $contactPrior['id_contact'] ?>"><?= $contactPrior['nama'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Quota</label>
+                        <input type="number" name="val_quota_toko" class="form-control" value="1">
+                    </div>
+                    <button class="btn btn-primary float-right">Simpan</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

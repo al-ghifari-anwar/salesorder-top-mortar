@@ -89,61 +89,42 @@ class Akunseller extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function validasi($id_tukang)
+    public function add_quota()
     {
         $post = $this->input->post();
-        $tgl_lahir = $post['tgl_lahir'];
-        $address = $post['address'];
-        $id_catcus = $post['id_catcus'];
-        $nama = $post['nama'];
-        $id_skill = $post['id_skill'];
 
-        $data = [
-            'tgl_lahir' => $tgl_lahir,
-            'address' => $address,
-            'id_catcus' => $id_catcus,
-            'is_valid' => 1,
-            'nama' => $nama,
-            'id_skill' => $id_skill
+        $id_contact = $post['id_contact'];
+
+        $dataQuota = [
+            'id_contact' => $post['id_contact'],
+            'val_quota_toko' => $post['val_quota_toko'],
+            'id_user' => $this->session->userdata('id_user'),
+            'updated_at' => date("Y-m-d H:i:s")
         ];
 
-        $update = $this->db->update('tb_tukang', $data, ['id_tukang' => $id_tukang]);
+        $saveQuota = $this->db->insert('tb_quota_toko', $dataQuota);
 
-        if ($update) {
-            $this->session->set_flashdata('success', "Berhasil meng-validasi tukang!");
-            redirect('akunseller/datatukang/');
+        if ($saveQuota) {
+            $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
+            $quotaOld = $contact['quota_priority'];
+            $quotaNew = $quotaOld + $post['val_quota_toko'];
+
+            $dataUpdateQuota = [
+                'quota_priority' => $quotaNew
+            ];
+
+            $updateQuota = $this->db->update('tb_contact', $dataUpdateQuota, ['id_contact' => $id_contact]);
+
+            if ($updateQuota) {
+                $this->session->set_flashdata('success', "Berhasil menambah quota toko");
+                redirect('akunseller');
+            } else {
+                $this->session->set_flashdata('failed', "Gagal mengupdate quota, harap coba lagi");
+                redirect('akunseller');
+            }
         } else {
-            $this->session->set_flashdata('failed', "Gagal meng-validasi tukang");
-            redirect('akunseller/datatukang/');
-        }
-    }
-
-    public function delete_tukang($id_tukang)
-    {
-        $update = $this->db->delete('tb_tukang', ['id_tukang' => $id_tukang]);
-
-        if ($update) {
-            $this->session->set_flashdata('success', "Berhasil menghapus tukang!");
-            redirect('akunseller/datatukang/');
-        } else {
-            $this->session->set_flashdata('failed', "Gagal menghapus tukang");
-            redirect('akunseller/datatukang/');
-        }
-    }
-
-    public function delete($id_contact)
-    {
-        $getContact = $this->MContact->getById($id_contact);
-        $id_city = $getContact['id_city'];
-
-        $update = $this->db->update('tb_contact', ['is_priority' => 0, 'qr_toko' => '', 'quota_priority' => 0, 'is_tokopromo' => 0], ['id_contact' => $id_contact]);
-
-        if ($update) {
-            $this->session->set_flashdata('success', "Berhasil menghapus toko prioritas!");
-            redirect('tokopromostore/' . $id_city);
-        } else {
-            $this->session->set_flashdata('failed', "Gagal menghapus toko prioritas");
-            redirect('tokopromostore/' . $id_city);
+            $this->session->set_flashdata('failed', "Gagal, harap coba lagi");
+            redirect('akunseller');
         }
     }
 }
