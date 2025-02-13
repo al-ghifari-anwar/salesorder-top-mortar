@@ -38,6 +38,19 @@ class Akunseller extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function penukaran_store($id_contact)
+    {
+        $data['title'] = 'Penukaran Top Mortar Seller';
+        $data['contact'] = $this->MContact->getById($id_contact);
+        $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
+        $data['vouchers'] = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact, 'is_claimed' => 1])->result_array();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Akunseller/PenukaranStore');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function index()
     {
         $data['title'] = 'Top Mortar Seller';
@@ -52,39 +65,6 @@ class Akunseller extends CI_Controller
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Akunseller/Index');
-        $this->load->view('Theme/Footer');
-        $this->load->view('Theme/Scripts');
-    }
-
-    public function penukaran()
-    {
-        $data['title'] = 'Penukaran Voucher Tukang Top Mortar';
-        $dateRange = $this->input->post("date_range");
-
-        $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d"), date("Y-m-d"));
-
-        if ($dateRange) {
-            $dates = explode("-", $dateRange);
-            $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d", strtotime($dates[0])), date("Y-m-d", strtotime($dates[1])));
-        }
-        // echo json_encode($data);
-        // die;
-        $this->load->view('Theme/Header', $data);
-        $this->load->view('Theme/Menu');
-        $this->load->view('Akunseller/Penukaran');
-        $this->load->view('Theme/Footer');
-        $this->load->view('Theme/Scripts');
-    }
-
-    public function data_tukang()
-    {
-        $data['title'] = 'Validasi Voucher Tukang Top Mortar';
-        $data['catcuss'] = $this->db->get('tb_catcus')->result_array();
-        $data['skills'] = $this->db->get('tb_skill')->result_array();
-        $data['vouchers'] = $this->MVoucherTukang->getForValidasi();
-        $this->load->view('Theme/Header', $data);
-        $this->load->view('Theme/Menu');
-        $this->load->view('Akunseller/DataTukang');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
@@ -125,6 +105,97 @@ class Akunseller extends CI_Controller
         } else {
             $this->session->set_flashdata('failed', "Gagal, harap coba lagi");
             redirect('akunseller');
+        }
+    }
+
+    public function penukaran()
+    {
+        $data['title'] = 'Penukaran Voucher Tukang Top Mortar';
+        $dateRange = $this->input->post("date_range");
+
+        $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d"), date("Y-m-d"));
+
+        if ($dateRange) {
+            $dates = explode("-", $dateRange);
+            $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d", strtotime($dates[0])), date("Y-m-d", strtotime($dates[1])));
+        }
+        // echo json_encode($data);
+        // die;
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Akunseller/Penukaran');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function data_tukang()
+    {
+        $data['title'] = 'Validasi Voucher Tukang Top Mortar';
+        $data['catcuss'] = $this->db->get('tb_catcus')->result_array();
+        $data['skills'] = $this->db->get('tb_skill')->result_array();
+        $data['vouchers'] = $this->MVoucherTukang->getForValidasi();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Akunseller/DataTukang');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function validasi($id_tukang)
+    {
+        $post = $this->input->post();
+        $tgl_lahir = $post['tgl_lahir'];
+        $address = $post['address'];
+        $id_catcus = $post['id_catcus'];
+        $nama = $post['nama'];
+        $id_skill = $post['id_skill'];
+
+        $data = [
+            'tgl_lahir' => $tgl_lahir,
+            'address' => $address,
+            'id_catcus' => $id_catcus,
+            'is_valid' => 1,
+            'nama' => $nama,
+            'id_skill' => $id_skill
+        ];
+
+        $update = $this->db->update('tb_tukang', $data, ['id_tukang' => $id_tukang]);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Berhasil meng-validasi tukang!");
+            redirect('akunseller/datatukang/');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal meng-validasi tukang");
+            redirect('akunseller/datatukang/');
+        }
+    }
+
+    public function delete_tukang($id_tukang)
+    {
+        $update = $this->db->delete('tb_tukang', ['id_tukang' => $id_tukang]);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Berhasil menghapus tukang!");
+            redirect('akunseller/datatukang/');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menghapus tukang");
+            redirect('akunseller/datatukang/');
+        }
+    }
+
+    public function delete($id_contact)
+    {
+        $getContact = $this->MContact->getById($id_contact);
+        $id_city = $getContact['id_city'];
+
+        $update = $this->db->update('tb_contact', ['is_priority' => 0, 'qr_toko' => '', 'quota_priority' => 0, 'is_tokopromo' => 0], ['id_contact' => $id_contact]);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Berhasil menghapus toko prioritas!");
+            redirect('tokopromostore/' . $id_city);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menghapus toko prioritas");
+            redirect('tokopromostore/' . $id_city);
         }
     }
 }

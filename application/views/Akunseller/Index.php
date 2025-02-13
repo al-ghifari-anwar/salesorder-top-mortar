@@ -54,7 +54,7 @@
                                         <th>Program</th>
                                         <th>Kuota</th>
                                         <th>Kota</th>
-                                        <!-- <th>Aksi</th> -->
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -94,10 +94,9 @@
                                                     <img src="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" alt="" class="img-fluid" width="100">
                                                 </a>
                                             </td> -->
-                                            <!-- <td>
-                                                <a href="<?= base_url('tokopromostore/delete/') . $data['id_contact'] ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data?')"><i class="fas fa-trash"></i></a>
-                                                <a href="<?= base_url('tokopromostore/penukaran/') . $data['id_contact'] ?>" class="btn btn-success"><i class="fas fa-ticket-alt"></i>&nbsp;List Penukaran</a>
-                                            </td> -->
+                                            <td>
+                                                <a href="<?= base_url('akunseller/penukaran/store/') . $data['id_contact'] ?>" class="btn btn-success"><i class="fas fa-ticket-alt"></i>&nbsp;List Penukaran</a>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
