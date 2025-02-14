@@ -21,7 +21,11 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"><?= $title ?> - <?= $contact['nama'] ?> [QUOTA: <?= $contact['quota_priority'] ?>]</h1>
+                    <?php
+                    $id_contact = $contact['id_qontact'];
+                    $getCountVoucher = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->num_rows();
+                    ?>
+                    <h1 class="m-0"><?= $title ?> - <?= $contact['nama'] ?> [QUOTA: <?= $contact['quota_priority'] - $getCountVoucher ?>]</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
