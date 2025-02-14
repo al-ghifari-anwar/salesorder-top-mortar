@@ -69,6 +69,20 @@ class Akunseller extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function quota($id_contact)
+    {
+        $data['title'] = 'Top Mortar Seller';
+        $data['contact'] = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
+        $data['quotas'] = $this->db->get_where('tb_quota_toko', ['id_contact' => $id_contact])->result_array();
+        // $data['city'] = $this->MCity->getById($id_city);
+        // $data['id_city'] = $id_city;
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Akunseller/Quota');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function add_quota()
     {
         $post = $this->input->post();
@@ -105,6 +119,45 @@ class Akunseller extends CI_Controller
         } else {
             $this->session->set_flashdata('failed', "Gagal, harap coba lagi");
             redirect('akunseller');
+        }
+    }
+
+    public function min_quota()
+    {
+        $post = $this->input->post();
+
+        $id_contact = $post['id_contact'];
+
+        $dataQuota = [
+            'id_contact' => $post['id_contact'],
+            'val_quota_toko' => -$post['val_quota_toko'],
+            'id_user' => $this->session->userdata('id_user'),
+            'updated_at' => date("Y-m-d H:i:s")
+        ];
+
+        $saveQuota = $this->db->insert('tb_quota_toko', $dataQuota);
+
+        if ($saveQuota) {
+            $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
+            $quotaOld = $contact['quota_priority'];
+            $quotaNew = $quotaOld + -$post['val_quota_toko'];
+
+            $dataUpdateQuota = [
+                'quota_priority' => $quotaNew
+            ];
+
+            $updateQuota = $this->db->update('tb_contact', $dataUpdateQuota, ['id_contact' => $id_contact]);
+
+            if ($updateQuota) {
+                $this->session->set_flashdata('success', "Berhasil mengurangi quota toko");
+                redirect('akunseller/quota/' . $id_contact);
+            } else {
+                $this->session->set_flashdata('failed', "Gagal mengupdate quota, harap coba lagi");
+                redirect('akunseller/quota/' . $id_contact);
+            }
+        } else {
+            $this->session->set_flashdata('failed', "Gagal, harap coba lagi");
+            redirect('akunseller/quota/' . $id_contact);
         }
     }
 
