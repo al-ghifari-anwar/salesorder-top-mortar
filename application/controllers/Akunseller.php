@@ -127,6 +127,12 @@ class Akunseller extends CI_Controller
         $post = $this->input->post();
 
         $id_contact = $post['id_contact'];
+        $quota_priority = $post['quota_priority'];
+
+        if ($post['val_quota_toko'] > $quota_priority) {
+            $this->session->set_flashdata('failed', "Quota tidak boleh minus");
+            redirect('akunseller/quota/' . $id_contact);
+        }
 
         $dataQuota = [
             'id_contact' => $post['id_contact'],
