@@ -22,7 +22,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <?php
-                    $id_contact = $contact['id_qontact'];
+                    $id_contact = $contact['id_contact'];
                     $getCountVoucher = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->num_rows();
                     ?>
                     <h1 class="m-0"><?= $title ?> - <?= $contact['nama'] ?> [QUOTA: <?= $contact['quota_priority'] - $getCountVoucher ?>]</h1>
