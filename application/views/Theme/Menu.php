@@ -309,7 +309,7 @@
                                 </li>
                             <?php endif; ?>
                             <!-- <li class="nav-header">Data</li> -->
-                            <?php if ($this->session->userdata('level_user') == 'marketing') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'marketing' || $this->session->userdata('level_user') == 'admin') : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('marketing') ?>" class="nav-link">
                                         <i class="nav-icon fas fa-shopping-bag"></i>
