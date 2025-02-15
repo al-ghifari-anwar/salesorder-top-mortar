@@ -158,11 +158,6 @@ $route['print-rekap-status'] = 'Status/print_rekap';
 // Absen
 $route['lap-absen/(:num)/(:any)'] = 'Visit/lap_absen/$1/$2';
 $route['lap-absen-renvis/(:num)/(:any)'] = 'Visit/lap_absen_renvis/$1/$2';
-// MArketing Message
-$route['marketing'] = 'Marketing';
-$route['insert-marketing'] = 'Marketing/insert';
-$route['delete-marketing/(:num)'] = 'Marketing/delete/$1';
-$route['update-marketing/(:num)'] = 'Marketing/update/$1';
 // Notif
 $route['notif-passive'] = 'Notif/notif_passive';
 // Stok
@@ -271,3 +266,9 @@ $route['referal/verify/(:any)'] = 'Referal/verify/$1';
 $route['referal/complete/verify'] = 'Referal/complete_verify';
 // Trial Watzap
 $route['watzap/trial/tukang'] = 'Watzap/sendTrialTukang';
+// Blast Konten
+$route['marketing/tukang'] = 'Marketing/tukang';
+$route['marketing'] = 'Marketing';
+$route['insert-marketing'] = 'Marketing/insert';
+$route['delete-marketing/(:num)/(:any)'] = 'Marketing/delete/$1/$2';
+$route['update-marketing/(:num)'] = 'Marketing/update/$1';

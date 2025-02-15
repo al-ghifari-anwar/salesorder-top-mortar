@@ -311,13 +311,21 @@
                             <!-- <li class="nav-header">Data</li> -->
                             <?php if ($this->session->userdata('level_user') == 'marketing' || $this->session->userdata('level_user') == 'admin') : ?>
                                 <li class="nav-item">
-                                    <a href="<?= base_url('marketing') ?>" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-shopping-bag"></i>
                                         <p>
                                             Marketing
-                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                            <i class="right fas fa-angle-left"></i>
                                         </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('marketing/tukang') ?>" class="nav-link">
+                                                <i class="fas fa-user-astronaut nav-icon"></i>
+                                                <p>Blast Tukang</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin') : ?>

@@ -5,16 +5,21 @@ class MMarketingMessage extends CI_Model
 {
 
     public $nama_marketing_message;
-    public $template_id;
     public $image_marketing_message;
     public $body_marketing_message;
-    public $week_marketing_message;
+    public $target_marketing_message;
     public $target_status;
     public $id_distributor;
 
     public function getAll()
     {
         $query = $this->db->get_where('tb_marketing_message', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        return $query;
+    }
+
+    public function getTukang()
+    {
+        $query = $this->db->get_where('tb_marketing_message', ['id_distributor' => $this->session->userdata('id_distributor'), 'target_marketing_message' => 'tukang'])->result_array();
         return $query;
     }
 
@@ -31,10 +36,9 @@ class MMarketingMessage extends CI_Model
         if ($upload['status'] == 'success') {
             $data = $upload['message'];
             $this->nama_marketing_message = $post['nama_marketing_message'];
-            $this->template_id = $post['template_id'];
             $this->image_marketing_message = $data['file_name'];
             $this->body_marketing_message = $post['body_marketing_message'];
-            $this->week_marketing_message = $post['week_marketing_message'];
+            $this->target_marketing_message = $post['target_marketing_message'];
             $this->target_status = $post['target_status'];
             $this->id_distributor = $this->session->userdata('id_distributor');
 
@@ -66,9 +70,8 @@ class MMarketingMessage extends CI_Model
             $this->image_marketing_message = $data['file_name'];
         }
         $this->nama_marketing_message = $post['nama_marketing_message'];
-        $this->template_id = $post['template_id'];
         $this->body_marketing_message = $post['body_marketing_message'];
-        $this->week_marketing_message = $post['week_marketing_message'];
+        $this->target_marketing_message = $post['target_marketing_message'];
         $this->target_status = $post['target_status'];
         $this->id_distributor = $this->session->userdata('id_distributor');
 
