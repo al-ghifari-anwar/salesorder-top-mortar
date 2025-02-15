@@ -177,13 +177,13 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <?php
-                                                        $no = 1;
+                                                        $noDetail = 1;
                                                         foreach ($getVisitQuestion as $visitQuestion): ?>
                                                             <?php
                                                             $text_question = $visitQuestion['text_question'];
                                                             $getAnswers = $this->db->get_where('tb_visit_answer', ['id_visit' => $id_visit, 'text_question' => $text_question])->result_array();
                                                             ?>
-                                                            <h6><?= $no++ ?>. <?= $visitQuestion['text_question'] ?></h6>
+                                                            <h6><?= $noDetail++ ?>. <?= $visitQuestion['text_question'] ?></h6>
                                                             <?php foreach ($getAnswers as $answer): ?>
                                                                 <ul>
                                                                     <p class=""><?= $answer['text_answer'] ?></p>
