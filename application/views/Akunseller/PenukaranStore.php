@@ -60,7 +60,7 @@
                                     foreach ($vouchers as $data) : ?>
                                         <?php
                                         $id_tukang = $data['id_tukang'];
-                                        $tukang = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang]);
+                                        $tukang = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
