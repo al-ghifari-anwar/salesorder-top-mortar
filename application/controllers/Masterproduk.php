@@ -107,23 +107,26 @@ class Masterproduk extends CI_Controller
                 $id_city = $produk['id_city'];
                 $city = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
 
-                $dataMaster = [
-                    'id_distributor' => $city['id_distributor'],
-                    'id_satuan' => $produk['id_satuan'],
-                    'name_master_produk' => $produk['nama_produk'],
-                    'updated_at' => date("Y-m-d H:i:s")
-                ];
+                if ($city != null) {
 
-                $insertMaster = $this->db->insert('tb_master_produk', $dataMaster);
-
-                if ($insertMaster) {
-                    $id_master_produk = $this->db->insert_id();
-
-                    $dataProduk = [
-                        'id_master_produk' => $id_master_produk
+                    $dataMaster = [
+                        'id_distributor' => $city['id_distributor'],
+                        'id_satuan' => $produk['id_satuan'],
+                        'name_master_produk' => $produk['nama_produk'],
+                        'updated_at' => date("Y-m-d H:i:s")
                     ];
 
-                    $updateProduk = $this->db->update('tb_produk', $dataProduk, ['nama_produk' => $nama_produk]);
+                    $insertMaster = $this->db->insert('tb_master_produk', $dataMaster);
+
+                    if ($insertMaster) {
+                        $id_master_produk = $this->db->insert_id();
+
+                        $dataProduk = [
+                            'id_master_produk' => $id_master_produk
+                        ];
+
+                        $updateProduk = $this->db->update('tb_produk', $dataProduk, ['nama_produk' => $nama_produk]);
+                    }
                 }
             } else {
                 continue;
