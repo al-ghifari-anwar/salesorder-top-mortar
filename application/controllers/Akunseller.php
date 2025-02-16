@@ -257,4 +257,30 @@ class Akunseller extends CI_Controller
             redirect('tokopromostore/' . $id_city);
         }
     }
+
+    public function nonactive($id_contact)
+    {
+        $update = $this->db->update('tb_contact', ['topseller_active' => '0'], ['id_contact' => $id_contact]);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Berhasil menonaktifkan toko seller!");
+            redirect('akunseller');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menonaktifkan toko seller");
+            redirect('akunseller');
+        }
+    }
+
+    public function active($id_contact)
+    {
+        $update = $this->db->update('tb_contact', ['topseller_active' => '1'], ['id_contact' => $id_contact]);
+
+        if ($update) {
+            $this->session->set_flashdata('success', "Berhasil mengaktifkan toko seller!");
+            redirect('akunseller');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal mengaktifkan toko seller");
+            redirect('akunseller');
+        }
+    }
 }

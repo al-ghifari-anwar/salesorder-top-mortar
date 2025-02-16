@@ -216,6 +216,8 @@ $route['akunseller/addquota'] = 'Akunseller/add_quota';
 $route['akunseller/minquota'] = 'Akunseller/min_quota';
 $route['akunseller/quota/(:num)'] = 'Akunseller/quota/$1';
 $route['akunseller/penukaran/store/(:num)'] = 'Akunseller/penukaran_store/$1';
+$route['akunseller/nonactice/(:num)'] = 'Akunseller/nonactice/$1';
+$route['akunseller/active/(:num)'] = 'Akunseller/active/$1';
 // $route['akunseller/(:num)'] = 'Akunseller/index/$1';
 // Konten
 $route['kontenseller'] = 'Konten';

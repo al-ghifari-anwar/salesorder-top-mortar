@@ -54,6 +54,7 @@
                                         <th>Program</th>
                                         <th>Kuota</th>
                                         <th>Kota</th>
+                                        <th>Status Top Seller</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -89,6 +90,13 @@
                                             </td>
                                             <td><?= $data['quota_priority'] - $getCountVoucher ?></td>
                                             <td><?= $data['nama_city'] ?></td>
+                                            <td>
+                                                <?php if ($data['topseller_active'] == 1) {
+                                                    echo "Aktif";
+                                                } else if ($data['topseller_active'] == 0) {
+                                                    echo "Non Aktif";
+                                                }  ?>
+                                            </td>
                                             <!-- <td>
                                                 <a href="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" target="__blank">
                                                     <img src="<?= base_url('assets/img/qr/') .  $data['qr_toko'] ?>" alt="" class="img-fluid" width="100">
@@ -97,6 +105,12 @@
                                             <td>
                                                 <a href="<?= base_url('akunseller/penukaran/store/') . $data['id_contact'] ?>" class="btn btn-success m-1"><i class="fas fa-ticket-alt"></i>&nbsp;&nbsp;List Penukaran</a>
                                                 <a href="<?= base_url('akunseller/quota/') . $data['id_contact'] ?>" class="btn btn-primary m-1"><i class="fas fa-clock"></i>&nbsp;&nbsp;History Quota</a>
+                                                <?php if ($data['topseller_active'] == 1): ?>
+                                                    <a href="<?= base_url('akunseller/nonactive/') . $data['id_contact'] ?>" class="btn btn-danger m-1"><i class="fas fa-stop-circle"></i></a>
+                                                <?php endif; ?>
+                                                <?php if ($data['topseller_active'] == 0): ?>
+                                                    <a href="<?= base_url('akunseller/active/') . $data['id_contact'] ?>" class="btn bg-teal m-1"><i class="fas fa-play-circle"></i></a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
