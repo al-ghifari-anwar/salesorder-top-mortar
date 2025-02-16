@@ -58,9 +58,13 @@
                                     <?php
                                     $no = 1;
                                     foreach ($vouchers as $data) : ?>
+                                        <?php
+                                        $id_tukang = $data['id_tukang'];
+                                        $tukang = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang]);
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['nama'] ?></td>
+                                            <td><?= ($tukang) ? $tukang['nama'] : '-' ?></td>
                                             <td><?= $data['is_claimed'] == 0 ? 'GAGAL' : date("d F Y", strtotime($data['claim_date'])) ?></td>
                                             <td><?= $data['nominal_pembelian'] ?></td>
                                             <td>
