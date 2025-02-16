@@ -42,7 +42,7 @@ class Akunseller extends CI_Controller
     {
         $data['title'] = 'Penukaran Top Mortar Seller';
         $data['contact'] = $this->MContact->getById($id_contact);
-        $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
+        // $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
         $data['vouchers'] = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact, 'is_claimed' => 1])->result_array();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -172,7 +172,7 @@ class Akunseller extends CI_Controller
         $data['title'] = 'Penukaran Voucher Tukang Top Mortar';
         $dateRange = $this->input->post("date_range");
 
-        $data['vouchers'] = $this->MVoucherTukang->getPenukaranAllTime($id_contact);
+        $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d"), date("Y-m-d"));
 
         if ($dateRange) {
             $dates = explode("-", $dateRange);
