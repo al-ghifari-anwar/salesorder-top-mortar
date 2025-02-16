@@ -111,14 +111,14 @@ class Akunseller extends CI_Controller
 
             if ($updateQuota) {
                 $this->session->set_flashdata('success', "Berhasil menambah quota toko");
-                redirect('akunseller');
+                redirect('akunseller/quota/' . $id_contact);
             } else {
                 $this->session->set_flashdata('failed', "Gagal mengupdate quota, harap coba lagi");
-                redirect('akunseller');
+                redirect('akunseller/quota/' . $id_contact);
             }
         } else {
             $this->session->set_flashdata('failed', "Gagal, harap coba lagi");
-            redirect('akunseller');
+            redirect('akunseller/quota/' . $id_contact);
         }
     }
 
