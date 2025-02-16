@@ -143,7 +143,7 @@
             </div>
             <div class="modal-body">
                 <form action="<?= base_url('akunseller/minquota') ?>" method="POST">
-                    <input type="text" value="<?= $contact['quota_priority'] ?>" name="quota_priority" hidden>
+                    <input type="text" value="<?= $contact['quota_priority'] - $getCountVoucher ?>" name="quota_priority" hidden>
                     <input type="text" value="<?= $contact['id_contact'] ?>" name="id_contact" hidden>
                     <div class="form-group">
                         <label for="">Quota</label>
