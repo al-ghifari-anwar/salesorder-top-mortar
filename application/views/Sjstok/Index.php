@@ -21,12 +21,12 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">List Kota</h1>
+                    <h1 class="m-0"><?= $title ?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Master</a></li>
-                        <li class="breadcrumb-item active">Kota</li>
+                        <li class="breadcrumb-item active"><?= $title ?></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -50,31 +50,35 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Kota</th>
-                                        <th>Kode Kota</th>
-                                        <th>Gudang</th>
+                                        <th>No Pengiriman</th>
+                                        <th>Dibuat pada</th>
+                                        <th>Tgl Pengiriman</th>
+                                        <th>Diterima Pada</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($city as $data) : ?>
-                                        <?php
-                                        $id_gudang_stok = $data['id_gudang_stok'];
-                                        $gudangCity = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
-                                        ?>
+                                    foreach ($sjstoks as $sjstok) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['nama_city'] ?></td>
-                                            <td><?= $data['kode_city'] ?></td>
-                                            <td><?= ($gudangCity) ? $gudangCity['name_gudang_stok'] : '<p class="text-danger">Blm setting gudang</p>' ?></td>
+                                            <td><?= 'SO-' . str_pad($sjstok['id_sj_stok'], 6, "0", STR_PAD_LEFT) ?></td>
+                                            <td><?= date('d F Y', strtotime($sjstok['created_at'])) ?></td>
+                                            <td><?= date('d F Y', strtotime($sjstok['delivery_date'])) ?></td>
+                                            <td><?= $sjstok['is_rechieved'] == 0 ? 'Belum' : date('d F Y', strtotime($sjstok['rechieved_date'])) ?></td>
                                             <td>
-                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_city'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('delete-city/') . $data['id_city'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('sjstok/' . $sjstok['id_sj_stok']) ?>" class="btn bg-teal m-1" title="Detail"><i class="fas fa-eye"></i></a>
+                                                <?php if ($sjstok['is_finished'] == 0): ?>
+                                                    <a class="btn btn-primary m-1" data-toggle="modal" data-target="#modal-edit<?= $sjstok['id_sj_stok'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
+                                                    <a href="<?= base_url('sjstok/delete/') . $sjstok['id_sj_stok'] ?>" class="btn btn-danger m-1" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <?php endif; ?>
+                                                <?php if ($sjstok['is_finished'] == 1): ?>
+                                                    <a href="<?= base_url('sjstok/print/' . $sjstok['id_sj_stok']) ?>" class="btn bg-maroon m-1" title="Print" target="__blank"><i class="fas fa-print"></i></a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="modal-edit<?= $data['id_city'] ?>">
+                                        <div class="modal fade" id="modal-edit<?= $sjstok['id_sj_stok'] ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -84,23 +88,10 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('update-city/') . $data['id_city'] ?>" method="POST">
+                                                        <form action="<?= base_url('sjstok/update/') . $sjstok['id_sj_stok'] ?>" method="POST">
                                                             <div class="form-group">
-                                                                <label for="">Nama Kota</label>
-                                                                <input type="text" name="nama_city" id="" class="form-control" value="<?= $data['nama_city'] ?>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="">Kode Kota</label>
-                                                                <input type="text" name="kode_city" class="form-control" value="<?= $data['kode_city'] ?>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="">Gudang</label>
-                                                                <select name="id_gudang_stok" id="" class="select2bs4">
-                                                                    <option value="0">=== Pilih Gudang ===</option>
-                                                                    <?php foreach ($gudangs as $gudang): ?>
-                                                                        <option value="<?= $gudang['id_gudang_stok'] ?>" <?= $gudang['id_gudang_stok'] ==  $data['id_gudang_stok'] ? 'selected' : '' ?>><?= $gudang['name_gudang_stok'] ?></option>
-                                                                    <?php endforeach; ?>
-                                                                </select>
+                                                                <label for="">Nama</label>
+                                                                <input type="text" name="name_sjstok_stok" id="" class="form-control" value="<?= $sjstok['name_sjstok_stok'] ?>">
                                                             </div>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>
@@ -136,29 +127,25 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Kota</h4>
+                <h4 class="modal-title">Tambah Data</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('insert-city') ?>" method="POST">
+                <form action="<?= base_url('sjstok/create') ?>" method="POST">
                     <div class="form-group">
-                        <label for="">Nama Kota</label>
-                        <input type="text" name="nama_city" id="" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Kode Kota</label>
-                        <input type="text" name="kode_city" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Gudang</label>
-                        <select name="id_gudang_stok" id="" class="select2bs4">
+                        <label for="">Gudang Tujuan</label>
+                        <select name="id_gudang_stok" id="" class="form-control select2bs4">
                             <option value="0">=== Pilih Gudang ===</option>
                             <?php foreach ($gudangs as $gudang): ?>
                                 <option value="<?= $gudang['id_gudang_stok'] ?>"><?= $gudang['name_gudang_stok'] ?></option>
                             <?php endforeach; ?>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tgl Pengiriman</label>
+                        <input type="date" name="delivery_date" class="form-control">
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>

@@ -38,6 +38,7 @@ class Produk extends CI_Controller
         $data['city'] = $this->MCity->getById($id_city);
         $data['produk'] = $this->MProduk->getByCity($id_city);
         $data['satuans'] = $this->MSatuan->get();
+        $data['masterproduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Produk/List');
@@ -61,7 +62,6 @@ class Produk extends CI_Controller
 
     public function insert()
     {
-        $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required');
         $this->form_validation->set_rules('harga_produk', 'Harga Produk', 'required');
 
         if ($this->form_validation->run() == false) {
@@ -160,7 +160,6 @@ class Produk extends CI_Controller
 
     public function update($id)
     {
-        $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required');
         $this->form_validation->set_rules('harga_produk', 'Harga Produk', 'required');
 
         if ($this->form_validation->run() == false) {

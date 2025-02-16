@@ -7,6 +7,7 @@ class MCity extends CI_Model
     public $nama_city;
     public $kode_city;
     public $id_distributor;
+    public $id_gudang_stok;
 
     public function getAll()
     {
@@ -42,6 +43,7 @@ class MCity extends CI_Model
         $this->nama_city = $post['nama_city'];
         $this->kode_city = $post['kode_city'];
         $this->id_distributor = $this->session->userdata('id_distributor');
+        $this->id_gudang_stok = $post['id_gudang_stok'];
 
         $query = $this->db->insert('tb_city', $this);
 
@@ -58,6 +60,7 @@ class MCity extends CI_Model
         $this->nama_city = $post['nama_city'];
         $this->kode_city = $post['kode_city'];
         $this->id_distributor = $this->session->userdata('id_distributor');
+        $this->id_gudang_stok = $post['id_gudang_stok'];
 
         $query = $this->db->update('tb_city', $this, ['id_city' => $id]);
 

@@ -21,12 +21,12 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">List Produk</h1>
+                    <h1 class="m-0"><?= $title ?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Produk</a></li>
-                        <li class="breadcrumb-item active"><?= $city['nama_city'] ?></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('sjstok') ?>">Tambah Stok</a></li>
+                        <li class="breadcrumb-item active"><?= $title ?></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -40,90 +40,102 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>No Pengiriman: <b><?= 'SO-' . str_pad($sjstok['id_sj_stok'], 6, "0", STR_PAD_LEFT) ?></b></h6>
+                                    <h6>Gudang: <b><?= $gudang['name_gudang_stok'] ?></b></h6>
+                                    <?php
+                                    $gudangCity = '';
+                                    $noGudangCity = 1;
+                                    foreach ($citys as $city) {
+                                        if ($noGudangCity == 1) {
+                                            $gudangCity .= $city['nama_city'];
+                                        } else {
+                                            $gudangCity .= ', ' . $city['nama_city'];
+                                        }
+                                        $noGudangCity++;
+                                    }
+                                    ?>
+                                    <h6>Kota: <b><?= $gudangCity ?></b></h6>
+                                </div>
+                                <div class="col-6">
+                                    <?php if ($sjstok['is_finished'] == 0): ?>
+                                        <a href="<?= base_url('sjstok/finish/' . $sjstok['id_sj_stok']) ?>" class="btn btn-success float-right">Finish</a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
                         <div class="card-header">
-                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
-                                Tambah Data
-                            </button>
+                            <?php if ($sjstok['is_finished'] == 0): ?>
+                                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
+                                    Tambah Data
+                                </button>
+                            <?php endif; ?>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Produk</th>
+                                        <th>Produk</th>
+                                        <th>Qty</th>
                                         <th>Satuan</th>
-                                        <th>Harga Produk</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($produk as $data) : ?>
+                                    foreach ($detailSjstoks as $detailSjstok) : ?>
+                                        <?php
+                                        $id_master_produk = $detailSjstok['id_master_produk'];
+                                        $detailMasterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
+
+                                        $id_satuan = $detailMasterProduk['id_satuan'];
+                                        $satuan = $this->db->get_where('tb_satuan', ['id_satuan' => $id_satuan])->row_array();
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['nama_produk'] ?></td>
-                                            <td><?= $data['name_satuan'] ?></td>
-                                            <td>Rp. <?= number_format($data['harga_produk'], 0, ',', '.') ?></td>
+                                            <td><?= $detailMasterProduk['name_master_produk'] ?></td>
+                                            <td><?= $detailSjstok['qty_detail_sj_stok'] ?></td>
+                                            <td><?= $satuan['name_satuan'] ?></td>
                                             <td>
-                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_produk'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="#" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
-                                                <!-- <a class="btn btn-success" data-toggle="modal" data-target="#modal-stok<?= $data['id_produk'] ?>" title="Tambah Stok"><i class="fas fa-archive"></i></a> -->
-                                                <a href="<?= base_url('produk/' . $city['id_city'] . "/" . $data['id_produk']) ?>" class="btn btn-info" title="Tambah Stok" target="__blank"><i class="fas fa-eye"></i>&nbsp;Lihat Stok</a>
+                                                <?php if ($sjstok['is_finished'] == 0): ?>
+                                                    <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $detailSjstok['id_detail_sj_stok'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
+                                                    <a href="<?= base_url('sjstok/detail/delete/') . $detailSjstok['id_detail_sj_stok'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="modal-edit<?= $data['id_produk'] ?>">
+                                        <div class="modal fade" id="modal-edit<?= $detailSjstok['id_detail_sj_stok'] ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Ubah Data Produk</h4>
+                                                        <h4 class="modal-title">Ubah Data</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('update-produk/') . $data['id_produk'] ?>" method="POST">
+                                                        <form action="<?= base_url('sjstok/detail/update/') . $detailSjstok['id_detail_sj_stok'] ?>" method="POST">
+                                                            <input type="text" name="id_sj_stok" value="<?= $sjstok['id_sj_stok'] ?>" hidden>
                                                             <div class="form-group">
                                                                 <label for="">Produk</label>
                                                                 <select name="id_master_produk" id="" class="form-control select2bs4">
                                                                     <option value="0">=== Pilih Produk ===</option>
-                                                                    <?php foreach ($masterproduks as $masterproduk): ?>
-                                                                        <?php
-                                                                        $id_satuan = $masterproduk['id_satuan'];
-                                                                        $satuan = $this->db->get_where('tb_satuan', ['id_satuan' => $id_satuan])->row_array();
-                                                                        ?>
-                                                                        <option value="<?= $masterproduk['id_master_produk'] ?>" <?= $masterproduk['id_master_produk'] == $data['id_master_produk'] ? 'selected' : '' ?>><?= $masterproduk['name_master_produk'] . ' - ' . $satuan['name_satuan'] ?></option>
+                                                                    <?php foreach ($masterProduks as $masterProduk): ?>
+                                                                        <option value="<?= $masterProduk['id_master_produk'] ?>" <?= $masterProduk['id_master_produk'] == $detailSjstok['id_master_produk'] ? 'selected' : '' ?>><?= $masterProduk['name_master_produk'] ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>
                                                             </div>
-                                                            <input type="text" name="id_city" value="<?= $city['id_city'] ?>" hidden>
                                                             <div class="form-group">
-                                                                <label for="">Harga Produk</label>
-                                                                <input type="text" name="harga_produk" class="form-control" value="<?= $data['harga_produk'] ?>">
+                                                                <label for="">QTY</label>
+                                                                <input type="number" name="qty_detail_sj_stok" class="form-control" value="<?= $detailSjstok['qty_detail_sj_stok'] ?>">
                                                             </div>
-                                                            <button class="btn btn-primary float-right">Simpan</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal fade" id="modal-stok<?= $data['id_produk'] ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Tambah Stok Produk</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="<?= base_url('insert-stok/') . $data['id_produk'] ?>" method="POST">
-                                                            <input type="text" name="id_city" value="<?= $city['id_city'] ?>" hidden>
-                                                            <div class="form-group">
-                                                                <label for="">Jumlah</label>
-                                                                <input type="number" name="jml_stok" class="form-control" value="1">
-                                                            </div>
-                                                            <input type="text" name="id_city" value="<?= $city['id_city'] ?>" hidden>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>
                                                     </div>
@@ -158,30 +170,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Produk</h4>
+                <h4 class="modal-title">Tambah Data</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('insert-produk') ?>" method="POST">
+                <form action="<?= base_url('sjstok/detail/create') ?>" method="POST">
+                    <input type="text" name="id_sj_stok" value="<?= $sjstok['id_sj_stok'] ?>" hidden>
                     <div class="form-group">
                         <label for="">Produk</label>
                         <select name="id_master_produk" id="" class="form-control select2bs4">
                             <option value="0">=== Pilih Produk ===</option>
-                            <?php foreach ($masterproduks as $masterproduk): ?>
-                                <?php
-                                $id_satuan = $masterproduk['id_satuan'];
-                                $satuan = $this->db->get_where('tb_satuan', ['id_satuan' => $id_satuan])->row_array();
-                                ?>
-                                <option value="<?= $masterproduk['id_master_produk'] ?>"><?= $masterproduk['name_master_produk'] . ' - ' . $satuan['name_satuan'] ?></option>
+                            <?php foreach ($masterProduks as $masterProduk): ?>
+                                <option value="<?= $masterProduk['id_master_produk'] ?>"><?= $masterProduk['name_master_produk'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <input type="text" name="id_city" value="<?= $city['id_city'] ?>" hidden>
                     <div class="form-group">
-                        <label for="">Harga Produk</label>
-                        <input type="text" name="harga_produk" class="form-control">
+                        <label for="">QTY</label>
+                        <input type="number" name="qty_detail_sj_stok" class="form-control" value="1">
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>

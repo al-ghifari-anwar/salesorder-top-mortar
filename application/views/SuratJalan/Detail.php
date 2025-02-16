@@ -135,13 +135,14 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form action="<?= base_url('update-detsuratjalan/') . $data['id_detail_surat_jalan'] ?>" method="POST">
+                                                            <input type="text" name="id_city" class="form-control" value="<?= $toko['id_city'] ?>" hidden>
                                                             <input type="text" name="id_detail_surat_jalan" class="form-control" value="<?= $data['id_detail_surat_jalan'] ?>" hidden>
                                                             <input type="text" name="id_surat_jalan" class="form-control" value="<?= $data['id_surat_jalan'] ?>" hidden>
                                                             <div class="form-group">
                                                                 <label for="">Produk</label>
                                                                 <select class="form-control select2bs4" name="id_produk" style="width: 100%;">
                                                                     <?php foreach ($produk as $dataProduk) : ?>
-                                                                        <option value="<?= $dataProduk['id_produk'] ?>"><?= $dataProduk['nama_produk'] . " - " . "Rp. " . number_format($dataProduk['harga_produk'], 0, ',', '.')  ?></option>
+                                                                        <option value="<?= $dataProduk['id_produk'] ?>" <?= $dataProduk['id_produk'] == $data['id_produk'] ? 'selected' : '' ?>><?= $dataProduk['nama_produk'] . " - " . "Rp. " . number_format($dataProduk['harga_produk'], 0, ',', '.')  ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>
                                                             </div>
@@ -190,6 +191,7 @@
             </div>
             <div class="modal-body">
                 <form action="<?= base_url('insert-detsuratjalan') ?>" method="POST">
+                    <input type="text" name="id_city" class="form-control" value="<?= $toko['id_city'] ?>" hidden>
                     <input type="text" name="id_surat_jalan" class="form-control" value="<?= $suratjalan['id_surat_jalan'] ?>" hidden>
                     <div class="form-group">
                         <label for="">Produk</label>

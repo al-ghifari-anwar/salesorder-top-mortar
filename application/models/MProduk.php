@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class MProduk extends CI_Model
 {
-
+    public $id_master_produk;
     public $nama_produk;
     public $id_satuan;
     public $id_city;
@@ -33,8 +33,12 @@ class MProduk extends CI_Model
     public function insert()
     {
         $post = $this->input->post();
-        $this->nama_produk = $post['nama_produk'];
-        $this->id_satuan = $post['id_satuan'];
+        $id_master_produk = $post['id_master_produk'];
+        $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
+
+        $this->id_master_produk = $post['id_master_produk'];
+        $this->nama_produk = $masterProduk['name_master_produk'];
+        $this->id_satuan = $masterProduk['id_satuan'];
         $this->id_city = $post['id_city'];
         $this->harga_produk = $post['harga_produk'];
 
@@ -50,8 +54,12 @@ class MProduk extends CI_Model
     public function update($id)
     {
         $post = $this->input->post();
-        $this->nama_produk = $post['nama_produk'];
-        $this->id_satuan = $post['id_satuan'];
+        $id_master_produk = $post['id_master_produk'];
+        $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
+
+        $this->id_master_produk = $post['id_master_produk'];
+        $this->nama_produk = $masterProduk['name_master_produk'];
+        $this->id_satuan = $masterProduk['id_satuan'];
         $this->id_city = $post['id_city'];
         $this->harga_produk = $post['harga_produk'];
 

@@ -63,11 +63,6 @@ $route['produk'] = 'Produk';
 $route['produk/(:num)'] = 'Produk/produk_by_city/$1';
 $route['insert-produk'] = 'Produk/insert';
 $route['update-produk/(:num)'] = 'Produk/update/$1';
-// Stok Produk
-$route['insert-stok/(:num)'] = 'Produk/insert_stok/$1';
-$route['move-stok/(:num)'] = 'Produk/move_stok/$1';
-$route['produk/(:num)/(:num)'] = 'Produk/stok_by_produk/$1/$2';
-$route['delete-stok/(:num)/(:num)/(:num)'] = 'Produk/delete_stok/$1/$2/$3';
 //Auth
 $route['login'] = 'Auth';
 $route['logout'] = 'Auth/logout';
@@ -160,10 +155,6 @@ $route['lap-absen/(:num)/(:any)'] = 'Visit/lap_absen/$1/$2';
 $route['lap-absen-renvis/(:num)/(:any)'] = 'Visit/lap_absen_renvis/$1/$2';
 // Notif
 $route['notif-passive'] = 'Notif/notif_passive';
-// Stok
-$route['stok'] = 'Stok';
-$route['stok/(:num)'] = 'Stok/list/$1';
-$route['cetak-stok'] = 'Stok/lap_stok';
 // Surat Jalan
 $route['renvis'] = 'Renvis/city_list';
 $route['renvis/(:num)'] = 'Renvis/index/$1';
@@ -272,3 +263,34 @@ $route['marketing'] = 'Marketing';
 $route['insert-marketing'] = 'Marketing/insert';
 $route['delete-marketing/(:num)/(:any)'] = 'Marketing/delete/$1/$2';
 $route['update-marketing/(:num)'] = 'Marketing/update/$1';
+// Gudang
+$route['gudang'] = 'Gudang';
+$route['gudang/create'] = 'Gudang/create';
+$route['gudang/update/(:num)'] = 'Gudang/update/$1';
+$route['gudang/delete/(:num)'] = 'Gudang/delete/$1';
+// Stok Produk
+$route['insert-stok/(:num)'] = 'Produk/insert_stok/$1';
+$route['move-stok/(:num)'] = 'Produk/move_stok/$1';
+$route['produk/(:num)/(:num)'] = 'Produk/stok_by_produk/$1/$2';
+$route['delete-stok/(:num)/(:num)/(:num)'] = 'Produk/delete_stok/$1/$2/$3';
+// Stok
+$route['stok'] = 'Stok';
+$route['stok/(:num)'] = 'Stok/list/$1';
+$route['cetak-stok'] = 'Stok/lap_stok';
+// Tambah Stok / Sjstok
+$route['sjstok'] = 'Sjstok';
+$route['sjstok/create'] = 'Sjstok/create';
+$route['sjstok/update/(:num)'] = 'Sjstok/update/$1';
+$route['sjstok/delete/(:num)'] = 'Sjstok/delete/$1';
+$route['sjstok/print/(:num)'] = 'Sjstok/print/$1';
+$route['sjstok/(:num)'] = 'Sjstok/detail/$1';
+$route['sjstok/detail/create'] = 'Sjstok/createDetail';
+$route['sjstok/detail/update/(:num)'] = 'Sjstok/updateDetail/$1';
+$route['sjstok/detail/delete/(:num)'] = 'Sjstok/deleteDetail/$1';
+$route['sjstok/rechieved/(:num)'] = 'Sjstok/rechieved/$1';
+// Gudang
+$route['masterproduk'] = 'Masterproduk';
+$route['masterproduk/sync'] = 'Masterproduk/sync';
+$route['masterproduk/create'] = 'Masterproduk/create';
+$route['masterproduk/update/(:num)'] = 'Masterproduk/update/$1';
+$route['masterproduk/delete/(:num)'] = 'Masterproduk/delete/$1';

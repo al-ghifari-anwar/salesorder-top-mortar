@@ -84,7 +84,9 @@
                 target === "#" ||
                 target.startsWith("javascript") ||
                 $(this).attr("data-toggle") === "modal" ||
-                $(this).attr("data-target")
+                $(this).attr("data-target") ||
+                $(this).attr("target") === "_blank" ||
+                $(this).attr("target") === "__blank"
             ) {
                 return;
             }

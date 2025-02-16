@@ -212,14 +212,15 @@ class SuratJalan extends CI_Controller
 
     public function deletedetail($id)
     {
+        $detailSJ = $this->db->get_where('tb_detail_surat_jalan', ['id_detail_surat_jalan' => $id])->row_array();
         $insert = $this->MDetailSuratJalan->delete($id);
 
         if ($insert) {
             $this->session->set_flashdata('success', "Berhasil megnhapus data produk!");
-            redirect('surat-jalan/' . $this->input->post('id_surat_jalan'));
+            redirect('surat-jalan/' . $detailSJ['id_surat_jalan']);
         } else {
             $this->session->set_flashdata('failed', "Gagal megnhapus data produk!");
-            redirect('surat-jalan/' . $this->input->post('id_surat_jalan'));
+            redirect('surat-jalan/' . $detailSJ['id_surat_jalan']);
         }
     }
 

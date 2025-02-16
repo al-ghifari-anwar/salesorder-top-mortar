@@ -131,13 +131,46 @@ class MDetailSuratJalan extends CI_Model
     public function insert()
     {
         $post = $this->input->post();
+        $id_produk = $post['id_produk'];
+        $id_city = $post['id_city'];
+
+        $city = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
+        $id_gudang_stok = $city['id_gudang_stok'];
+        $gudang = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
+
         $this->id_surat_jalan = $post['id_surat_jalan'];
         $this->id_produk = $post['id_produk'];
         $this->qty_produk = $post['qty_produk'];
-        $produk = $this->db->get_where('tb_produk', ['id_produk' => $post['id_produk']])->row_array();
+
+        $produk = $this->db->get_where('tb_produk', ['id_produk' => $id_produk])->row_array();
         $this->price = $post['harga_produk'];
         $retur = $post['is_retur'];
         $is_voucher = $post['is_voucher'];
+
+        $id_master_produk = $produk['id_master_produk'];
+        $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
+
+        $this->db->select('SUM(jml_stok) AS jml_stokIn');
+        $getStokIn = $this->db->get_where('tb_stok', ['id_gudang_stok' => $id_gudang_stok, 'id_master_produk' => $id_master_produk, 'status_stok' => 'in'])->row_array();
+
+        $stokIn = $getStokIn['jml_stokIn'];
+
+        $this->db->select('SUM(qty_produk) AS jml_stokOut');
+        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_produk' => $id_produk])->row_array();
+
+        $stokOut = $getStokOut['jml_stokOut'];
+
+        $currentStok = $stokIn - $stokOut;
+
+        // if ($post['qty_produk'] > $currentStok) {
+        //     $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok: <b>" . $currentStok . "</b>");
+        //     redirect('surat-jalan/' . $post['id_surat_jalan']);
+        // }
+
+        // if ($currentStok <= 0) {
+        //     $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> sudah habis");
+        //     redirect('surat-jalan/' . $post['id_surat_jalan']);
+        // }
 
         if ($this->price == 0) {
             $this->session->set_flashdata('failed', "Terjadi kesalahan, harap input ulang produk");
@@ -193,9 +226,44 @@ class MDetailSuratJalan extends CI_Model
     public function update($id)
     {
         $post = $this->input->post();
+        $id_produk = $post['id_produk'];
+        $id_city = $post['id_city'];
+
+        $city = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
+        $id_gudang_stok = $city['id_gudang_stok'];
+        $gudang = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
+
         $this->id_surat_jalan = $post['id_surat_jalan'];
         $this->id_produk = $post['id_produk'];
         $this->qty_produk = $post['qty_produk'];
+
+        $produk = $this->db->get_where('tb_produk', ['id_produk' => $id_produk])->row_array();
+
+        $id_master_produk = $produk['id_master_produk'];
+        $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
+
+        $this->db->select('SUM(jml_stok) AS jml_stokIn');
+        $getStokIn = $this->db->get_where('tb_stok', ['id_gudang_stok' => $id_gudang_stok, 'id_master_produk' => $id_master_produk, 'status_stok' => 'in'])->row_array();
+
+        $stokIn = $getStokIn['jml_stokIn'];
+
+        $this->db->select('SUM(qty_produk) AS jml_stokOut');
+        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_produk' => $id_produk])->row_array();
+
+        $stokOut = $getStokOut['jml_stokOut'];
+
+        $currentStok = $stokIn - $stokOut;
+
+        // if ($post['qty_produk'] > $currentStok) {
+        //     $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok: <b>" . $currentStok . "</b>");
+        //     redirect('surat-jalan/' . $post['id_surat_jalan']);
+        // }
+
+        // if ($currentStok <= 0) {
+        //     $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> sudah habis");
+        //     redirect('surat-jalan/' . $post['id_surat_jalan']);
+        // }
+
         if ($post['is_bonus'] == true) {
             $this->is_bonus = 1;
         } else {
