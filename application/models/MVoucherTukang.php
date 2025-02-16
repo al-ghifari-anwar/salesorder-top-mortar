@@ -26,6 +26,21 @@ class MVoucherTukang extends CI_Model
         return $result;
     }
 
+    public function getPenukaranAllTime($id_contact)
+    {
+        $id_distributor = $this->session->userdata('id_distributor');
+        $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang', 'LEFT');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city', 'LEFT');
+        $this->db->join('tb_skill', 'tb_skill.id_skill = tb_tukang.id_skill', 'LEFT');
+        $this->db->order_by('tb_voucher_tukang.claim_date', 'DESC');
+        $result = $this->db->get_where('tb_voucher_tukang', ['is_claimed' => 1, 'id_contact' => $id_contact])->result_array();
+
+        // echo $this->db->last_query();
+        // die;
+
+        return $result;
+    }
+
     public function getByIdMd5($id_md5)
     {
         $this->db->order_by('created_at', 'DESC');

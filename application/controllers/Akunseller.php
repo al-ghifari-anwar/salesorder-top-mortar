@@ -172,7 +172,7 @@ class Akunseller extends CI_Controller
         $data['title'] = 'Penukaran Voucher Tukang Top Mortar';
         $dateRange = $this->input->post("date_range");
 
-        $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d"), date("Y-m-d"));
+        $data['vouchers'] = $this->MVoucherTukang->getPenukaranAllTime($id_contact);
 
         if ($dateRange) {
             $dates = explode("-", $dateRange);
