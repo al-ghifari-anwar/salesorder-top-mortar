@@ -239,12 +239,14 @@ class Sjstok extends CI_Controller
         $data['detailSjstoks'] = $this->db->get_where('tb_detail_sj_stok', ['id_sj_stok' => $id_sj_stok])->result_array();
         $data['gudang'] = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
 
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Sjstok/Print', $data, true);
-        $mpdf->AddPage('P');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        $this->load->view('Sjstok/Print', $data);
+
+        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        // $mpdf->SetMargins(0, 0, 5);
+        // $html = $this->load->view('Sjstok/Print', $data, true);
+        // $mpdf->AddPage('P');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output();
     }
 
     public function rechieved($id_sj_stok)
