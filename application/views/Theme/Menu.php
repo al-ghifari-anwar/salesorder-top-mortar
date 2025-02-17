@@ -118,7 +118,7 @@
                                     </p>
                                 </a>
                             </li>
-                            <?php if ($this->session->userdata('level_user') == 'admin'): ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin_c'): ?>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-cog"></i>
