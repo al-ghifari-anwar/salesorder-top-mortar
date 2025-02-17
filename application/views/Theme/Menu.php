@@ -146,86 +146,82 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <?php if ($this->session->userdata('level_user') != 'sales') : ?>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="nav-icon fas fa-database"></i>
-                                            <p>
-                                                Data
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('satuan') ?>" class="nav-link">
-                                                    <i class="fas fa-layer-group nav-icon"></i>
-                                                    <p>Satuan</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('city') ?>" class="nav-link">
-                                                    <i class="fas fa-map-marker-alt nav-icon"></i>
-                                                    <p>Kota</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('kendaraan') ?>" class="nav-link">
-                                                    <i class="fas fa-truck nav-icon"></i>
-                                                    <p>Kendaraan</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('masterproduk') ?>" class="nav-link">
-                                                    <i class="fas fa-tag nav-icon"></i>
-                                                    <p>Master Produk</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('gudang') ?>" class="nav-link">
-                                                    <i class="fas fa-warehouse nav-icon"></i>
-                                                    <p>Gudang</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('produk') ?>" class="nav-link">
-                                                    <i class="fas fa-shopping-basket nav-icon"></i>
-                                                    <p>Produk Per Kota</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('toko') ?>" class="nav-link">
-                                                    <i class="fas fa-store nav-icon"></i>
-                                                    <p>Toko</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('tukang') ?>" class="nav-link">
-                                                    <i class="fas fa-user-astronaut nav-icon"></i>
-                                                    <p>Tukang</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                <?php endif; ?>
-                                <?php if ($this->session->userdata('level_user') != 'sales') : ?>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="nav-icon fas fa-box"></i>
-                                            <p>
-                                                Stok
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('sjstok') ?>" class="nav-link">
-                                                    <i class="fas fa-truck-loading nav-icon"></i>
-                                                    <p>Tambah Stok</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                <?php endif; ?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-database"></i>
+                                        <p>
+                                            Data
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('satuan') ?>" class="nav-link">
+                                                <i class="fas fa-layer-group nav-icon"></i>
+                                                <p>Satuan</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('city') ?>" class="nav-link">
+                                                <i class="fas fa-map-marker-alt nav-icon"></i>
+                                                <p>Kota</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('kendaraan') ?>" class="nav-link">
+                                                <i class="fas fa-truck nav-icon"></i>
+                                                <p>Kendaraan</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('masterproduk') ?>" class="nav-link">
+                                                <i class="fas fa-tag nav-icon"></i>
+                                                <p>Master Produk</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('gudang') ?>" class="nav-link">
+                                                <i class="fas fa-warehouse nav-icon"></i>
+                                                <p>Gudang</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('produk') ?>" class="nav-link">
+                                                <i class="fas fa-shopping-basket nav-icon"></i>
+                                                <p>Produk Per Kota</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('toko') ?>" class="nav-link">
+                                                <i class="fas fa-store nav-icon"></i>
+                                                <p>Toko</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('tukang') ?>" class="nav-link">
+                                                <i class="fas fa-user-astronaut nav-icon"></i>
+                                                <p>Tukang</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-box"></i>
+                                        <p>
+                                            Stok
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('sjstok') ?>" class="nav-link">
+                                                <i class="fas fa-truck-loading nav-icon"></i>
+                                                <p>Tambah Stok</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'sales' || $this->session->userdata('level_user') == 'salesleader') : ?>
                                 <li class="nav-item">
