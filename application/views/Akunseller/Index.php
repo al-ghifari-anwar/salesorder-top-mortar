@@ -64,7 +64,7 @@
                                     foreach ($contactPriors as $data) : ?>
                                         <?php
                                         $id_contact = $data['id_contact'];
-                                        $getCountVoucher = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact])->num_rows();
+                                        $getCountVoucher = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact, 'is_claimed' => 1])->num_rows();
 
                                         $this->db->order_by('created_at', 'DESC');
                                         $getTglJoin = $this->db->get_where('tb_otp_toko', ['id_contact' => $id_contact], 1)->row_array();
