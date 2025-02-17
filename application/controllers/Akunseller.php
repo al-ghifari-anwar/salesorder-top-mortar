@@ -283,4 +283,38 @@ class Akunseller extends CI_Controller
             redirect('akunseller');
         }
     }
+
+    public function sync()
+    {
+        $contacts = $this->MContact->getAllTopSeller();
+
+        foreach ($contacts as $contact) {
+            $id_contact = $contact['id_contact'];
+            $quotaOld = $contact['quota_priority'];
+            $getCountVoucher = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact, 'is_claimed' => 1])->num_rows();
+            $quota_priority = $quotaOld - $getCountVoucher;
+
+            if ($quota_priority < 0) {
+                $quota_new = $quota_priority * -1;
+
+                $dataQuota = [
+                    'id_contact' => $contact['id_contact'],
+                    'val_quota_toko' => $quota_new,
+                    'id_user' => $this->session->userdata('id_user'),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ];
+
+                $saveQuota = $this->db->insert('tb_quota_toko', $dataQuota);
+
+                $dataUpdateQuota = [
+                    'quota_priority' => $quota_new
+                ];
+
+                $updateQuota = $this->db->update('tb_contact', $dataUpdateQuota, ['id_contact' => $id_contact]);
+            }
+        }
+
+        $this->session->set_flashdata('success', "Berhasil menambah quota toko");
+        redirect('akunseller');
+    }
 }
