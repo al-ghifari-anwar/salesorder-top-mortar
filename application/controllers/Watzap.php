@@ -125,6 +125,14 @@ class Watzap extends CI_Controller
                     $this->output->set_output(json_encode($dataResponse));
                 }
             } else {
+                $arrayWatzapTukang = [
+                    'send_at' => date('Y-m-d H:i:s'),
+                    'status_watzap_tukang' => 'failed',
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+
+                $updateStatus = $this->MWatzaptukang->updateFromArray($watzapTukang['id_watzap_tukang'], $arrayWatzapTukang);
+
                 $dataResponse = [
                     'status' => 'failed',
                     'response' => $resArray
