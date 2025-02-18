@@ -57,7 +57,7 @@
                                                 <!-- /.input group -->
                                             </div>
 
-                                            <input type="text" name="id_city" value="<?= $id_city ?>" hidden>
+                                            <input type="text" name="id_gudang_stok" value="<?= $id_gudang_stok ?>" hidden>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
                                             </div>

@@ -38,19 +38,19 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <?php foreach ($city as $data) : ?>
+                <?php foreach ($gudangs as $gudang) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-light">
                             <div class="inner">
-                                <h3><?= $data['nama_city'] ?></h3>
+                                <h3><i class="fas fa-warehouse"></i></h3>
 
-                                <p><?= $data['kode_city'] ?></p>
+                                <p><?= $gudang['name_gudang_stok'] ?></p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="<?= base_url('stok/') . $data['id_city'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="<?= base_url('stok/') . $gudang['id_gudang_stok'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 <?php endforeach; ?>

@@ -21,11 +21,11 @@ class Stok extends CI_Controller
     public function index()
     {
         $data['title'] = 'Stok Produk';
-        if ($this->session->userdata('level_user') == 'admin_c') {
-            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
-        } else {
-            $data['city'] = $this->MCity->getAll();
-        }
+        // if ($this->session->userdata('level_user') == 'admin_c') {
+        //     $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        // } else {
+        $data['gudangs'] = $this->db->get('tb_gudang_stok')->result_array();
+        // }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Stok/Index');
@@ -33,15 +33,11 @@ class Stok extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function list($id_city)
+    public function list($id_gudang_stok)
     {
         $data['title'] = 'Stok Produk';
-        $data['id_city'] = $id_city;
-        if ($this->session->userdata('level_user') == 'admin_c') {
-            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
-        } else {
-            $data['city'] = $this->MCity->getAll();
-        }
+        $data['id_gudang_stok'] = $id_gudang_stok;
+
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Stok/List');
@@ -53,10 +49,10 @@ class Stok extends CI_Controller
     {
         $post = $this->input->post();
         $dateRange = $post["date_range"];
-        $id_city = $post["id_city"];
+        $id_gudang_stok = $post["id_gudang_stok"];
 
-        $data['city'] = $this->MCity->getById($id_city);
-        $data['produk'] = $this->db->get_where("tb_produk", ['id_city' => $id_city])->result_array();
+        $data['gudang'] = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
+        $data['masterProduks'] = $this->db->get_where("tb_master_produk", ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         $data['dates'] = explode("-", $dateRange);
         // $this->load->view('Stok/Print', $data);
         // PDF
