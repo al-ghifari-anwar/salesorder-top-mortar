@@ -76,7 +76,7 @@ class Watzap extends CI_Controller
             $dataSending["api_key"] = "OG0UMAWHV6SJ0GL2";
             $dataSending["number_key"] = "liVWjKEiV6aImQ5M";
             $dataSending["phone_no"] = $phone;
-            $dataSending["message"] = $marketingMessage['body_marekting_message'];
+            $dataSending["message"] = $marketingMessage['body_marketing_message'];
             $dataSending["url"] = "https://order.topmortarindonesia.com/assets/content_img/" . $marketingMessage['image_marketing_message'];
             $dataSending["separate_caption"] = "0";
 
