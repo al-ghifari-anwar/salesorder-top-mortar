@@ -4,7 +4,7 @@ class MWatzaptukang extends CI_Model
 {
     public function getSingleWaiting()
     {
-        $this->db->order_by('send_at', 'DESC');
+        $this->db->order_by('send_at', 'ASC');
         $result = $this->db->get_where('tb_watzap_tukang', ['status_watzap_tukang' => 'waiting'], 1)->row_array();
 
         return $result;
