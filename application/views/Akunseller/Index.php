@@ -25,7 +25,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?= base_url('prioritystore') ?>">Toko Seller</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('akunseller') ?>">Top Seller</a></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->

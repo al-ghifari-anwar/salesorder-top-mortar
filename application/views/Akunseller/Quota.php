@@ -20,16 +20,19 @@
                 </div>
             <?php endif; ?>
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <?php
                     $id_contact = $contact['id_contact'];
                     $getCountVoucher = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact, 'is_claimed' => 1])->num_rows();
                     ?>
-                    <h1 class="m-0"><?= $title ?> - <?= $contact['nama'] ?> [QUOTA: <?= $contact['quota_priority'] - $getCountVoucher ?>]</h1>
+                    <div class="row">
+                        <a href="<?= base_url('akunseller') ?>" class="btn btn-primary mr-3"><i class="fas fa-arrow-left"></i></a>
+                        <h1 class="m-0"><?= $title ?> - <?= $contact['nama'] ?> [QUOTA: <?= $contact['quota_priority'] - $getCountVoucher ?>]</h1>
+                    </div>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?= base_url('prioritystore') ?>">Toko Seller</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('akunseller') ?>">Akun Seller</a></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
