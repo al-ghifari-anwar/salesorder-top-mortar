@@ -89,7 +89,7 @@
                                             <td><?= $tukang['nama'] ?></td>
                                             <td><?= $tukang['nomorhp'] ?></td>
                                             <td><?= $watzap_tukang['status_watzap_tukang'] ?></td>
-                                            <td><?= $watzap_tukang['send_at'] != null ? date("d F Y", strtotime($watzap_tukang['send_at'])) : "-" ?></td>
+                                            <td><?= $watzap_tukang['send_at'] != null ? date("d F Y - H:i:s", strtotime($watzap_tukang['send_at'])) : "-" ?></td>
                                             <td>
                                                 <img src="<?= base_url('assets/img/content_img/' . $marketing_message['image_marketing_message']) ?>" class="img-thumbnail" width="200">
                                             </td>
