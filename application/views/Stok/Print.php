@@ -144,7 +144,7 @@ function penyebut($nilai)
                 // Jumlah Akhir
                 // $jumlahAkhir = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' ")->row_array();
                 $this->db->select('SUM(jml_stok) AS jml_stokAkhir');
-                $jumlahAkhir = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk])->row_array();
+                $jumlahAkhir = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
                 // $totalPengeluaran = $this->db->query("SELECT SUM(qty_produk) AS qty_produk FROM tb_detail_surat_jalan JOIN tb_surat_jalan ON tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan WHERE tb_detail_surat_jalan.id_produk = '$id_produk' AND date_closing > '2024-02-16' ")->row_array();
 
