@@ -93,7 +93,7 @@ class Manualvisit extends CI_Controller
             }
 
             // Notif to customer
-            $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+            $wa_token = $getContact['token'];
             $template_id = 'c80d503f-bc62-450e-87e2-b7e794855145';
             $message = "Terimakasih telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". ";
             $nomor_hp = $getContact['nomorhp'];
@@ -149,8 +149,8 @@ class Manualvisit extends CI_Controller
 
             curl_close($curl);
 
-            echo $response;
-            die;
+            // echo $response;
+            // die;
 
             $nomor_hp_admin = "6289636224827";
             $nama_admin = "April";
