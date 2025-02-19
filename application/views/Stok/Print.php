@@ -139,7 +139,7 @@ function penyebut($nilai)
                 // Jumlah Awal
                 // $jumlahAwal = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' AND created_at < '$dateFrom' ")->row_array();
                 $this->db->select('SUM(jml_stok) AS jml_stokAwal');
-                $jumlahAwal = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk, 'created_at <' => $dateFrom])->row_array();
+                $jumlahAwal = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk, 'created_at <' => $dateFrom, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
                 // Jumlah Akhir
                 // $jumlahAkhir = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' ")->row_array();
