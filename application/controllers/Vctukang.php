@@ -236,7 +236,7 @@ class Vctukang extends CI_Controller
                     $qrImageLoader->fromFile($qrPath)->resize(370, 370);
 
                     $frameBuilder = new SimpleImage();
-                    $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
+                    $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_2.png")
                         ->autoOrient()
                         ->overlay($qrImageLoader, 'center', 1, 0, -65)
                         ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
