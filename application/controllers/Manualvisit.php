@@ -149,8 +149,8 @@ class Manualvisit extends CI_Controller
 
             curl_close($curl);
 
-            // echo $response;
-            // die;
+            echo $response;
+            die;
 
             $nomor_hp_admin = "6289636224827";
             $nama_admin = "April";
