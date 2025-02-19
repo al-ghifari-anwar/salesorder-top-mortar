@@ -135,7 +135,7 @@ function penyebut($nilai)
                 $this->db->select('SUM(qty_produk) AS jml_stokOut');
                 $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_detail_surat_jalan.id_produk');
                 $this->db->join('tb_stok', 'tb_stok.id_master_produk = tb_master_produk.id_master_produk');
-                $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateFrom, 'tb_detail_surat_jalan.created_at <' => $dateTo, 'id_gudang_stok' => $id_gudang_stok])->row_array();
+                $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateFrom, 'tb_detail_surat_jalan.created_at <' => $dateTo, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
                 // Jumlah Awal
                 // $jumlahAwal = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' AND created_at < '$dateFrom' ")->row_array();
