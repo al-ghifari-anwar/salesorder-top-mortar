@@ -17,6 +17,7 @@ class Sjstok extends CI_Controller
         }
         $data['title'] = 'Tambah Stok';
         $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        $this->db->order_by('created_at', 'DESC');
         $data['sjstoks'] = $this->db->get_where('tb_sj_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -252,11 +253,70 @@ class Sjstok extends CI_Controller
     public function rechieved($id_sj_stok)
     {
         $sjstok = $this->db->get_where('tb_sj_stok', ['id_sj_stok' => $id_sj_stok])->row_array();
+        $id_gudang_stok = $sjstok['id_gudang_stok'];
+
+        $data['title'] = 'Konfirmasi Penerimaan Stok';
+        $data['gudang'] = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
+        $data['citys'] = $this->db->get_where('tb_city', ['id_gudang_stok' => $id_gudang_stok])->result_array();
+        $data['sjstok'] = $sjstok;
+        $data['detailSjstoks'] = $this->db->get_where('tb_detail_sj_stok', ['id_sj_stok' => $id_sj_stok])->result_array();
+        $data['masterProduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Sjstok/Rechieve');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function updateRechieved($id_detail_sj_stok)
+    {
+        $post = $this->input->post();
+        $id_sj_stok = $post['id_sj_stok'];
+        $this->form_validation->set_rules('qty_rechieved', 'Qty', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Harap lengkapi form");
+            redirect('sjstok/rechieved/' . $id_sj_stok);
+        } else {
+
+
+            $dataDetailSjstok = [
+                'qty_rechieved' => $post['qty_rechieved'],
+                'updated_at' => date("Y-m-d H:i:s")
+            ];
+
+            $insert = $this->db->update('tb_detail_sj_stok', $dataDetailSjstok, ['id_detail_sj_stok' => $id_detail_sj_stok]);
+
+            if ($insert) {
+                $this->session->set_flashdata('success', "Berhasil mengubah adjusment!");
+                redirect('sjstok/rechieved/' . $id_sj_stok);
+            } else {
+                $this->session->set_flashdata('failed', "Gagal mengubah adjusment!");
+                redirect('sjstok/rechieved/' . $id_sj_stok);
+            }
+        }
+    }
+
+    public function rechieved_save($id_sj_stok)
+    {
+        $post = $this->input->post();
+
+        $this->form_validation->set_rules('rechieved_name', 'Nama Penerima', 'required');
+        $this->form_validation->set_rules('rechieved_phone', 'Nomor HP Penerima', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Harap lengkapi form");
+            redirect('sjstok/rechieved/' . $id_sj_stok);
+        }
+
+        $sjstok = $this->db->get_where('tb_sj_stok', ['id_sj_stok' => $id_sj_stok])->row_array();
         $detailSjstoks = $this->db->get_where('tb_detail_sj_stok', ['id_sj_stok' => $id_sj_stok])->result_array();
 
         $dataSjstok = [
             'is_rechieved' => 1,
-            'rechieved_date' => date("Y-m-d H:i:s")
+            'rechieved_date' => date("Y-m-d H:i:s"),
+            'rechieved_name' => $post['rechieved_name'],
+            'rechieved_phone' => $post['rechieved_phone']
         ];
 
         $updateSjstok = $this->db->update('tb_sj_stok', $dataSjstok, ['id_sj_stok' => $id_sj_stok]);
@@ -266,16 +326,18 @@ class Sjstok extends CI_Controller
                 $dataStok = [
                     'id_gudang_stok' => $sjstok['id_gudang_stok'],
                     'id_master_produk' => $detailSjstok['id_master_produk'],
-                    'jml_stok' => $detailSjstok['qty_detail_sj_stok'],
+                    'jml_stok' => $detailSjstok['qty_rechieved'],
                     'status_stok' => 'in'
                 ];
 
                 $saveStok = $this->db->insert('tb_stok', $dataStok);
             }
 
-            echo "Berhasil menambah stok. Terimakasih.";
+            $this->session->set_flashdata('success', "Berhasil konfirmasi pengiriman!");
+            redirect('sjstok/rechieved/' . $id_sj_stok);
         } else {
-            echo "Gagal";
+            $this->session->set_flashdata('failed', "Gagal konfirmasi pengiriman!");
+            redirect('sjstok/rechieved/' . $id_sj_stok);
         }
     }
 }

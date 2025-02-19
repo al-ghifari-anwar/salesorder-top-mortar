@@ -292,6 +292,8 @@ $route['sjstok/detail/create'] = 'Sjstok/createDetail';
 $route['sjstok/detail/update/(:num)'] = 'Sjstok/updateDetail/$1';
 $route['sjstok/detail/delete/(:num)'] = 'Sjstok/deleteDetail/$1';
 $route['sjstok/rechieved/(:num)'] = 'Sjstok/rechieved/$1';
+$route['sjstok/rechieved/update/(:num)'] = 'Sjstok/updateRechieved/$1';
+$route['sjstok/rechieved/save/(:num)'] = 'Sjstok/rechieved_save/$1';
 // Gudang
 $route['masterproduk'] = 'Masterproduk';
 $route['masterproduk/sync'] = 'Masterproduk/sync';

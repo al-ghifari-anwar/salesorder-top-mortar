@@ -136,7 +136,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <tr>
                         <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
 
-                            <h1 class="text-right text-bot">Pengirman Stok</h1>
+                            <h1 class="text-right text-bot">Pengiriman Stok</h1>
                             <p><?= 'SO-' . str_pad($sjstok['id_sj_stok'], 6, "0", STR_PAD_LEFT) ?></p>
                         </th>
                     </tr>
@@ -201,7 +201,9 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <td class="text-center"><?= date("d F Y", strtotime($sjstok['created_at'])) ?></td>
                     <td class="text-center"><?= date("d F Y", strtotime($sjstok['delivery_date'])) ?></td>
                     <td class="text-center">
-                        <img src="<?= base_url('assets/img/qr/stok/' . $qr) ?>" style="width: 50px;">
+                        <?php if ($sjstok['is_rechieved'] == 0): ?>
+                            <img src="<?= base_url('assets/img/qr/stok/' . $qr) ?>" style="width: 50px;">
+                        <?php endif; ?>
                     </td>
                 </tr>
             </table>
@@ -238,7 +240,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <tr>
                         <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
 
-                            <h1 class="text-right text-bot">Pengirman Stok</h1>
+                            <h1 class="text-right text-bot">Pengiriman Stok</h1>
                             <p><?= 'SO-' . str_pad($sjstok['id_sj_stok'], 6, "0", STR_PAD_LEFT) ?></p>
                         </th>
                     </tr>
@@ -303,7 +305,9 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <td class="text-center"><?= date("d F Y", strtotime($sjstok['created_at'])) ?></td>
                     <td class="text-center"><?= date("d F Y", strtotime($sjstok['delivery_date'])) ?></td>
                     <td class="text-center">
-                        <img src="<?= base_url('assets/img/qr/stok/' . $qr) ?>" style="width: 50px;">
+                        <?php if ($sjstok['is_rechieved'] == 0): ?>
+                            <img src="<?= base_url('assets/img/qr/stok/' . $qr) ?>" style="width: 50px;">
+                        <?php endif; ?>
                     </td>
                 </tr>
             </table>
