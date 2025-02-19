@@ -160,12 +160,12 @@ class Priority extends CI_Controller
 
                                 $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
                                 $qrImageLoader = new SimpleImage();
-                                $qrImageLoader->fromFile($qrPath)->resize(370, 370);
+                                $qrImageLoader->fromFile($qrPath)->resize(420, 420);
 
                                 $frameBuilder = new SimpleImage();
-                                $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
+                                $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_2.jpg")
                                     ->autoOrient()
-                                    ->overlay($qrImageLoader, 'center', 1, 0, -65)
+                                    ->overlay($qrImageLoader, 'center', 1, 20, -220)
                                     ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                                 // $params['data'] = $voucherCode;
@@ -331,12 +331,12 @@ class Priority extends CI_Controller
 
                             $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
                             $qrImageLoader = new SimpleImage();
-                            $qrImageLoader->fromFile($qrPath)->resize(370, 370);
+                            $qrImageLoader->fromFile($qrPath)->resize(420, 420);
 
                             $frameBuilder = new SimpleImage();
-                            $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
+                            $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_2.jpg")
                                 ->autoOrient()
-                                ->overlay($qrImageLoader, 'center', 1, 0, -65)
+                                ->overlay($qrImageLoader, 'center', 1, 20, -220)
                                 ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                             // $params['data'] = $voucherCode;
