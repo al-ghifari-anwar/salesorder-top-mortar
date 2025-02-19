@@ -59,7 +59,7 @@ class Marketing extends CI_Controller
         $dateTo = date("Y-m-d");
         $watzapTukangs = $this->db->get_where('tb_watzap_tukang', ['DATE(created_at)' => $dateFrom])->result_array();
 
-        if ($daterange) {
+        if ($daterange != null) {
             $dates = explode('-', $daterange);
             $dateFrom = date("Y-m-d", strtotime($dates[0]));
             $dateTo = date("Y-m-d", strtotime($dates[1]));
