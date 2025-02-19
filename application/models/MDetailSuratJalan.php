@@ -163,15 +163,15 @@ class MDetailSuratJalan extends CI_Model
 
         $currentStok = $stokIn - $stokOut;
 
-        // if ($post['qty_produk'] > $currentStok) {
-        //     $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok: <b>" . $currentStok . "</b>");
-        //     redirect('surat-jalan/' . $post['id_surat_jalan']);
-        // }
+        if ($post['qty_produk'] > $currentStok) {
+            $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok: <b>" . $currentStok . "</b>");
+            redirect('surat-jalan/' . $post['id_surat_jalan']);
+        }
 
-        // if ($currentStok <= 0) {
-        //     $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> sudah habis");
-        //     redirect('surat-jalan/' . $post['id_surat_jalan']);
-        // }
+        if ($currentStok <= 0) {
+            $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> sudah habis");
+            redirect('surat-jalan/' . $post['id_surat_jalan']);
+        }
 
         if ($this->price == 0) {
             $this->session->set_flashdata('failed', "Terjadi kesalahan, harap input ulang produk");
@@ -255,15 +255,15 @@ class MDetailSuratJalan extends CI_Model
 
         $currentStok = $stokIn - $stokOut;
 
-        // if ($post['qty_produk'] > $currentStok) {
-        //     $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok: <b>" . $currentStok . "</b>");
-        //     redirect('surat-jalan/' . $post['id_surat_jalan']);
-        // }
+        if ($post['qty_produk'] > $currentStok) {
+            $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok: <b>" . $currentStok . "</b>");
+            redirect('surat-jalan/' . $post['id_surat_jalan']);
+        }
 
-        // if ($currentStok <= 0) {
-        //     $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> sudah habis");
-        //     redirect('surat-jalan/' . $post['id_surat_jalan']);
-        // }
+        if ($currentStok <= 0) {
+            $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> sudah habis");
+            redirect('surat-jalan/' . $post['id_surat_jalan']);
+        }
 
         if ($post['is_bonus'] == true) {
             $this->is_bonus = 1;
