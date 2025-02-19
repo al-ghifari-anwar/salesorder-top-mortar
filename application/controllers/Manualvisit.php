@@ -98,6 +98,9 @@ class Manualvisit extends CI_Controller
             $wa_token = $getQontak['token'];
             $template_id = 'c80d503f-bc62-450e-87e2-b7e794855145';
             $message = "Terimakasih telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". ";
+            if ($pay_value <= 0) {
+                $message = "Hari ini kami belum menerima pembayaran mohon dibantu pembayaran nya. Terimakasih";
+            }
             $nomor_hp = $getContact['nomorhp'];
             $nama = $getContact['nama'];
             $integration_id = $getQontak['integration_id'];
@@ -161,6 +164,9 @@ class Manualvisit extends CI_Controller
                 $nama_admin = "Dea";
             }
             $message = "Toko " . $nama . "telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". ";
+            if ($pay_value <= 0) {
+                $message = "Toko " . $nama . " hari ini belum melakukan pembayaran ";
+            }
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
