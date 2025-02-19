@@ -236,7 +236,7 @@ class Vctukang extends CI_Controller
                     $qrImageLoader->fromFile($qrPath)->resize(370, 370);
 
                     $frameBuilder = new SimpleImage();
-                    $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_2.png")
+                    $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr.png")
                         ->autoOrient()
                         ->overlay($qrImageLoader, 'center', 1, 0, -65)
                         ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
@@ -315,7 +315,7 @@ class Vctukang extends CI_Controller
                     if ($status == "success") {
                         $this->MVoucherTukang->create($id_tukang, $no_seri);
 
-                        $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp! :)");
+                        $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
                         redirect('vctukang');
                     } else {
                         $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
