@@ -54,6 +54,15 @@
                                         </div>
                                         <!-- /.input group -->
                                     </div>
+                                    <label for="">Status:</label>
+                                    <div class="form-group ml-3">
+                                        <select name="status_watzap_tukang" id="" class="form-control select2bs4">
+                                            <option value="0">Semua</option>
+                                            <option value="sent">Terkirim</option>
+                                            <option value="waiting">Waiting</option>
+                                            <option value="failed">Failed</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group ml-3">
                                         <button type="submit" class="btn btn-primary">Filter</button>
                                     </div>

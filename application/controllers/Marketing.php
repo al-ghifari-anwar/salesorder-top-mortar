@@ -53,10 +53,14 @@ class Marketing extends CI_Controller
             redirect('login');
         }
         $daterange = $this->input->post('daterange');
+        $status_watzap_tukang = $this->input->post('status_watzap_tukang');
         $data['title'] = 'Rekap Blast Konten Tukang';
 
         $dateFrom = date("Y-m-d");
         $dateTo = date("Y-m-d");
+        if ($status_watzap_tukang) {
+            $this->db->where('status_watzap_tukang', $status_watzap_tukang);
+        }
         $this->db->order_by('created_at', 'ASC');
         $watzapTukangs = $this->db->get_where('tb_watzap_tukang', ['DATE(created_at)' => $dateFrom])->result_array();
 
@@ -65,6 +69,9 @@ class Marketing extends CI_Controller
             $dateFrom = date("Y-m-d", strtotime($dates[0]));
             $dateTo = date("Y-m-d", strtotime($dates[1]));
 
+            if ($status_watzap_tukang) {
+                $this->db->where('status_watzap_tukang', $status_watzap_tukang);
+            }
             $this->db->order_by('created_at', 'ASC');
             $watzapTukangs = $this->db->get_where('tb_watzap_tukang', ['DATE(created_at) >=' => $dateFrom, 'DATE(created_at) <=' => $dateTo])->result_array();
         }
