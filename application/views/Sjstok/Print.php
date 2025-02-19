@@ -195,7 +195,14 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <tr>
                     <td class="text-center">Dibuat</td>
                     <td class="text-center">Dikirim</td>
-                    <td class="text-center">QR Penerima</td>
+                    <td class="text-center">
+                        <?php if ($sjstok['is_rechieved'] == 0): ?>
+                            QR Penerima
+                        <?php endif ?>
+                        <?php if ($sjstok['is_rechieved'] == 1): ?>
+                            Diterima Oleh
+                        <?php endif ?>
+                    </td>
                 </tr>
                 <tr>
                     <td class="text-center"><?= date("d F Y", strtotime($sjstok['created_at'])) ?></td>
@@ -203,6 +210,9 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <td class="text-center">
                         <?php if ($sjstok['is_rechieved'] == 0): ?>
                             <img src="<?= base_url('assets/img/qr/stok/' . $qr) ?>" style="width: 50px;">
+                        <?php endif; ?>
+                        <?php if ($sjstok['is_rechieved'] == 1): ?>
+                            <?= $sjstok['rechieved_name'] . '<br>' . $sjstok['rechieved_phone'] ?>
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -299,7 +309,14 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <tr>
                     <td class="text-center">Dibuat</td>
                     <td class="text-center">Dikirim</td>
-                    <td class="text-center">QR Penerima</td>
+                    <td class="text-center">
+                        <?php if ($sjstok['is_rechieved'] == 0): ?>
+                            QR Penerima
+                        <?php endif ?>
+                        <?php if ($sjstok['is_rechieved'] == 1): ?>
+                            Diterima Oleh
+                        <?php endif ?>
+                    </td>
                 </tr>
                 <tr>
                     <td class="text-center"><?= date("d F Y", strtotime($sjstok['created_at'])) ?></td>
@@ -307,6 +324,9 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <td class="text-center">
                         <?php if ($sjstok['is_rechieved'] == 0): ?>
                             <img src="<?= base_url('assets/img/qr/stok/' . $qr) ?>" style="width: 50px;">
+                        <?php endif; ?>
+                        <?php if ($sjstok['is_rechieved'] == 1): ?>
+                            <?= $sjstok['rechieved_name'] . '<br>' . $sjstok['rechieved_phone'] ?>
                         <?php endif; ?>
                     </td>
                 </tr>
