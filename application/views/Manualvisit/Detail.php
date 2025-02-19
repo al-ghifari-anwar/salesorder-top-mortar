@@ -41,6 +41,7 @@
                     <div class="card">
                         <div class="card-body">
                             <form action="<?= base_url('manualvisit/insert') ?>" method="POST">
+                                <input type="hidden" value="<?= $id_city ?>" name="id_city">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">

@@ -36,6 +36,7 @@ class Manualvisit extends CI_Controller
         $data['title'] = 'Manual Visit';
         $data['contacts'] = $this->MContact->getAll($id_city);
         $data['users'] = $this->MUser->getAllForManualRenvi($id_city);
+        $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Manualvisit/Detail');
@@ -54,6 +55,7 @@ class Manualvisit extends CI_Controller
         $manual_user = $post['manual_user'];
         $is_pay = $post['is_pay'];
         $pay_value = $post['pay_value'];
+        $id_city = $post['id_city'];
 
         $getContact = $this->MContact->getById($id_contact);
 
@@ -149,8 +151,8 @@ class Manualvisit extends CI_Controller
 
             curl_close($curl);
 
-            // echo $response;
-            // die;
+            echo $response;
+            die;
 
             $nomor_hp_admin = "6289636224827";
             $nama_admin = "April";
@@ -208,10 +210,10 @@ class Manualvisit extends CI_Controller
             curl_close($curl);
 
             $this->session->set_flashdata('success', "Berhasil menambah visit!");
-            redirect('manualvisit');
+            redirect('manualvisit/' . $id_city);
         } else {
             $this->session->set_flashdata('failed', "Gagal menambah visit!");
-            redirect('manualvisit');
+            redirect('manualvisit/' . $id_city);
         }
     }
 }
