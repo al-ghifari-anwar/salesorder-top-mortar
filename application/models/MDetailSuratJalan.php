@@ -157,10 +157,10 @@ class MDetailSuratJalan extends CI_Model
 
         $dateCutoff = "2025-02-18 00:00:00";
         $this->db->select('SUM(qty_produk) AS jml_stokOut');
-        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_produk' => $id_produk, 'created_at >=' => $dateCutoff])->row_array();
+        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_produk' => $id_produk, 'created_at >' => $dateCutoff])->row_array();
 
-        echo $this->db->last_query();
-        die;
+        // echo $this->db->last_query();
+        // die;
 
         $stokOut = $getStokOut['jml_stokOut'];
 
@@ -253,7 +253,7 @@ class MDetailSuratJalan extends CI_Model
 
         $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-18 00:00:00"));
         $this->db->select('SUM(qty_produk) AS jml_stokOut');
-        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_produk' => $id_produk, 'created_at >=' => $dateCutoff])->row_array();
+        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_produk' => $id_produk, 'created_at >' => $dateCutoff])->row_array();
 
         $stokOut = $getStokOut['jml_stokOut'];
 
