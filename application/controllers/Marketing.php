@@ -57,7 +57,7 @@ class Marketing extends CI_Controller
 
         $dateFrom = date("Y-m-d");
         $dateTo = date("Y-m-d");
-        $this->db->order_by('created_at', 'DESC');
+        $this->db->order_by('created_at', 'ASC');
         $watzapTukangs = $this->db->get_where('tb_watzap_tukang', ['DATE(created_at)' => $dateFrom])->result_array();
 
         if ($daterange != null) {
@@ -65,7 +65,7 @@ class Marketing extends CI_Controller
             $dateFrom = date("Y-m-d", strtotime($dates[0]));
             $dateTo = date("Y-m-d", strtotime($dates[1]));
 
-            $this->db->order_by('created_at', 'DESC');
+            $this->db->order_by('created_at', 'ASC');
             $watzapTukangs = $this->db->get_where('tb_watzap_tukang', ['DATE(created_at) >=' => $dateFrom, 'DATE(created_at) <=' => $dateTo])->result_array();
         }
 
