@@ -47,6 +47,37 @@ class Marketing extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function rekap_tukang()
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $daterange = $this->input->post('daterange');
+        $data['title'] = 'Rekap Blast Konten Tukang';
+
+        $dateFrom = date("Y-m-d");
+        $dateTo = date("Y-m-d");
+        $watzapTukangs = $this->db->get_where('tb_watzap_tukang', ['DATE(created_at)' => $dateFrom])->result_array();
+
+        if ($daterange) {
+            $dates = explode('-', $daterange);
+            $dateFrom = date("Y-m-d", strtotime($dates[0]));
+            $dateTo = date("Y-m-d", strtotime($dates[1]));
+
+            $watzapTukangs = $this->db->get_where('tb_watzap_tukang', ['DATE(created_at) >=' => $dateFrom, 'DATE(created_at) <=' => $dateTo])->result_array();
+        }
+
+        $data['watzap_tukangs'] = $watzapTukangs;
+        $data['dateFrom'] = $dateFrom;
+        $data['dateTo'] = $dateTo;
+
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Marketing/RekapTukang');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function insert()
     {
         $type = $this->input->post('target_marketing_message');

@@ -410,6 +410,12 @@
                                                 <p>Blast Tukang</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('marketing/rekap/tukang') ?>" class="nav-link">
+                                                <i class="fas fa-list-alt nav-icon"></i>
+                                                <p>Blast Tukang</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             <?php endif; ?>

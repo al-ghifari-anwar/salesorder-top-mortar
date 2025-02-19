@@ -262,6 +262,7 @@ $route['watzap/trial/tukang'] = 'Watzap/sendTrialTukang';
 $route['watzap/insert/tukang'] = 'Watzap/insertTukangToWaitlist';
 // Blast Konten
 $route['marketing/tukang'] = 'Marketing/tukang';
+$route['marketing/rekap/tukang'] = 'Marketing/rekap_tukang';
 $route['marketing'] = 'Marketing';
 $route['insert-marketing'] = 'Marketing/insert';
 $route['delete-marketing/(:num)/(:any)'] = 'Marketing/delete/$1/$2';
