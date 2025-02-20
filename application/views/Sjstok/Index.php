@@ -51,6 +51,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>No Pengiriman</th>
+                                        <th>Gudang</th>
                                         <th>Dibuat pada</th>
                                         <th>Tgl Pengiriman</th>
                                         <th>Diterima Pada</th>
@@ -61,9 +62,14 @@
                                     <?php
                                     $no = 1;
                                     foreach ($sjstoks as $sjstok) : ?>
+                                        <?php
+                                        $id_gudang_stok = $sjstok['id_gudang_stok'];
+                                        $gudangStok = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok]);
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= 'SO-' . str_pad($sjstok['id_sj_stok'], 6, "0", STR_PAD_LEFT) ?></td>
+                                            <td><?= $gudangStok['name_gudang_stok'] ?></td>
                                             <td><?= date('d F Y', strtotime($sjstok['created_at'])) ?></td>
                                             <td><?= date('d F Y', strtotime($sjstok['delivery_date'])) ?></td>
                                             <td><?= $sjstok['is_rechieved'] == 0 ? 'Belum' : date('d F Y', strtotime($sjstok['rechieved_date'])) ?></td>
