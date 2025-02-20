@@ -64,7 +64,7 @@
                                     foreach ($sjstoks as $sjstok) : ?>
                                         <?php
                                         $id_gudang_stok = $sjstok['id_gudang_stok'];
-                                        $gudangStok = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok]);
+                                        $gudangStok = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
