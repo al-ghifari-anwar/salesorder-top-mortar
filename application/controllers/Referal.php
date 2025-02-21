@@ -215,7 +215,7 @@ class Referal extends CI_Controller
                 if ($insert) {
                     $id_tukang = $this->db->insert_id();
 
-                    $this->db->join('tb_city.id_city = tb_tukang.id_city');
+                    $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
                     $tukangNew = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
                     // Read Logo File
                     $logoPath = FCPATH . "./assets/img/logo_retina.png";
