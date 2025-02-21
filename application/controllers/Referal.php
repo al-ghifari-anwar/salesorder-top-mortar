@@ -108,7 +108,7 @@ class Referal extends CI_Controller
                         ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                     $id_distributor = $getTukang['id_distributor'];
-                    $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+                    // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
                     // $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
                     $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
                     $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
@@ -262,7 +262,7 @@ class Referal extends CI_Controller
                         ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                     $id_distributor = $getTukang['id_distributor'];
-                    $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+                    // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
                     $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
                     // $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
                     $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
