@@ -243,9 +243,9 @@ class Referal extends CI_Controller
                     $qrImageLoader->fromFile($qrPath)->resize(370, 370);
 
                     if ($voucherCode['type_voucher'] == 'tokopromo') {
-                        $imgPath = './assets/img/frame_qr.png';
-                    } else {
                         $imgPath = './assets/img/frame_qr_tokopromo.png';
+                    } else {
+                        $imgPath = './assets/img/frame_qr_2.png';
                     }
 
                     $frameBuilder = new SimpleImage();
