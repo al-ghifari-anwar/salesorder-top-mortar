@@ -98,7 +98,7 @@ class Referal extends CI_Controller
                     if ($voucherOld['type_voucher'] == 'tokopromo') {
                         $imgPath = './assets/img/frame_qr_tokopromo.png';
                     } else {
-                        $imgPath = './assets/img/frame_qr_2.png';
+                        $imgPath = './assets/img/frame_qr_2.jpg';
                     }
 
                     $frameBuilder = new SimpleImage();
@@ -251,7 +251,7 @@ class Referal extends CI_Controller
                     if ($voucherOld['type_voucher'] == 'tokopromo') {
                         $imgPath = './assets/img/frame_qr_tokopromo.png';
                     } else {
-                        $imgPath = './assets/img/frame_qr_2.png';
+                        $imgPath = './assets/img/frame_qr_2.jpg';
                     }
 
                     $frameBuilder = new SimpleImage();
