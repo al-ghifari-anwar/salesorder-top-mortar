@@ -347,7 +347,7 @@ class Referal extends CI_Controller
                         $this->session->set_flashdata('success', "Berhasil mengirim voucher, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
                         redirect('referal/complete/verify');
                     } else {
-                        $this->session->set_flashdata('failed', "Gagal mengirim voucher, silahkan coba lagi!");
+                        $this->session->set_flashdata('failed', "Gagal mengirim voucher, silahkan coba lagi!" . $response);
                         redirect('referal/complete/verify');
                     }
                 }
