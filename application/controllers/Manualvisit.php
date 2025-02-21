@@ -96,7 +96,7 @@ class Manualvisit extends CI_Controller
 
             // Notif to customer
             $wa_token = $getQontak['token'];
-            $template_id = 'c80d503f-bc62-450e-87e2-b7e794855145';
+            $template_id = '9241bf86-ae94-4aa8-8975-551409af90b9';
             $message = "Terimakasih telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". ";
             if ($pay_value <= 0) {
                 $message = "Hari ini kami belum menerima pembayaran mohon dibantu pembayaran nya. Terimakasih";
