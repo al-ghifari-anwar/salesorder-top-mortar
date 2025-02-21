@@ -215,6 +215,7 @@ class Referal extends CI_Controller
                 if ($insert) {
                     $id_tukang = $this->db->insert_id();
 
+                    $this->db->join('tb_city.id_city = tb_tukang.id_city');
                     $tukangNew = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
                     // Read Logo File
                     $logoPath = FCPATH . "./assets/img/logo_retina.png";
@@ -261,7 +262,7 @@ class Referal extends CI_Controller
                         ->overlay($qrImageLoader, 'center', 1, 20, -220)
                         ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
-                    $id_distributor = $getTukang['id_distributor'];
+                    $id_distributor = $tukangNew['id_distributor'];
                     // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
                     $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
                     // $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
@@ -269,8 +270,8 @@ class Referal extends CI_Controller
                     $integration_id = $qontak['integration_id'];
                     $wa_token = $qontak['token'];
                     // Data
-                    $nomor_hp = $getTukang['nomorhp'];
-                    $nama = $getTukang['nama'];
+                    $nomor_hp = $tukangNew['nomorhp'];
+                    $nama = $tukangNew['nama'];
 
 
                     // $message = "Halo " . $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
@@ -347,7 +348,7 @@ class Referal extends CI_Controller
                         $this->session->set_flashdata('success', "Berhasil mengirim voucher, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
                         redirect('referal/complete/verify');
                     } else {
-                        $this->session->set_flashdata('failed', $id_distributor . " Gagal mengirim voucher, silahkan coba lagi!" . $response);
+                        $this->session->set_flashdata('failed', "Gagal mengirim voucher, silahkan coba lagi!" . $response);
                         redirect('referal/complete/verify');
                     }
                 }
