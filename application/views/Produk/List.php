@@ -69,7 +69,7 @@
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_produk'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
                                                 <a href="#" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                                 <!-- <a class="btn btn-success" data-toggle="modal" data-target="#modal-stok<?= $data['id_produk'] ?>" title="Tambah Stok"><i class="fas fa-archive"></i></a> -->
-                                                <a href="<?= base_url('produk/' . $city['id_city'] . "/" . $data['id_produk']) ?>" class="btn btn-info" title="Tambah Stok" target="__blank"><i class="fas fa-eye"></i>&nbsp;Lihat Stok</a>
+                                                <!-- <a href="<?= base_url('produk/' . $city['id_city'] . "/" . $data['id_produk']) ?>" class="btn btn-info" title="Tambah Stok" target="__blank"><i class="fas fa-eye"></i>&nbsp;Lihat Stok</a> -->
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_produk'] ?>">
