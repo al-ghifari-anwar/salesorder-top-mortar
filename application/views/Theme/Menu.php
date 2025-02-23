@@ -118,6 +118,34 @@
                                     </p>
                                 </a>
                             </li>
+                            <?php if ($this->session->userdata('level_user') == 'stok'): ?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-box"></i>
+                                        <p>
+                                            Stok
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('sjstok') ?>" class="nav-link">
+                                                <i class="fas fa-truck-loading nav-icon"></i>
+                                                <p>Tambah Stok</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('stok') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-file"></i>
+                                                <p>
+                                                    Laporan Stok
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance'): ?>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
