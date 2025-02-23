@@ -126,11 +126,11 @@ function penyebut($nilai)
 
                 $totalStore = 0;
                 foreach ($getStoreInvCount as $invNotZeroCount) {
-                    $id_invoice = $storeInv['id_invoice'];
+                    $id_invoice = $invNotZeroCount['id_invoice'];
                     $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                    $sisaHutang = $storeInv['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
+                    $sisaHutang = $invNotZeroCount['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
                     $totalStore += $sisaHutang;
-                    $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
+                    $jatuhTempo = date('d M Y', strtotime("+" . $invNotZeroCount['termin_payment'] . " days", strtotime($invNotZeroCount['date_invoice'])));
                 }
                 ?>
                 <?php if ($tesIf > 0): ?>
