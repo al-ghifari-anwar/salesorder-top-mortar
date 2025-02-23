@@ -118,6 +118,7 @@ function penyebut($nilai)
             $no = 1;
         ?>
             <?php
+            $tesIf = 1;
             $totalAll = 0;
             foreach ($invoice as $dataInv) : ?>
                 <?php
@@ -132,7 +133,7 @@ function penyebut($nilai)
                     $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                 }
                 ?>
-                <?php if ($totalStore > 0): ?>
+                <?php if ($tesIf > 0): ?>
                     <tr>
                         <th><?= $no++ ?></th>
                         <th class="text-left"><?= $notZeroInv ?><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
