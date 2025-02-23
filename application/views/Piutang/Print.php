@@ -119,18 +119,20 @@ function penyebut($nilai)
         ?>
             <?php
 
-            $notZeroInv = 0;
             foreach ($invoice as $dataInv) : ?>
                 <?php
                 $getStoreInvCount = $this->MInvoice->getByStorePiutang($dateFrom, $dateTo, $dataInv['id_contact']);
 
+                $totalStore = 0;
                 foreach ($getStoreInvCount as $invNotZeroCount) {
-                    if ($invNotZeroCount['total_invoice'] >= 0) {
-                        $notZeroInv++;
-                    }
+                    $id_invoice = $storeInv['id_invoice'];
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $storeInv['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
+                    $totalStore += $sisaHutang;
+                    $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                 }
                 ?>
-                <?php if ($notZeroInv > 0): ?>
+                <?php if ($totalStore > 0): ?>
                     <tr>
                         <th><?= $no++ ?></th>
                         <th class="text-left"><?= $notZeroInv ?><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
