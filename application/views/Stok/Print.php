@@ -152,7 +152,7 @@ function penyebut($nilai)
                 $valPemasukan = $getStokIn['jml_stokIn'];
                 $valPengeluaran = $getStokOut['jml_stokOut'];
                 $valJumlahAwal = $jumlahAwal['jml_stokAwal'] != null ? $jumlahAwal['jml_stokAwal'] : 0;
-                $valJumlahAkhir = $getStokIn['jml_stokIn'] - $getStokOut['jml_stokOut'];
+                $valJumlahAkhir = ($valJumlahAwal + $getStokIn['jml_stokIn']) - $getStokOut['jml_stokOut'];
                 ?>
                 <tr>
                     <td class="text-center border-r"><?= $no++; ?></td>
