@@ -71,13 +71,16 @@ class Piutang extends CI_Controller
         $data['invoice'] = $invoice;
         $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
         $data['dateTo'] = date("Y-m-d H:i:s", strtotime($dates[1] . " 23:59:59"));
+
+        $this->load->view('Piutang/Print', $data);
+
         // PDF
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Piutang/Print', $data, true);
-        $mpdf->AddPage('P');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        // $mpdf->SetMargins(0, 0, 5);
+        // $html = $this->load->view('Piutang/Print', $data, true);
+        // $mpdf->AddPage('P');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output();
     }
 
     public function print_jatuh_tempo()
