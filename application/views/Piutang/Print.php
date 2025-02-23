@@ -124,16 +124,16 @@ function penyebut($nilai)
                 <?php
                 $getStoreInvCount = $this->MInvoice->getByStorePiutang($dateFrom, $dateTo, $dataInv['id_contact']);
 
-                $totalStore = 0;
+                $totalStoreNotZero = 0;
                 foreach ($getStoreInvCount as $invNotZeroCount) {
                     $id_invoice = $invNotZeroCount['id_invoice'];
-                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                    $sisaHutang = $invNotZeroCount['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
-                    $totalStore += $sisaHutang;
+                    $paymentNotZero = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $invNotZeroCount['total_invoice'] - ($paymentNotZero['amount_payment'] + $paymentNotZero['potongan_payment'] + $paymentNotZero['adjustment_payment']);
+                    $totalStoreNotZero += $sisaHutang;
                     $jatuhTempo = date('d M Y', strtotime("+" . $invNotZeroCount['termin_payment'] . " days", strtotime($invNotZeroCount['date_invoice'])));
                 }
                 ?>
-                <?php if ($tesIf > 0): ?>
+                <?php if ($totalStoreNotZero > 0): ?>
                     <tr>
                         <th><?= $no++ ?></th>
                         <th class="text-left"><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
