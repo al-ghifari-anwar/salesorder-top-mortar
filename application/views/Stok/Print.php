@@ -133,9 +133,10 @@ function penyebut($nilai)
                 // $pengeluaran = $this->db->query("SELECT SUM(qty_produk) AS qty_produk FROM tb_detail_surat_jalan JOIN tb_surat_jalan ON tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan WHERE tb_detail_surat_jalan.id_produk = '$id_produk' AND date_closing > '$dateFrom' AND date_closing < '$dateTo' AND is_closing = 1")->row_array();
                 // $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-18 00:00:00"));
                 $this->db->select('SUM(qty_produk) AS jml_stokOut');
-                $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_detail_surat_jalan.id_produk');
-                $this->db->join('tb_stok', 'tb_stok.id_master_produk = tb_master_produk.id_master_produk');
-                $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateFrom, 'tb_detail_surat_jalan.created_at <' => $dateTo, 'id_gudang_stok' => $id_gudang_stok])->row_array();
+                $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
+                // $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_detail_surat_jalan.id_produk');
+                // $this->db->join('tb_stok', 'tb_stok.id_master_produk = tb_master_produk.id_master_produk');
+                $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_produk.id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateFrom, 'tb_detail_surat_jalan.created_at <' => $dateTo, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
                 // Jumlah Awal
                 // $jumlahAwal = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' AND created_at < '$dateFrom' ")->row_array();
