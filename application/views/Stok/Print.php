@@ -134,8 +134,8 @@ function penyebut($nilai)
                 // $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-18 00:00:00"));
                 $this->db->select('SUM(qty_produk) AS jml_stokOut');
                 $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
-                // $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_detail_surat_jalan.id_produk');
-                // $this->db->join('tb_stok', 'tb_stok.id_master_produk = tb_master_produk.id_master_produk');
+                $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_produk');
+                $this->db->join('tb_stok', 'tb_stok.id_master_produk = tb_master_produk.id_master_produk');
                 $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_produk.id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateFrom, 'tb_detail_surat_jalan.created_at <' => $dateTo, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
                 // Jumlah Awal
