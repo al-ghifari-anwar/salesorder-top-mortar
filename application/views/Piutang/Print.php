@@ -117,11 +117,13 @@ function penyebut($nilai)
         <?php if ($invoice != null) :
             $no = 1;
         ?>
-            <?php foreach ($invoice as $dataInv) : ?>
+            <?php
+
+            $notZeroInv = 0;
+            foreach ($invoice as $dataInv) : ?>
                 <?php
                 $getStoreInvCount = $this->MInvoice->getByStorePiutang($dateFrom, $dateTo, $dataInv['id_contact']);
 
-                $notZeroInv = 0;
                 foreach ($getStoreInvCount as $invNotZeroCount) {
                     if ($invNotZeroCount['total_invoice'] >= 0) {
                         $notZeroInv++;
