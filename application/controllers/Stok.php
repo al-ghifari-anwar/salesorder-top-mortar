@@ -54,13 +54,13 @@ class Stok extends CI_Controller
         $data['gudang'] = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
         $data['masterProduks'] = $this->db->get_where("tb_master_produk", ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         $data['dates'] = explode("-", $dateRange);
-        $this->load->view('Stok/Print', $data);
+        // $this->load->view('Stok/Print', $data);
         // PDF
-        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        // $mpdf->SetMargins(0, 0, 5);
-        // $html = $this->load->view('Stok/Print', $data, true);
-        // $mpdf->AddPage('L');
-        // $mpdf->WriteHTML($html);
-        // $mpdf->Output();
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Stok/Print', $data, true);
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }
