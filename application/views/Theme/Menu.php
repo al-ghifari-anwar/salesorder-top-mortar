@@ -290,16 +290,17 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('absen') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-calendar-check"></i>
+                                        <p>
+                                            Absen Harian
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
                             <?php endif ?>
-                            <li class="nav-item">
-                                <a href="<?= base_url('absen') ?>" class="nav-link">
-                                    <i class="nav-icon fas fa-calendar-check"></i>
-                                    <p>
-                                        Absen Harian
-                                        <!-- <span class="right badge badge-danger">New</span> -->
-                                    </p>
-                                </a>
-                            </li>
+
                             <?php if ($this->session->userdata('level_user') == 'superadmin') : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('distributor') ?>" class="nav-link">
@@ -330,86 +331,86 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fab fa-google-play"></i>
-                                    <p>
-                                        Top Seller
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('akunseller') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-user-check"></i>
-                                            <p>
-                                                Akun Top Seller
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('akunseller/penukaran') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-ticket-alt"></i>
-                                            <p>
-                                                Rekap Penukaran
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('akunseller/datatukang') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-user-shield"></i>
-                                            <p>
-                                                Validasi Data Tukang
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('kontenseller') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-images"></i>
-                                            <p>
-                                                Banner Konten
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('sebarvctukang') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-ticket-alt"></i>
-                                            <p>
-                                                Sebar Voucher Tukang
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-chart-line"></i>
-                                    <p>
-                                        Analisa
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('analisa/passive') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-money-check"></i>
-                                            <p>
-                                                Passive Bayar Rutin
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('analisa/active') ?>" class="nav-link">
-                                            <i class="nav-icon fas fa-money-check"></i>
-                                            <p>
-                                                Active Bayar Rutin
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'sales' || $this->session->userdata('level_user') == 'salesleader') : ?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fab fa-google-play"></i>
+                                        <p>
+                                            Top Seller
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('akunseller') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-user-check"></i>
+                                                <p>
+                                                    Akun Top Seller
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('akunseller/penukaran') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-ticket-alt"></i>
+                                                <p>
+                                                    Rekap Penukaran
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('akunseller/datatukang') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-user-shield"></i>
+                                                <p>
+                                                    Validasi Data Tukang
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('kontenseller') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-images"></i>
+                                                <p>
+                                                    Banner Konten
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('sebarvctukang') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-ticket-alt"></i>
+                                                <p>
+                                                    Sebar Voucher Tukang
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-chart-line"></i>
+                                        <p>
+                                            Analisa
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('analisa/passive') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-money-check"></i>
+                                                <p>
+                                                    Passive Bayar Rutin
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('analisa/active') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-money-check"></i>
+                                                <p>
+                                                    Active Bayar Rutin
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('id_distributor') == 4) : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('proyek') ?>" class="nav-link">
