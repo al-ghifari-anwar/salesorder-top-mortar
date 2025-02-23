@@ -180,7 +180,7 @@ function penyebut($nilai)
                 ?>
                 <tr>
                     <td class="text-center border-r"><?= $no++; ?></td>
-                    <td class="text-left border-r"><?= $masterProduk['name_master_produk']; ?></td>
+                    <td class="text-left border-r"><?= $masterProduk['name_master_produk']; ?> (<?= $id_master_produk ?>)</td>
                     <td class="text-left border-r"><?= "-" ?></td>
                     <td class="text-center border-r"><?= $valJumlahAwal ?></td>
                     <td class="text-center border-r"><?= $valPemasukan ?></td>
