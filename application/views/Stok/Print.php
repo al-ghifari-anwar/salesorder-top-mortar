@@ -137,18 +137,22 @@ function penyebut($nilai)
                 $this->db->where("id_city IN (SELECT id_city FROM tb_city tc WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
                 $getProdukDatas = $this->db->get('tb_produk')->result_array();
 
-                echo $this->db->last_query();
+                // echo $this->db->last_query();
                 // echo json_encode($getProdukDatas);
-                die;
+                // die;
 
-                $idProduks = array();
-                foreach ($getProdukDatas as $getProdukData) {
-                    $idProduks[] = $getProdukData['id_produk'];
+                if ($getProdukDatas != null) {
+                    $idProduks = array();
+                    foreach ($getProdukDatas as $getProdukData) {
+                        $idProduks[] = $getProdukData['id_produk'];
+                    }
+
+                    $this->db->select('SUM(qty_produk) AS jml_stokOut');
+                    $this->db->where_in('id_produk', $idProduks);
+                    $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_detail_surat_jalan.created_at >' => $dateFrom, 'tb_detail_surat_jalan.created_at <' => $dateTo])->row_array();
+                } else {
+                    $getStokOut = ['jml_stokOut' => 0];
                 }
-
-                $this->db->select('SUM(qty_produk) AS jml_stokOut');
-                $this->db->where_in('id_produk', $idProduks);
-                $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_detail_surat_jalan.created_at >' => $dateFrom, 'tb_detail_surat_jalan.created_at <' => $dateTo])->row_array();
 
                 // $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-18 00:00:00"));
                 // $this->db->select('SUM(qty_produk) AS jml_stokOut');
