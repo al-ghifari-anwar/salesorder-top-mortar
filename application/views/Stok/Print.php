@@ -136,8 +136,8 @@ function penyebut($nilai)
                 $this->db->where_in('id_city', "SELECT id_city FROM tb_city tc WHERE id_gudang_stok = $id_gudang_stok");
                 $getProdukDatas = $this->db->get('tb_produk')->result_array();
 
-                echo $this->db->last_query();
-                die;
+                // echo $this->db->last_query();
+                // die;
 
                 $idProduks = array();
                 foreach ($getProdukDatas as $getProdukData) {
