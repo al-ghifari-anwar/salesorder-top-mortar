@@ -137,7 +137,8 @@ function penyebut($nilai)
                 $getProdukDatas = $this->db->get('tb_produk')->result_array();
 
                 // echo $this->db->last_query();
-                // die;
+                echo json_encode($getProdukDatas);
+                die;
 
                 $idProduks = array();
                 foreach ($getProdukDatas as $getProdukData) {
