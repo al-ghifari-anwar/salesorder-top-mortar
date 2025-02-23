@@ -131,7 +131,7 @@ function penyebut($nilai)
                 <?php if ($notZeroInv > 0): ?>
                     <tr>
                         <th><?= $no++ ?></th>
-                        <th class="text-left"><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
+                        <th class="text-left"><?= $notZeroInv ?><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
                         <td colspan="5"></td>
                     </tr>
                     <?php
