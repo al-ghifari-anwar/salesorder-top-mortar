@@ -141,6 +141,7 @@ function penyebut($nilai)
                     $idProduks[] = $getProdukData['id_produk'];
                 }
 
+                $this->db->select('SUM(qty_produk) AS jml_stokOut');
                 $this->db->where_in('id_produk', $idProduks);
                 $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_detail_surat_jalan.created_at >' => $dateFrom, 'tb_detail_surat_jalan.created_at <' => $dateTo])->row_array();
 
