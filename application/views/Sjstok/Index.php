@@ -65,6 +65,12 @@
                                         <?php
                                         $id_gudang_stok = $sjstok['id_gudang_stok'];
                                         $gudangStok = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
+
+                                        $date1 = new DateTime(date("Y-m-d"));
+                                        $date2 = new DateTime(date("Y-m-d", strtotime($sjstok['created_at'])));
+                                        $days  = $date2->diff($date1)->format('%a');
+                                        $operan = "";
+                                        $days = $operan . $days;
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
@@ -72,7 +78,7 @@
                                             <td><?= $gudangStok['name_gudang_stok'] ?></td>
                                             <td><?= date('d F Y', strtotime($sjstok['created_at'])) ?></td>
                                             <td><?= date('d F Y', strtotime($sjstok['delivery_date'])) ?></td>
-                                            <td><?= $sjstok['is_rechieved'] == 0 ? 'Belum' : date('d F Y', strtotime($sjstok['rechieved_date'])) ?></td>
+                                            <td><?= $sjstok['is_rechieved'] == 0 ? 'Belum diterima (' . $days . ' Hari)' : date('d F Y', strtotime($sjstok['rechieved_date'])) ?></td>
                                             <td>
                                                 <a href="<?= base_url('sjstok/' . $sjstok['id_sj_stok']) ?>" class="btn bg-teal m-1" title="Detail"><i class="fas fa-eye"></i></a>
                                                 <?php if ($sjstok['is_finished'] == 0): ?>
