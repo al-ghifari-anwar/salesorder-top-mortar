@@ -118,7 +118,7 @@ function penyebut($nilai)
             $no = 1;
         ?>
             <?php
-
+            $totalAll = 0;
             foreach ($invoice as $dataInv) : ?>
                 <?php
                 $getStoreInvCount = $this->MInvoice->getByStorePiutang($dateFrom, $dateTo, $dataInv['id_contact']);
