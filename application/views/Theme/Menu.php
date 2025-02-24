@@ -311,7 +311,7 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'admin') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance') : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('prioritystore') ?>" class="nav-link">
                                         <i class="nav-icon fas fa-medal"></i>
@@ -321,7 +321,7 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'admin') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance') : ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('tokopromostore') ?>" class="nav-link">
                                         <i class="nav-icon fas fa-medal"></i>
