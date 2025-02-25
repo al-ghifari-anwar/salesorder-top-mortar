@@ -39,7 +39,7 @@ class MDetailSuratJalan extends CI_Model
         if ($this->session->userdata('level_user') == 'admin_c') {
             $this->db->where('tb_city.id_city', $this->session->userdata('id_city'));
         }
-        $this->db->group_by('tb_produk.id_produk');
+        $this->db->group_by('tb_produk.id_satuan');
         $query = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing' => 1, 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
 
         return $query;

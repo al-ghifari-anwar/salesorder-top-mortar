@@ -76,9 +76,9 @@
                 ?>
                     <div class="col-lg-3 col-6">
                         <?php
-                        $totalItemCity = 0;
+                        $totalItemCity = "";
                         foreach ($itemsCity as $itemsCity) {
-                            $totalItemCity += $itemsCity['qty_produk'];
+                            $totalItemCity .= $itemsCity['qty_produk'] . " " . $itemsCity['name_satuan'] . ",";
                         }
                         ?>
                         <!-- small box -->
