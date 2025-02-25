@@ -259,6 +259,7 @@
             </div>
             <div class="modal-body">
                 <form action="<?= base_url('insert-detsuratjalan') ?>" method="POST">
+                    <input type="text" name="id_city" class="form-control" value="<?= $toko['id_city'] ?>" hidden>
                     <input type="text" name="id_surat_jalan" class="form-control" value="<?= $suratjalan['id_surat_jalan'] ?>" hidden>
                     <div class="form-group">
                         <label for="">Produk</label>
