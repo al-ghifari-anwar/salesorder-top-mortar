@@ -103,7 +103,7 @@ class Priority extends CI_Controller
                         // $insert = $this->db->insert('tb_tukang', $data);
                         $insert = true;
 
-                        $id_tukang = $$getTukang['id_tukang'];
+                        $id_tukang = $getTukang['id_tukang'];
 
                         if ($insert) {
                             $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
