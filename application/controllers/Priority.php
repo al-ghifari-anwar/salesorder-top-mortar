@@ -110,97 +110,97 @@ class Priority extends CI_Controller
                             $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $nomorhp])->row_array();
                             $getVoucherTukang = $this->db->get_where('tb_voucher_tukang', ['no_seri' => $nomorhp])->row_array();
 
-                            if ($getVoucherTukang) {
-                                if ($getVoucherTukang['is_claimed'] == 1) {
-                                    $this->session->set_flashdata('failed', "Nomor sudah pernah di claim!");
-                                    redirect('priority/' . $id_contact);
-                                } else {
-                                    $this->session->set_flashdata('failed', "Nomor sudah terverifikasi, silahkan kunjungi toko untuk claim");
-                                    redirect('priority/' . $id_contact);
-                                }
-                            } else {
-                                // Generate QR
-                                // $this->load->library('ciqrcode');
-                                // $config['cacheable']    = true;
-                                // $config['cachedir']             = './assets/';
-                                // $config['errorlog']             = './assets/';
-                                // $config['imagedir']             = './assets/img/qr/';
-                                // $config['quality']              = true;
-                                // $config['size']                 = '1024';
-                                // $config['black']                = array(224, 255, 255);
-                                // $config['white']                = array(70, 130, 180);
-                                // $this->ciqrcode->initialize($config);
+                            // if ($getVoucherTukang) {
+                            //     if ($getVoucherTukang['is_claimed'] == 1) {
+                            //         $this->session->set_flashdata('failed', "Nomor sudah pernah di claim!");
+                            //         redirect('priority/' . $id_contact);
+                            //     } else {
+                            //         $this->session->set_flashdata('failed', "Nomor sudah terverifikasi, silahkan kunjungi toko untuk claim");
+                            //         redirect('priority/' . $id_contact);
+                            //     }
+                            // } else {
+                            // Generate QR
+                            // $this->load->library('ciqrcode');
+                            // $config['cacheable']    = true;
+                            // $config['cachedir']             = './assets/';
+                            // $config['errorlog']             = './assets/';
+                            // $config['imagedir']             = './assets/img/qr/';
+                            // $config['quality']              = true;
+                            // $config['size']                 = '1024';
+                            // $config['black']                = array(224, 255, 255);
+                            // $config['white']                = array(70, 130, 180);
+                            // $this->ciqrcode->initialize($config);
 
-                                // Read Logo File
-                                $logoPath = FCPATH . "./assets/img/logo_retina.png";
-                                $logoImageReader = new SimpleImage();
-                                $logoImageReader->fromFile($logoPath)->bestFit(100, 100);
-                                // Next, create a slightly larger image,
-                                // fill it with a rounded white square,
-                                // and overlay the resized logo
-                                $logoImageBuilder = new SimpleImage();
-                                $logoImageBuilder->fromNew(110, 110)->roundedRectangle(0, 0, 110, 110, 10, 'white', 'filled')->overlay($logoImageReader);
+                            // Read Logo File
+                            $logoPath = FCPATH . "./assets/img/logo_retina.png";
+                            $logoImageReader = new SimpleImage();
+                            $logoImageReader->fromFile($logoPath)->bestFit(100, 100);
+                            // Next, create a slightly larger image,
+                            // fill it with a rounded white square,
+                            // and overlay the resized logo
+                            $logoImageBuilder = new SimpleImage();
+                            $logoImageBuilder->fromNew(110, 110)->roundedRectangle(0, 0, 110, 110, 10, 'white', 'filled')->overlay($logoImageReader);
 
-                                $logoData = $logoImageBuilder->toDataUri('image/png', 100);
+                            $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
-                                $image_name = $nomorhp . date("YmdHis") . '.png';
+                            $image_name = $nomorhp . date("YmdHis") . '.png';
 
-                                $voucherCode = md5("Top" . md5($id_tukang));
+                            $voucherCode = md5("Top" . md5($id_tukang));
 
-                                $qrCode = Builder::create()
-                                    ->writer(new PngWriter())
-                                    ->writerOptions([])
-                                    ->data($voucherCode)
-                                    ->size(500)
-                                    ->logoPath($logoData)
-                                    ->logoResizeToWidth(100)
-                                    ->encoding(new Encoding('ISO-8859-1'))
-                                    ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-                                    ->build()
-                                    ->saveToFile(FCPATH . "./assets/img/qr/" . $image_name);
+                            $qrCode = Builder::create()
+                                ->writer(new PngWriter())
+                                ->writerOptions([])
+                                ->data($voucherCode)
+                                ->size(500)
+                                ->logoPath($logoData)
+                                ->logoResizeToWidth(100)
+                                ->encoding(new Encoding('ISO-8859-1'))
+                                ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+                                ->build()
+                                ->saveToFile(FCPATH . "./assets/img/qr/" . $image_name);
 
-                                $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
-                                $qrImageLoader = new SimpleImage();
-                                $qrImageLoader->fromFile($qrPath)->resize(420, 420);
+                            $qrPath = FCPATH . "./assets/img/qr/" . $image_name;
+                            $qrImageLoader = new SimpleImage();
+                            $qrImageLoader->fromFile($qrPath)->resize(420, 420);
 
-                                $frameBuilder = new SimpleImage();
-                                $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_2.jpg")
-                                    ->autoOrient()
-                                    ->overlay($qrImageLoader, 'center', 1, 20, -220)
-                                    ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
+                            $frameBuilder = new SimpleImage();
+                            $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_2.jpg")
+                                ->autoOrient()
+                                ->overlay($qrImageLoader, 'center', 1, 20, -220)
+                                ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
-                                // $params['data'] = $voucherCode;
-                                // $params['level'] = 'H';
-                                // $params['size'] = 10;
-                                // $params['savename'] = FCPATH . $config['imagedir'] . $image_name;
-                                // $this->ciqrcode->generate($params);
+                            // $params['data'] = $voucherCode;
+                            // $params['level'] = 'H';
+                            // $params['size'] = 10;
+                            // $params['savename'] = FCPATH . $config['imagedir'] . $image_name;
+                            // $this->ciqrcode->generate($params);
 
-                                $id_distributor = $getTukang['id_distributor'];
-                                // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
-                                $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
-                                $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
-                                $integration_id = $qontak['integration_id'];
-                                $wa_token = $qontak['token'];
-                                // Data
-                                $nomor_hp = $getTukang['nomorhp'];
-                                $nama = $getTukang['nama'];
+                            $id_distributor = $getTukang['id_distributor'];
+                            // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+                            $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
+                            $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+                            $integration_id = $qontak['integration_id'];
+                            $wa_token = $qontak['token'];
+                            // Data
+                            $nomor_hp = $getTukang['nomorhp'];
+                            $nama = $getTukang['nama'];
 
 
-                                // $message = $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
-                                $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!* Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore  . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
-                                // Send message
-                                $curl = curl_init();
+                            // $message = $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
+                            $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!* Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore  . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
+                            // Send message
+                            $curl = curl_init();
 
-                                curl_setopt_array($curl, array(
-                                    CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
-                                    CURLOPT_RETURNTRANSFER => true,
-                                    CURLOPT_ENCODING => '',
-                                    CURLOPT_MAXREDIRS => 10,
-                                    CURLOPT_TIMEOUT => 0,
-                                    CURLOPT_FOLLOWLOCATION => true,
-                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                    CURLOPT_CUSTOMREQUEST => 'POST',
-                                    CURLOPT_POSTFIELDS => '{
+                            curl_setopt_array($curl, array(
+                                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                                CURLOPT_RETURNTRANSFER => true,
+                                CURLOPT_ENCODING => '',
+                                CURLOPT_MAXREDIRS => 10,
+                                CURLOPT_TIMEOUT => 0,
+                                CURLOPT_FOLLOWLOCATION => true,
+                                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                CURLOPT_CUSTOMREQUEST => 'POST',
+                                CURLOPT_POSTFIELDS => '{
                                         "to_number": "' . $nomor_hp . '",
                                         "to_name": "' . $nama . '",
                                         "message_template_id": "' . $template_id . '",
@@ -231,31 +231,31 @@ class Priority extends CI_Controller
                                             ]
                                         }
                                         }',
-                                    CURLOPT_HTTPHEADER => array(
-                                        'Authorization: Bearer ' . $wa_token,
-                                        'Content-Type: application/json'
-                                    ),
-                                ));
+                                CURLOPT_HTTPHEADER => array(
+                                    'Authorization: Bearer ' . $wa_token,
+                                    'Content-Type: application/json'
+                                ),
+                            ));
 
-                                $response = curl_exec($curl);
+                            $response = curl_exec($curl);
 
-                                curl_close($curl);
+                            curl_close($curl);
 
-                                $res = json_decode($response, true);
-                                // echo $response;
+                            $res = json_decode($response, true);
+                            // echo $response;
 
-                                $status = $res['status'];
+                            $status = $res['status'];
 
-                                if ($status == "success") {
-                                    $this->MVoucherTukang->createPriority($id_tukang, $nomorhp, $id_contact, $nominal, $nota);
+                            if ($status == "success") {
+                                $this->MVoucherTukang->createPriority($id_tukang, $nomorhp, $id_contact, $nominal, $nota);
 
-                                    $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
-                                    redirect('priority/' . $id_contact);
-                                } else {
-                                    $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
-                                    redirect('priority/' . $id_contact);
-                                }
+                                $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
+                                redirect('priority/' . $id_contact);
+                            } else {
+                                $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
+                                redirect('priority/' . $id_contact);
                             }
+                            // }
                         }
                     }
                 } else {
