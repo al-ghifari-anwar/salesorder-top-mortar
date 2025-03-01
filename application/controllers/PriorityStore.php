@@ -56,7 +56,7 @@ class PriorityStore extends CI_Controller
         $post = $this->input->post();
 
         $id_contact = $post['id_contact'];
-        $quota_priority = 100;
+        $quota_priority = 5;
 
         $getContact = $this->MContact->getById($id_contact);
 
