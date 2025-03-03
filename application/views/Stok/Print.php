@@ -178,7 +178,7 @@ function penyebut($nilai)
 
                     $this->db->select('SUM(qty_produk) AS jml_stokOut');
                     $this->db->where_in('id_produk', $idProduks);
-                    $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_detail_surat_jalan.created_at <=' => $dateFrom])->row_array();
+                    $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_detail_surat_jalan.created_at <=' => $dateFrom, 'tb_detail_surat_jalan.created_at >' => '2025-02-20 00:00:00'])->row_array();
                 } else {
                     $jumlahAwalPengeluaran = ['jml_stokOut' => 0];
                 }
