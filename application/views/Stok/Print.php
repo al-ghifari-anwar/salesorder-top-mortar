@@ -166,6 +166,23 @@ function penyebut($nilai)
                 $this->db->select('SUM(jml_stok) AS jml_stokAwal');
                 $jumlahAwal = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk, 'created_at <=' => $dateFrom, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
+                $this->db->where('id_master_produk', $id_master_produk);
+                $this->db->where("id_city IN (SELECT id_city FROM tb_city tc WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
+                $getProdukDatasAwal = $this->db->get('tb_produk')->result_array();
+
+                if ($getProdukDatasAwal != null) {
+                    $idProduks = array();
+                    foreach ($getProdukDatasAwal as $getProdukDataAwal) {
+                        $idProduks[] = $getProdukDataAwal['id_produk'];
+                    }
+
+                    $this->db->select('SUM(qty_produk) AS jml_stokOut');
+                    $this->db->where_in('id_produk', $idProduks);
+                    $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_detail_surat_jalan.created_at <=' => $dateFrom])->row_array();
+                } else {
+                    $jumlahAwalPengeluaran = ['jml_stokOut' => 0];
+                }
+
                 // Jumlah Akhir
                 // $jumlahAkhir = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' ")->row_array();
                 $this->db->select('SUM(jml_stok) AS jml_stokAkhir');
@@ -175,7 +192,7 @@ function penyebut($nilai)
 
                 $valPemasukan = $getStokIn['jml_stokIn'];
                 $valPengeluaran = $getStokOut['jml_stokOut'];
-                $valJumlahAwal = $jumlahAwal['jml_stokAwal'] != null ? $jumlahAwal['jml_stokAwal'] : 0;
+                $valJumlahAwal = $jumlahAwal['jml_stokAwal'] != null ? $jumlahAwal['jml_stokAwal'] + $jumlahAwalPengeluaran : 0;
                 $valJumlahAkhir = ($valJumlahAwal + $getStokIn['jml_stokIn']) - $getStokOut['jml_stokOut'];
                 ?>
                 <tr>
