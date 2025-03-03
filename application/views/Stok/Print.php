@@ -192,7 +192,7 @@ function penyebut($nilai)
 
                 $valPemasukan = $getStokIn['jml_stokIn'];
                 $valPengeluaran = $getStokOut['jml_stokOut'];
-                $valJumlahAwal = $jumlahAwal['jml_stokAwal'] != null ? $jumlahAwal['jml_stokAwal'] + $jumlahAwalPengeluaran : 0;
+                $valJumlahAwal = $jumlahAwal['jml_stokAwal'] != null ? $jumlahAwal['jml_stokAwal'] + $jumlahAwalPengeluaran['jml_stokOut'] : 0;
                 $valJumlahAkhir = ($valJumlahAwal + $getStokIn['jml_stokIn']) - $getStokOut['jml_stokOut'];
                 ?>
                 <tr>
