@@ -167,7 +167,7 @@ class MDetailSuratJalan extends CI_Model
 
         $currentStok = $stokIn - $stokOut;
 
-        echo $stokOut;
+        echo 'out' . $stokOut;
         die;
 
         if ($this->session->userdata('id_distributor') != 6) {
