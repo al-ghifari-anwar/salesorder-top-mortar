@@ -160,7 +160,7 @@ class MDetailSuratJalan extends CI_Model
         $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
         $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_produk');
         $this->db->where("tb_produk.id_city IN (SELECT id_city FROM tb_city WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
-        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'created_at >' => $dateCutoff])->row_array();
+        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateCutoff])->row_array();
 
 
         $stokOut = $getStokOut['jml_stokOut'];
