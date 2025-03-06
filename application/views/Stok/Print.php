@@ -154,7 +154,7 @@ function penyebut($nilai)
                     $getStokOut = ['jml_stokOut' => 0];
                 }
 
-                $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-18 00:00:00"));
+                $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-20 00:00:00"));
                 // $this->db->select('SUM(qty_produk) AS jml_stokOut');
                 // $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
                 // $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk');
