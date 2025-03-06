@@ -154,7 +154,7 @@ function penyebut($nilai)
                     $getStokOut = ['jml_stokOut' => 0];
                 }
 
-                // $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-18 00:00:00"));
+                $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-18 00:00:00"));
                 // $this->db->select('SUM(qty_produk) AS jml_stokOut');
                 // $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
                 // $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk');
@@ -164,7 +164,7 @@ function penyebut($nilai)
                 // Jumlah Awal
                 // $jumlahAwal = $this->db->query("SELECT SUM(jml_stok) AS jml_stok FROM tb_stok WHERE id_produk = '$id_produk' AND created_at < '$dateFrom' ")->row_array();
                 $this->db->select('SUM(jml_stok) AS jml_stokAwal');
-                $jumlahAwal = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk, 'created_at <=' => $dateFrom, 'id_gudang_stok' => $id_gudang_stok])->row_array();
+                $jumlahAwal = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk, 'created_at <=' => $dateFrom, 'created_at >=' => $dateCutoff, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
                 $this->db->where('id_master_produk', $id_master_produk);
                 $this->db->where("id_city IN (SELECT id_city FROM tb_city tc WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
@@ -178,7 +178,7 @@ function penyebut($nilai)
 
                     $this->db->select('SUM(qty_produk) AS jml_stokOut');
                     $this->db->where_in('id_produk', $idProduks);
-                    $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_detail_surat_jalan.created_at <=' => $dateFrom, 'tb_detail_surat_jalan.created_at >' => '2025-02-20 00:00:00'])->row_array();
+                    $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_detail_surat_jalan.created_at <=' => $dateFrom, 'tb_detail_surat_jalan.created_at >=' => $dateCutoff])->row_array();
                 } else {
                     $jumlahAwalPengeluaran = ['jml_stokOut' => 0];
                 }
