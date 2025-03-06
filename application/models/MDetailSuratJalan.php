@@ -159,12 +159,13 @@ class MDetailSuratJalan extends CI_Model
         $this->db->select('SUM(qty_produk) AS jml_stokOut');
         $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_produk' => $id_produk, 'created_at >' => $dateCutoff])->row_array();
 
-        // echo $this->db->last_query();
-        // die;
 
         $stokOut = $getStokOut['jml_stokOut'];
 
         $currentStok = $stokIn - $stokOut;
+
+        echo $stokOut;
+        die;
 
         if ($this->session->userdata('id_distributor') != 6) {
             if ($post['qty_produk'] > $currentStok) {
