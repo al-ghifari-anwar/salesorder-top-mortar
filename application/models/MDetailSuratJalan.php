@@ -174,7 +174,6 @@ class MDetailSuratJalan extends CI_Model
         if ($this->session->userdata('id_distributor') != 6) {
             echo 'out' . $stokOut;
             echo 'in' . $stokIn;
-            echo $this->db->last_query();
             die;
             if ($post['qty_produk'] > $currentStok) {
                 $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok: <b>" . $currentStok . "</b>");
