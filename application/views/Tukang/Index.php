@@ -54,7 +54,7 @@
                                         <th>No</th>
                                         <th>Nama Tukang</th>
                                         <th>Is Demo?</th>
-                                        <th>Status</th>
+                                        <th>Ditambah Oleh</th>
                                         <th>Skill</th>
                                         <th>Nomor HP</th>
                                         <th>Alamat</th>
@@ -70,18 +70,38 @@
                                     foreach ($tukangs as $data) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['nama'] ?></td>
+                                            <td title="<?= $data['nama'] ?>"><?= substr($data['nama'], 0, 15) . '...' ?></td>
                                             <td><?= $data['is_demo'] == 1 ? 'Yes' : 'No' ?></td>
-                                            <td><?= $data['is_self'] == 1 ? 'Mandiri' : 'By Sales' ?></td>
+                                            <td>
+                                                <?php
+                                                if ($data['is_self'] == 1) {
+                                                    echo "Mandiri";
+                                                } else {
+                                                    if ($data['id_user_post'] != 0) {
+                                                        $id_user = $data['id_user_post'];
+                                                        $user = $this->db->get_where('tb_user', ['id_user' => $id_user])->row_array();
+                                                        echo '[' . $user['level_user'] . '] ' . $user['full_name'];
+                                                    } else {
+                                                        if ($data['id_contact_post'] != 0) {
+                                                            $id_contact = $data['id_contact_post'];
+                                                            $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
+                                                            echo '[Toko] ' . $contact['nama'];
+                                                        } else {
+                                                            echo "Not Set";
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                            </td>
                                             <td><?= $data['nama_skill'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
-                                            <td><?= $data['address'] ?></td>
+                                            <td title="<?= $data['address'] ?>"><?= substr($data['address'], 0, 20) . '...' ?></td>
                                             <td><?= $data['nama_city'] ?></td>
                                             <td><?= $data['tgl_lahir'] == '0000-00-00' ? "" : date("d F Y", strtotime($data['tgl_lahir'])) ?></td>
                                             <td><?= $data['created_at'] == '0000-00-00' ? "" : date("d F Y", strtotime($data['created_at'])) ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-validate<?= $data['id_tukang'] ?>">Atur Demo&nbsp;<i class="fas fa-recycle"></i></a>
-                                                <a href="<?= base_url('akunseller/deletetukang/') . $data['id_tukang'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a href="#" class="btn btn-primary m-1" data-toggle="modal" data-target="#modal-validate<?= $data['id_tukang'] ?>">Demo&nbsp;<i class="fas fa-recycle"></i></a>
+                                                <a href="<?= base_url('akunseller/deletetukang/') . $data['id_tukang'] ?>" class="btn btn-danger m-1"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-validate<?= $data['id_tukang'] ?>">
