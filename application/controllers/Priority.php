@@ -31,6 +31,7 @@ class Priority extends CI_Controller
         $data['title'] = 'Top Mortar Priority';
         $data['contact'] = $this->MContact->getById($id_contact);
         $data['catcus'] = $this->db->get('tb_catcus')->result_array();
+        $data['users'] = $this->db->get_where('tb_user', ['is_add_tukang' => 1])->result_array();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Priority/Index');
@@ -46,6 +47,7 @@ class Priority extends CI_Controller
             redirect('priority/' . $id_contact);
         } else {
             $post = $this->input->post();
+            $id_user = $post['id_user'];
             $nomorhp = $post['nomorhp'];
             $nomorhp = "62" . substr($nomorhp, 1);
             $nama = $post['nama'];
@@ -269,7 +271,9 @@ class Priority extends CI_Controller
                         'tukang_status' => 'data',
                         'ktp_tukang' => '',
                         'id_skill' => 1,
-                        'id_catcus' => $id_catcus
+                        'id_catcus' => $id_catcus,
+                        'id_contact_post' => $id_contact,
+                        'id_user_post' => $id_user,
                     ];
 
                     $insert = $this->db->insert('tb_tukang', $data);

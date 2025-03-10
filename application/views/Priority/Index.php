@@ -42,6 +42,15 @@
                         <div class="card-body">
                             <form action="<?= base_url('priority/verify/') . $contact['id_contact'] ?>" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
+                                    <label for="">Sales</label>
+                                    <select name="id_user" id="" class="form-control select2bs4">
+                                        <option value="0">=== Pilih Sales ===</option>
+                                        <?php foreach ($users as $user): ?>
+                                            <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="">Nama Lengkap</label>
                                     <input type="text" name="nama" id="" class="form-control" required>
                                 </div>
