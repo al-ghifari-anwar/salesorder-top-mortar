@@ -42,15 +42,6 @@
                         <div class="card-body">
                             <form action="<?= base_url('priority/verify/') . $contact['id_contact'] ?>" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label for="">Sales</label>
-                                    <select name="id_user" id="" class="form-control select2bs4">
-                                        <option value="0">=== Pilih Sales ===</option>
-                                        <?php foreach ($users as $user): ?>
-                                            <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="">Nama Lengkap</label>
                                     <input type="text" name="nama" id="" class="form-control" required>
                                 </div>
@@ -81,6 +72,15 @@
                                 <div class="form-group">
                                     <label for="">Nominal Pembelian</label>
                                     <input type="text" name="nominal" id="" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Tim Top Mortar Yang Mendampingi</label>
+                                    <select name="id_user" id="" class="form-control select2bs4">
+                                        <option value="0">=== Pilih ===</option>
+                                        <?php foreach ($users as $user): ?>
+                                            <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Kirim</button>
                             </form>
