@@ -32,10 +32,12 @@ class Penjualan extends CI_Controller
         if ($dateRange) {
             $dates = explode("-", $dateRange);
             $data['items'] = $this->MDetailSuratJalan->getSoldItemsByDateGlobal(null, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
+            $data['items_total'] = $this->MDetailSuratJalan->getSoldItemsByDateGlobalForTotal(null, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
             $data['dates'] = $dates;
         } else {
             $data['dates'] = null;
             $data['items'] = $this->MDetailSuratJalan->getSoldItemsGlobal();
+            $data['items_total'] = $this->MDetailSuratJalan->getSoldItemsGlobalForTotal();
         }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

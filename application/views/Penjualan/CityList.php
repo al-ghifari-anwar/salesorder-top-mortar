@@ -62,8 +62,8 @@
             <div class="row">
                 <?php
                 $totalQty = 0;
-                foreach ($items as $item) {
-                    $totalQty += $item['qty_produk'];
+                foreach ($items_total as $item_total) {
+                    $totalQty .= $item_total['qty_produk'] . " " . $item_total['name_satuan'] . ", ";
                 }
                 ?>
                 <?php
