@@ -410,6 +410,33 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-user-astronaut"></i>
+                                        <p>
+                                            Analisa Tukang
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('analisatukang/user') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-user-cog"></i>
+                                                <p>
+                                                    Admin Lapangan / SPG
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('analisatukang/laporan') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-chart-area"></i>
+                                                <p>
+                                                    Rekap Target Tukang
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             <?php endif; ?>
                             <?php if ($this->session->userdata('id_distributor') == 4) : ?>
                                 <li class="nav-item">

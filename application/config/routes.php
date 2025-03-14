@@ -300,3 +300,7 @@ $route['masterproduk/sync'] = 'Masterproduk/sync';
 $route['masterproduk/create'] = 'Masterproduk/create';
 $route['masterproduk/update/(:num)'] = 'Masterproduk/update/$1';
 $route['masterproduk/delete/(:num)'] = 'Masterproduk/delete/$1';
+// Analisa Tukang
+$route['analisatukang/user'] = 'Analisatukang/user';
+$route['analisatukang/tampil/(:num)'] = 'Analisatukang/tampil/$1';
+$route['analisatukang/matikan/(:num)'] = 'Analisatukang/matikan/$1';
