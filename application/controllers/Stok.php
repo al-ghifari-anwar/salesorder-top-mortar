@@ -51,8 +51,16 @@ class Stok extends CI_Controller
         $dateRange = $post["date_range"];
         $id_gudang_stok = $post["id_gudang_stok"];
 
+        // ID DIST
+        if ($this->session->userdata('id_distributor') == 7) {
+            $id_distributor = 1;
+        } else {
+            $id_distributor = $this->session->userdata('id_distributor');
+        }
+
         $data['gudang'] = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
-        $data['masterProduks'] = $this->db->get_where("tb_master_produk", ['id_distributor' => $this->session->userdata('id_distributor'), 'name_master_produk !=' => '-'])->result_array();
+        $data['masterProduks'] = $this->db->get_where("tb_master_produk", ['id_distributor' => $id_distributor, 'name_master_produk !=' => '-'])->result_array();
+
         $data['dates'] = explode("-", $dateRange);
         // $this->load->view('Stok/Print', $data);
         // PDF
