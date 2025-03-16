@@ -304,3 +304,5 @@ $route['masterproduk/delete/(:num)'] = 'Masterproduk/delete/$1';
 $route['analisatukang/user'] = 'Analisatukang/user';
 $route['analisatukang/tampil/(:num)'] = 'Analisatukang/tampil/$1';
 $route['analisatukang/matikan/(:num)'] = 'Analisatukang/matikan/$1';
+// Maxchat
+$route['maxchat/inbound'] = 'Maxchat/inbound';
