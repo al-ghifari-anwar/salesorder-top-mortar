@@ -45,7 +45,7 @@ class MVisit extends CI_Model
         if ($type != 'sales') {
             $this->db->where('tb_user.level_user', $type);
         } else {
-            $this->db->where_in('tb_user.level_user', ['sales', 'penagihan']);
+            $this->db->where_in('tb_user.level_user', ['sales', 'penagihan', 'marketing']);
         }
         $this->db->where('tb_contact.id_city', $id_city);
         $this->db->group_by('tb_user.id_user');
