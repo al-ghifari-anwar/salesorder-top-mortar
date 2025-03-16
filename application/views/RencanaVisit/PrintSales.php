@@ -155,7 +155,7 @@ function penyebut($nilai)
                                 <?php
                                 if ($visit['source_visit'] == 'jatem1' || $visit['source_visit'] == 'jatem2' || $visit['source_visit'] == 'jatem3' || $visit['source_visit'] == 'weekly') {
                                     echo "Penagihan";
-                                } else if ($visit['source_visit'] == 'passive' || $visit['source_visit'] == 'voucher' || $visit['renvisales']) {
+                                } else if ($visit['source_visit'] == 'passive' || $visit['source_visit'] == 'voucher' || $visit['source_visit'] == 'renvisales') {
                                     echo "Passive";
                                 } else if ($visit['source_visit'] == 'mg') {
                                     echo "MG";
