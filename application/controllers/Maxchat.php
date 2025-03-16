@@ -4,7 +4,9 @@ class Maxchat extends CI_Controller
 {
     public function inbound()
     {
-        $vars = file_get_contents("php://input");
+        $json = file_get_contents("php://input");
+
+        $vars = json_decode($json, true);
 
         $dataInbound = [
             'from_inbound_msg' => $vars['from'],
