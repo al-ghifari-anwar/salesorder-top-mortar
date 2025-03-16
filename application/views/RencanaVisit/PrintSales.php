@@ -166,7 +166,7 @@ function penyebut($nilai)
                             <td class="border"><?= $visit['approve_message'] ?></td>
                             <td class="border"><?= date("d M, Y", strtotime($visit['date_visit'])) ?></td>
                             <td class="border"><?= $visit['distance_visit'] ?></td>
-                            <td class="border"><?= date("H:i", strtotime($visit['date_visit'])) ?></td>
+                            <td class="border"><?= date("H:i", strtotime($visit['date_visit'])) ?> - (<?= $visit['id_visit'] ?>)</td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endforeach; ?>
