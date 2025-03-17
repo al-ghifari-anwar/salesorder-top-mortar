@@ -120,6 +120,11 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                         </th>
                         <th class="text-left text-up">
                             <h3><?= $getCompany['name_company'] ?></h3>
+                            <p style="font-size: 9px;">
+                                <?php if ($getCompany['id_distributor'] != 6): ?>
+                                    PT Top Mortar Indonesia Pergudangan Bizpoint Blok F No 50, Cikupa, Tangerang
+                                <?php endif; ?>
+                            </p>
                         </th>
                     </tr>
                 </table>
@@ -250,11 +255,6 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
                     <tr>
                         <td>
-                            <?php if ($getCompany['id_distributor'] != 6): ?>
-                                PT Top Mortar Indonesia Pergudangan Bizpoint Blok F No 50, Cikupa, Tangerang
-                                <br>
-                                <br>
-                            <?php endif; ?>
                             Payment: BCA No Rekening <?= $this->session->userdata('jenis_distributor') == 'pusat' ? '8880762231' : '8880964519' ?> atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
                         </td>
                     </tr>
@@ -302,6 +302,11 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                         </th>
                         <th class="text-left text-up">
                             <h3><?= $getCompany['name_company'] ?></h3>
+                            <p style="font-size: 9px;">
+                                <?php if ($getCompany['id_distributor'] != 6): ?>
+                                    PT Top Mortar Indonesia Pergudangan Bizpoint Blok F No 50, Cikupa, Tangerang
+                                <?php endif; ?>
+                            </p>
                         </th>
                     </tr>
                 </table>
@@ -427,11 +432,6 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 10px;">
                     <tr>
                         <td>
-                            <?php if ($getCompany['id_distributor'] != 6): ?>
-                                PT Top Mortar Indonesia Pergudangan Bizpoint Blok F No 50, Cikupa, Tangerang
-                                <br>
-                                <br>
-                            <?php endif; ?>
                             Payment: BCA No Rekening <?= $this->session->userdata('jenis_distributor') == 'pusat' ? '8880762231' : '8880964519' ?> atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
                         </td>
                     </tr>
