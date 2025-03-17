@@ -128,7 +128,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <table>
                     <tr>
                         <th class="text-right">
-                            <!-- <h5>COPY</h5> -->
+                            <h4><b>ASLI</b></h4>
                         </th>
                     </tr>
                 </table>
@@ -302,7 +302,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <table>
                     <tr>
                         <th class="text-right">
-                            <h5>COPY</h5>
+                            <h4><b>COPY</b></h4>
                         </th>
                     </tr>
                 </table>
