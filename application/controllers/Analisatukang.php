@@ -50,4 +50,47 @@ class Analisatukang extends CI_Controller
             redirect('analisatukang/user');
         }
     }
+
+    public function laporan()
+    {
+        $data['title'] = 'Rekap Target Tukang';
+
+        $this->db->where("level_user IN ('penagihan', 'sales', 'marketing')", NULL, FALSE);
+        $data['users'] = $this->db->get_where('tb_user', ['password !=' => '0', 'is_add_tukang' => 1])->result_array();
+
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Analisatukang/Laporan');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function laporan_print()
+    {
+        $post = $this->input->post();
+
+        $id_user = $post['id_user'];
+        $daterange = $post['daterange'];
+        $dates = explode('-', $daterange);
+
+        if ($id_user > 0) {
+            $this->db->where('id_user', $id_user);
+        }
+        $user = $this->db->get_where('tb_user', ['password !=' => '0', 'is_add_tukang' => 1])->result_array();
+
+        $data['title'] = 'Rekap Target Tukang';
+        $data['users'] = $user;
+        $data['dateFrom'] = $dates[0];
+        $data['dateTo'] = $dates[1];
+
+        // Test
+        // $this->load->view('Analisatukang/Print', $data);
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Analisatukang/Print', $data, true);
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
 }
