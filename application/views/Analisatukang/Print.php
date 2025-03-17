@@ -105,6 +105,10 @@ function penyebut($nilai)
         .page {
             height: 50%;
         }
+
+        .text-blue {
+            color: blue;
+        }
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Rekap Target Tukang</h1>
@@ -131,8 +135,10 @@ function penyebut($nilai)
             </tr>
             <?php
             $noTukang = 1;
+            $countTukang = 0;
             foreach ($tukangs as $tukang): ?>
                 <?php
+                $countTukang++;
                 $id_city = $tukang['id_city'];
                 $city = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
                 ?>
@@ -145,6 +151,9 @@ function penyebut($nilai)
                     <td class="text-center border-r"><?= date('d F Y - H:i', strtotime($tukang['created_at'])) ?></td>
                 </tr>
             <?php endforeach; ?>
+            <tr>
+                <th colspan="6" class="border text-left text-blue">Total: <?= $countTukang ?></th>
+            </tr>
         <?php endforeach; ?>
     </table>
 </body>
