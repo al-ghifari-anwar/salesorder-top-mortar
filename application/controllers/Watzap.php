@@ -92,11 +92,11 @@ class Watzap extends CI_Controller
                             'type' => 'text',
                             'text' => $marketingMessage['body_marketing_message']
                         ]
+                    ],
+                    'header' => [
+                        'type' => 'image',
+                        'attachmentUrl' => "https://order.topmortarindonesia.com/assets/img/content_img/" . $marketingMessage['image_marketing_message']
                     ]
-                ],
-                'header' => [
-                    'type' => 'image',
-                    'attachmentUrl' => "https://order.topmortarindonesia.com/assets/img/content_img/" . $marketingMessage['image_marketing_message']
                 ]
             ];
 
