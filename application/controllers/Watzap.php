@@ -126,7 +126,8 @@ class Watzap extends CI_Controller
                 if ($updateStatus) {
                     $dataResponse = [
                         'status' => 'ok',
-                        'msg' => 'Succes sent and upadate status'
+                        'msg' => 'Succes sent and update status',
+                        'response' => $resArray
                     ];
 
                     $this->output->set_output(json_encode($dataResponse));
