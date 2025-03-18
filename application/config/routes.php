@@ -252,6 +252,7 @@ $route['renvimg/(:num)'] = 'Renvimg/index/$1';
 $route['renvimg/insert'] = 'Renvimg/insert';
 // Analisa
 $route['analisa/passive'] = 'Analisa/passive';
+$route['analisa/order5'] = 'Analisa/passive_order_5';
 $route['analisa/active'] = 'Analisa/active';
 // Referal
 $route['referal/(:any)'] = 'Referal/index/$1';

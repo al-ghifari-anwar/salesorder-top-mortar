@@ -401,6 +401,14 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="<?= base_url('analisa/order5') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-history"></i>
+                                                <p>
+                                                    Passive Order > 5
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('analisa/active') ?>" class="nav-link">
                                                 <i class="nav-icon fas fa-money-check"></i>
                                                 <p>
