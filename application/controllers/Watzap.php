@@ -114,7 +114,7 @@ class Watzap extends CI_Controller
 
             // $resArray = json_decode($response, true);
 
-            if ($resArray['content'] == "Message sent") {
+            if (isset($resArray['content'])) {
                 $arrayWatzapTukang = [
                     'send_at' => date('Y-m-d H:i:s'),
                     'status_watzap_tukang' => 'sent',
