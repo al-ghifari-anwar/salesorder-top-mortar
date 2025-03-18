@@ -1,5 +1,7 @@
 <?php
 
+use PhpParser\Node\Name;
+
 class Watzap extends CI_Controller
 {
     public function __construct()
@@ -7,6 +9,7 @@ class Watzap extends CI_Controller
         parent::__construct();
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model('MWatzaptukang');
+        $this->load->model('Maxchathelper');
     }
 
     public function insertTukangToWaitlist()
@@ -63,6 +66,7 @@ class Watzap extends CI_Controller
         // https://order.topmortarindonesia.com/assets/vids/test_video.mp4
         $this->output->set_content_type('application/json');
         $watzapTukang = $this->MWatzaptukang->getSingleWaiting();
+        // $watzapTukang = true;
 
         if ($watzapTukang) {
 
@@ -72,33 +76,43 @@ class Watzap extends CI_Controller
 
             $marketingMessage = $this->db->get_where('tb_marketing_message', ['id_marketing_message' => $id_marketing_message])->row_array();
 
-            $dataSending = array();
-            $dataSending["api_key"] = "OG0UMAWHV6SJ0GL2";
-            $dataSending["number_key"] = "liVWjKEiV6aImQ5M";
-            $dataSending["phone_no"] = $phone;
-            $dataSending["message"] = $marketingMessage['body_marketing_message'];
-            $dataSending["url"] = "https://order.topmortarindonesia.com/assets/img/content_img/" . $marketingMessage['image_marketing_message'];
-            $dataSending["separate_caption"] = "0";
+            $jsonRequest = [
+                'to' => $phone,
+                'msgType' => 'image',
+                'templateId' => '61393752-9ea4-48f4-afbb-2d7c1b355d0a',
+                'values' => [
+                    'body' => [
+                        [
+                            'index' => 1,
+                            'type' => 'text',
+                            'text' => $name
+                        ],
+                        [
+                            'index' => 2,
+                            'type' => 'text',
+                            'text' => $marketingMessage['body_marketing_message']
+                        ]
+                    ]
+                ],
+                'header' => [
+                    'type' => 'image',
+                    'attachmentUrl' => "https://order.topmortarindonesia.com/assets/img/content_img/" . $marketingMessage['image_marketing_message']
+                ]
+            ];
 
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://api.watzap.id/v1/send_image_url',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => json_encode($dataSending),
-                CURLOPT_HTTPHEADER => array(
-                    'Content-Type: application/json'
-                ),
-            ));
-            $response = curl_exec($curl);
-            curl_close($curl);
 
-            $resArray = json_decode($response, true);
+            // $dataSending = array();
+            // $dataSending["api_key"] = "OG0UMAWHV6SJ0GL2";
+            // $dataSending["number_key"] = "liVWjKEiV6aImQ5M";
+            // $dataSending["phone_no"] = $phone;
+            // $dataSending["message"] = $marketingMessage['body_marketing_message'];
+            // $dataSending["url"] = "https://order.topmortarindonesia.com/assets/img/content_img/" . $marketingMessage['image_marketing_message'];
+            // $dataSending["separate_caption"] = "0";
+
+            // Hit Maxchat from Helper Model
+            $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $jsonRequest);
+
+            // $resArray = json_decode($response, true);
 
             if ($resArray['status'] == 200) {
                 $arrayWatzapTukang = [
