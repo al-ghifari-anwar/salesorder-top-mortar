@@ -79,7 +79,7 @@ class Watzap extends CI_Controller
             $jsonRequest = [
                 'to' => $phone,
                 'msgType' => 'image',
-                'templateId' => '61393752-9ea4-48f4-afbb-2d7c1b355d0a',
+                'templateId' => 'ad6c74a0-5e00-4380-92f9-f9c467c4f399',
                 'values' => [
                     'body' => [
                         [
