@@ -120,7 +120,7 @@
                                 <?php
                                 $count_invoice = count($array_scoring);
                                 if ($count_invoice == 0) {
-                                    $count_invoice == 1;
+                                    $count_invoice = 1;
                                 }
                                 $total_score = 0;
                                 foreach ($array_scoring as $scoring) {
