@@ -1,7 +1,7 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="<?= base_url('assets') ?>/plugins/jquery/jquery.min.js"></script>
+<!-- <script src="<?= base_url('assets') ?>/plugins/jquery/jquery.min.js"></script> -->
 <!-- Bootstrap 4 -->
 <script src="<?= base_url('assets') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
@@ -30,6 +30,9 @@
 <script src="<?= base_url('assets') ?>/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bs-custom-file-input -->
 <script src="<?= base_url('assets') ?>/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- ChartJS -->
+<script src="<?= base_url('assets') ?>/plugins/chart.js/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
 <script>
     $(function() {
         bsCustomFileInput.init();
@@ -115,6 +118,8 @@
         }
     });
 </script>
+<!-- Chart Score -->
+
 </body>
 
 </html>

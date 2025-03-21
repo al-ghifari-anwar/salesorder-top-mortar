@@ -29,4 +29,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- daterange picker -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/styles.css">
+    <!-- jQuery -->
+    <script src="<?= base_url('assets') ?>/plugins/jquery/jquery.min.js"></script>
 </head>
