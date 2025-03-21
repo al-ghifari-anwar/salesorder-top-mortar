@@ -119,6 +119,9 @@
                             <div class="card-body">
                                 <?php
                                 $count_invoice = count($array_scoring);
+                                if ($count_invoice == 0) {
+                                    $count_invoice == 1;
+                                }
                                 $total_score = 0;
                                 foreach ($array_scoring as $scoring) {
                                     $total_score += $scoring['percent_score'];
