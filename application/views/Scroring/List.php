@@ -159,6 +159,10 @@
                                                         <td><?= $count_invoice ?></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>Jml Invoice Sehat</th>
+                                                        <td><?= $count_invoice - $count_late_payment ?></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>Jml Invoice Terlambat</th>
                                                         <td><?= $count_late_payment ?></td>
                                                     </tr>
