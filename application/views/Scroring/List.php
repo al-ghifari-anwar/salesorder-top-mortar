@@ -148,6 +148,24 @@
                                             </div>
                                             <!-- /.card-body -->
                                         </div>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Detail</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <th>Jml Invoice Keseluruhan</th>
+                                                        <td><?= $count_invoice ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Jml Invoice Terlambat</th>
+                                                        <td><?= $count_late_payment ?></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <!-- /.card-body -->
+                                        </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="card">
