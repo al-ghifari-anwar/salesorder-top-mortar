@@ -154,16 +154,8 @@
                                                     }
                                                 </style>
                                                 <div class="row">
-                                                    <circle-progress id="score-progress" class="mx-auto" value="<?= $val_scoring ?>" max="100" style="--progress-color: <?= $progress_color ?>;" text-format="percent"></circle-progress>
+                                                    <circle-progress class="mx-auto" value="<?= number_format($val_scoring, 2, '.', ',') ?>" max="100" style="--progress-color: <?= $progress_color ?>;" text-format="percent"></circle-progress>
                                                 </div>
-                                                <script>
-                                                    $(function() {
-                                                        new CircleProgress('#score-progress', {
-                                                            max: 100,
-                                                            value: <?= $val_scoring ?>,
-                                                        });
-                                                    })
-                                                </script>
                                             </div>
                                             <!-- /.card-body -->
                                         </div>
