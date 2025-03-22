@@ -97,7 +97,8 @@
                                 'date_jatem' => $jatuhTempo,
                                 'date_payment' => $datePayment,
                                 'percent_score' => 100 - $days,
-                                'is_cod' => $sj['is_cod']
+                                'is_cod' => $sj['is_cod'],
+                                'date_invoice' => $invoice['date_invoice'],
                             ];
 
                             array_push($array_scoring, $scoreData);
@@ -110,7 +111,8 @@
                                 'date_jatem' => $jatuhTempo,
                                 'date_payment' => $datePayment,
                                 'percent_score' => 100,
-                                'is_cod' => $sj['is_cod']
+                                'is_cod' => $sj['is_cod'],
+                                'date_invoice' => $invoice['date_invoice'],
                             ];
 
                             array_push($array_scoring, $scoreData);
@@ -198,6 +200,10 @@
                                                         <?php if ($scoringDetail['status'] == 'late'): ?>
                                                             <tr>
                                                                 <th colspan="2">INVOICE #<?= $scoringDetail['no_invoice'] ?> <?= ($scoringDetail['is_cod'] == 1) ? '(COD)' : '' ?></th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Tgl Invoice</td>
+                                                                <td><?= date("d F Y", strtotime($scoringDetail['date_invoice'])) ?></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Jatuh Tempo</td>
