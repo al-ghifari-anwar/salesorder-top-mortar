@@ -83,7 +83,9 @@
                                                 <a href="<?= base_url('surat-jalan/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
                                                 <?php if ($data['is_closing'] == 0) : ?>
                                                     <a href="<?= base_url('print-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-success" title="Cetak" target="__blank"><i class="fas fa-print"></i></a>
-                                                    <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                    <?php if ($this->session->userdata('level_user') == 'finance'): ?>
+                                                        <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                    <?php endif; ?>
                                                     <?php if ($data['is_cod'] == 1) : ?>
                                                         <a href="<?= base_url('print-tempinv/') . $data['id_surat_jalan'] ?>" class="btn btn-warning" title="Print Invoice COD" target="__blank"><i class="fas fa-print"></i></a>
                                                     <?php endif; ?>
