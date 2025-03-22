@@ -129,10 +129,13 @@
                                 $val_scoring = number_format($total_score / $count_invoice, 2, '.', '.');
                                 if ($val_scoring >= 91 && $val_scoring <= 100) {
                                     $color_text = 'text-success';
+                                    $progress_color = 'green';
                                 } else if ($val_scoring >= 81 && $val_scoring <= 90) {
                                     $color_text = 'text-teal';
+                                    $progress_color = 'teal';
                                 } else if ($val_scoring <= 80) {
                                     $color_text = 'text-danger';
+                                    $progress_color = 'red';
                                 }
                                 ?>
                                 <div class="row">
@@ -143,8 +146,24 @@
                                                 <h3 class="card-title">Skor</h3>
                                             </div>
                                             <div class="card-body">
-                                                <h1 class="text-center <?= $color_text ?>"><?= $val_scoring ?>%</h1>
                                                 <!-- <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
+                                                <style>
+                                                    circle-progress::part(value) {
+                                                        stroke-width: 6px;
+                                                        stroke: var(--progress-color);
+                                                    }
+                                                </style>
+                                                <div class="row">
+                                                    <circle-progress id="score-progress" class="mx-auto" value="<?= $val_scoring ?>" max="100" style="--progress-color: <?= $progress_color ?>;" text-format="percent"></circle-progress>
+                                                </div>
+                                                <script>
+                                                    $(function() {
+                                                        new CircleProgress('#score-progress', {
+                                                            max: 100,
+                                                            value: <?= $val_scoring ?>,
+                                                        });
+                                                    })
+                                                </script>
                                             </div>
                                             <!-- /.card-body -->
                                         </div>
