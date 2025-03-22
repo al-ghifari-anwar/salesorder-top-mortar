@@ -37,6 +37,14 @@ class MPayment extends CI_Model
         return $query;
     }
 
+    public function getLastByIdInvoiceOnly($id_invoice)
+    {
+        $this->db->order_by('date_payment', 'DESC');
+        $query = $this->db->get_where('tb_payment', ['id_invoice' => $id_invoice], 1)->result_array();
+
+        return $query;
+    }
+
     public function getTotalPaymentInv($id_invoice)
     {
         $this->db->select("SUM(amount_payment) AS amount_payment");
