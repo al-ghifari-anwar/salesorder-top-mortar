@@ -74,7 +74,7 @@
                 $payments = null;
                 $array_scoring = array();
                 foreach ($invoices as $invoice) {
-                    $payments = $this->MPayment->getByIdInvoiceOnly($invoice['id_invoice']);
+                    $payments = $this->MPayment->getLastByIdInvoiceOnly($invoice['id_invoice']);
 
                     $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
 
