@@ -74,7 +74,10 @@
                 $payments = null;
                 $array_scoring = array();
                 foreach ($invoices as $invoice) {
+                    $id_surat_jalan = $invoice['id_surat_jalan'];
                     $payments = $this->MPayment->getLastByIdInvoiceOnly($invoice['id_invoice']);
+
+                    $sj = $this->db->get_where('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
 
                     $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
 
@@ -93,7 +96,8 @@
                                 'days_late' => $days,
                                 'date_jatem' => $jatuhTempo,
                                 'date_payment' => $datePayment,
-                                'percent_score' => 100 - $days
+                                'percent_score' => 100 - $days,
+                                'is_cod' => $sj['is_cod']
                             ];
 
                             array_push($array_scoring, $scoreData);
@@ -105,7 +109,8 @@
                                 'days_late' => 0,
                                 'date_jatem' => $jatuhTempo,
                                 'date_payment' => $datePayment,
-                                'percent_score' => 100
+                                'percent_score' => 100,
+                                'is_cod' => $sj['is_cod']
                             ];
 
                             array_push($array_scoring, $scoreData);
@@ -192,15 +197,15 @@
                                                     <?php foreach ($array_scoring as $scoringDetail): ?>
                                                         <?php if ($scoringDetail['status'] == 'late'): ?>
                                                             <tr>
-                                                                <th colspan="2">INVOICE #<?= $scoringDetail['no_invoice'] ?></th>
+                                                                <th colspan="2">INVOICE #<?= $scoringDetail['no_invoice'] ?> <?= ($scoringDetail['is_cod'] == 1) ? '(COD)' : '' ?></th>
                                                             </tr>
                                                             <tr>
                                                                 <td>Jatuh Tempo</td>
-                                                                <td><?= $scoringDetail['date_jatem'] ?></td>
+                                                                <td><?= date("d F Y", strtotime($scoringDetail['date_jatem'])) ?></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Payment</td>
-                                                                <td><?= $scoringDetail['date_payment'] ?></td>
+                                                                <td><?= date("d F Y", strtotime($scoringDetail['date_payment'])) ?></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Jml Hari Terlambat</td>
