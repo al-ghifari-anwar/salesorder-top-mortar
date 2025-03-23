@@ -161,7 +161,12 @@
                                                     }
                                                 </style>
                                                 <div class="row">
-                                                    <circle-progress class="mx-auto" value="<?= number_format($val_scoring, 2, '.', ',') ?>" max="100" style="--progress-color: <?= $progress_color ?>;" text-format="percent"></circle-progress>
+                                                    <circle-progress class="mx-auto" value="<?= number_format($val_scoring, 2, '.', ',') ?>" max="100" style="--progress-color: <?= $progress_color ?>;" text-format="none"></circle-progress>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h3 class="text-center"><?= number_format($val_scoring, 2, '.', ',') ?>%</h3>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- /.card-body -->
