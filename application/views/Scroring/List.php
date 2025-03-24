@@ -55,6 +55,9 @@
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Lihat Skor</button>
                                             </div>
+                                            <div class="form-group ml-3">
+                                                <a href="<?= base_url('scoring/rekap/' . $city['id_city']) ?>" class="btn btn-success" target="_blank">Rekap Keseluruhan</a>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>

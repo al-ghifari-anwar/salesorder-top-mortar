@@ -58,4 +58,22 @@ class Scoring extends CI_Controller
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
+
+    public function rekap($id_city)
+    {
+        $city = $this->MCity->getById($id_city);
+
+        $data['title'] = 'Scoring Toko - Kota ' . $city['nama_city'];
+        $data['city'] = $city;
+        $data['contacts'] = $this->db->get_where('tb_contact', ['id_city' => $id_city])->result_array();
+
+        // $this->load->view('Scoring/Rekap', $data);
+
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Scoring/Rekap', $data, true);
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
 }

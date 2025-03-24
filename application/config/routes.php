@@ -312,3 +312,6 @@ $route['maxchat/inbound'] = 'Maxchat/inbound';
 // Scoring
 $route['scoring'] = 'Scoring/city_list';
 $route['scoring/(:num)'] = 'Scoring/list/$1';
+$route['scoring/rekap/(:num)'] = 'Scoring/rekap/$1';
+// Log bca
+$route['logbca'] = 'Logbca';
