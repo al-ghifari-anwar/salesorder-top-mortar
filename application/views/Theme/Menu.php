@@ -118,6 +118,17 @@
                                     </p>
                                 </a>
                             </li>
+
+                            <?php if ($this->session->userdata('level_user') == 'admin'): ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('logbca') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-money-bill-wave"></i>
+                                        <p>
+                                            Log BCA
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'stok'): ?>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
