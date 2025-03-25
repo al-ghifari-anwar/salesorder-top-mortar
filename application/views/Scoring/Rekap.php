@@ -205,16 +205,18 @@ function penyebut($nilai)
                 $color_text = 'text-danger';
             }
             ?>
-            <tr>
-                <td class="border"><?= $contact['nama'] ?></td>
-                <td class="border"><?= $contact['nomorhp'] ?></td>
-                <td class="border"><?= $contact['address'] ?></td>
-                <td class="border"><?= $contact['store_status'] ?></td>
-                <td class="border"><?= $count_invoice ?></td>
-                <td class="border text-blue"><?= $count_invoice - $count_late_payment ?></td>
-                <td class="border text-purple"><?= $count_late_payment ?></td>
-                <td class="border <?= $color_text ?>"><?= number_format($val_scoring, 2, '.', ',') ?></td>
-            </tr>
+            <?php if (count($array_scoring) > 0): ?>
+                <tr>
+                    <td class="border"><?= $contact['nama'] ?></td>
+                    <td class="border"><?= $contact['nomorhp'] ?></td>
+                    <td class="border"><?= $contact['address'] ?></td>
+                    <td class="border"><?= $contact['store_status'] ?></td>
+                    <td class="border"><?= $count_invoice ?></td>
+                    <td class="border text-blue"><?= $count_invoice - $count_late_payment ?></td>
+                    <td class="border text-purple"><?= $count_late_payment ?></td>
+                    <td class="border <?= $color_text ?>"><?= number_format($val_scoring, 2, '.', ',') ?></td>
+                </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
     </table>
 </body>
