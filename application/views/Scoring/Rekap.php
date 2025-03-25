@@ -197,9 +197,9 @@ function penyebut($nilai)
                 $total_score += $scoring['percent_score'];
             }
             $val_scoring = number_format($total_score / $count_invoice, 2, '.', '.');
-            if ($val_scoring >= 91 && $val_scoring <= 100) {
+            if ($val_scoring > 90 && $val_scoring <= 100) {
                 $color_text = 'text-success';
-            } else if ($val_scoring >= 81 && $val_scoring <= 90) {
+            } else if ($val_scoring > 80 && $val_scoring <= 90) {
                 $color_text = 'text-teal';
             } else if ($val_scoring <= 80) {
                 $color_text = 'text-danger';

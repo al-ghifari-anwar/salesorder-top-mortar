@@ -153,7 +153,7 @@
                                         <!-- DONUT CHART -->
                                         <div class="card">
                                             <div class="card-header">
-                                                <h3 class="card-title">Skor . <?= $progress_color ?></h3>
+                                                <h3 class="card-title">Skor</h3>
                                             </div>
                                             <div class="card-body">
                                                 <!-- <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
