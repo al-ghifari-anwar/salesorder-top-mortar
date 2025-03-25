@@ -136,11 +136,11 @@
                                 foreach ($array_scoring as $scoring) {
                                     $total_score += $scoring['percent_score'];
                                 }
-                                $val_scoring = number_format($total_score / $count_invoice, 2, '.', '.');
-                                if ($val_scoring >= 91 && $val_scoring <= 100) {
+                                $val_scoring = $total_score / $count_invoice;
+                                if ($val_scoring > 90 && $val_scoring <= 100) {
                                     $color_text = 'text-success';
                                     $progress_color = 'green';
-                                } else if ($val_scoring >= 81 && $val_scoring <= 90) {
+                                } else if ($val_scoring > 80 && $val_scoring <= 90) {
                                     $color_text = 'text-teal';
                                     $progress_color = 'teal';
                                 } else if ($val_scoring <= 80) {
@@ -153,7 +153,7 @@
                                         <!-- DONUT CHART -->
                                         <div class="card">
                                             <div class="card-header">
-                                                <h3 class="card-title">Skor</h3>
+                                                <h3 class="card-title">Skor . <?= $progress_color . "-" . $val_scoring ?></h3>
                                             </div>
                                             <div class="card-body">
                                                 <!-- <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
@@ -232,58 +232,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <script>
-                                    $(function() {
-                                        var score = <?= $val_scoring ?>
-                                        //-------------
-                                        //- DONUT CHART -
-                                        //-------------
-                                        // Get context with jQuery - using jQuery's .get() method.
-                                        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-                                        var donutData = {
-                                            datasets: [{
-                                                data: [score, 100 - score],
-                                                backgroundColor: ['#00a65a', '#d2d6de', '#d2d6de', '#d2d6de', '#d2d6de', '#d2d6de'],
-                                            }]
-                                        }
-                                        var donutOptions = {
-                                            maintainAspectRatio: false,
-                                            responsive: true,
-                                            legend: {
-                                                display: true,
-                                                position: 'bottom',
-                                                align: 'center',
-                                                labels: {
-                                                    boxWidth: 15
-                                                }
-                                            },
-                                            plugins: {
-                                                labels: {
-                                                    render: 'value',
-                                                    precision: 0,
-                                                    fontSize: 14,
-                                                    fontColor: '#fff',
-                                                    fontStyle: 'normal',
-                                                }
-                                            },
-                                            animations: {
-                                                duration: 1000,
-                                                duration: 5000,
-                                                easing: 'linear',
-                                                from: 1,
-                                                to: 0,
-                                                loop: true
-                                            }
-                                        }
-                                        //Create pie or douhnut chart
-                                        // You can switch between pie and douhnut using the method below.
-                                        new Chart(donutChartCanvas, {
-                                            type: 'pie',
-                                            data: donutData,
-                                            options: donutOptions
-                                        })
-                                    })
-                                </script>
                             </div>
                         </div>
                     </div>
