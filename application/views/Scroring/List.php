@@ -136,7 +136,7 @@
                                 foreach ($array_scoring as $scoring) {
                                     $total_score += $scoring['percent_score'];
                                 }
-                                $val_scoring = $total_score / $count_invoice;
+                                $val_scoring = number_format($total_score / $count_invoice, 2, '.', '.');
                                 if ($val_scoring > 90 && $val_scoring <= 100) {
                                     $color_text = 'text-success';
                                     $progress_color = 'green';
@@ -153,7 +153,7 @@
                                         <!-- DONUT CHART -->
                                         <div class="card">
                                             <div class="card-header">
-                                                <h3 class="card-title">Skor . <?= $progress_color . "-" . $val_scoring ?></h3>
+                                                <h3 class="card-title">Skor . <?= $progress_color ?></h3>
                                             </div>
                                             <div class="card-body">
                                                 <!-- <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
