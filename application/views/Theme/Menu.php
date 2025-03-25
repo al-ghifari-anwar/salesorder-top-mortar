@@ -119,7 +119,7 @@
                                 </a>
                             </li>
 
-                            <?php if ($this->session->userdata('level_user') == 'admin'): ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance'): ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('logbca') ?>" class="nav-link">
                                         <i class="nav-icon fas fa-money-bill-wave"></i>
