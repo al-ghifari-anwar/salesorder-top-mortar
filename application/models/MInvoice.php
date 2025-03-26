@@ -69,8 +69,16 @@ class MInvoice extends CI_Model
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
-        $this->db->order_by('tb_surat_jalan.id_contact', 'ASC');
         $query = $this->db->get_where('tb_invoice', ['tb_surat_jalan.id_contact' => $id_contact, 'tb_invoice.total_invoice >' => 1000, 'tb_invoice.status_invoice' => 'paid'])->result_array();
+        return $query;
+    }
+
+    public function getLast3PaidByIdContactNoMerch($id_contact)
+    {
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+        $this->db->order_by('tb_invoice.date_invoice', 'DESC');
+        $query = $this->db->get_where('tb_invoice', ['tb_surat_jalan.id_contact' => $id_contact, 'tb_invoice.total_invoice >' => 1000, 'tb_invoice.status_invoice' => 'paid'], 3)->result_array();
         return $query;
     }
 
