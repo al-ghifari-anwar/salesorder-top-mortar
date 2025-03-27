@@ -66,7 +66,7 @@
                                             <td>
                                                 <form class="form" action="<?= base_url('switchtf/update/') . $data['id_switch_tf'] ?>" method="post">
                                                     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                        <input type="checkbox" name="status_switch_tf" onchange="$('.form').submit()" class="custom-control-input customSwitch3" id="" <?= $data['status_switch_tf'] == 1 ? 'checked' : '' ?>>
+                                                        <input type="checkbox" name="status_switch_tf" onchange="$('.form').submit()" class="custom-control-input" id="" <?= $data['status_switch_tf'] == 1 ? 'checked' : '' ?>>
                                                         <label class="custom-control-label" for="customSwitch3">Tekan Untuk Merubah Status Auto Transfer</label>
                                                     </div>
                                                 </form>
