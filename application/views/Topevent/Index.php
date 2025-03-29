@@ -42,7 +42,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-10">
-                                    <form action="<?= base_url('topeventbca') ?>" method="POST">
+                                    <form action="<?= base_url('topevent') ?>" method="POST">
                                         <div class="row">
                                             <label>Date range:</label>
                                             <div class="form-group ml-3">
