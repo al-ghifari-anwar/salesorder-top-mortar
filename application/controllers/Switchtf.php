@@ -38,7 +38,7 @@ class Switchtf extends CI_Controller
         $insert = $this->db->update('tb_switch_tf', $data, ['id_switch_tf' => $id]);
 
         if ($insert) {
-            $this->session->set_flashdata('success', "Berhasil mengubah status auto transfer!");
+            $this->session->set_flashdata('success', "Berhasil mengubah status auto transfer!" . $post['status_switch_tf']);
             redirect('switchtf');
         } else {
             $this->session->set_flashdata('failed', "Gagal mengubah status auto transfer!");
