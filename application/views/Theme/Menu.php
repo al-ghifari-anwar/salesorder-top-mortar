@@ -118,7 +118,16 @@
                                     </p>
                                 </a>
                             </li>
-
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'marketing'): ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('topevent') ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-trophy"></i>
+                                        <p>
+                                            Event Lomba
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance'): ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('logbca') ?>" class="nav-link">
