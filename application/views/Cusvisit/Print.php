@@ -230,6 +230,9 @@ function penyebut($nilai)
                         <td class="text-center">
                             <?= 0 ?>
                         </td>
+                        <td class="text-center">
+                            <?= 0 ?>
+                        </td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
