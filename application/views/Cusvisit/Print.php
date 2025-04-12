@@ -181,6 +181,7 @@ function penyebut($nilai)
                     $total_visitTagihan += $getVisitTagihan;
                     $total_visitPassive += $getVisitPassive;
                     $total_visitMg += $getVisitMg;
+                    $total_visitVoucher += $getVisitVoucher;
                 ?>
                     <tr>
                         <td><?= $no++; ?></td>
@@ -240,6 +241,7 @@ function penyebut($nilai)
                 <td class="text-right border" colspan="4">Total Visit</td>
                 <td class="text-center border"><?= $total_visitTagihan ?></td>
                 <td class="text-center border"><?= $total_visitPassive ?></td>
+                <td class="text-center border"><?= $total_visitVoucher ?></td>
                 <td class="text-center border"><?= $total_visitMg ?></td>
                 <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive ?></td>
             </tr>
