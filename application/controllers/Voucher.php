@@ -111,9 +111,17 @@ class Voucher extends CI_Controller
     {
         date_default_timezone_set('Asia/Jakarta');
 
+
         $curl = curl_init();
         $id_contact = $_POST['id_contact'];
         $jml_voucher = $_POST['jml_voucher'];
+
+        $getVoucher = $this->db->get_where('tb_voucher', ['id_contact' => $id_contact, 'is_claimed' => 0])->row_array();
+
+        if ($getVoucher) {
+            $this->session->set_flashdata('warning', "Maaf, toko masih memiliki voucher aktif!");
+            redirect('voucher-list/' . $id_city);
+        }
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/insertVoucher.php?j=' . $jml_voucher . '&s=' . $id_contact . '&t=m',
