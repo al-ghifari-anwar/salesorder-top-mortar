@@ -240,8 +240,8 @@ function penyebut($nilai)
             <tr>
                 <td class="text-right border" colspan="4">Total Visit</td>
                 <td class="text-center border"><?= $total_visitTagihan ?></td>
-                <td class="text-center border"><?= $total_visitPassive ?></td>
                 <td class="text-center border"><?= $total_visitVoucher ?></td>
+                <td class="text-center border"><?= $total_visitPassive ?></td>
                 <td class="text-center border"><?= $total_visitMg ?></td>
                 <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive ?></td>
             </tr>
