@@ -111,6 +111,7 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Address</th>
             <th style="border-bottom: 1px solid black;">No. HP</th>
             <th style="border-bottom: 1px solid black;">Visit Tagihan</th>
+            <th style="border-bottom: 1px solid black;">Visit Voucher</th>
             <th style="border-bottom: 1px solid black;">Visit Passive</th>
             <th style="border-bottom: 1px solid black;">Visit MG</th>
             <th style="border-bottom: 1px solid black;">Total</th>
@@ -118,7 +119,7 @@ function penyebut($nilai)
         </tr>
         <?php if ($contacts == null) : ?>
             <tr>
-                <td colspan="7">No Data</td>
+                <td colspan="9">No Data</td>
             </tr>
         <?php endif; ?>
         <?php if ($contacts != null) :
@@ -145,8 +146,27 @@ function penyebut($nilai)
                     if ($user['level_user'] != 'marketing') {
                         if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly' || $getVisit['source_visit'] == 'renvipenagihan') {
                             $getVisitTagihan += 1;
-                        } else if ($getVisit['source_visit'] == 'voucher' || $getVisit['source_visit'] == 'passive' || $getVisit['source_visit'] == 'renvisales') {
-                            $getVisitPassive += 1;
+                        } else {
+                            $date_visit = date("Y-m-d", $getVisit['date_visit']);
+
+                            $getVisitPV = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $date_visit, 'source_visit !=' => 'normal', 'is_approved' => 1, 'is_deleted' => 0])->result_array();
+
+                            $jmlVoucher = 0;
+                            $jmlPassive = 0;
+
+                            foreach ($getVisitPV as $visitPV) {
+                                if ($visitPV['source_visit'] == 'voucher') {
+                                    $jmlVoucher += 1;
+                                } else if ($visitPV['source_visit'] == 'passive' || $visitPV['source_visit'] == 'renvisales') {
+                                    $jmlPassive += 1;
+                                }
+                            }
+
+                            if ($jmlVoucher > 0 && $jmlPassive == 0) {
+                                $getVisitVoucher += 1;
+                            } else if ($jmlVoucher == 0 and $jmlPassive > 0) {
+                                $getVisitPassive += 1;
+                            }
                         }
                     } else if ($user['level_user'] == 'marketing') {
                         if ($getVisit['source_visit'] == 'mg') {
@@ -171,13 +191,16 @@ function penyebut($nilai)
                             <?= $getVisitTagihan == null ? 0 : $getVisitTagihan ?>
                         </td>
                         <td class="text-center">
+                            <?= $getVisitVoucher == null ? 0 : $getVisitVoucher ?>
+                        </td>
+                        <td class="text-center">
                             <?= $getVisitPassive == null ? 0 : $getVisitPassive ?>
                         </td>
                         <td class="text-center">
-                            <?= $getVisitTagihan + $getVisitPassive ?>
+                            <?= $getVisitMg == null ? 0 : $getVisitMg ?>
                         </td>
                         <td class="text-center">
-                            <?= $getVisitMg == null ? 0 : $getVisitMg ?>
+                            <?= $getVisitTagihan + $getVisitPassive ?>
                         </td>
                     </tr>
                 <?php endif; ?>
