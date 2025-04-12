@@ -112,6 +112,7 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">No. HP</th>
             <th style="border-bottom: 1px solid black;">Visit Tagihan</th>
             <th style="border-bottom: 1px solid black;">Visit Passive</th>
+            <th style="border-bottom: 1px solid black;">Visit MG</th>
             <th style="border-bottom: 1px solid black;">Total</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
@@ -124,6 +125,8 @@ function penyebut($nilai)
             $no = 1;
             $total_visitTagihan = 0;
             $total_visitPassive = 0;
+            $total_visitMg = 0;
+            $total_visitVoucher = 0;
         ?>
             <?php foreach ($contacts as $contact) : ?>
                 <?php
@@ -133,6 +136,8 @@ function penyebut($nilai)
 
                 $getVisitTagihan = 0;
                 $getVisitPassive = 0;
+                $getVisitVoucher = 0;
+                $getVisitMg = 0;
                 foreach ($getVisit as $getVisit) {
                     $id_user = $getVisit['id_user'];
                     $user = $this->MUser->getById($id_user);
@@ -143,6 +148,10 @@ function penyebut($nilai)
                         } else if ($getVisit['source_visit'] == 'voucher' || $getVisit['source_visit'] == 'passive' || $getVisit['source_visit'] == 'renvisales') {
                             $getVisitPassive += 1;
                         }
+                    } else if ($user['level_user'] == 'marketing') {
+                        if ($getVisit['source_visit'] == 'mg') {
+                            $getVisitMg += 1;
+                        }
                     } else {
                         continue;
                     }
@@ -151,6 +160,7 @@ function penyebut($nilai)
                 <?php if ($getVisit != null) :
                     $total_visitTagihan += $getVisitTagihan;
                     $total_visitPassive += $getVisitPassive;
+                    $total_visitMg += $getVisitMg;
                 ?>
                     <tr>
                         <td><?= $no++; ?></td>
@@ -165,6 +175,9 @@ function penyebut($nilai)
                         </td>
                         <td class="text-center">
                             <?= $getVisitTagihan + $getVisitPassive ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $getVisitMg == null ? 0 : $getVisitMg ?>
                         </td>
                     </tr>
                 <?php endif; ?>
@@ -191,6 +204,9 @@ function penyebut($nilai)
                         <td class="text-center">
                             <?= 0 ?>
                         </td>
+                        <td class="text-center">
+                            <?= 0 ?>
+                        </td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -198,6 +214,7 @@ function penyebut($nilai)
                 <td class="text-right border" colspan="4">Total Visit</td>
                 <td class="text-center border"><?= $total_visitTagihan ?></td>
                 <td class="text-center border"><?= $total_visitPassive ?></td>
+                <td class="text-center border"><?= $total_visitMg ?></td>
                 <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive ?></td>
             </tr>
         <?php endif; ?>
