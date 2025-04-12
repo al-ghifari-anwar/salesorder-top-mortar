@@ -147,7 +147,7 @@ function penyebut($nilai)
                         if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly' || $getVisit['source_visit'] == 'renvipenagihan') {
                             $getVisitTagihan += 1;
                         } else {
-                            $date_visit = date("Y-m-d", $getVisit['date_visit']);
+                            $date_visit = date("Y-m-d", strtotime($getVisit['date_visit']));
 
                             $getVisitPV = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $date_visit, 'source_visit !=' => 'normal', 'is_approved' => 1, 'is_deleted' => 0])->result_array();
 
