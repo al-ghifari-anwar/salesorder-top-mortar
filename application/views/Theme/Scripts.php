@@ -57,7 +57,7 @@
         "paging": true,
         "responsive": true,
         "lengthChange": true,
-        "autoWidth": false,
+        "autoWidth": true,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#table-print_wrapper .col-md-6:eq(0)');
 
