@@ -70,7 +70,7 @@
                                     foreach ($tukangs as $data) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td title="<?= $data['nama'] ?>"><?= substr($data['nama'], 0, 15) . '...' ?></td>
+                                            <td title="<?= $data['nama'] ?>"><?= $data['nama'] ?></td>
                                             <td><?= $data['is_demo'] == 1 ? 'Yes' : 'No' ?></td>
                                             <td>
                                                 <?php
