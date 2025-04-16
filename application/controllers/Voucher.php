@@ -116,10 +116,10 @@ class Voucher extends CI_Controller
         $id_contact = $_POST['id_contact'];
         $jml_voucher = $_POST['jml_voucher'];
 
-        $getVoucher = $this->db->get_where('tb_voucher', ['id_contact' => $id_contact, 'is_claimed' => 0])->row_array();
+        $getVoucher = $this->db->get_where('tb_voucher', ['id_contact' => $id_contact, 'is_claimed' => 0, 'exp_date >=' => date("Y-m-d H:i:s")])->row_array();
 
         if ($getVoucher) {
-            $this->session->set_flashdata('warning', "Maaf, toko masih memiliki voucher aktif!");
+            $this->session->set_flashdata('failed', "Maaf, toko masih memiliki voucher aktif!");
             redirect('voucher-list/' . $id_city);
         }
 
