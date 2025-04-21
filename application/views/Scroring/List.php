@@ -124,7 +124,7 @@
                     }
                 }
                 // Last Invoices
-                $last_invoices = $this->MInvoice->getLast3PaidByIdContactNoMerch($contact['id_contact']);
+                $last_invoices = $this->MInvoice->getLast3PaidByIdContactNoMerch($selected_contact['id_contact']);
                 $last_payments = null;
                 $last_array_scoring = array();
                 foreach ($last_invoices as $last_invoice) {
@@ -133,7 +133,7 @@
 
                     $sj = $this->db->get_where('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
 
-                    $jatuhTempo = date('Y-m-d', strtotime("+" . $contact['termin_payment'] . " days", strtotime($last_invoice['date_invoice'])));
+                    $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($last_invoice['date_invoice'])));
 
                     foreach ($payments as $payment) {
                         $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
