@@ -212,10 +212,13 @@
                                 $last_val_scoring = number_format($last_total_score / $last_count_invoice, 2, '.', '.');
                                 if ($last_val_scoring > 90 && $last_val_scoring <= 100) {
                                     $color_text = 'text-success';
+                                    $last_progress_color = 'green';
                                 } else if ($last_val_scoring > 80 && $last_val_scoring <= 90) {
                                     $color_text = 'text-teal';
+                                    $last_progress_color = 'teal';
                                 } else if ($last_val_scoring <= 80) {
                                     $color_text = 'text-danger';
+                                    $last_progress_color = 'danger';
                                 }
                                 ?>
                                 <div class="row">
@@ -254,13 +257,13 @@
                                             <div class="card-body">
                                                 <!-- <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
                                                 <style>
-                                                    last-circle-progress::part(value) {
+                                                    circle-progress::part(value) {
                                                         stroke-width: 6px;
                                                         stroke: var(--last-progress-color);
                                                     }
                                                 </style>
                                                 <div class="row">
-                                                    <last-circle-progress class="mx-auto" value="<?= number_format($last_val_scoring, 2, '.', ',') ?>" max="100" style="--last-progress-color: <?= $progress_color ?>;" text-format="none"></last-circle-progress>
+                                                    <circle-progress class="mx-auto" value="<?= number_format($last_val_scoring, 2, '.', ',') ?>" max="100" style="--last-progress-color: <?= $last_progress_color ?>;" text-format="none"></circle-progress>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12">
