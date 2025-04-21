@@ -72,6 +72,7 @@
             <!-- /.row -->
             <?php if ($is_score == 1): ?>
                 <?php
+                // All Invoice
                 $count_late_payment = 0;
                 $invoices = $this->MInvoice->getByIdContactNoMerch($selected_contact['id_contact']);
                 $payments = null;
@@ -122,12 +123,63 @@
                         }
                     }
                 }
+                // Last Invoices
+                $last_invoices = $this->MInvoice->getLast3PaidByIdContactNoMerch($contact['id_contact']);
+                $last_payments = null;
+                $last_array_scoring = array();
+                foreach ($last_invoices as $last_invoice) {
+                    $id_surat_jalan = $last_invoice['id_surat_jalan'];
+                    $payments = $this->MPayment->getLastByIdInvoiceOnly($last_invoice['id_invoice']);
+
+                    $sj = $this->db->get_where('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
+
+                    $jatuhTempo = date('Y-m-d', strtotime("+" . $contact['termin_payment'] . " days", strtotime($last_invoice['date_invoice'])));
+
+                    foreach ($payments as $payment) {
+                        $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
+                        if ($datePayment > $jatuhTempo) {
+                            // $count_late_payment += 1;
+                            $date1 = new DateTime($datePayment);
+                            $date2 = new DateTime($jatuhTempo);
+                            $days  = $date2->diff($date1)->format('%a');
+
+                            $scoreData = [
+                                'id_invoice' => $last_invoice['id_invoice'],
+                                'no_invoice' => $last_invoice['no_invoice'],
+                                'status' => 'late',
+                                'days_late' => $days,
+                                'date_jatem' => $jatuhTempo,
+                                'date_payment' => $datePayment,
+                                'percent_score' => 100 - $days,
+                                'is_cod' => $sj['is_cod'],
+                                'date_invoice' => $last_invoice['date_invoice'],
+                            ];
+
+                            array_push($last_array_scoring, $scoreData);
+                        } else {
+                            $scoreData = [
+                                'id_invoice' => $last_invoice['id_invoice'],
+                                'no_invoice' => $last_invoice['no_invoice'],
+                                'status' => 'good',
+                                'days_late' => 0,
+                                'date_jatem' => $jatuhTempo,
+                                'date_payment' => $datePayment,
+                                'percent_score' => 100,
+                                'is_cod' => $sj['is_cod'],
+                                'date_invoice' => $last_invoice['date_invoice'],
+                            ];
+
+                            array_push($last_array_scoring, $scoreData);
+                        }
+                    }
+                }
                 ?>
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <?php
+                                // All Scoring System
                                 $count_invoice = count($array_scoring);
                                 if ($count_invoice == 0) {
                                     $count_invoice = 1;
@@ -146,6 +198,24 @@
                                 } else if ($val_scoring <= 80) {
                                     $color_text = 'text-danger';
                                     $progress_color = 'red';
+                                }
+
+                                // Last 3 Scoring System
+                                $last_count_invoice = count($last_array_scoring);
+                                if ($last_count_invoice == 0) {
+                                    $last_count_invoice = 1;
+                                }
+                                $last_total_score = 0;
+                                foreach ($last_array_scoring as $scoring) {
+                                    $last_total_score += $scoring['percent_score'];
+                                }
+                                $last_val_scoring = number_format($last_total_score / $last_count_invoice, 2, '.', '.');
+                                if ($last_val_scoring > 90 && $last_val_scoring <= 100) {
+                                    $color_text = 'text-success';
+                                } else if ($last_val_scoring > 80 && $last_val_scoring <= 90) {
+                                    $color_text = 'text-teal';
+                                } else if ($last_val_scoring <= 80) {
+                                    $color_text = 'text-danger';
                                 }
                                 ?>
                                 <div class="row">
@@ -169,6 +239,32 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <h3 class="text-center"><?= number_format($val_scoring, 2, '.', ',') ?>%</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.card-body -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <!-- DONUT CHART -->
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Skor 3 Invoice Terakhir</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <!-- <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
+                                                <style>
+                                                    last-circle-progress::part(value) {
+                                                        stroke-width: 6px;
+                                                        stroke: var(--last-progress-color);
+                                                    }
+                                                </style>
+                                                <div class="row">
+                                                    <circle-progress class="mx-auto" value="<?= number_format($last_val_scoring, 2, '.', ',') ?>" max="100" style="--last-progress-color: <?= $progress_color ?>;" text-format="none"></circle-progress>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h3 class="text-center"><?= number_format($last_val_scoring, 2, '.', ',') ?>%</h3>
                                                     </div>
                                                 </div>
                                             </div>
