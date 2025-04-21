@@ -260,7 +260,7 @@
                                                     }
                                                 </style>
                                                 <div class="row">
-                                                    <circle-progress class="mx-auto" value="<?= number_format($last_val_scoring, 2, '.', ',') ?>" max="100" style="--last-progress-color: <?= $progress_color ?>;" text-format="none"></circle-progress>
+                                                    <last-circle-progress class="mx-auto" value="<?= number_format($last_val_scoring, 2, '.', ',') ?>" max="100" style="--last-progress-color: <?= $progress_color ?>;" text-format="none"></last-circle-progress>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12">
