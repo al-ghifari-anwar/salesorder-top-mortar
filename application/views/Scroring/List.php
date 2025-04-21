@@ -257,7 +257,7 @@
                                             <div class="card-body">
                                                 <!-- <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
                                                 <style>
-                                                    circle-progress::part(value) {
+                                                    last-circle-progress::part(value) {
                                                         stroke-width: 6px;
                                                         stroke: var(--last-progress-color);
                                                     }
