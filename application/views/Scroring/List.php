@@ -149,7 +149,7 @@
                                 }
                                 ?>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
                                         <!-- DONUT CHART -->
                                         <div class="card">
                                             <div class="card-header">
@@ -197,7 +197,7 @@
                                             <!-- /.card-body -->
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title">Detail Invoice Terlambat</h3>
