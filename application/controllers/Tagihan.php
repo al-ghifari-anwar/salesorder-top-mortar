@@ -14,6 +14,20 @@ class Tagihan extends CI_Controller
         $this->load->model('MInvoice');
     }
 
+    public function index()
+    {
+        $id_distributor = $this->session->userdata('id_distributor');
+
+        $data['title'] = 'Tagihan';
+        $data['tagihans'] = $this->MTagihan->getByIdDistributor($id_distributor);
+
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Tagihan/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function createTagihan()
     {
         $this->output->set_content_type('application/json');

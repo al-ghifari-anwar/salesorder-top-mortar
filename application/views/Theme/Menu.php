@@ -46,7 +46,7 @@
                                 <span class="float-right text-muted text-sm">3 mins</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">Lihat Semua Tagihan</a>
+                            <a href="<?= base_url('tagihan') ?>" class="dropdown-item dropdown-footer">Lihat Semua Tagihan</a>
                         </div>
                     </li>
                     <!-- Menu Dropdown Menu -->

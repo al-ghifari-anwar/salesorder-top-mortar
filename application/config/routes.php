@@ -319,3 +319,6 @@ $route['logbca'] = 'Logbca';
 $route['topevent'] = 'Topevent';
 // Tagihan
 $route['tagihan/create'] = 'Tagihan/createTagihan';
+$route['tagihan'] = 'Tagihan/index';
+$route['tagihan/detail'] = 'Tagihan/detail';
+$route['tagihan/print'] = 'Tagihan/print';
