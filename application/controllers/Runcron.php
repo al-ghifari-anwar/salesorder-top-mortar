@@ -66,7 +66,7 @@ class Runcron extends CI_Controller
                 foreach ($stmtDatas as $stmtData) {
                     if ($stmtData['type'] == 'CREDIT') {
                         $amountData = $stmtData['amount'];
-                        $amountValue = $amountData['value'];
+                        $amountValue = (int)$amountData['value'];
                         $transactionDate = date("Y-m-d H:i:s", strtotime($stmtData['transactionDate']));
                         $remark = str_replace("'", " ", $stmtData['remark']) . " - Date: " . $stmtData['transactionDate'];
 
