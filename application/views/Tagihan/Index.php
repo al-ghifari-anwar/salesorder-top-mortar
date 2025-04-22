@@ -61,8 +61,8 @@
                                             <td><?= $tagihan['no_tagihan'] ?></td>
                                             <td>Rp. <?= number_format($tagihan['total_tagihan'], 0, ',', '.') ?></td>
                                             <td>
-                                                <a href="<?= base_url('tagihan/detail/') . $tagihan['id_tagihan'] ?>" class="btn bg-primary" title="Print"><i class="fas fa-eye"></i></a>
-                                                <a href="<?= base_url('tagihan/print/') . $tagihan['id_tagihan'] ?>" class="btn bg-teal" title="Print"><i class="fas fa-print"></i></a>
+                                                <a href="<?= base_url('tagihan/detail/') . $tagihan['id_tagihan'] ?>" class="btn bg-primary" title="Print" target="_blank"><i class="fas fa-eye"></i></a>
+                                                <a href="<?= base_url('tagihan/print/') . $tagihan['id_tagihan'] ?>" class="btn bg-teal" title="Print" target="_blank"><i class="fas fa-print"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
