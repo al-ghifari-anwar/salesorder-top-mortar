@@ -18,7 +18,7 @@ class MTagihandetail extends CI_Model
 
     public function create($tagihanDetailData)
     {
-        $save = $this->db->insert('tb_tagihan', $tagihanDetailData);
+        $save = $this->db->insert('tb_tagihan_detail', $tagihanDetailData);
 
         if ($save) {
             return true;
