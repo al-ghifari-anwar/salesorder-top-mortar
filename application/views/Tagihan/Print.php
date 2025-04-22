@@ -265,7 +265,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     </tr>
                     <tr>
                         <th class="text-left">Total Invoice:</th>
-                        <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
+                        <th class="text-right"><?= number_format($tagihan['total_tagihan'], 0, '.', ',') ?></th>
                     </tr>
                 </table>
             </div>
