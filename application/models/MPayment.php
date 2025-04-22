@@ -7,6 +7,13 @@ class MPayment extends CI_Model
     public $potongan_payment;
     public $adjustment_payment;
 
+    public function getByRemark($remark)
+    {
+        $result = $this->db->get_where('tb_payment', ['remark_payment' => $remark, 'id_invoice' => 0])->row_array();
+
+        return $result;
+    }
+
     public function getAll()
     {
         $this->db->join('tb_invoice', 'tb_invoice.id_invoice = tb_payment.id_invoice');

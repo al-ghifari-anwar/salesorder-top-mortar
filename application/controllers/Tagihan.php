@@ -83,7 +83,7 @@ class Tagihan extends CI_Controller
                         'detail' => $this->db->error(),
                     ];
 
-                    $this->output->set_output(json_encode($result));
+                    return $this->output->set_output(json_encode($result));
                 } else {
                     $id_tagihan = $this->db->insert_id();
 
@@ -129,7 +129,7 @@ class Tagihan extends CI_Controller
                             'detail' => $this->db->error(),
                         ];
 
-                        $this->output->set_output(json_encode($result));
+                        return $this->output->set_output(json_encode($result));
                     } else {
                         $result = [
                             'code' => 200,
@@ -137,7 +137,7 @@ class Tagihan extends CI_Controller
                             'msg' => 'Suceess'
                         ];
 
-                        $this->output->set_output(json_encode($result));
+                        return $this->output->set_output(json_encode($result));
                     }
                 }
             }
