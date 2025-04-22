@@ -34,58 +34,13 @@ class Tagihan extends CI_Controller
 
             $tax = 0;
 
-            $tagihanData = [
-                'id_distributor' => $id_distributor,
-                'date_tagihan' => date("Y-m-d H:i:s"),
-            ];
-
-            $save = $this->MTagihan->create($tagihanData);
-
-            if (!$save) {
-                $result = [
-                    'code' => 400,
-                    'status' => 'failed',
-                    'msg' => 'Failed',
-                    'detail' => $this->db->error(),
-                ];
-
-                $this->output->set_output(json_encode($result));
-            } else {
-                $id_tagihan = $this->db->insert_id();
-
-                // Tagihan Invoice
-                $tagihanDetailData = [
-                    'id_tagihan' => $id_tagihan,
-                    'type_tagihan_detail' => 'Invoice',
-                    'price_tagihan_detail' => $price_per_invoice,
-                    'qty_tagihan_detail' => $qtyInvoice,
-                    'total_tagihan_detail' => $subtotalInvoice,
-                ];
-
-                $this->MTagihandetail->create($tagihanDetailData);
-
-                // Tagihan Abunemen
-                $tagihanDetailData = [
-                    'id_tagihan' => $id_tagihan,
-                    'type_tagihan_detail' => 'Abunemen',
-                    'price_tagihan_detail' => $price_abunemen,
-                    'qty_tagihan_detail' => 1,
-                    'total_tagihan_detail' => $price_abunemen * 1,
-                ];
-
-                $this->MTagihandetail->create($tagihanDetailData);
-
-                $no_tagihan = 'INV/MAS/TSLS/' . date("m/Y") . '/' . str_pad($id_tagihan, 4, '0', STR_PAD_LEFT);
-                $subtotal_tagihan = $subtotalInvoice + $price_abunemen;
-
+            if ($qtyInvoice > 0) {
                 $tagihanData = [
-                    'no_tagihan' => $no_tagihan,
-                    'subtotal_tagihan' => $subtotal_tagihan,
-                    'tax_tagihan' => $tax,
-                    'total_tagihan' => $tax + $subtotal_tagihan,
+                    'id_distributor' => $id_distributor,
+                    'date_tagihan' => date("Y-m-d H:i:s"),
                 ];
 
-                $save = $this->MTagihan->udpate($id_tagihan, $tagihanData);
+                $save = $this->MTagihan->create($tagihanData);
 
                 if (!$save) {
                     $result = [
@@ -97,13 +52,60 @@ class Tagihan extends CI_Controller
 
                     $this->output->set_output(json_encode($result));
                 } else {
-                    $result = [
-                        'code' => 200,
-                        'status' => 'ok',
-                        'msg' => 'Suceess'
+                    $id_tagihan = $this->db->insert_id();
+
+                    // Tagihan Invoice
+                    $tagihanDetailData = [
+                        'id_tagihan' => $id_tagihan,
+                        'type_tagihan_detail' => 'Invoice',
+                        'price_tagihan_detail' => $price_per_invoice,
+                        'qty_tagihan_detail' => $qtyInvoice,
+                        'total_tagihan_detail' => $subtotalInvoice,
                     ];
 
-                    $this->output->set_output(json_encode($result));
+                    $this->MTagihandetail->create($tagihanDetailData);
+
+                    // Tagihan Abunemen
+                    $tagihanDetailData = [
+                        'id_tagihan' => $id_tagihan,
+                        'type_tagihan_detail' => 'Abunemen',
+                        'price_tagihan_detail' => $price_abunemen,
+                        'qty_tagihan_detail' => 1,
+                        'total_tagihan_detail' => $price_abunemen * 1,
+                    ];
+
+                    $this->MTagihandetail->create($tagihanDetailData);
+
+                    $no_tagihan = 'INV/MAS/TSLS/' . date("m/Y") . '/' . str_pad($id_tagihan, 4, '0', STR_PAD_LEFT);
+                    $subtotal_tagihan = $subtotalInvoice + $price_abunemen;
+
+                    $tagihanData = [
+                        'no_tagihan' => $no_tagihan,
+                        'subtotal_tagihan' => $subtotal_tagihan,
+                        'tax_tagihan' => $tax,
+                        'total_tagihan' => $tax + $subtotal_tagihan,
+                    ];
+
+                    $save = $this->MTagihan->udpate($id_tagihan, $tagihanData);
+
+                    if (!$save) {
+                        $result = [
+                            'code' => 400,
+                            'status' => 'failed',
+                            'msg' => 'Failed',
+                            'detail' => $this->db->error(),
+                        ];
+
+                        $this->output->set_output(json_encode($result));
+                    } else {
+                        $result = [
+                            'code' => 200,
+                            'status' => 'ok',
+                            'msg' => 'Suceess'
+                        ];
+
+                        $this->output->set_output(json_encode($result));
+                    }
                 }
             }
         }
