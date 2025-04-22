@@ -245,7 +245,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <table class="" style="width: 90%; margin-right: 20px;">
                     <tr>
                         <td>Terbilang: </td>
-                        <td class="border"><?= penyebut($invoice['total_invoice']) ?></td>
+                        <td class="border"><?= penyebut($tagihan['total_tagihan']) ?></td>
                     </tr>
                 </table>
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
