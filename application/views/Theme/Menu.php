@@ -32,31 +32,34 @@
 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
+
                     <!-- Tagihan Dropdown Menu -->
-                    <?php
-                    $tagihans = $this->db->get_where('tb_tagihan', ['id_distributor' => $this->session->userdata('id_distributor'), 'status_tagihan' => 'Waiting'])->result_array();
+                    <?php if ($this->session->userdata('level_user') == 'finance'): ?>
+                        <li class="nav-item dropdown">
+                            <?php
+                            $tagihans = $this->db->get_where('tb_tagihan', ['id_distributor' => $this->session->userdata('id_distributor'), 'status_tagihan' => 'Waiting'])->result_array();
 
-                    $countTagihan = count($tagihans);
-                    ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                            <span class="badge badge-danger navbar-badge"><?= $countTagihan ?></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            $countTagihan = count($tagihans);
+                            ?>
+                            <a class="nav-link" data-toggle="dropdown" href="#">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                                <span class="badge badge-danger navbar-badge"><?= $countTagihan ?></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-                            <span class="dropdown-header">Tagihan Anda</span>
-                            <div class="dropdown-divider"></div>
-                            <?php foreach ($tagihans as $tagihan): ?>
-                                <a href="<?= base_url('tagihan/print/') . $tagihan['id_tagihan'] ?>" class="dropdown-item" target="_blank">
-                                    <i class="fas fa-file-invoice-dollar mr-2"></i> #<?= $tagihan['no_tagihan'] ?>
-                                    <span class="float-right text-muted text-sm"><?= date("d F Y", strtotime($tagihan['date_tagihan'])) ?></span>
-                                </a>
-                            <?php endforeach; ?>
-                            <div class="dropdown-divider"></div>
-                            <a href="<?= base_url('tagihan') ?>" class="dropdown-item dropdown-footer">Lihat Semua Tagihan</a>
-                        </div>
-                    </li>
+                                <span class="dropdown-header">Tagihan Anda</span>
+                                <div class="dropdown-divider"></div>
+                                <?php foreach ($tagihans as $tagihan): ?>
+                                    <a href="<?= base_url('tagihan/print/') . $tagihan['id_tagihan'] ?>" class="dropdown-item" target="_blank">
+                                        <i class="fas fa-file-invoice-dollar mr-2"></i> #<?= $tagihan['no_tagihan'] ?>
+                                        <span class="float-right text-muted text-sm"><?= date("d F Y", strtotime($tagihan['date_tagihan'])) ?></span>
+                                    </a>
+                                <?php endforeach; ?>
+                                <div class="dropdown-divider"></div>
+                                <a href="<?= base_url('tagihan') ?>" class="dropdown-item dropdown-footer">Lihat Semua Tagihan</a>
+                            </div>
+                        </li>
+                    <?php endif; ?>
                     <!-- Menu Dropdown Menu -->
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
