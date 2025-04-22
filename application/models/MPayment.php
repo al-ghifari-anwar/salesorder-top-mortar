@@ -9,7 +9,7 @@ class MPayment extends CI_Model
 
     public function getByRemark($remark)
     {
-        $result = $this->db->get_where('tb_payment', ['remark_payment' => $remark, 'id_invoice' => 0])->row_array();
+        $result = $this->db->get_where('tb_payment', ['remark_payment' => $remark])->row_array();
 
         return $result;
     }
