@@ -115,8 +115,8 @@ class Runcron extends CI_Controller
                                     $removeRenviMingguan = $this->db->update('tb_rencana_visit', $renviData, ['id_invoice' => $id_invoice, 'type_renvi' => 'tagih_mingguan']);
 
                                     $paymentData = [
-                                        'amount' => $amountValue,
-                                        'transactionDate' => date("Y-m-d H:i:s"),
+                                        'amount_payment' => $amountValue,
+                                        'date_payment' => date("Y-m-d H:i:s"),
                                         'remark' => $remark,
                                         'id_invoice' => $id_invoice,
                                         'source' => $source_account,
@@ -221,8 +221,8 @@ class Runcron extends CI_Controller
                                 // return $this->output->set_output(json_encode($result));
                             } else {
                                 $paymentData = [
-                                    'amount' => $amountValue,
-                                    'transactionDate' => date("Y-m-d H:i:s"),
+                                    'amount_payment' => $amountValue,
+                                    'date_payment' => date("Y-m-d H:i:s"),
                                     'remark' => $remark,
                                     'id_invoice' => $id_invoice,
                                     'source' => $source_account,
