@@ -251,7 +251,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
                     <tr>
                         <td>
-                            Payment: BCA No Rekening <?= '8880964519' ?> atas nama PT Miraswift Auto Solusi<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
+                            Payment: BCA No Rekening <?= '3165747474' ?> atas nama PT Miraswift Auto Solusi<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
                         </td>
                     </tr>
                 </table>
