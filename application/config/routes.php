@@ -317,3 +317,5 @@ $route['scoring/rekap/(:num)'] = 'Scoring/rekap/$1';
 $route['logbca'] = 'Logbca';
 // Top Event
 $route['topevent'] = 'Topevent';
+// Tagihan
+$route['tagihan/create'] = 'Tagihan/createTagihan';
