@@ -59,7 +59,7 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $tagihan['no_tagihan'] ?></td>
-                                            <td><?= number_format($tagihan['total_tagihan'], 2, ',', '.') ?></td>
+                                            <td>Rp. <?= number_format($tagihan['total_tagihan'], 0, ',', '.') ?></td>
                                             <td>
                                                 <a href="<?= base_url('tagihan/print') . $tagihan['id_tagihan'] ?>" class="btn btn-teal" title="Print"><i class="fas fa-print"></i></a>
                                             </td>
