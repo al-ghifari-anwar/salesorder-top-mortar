@@ -59,10 +59,9 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $tagihan['no_tagihan'] ?></td>
-                                            <td><?= $tagihan['total_tagihan'] ?></td>
+                                            <td><?= number_format($tagihan['total_tagihan'], 2, ',', '.') ?></td>
                                             <td>
-                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $tagihan['id_city'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('delete-city/') . $tagihan['id_city'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('tagihan/print') . $tagihan['id_tagihan'] ?>" class="btn btn-teal" title="Print"><i class="fas fa-print"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
