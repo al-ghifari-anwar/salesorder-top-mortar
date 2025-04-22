@@ -116,13 +116,14 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <table class="" style="margin-right: 50px;">
                     <tr>
                         <th class="text-left">
-                            <img src="<?= base_url('assets/img/company_img/') . $getCompany['img_company'] ?>" style="width: 100px;">
+                            <img src="<?= base_url('assets/img/company_img/maslogo.png') ?>" style="width: 100px;">
                         </th>
                         <th class="text-left text-up">
                             <h3><?= $getCompany['name_company'] ?></h3>
                             <p style="font-size: 9px;">
                                 <?php if ($getCompany['id_distributor'] != 6): ?>
-                                    PT Top Mortar Indonesia Pergudangan Bizpoint Blok F No 50, Cikupa, Tangerang
+                                    PT Miraswift Auto Solusi <br>
+                                    Perumahan Bedali Agung Blok AI No 2, Bedali, Lawang, Kab. Malang
                                 <?php endif; ?>
                             </p>
                         </th>
@@ -141,7 +142,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <tr>
                         <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
 
-                            <h1 class="text-right text-bot">Sales Invoice</h1>
+                            <h1 class="text-right text-bot">Invoice</h1>
                         </th>
                     </tr>
                 </table>
@@ -157,13 +158,13 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <div class="column" style="width: 0%;">
                         <table class="border" style="margin-right: 5px;">
                             <tr>
-                                <td><b><?= $store['nama'] ?></b><br><?= $store['address'] ?><br><?= $store['nomorhp'] ?></td>
+                                <td><b><?= $distributor['nama_distributor'] ?></b><br><?= $distributor['alamat_distributor'] ?></td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <!-- Ship To -->
-                <div style="margin-top: 10px;"></div>
+                <!-- <div style="margin-top: 10px;"></div>
                 <div class="row">
                     <div class="column" style="width: 10%;">
                         <span>Ship To:</span>
@@ -175,7 +176,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                             </tr>
                         </table>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="column" style="width: 40%;">
                 <table class="border">
@@ -185,10 +186,10 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     </tr>
                     <tr>
                         <td class="border text-center">
-                            <?= date('d M Y', strtotime($invoice['date_invoice'])) ?>
+                            <?= date('d M Y', strtotime($tagihan['date_tagihan'])) ?>
                         </td>
                         <td class="border text-center">
-                            <?= $invoice['no_invoice'] ?>
+                            <?= $tagihan['no_tagihan'] ?>
                         </td>
                     </tr>
                     <tr>
@@ -197,15 +198,11 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     </tr>
                     <tr>
                         <td class="border text-center">
-                            <?php if ($store['termin_payment'] == 0 || $store['termin_payment'] == 1 || $store['termin_payment'] == 2) { ?>
-                                <?= "COD" ?>
-                            <?php } else { ?>
-                                <?= $store['termin_payment'] . " Hari" ?>
-                            <?php } ?>
+                            <?= "COD" ?>
                         </td>
                         <td class="border text-center">
                             <?php
-                            $jatuhTempo = date('d M Y', strtotime("+" . $store['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                            $jatuhTempo = date('d M Y', strtotime("+" . $store['termin_payment'] . " days", strtotime($tagihan['date_tagihan'])));
                             ?>
                             <?= date('d M Y', strtotime($jatuhTempo)) ?>
                         </td>

@@ -32,10 +32,12 @@ class Tagihan extends CI_Controller
     {
         $tagihan = $this->MTagihan->getById($id_tagihan);
         $tagihanDetails = $this->MTagihandetail->getByIdTagihan($id_tagihan);
+        $distributor = $this->MDistributor->getById($tagihan['id_distributor']);
 
         $data['title'] = 'Invoice_Tagihan_#' . $tagihan['no_tagihan'];
         $data['tagihan'] = $tagihan;
         $data['tagihanDetails'] = $tagihanDetails;
+        $data['distributor'] = $distributor;
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
