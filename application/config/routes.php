@@ -320,5 +320,5 @@ $route['topevent'] = 'Topevent';
 // Tagihan
 $route['tagihan/create'] = 'Tagihan/createTagihan';
 $route['tagihan'] = 'Tagihan/index';
-$route['tagihan/detail'] = 'Tagihan/detail';
-$route['tagihan/print'] = 'Tagihan/print';
+$route['tagihan/detail/(:num)'] = 'Tagihan/detail/$1';
+$route['tagihan/print/(:num)'] = 'Tagihan/print/$1';

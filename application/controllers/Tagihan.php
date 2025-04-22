@@ -28,6 +28,23 @@ class Tagihan extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function print($id_tagihan)
+    {
+        $tagihan = $this->MTagihan->getById($id_tagihan);
+        $tagihanDetails = $this->MTagihandetail->getByIdTagihan($id_tagihan);
+
+        $data['title'] = 'Invoice_Tagihan_#' . $tagihan['no_tagihan'];
+        $data['tagihan'] = $tagihan;
+        $data['tagihanDetails'] = $tagihanDetails;
+
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Tagihan/Print', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
+
     public function createTagihan()
     {
         $this->output->set_content_type('application/json');
