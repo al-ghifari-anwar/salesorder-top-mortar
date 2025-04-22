@@ -57,7 +57,7 @@ class Runcron extends CI_Controller
                         'msg' => 'Failed to get stmt',
                     ];
 
-                    return $this->output->set_output(json_encode($result));
+                    $this->output->set_output(json_encode($result));
                 }
 
                 $resData = $res['data'];
