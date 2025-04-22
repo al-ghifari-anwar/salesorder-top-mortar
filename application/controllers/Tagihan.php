@@ -81,7 +81,7 @@ class Tagihan extends CI_Controller
                 $tagihanData = [
                     'no_tagihan' => $no_tagihan,
                     'subtotal_tagihan' => $subtotal_tagihan,
-                    'tax' => $tax,
+                    'tax_tagihan' => $tax,
                     'total_tagihan' => $tax + $subtotal_tagihan,
                 ];
 
