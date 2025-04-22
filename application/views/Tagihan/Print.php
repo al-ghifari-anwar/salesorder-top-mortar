@@ -37,7 +37,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $invoice['no_invoice'] ?></title>
+    <title><?= $title ?></title>
 </head>
 
 <body>
@@ -202,7 +202,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                         </td>
                         <td class="border text-center">
                             <?php
-                            $jatuhTempo = date('d M Y', strtotime("+" . $store['termin_payment'] . " days", strtotime($tagihan['date_tagihan'])));
+                            $jatuhTempo = date('d M Y', strtotime("+7 days", strtotime($tagihan['date_tagihan'])));
                             ?>
                             <?= date('d M Y', strtotime($jatuhTempo)) ?>
                         </td>
@@ -216,25 +216,24 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
             <div class="column" style="width: 100%;">
                 <table class="border" style="width: 100%;">
                     <tr>
-                        <th class="border">DO No.</th>
+                        <th class="border">No</th>
                         <th class="border">Item</th>
+                        <th class="border">Price</th>
                         <th class="border">QTY</th>
-                        <th class="border">Item</th>
-                        <th class="border">Unit Price</th>
                         <th class="border">Amount</th>
                     </tr>
                     <?php
                     $totalAmount = 0;
-                    foreach ($produk as $dataProduk) : ?>
+                    $no = 1;
+                    foreach ($tagihanDetails as $tagihanDetail) : ?>
                         <tr>
-                            <td class="border-r"><?= $invoice['no_surat_jalan'] ?></td>
-                            <td class="border-r"><?= $dataProduk['nama_produk'] ?> <b><?= $dataProduk['is_bonus'] == 2 ? "(Retur)" : "" ?></b> <?= $dataProduk['no_voucher'] == null ? '' : "(" . $dataProduk['no_voucher'] . ")" ?></td>
-                            <td class="border-r text-right"><?= $dataProduk['qty_produk'] ?></td>
-                            <td class="border-r"><?= $dataProduk['name_satuan'] ?></td>
-                            <td class="border-r text-right"><?= number_format($dataProduk['price'], 0, '.', ',') ?></td>
-                            <td class="border-r text-right"><?= number_format($dataProduk['amount'], 0, '.', ',') ?></td>
+                            <td class="border-r"><?= $no++; ?></td>
+                            <td class="border-r"><?= $tagihanDetail['type_tagihan_detail'] ?></td>
+                            <td class="border-r text-right"><?= number_format($tagihanDetail['price_tagihan_detail'], 0, '.', ',') ?></td>
+                            <td class="border-r text-right"><?= $tagihanDetail['qty_tagihan_detail'] ?></td>
+                            <td class="border-r text-right"><?= number_format($tagihanDetail['total_tagihan_detail'], 0, '.', ',') ?></td>
                         </tr>
-                        <?php $totalAmount += $dataProduk['amount'] ?>
+                        <?php $totalAmount += $tagihanDetail['total_tagihan_detail'] ?>
                     <?php endforeach; ?>
                 </table>
             </div>
@@ -252,7 +251,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
                     <tr>
                         <td>
-                            Payment: BCA No Rekening <?= $this->session->userdata('jenis_distributor') == 'pusat' ? '8880762231' : '8880964519' ?> atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
+                            Payment: BCA No Rekening <?= '8880964519' ?> atas nama PT Miraswift Auto Solusi<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
                         </td>
                     </tr>
                 </table>
@@ -265,19 +264,8 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                         <th class="text-right"><?= number_format($totalAmount, 0, '.', ',') ?></th>
                     </tr>
                     <tr>
-                        <th class="text-left">Potongan Invoice:</th>
-                        <th class="text-right">-<?= number_format($totalAmount - $invoice['total_invoice'], 0, '.', ',') ?></th>
-                    </tr>
-                    <tr>
                         <th class="text-left">Total Invoice:</th>
                         <th class="text-right"><?= number_format($invoice['total_invoice'], 0, '.', ',') ?></th>
-                    </tr>
-                </table>
-                <table class="">
-                    <tr>
-                        <th class="text-center">
-                            <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 50px;">
-                        </th>
                     </tr>
                 </table>
             </div>
