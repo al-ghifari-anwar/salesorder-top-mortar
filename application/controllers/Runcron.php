@@ -180,6 +180,8 @@ class Runcron extends CI_Controller
                                                 'amount_log_bca' => $amountValue,
                                                 'status_log_bca' => $statusIntra,
                                                 'ref_log_bca' => $resData['referenceNo'],
+                                                'created_at' => date("Y-m-d H:i:s"),
+                                                'updated_at' => date("Y-m-d H:i:s"),
                                             ];
 
                                             $saveLog = $this->db->insert('tb_log_bca', $logData);
@@ -269,6 +271,8 @@ class Runcron extends CI_Controller
                                             'amount_log_bca' => $amountValue,
                                             'status_log_bca' => $statusIntra,
                                             'ref_log_bca' => $resData['referenceNo'],
+                                            'created_at' => date("Y-m-d H:i:s"),
+                                            'updated_at' => date("Y-m-d H:i:s"),
                                         ];
 
                                         $saveLog = $this->db->insert('tb_log_bca', $logData);
