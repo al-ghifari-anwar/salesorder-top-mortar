@@ -117,7 +117,7 @@ class Runcron extends CI_Controller
                                     $paymentData = [
                                         'amount_payment' => $amountValue,
                                         'date_payment' => date("Y-m-d H:i:s"),
-                                        'remark' => $remark,
+                                        'remark_payment' => $remark,
                                         'id_invoice' => $id_invoice,
                                         'source' => $source_account,
                                     ];
@@ -223,7 +223,7 @@ class Runcron extends CI_Controller
                                 $paymentData = [
                                     'amount_payment' => $amountValue,
                                     'date_payment' => date("Y-m-d H:i:s"),
-                                    'remark' => $remark,
+                                    'remark_payment' => $remark,
                                     'id_invoice' => $id_invoice,
                                     'source' => $source_account,
                                 ];
