@@ -162,46 +162,29 @@ class Runcron extends CI_Controller
 
                                             $resData = $res['data'];
 
-                                            if ($resData['code'] != 200) {
-                                                // $result = [
-                                                //     'code' => 400,
-                                                //     'status' => 'failed',
-                                                //     'msg' => 'All saved, but payment not transfered',
-                                                // ];
+                                            // if ($res['code'] != 200) {
+                                            // $result = [
+                                            //     'code' => 400,
+                                            //     'status' => 'failed',
+                                            //     'msg' => 'All saved, but payment not transfered',
+                                            // ];
 
-                                                // return $this->output->set_output(json_encode($result));
-                                            } else {
+                                            // return $this->output->set_output(json_encode($result));
+                                            // } else {
 
-                                                $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
+                                            $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
 
-                                                $logData = [
-                                                    'source_account' => $source_account,
-                                                    'to_account' => $norek_company,
-                                                    'amount_log_bca' => $amountValue,
-                                                    'status_log_bca' => $statusIntra,
-                                                    'ref_log_bca' => $resData['partnerReferenceNo'],
-                                                ];
+                                            $logData = [
+                                                'source_account' => $source_account,
+                                                'to_account' => $norek_company,
+                                                'amount_log_bca' => $amountValue,
+                                                'status_log_bca' => $statusIntra,
+                                                'ref_log_bca' => $resData['referenceNo'],
+                                            ];
 
-                                                $saveLog = $this->db->insert('tb_log_bca', $logData);
+                                            $saveLog = $this->db->insert('tb_log_bca', $logData);
 
-                                                if (!$saveLog) {
-                                                    // $result = [
-                                                    //     'code' => 400,
-                                                    //     'status' => 'failed',
-                                                    //     'msg' => 'All saved, payment transfered, log not saved',
-                                                    // ];
-
-                                                    // return $this->output->set_output(json_encode($result));
-                                                } else {
-                                                    // $result = [
-                                                    //     'code' => 200,
-                                                    //     'status' => 'ok',
-                                                    //     'msg' => 'Aman',
-                                                    // ];
-
-                                                    // return $this->output->set_output(json_encode($result));
-                                                }
-                                            }
+                                            // }
                                         }
                                     }
                                 }
@@ -268,46 +251,29 @@ class Runcron extends CI_Controller
 
                                         $resData = $res['data'];
 
-                                        if ($resData['code'] != 200) {
-                                            // $result = [
-                                            //     'code' => 400,
-                                            //     'status' => 'failed',
-                                            //     'msg' => 'All saved, but payment not transfered',
-                                            // ];
+                                        // if ($res['code'] != 200) {
+                                        // $result = [
+                                        //     'code' => 400,
+                                        //     'status' => 'failed',
+                                        //     'msg' => 'All saved, but payment not transfered',
+                                        // ];
 
-                                            // return $this->output->set_output(json_encode($result));
-                                        } else {
+                                        // return $this->output->set_output(json_encode($result));
+                                        // } else {
 
-                                            $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
+                                        $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
 
-                                            $logData = [
-                                                'source_account' => $source_account,
-                                                'to_account' => $norek_company,
-                                                'amount_log_bca' => $amountValue,
-                                                'status_log_bca' => $statusIntra,
-                                                'ref_log_bca' => $resData['partnerReferenceNo'],
-                                            ];
+                                        $logData = [
+                                            'source_account' => $source_account,
+                                            'to_account' => $norek_company,
+                                            'amount_log_bca' => $amountValue,
+                                            'status_log_bca' => $statusIntra,
+                                            'ref_log_bca' => $resData['referenceNo'],
+                                        ];
 
-                                            $saveLog = $this->db->insert('tb_log_bca', $logData);
+                                        $saveLog = $this->db->insert('tb_log_bca', $logData);
 
-                                            if (!$saveLog) {
-                                                // $result = [
-                                                //     'code' => 400,
-                                                //     'status' => 'failed',
-                                                //     'msg' => 'All saved, payment transfered, log not saved',
-                                                // ];
-
-                                                // return $this->output->set_output(json_encode($result));
-                                            } else {
-                                                // $result = [
-                                                //     'code' => 200,
-                                                //     'status' => 'ok',
-                                                //     'msg' => 'Aman',
-                                                // ];
-
-                                                // return $this->output->set_output(json_encode($result));
-                                            }
-                                        }
+                                        // }
                                     }
                                 }
                             }
