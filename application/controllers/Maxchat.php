@@ -13,7 +13,7 @@ class Maxchat extends CI_Controller
             'from_inbound_msg' => $vars['from'],
             'type_inbound_msg' => $vars['msgType'],
             'serviceid_inbound_msg' => $vars['serviceId'],
-            'timestamp_inbound_msg' => $vars['timestamp'],
+            'timestamp_inbound_msg' => date("Y-m-d H:i:s", $vars['timestamp']),
             'text_inbound_msg' => $vars['text'],
             'username_inbound_msg' => $vars['username'],
             'created_at' => date("Y-m-d H:i:s"),
@@ -31,8 +31,9 @@ class Maxchat extends CI_Controller
 
         $dataOutbound = [
             'id_maxchat' => $vars['id'],
+            'to_outbound_msg' => $vars['to'],
             'status_outbound_msg' => $vars['status'],
-            'timestamp_outbound_msg' => $vars['timestamp'],
+            'timestamp_outbound_msg' => date("Y-m-d H:i:s", $vars['timestamp']),
             'serviceid_outbound_msg' => $vars['serviceId'],
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
