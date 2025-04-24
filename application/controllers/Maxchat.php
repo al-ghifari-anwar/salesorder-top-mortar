@@ -50,51 +50,27 @@ class Maxchat extends CI_Controller
 
             $this->db->insert('tb_log_vc_maxchat', $logData);
         } else {
-            $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $target_number])->row_array();
+            if (str_contains($getOutbound['id_maxchat'], 'broadcast')) {
+                $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $target_number])->row_array();
 
-            if (!$getTukang) {
-                // Nothing to do
-                $logData = [
-                    'to_number' => $target_number,
-                    'status' => 'No Tukang with number ' . $target_number
-                ];
+                if (!$getTukang) {
+                    // Nothing to do
+                    $logData = [
+                        'to_number' => $target_number,
+                        'status' => 'No Tukang with number ' . $target_number
+                    ];
 
-                $this->db->insert('tb_log_vc_maxchat', $logData);
-            } else {
-                $id_tukang = $getTukang['id_tukang'];
-
-                $this->db->order_by('created_at', 'DESC');
-                $checkVoucher = $this->db->get_where('tb_voucher_tukang', ['id_tukang' => $id_tukang, 'is_claimed' => 0])->row_array();
-
-                if ($checkVoucher) {
-                    $exp_at = date("Y-m-d", strtotime($checkVoucher['exp_at']));
-
-                    if ($exp_at < date("Y-m-d")) {
-                        $logData = [
-                            'to_number' => $target_number,
-                            'status' => 'OK Continue to send voucher'
-                        ];
-
-                        $this->db->insert('tb_log_vc_maxchat', $logData);
-
-                        $this->sendVoucher($id_tukang);
-                    } else {
-                        $logData = [
-                            'to_number' => $target_number,
-                            'status' => 'Voucher still active'
-                        ];
-
-                        $this->db->insert('tb_log_vc_maxchat', $logData);
-                    }
+                    $this->db->insert('tb_log_vc_maxchat', $logData);
                 } else {
+                    $id_tukang = $getTukang['id_tukang'];
+
                     $this->db->order_by('created_at', 'DESC');
-                    $checkVoucherClaim = $this->db->get_where('tb_voucher_tukang', ['id_tukang' => $id_tukang, 'is_claimed' => 1])->row_array();
+                    $checkVoucher = $this->db->get_where('tb_voucher_tukang', ['id_tukang' => $id_tukang, 'is_claimed' => 0])->row_array();
 
-                    if ($checkVoucherClaim) {
-                        $claim_date = date("Y-m-d", strtotime($checkVoucherClaim['claim_date']));
-                        $batas_date = date("Y-m-d", strtotime('-7 days'));
+                    if ($checkVoucher) {
+                        $exp_at = date("Y-m-d", strtotime($checkVoucher['exp_at']));
 
-                        if ($claim_date < $batas_date) {
+                        if ($exp_at < date("Y-m-d")) {
                             $logData = [
                                 'to_number' => $target_number,
                                 'status' => 'OK Continue to send voucher'
@@ -106,21 +82,54 @@ class Maxchat extends CI_Controller
                         } else {
                             $logData = [
                                 'to_number' => $target_number,
-                                'status' => 'Voucher needs cooldown'
+                                'status' => 'Voucher still active'
                             ];
 
                             $this->db->insert('tb_log_vc_maxchat', $logData);
                         }
                     } else {
-                        $logData = [
-                            'to_number' => $target_number,
-                            'status' => 'OK Continue to send voucher'
-                        ];
+                        $this->db->order_by('created_at', 'DESC');
+                        $checkVoucherClaim = $this->db->get_where('tb_voucher_tukang', ['id_tukang' => $id_tukang, 'is_claimed' => 1])->row_array();
 
-                        $this->db->insert('tb_log_vc_maxchat', $logData);
-                        $this->sendVoucher($id_tukang);
+                        if ($checkVoucherClaim) {
+                            $claim_date = date("Y-m-d", strtotime($checkVoucherClaim['claim_date']));
+                            $batas_date = date("Y-m-d", strtotime('-7 days'));
+
+                            if ($claim_date < $batas_date) {
+                                $logData = [
+                                    'to_number' => $target_number,
+                                    'status' => 'OK Continue to send voucher'
+                                ];
+
+                                $this->db->insert('tb_log_vc_maxchat', $logData);
+
+                                $this->sendVoucher($id_tukang);
+                            } else {
+                                $logData = [
+                                    'to_number' => $target_number,
+                                    'status' => 'Voucher needs cooldown'
+                                ];
+
+                                $this->db->insert('tb_log_vc_maxchat', $logData);
+                            }
+                        } else {
+                            $logData = [
+                                'to_number' => $target_number,
+                                'status' => 'OK Continue to send voucher'
+                            ];
+
+                            $this->db->insert('tb_log_vc_maxchat', $logData);
+                            $this->sendVoucher($id_tukang);
+                        }
                     }
                 }
+            } else {
+                $logData = [
+                    'to_number' => $target_number,
+                    'status' => 'Message not a broadcast'
+                ];
+
+                $this->db->insert('tb_log_vc_maxchat', $logData);
             }
         }
     }
