@@ -42,11 +42,23 @@ class Maxchat extends CI_Controller
 
         if (!$getOutbound) {
             // Nothing  to do
+            $logData = [
+                'to_number' => $target_number,
+                'status' => 'No Outbound'
+            ];
+
+            $this->db->insert('tb_log_vc_maxchat', $logData);
         } else {
             $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $target_number])->row_array();
 
             if (!$getTukang) {
                 // Nothing to do
+                $logData = [
+                    'to_number' => $target_number,
+                    'status' => 'No Tukang with number ' . $target_number
+                ];
+
+                $this->db->insert('tb_log_vc_maxchat', $logData);
             } else {
                 $id_tukang = $getTukang['id_tukang'];
 
@@ -57,7 +69,21 @@ class Maxchat extends CI_Controller
                     $exp_at = date("Y-m-d", strtotime($checkVoucher['exp_at']));
 
                     if ($exp_at < date("Y-m-d")) {
+                        $logData = [
+                            'to_number' => $target_number,
+                            'status' => 'OK Continue to send voucher'
+                        ];
+
+                        $this->db->insert('tb_log_vc_maxchat', $logData);
+
                         sendVoucher($id_tukang);
+                    } else {
+                        $logData = [
+                            'to_number' => $target_number,
+                            'status' => 'Voucher still active'
+                        ];
+
+                        $this->db->insert('tb_log_vc_maxchat', $logData);
                     }
                 } else {
                     $this->db->order_by('created_at', 'DESC');
@@ -68,9 +94,29 @@ class Maxchat extends CI_Controller
                         $batas_date = date("Y-m-d", strtotime('-7 days'));
 
                         if ($claim_date < $batas_date) {
+                            $logData = [
+                                'to_number' => $target_number,
+                                'status' => 'OK Continue to send voucher'
+                            ];
+
+                            $this->db->insert('tb_log_vc_maxchat', $logData);
+
                             sendVoucher($id_tukang);
+                        } else {
+                            $logData = [
+                                'to_number' => $target_number,
+                                'status' => 'Voucher needs cooldown'
+                            ];
+
+                            $this->db->insert('tb_log_vc_maxchat', $logData);
                         }
                     } else {
+                        $logData = [
+                            'to_number' => $target_number,
+                            'status' => 'OK Continue to send voucher'
+                        ];
+
+                        $this->db->insert('tb_log_vc_maxchat', $logData);
                         sendVoucher($id_tukang);
                     }
                 }
@@ -105,6 +151,9 @@ class Maxchat extends CI_Controller
         $getTukang = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
 
         $query = $this->MVoucherTukang->createVoucherDigital($id_tukang, 0, 0, 0, $id_md5);
+
+        $nomor_hp = $getTukang['nomorhp'];
+        $nama = $getTukang['nama'];
 
         if ($query) {
             // Read Logo File
@@ -148,8 +197,7 @@ class Maxchat extends CI_Controller
             // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
             // $template_id = '781b4601-fba6-4c69-81ad-164a680ecce7';
             // Data
-            $nomor_hp = $getTukang['nomorhp'];
-            $nama = $getTukang['nama'];
+
 
 
             // $message = "Halo " . $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
@@ -191,11 +239,33 @@ class Maxchat extends CI_Controller
             // $status = $res['status'];
 
             if (isset($resArray['content'])) {
+                $logData = [
+                    'to_number' => $nomor_hp,
+                    'status' => 'Succes send voucher',
+                ];
+
+                $this->db->insert('tb_log_vc_maxchat', $logData);
+
                 $this->session->set_flashdata('success', "Berhasil kirim voucher!");
             } else {
+                $logData = [
+                    'to_number' => $nomor_hp,
+                    'status' => 'Fail send voucher',
+                ];
+
+                $this->db->insert('tb_log_vc_maxchat', $logData);
+
                 $this->session->set_flashdata('failed', "Gagal kirim notif voucher! ");
             }
         } else {
+            $logData = [
+                'to_number' => $nomor_hp,
+                'status' => 'Fail cerating voucher',
+                'detail' => $this->db->error(),
+            ];
+
+            $this->db->insert('tb_log_vc_maxchat', $logData);
+
             $this->session->set_flashdata('failed', "Gagal kirim voucher!");
         }
     }
