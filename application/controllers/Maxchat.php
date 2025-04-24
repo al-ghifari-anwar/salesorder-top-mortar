@@ -12,6 +12,7 @@ class Maxchat extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Maxchathelper');
+        $this->load->model('MVoucherTukang');
     }
 
     public function inbound()
