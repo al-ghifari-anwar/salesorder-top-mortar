@@ -76,7 +76,7 @@ class Maxchat extends CI_Controller
 
                         $this->db->insert('tb_log_vc_maxchat', $logData);
 
-                        sendVoucher($id_tukang);
+                        $this->sendVoucher($id_tukang);
                     } else {
                         $logData = [
                             'to_number' => $target_number,
@@ -101,7 +101,7 @@ class Maxchat extends CI_Controller
 
                             $this->db->insert('tb_log_vc_maxchat', $logData);
 
-                            sendVoucher($id_tukang);
+                            $this->sendVoucher($id_tukang);
                         } else {
                             $logData = [
                                 'to_number' => $target_number,
@@ -117,7 +117,7 @@ class Maxchat extends CI_Controller
                         ];
 
                         $this->db->insert('tb_log_vc_maxchat', $logData);
-                        sendVoucher($id_tukang);
+                        $this->sendVoucher($id_tukang);
                     }
                 }
             }
