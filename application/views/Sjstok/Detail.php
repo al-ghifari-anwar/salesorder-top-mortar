@@ -105,7 +105,7 @@
                                             <td><?= $detailMasterProduk['name_master_produk'] ?></td>
                                             <td><?= $detailSjstok['qty_detail_sj_stok'] ?></td>
                                             <td><?= $satuan['name_satuan'] ?></td>
-                                            <td><?= $detailSjstok['qty_received'] ?></td>
+                                            <td><?= $detailSjstok['qty_rechieved'] ?></td>
                                             <td>
                                                 <?php if ($sjstok['is_finished'] == 0): ?>
                                                     <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $detailSjstok['id_detail_sj_stok'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
