@@ -9,6 +9,7 @@ class Maxchat extends CI_Controller
         $vars = json_decode($json, true);
 
         $dataInbound = [
+            'id_maxchat' => $vars['id'],
             'from_inbound_msg' => $vars['from'],
             'type_inbound_msg' => $vars['msgType'],
             'serviceid_inbound_msg' => $vars['serviceId'],
@@ -20,5 +21,23 @@ class Maxchat extends CI_Controller
         ];
 
         $this->db->insert('tb_inbound_msg', $dataInbound);
+    }
+
+    public function outbound()
+    {
+        $json = file_get_contents("php://input");
+
+        $vars = json_decode($json, true);
+
+        $dataOutbound = [
+            'id_maxchat' => $vars['id'],
+            'status_outbound_msg' => $vars['status'],
+            'timestamp_outbound_msg' => $vars['timestamp'],
+            'serviceid_outbound_msg' => $vars['serviceId'],
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ];
+
+        $this->db->insert('tb_outbound_msg', $dataOutbound);
     }
 }

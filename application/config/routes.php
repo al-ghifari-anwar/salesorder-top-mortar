@@ -309,6 +309,7 @@ $route['analisatukang/laporan'] = 'Analisatukang/laporan';
 $route['analisatukang/laporan/print'] = 'Analisatukang/laporan_print';
 // Maxchat
 $route['maxchat/inbound'] = 'Maxchat/inbound';
+$route['maxchat/outbound'] = 'Maxchat/outbound';
 // Scoring
 $route['scoring'] = 'Scoring/city_list';
 $route['scoring/(:num)'] = 'Scoring/list/$1';
