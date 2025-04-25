@@ -138,57 +138,56 @@ class Runcron extends CI_Controller
                                             if ($amountValue != 50000) {
 
                                                 // !! Send 
-                                                // $curl = curl_init();
+                                                $curl = curl_init();
 
-                                                // curl_setopt_array($curl, array(
-                                                //     CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
-                                                //     CURLOPT_RETURNTRANSFER => true,
-                                                //     CURLOPT_ENCODING => '',
-                                                //     CURLOPT_MAXREDIRS => 10,
-                                                //     CURLOPT_TIMEOUT => 0,
-                                                //     CURLOPT_FOLLOWLOCATION => true,
-                                                //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                                //     CURLOPT_CUSTOMREQUEST => 'POST',
-                                                //     CURLOPT_POSTFIELDS => array('amount' => $amountValue, 'toName' => $name_company, 'toAccount' => $norek_company, 'remark' => 'Auto Tf Inv' . substr($name_company, 0, 9)),
-                                                //     CURLOPT_HTTPHEADER => array(
-                                                //         'x-api-key: ' . $api_key,
-                                                //         'x-timestamp: ' . date("Y-m-d H:i:s")
-                                                //     ),
-                                                // ));
+                                                curl_setopt_array($curl, array(
+                                                    CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
+                                                    CURLOPT_RETURNTRANSFER => true,
+                                                    CURLOPT_ENCODING => '',
+                                                    CURLOPT_MAXREDIRS => 10,
+                                                    CURLOPT_TIMEOUT => 0,
+                                                    CURLOPT_FOLLOWLOCATION => true,
+                                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                                    CURLOPT_CUSTOMREQUEST => 'POST',
+                                                    CURLOPT_POSTFIELDS => array('amount' => $amountValue, 'toName' => $name_company, 'toAccount' => $norek_company, 'remark' => 'Auto Tf Inv' . substr($name_company, 0, 9)),
+                                                    CURLOPT_HTTPHEADER => array(
+                                                        'x-api-key: ' . $api_key,
+                                                        'x-timestamp: ' . date("Y-m-d H:i:s")
+                                                    ),
+                                                ));
 
-                                                // $response = curl_exec($curl);
+                                                $response = curl_exec($curl);
 
-                                                // curl_close($curl);
+                                                curl_close($curl);
 
-                                                // $res = json_decode($response, true);
+                                                $res = json_decode($response, true);
 
-                                                // $resData = $res['data'];
+                                                $resData = $res['data'];
 
-                                                // if ($res['code'] != 200) {
-                                                // $result = [
-                                                //     'code' => 400,
-                                                //     'status' => 'failed',
-                                                //     'msg' => 'All saved, but payment not transfered',
-                                                // ];
+                                                if ($res['code'] != 200) {
+                                                    $result = [
+                                                        'code' => 400,
+                                                        'status' => 'failed',
+                                                        'msg' => 'All saved, but payment not transfered',
+                                                    ];
 
-                                                // return $this->output->set_output(json_encode($result));
-                                                // } else {
+                                                    // return $this->output->set_output(json_encode($result));
+                                                } else {
 
-                                                // $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
+                                                    $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
 
-                                                // $logData = [
-                                                //     'source_account' => $source_account,
-                                                //     'to_account' => $norek_company,
-                                                //     'amount_log_bca' => $amountValue,
-                                                //     'status_log_bca' => $statusIntra,
-                                                //     'ref_log_bca' => $resData['referenceNo'],
-                                                //     'created_at' => date("Y-m-d H:i:s"),
-                                                //     'updated_at' => date("Y-m-d H:i:s"),
-                                                // ];
+                                                    $logData = [
+                                                        'source_account' => $source_account,
+                                                        'to_account' => $norek_company,
+                                                        'amount_log_bca' => $amountValue,
+                                                        'status_log_bca' => $statusIntra,
+                                                        'ref_log_bca' => $resData['referenceNo'],
+                                                        'created_at' => date("Y-m-d H:i:s"),
+                                                        'updated_at' => date("Y-m-d H:i:s"),
+                                                    ];
 
-                                                // $saveLog = $this->db->insert('tb_log_bca', $logData);
-
-                                                // }
+                                                    $saveLog = $this->db->insert('tb_log_bca', $logData);
+                                                }
                                             }
                                         }
                                     }
@@ -231,57 +230,56 @@ class Runcron extends CI_Controller
                                     if ($amountValue != 30000) {
                                         if ($amountValue != 50000) {
                                             // !! Send 
-                                            // $curl = curl_init();
+                                            $curl = curl_init();
 
-                                            // curl_setopt_array($curl, array(
-                                            //     CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
-                                            //     CURLOPT_RETURNTRANSFER => true,
-                                            //     CURLOPT_ENCODING => '',
-                                            //     CURLOPT_MAXREDIRS => 10,
-                                            //     CURLOPT_TIMEOUT => 0,
-                                            //     CURLOPT_FOLLOWLOCATION => true,
-                                            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                            //     CURLOPT_CUSTOMREQUEST => 'POST',
-                                            //     CURLOPT_POSTFIELDS => array('amount' => $amountValue, 'toName' => $name_company, 'toAccount' => $norek_company, 'remark' => 'Auto Tf Inv' . substr($name_company, 0, 9)),
-                                            //     CURLOPT_HTTPHEADER => array(
-                                            //         'x-api-key: ' . $api_key,
-                                            //         'x-timestamp: ' . date("Y-m-d H:i:s")
-                                            //     ),
-                                            // ));
+                                            curl_setopt_array($curl, array(
+                                                CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
+                                                CURLOPT_RETURNTRANSFER => true,
+                                                CURLOPT_ENCODING => '',
+                                                CURLOPT_MAXREDIRS => 10,
+                                                CURLOPT_TIMEOUT => 0,
+                                                CURLOPT_FOLLOWLOCATION => true,
+                                                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                                CURLOPT_CUSTOMREQUEST => 'POST',
+                                                CURLOPT_POSTFIELDS => array('amount' => $amountValue, 'toName' => $name_company, 'toAccount' => $norek_company, 'remark' => 'Auto Tf Inv' . substr($name_company, 0, 9)),
+                                                CURLOPT_HTTPHEADER => array(
+                                                    'x-api-key: ' . $api_key,
+                                                    'x-timestamp: ' . date("Y-m-d H:i:s")
+                                                ),
+                                            ));
 
-                                            // $response = curl_exec($curl);
+                                            $response = curl_exec($curl);
 
-                                            // curl_close($curl);
+                                            curl_close($curl);
 
-                                            // $res = json_decode($response, true);
+                                            $res = json_decode($response, true);
 
-                                            // $resData = $res['data'];
+                                            $resData = $res['data'];
 
-                                            // if ($res['code'] != 200) {
-                                            // $result = [
-                                            //     'code' => 400,
-                                            //     'status' => 'failed',
-                                            //     'msg' => 'All saved, but payment not transfered',
-                                            // ];
+                                            if ($res['code'] != 200) {
+                                                // $result = [
+                                                //     'code' => 400,
+                                                //     'status' => 'failed',
+                                                //     'msg' => 'All saved, but payment not transfered',
+                                                // ];
 
-                                            // return $this->output->set_output(json_encode($result));
-                                            // } else {
+                                                // return $this->output->set_output(json_encode($result));
+                                            } else {
 
-                                            // $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
+                                                $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
 
-                                            // $logData = [
-                                            //     'source_account' => $source_account,
-                                            //     'to_account' => $norek_company,
-                                            //     'amount_log_bca' => $amountValue,
-                                            //     'status_log_bca' => $statusIntra,
-                                            //     'ref_log_bca' => $resData['referenceNo'],
-                                            //     'created_at' => date("Y-m-d H:i:s"),
-                                            //     'updated_at' => date("Y-m-d H:i:s"),
-                                            // ];
+                                                $logData = [
+                                                    'source_account' => $source_account,
+                                                    'to_account' => $norek_company,
+                                                    'amount_log_bca' => $amountValue,
+                                                    'status_log_bca' => $statusIntra,
+                                                    'ref_log_bca' => $resData['referenceNo'],
+                                                    'created_at' => date("Y-m-d H:i:s"),
+                                                    'updated_at' => date("Y-m-d H:i:s"),
+                                                ];
 
-                                            // $saveLog = $this->db->insert('tb_log_bca', $logData);
-
-                                            // }
+                                                $saveLog = $this->db->insert('tb_log_bca', $logData);
+                                            }
                                         }
                                     }
                                 }
