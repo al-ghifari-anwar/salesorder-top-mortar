@@ -73,6 +73,7 @@
                                         <th>To</th>
                                         <th>Amount</th>
                                         <th>Status</th>
+                                        <th>Keterangan</th>
                                         <th>Partner Ref Number</th>
                                         <th>Date</th>
                                     </tr>
@@ -87,6 +88,7 @@
                                             <td><?= $log['to_account'] ?></td>
                                             <td><?= number_format($log['amount_log_bca'], 0, ',', '.') ?></td>
                                             <td class="<?= $log['status_log_bca'] == 'success' ? 'bg-success' : 'bg-danger' ?>"><?= $log['status_log_bca'] ?></td>
+                                            <td><?= $log['desc_log_bca'] ?></td>
                                             <td><?= $log['ref_log_bca'] ?></td>
                                             <td><?= date("d F Y", strtotime($log['created_at'])) ?></td>
                                         </tr>

@@ -21,9 +21,11 @@ class Logbca extends CI_Controller
             $dateFrom = date("Y-m-d", strtotime($dates[0]));
             $dateTo = date("Y-m-d", strtotime($dates[1]));
 
+            $this->db->order_by('created_at', 'DESC');
             $data['logs'] = $this->db->get_where('tb_log_bca', ['DATE(created_at) >=' => $dateFrom, 'DATE(created_at) <=' => $dateTo])->result_array();
         } else {
             $date = date("Y-m-d");
+            $this->db->order_by('created_at', 'DESC');
             $data['logs'] = $this->db->get_where('tb_log_bca', ['DATE(created_at)' => $date])->result_array();
         }
 
