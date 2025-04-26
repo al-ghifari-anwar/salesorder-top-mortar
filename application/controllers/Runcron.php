@@ -162,17 +162,29 @@ class Runcron extends CI_Controller
 
                                                 $res = json_decode($response, true);
 
-                                                $resData = $res['data'];
 
                                                 if ($res['code'] != 200) {
-                                                    $result = [
-                                                        'code' => 400,
-                                                        'status' => 'failed',
-                                                        'msg' => 'All saved, but payment not transfered',
-                                                    ];
+                                                    // $result = [
+                                                    //     'code' => 400,
+                                                    //     'status' => 'failed',
+                                                    //     'msg' => 'All saved, but payment not transfered',
+                                                    // ];
 
                                                     // return $this->output->set_output(json_encode($result));
+                                                    $logData = [
+                                                        'source_account' => $source_account,
+                                                        'to_account' => $norek_company,
+                                                        'amount_log_bca' => $amountValue,
+                                                        'status_log_bca' => 'failed',
+                                                        'desc_log_bca' => "Error on API connection",
+                                                        'ref_log_bca' => $resData['referenceNo'],
+                                                        'created_at' => date("Y-m-d H:i:s"),
+                                                        'updated_at' => date("Y-m-d H:i:s"),
+                                                    ];
+
+                                                    $saveLog = $this->db->insert('tb_log_bca', $logData);
                                                 } else {
+                                                    $resData = $res['data'];
 
                                                     $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
 
@@ -255,17 +267,22 @@ class Runcron extends CI_Controller
 
                                             $res = json_decode($response, true);
 
-                                            $resData = $res['data'];
-
                                             if ($res['code'] != 200) {
-                                                // $result = [
-                                                //     'code' => 400,
-                                                //     'status' => 'failed',
-                                                //     'msg' => 'All saved, but payment not transfered',
-                                                // ];
 
-                                                // return $this->output->set_output(json_encode($result));
+                                                $logData = [
+                                                    'source_account' => $source_account,
+                                                    'to_account' => $norek_company,
+                                                    'amount_log_bca' => $amountValue,
+                                                    'status_log_bca' => 'failed',
+                                                    'desc_log_bca' => "Error on API connection",
+                                                    'ref_log_bca' => $resData['referenceNo'],
+                                                    'created_at' => date("Y-m-d H:i:s"),
+                                                    'updated_at' => date("Y-m-d H:i:s"),
+                                                ];
+
+                                                $saveLog = $this->db->insert('tb_log_bca', $logData);
                                             } else {
+                                                $resData = $res['data'];
 
                                                 $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
 
