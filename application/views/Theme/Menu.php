@@ -449,7 +449,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="<?= base_url('notif') ?>" class="nav-link">
-                                                <i class="nav-icon fas fa-close"></i>
+                                                <i class="nav-icon fas fa-store-slash"></i>
                                                 <p>
                                                     Laporan Toko Passive
                                                 </p>
