@@ -115,17 +115,17 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
 
         <table class="border">
             <tr>
-                <th class="border">No</th>
-                <th class="border">Invoice</th>
-                <th class="border">Tanggal</th>
+                <th class="border text-center">No</th>
+                <th class="border text-center">Invoice</th>
+                <th class="border text-center">Tanggal</th>
             </tr>
             <?php
             $no = 1;
             foreach ($invoices as $invoice): ?>
                 <tr>
-                    <td class="border"><?= $no++; ?></td>
+                    <td class="border text-center"><?= $no++; ?></td>
                     <td class="border"><?= $invoice['no_invoice'] ?></td>
-                    <td class="border"><?= date("d F Y", strtotime($invoice['date_invoice'])) ?></td>
+                    <td class="border text-center"><?= date("d F Y", strtotime($invoice['date_invoice'])) ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
