@@ -119,7 +119,9 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                 <th class="border">Invoice</th>
                 <th class="border">Tanggal</th>
             </tr>
-            <?php foreach ($invoices as $invoice): ?>
+            <?php
+            $no = 1;
+            foreach ($invoices as $invoice): ?>
                 <tr>
                     <td class="border"><?= $no++; ?></td>
                     <td class="border"><?= $invoice['no_invoice'] ?></td>
