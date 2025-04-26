@@ -405,7 +405,7 @@
                                     </ul>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance'): ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader'): ?>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-chart-line"></i>
@@ -444,6 +444,14 @@
                                                 <i class="nav-icon fas fa-percentage"></i>
                                                 <p>
                                                     Scoring Toko
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('notif') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-close"></i>
+                                                <p>
+                                                    Laporan Toko Passive
                                                 </p>
                                             </a>
                                         </li>

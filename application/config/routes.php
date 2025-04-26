@@ -154,6 +154,7 @@ $route['print-rekap-status'] = 'Status/print_rekap';
 $route['lap-absen/(:num)/(:any)'] = 'Visit/lap_absen/$1/$2';
 $route['lap-absen-renvis/(:num)/(:any)'] = 'Visit/lap_absen_renvis/$1/$2';
 // Notif
+$route['notif'] = 'Notif/index';
 $route['notif-passive'] = 'Notif/notif_passive';
 // Surat Jalan
 $route['renvis'] = 'Renvis/city_list';

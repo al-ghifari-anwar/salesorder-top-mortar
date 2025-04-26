@@ -18,6 +18,21 @@ class Notif extends CI_Controller
         $this->load->library('form_validation');
     }
 
+    public function index()
+    {
+        $data['title'] = 'Laporan Toko Passive';
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Notif/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function notif_passive()
     {
         $id_city = $_GET['ct'];
