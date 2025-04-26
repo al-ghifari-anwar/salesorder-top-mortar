@@ -90,7 +90,7 @@
                                             <td class="<?= $log['status_log_bca'] == 'success' ? 'bg-success' : 'bg-danger' ?>"><?= $log['status_log_bca'] ?></td>
                                             <td><?= $log['desc_log_bca'] ?></td>
                                             <td><?= $log['ref_log_bca'] ?></td>
-                                            <td><?= date("d F Y", strtotime($log['created_at'])) ?></td>
+                                            <td><?= date("d F Y - H:i:s", strtotime($log['created_at'])) ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
