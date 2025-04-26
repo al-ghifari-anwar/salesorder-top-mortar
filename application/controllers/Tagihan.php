@@ -28,6 +28,31 @@ class Tagihan extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function detail($id_tagihan)
+    {
+        $tagihan = $this->MTagihan->getById($id_tagihan);
+        $tagihanDetails = $this->MTagihandetail->getByIdTagihan($id_tagihan);
+        $distributor = $this->MDistributor->getById($tagihan['id_distributor']);
+        $id_distributor = $distributor['id_distributor'];
+        $month = date('Y-m', strtotime("-1 months", strtotime($tagihan['date_tagihan'])));
+        $invoices = $this->MInvoice->getForTagihan($id_distributor, $month);
+
+
+
+        $data['title'] = 'Detail_Tagihan_#' . $tagihan['no_tagihan'];
+        $data['tagihan'] = $tagihan;
+        $data['tagihanDetails'] = $tagihanDetails;
+        $data['distributor'] = $distributor;
+        $data['invoices'] = $invoices;
+
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Tagihan/PrintDetail', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
+
     public function print($id_tagihan)
     {
         $tagihan = $this->MTagihan->getById($id_tagihan);
