@@ -103,6 +103,10 @@ class Runcron extends CI_Controller
 
                                     // return $this->output->set_output(json_encode($result));
                                 } else {
+                                    $checkInvForPayment = $this->MInvoice->getForStmt($amountValue, $id_distributor);
+
+                                    $id_invoice = $checkInvForPayment['id_invoice'];
+
                                     $renviData = [
                                         'is_visited' => 1,
                                         'visit_date' => date('Y-m-d H:i:s'),
