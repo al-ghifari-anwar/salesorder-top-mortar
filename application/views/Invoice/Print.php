@@ -385,7 +385,12 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                                 <?= $store['termin_payment'] . " Hari" ?>
                             <?php } ?>
                         </td>
-                        <td class="border text-center"><?= date('d M Y', strtotime($invoice['dalivery_date'])) ?></td>
+                        <td class="border text-center">
+                            <?php
+                            $jatuhTempo = date('d M Y', strtotime("+" . $store['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                            ?>
+                            <?= date('d M Y', strtotime($jatuhTempo)) ?>
+                        </td>
                     </tr>
                 </table>
             </div>
