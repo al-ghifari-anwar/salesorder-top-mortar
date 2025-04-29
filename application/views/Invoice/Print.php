@@ -375,7 +375,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     </tr>
                     <tr>
                         <th class="border">Terms</th>
-                        <th class="border">Ship Date</th>
+                        <th class="border">Jatuh Tempo</th>
                     </tr>
                     <tr>
                         <td class="border text-center">
