@@ -155,9 +155,9 @@ function penyebut($nilai)
                             $jmlPassive = 0;
 
                             foreach ($getVisitPV as $visitPV) {
-                                if ($visitPV['source_visit'] == 'voucher') {
+                                if ($visitPV['source_visit'] == 'voucher' || $visitPV['source_visit'] == 'renvisales') {
                                     $jmlVoucher += 1;
-                                } else if ($visitPV['source_visit'] == 'passive' || $visitPV['source_visit'] == 'renvisales') {
+                                } else if ($visitPV['source_visit'] == 'passive') {
                                     $jmlPassive += 1;
                                 }
                             }
