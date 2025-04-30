@@ -281,6 +281,7 @@ $route['produk/(:num)/(:num)'] = 'Produk/stok_by_produk/$1/$2';
 $route['delete-stok/(:num)/(:num)/(:num)'] = 'Produk/delete_stok/$1/$2/$3';
 // Stok
 $route['stok'] = 'Stok';
+$route['stok/sync'] = 'Stok/sync_stok';
 $route['stok/(:num)'] = 'Stok/list/$1';
 $route['cetak-stok'] = 'Stok/lap_stok';
 // Tambah Stok / Sjstok
