@@ -100,7 +100,7 @@ class MVisit extends CI_Model
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $this->db->where_in('tb_user.level_user', ['sales', 'penagihan', 'mg', 'marketing']);
-        $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'is_approved' => 0, 'is_deleted' => 0])->result_array();
+        $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'is_approved' => 0, 'tb_visit.is_deleted' => 0])->result_array();
 
         return $query;
     }
@@ -136,7 +136,7 @@ class MVisit extends CI_Model
         $this->db->where('MONTH(date_visit) =', $bulan);
         $this->db->where('YEAR(date_visit) =', date("Y"));
         $this->db->group_by('tb_visit.id_contact');
-        $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'tb_user.id_user' => $id_user, 'is_approved' => 0, 'is_deleted' => 0,])->result_array();
+        $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'tb_user.id_user' => $id_user, 'is_approved' => 0, 'tb_visit.is_deleted' => 0,])->result_array();
 
         return $query;
     }
