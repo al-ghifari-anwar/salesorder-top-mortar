@@ -162,9 +162,9 @@ function penyebut($nilai)
                                 }
                             }
 
-                            if ($jmlVoucher > 0 && $jmlPassive == 0) {
+                            if ($jmlVoucher > 0) {
                                 $getVisitVoucher += 1;
-                            } else if ($jmlVoucher == 0 and $jmlPassive > 0) {
+                            } else if ($jmlVoucher == 0 && $jmlPassive > 0) {
                                 $getVisitPassive += 1;
                             }
                         }
