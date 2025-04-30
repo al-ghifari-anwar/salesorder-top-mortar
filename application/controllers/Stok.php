@@ -47,7 +47,7 @@ class Stok extends CI_Controller
 
     public function sync_stok()
     {
-        $dateBorder = date("Y-m-d", strtotime("2025-02-20"));
+        $dateBorder = date("Y-m-d", strtotime("2025-02-19"));
         $detailSjstoks = $this->db->get_where('tb_detail_sj_stok', ['DATE(created_at) >=' => $dateBorder, 'qty_rechieved' => 0])->result_array();
 
         foreach ($detailSjstoks as $detailSjstok) {
