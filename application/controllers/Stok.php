@@ -45,6 +45,36 @@ class Stok extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function sync_stok()
+    {
+        $dateBorder = date("Y-m-d", strtotime("2025-02-20"));
+        $detailSjstoks = $this->db->get_where('tb_detail_sj_stok', ['DATE(created_at) >=' => $dateBorder, 'qty_rechieved' => 0])->result_array();
+
+        foreach ($detailSjstoks as $detailSjstok) {
+            $sjstok = $this->db->get_where('tb_sj_stok', ['id_sj_stok' => $detailSjstok['id_sj_stok']])->row_array();
+
+            $id_detail_sj_stok = $detailSjstok['id_detail_sj_stok'];
+            $id_gudang_stok = $sjstok['id_gudang_stok'];
+
+            $detailSjStokData = [
+                'qty_recheived' => $detailSjstok['qty_detail_sj_stok'],
+                'updated_at' => date("Y-m-d H:i:s"),
+            ];
+
+            $jmlStok = [
+                'id_gudang_stok' => $id_gudang_stok,
+                'id_master_produk' => $detailSjstok['id_master_produk'],
+                'jml_stok' => $detailSjstok['qty_detail_sj_stok'],
+                'created_at' => date("Y-m-d H:i:s"),
+                'status_stok' => 'in',
+            ];
+
+            $this->db->update('tb_detail_sj_stok', $detailSjStokData, ['id_detail_sj_stok' => $id_detail_sj_stok]);
+
+            $this->db->insert('tb_stok', $jmlStok);
+        }
+    }
+
     public function lap_stok()
     {
         $post = $this->input->post();
