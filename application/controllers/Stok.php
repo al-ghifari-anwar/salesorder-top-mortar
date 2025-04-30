@@ -57,7 +57,7 @@ class Stok extends CI_Controller
             $id_gudang_stok = $sjstok['id_gudang_stok'];
 
             $detailSjStokData = [
-                'qty_recheived' => $detailSjstok['qty_detail_sj_stok'],
+                'qty_rechieved' => $detailSjstok['qty_detail_sj_stok'],
                 'updated_at' => date("Y-m-d H:i:s"),
             ];
 
