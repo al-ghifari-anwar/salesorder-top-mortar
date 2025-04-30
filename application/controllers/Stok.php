@@ -53,25 +53,28 @@ class Stok extends CI_Controller
         foreach ($detailSjstoks as $detailSjstok) {
             $sjstok = $this->db->get_where('tb_sj_stok', ['id_sj_stok' => $detailSjstok['id_sj_stok']])->row_array();
 
-            $id_detail_sj_stok = $detailSjstok['id_detail_sj_stok'];
-            $id_gudang_stok = $sjstok['id_gudang_stok'];
+            if ($sjstok != null) {
 
-            $detailSjStokData = [
-                'qty_rechieved' => $detailSjstok['qty_detail_sj_stok'],
-                'updated_at' => date("Y-m-d H:i:s"),
-            ];
+                $id_detail_sj_stok = $detailSjstok['id_detail_sj_stok'];
+                $id_gudang_stok = $sjstok['id_gudang_stok'];
 
-            $jmlStok = [
-                'id_gudang_stok' => $id_gudang_stok,
-                'id_master_produk' => $detailSjstok['id_master_produk'],
-                'jml_stok' => $detailSjstok['qty_detail_sj_stok'],
-                'created_at' => date("Y-m-d H:i:s"),
-                'status_stok' => 'in',
-            ];
+                $detailSjStokData = [
+                    'qty_rechieved' => $detailSjstok['qty_detail_sj_stok'],
+                    'updated_at' => date("Y-m-d H:i:s"),
+                ];
 
-            $this->db->update('tb_detail_sj_stok', $detailSjStokData, ['id_detail_sj_stok' => $id_detail_sj_stok]);
+                $jmlStok = [
+                    'id_gudang_stok' => $id_gudang_stok,
+                    'id_master_produk' => $detailSjstok['id_master_produk'],
+                    'jml_stok' => $detailSjstok['qty_detail_sj_stok'],
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'status_stok' => 'in',
+                ];
 
-            $this->db->insert('tb_stok', $jmlStok);
+                $this->db->update('tb_detail_sj_stok', $detailSjStokData, ['id_detail_sj_stok' => $id_detail_sj_stok]);
+
+                $this->db->insert('tb_stok', $jmlStok);
+            }
         }
     }
 
