@@ -128,6 +128,8 @@ class Runcron extends CI_Controller
 
                                     $savePayment = $this->db->insert('tb_payment', $paymentData);
 
+                                    $id_payment = $this->db->insert_id();
+
                                     if (!$savePayment) {
                                         // $result = [
                                         //     'code' => 400,
@@ -175,6 +177,8 @@ class Runcron extends CI_Controller
                                                     // ];
 
                                                     // return $this->output->set_output(json_encode($result));
+                                                    $this->db->delete('tb_payment', ['id_payment' => $id_payment]);
+
                                                     $logData = [
                                                         'source_account' => $source_account,
                                                         'to_account' => $norek_company,
@@ -234,6 +238,8 @@ class Runcron extends CI_Controller
 
                                 $savePayment = $this->db->insert('tb_payment', $paymentData);
 
+                                $id_payment = $this->db->insert_id();
+
                                 if (!$savePayment) {
                                     // $result = [
                                     //     'code' => 400,
@@ -272,6 +278,8 @@ class Runcron extends CI_Controller
                                             $res = json_decode($response, true);
 
                                             if ($res['code'] != 200) {
+
+                                                $this->db->delete('tb_payment', ['id_payment' => $id_payment]);
 
                                                 $logData = [
                                                     'source_account' => $source_account,
