@@ -133,7 +133,7 @@ function penyebut($nilai)
                     $id_user = $dateGroup['id_user'];
                     $this->db->join('tb_gudang', 'tb_gudang.id_gudang = tb_visit.id_contact');
                     $this->db->order_by('tb_visit.date_visit', 'DESC');
-                    $visitByDate = $this->db->get_where('tb_visit', ['DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'is_deleted' => 0, 'id_user' => $id_user])->result_array();
+                    $visitByDate = $this->db->get_where('tb_visit', ['DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'tb_visit.is_deleted' => 0, 'id_user' => $id_user])->result_array();
                     ?>
                     <?php foreach ($visitByDate as $visit) : ?>
                         <tr class="border">
