@@ -81,8 +81,8 @@ class Notif extends CI_Controller
         $id_distributor = $contact['id_distributor'];
         $nomorhp = $contact['nomorhp'];
         $nama = $contact['nama'];
-        $template_id = "9";
-        $message = "";
+        $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
+        $message = "Berikut adalah invoice pembelian anda.";
         $full_name = "PT Top Mortar Indonesia";
 
         $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
