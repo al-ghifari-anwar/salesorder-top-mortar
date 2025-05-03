@@ -98,7 +98,7 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= $detailMasterProduk['name_master_produk'] ?></td>
                                             <td><?= $detailSjstok['qty_detail_sj_stok'] . ' ' . $satuan['name_satuan'] ?></td>
-                                            <td><?= $detailSjstok['qty_rechieved'] . ' ' . $satuan['name_satuan'] ?></td>
+                                            <td><?= $detailSjstok['qty_rechieved'] == 0 ? $detailSjstok['qty_detail_sj_stok'] : $detailSjstok['qty_rechieved'] . ' ' . $satuan['name_satuan'] ?></td>
                                             <td>
                                                 <?php if ($sjstok['is_rechieved'] == 0): ?>
                                                     <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $detailSjstok['id_detail_sj_stok'] ?>" title="Adjust"><i class="fas fa-edit"></i>&nbsp;&nbsp;Adjustment</a>
