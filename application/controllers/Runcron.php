@@ -112,11 +112,11 @@ class Runcron extends CI_Controller
                                         'visit_date' => date('Y-m-d H:i:s'),
                                     ];
 
-                                    $removeRenvi = $this->db->update('tb_rencana_visit', $renviData, ['id_contact' => $id_contact, 'type_renvi' => 'jatem']);
+                                    $removeRenvi = $this->db->update('tb_rencana_visit', $renviData, ['id_contact' => $id_contact, 'type_rencana' => 'jatem']);
 
                                     $removeRenviPenagihan = $this->db->update('tb_renvis_jatem', $renviData, ['id_invoice' => $id_invoice]);
 
-                                    $removeRenviMingguan = $this->db->update('tb_rencana_visit', $renviData, ['id_invoice' => $id_invoice, 'type_renvi' => 'tagih_mingguan']);
+                                    $removeRenviMingguan = $this->db->update('tb_rencana_visit', $renviData, ['id_invoice' => $id_invoice, 'type_rencana' => 'tagih_mingguan']);
 
                                     $paymentData = [
                                         'amount_payment' => $amountValue,
