@@ -65,6 +65,7 @@ class Notif extends CI_Controller
         $data['kendaraan'] = $this->MKendaraan->getById($invoice['id_kendaraan']);
         $data['courier'] = $this->MUser->getById($invoice['id_courier']);
         $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
+        $data['id_distributor'] = $contact['id_distributor'];
 
         // Buat direktori penyimpanan sementara
         $folderPath = FCPATH . 'assets/tmp/inv/';

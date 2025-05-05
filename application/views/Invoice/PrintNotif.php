@@ -28,7 +28,7 @@ function penyebut($nilai)
     return $temp;
 }
 
-$getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->session->userdata('id_distributor')])->row_array();
+$getCompany = $this->db->get_where('tb_company', ['id_distributor' => $id_distributor])->row_array();
 ?>
 <!DOCTYPE html>
 <html lang="en">
