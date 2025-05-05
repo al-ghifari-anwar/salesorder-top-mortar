@@ -52,6 +52,8 @@ class Notif extends CI_Controller
 
     public function send_invoice()
     {
+        $this->output->set_content_type('application/json');
+
         $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
 
         $id_invoice = $post['id_invoice'];
@@ -110,6 +112,19 @@ class Notif extends CI_Controller
                             "code": "id"
                         },
                         "parameters": {
+                            "header":{
+                                "format":"DOCUMENT",
+                                "params": [
+                                    {
+                                        "key":"url",
+                                        "value":"https://order.topmortarindonesia.com/assets/tmp/inv/' . $fileName . '"
+                                    },
+                                    {
+                                        "key":"filename",
+                                        "value":"' . $fileName . '"
+                                    }
+                                ]
+                            },
                             "body": [
                             {
                                 "key": "1",
