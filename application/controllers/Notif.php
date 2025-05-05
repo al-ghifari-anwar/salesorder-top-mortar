@@ -148,7 +148,7 @@ class Notif extends CI_Controller
                 'detail' => $res
             ];
 
-            $this->output->set_output(json_encode($result));
+            return $this->output->set_output(json_encode($result));
         } else {
             $result = [
                 'code' => 400,
@@ -156,7 +156,7 @@ class Notif extends CI_Controller
                 'detail' => $res
             ];
 
-            $this->output->set_output(json_encode($result));
+            return $this->output->set_output(json_encode($result));
         }
     }
 }
