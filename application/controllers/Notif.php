@@ -87,9 +87,10 @@ class Notif extends CI_Controller
         $nomorhp = $contact['nomorhp'];
         $nama = $contact['nama'];
         $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
-        $messageSj = "Berikut adalah surat jalan anda";
         $message = "Berikut adalah invoice pembelian anda.";
         $full_name = "-";
+        $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
+        $messageSj = "Berikut adalah surat jalan anda";
 
         $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
 
@@ -111,7 +112,7 @@ class Notif extends CI_Controller
             CURLOPT_POSTFIELDS => '{
                         "to_number": "' . $nomorhp . '",
                         "to_name": "' . $nama . '",
-                        "message_template_id": "' . $template_id . '",
+                        "message_template_id": "' . $templateSj . '",
                         "channel_integration_id": "' . $integration_id . '",
                         "language": {
                             "code": "id"
@@ -126,25 +127,15 @@ class Notif extends CI_Controller
                                     },
                                     {
                                         "key":"filename",
-                                        "value":"' . $fileName . '"
+                                        "value":"' . $invoice['proof_closing'] . '"
                                     }
                                 ]
                             },
                             "body": [
                             {
                                 "key": "1",
-                                "value": "nama",
-                                "value_text": "' . $nama . '"
-                            },
-                            {
-                                "key": "2",
                                 "value": "message",
                                 "value_text": "' . trim(preg_replace('/\s+/', ' ', $messageSj)) . '"
-                            },
-                            {
-                                "key": "3",
-                                "value": "sales",
-                                "value_text": "' . $full_name . '"
                             }
                             ]
                         }
