@@ -159,6 +159,8 @@ class Notif extends CI_Controller
 
         curl_close($curl);
 
+        $resSj = json_decode($response, true);
+
         // Send Invoice
         $curl = curl_init();
 
@@ -228,7 +230,8 @@ class Notif extends CI_Controller
             $result = [
                 'code' => 200,
                 'status' => 'ok',
-                'detail' => $res
+                'detail' => $res,
+                'detailSj' => $resSj
             ];
 
             return $this->output->set_output(json_encode($result));
@@ -236,7 +239,8 @@ class Notif extends CI_Controller
             $result = [
                 'code' => 400,
                 'status' => 'failed',
-                'detail' => $res
+                'detail' => $res,
+                'detailSj' => $resSj
             ];
 
             return $this->output->set_output(json_encode($result));
