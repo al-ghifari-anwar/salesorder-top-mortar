@@ -67,6 +67,8 @@ class Notif extends CI_Controller
         $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
         $data['id_distributor'] = $contact['id_distributor'];
 
+        $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
+
         // Buat direktori penyimpanan sementara
         $folderPath = FCPATH . 'assets/tmp/inv/';
         // Nama file berdasarkan invoice ID + timestamp
@@ -85,6 +87,7 @@ class Notif extends CI_Controller
         $nomorhp = $contact['nomorhp'];
         $nama = $contact['nama'];
         $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
+        $messageSj = "Berikut adalah surat jalan anda";
         $message = "Berikut adalah invoice pembelian anda.";
         $full_name = "-";
 
@@ -93,6 +96,70 @@ class Notif extends CI_Controller
         $wa_token = $qontak['token'];
         $integration_id = $qontak['integration_id'];
 
+        // Send SJ
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                        "to_number": "' . $nomorhp . '",
+                        "to_name": "' . $nama . '",
+                        "message_template_id": "' . $template_id . '",
+                        "channel_integration_id": "' . $integration_id . '",
+                        "language": {
+                            "code": "id"
+                        },
+                        "parameters": {
+                            "header":{
+                                "format":"IMAGE",
+                                "params": [
+                                    {
+                                        "key":"url",
+                                        "value":"' . $proofClosing . '"
+                                    },
+                                    {
+                                        "key":"filename",
+                                        "value":"' . $fileName . '"
+                                    }
+                                ]
+                            },
+                            "body": [
+                            {
+                                "key": "1",
+                                "value": "nama",
+                                "value_text": "' . $nama . '"
+                            },
+                            {
+                                "key": "2",
+                                "value": "message",
+                                "value_text": "' . trim(preg_replace('/\s+/', ' ', $messageSj)) . '"
+                            },
+                            {
+                                "key": "3",
+                                "value": "sales",
+                                "value_text": "' . $full_name . '"
+                            }
+                            ]
+                        }
+                        }',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $wa_token,
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        // Send Invoice
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
