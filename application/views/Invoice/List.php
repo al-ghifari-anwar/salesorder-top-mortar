@@ -62,9 +62,9 @@
                                         <?php
                                         if ($data['is_cod'] == 0) {
                                             // Set Jatem
-                                            $date_jatem = date('Y-m-d H:i:s', strtotime("+" . $rowRenvis['termin_payment'] . " days", strtotime($rowRenvis['date_invoice'])));
+                                            $date_jatem = date('Y-m-d H:i:s', strtotime("+" . $data['termin_payment'] . " days", strtotime($data['date_invoice'])));
                                             // Count Days
-                                            $jatuhTempo = date('d M Y', strtotime("+" . $rowRenvis['termin_payment'] . " days", strtotime($rowRenvis['date_invoice'])));
+                                            $jatuhTempo = date('d M Y', strtotime("+" . $data['termin_payment'] . " days", strtotime($data['date_invoice'])));
                                             $date1 = new DateTime(date("Y-m-d"));
                                             $date2 = new DateTime($jatuhTempo);
                                             $days  = $date2->diff($date1)->format('%a');
