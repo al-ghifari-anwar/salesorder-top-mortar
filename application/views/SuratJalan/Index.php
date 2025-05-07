@@ -153,7 +153,7 @@
                                             $daysWithOperan = 0;
                                         }
                                         ?>
-                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['nama'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>" reputation="<?= $data['reputation'] ?>" jatemdays="<?= $daysWithOperan ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
+                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['nama'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>" reputation="<?= $data['reputation'] ?>" jatemdays="<?= $daysWithOperan ?>" iscod="<?= $data['termin_payment'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -253,6 +253,13 @@
             document.getElementById('alert-jatem').hidden = false;
         } else {
             document.getElementById('alert-jatem').hidden = true;
+        }
+
+        var isCod = this.options[this.selectedIndex].getAttribute("iscod");
+        if (isCod < 0) {
+            document.getElementById('is_cod').checked = true;
+        } else {
+            document.getElementById('is_cod').checked = false;
         }
     };
 </script>
