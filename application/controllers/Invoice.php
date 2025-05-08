@@ -88,6 +88,43 @@ class Invoice extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function changeTermin($id_invoice)
+    {
+        $invoice = $this->MInvoice->getById($id_invoice);
+
+        if (!$invoice) {
+            $this->session->set_flashdata('failed', "Invoice tidak ditemukan");
+            redirect('invoice');
+        } else {
+            $deleteOld = $this->db->delete('tb_invoice', ['id_invoice' => $id_invoice]);
+
+            $id_surat_jalan = $invoice['id_surat_jalan'];
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/invoice.php',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array('id_surat_jalan' => $id_surat_jalan),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            $this->session->set_flashdata($res['status'], $res['message']);
+            redirect('invoice');
+        }
+    }
+
     public function print($id)
     {
         if ($this->session->userdata('id_user') == null) {

@@ -82,7 +82,7 @@
                                             <td>Rp. <?= number_format($data['total_invoice'], 0, ',', '.') ?></td>
                                             <td>
                                                 <a href="<?= base_url('print-invoice/' . $data['id_invoice']) ?>" class="btn btn-success" title="Hapus" target="__blank"><i class="fas fa-print"></i></a>
-                                                <a href="<?= base_url('invoice/change' . $data['id_invoice']) ?>" class="btn btn-primary" title="Ubah"><i class="fas fa-recycle"></i></a>
+                                                <a href="<?= base_url('invoice/change/' . $data['id_invoice']) ?>" class="btn btn-primary" title="Ubah"><i class="fas fa-recycle"></i></a>
                                             </td>
                                         </tr>
 
