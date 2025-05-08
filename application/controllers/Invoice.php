@@ -96,32 +96,48 @@ class Invoice extends CI_Controller
             $this->session->set_flashdata('failed', "Invoice tidak ditemukan");
             redirect('invoice');
         } else {
-            $deleteOld = $this->db->delete('tb_invoice', ['id_invoice' => $id_invoice]);
-
             $id_surat_jalan = $invoice['id_surat_jalan'];
 
-            $curl = curl_init();
+            $deleteOld = $this->db->delete('tb_invoice', ['id_invoice' => $id_invoice]);
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/invoice.php',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => array('id_surat_jalan' => $id_surat_jalan),
-            ));
+            if (!$deleteOld) {
+                $this->session->set_flashdata('failed', "Gagal merubah invoice");
+                redirect('invoice');
+            } else {
+                $sjData = [
+                    'is_cod' => $invoice['is_cod'] == 1 ? 0 : 1,
+                ];
 
-            $response = curl_exec($curl);
+                $update = $this->db->update('tb_surat_jalan', $sjData, ['id_surat_jalan' => $id_surat_jalan]);
 
-            curl_close($curl);
+                if (!$update) {
+                    $this->session->set_flashdata('failed', "Gagal merubah termin");
+                    redirect('invoice');
+                } else {
+                    $curl = curl_init();
 
-            $res = json_decode($response, true);
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/invoice.php',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => array('id_surat_jalan' => $id_surat_jalan),
+                    ));
 
-            $this->session->set_flashdata($res['status'], $res['message']);
-            redirect('invoice');
+                    $response = curl_exec($curl);
+
+                    curl_close($curl);
+
+                    $res = json_decode($response, true);
+
+                    $this->session->set_flashdata($res['status'], $res['message']);
+                    redirect('invoice');
+                }
+            }
         }
     }
 
