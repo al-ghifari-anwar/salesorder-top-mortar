@@ -329,3 +329,5 @@ $route['tagihan/print/(:num)'] = 'Tagihan/print/$1';
 $route['runcron/stmt'] = 'Runcron/stmt';
 // Notif invoice
 $route['notif/invoice'] = 'Notif/send_invoice';
+// Invoice Change
+$route['invoice/change/(:num)'] = 'Invoice/change/$1';
