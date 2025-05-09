@@ -83,7 +83,11 @@
 
                     $sj = $this->db->get_where('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
 
-                    $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    if ($sj['is_cod'] == 0) {
+                        $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    } else {
+                        $jatuhTempo = date('Y-m-d', strtotime($invoice['date_invoice']));
+                    }
 
                     foreach ($payments as $payment) {
                         $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
@@ -133,7 +137,11 @@
 
                     $sj = $this->db->get_where('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
 
-                    $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($last_invoice['date_invoice'])));
+                    if ($sj['is_cod'] == 0) {
+                        $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    } else {
+                        $jatuhTempo = date('Y-m-d', strtotime($invoice['date_invoice']));
+                    }
 
                     foreach ($payments as $payment) {
                         $datePayment = date("Y-m-d", strtotime($payment['date_payment']));

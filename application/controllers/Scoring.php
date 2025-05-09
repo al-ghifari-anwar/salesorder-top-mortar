@@ -76,4 +76,88 @@ class Scoring extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
+
+    public function combineScoring()
+    {
+        $post = $this->input->post();
+
+        $id_contact = $post['id_contact'];
+
+        $selected_contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
+
+        // Payment
+        $this->paymentScoring($selected_contact);
+    }
+
+    public function paymentScoring($selected_contact)
+    {
+        // Payment Scoring
+        $count_late_payment = 0;
+        $invoices = $this->MInvoice->getByIdContactNoMerch($selected_contact['id_contact']);
+        $payments = null;
+        $array_scoring = array();
+        foreach ($invoices as $invoice) {
+            $id_surat_jalan = $invoice['id_surat_jalan'];
+            $payments = $this->MPayment->getLastByIdInvoiceOnly($invoice['id_invoice']);
+
+            $sj = $this->db->get_where('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
+
+            if ($sj['is_cod'] == 0) {
+                $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+            } else {
+                $jatuhTempo = date('Y-m-d', strtotime($invoice['date_invoice']));
+            }
+
+            foreach ($payments as $payment) {
+                $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
+                if ($datePayment > $jatuhTempo) {
+                    $count_late_payment += 1;
+                    $date1 = new DateTime($datePayment);
+                    $date2 = new DateTime($jatuhTempo);
+                    $days  = $date2->diff($date1)->format('%a');
+
+                    $scoreData = [
+                        'id_invoice' => $invoice['id_invoice'],
+                        'no_invoice' => $invoice['no_invoice'],
+                        'status' => 'late',
+                        'days_late' => $days,
+                        'date_jatem' => $jatuhTempo,
+                        'date_payment' => $datePayment,
+                        'percent_score' => 100 - $days,
+                        'is_cod' => $sj['is_cod'],
+                        'date_invoice' => $invoice['date_invoice'],
+                    ];
+
+                    array_push($array_scoring, $scoreData);
+                } else {
+                    $scoreData = [
+                        'id_invoice' => $invoice['id_invoice'],
+                        'no_invoice' => $invoice['no_invoice'],
+                        'status' => 'good',
+                        'days_late' => 0,
+                        'date_jatem' => $jatuhTempo,
+                        'date_payment' => $datePayment,
+                        'percent_score' => 100,
+                        'is_cod' => $sj['is_cod'],
+                        'date_invoice' => $invoice['date_invoice'],
+                    ];
+
+                    array_push($array_scoring, $scoreData);
+                }
+            }
+        }
+
+        $count_invoice = count($array_scoring);
+        if ($count_invoice == 0) {
+            $count_invoice = 1;
+        }
+        $total_score = 0;
+        foreach ($array_scoring as $scoring) {
+            $total_score += $scoring['percent_score'];
+        }
+
+        $val_scoring = number_format($total_score / $count_invoice, 2, '.', '.');
+
+        return $val_scoring;
+    }
 }
