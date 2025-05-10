@@ -191,7 +191,7 @@ function penyebut($nilai)
                     <td class="text-center border-r"><?= $no++; ?></td>
                     <td class="text-left border-r"><?= $masterProduk['name_master_produk']; ?> (<?= $id_master_produk ?>)</td>
                     <td class="text-left border-r"><?= "-" ?></td>
-                    <td class="text-center border-r"><?= $valJumlahAwal ?> (<?= $jumlahAwal['jml_stokOut'] ?>)</td>
+                    <td class="text-center border-r"><?= $valJumlahAwal ?> (<?= $jumlahAwal['jml_stokAwal'] ?>)</td>
                     <td class="text-center border-r"><?= $valPemasukan ?></td>
                     <td class="text-center border-r"><?= $valPengeluaran ?></td>
                     <td class="text-center border-r"><?= $valJumlahAkhir ?></td>
