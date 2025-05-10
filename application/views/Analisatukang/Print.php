@@ -146,7 +146,7 @@ function penyebut($nilai)
                     <td class="text-center border-r border-l"><?= $noTukang++; ?></td>
                     <td class="border-r"><?= $tukang['nama'] ?></td>
                     <td class="text-center border-r"><?= $tukang['nomorhp'] ?></td>
-                    <td class="text-center border-r"><?= $tukang['tgl_lahir'] != '0000-00-00 00:00:00' ? date('d M Y', strtotime($tukang['tgl_lahir'])) : '-' ?></td>
+                    <td class="text-center border-r"><?= $tukang['tgl_lahir'] != '0000-00-00' ? date('d M Y', strtotime($tukang['tgl_lahir'])) : '-' ?></td>
                     <td class="text-center border-r"><?= $city['nama_city'] ?></td>
                     <td class="text-center border-r"><?= date('d F Y - H:i', strtotime($tukang['created_at'])) ?></td>
                 </tr>
