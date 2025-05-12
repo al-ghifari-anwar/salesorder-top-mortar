@@ -44,6 +44,9 @@
                             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                 Tambah Data
                             </button>
+                            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-adj">
+                                Tambah Adjustment
+                            </button>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
