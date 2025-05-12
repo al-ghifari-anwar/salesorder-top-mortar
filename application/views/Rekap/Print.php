@@ -106,6 +106,7 @@ function penyebut($nilai)
     <h4 class="text-center">Tgl. <?= date("d M Y", strtotime($dateFrom)) . " - " . date("d M Y", strtotime($dateTo)) ?></h4>
     <table>
         <tr>
+            <th style="border-bottom: 1px solid black;" class="text-center">No.</th>
             <th style="border-bottom: 1px solid black;">No. Invoice</th>
             <th style="border-bottom: 1px solid black;">Tgl. Invoice</th>
             <th style="border-bottom: 1px solid black;">Jatuh Tempo</th>
@@ -114,7 +115,9 @@ function penyebut($nilai)
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php if ($invoice != null) : ?>
-            <?php foreach ($invoice as $dataInv) : ?>
+            <?php
+            $no = 1;
+            foreach ($invoice as $dataInv) : ?>
                 <tr>
                     <th class="text-left"><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
                     <td colspan="4"></td>
@@ -128,6 +131,7 @@ function penyebut($nilai)
                     $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                     ?>
                     <tr>
+                        <td class="text-center"><?= $no++; ?></td>
                         <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
                         <td class="text-center">
