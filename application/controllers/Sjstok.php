@@ -344,4 +344,59 @@ class Sjstok extends CI_Controller
             redirect('sjstok/rechieved/' . $id_sj_stok);
         }
     }
+
+    public function adjustment()
+    {
+        $data['title'] = 'Adjustment Stok';
+
+        $this->db->order_by('created_at', 'DESC');
+        $data['adjustments'] = $this->db->get_where('tb_stok', ['is_adjustment' => 1])->result_array();
+        $data['gudangs'] = $this->db->get('tb_gudang_stok')->result_array();
+        if ($this->session->userdata('id_distributor') == 7) {
+            $data['produks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => 1])->result_array();
+        } else {
+            $data['produks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        }
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Sjstok/Adjustment');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function adjustmentCreate()
+    {
+        $post = $this->input->post();
+
+        $stokData = [
+            'id_gudang_stok' => $post['id_gudang_stok'],
+            'id_master_produk' => $post['id_master_produk'],
+            'jml_stok' => $post['jml_stok'],
+            'status_stok' => 'in',
+            'is_adjustment' => 1,
+        ];
+
+        $save = $this->db->insert('tb_stok', $stokData);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil menambah data!");
+            redirect('sjstok/adjustment');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menambah data!");
+            redirect('sjstok/adjustment');
+        }
+    }
+
+    public function adjustmentDelete($id_stok)
+    {
+        $save = $this->db->delete('tb_stok', ['id_stok' => $id_stok]);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil menghapus data!");
+            redirect('sjstok/adjustment');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menghapus data!");
+            redirect('sjstok/adjustment');
+        }
+    }
 }

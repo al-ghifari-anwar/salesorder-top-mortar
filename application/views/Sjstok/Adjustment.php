@@ -25,7 +25,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Master</a></li>
+                        <li class="breadcrumb-item"><a href="#">Stok</a></li>
                         <li class="breadcrumb-item active"><?= $title ?></li>
                     </ol>
                 </div><!-- /.col -->
@@ -44,76 +44,39 @@
                             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                 Tambah Data
                             </button>
-                            <a href="<?= base_url('sjstok/adjustment') ?>" class="btn btn-success float-right mx-3">
-                                Tambah Adjustment
-                            </a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>No Pengiriman</th>
                                         <th>Gudang</th>
+                                        <th>Produk</th>
+                                        <th>Jumlah</th>
                                         <th>Dibuat pada</th>
-                                        <th>Tgl Pengiriman</th>
-                                        <th>Diterima Pada</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($sjstoks as $sjstok) : ?>
+                                    foreach ($adjustments as $adjustment) : ?>
                                         <?php
-                                        $id_gudang_stok = $sjstok['id_gudang_stok'];
+                                        $id_master_produk = $adjustment['id_master_produk'];
+                                        $id_gudang_stok = $adjustment['id_gudang_stok'];
                                         $gudangStok = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
-
-                                        $date1 = new DateTime(date("Y-m-d"));
-                                        $date2 = new DateTime(date("Y-m-d", strtotime($sjstok['created_at'])));
-                                        $days  = $date2->diff($date1)->format('%a');
-                                        $operan = "";
-                                        $days = $operan . $days;
+                                        $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= 'SO-' . str_pad($sjstok['id_sj_stok'], 6, "0", STR_PAD_LEFT) ?></td>
                                             <td><?= $gudangStok['name_gudang_stok'] ?></td>
-                                            <td><?= date('d F Y', strtotime($sjstok['created_at'])) ?></td>
-                                            <td><?= date('d F Y', strtotime($sjstok['delivery_date'])) ?></td>
-                                            <td><?= $sjstok['is_rechieved'] == 0 ? 'Belum diterima (' . $days . ' Hari)' : date('d F Y', strtotime($sjstok['rechieved_date'])) ?></td>
+                                            <td><?= $masterProduk['name_master_produk'] ?></td>
+                                            <td><?= $adjustment['jml_stok'] ?></td>
+                                            <td><?= date('d F Y', strtotime($adjustment['created_at'])) ?></td>
                                             <td>
-                                                <a href="<?= base_url('sjstok/' . $sjstok['id_sj_stok']) ?>" class="btn bg-teal m-1" title="Detail"><i class="fas fa-eye"></i></a>
-                                                <?php if ($sjstok['is_finished'] == 0): ?>
-                                                    <a class="btn btn-primary m-1" data-toggle="modal" data-target="#modal-edit<?= $sjstok['id_sj_stok'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                    <a href="<?= base_url('sjstok/delete/') . $sjstok['id_sj_stok'] ?>" class="btn btn-danger m-1" title="Hapus"><i class="fas fa-trash"></i></a>
-                                                <?php endif; ?>
-                                                <?php if ($sjstok['is_finished'] == 1): ?>
-                                                    <a href="<?= base_url('sjstok/print/' . $sjstok['id_sj_stok']) ?>" class="btn bg-maroon m-1" title="Print" target="__blank"><i class="fas fa-print"></i></a>
-                                                <?php endif; ?>
+                                                <a href="<?= base_url('sjstok/adjustment/delete/') . $adjustment['id_stok'] ?>" class="btn btn-danger m-1" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="modal-edit<?= $sjstok['id_sj_stok'] ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Ubah Data Kota</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="<?= base_url('sjstok/update/') . $sjstok['id_sj_stok'] ?>" method="POST">
-                                                            <div class="form-group">
-                                                                <label for="">Nama</label>
-                                                                <input type="text" name="name_sjstok_stok" id="" class="form-control" value="<?= $sjstok['name_sjstok_stok'] ?>">
-                                                            </div>
-                                                            <button class="btn btn-primary float-right">Simpan</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -142,13 +105,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data</h4>
+                <h4 class="modal-title">Tambah Data Adjustment</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('sjstok/create') ?>" method="POST">
+                <form action="<?= base_url('sjstok/adjustment/create') ?>" method="POST">
                     <div class="form-group">
                         <label for="">Gudang Tujuan</label>
                         <select name="id_gudang_stok" id="" class="form-control select2bs4">
@@ -159,8 +122,17 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Tgl Pengiriman</label>
-                        <input type="date" name="delivery_date" class="form-control">
+                        <label for="">Produk</label>
+                        <select name="id_master_produk" id="" class="form-control select2bs4">
+                            <option value="0">=== Pilih Produk ===</option>
+                            <?php foreach ($produks as $produk): ?>
+                                <option value="<?= $produk['id_master_produk'] ?>"><?= $produk['name_master_produk'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Qty</label>
+                        <input type="number" name="jml_stok" id="" class="form-control" value="1">
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>
