@@ -119,6 +119,7 @@ function penyebut($nilai)
             $no = 1;
             foreach ($invoice as $dataInv) : ?>
                 <tr>
+                    <th class="text-center"><?= $no++; ?></th>
                     <th class="text-left"><?= $dataInv['nama'] . " - " . $dataInv['kode_city'] ?></th>
                     <td colspan="4"></td>
                 </tr>
@@ -131,7 +132,7 @@ function penyebut($nilai)
                     $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                     ?>
                     <tr>
-                        <td class="text-center"><?= $no++; ?></td>
+                        <!-- <td class="text-center"><?= $no++; ?></td> -->
                         <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
                         <td class="text-center">
