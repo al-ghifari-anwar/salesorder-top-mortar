@@ -159,7 +159,7 @@ function penyebut($nilai)
                     </tr>
                 <?php endforeach; ?>
                 <tr>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                     <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalStore, 0, '.', ',') ?></th>
                     <td colspan="1"></td>
                 </tr>
@@ -169,7 +169,7 @@ function penyebut($nilai)
             <?php endforeach; ?>
 
             <tr>
-                : <th colspan="3" class="text-right">Total Keseluruhan: </th>
+                : <th colspan="4" class="text-right">Total Keseluruhan: </th>
                 <th class="text-right" style="border-top: 1px solid black;"><?= number_format($totalAll, 0, '.', ',') ?></th>
                 <td colspan="1"></td>
             </tr>
