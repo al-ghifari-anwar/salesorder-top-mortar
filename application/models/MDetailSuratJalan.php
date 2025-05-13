@@ -140,8 +140,12 @@ class MDetailSuratJalan extends CI_Model
         return $query;
     }
 
-    public function setBonusItem($id_surat_jalan, $id_promo)
+    public function setBonusItem($id_surat_jalan, $id_promo, $id_city)
     {
+        $city = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
+        $id_gudang_stok = $city['id_gudang_stok'];
+        $gudang = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
+
         if ($id_promo != 0) {
             $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
             $this->db->select("tb_produk.id_produk, SUM(qty_produk) AS qty_produk, harga_produk ");
@@ -150,17 +154,42 @@ class MDetailSuratJalan extends CI_Model
             $items = $this->db->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->result_array();
 
             foreach ($items as $item) {
+                $id_produk = $item['id_produk'];
+                $produk = $this->db->get_where('tb_produk', ['id_produk' => $id_produk])->row_array();
+                $id_master_produk = $produk['id_master_produk'];
+                $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
+
+                $this->db->select('SUM(jml_stok) AS jml_stokIn');
+                $getStokIn = $this->db->get_where('tb_stok', ['id_gudang_stok' => $id_gudang_stok, 'id_master_produk' => $id_master_produk, 'status_stok' => 'in'])->row_array();
+
+                $stokIn = $getStokIn['jml_stokIn'];
+
+                $dateCutoff = "2025-02-20 00:00:00";
+                $this->db->select('SUM(qty_produk) AS jml_stokOut');
+                $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
+                $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_detail_surat_jalan');
+                $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk');
+                $this->db->where("tb_produk.id_city IN (SELECT id_city FROM tb_city WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
+                $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateCutoff, 'tb_surat_jalan.is_closing' => 1])->row_array();
+
+
+                $stokOut = $getStokOut['jml_stokOut'];
+
+                $currentStok = $stokIn - $stokOut;
+
                 $multiplier = $item['qty_produk'] / $promo['kelipatan_promo'];
 
                 if (floor($multiplier) > 0) {
-                    $this->id_surat_jalan = $id_surat_jalan;
-                    $this->id_produk = $item['id_produk'];
-                    $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
-                    $this->price = $item['harga_produk'];
-                    $this->amount = 0;
-                    $this->is_bonus = 1;
+                    if ($currentStok >= $promo['bonus_promo']) {
+                        $this->id_surat_jalan = $id_surat_jalan;
+                        $this->id_produk = $item['id_produk'];
+                        $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
+                        $this->price = $item['harga_produk'];
+                        $this->amount = 0;
+                        $this->is_bonus = 1;
 
-                    $this->db->insert('tb_detail_surat_jalan', $this);
+                        $this->db->insert('tb_detail_surat_jalan', $this);
+                    }
                 }
             }
         }

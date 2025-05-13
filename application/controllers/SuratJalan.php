@@ -126,7 +126,7 @@ class SuratJalan extends CI_Controller
     {
         $suratjalan = $this->MSuratJalan->getById($id);
 
-        $this->MDetailSuratJalan->setBonusItem($id, $suratjalan['id_promo']);
+        $this->MDetailSuratJalan->setBonusItem($id, $suratjalan['id_promo'], $suratjalan['id_city']);
 
         // $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
         $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
