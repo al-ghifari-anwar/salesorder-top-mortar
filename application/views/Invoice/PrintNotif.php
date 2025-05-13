@@ -29,6 +29,7 @@ function penyebut($nilai)
 }
 
 $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $id_distributor])->row_array();
+$distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $id_distributor])->row_array();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -255,7 +256,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $id_distri
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
                     <tr>
                         <td>
-                            Payment: BCA No Rekening <?= $this->session->userdata('jenis_distributor') == 'pusat' ? '8880762231' : '8880964519' ?> atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
+                            Payment: BCA No Rekening <?= $distributor['source_account'] ?> atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
                         </td>
                     </tr>
                 </table>
