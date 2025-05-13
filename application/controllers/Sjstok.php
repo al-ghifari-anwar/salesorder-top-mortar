@@ -330,7 +330,7 @@ class Sjstok extends CI_Controller
                 $dataStok = [
                     'id_gudang_stok' => $sjstok['id_gudang_stok'],
                     'id_master_produk' => $detailSjstok['id_master_produk'],
-                    'jml_stok' => $detailSjstok['qty_rechieved'] == 0 ? $detailSjstok['qty_detail_sj_stok'] : $detailSjstok['qty_rechieved'],
+                    'jml_stok' => $detailSjstok['qty_rechieved'],
                     'status_stok' => 'in'
                 ];
 
