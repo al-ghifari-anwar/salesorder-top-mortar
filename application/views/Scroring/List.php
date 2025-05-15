@@ -75,8 +75,8 @@
                 // All Invoice
                 $count_late_payment = 0;
                 $invoices = $this->MInvoice->getByIdContactNoMerch($selected_contact['id_contact']);
-                echo $this->db->last_query();
-                echo "<br>";
+                // echo $this->db->last_query();
+                // echo "<br>";
                 // die;
                 $payments = null;
                 $array_scoring = array();
@@ -131,9 +131,9 @@
                     }
                 }
                 // Last Invoices
-                $last_invoices = $this->MInvoice->getLast3PaidByIdContactNoMerch($selected_contact['id_contact']);
-                echo $this->db->last_query();
-                die;
+                $last_invoices = $this->MInvoice->getLast3ByIdContactNoMerch($selected_contact['id_contact']);
+                // echo $this->db->last_query();
+                // die;
                 $last_payments = null;
                 $last_array_scoring = array();
                 foreach ($last_invoices as $last_invoice) {
