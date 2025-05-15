@@ -75,7 +75,8 @@
                 // All Invoice
                 $count_late_payment = 0;
                 $invoices = $this->MInvoice->getByIdContactNoMerch($selected_contact['id_contact']);
-                // echo count($invoices);
+                echo $this->db->last_query();
+                echo "<br>";
                 // die;
                 $payments = null;
                 $array_scoring = array();
