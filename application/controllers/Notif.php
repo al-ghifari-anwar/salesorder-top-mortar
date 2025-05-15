@@ -292,91 +292,89 @@ class Notif extends CI_Controller
         if ($files) {
             $replaceFilePath = str_replace("/home/admin/web/order.topmortarindonesia.com/public_html/", "https://order.topmortarindonesia.com/", $files[0]);
             echo json_encode($replaceFilePath);
+
+            // Send Invoice
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                            "to_number": "' . $nomorhp . '",
+                            "to_name": "' . $nama . '",
+                            "message_template_id": "' . $template_id . '",
+                            "channel_integration_id": "' . $integration_id . '",
+                            "language": {
+                                "code": "id"
+                            },
+                            "parameters": {
+                                "header":{
+                                    "format":"DOCUMENT",
+                                    "params": [
+                                        {
+                                            "key":"url",
+                                            "value":"' . $replaceFilePath . '"
+                                        },
+                                        {
+                                            "key":"filename",
+                                            "value":"' . $fileNameSearch . '"
+                                        }
+                                    ]
+                                },
+                                "body": [
+                                {
+                                    "key": "1",
+                                    "value": "nama",
+                                    "value_text": "' . $nama . '"
+                                },
+                                {
+                                    "key": "2",
+                                    "value": "message",
+                                    "value_text": "' . trim(preg_replace('/\s+/', ' ', $message)) . '"
+                                },
+                                {
+                                    "key": "3",
+                                    "value": "sales",
+                                    "value_text": "' . $full_name . '"
+                                }
+                                ]
+                            }
+                            }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            if ($res['status'] == 'success') {
+                $result = [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'detail' => $res
+                ];
+
+                return $this->output->set_output(json_encode($result));
+            } else {
+                $result = [
+                    'code' => 400,
+                    'status' => 'failed',
+                    'detail' => $res
+                ];
+
+                return $this->output->set_output(json_encode($result));
+            }
         }
-
-        // Send Invoice
-        // $curl = curl_init();
-
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
-        //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_ENCODING => '',
-        //     CURLOPT_MAXREDIRS => 10,
-        //     CURLOPT_TIMEOUT => 0,
-        //     CURLOPT_FOLLOWLOCATION => true,
-        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        //     CURLOPT_CUSTOMREQUEST => 'POST',
-        //     CURLOPT_POSTFIELDS => '{
-        //                 "to_number": "' . $nomorhp . '",
-        //                 "to_name": "' . $nama . '",
-        //                 "message_template_id": "' . $template_id . '",
-        //                 "channel_integration_id": "' . $integration_id . '",
-        //                 "language": {
-        //                     "code": "id"
-        //                 },
-        //                 "parameters": {
-        //                     "header":{
-        //                         "format":"DOCUMENT",
-        //                         "params": [
-        //                             {
-        //                                 "key":"url",
-        //                                 "value":"https://order.topmortarindonesia.com/assets/tmp/inv/' . $fileName . '"
-        //                             },
-        //                             {
-        //                                 "key":"filename",
-        //                                 "value":"' . $fileName . '"
-        //                             }
-        //                         ]
-        //                     },
-        //                     "body": [
-        //                     {
-        //                         "key": "1",
-        //                         "value": "nama",
-        //                         "value_text": "' . $nama . '"
-        //                     },
-        //                     {
-        //                         "key": "2",
-        //                         "value": "message",
-        //                         "value_text": "' . trim(preg_replace('/\s+/', ' ', $message)) . '"
-        //                     },
-        //                     {
-        //                         "key": "3",
-        //                         "value": "sales",
-        //                         "value_text": "' . $full_name . '"
-        //                     }
-        //                     ]
-        //                 }
-        //                 }',
-        //     CURLOPT_HTTPHEADER => array(
-        //         'Authorization: Bearer ' . $wa_token,
-        //         'Content-Type: application/json'
-        //     ),
-        // ));
-
-        // $response = curl_exec($curl);
-
-        // curl_close($curl);
-
-        // $res = json_decode($response, true);
-
-        // if ($res['status'] == 'success') {
-        //     $result = [
-        //         'code' => 200,
-        //         'status' => 'ok',
-        //         'detail' => $res,
-        //         'detailSj' => $resSj
-        //     ];
-
-        //     return $this->output->set_output(json_encode($result));
-        // } else {
-        //     $result = [
-        //         'code' => 400,
-        //         'status' => 'failed',
-        //         'detail' => $res,
-        //         'detailSj' => $resSj
-        //     ];
-
-        //     return $this->output->set_output(json_encode($result));
-        // }
     }
 }
