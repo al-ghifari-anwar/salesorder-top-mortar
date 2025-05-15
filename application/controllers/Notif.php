@@ -287,7 +287,7 @@ class Notif extends CI_Controller
         $integration_id = $qontak['integration_id'];
 
         $fileNameSearch = 'inv_' . $invoice['id_surat_jalan'];
-        $files = glob("/assets/tmp/inv/*" . $fileNameSearch . "*");
+        $files = glob(FCPATH . "/assets/tmp/inv/*" . $fileNameSearch . "*");
 
         echo json_encode($files);
 
