@@ -75,8 +75,8 @@
                 // All Invoice
                 $count_late_payment = 0;
                 $invoices = $this->MInvoice->getByIdContactNoMerch($selected_contact['id_contact']);
-                echo count($invoices);
-                die;
+                // echo count($invoices);
+                // die;
                 $payments = null;
                 $array_scoring = array();
                 foreach ($invoices as $invoice) {
@@ -131,6 +131,8 @@
                 }
                 // Last Invoices
                 $last_invoices = $this->MInvoice->getLast3PaidByIdContactNoMerch($selected_contact['id_contact']);
+                echo count($last_invoices);
+                die;
                 $last_payments = null;
                 $last_array_scoring = array();
                 foreach ($last_invoices as $last_invoice) {
