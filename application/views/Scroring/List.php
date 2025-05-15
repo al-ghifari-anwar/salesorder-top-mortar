@@ -261,6 +261,10 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title">Skor 3 Invoice Terakhir</h3>
+                                                <p>
+                                                    Count : <?= $last_count_invoice ?>
+                                                    Score Total : <?= $last_total_score ?>
+                                                </p>
                                             </div>
                                             <div class="card-body">
                                                 <!-- <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
