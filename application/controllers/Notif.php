@@ -259,17 +259,17 @@ class Notif extends CI_Controller
         $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
 
         // Buat direktori penyimpanan sementara
-        $folderPath = FCPATH . 'assets/tmp/inv/';
+        // $folderPath = FCPATH . 'assets/tmp/inv/';
         // Nama file berdasarkan invoice ID + timestamp
-        $fileName = 'inv_' . $invoice['id_surat_jalan'] . '_' . time() . '.pdf';
-        $filePath = $folderPath . $fileName;
+        // $fileName = 'inv_' . $invoice['id_surat_jalan'] . '_' . time() . '.pdf';
+        // $filePath = $folderPath . $fileName;
 
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Invoice/PrintNotif', $data, true);
-        $mpdf->AddPage('P');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
+        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        // $mpdf->SetMargins(0, 0, 5);
+        // $html = $this->load->view('Invoice/PrintNotif', $data, true);
+        // $mpdf->AddPage('P');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
 
         // Send Message
         $id_distributor = $contact['id_distributor'];
