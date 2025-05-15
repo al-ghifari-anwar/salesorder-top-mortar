@@ -192,6 +192,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <?php
+                                echo json_encode($array_scoring);
+                                die;
                                 // All Scoring System
                                 $count_invoice = count($array_scoring);
                                 if ($count_invoice == 0) {
