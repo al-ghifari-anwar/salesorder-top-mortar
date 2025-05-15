@@ -237,7 +237,7 @@
                                                 <h3 class="card-title">Skor</h3>
                                                 <br>
                                                 <p>
-                                                    Count : <?= $count_invoice ?>
+                                                    Count : <?= count($last_invoices) ?>
                                                     Score Total : <?= $total_score ?>
                                                 </p>
                                             </div>
