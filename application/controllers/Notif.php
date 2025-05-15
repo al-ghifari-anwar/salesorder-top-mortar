@@ -97,6 +97,7 @@ class Notif extends CI_Controller
         $wa_token = $qontak['token'];
         $integration_id = $qontak['integration_id'];
 
+
         // Send SJ
         $curl = curl_init();
 
@@ -236,5 +237,143 @@ class Notif extends CI_Controller
 
             return $this->output->set_output(json_encode($result));
         }
+    }
+
+    public function send_invoice_backup()
+    {
+        $this->output->set_content_type('application/json');
+
+        $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
+
+        $id_invoice = $post['id_invoice'];
+
+        $invoice = $this->MInvoice->getById($id_invoice);
+        $contact = $this->MContact->getById($invoice['id_contact']);
+        $data['invoice'] = $invoice;
+        $data['store'] = $this->MContact->getById($invoice['id_contact']);
+        $data['kendaraan'] = $this->MKendaraan->getById($invoice['id_kendaraan']);
+        $data['courier'] = $this->MUser->getById($invoice['id_courier']);
+        $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
+        $data['id_distributor'] = $contact['id_distributor'];
+
+        $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
+
+        // Buat direktori penyimpanan sementara
+        $folderPath = FCPATH . 'assets/tmp/inv/';
+        // Nama file berdasarkan invoice ID + timestamp
+        $fileName = 'inv_' . $invoice['id_surat_jalan'] . '_' . time() . '.pdf';
+        $filePath = $folderPath . $fileName;
+
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Invoice/PrintNotif', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
+
+        // Send Message
+        $id_distributor = $contact['id_distributor'];
+        $nomorhp = $contact['nomorhp'];
+        $nama = $contact['nama'];
+        $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
+        $message = "Berikut adalah invoice pembelian anda.";
+        $full_name = "-";
+        $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
+        $messageSj = "Berikut adalah surat jalan anda";
+
+        $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+
+        $wa_token = $qontak['token'];
+        $integration_id = $qontak['integration_id'];
+
+        $fileNameSearch = 'inv_' . $invoice['id_surat_jalan'];
+        $files = glob("/assets/tmp/inv/*" . $fileNameSearch . "*");
+
+        echo json_encode($files);
+
+        // Send Invoice
+        // $curl = curl_init();
+
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => '',
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 0,
+        //     CURLOPT_FOLLOWLOCATION => true,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => 'POST',
+        //     CURLOPT_POSTFIELDS => '{
+        //                 "to_number": "' . $nomorhp . '",
+        //                 "to_name": "' . $nama . '",
+        //                 "message_template_id": "' . $template_id . '",
+        //                 "channel_integration_id": "' . $integration_id . '",
+        //                 "language": {
+        //                     "code": "id"
+        //                 },
+        //                 "parameters": {
+        //                     "header":{
+        //                         "format":"DOCUMENT",
+        //                         "params": [
+        //                             {
+        //                                 "key":"url",
+        //                                 "value":"https://order.topmortarindonesia.com/assets/tmp/inv/' . $fileName . '"
+        //                             },
+        //                             {
+        //                                 "key":"filename",
+        //                                 "value":"' . $fileName . '"
+        //                             }
+        //                         ]
+        //                     },
+        //                     "body": [
+        //                     {
+        //                         "key": "1",
+        //                         "value": "nama",
+        //                         "value_text": "' . $nama . '"
+        //                     },
+        //                     {
+        //                         "key": "2",
+        //                         "value": "message",
+        //                         "value_text": "' . trim(preg_replace('/\s+/', ' ', $message)) . '"
+        //                     },
+        //                     {
+        //                         "key": "3",
+        //                         "value": "sales",
+        //                         "value_text": "' . $full_name . '"
+        //                     }
+        //                     ]
+        //                 }
+        //                 }',
+        //     CURLOPT_HTTPHEADER => array(
+        //         'Authorization: Bearer ' . $wa_token,
+        //         'Content-Type: application/json'
+        //     ),
+        // ));
+
+        // $response = curl_exec($curl);
+
+        // curl_close($curl);
+
+        // $res = json_decode($response, true);
+
+        // if ($res['status'] == 'success') {
+        //     $result = [
+        //         'code' => 200,
+        //         'status' => 'ok',
+        //         'detail' => $res,
+        //         'detailSj' => $resSj
+        //     ];
+
+        //     return $this->output->set_output(json_encode($result));
+        // } else {
+        //     $result = [
+        //         'code' => 400,
+        //         'status' => 'failed',
+        //         'detail' => $res,
+        //         'detailSj' => $resSj
+        //     ];
+
+        //     return $this->output->set_output(json_encode($result));
+        // }
     }
 }
