@@ -75,6 +75,8 @@
                 // All Invoice
                 $count_late_payment = 0;
                 $invoices = $this->MInvoice->getByIdContactNoMerch($selected_contact['id_contact']);
+                echo count($invoices);
+                die;
                 $payments = null;
                 $array_scoring = array();
                 foreach ($invoices as $invoice) {
@@ -237,7 +239,7 @@
                                                 <h3 class="card-title">Skor</h3>
                                                 <br>
                                                 <p>
-                                                    Count : <?= count($invoices) ?>
+                                                    Count : <?= $count_invoice ?>
                                                     Score Total : <?= $total_score ?>
                                                 </p>
                                             </div>
