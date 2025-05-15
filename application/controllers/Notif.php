@@ -289,7 +289,7 @@ class Notif extends CI_Controller
         $fileNameSearch = 'inv_' . $invoice['id_surat_jalan'];
         $files = glob(FCPATH . "assets/tmp/inv/*" . $fileNameSearch . "*");
 
-        echo json_encode($files);
+        echo json_encode($files[0]);
 
         // Send Invoice
         // $curl = curl_init();
