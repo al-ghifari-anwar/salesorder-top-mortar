@@ -143,9 +143,9 @@
                     $sj = $this->db->get_where('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
 
                     if ($sj['is_cod'] == 0) {
-                        $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                        $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($last_invoice['date_invoice'])));
                     } else {
-                        $jatuhTempo = date('Y-m-d', strtotime($invoice['date_invoice']));
+                        $jatuhTempo = date('Y-m-d', strtotime($last_invoice['date_invoice']));
                     }
 
                     foreach ($payments as $payment) {
@@ -192,8 +192,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <?php
-                                echo json_encode($last_array_scoring);
-                                die;
+                                // echo json_encode($last_array_scoring);
+                                // die;
                                 // All Scoring System
                                 $count_invoice = count($array_scoring);
                                 if ($count_invoice == 0) {
