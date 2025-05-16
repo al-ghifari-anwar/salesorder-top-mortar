@@ -123,7 +123,7 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['distance_visit'] ?></td>
                                             <td><?= date("H:i - d M Y", strtotime($data['date_visit'])) ?></td>
-                                            <td><?= $data['laporan_visit'] ?> <?= $data['pay_date'] != null ? ' - Tanggal dijanjikan: ' . date("d F Y", strtotime($data['pay_date'])) : ''  ?></td>
+                                            <td><?= Normalizer::normalize($data['laporan_visit']) ?> <?= $data['pay_date'] != null ? ' - Tanggal dijanjikan: ' . date("d F Y", strtotime($data['pay_date'])) : ''  ?></td>
                                             <td>
                                                 <a href="#" class="btn btn-primary" title="Detail" data-toggle="modal" data-target="#modal-detail<?= $data['id_visit'] ?>"><i class="fas fa-eye"></i></a>
                                                 <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve" data-toggle="modal" data-target="#modal-approve<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
