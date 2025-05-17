@@ -112,8 +112,14 @@ class Scoring extends CI_Controller
         $id_contact = $selected_contact['id_contact'];
 
         $oldest_invoice = $this->MInvoice->getOldestInvoiceByIdContact($id_contact);
+        $date_now = date("Y-m-d");
+        $date_oldest_inv = date("Y-m-d", strtotime($oldest_invoice['date_invoice']));
 
-        return 0;
+        $date1 = new DateTime($date_now);
+        $date2 = new DateTime($date_oldest_inv);
+        $days  = $date2->diff($date1)->format('%a');
+
+        return $days;
     }
 
     public function paymentScoring($selected_contact)
