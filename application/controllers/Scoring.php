@@ -117,7 +117,7 @@ class Scoring extends CI_Controller
 
         $date1 = new DateTime($date_now);
         $date2 = new DateTime($date_oldest_inv);
-        $days  = $date2->diff($date1)->format('%d');
+        $days  = $date2->diff($date1)->format('%a');
 
         return $days;
     }
