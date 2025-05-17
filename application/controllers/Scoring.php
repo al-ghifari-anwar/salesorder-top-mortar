@@ -115,12 +115,17 @@ class Scoring extends CI_Controller
         $date_now = date("Y-m-d");
         $date_oldest_inv = date("Y-m-d", strtotime($oldest_invoice['date_invoice']));
 
+        // Total Month Elapsed
         $date1 = new DateTime($date_now);
         $date2 = new DateTime($date_oldest_inv);
         $months  = $date2->diff($date1);
         $jmlMonths = (($months->y) * 12) + ($months->m);
 
-        return $jmlMonths;
+        // Total Invoice
+        $invoices = $this->MInvoice->getByIdContact($id_contact);
+        $jmlInv = count($invoices);
+
+        return $jmlInv;
     }
 
     public function paymentScoring($selected_contact)
