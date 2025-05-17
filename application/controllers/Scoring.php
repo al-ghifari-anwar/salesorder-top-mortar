@@ -86,6 +86,7 @@ class Scoring extends CI_Controller
 
     public function combineScoring()
     {
+        $this->output->set_content_type('application/json');
         $post = $this->input->post();
 
         $id_contact = $post['id_contact'];
