@@ -119,7 +119,7 @@ class Scoring extends CI_Controller
         $date2 = new DateTime($date_oldest_inv);
         $days  = $date2->diff($date1)->format('%m');
 
-        return $days;
+        return $date_oldest_inv;
     }
 
     public function paymentScoring($selected_contact)
