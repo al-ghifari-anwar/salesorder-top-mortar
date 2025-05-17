@@ -117,9 +117,10 @@ class Scoring extends CI_Controller
 
         $date1 = new DateTime($date_now);
         $date2 = new DateTime($date_oldest_inv);
-        $months  = $date2->diff($date1)->format('%y years %m month');
+        $months  = $date2->diff($date1);
+        $jmlMonths = (($months->y) * 12) + ($months->m);
 
-        return $months;
+        return $jmlMonths;
     }
 
     public function paymentScoring($selected_contact)
