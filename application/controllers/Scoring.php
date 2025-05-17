@@ -86,7 +86,16 @@ class Scoring extends CI_Controller
         $selected_contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
 
         // Payment
-        $this->paymentScoring($selected_contact);
+        $paymentScore = $this->paymentScoring($selected_contact);
+        // Frequency Scoring
+        $frequencyScore = $this->frequencyScoring($selected_contact);
+    }
+
+    public function frequencyScoring($selected_contact)
+    {
+        $id_contact = $selected_contact['id_contact'];
+
+        $oldest_invoice = $this->MInvoice->getOldestInvoiceByIdContact($id_contact);
     }
 
     public function paymentScoring($selected_contact)

@@ -336,3 +336,5 @@ $route['notif/invoice'] = 'Notif/send_invoice';
 $route['notif/invoice/backup'] = 'Notif/send_invoice_backup';
 // Invoice Change
 $route['invoice/change/(:num)'] = 'Invoice/changeTermin/$1';
+// Combine Scoring
+$route['scoring/combine'] = 'Scoring/combineScoring';
