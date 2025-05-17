@@ -122,17 +122,23 @@ class Scoring extends CI_Controller
             new DateTime($date_now)
         );
 
-        // Total Invoice
-        $invoices = $this->MInvoice->getByIdContact($id_contact);
-        $jmlInv = count($invoices);
-
         $array_months = array();
         // Scoring System
+        $score = 100;
         foreach ($periods as $period) {
-            array_push($array_months, $period->format('Y-m'));
+            $month = $period->format('Y-m');
+            // Get Invoice On period
+            $monthInv = $this->MInvoice->getByIdContactAndMonth($id_contact, $month);
+            if ($monthInv) {
+                if ($score < 100) {
+                    $score += 10;
+                }
+            } else {
+                $score -= 10;
+            }
         }
 
-        return $array_months;
+        return $score;
     }
 
     public function paymentScoring($selected_contact)

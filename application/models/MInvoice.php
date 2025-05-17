@@ -257,6 +257,16 @@ class MInvoice extends CI_Model
         return $query;
     }
 
+    public function getByIdContactAndMonth($id_contact, $month)
+    {
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+        $this->db->join('tb_city', 'tb_contact.id_city = tb_city.id_city');
+        $this->db->order_by('tb_invoice.date_invoice', 'ASC');
+        $query = $this->db->get_where('tb_invoice', ['tb_contact.id_contact' => $id_contact, "DATE_FORMAT(date_invoice, '%Y-%m')" => $month], 1)->row_array();
+        return $query;
+    }
+
     public function getById($id)
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
