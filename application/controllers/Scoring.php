@@ -138,7 +138,7 @@ class Scoring extends CI_Controller
             }
         }
 
-        return $score;
+        return number_format($score, 2, '.', ',');
     }
 
     public function paymentScoring($selected_contact)
