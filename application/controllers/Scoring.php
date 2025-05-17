@@ -89,6 +89,12 @@ class Scoring extends CI_Controller
         $paymentScore = $this->paymentScoring($selected_contact);
         // Frequency Scoring
         $frequencyScore = $this->frequencyScoring($selected_contact);
+
+        $scoreData = [
+            'payment' => $paymentScore,
+            'frequency' => $frequencyScore,
+            'order' => 0,
+        ];
     }
 
     public function frequencyScoring($selected_contact)
@@ -96,6 +102,8 @@ class Scoring extends CI_Controller
         $id_contact = $selected_contact['id_contact'];
 
         $oldest_invoice = $this->MInvoice->getOldestInvoiceByIdContact($id_contact);
+
+        return 0;
     }
 
     public function paymentScoring($selected_contact)
