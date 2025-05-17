@@ -102,6 +102,8 @@ class Scoring extends CI_Controller
             'frequency' => $frequencyScore,
             'order' => 0,
         ];
+
+        return $this->output->set_output(json_encode($scoreData));
     }
 
     public function frequencyScoring($selected_contact)
