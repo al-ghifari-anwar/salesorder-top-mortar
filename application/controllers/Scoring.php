@@ -112,30 +112,27 @@ class Scoring extends CI_Controller
         $id_contact = $selected_contact['id_contact'];
 
         $oldest_invoice = $this->MInvoice->getOldestInvoiceByIdContact($id_contact);
-        $date_now = date("Y-m-d");
         $date_oldest_inv = date("Y-m-d", strtotime($oldest_invoice['date_invoice']));
+        $date_now = date("Y-m-d");
 
         // Total Month Elapsed
-        $date1 = new DateTime($date_now);
-        $date2 = new DateTime($date_oldest_inv);
-        $months  = $date2->diff($date1);
-        $jmlMonths = (($months->y) * 12) + ($months->m);
+        $periods = new DatePeriod(
+            new DateTime($date_oldest_inv),
+            new DateInterval('P1M'),
+            new DateTime($date_now)
+        );
 
         // Total Invoice
         $invoices = $this->MInvoice->getByIdContact($id_contact);
         $jmlInv = count($invoices);
 
+        $array_months = array();
         // Scoring System
-        $score = 100;
-
-        if ($jmlInv < $jmlMonths) {
-            $emptyMonths = $jmlMonths - $jmlInv;
-            $minusScore = $emptyMonths * 10;
-
-            $score -= $minusScore;
+        foreach ($periods as $period) {
+            array_push($array_months, $period->format('m'));
         }
 
-        return $score;
+        return $array_months;
     }
 
     public function paymentScoring($selected_contact)
