@@ -129,7 +129,7 @@ class Scoring extends CI_Controller
         $array_months = array();
         // Scoring System
         foreach ($periods as $period) {
-            array_push($array_months, $period->format('m'));
+            array_push($array_months, $period->format('Y-m'));
         }
 
         return $array_months;
