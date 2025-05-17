@@ -125,7 +125,17 @@ class Scoring extends CI_Controller
         $invoices = $this->MInvoice->getByIdContact($id_contact);
         $jmlInv = count($invoices);
 
-        return $jmlInv;
+        // Scoring System
+        $score = 100;
+
+        if ($jmlInv < $jmlMonths) {
+            $emptyMonths = $jmlMonths - $jmlInv;
+            $minusScore = $emptyMonths * 10;
+
+            $score -= $minusScore;
+        }
+
+        return $score;
     }
 
     public function paymentScoring($selected_contact)
