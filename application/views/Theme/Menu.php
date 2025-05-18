@@ -448,6 +448,14 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="<?= base_url('badscore') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-store-alt-slash"></i>
+                                                <p>
+                                                    Toko Skor Rendah
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('notif') ?>" class="nav-link">
                                                 <i class="nav-icon fas fa-store-alt-slash"></i>
                                                 <p>
