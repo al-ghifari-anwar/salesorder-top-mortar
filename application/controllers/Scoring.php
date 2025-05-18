@@ -86,12 +86,64 @@ class Scoring extends CI_Controller
         $mpdf->Output();
     }
 
-    public function combineScoring()
+    public function setBadScore()
     {
         $this->output->set_content_type('application/json');
-        $post = $this->input->post();
 
-        $id_contact = $post['id_contact'];
+        $contacts = $this->db->get_where('tb_contact', ['store_status !=' => 'data'])->result_array();
+
+        foreach ($contacts as $contact) {
+            $id_contact = $contact['id_contact'];
+
+            // Get Score
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $id_contact,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_HTTPHEADER => array(
+                    'Cookie: ci_session=2scmao9aquusdrn7rm2i7vkrifkamkld'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            $totalScore = $res['total'];
+
+            if ($totalScore < 85) {
+                $contactData = [
+                    'is_bad_score' => 1,
+                ];
+
+                $this->db->update('tb_contact', $contactData, ['id_contact' => $id_contact]);
+            }
+        }
+
+        $result = [
+            'code' => 200,
+            'status' => "ok",
+            'msg' => 'Finished',
+        ];
+
+        return $this->output->set_output(json_encode($result));
+    }
+
+    public function combineScoring($id_contact)
+    {
+        $this->output->set_content_type('application/json');
+        // $post = $this->input->post();
+
+        // $id_contact = $post['id_contact'];
 
         $selected_contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
 
