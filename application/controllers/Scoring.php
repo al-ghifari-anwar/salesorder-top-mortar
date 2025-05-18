@@ -11,7 +11,7 @@ class Scoring extends CI_Controller
         $this->load->model('MInvoice');
         $this->load->model('MPayment');
         $this->load->model('MSuratJalan');
-        $this->load->model('MDetaulSuratJalan');
+        $this->load->model('MDetailSuratJalan');
     }
 
     public function city_list()
