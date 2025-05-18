@@ -50,7 +50,6 @@
                                         <th>Nama Toko</th>
                                         <th>Pemilik</th>
                                         <th>Nomor HP</th>
-                                        <th>Alamat</th>
                                         <th>Status</th>
                                         <th>Reputation</th>
                                         <th>Score Pembayaran</th>
@@ -96,13 +95,12 @@
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['store_owner'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
-                                            <td><?= $data['address'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
                                             <td><?= $scoreRes['payment'] ?></td>
                                             <td><?= $scoreRes['frequency'] ?></td>
                                             <td><?= $scoreRes['order'] ?></td>
-                                            <td><?= $scoreRes['total'] ?></td>
+                                            <td><?= number_format($scoreRes['total'], 2, '.', ',') ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
