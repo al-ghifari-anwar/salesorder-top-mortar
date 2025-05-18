@@ -1,0 +1,49 @@
+<?php
+
+class Badscore extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->load->model('MCity');
+        $this->load->model('MContact');
+        $this->load->model('MInvoice');
+        $this->load->model('MPayment');
+        $this->load->model('MSuratJalan');
+        $this->load->model('MDetailSuratJalan');
+    }
+
+    public function city_list()
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $data['title'] = 'Toko Skor Jelek';
+        if ($this->session->userdata('level_user') == 'admin_c') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Badscore/CityList');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function list($id_city)
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $data['title'] = 'Toko Skor Jelek';
+        $data['contacts'] = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'is_bad_score' => 1])->result_array();
+
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Badscore/List');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+}
