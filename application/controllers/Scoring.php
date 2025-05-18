@@ -225,7 +225,9 @@ class Scoring extends CI_Controller
                     $score += 10;
                 }
             } else {
-                $score -= 10;
+                if ($score > 0) {
+                    $score -= 10;
+                }
             }
         }
 
