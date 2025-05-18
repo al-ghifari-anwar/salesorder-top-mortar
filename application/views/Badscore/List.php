@@ -50,13 +50,13 @@
                                         <th>Nama Toko</th>
                                         <th>Pemilik</th>
                                         <th>Nomor HP</th>
-                                        <th>Nomor HP 2</th>
                                         <th>Alamat</th>
                                         <th>Status</th>
-                                        <th>Termin</th>
                                         <th>Reputation</th>
-                                        <th>Payment Method</th>
-                                        <th>Mingguan</th>
+                                        <th>Score Pembayaran</th>
+                                        <th>Score Freq</th>
+                                        <th>Score Jml Order</th>
+                                        <th>Total Score</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,21 +64,45 @@
                                     $no = 1;
                                     foreach ($contacts as $data) : ?>
                                         <?php
+                                        $id_contact = $data['id_contact'];
                                         $id_promo = $data['id_promo'];
                                         $getPromo = $this->db->get('tb_promo', ['id_promo' => $id_promo])->row_array();
+
+                                        // Get Score
+                                        $curl = curl_init();
+
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $id_contact,
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => '',
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 0,
+                                            CURLOPT_FOLLOWLOCATION => true,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => 'POST',
+                                            CURLOPT_HTTPHEADER => array(
+                                                'Cookie: ci_session=2scmao9aquusdrn7rm2i7vkrifkamkld'
+                                            ),
+                                        ));
+
+                                        $response = curl_exec($curl);
+
+                                        curl_close($curl);
+
+                                        $scoreRes = json_decode($response, true);
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['store_owner'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
-                                            <td><?= $data['nomorhp_2'] ?></td>
                                             <td><?= $data['address'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
-                                            <td><?= $data['termin_payment'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
-                                            <td><?= $data['payment_method'] ?></td>
-                                            <td><?= $data['tagih_mingguan'] == 1 ? 'Yes' : 'No' ?></td>
+                                            <td><?= $scoreRes['payment'] ?></td>
+                                            <td><?= $scoreRes['frequency'] ?></td>
+                                            <td><?= $scoreRes['order'] ?></td>
+                                            <td><?= $scoreRes['total'] ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
