@@ -123,7 +123,7 @@ class Scoring extends CI_Controller
                 $totalScore = $res['total'];
 
                 if ($contact['store_status'] != 'active') {
-                    if ($totalScore < 85) {
+                    if ($totalScore < 80) {
                         $contactData = [
                             'is_bad_score' => 1,
                         ];
