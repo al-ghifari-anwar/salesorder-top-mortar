@@ -51,12 +51,8 @@
                                         <th>Pemilik</th>
                                         <th>Nomor HP</th>
                                         <th>Nomor HP 2</th>
-                                        <th>Tgl Lahir</th>
-                                        <th>Kota</th>
-                                        <th>Maps</th>
                                         <th>Alamat</th>
                                         <th>Status</th>
-                                        <th>Promo</th>
                                         <th>Termin</th>
                                         <th>Reputation</th>
                                         <th>Payment Method</th>
@@ -77,12 +73,8 @@
                                             <td><?= $data['store_owner'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['nomorhp_2'] ?></td>
-                                            <td><?= $data['tgl_lahir'] ?></td>
-                                            <td><?= $data['nama_city'] ?></td>
-                                            <td><?= $data['maps_url'] ?></td>
                                             <td><?= $data['address'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
-                                            <td><?= $getPromo['nama_promo'] ?></td>
                                             <td><?= $data['termin_payment'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
                                             <td><?= $data['payment_method'] ?></td>
