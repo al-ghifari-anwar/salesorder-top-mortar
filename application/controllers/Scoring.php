@@ -90,42 +90,45 @@ class Scoring extends CI_Controller
     {
         $this->output->set_content_type('application/json');
 
-        $contacts = $this->db->get_where('tb_contact', ['store_status !=' => 'data'])->result_array();
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $contacts = $this->db->get_where('tb_contact', ['store_status !=' => 'data', 'is_bad_score' => 0])->result_array();
 
         foreach ($contacts as $contact) {
-            $id_contact = $contact['id_contact'];
+            if ($contact['id_distributor'] != 6) {
+                $id_contact = $contact['id_contact'];
 
-            // Get Score
-            $curl = curl_init();
+                // Get Score
+                $curl = curl_init();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $id_contact,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_HTTPHEADER => array(
-                    'Cookie: ci_session=2scmao9aquusdrn7rm2i7vkrifkamkld'
-                ),
-            ));
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $id_contact,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_HTTPHEADER => array(
+                        'Cookie: ci_session=2scmao9aquusdrn7rm2i7vkrifkamkld'
+                    ),
+                ));
 
-            $response = curl_exec($curl);
+                $response = curl_exec($curl);
 
-            curl_close($curl);
+                curl_close($curl);
 
-            $res = json_decode($response, true);
+                $res = json_decode($response, true);
 
-            $totalScore = $res['total'];
+                $totalScore = $res['total'];
 
-            if ($totalScore < 85) {
-                $contactData = [
-                    'is_bad_score' => 1,
-                ];
+                if ($totalScore < 85) {
+                    $contactData = [
+                        'is_bad_score' => 1,
+                    ];
 
-                $this->db->update('tb_contact', $contactData, ['id_contact' => $id_contact]);
+                    $this->db->update('tb_contact', $contactData, ['id_contact' => $id_contact]);
+                }
             }
         }
 
