@@ -106,7 +106,7 @@ class Scoring extends CI_Controller
         $totalFrequencyScore = $frequencyScore * 2;
         $totalOrderScore = $orderScore;
 
-        $totalScore = ($totalPaymentScore + $totalFrequencyScore + $totalOrderScore) / 5;
+        $totalScore = ($totalPaymentScore + $totalFrequencyScore + $totalOrderScore) / 6;
 
         $scoreData = [
             'payment' => $paymentScore,
