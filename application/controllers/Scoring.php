@@ -100,12 +100,19 @@ class Scoring extends CI_Controller
         // Frequency Scoring
         $frequencyScore = $this->frequencyScoring($selected_contact);
         // Order Scoring
-        $orderScoring = $this->orderScoring($selected_contact);
+        $orderScore = $this->orderScoring($selected_contact);
+
+        $totalPaymentScore = $paymentScore * 3;
+        $totalFrequencyScore = $frequencyScore * 2;
+        $totalOrderScore = $orderScore;
+
+        $totalScore = ($totalPaymentScore + $totalFrequencyScore + $totalOrderScore) / 5;
 
         $scoreData = [
             'payment' => $paymentScore,
             'frequency' => $frequencyScore,
-            'order' => $orderScoring,
+            'order' => $orderScore,
+            'total' => $totalScore,
         ];
 
         return $this->output->set_output(json_encode($scoreData));
