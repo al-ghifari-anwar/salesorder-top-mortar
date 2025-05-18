@@ -10,6 +10,8 @@ class Scoring extends CI_Controller
         $this->load->model('MContact');
         $this->load->model('MInvoice');
         $this->load->model('MPayment');
+        $this->load->model('MSuratJalan');
+        $this->load->model('MDetaulSuratJalan');
     }
 
     public function city_list()
@@ -97,14 +99,27 @@ class Scoring extends CI_Controller
         $paymentScore = $this->paymentScoring($selected_contact);
         // Frequency Scoring
         $frequencyScore = $this->frequencyScoring($selected_contact);
+        // Order Scoring
+        $orderScoring = $this->orderScoring($selected_contact);
 
         $scoreData = [
             'payment' => $paymentScore,
             'frequency' => $frequencyScore,
-            'order' => 0,
+            'order' => $orderScoring,
         ];
 
         return $this->output->set_output(json_encode($scoreData));
+    }
+
+    public function orderScoring($selected_contact)
+    {
+        $id_contact = $selected_contact['id_contact'];
+
+        $orders = $this->MDetailSuratJalan->getClosingItemByIdContact($id_contact);
+
+        $count_orders = $orders['qty_produk'];
+
+        return $count_orders;
     }
 
     public function frequencyScoring($selected_contact)
