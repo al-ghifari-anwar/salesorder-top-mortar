@@ -176,6 +176,38 @@ class Scoring extends CI_Controller
         return $this->output->set_output(json_encode($scoreData));
     }
 
+    public function arrayCombineScoring($id_contact)
+    {
+        $this->output->set_content_type('application/json');
+        // $post = $this->input->post();
+
+        // $id_contact = $post['id_contact'];
+
+        $selected_contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
+
+        // Payment
+        $paymentScore = $this->paymentScoring($selected_contact);
+        // Frequency Scoring
+        $frequencyScore = $this->frequencyScoring($selected_contact);
+        // Order Scoring
+        $orderScore = $this->orderScoring($selected_contact);
+
+        $totalPaymentScore = $paymentScore * 3;
+        $totalFrequencyScore = $frequencyScore * 2;
+        $totalOrderScore = $orderScore;
+
+        $totalScore = ($totalPaymentScore + $totalFrequencyScore + $totalOrderScore) / 6;
+
+        $scoreData = [
+            'payment' => $paymentScore,
+            'frequency' => $frequencyScore,
+            'order' => $orderScore,
+            'total' => $totalScore,
+        ];
+
+        return $scoreData;
+    }
+
     public function orderScoring($selected_contact)
     {
         $id_contact = $selected_contact['id_contact'];
