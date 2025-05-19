@@ -122,7 +122,7 @@ class Scoring extends CI_Controller
                 $res = json_decode($response, true);
 
                 // if (isset($res['total'])) {
-                $totalScore = isset($res['total']) ? $res['total'] : 100;
+                $totalScore = $res['total'];
 
                 if ($totalScore < 60) {
                     $contactData = [
