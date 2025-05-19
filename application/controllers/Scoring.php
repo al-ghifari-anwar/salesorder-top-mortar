@@ -91,7 +91,8 @@ class Scoring extends CI_Controller
         $this->output->set_content_type('application/json');
 
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $contacts = $this->db->get_where('tb_contact', ['store_status !=' => 'data', 'is_bad_score' => 0])->result_array();
+        $this->db->where_not_in('store_status', ['data', 'active']);
+        $contacts = $this->db->get_where('tb_contact', ['is_bad_score' => 0])->result_array();
 
         foreach ($contacts as $contact) {
             if ($contact['id_distributor'] != 6) {
@@ -120,7 +121,7 @@ class Scoring extends CI_Controller
 
                 $res = json_decode($response, true);
 
-                if (isset($res['total']) && $contact['store_status'] != 'active') {
+                if (isset($res['total'])) {
                     $totalScore = $res['total'];
 
                     if ($totalScore < 60) {
