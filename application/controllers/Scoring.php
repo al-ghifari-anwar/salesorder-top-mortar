@@ -238,35 +238,40 @@ class Scoring extends CI_Controller
         $id_contact = $selected_contact['id_contact'];
 
         $oldest_invoice = $this->MInvoice->getOldestInvoiceByIdContact($id_contact);
-        $date_oldest_inv = date("Y-m-d", strtotime($oldest_invoice['date_invoice']));
-        $date_now = date("Y-m-d");
 
-        // Total Month Elapsed
-        $periods = new DatePeriod(
-            new DateTime($date_oldest_inv),
-            new DateInterval('P1M'),
-            new DateTime($date_now)
-        );
+        if ($oldest_invoice) {
+            $date_oldest_inv = date("Y-m-d", strtotime($oldest_invoice['date_invoice']));
+            $date_now = date("Y-m-d");
 
-        $array_months = array();
-        // Scoring System
-        $score = 100;
-        foreach ($periods as $period) {
-            $month = $period->format('Y-m');
-            // Get Invoice On period
-            $monthInv = $this->MInvoice->getByIdContactAndMonth($id_contact, $month);
-            if ($monthInv) {
-                if ($score < 100) {
-                    $score += 10;
-                }
-            } else {
-                if ($score > 0) {
-                    $score -= 10;
+            // Total Month Elapsed
+            $periods = new DatePeriod(
+                new DateTime($date_oldest_inv),
+                new DateInterval('P1M'),
+                new DateTime($date_now)
+            );
+
+            $array_months = array();
+            // Scoring System
+            $score = 100;
+            foreach ($periods as $period) {
+                $month = $period->format('Y-m');
+                // Get Invoice On period
+                $monthInv = $this->MInvoice->getByIdContactAndMonth($id_contact, $month);
+                if ($monthInv) {
+                    if ($score < 100) {
+                        $score += 10;
+                    }
+                } else {
+                    if ($score > 0) {
+                        $score -= 10;
+                    }
                 }
             }
-        }
 
-        return number_format($score, 2, '.', ',');
+            return number_format($score, 2, '.', ',');
+        } else {
+            return number_format(0, 2, '.', ',');
+        }
     }
 
     public function paymentScoring($selected_contact)
