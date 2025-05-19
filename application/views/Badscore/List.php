@@ -68,7 +68,27 @@
                                         $getPromo = $this->db->get('tb_promo', ['id_promo' => $id_promo])->row_array();
 
                                         // Get Score
-                                        $scoreRes = $this->arrayCombineScoring($id_contact);
+                                        $curl = curl_init();
+
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $id_contact,
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => '',
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 0,
+                                            CURLOPT_FOLLOWLOCATION => true,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => 'POST',
+                                            CURLOPT_HTTPHEADER => array(
+                                                'Cookie: ci_session=2scmao9aquusdrn7rm2i7vkrifkamkld'
+                                            ),
+                                        ));
+
+                                        $response = curl_exec($curl);
+
+                                        curl_close($curl);
+
+                                        $scoreRes = json_decode($response, true);
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
