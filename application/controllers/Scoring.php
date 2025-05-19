@@ -120,17 +120,15 @@ class Scoring extends CI_Controller
 
                 $res = json_decode($response, true);
 
-                if (isset($res['total'])) {
+                if (isset($res['total']) && $contact['store_status'] != 'active') {
                     $totalScore = $res['total'];
 
-                    if ($contact['store_status'] != 'active') {
-                        if ($totalScore < 60) {
-                            $contactData = [
-                                'is_bad_score' => 1,
-                            ];
+                    if ($totalScore < 60) {
+                        $contactData = [
+                            'is_bad_score' => 1,
+                        ];
 
-                            $this->db->update('tb_contact', $contactData, ['id_contact' => $id_contact]);
-                        }
+                        $this->db->update('tb_contact', $contactData, ['id_contact' => $id_contact]);
                     }
                 }
             }
