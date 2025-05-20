@@ -179,7 +179,7 @@ function penyebut($nilai)
                     $this->db->where_in('id_produk', $idProduks);
                     $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing <' => $dateFrom, 'tb_surat_jalan.is_closing >=' => $dateCutoff, 'tb_surat_jalan.is_closing' => 1])->row_array();
 
-                    echo json_encode($this->db->last_query());
+                    echo $this->db->last_query();
                     die;
                 } else {
                     $jumlahAwalPengeluaran = ['jml_stokOut' => 0];
