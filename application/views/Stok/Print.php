@@ -183,9 +183,11 @@ function penyebut($nilai)
                 $this->db->select('SUM(jml_stok) AS jml_stokAkhir');
                 $jumlahAkhir = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
+                $jmlAwal = $jumlahAwal['jml_stokAwal'] != null ? $jumlahAwal['jml_stokAwal'] : 0;
+                $jmlKluarAwal = $jumlahAwalPengeluaran['jml_stokOut'] != null ? $jumlahAwalPengeluaran['jml_stokOut'] : 0;
                 $valPemasukan = $getStokIn['jml_stokIn'];
                 $valPengeluaran = $getStokOut['jml_stokOut'];
-                $valJumlahAwal = $jumlahAwal['jml_stokAwal'] != null ? $jumlahAwal['jml_stokAwal'] - $jumlahAwalPengeluaran['jml_stokOut'] : 0;
+                $valJumlahAwal = $jmlAwal - $jmlKluarAwal;
                 $valJumlahAkhir = ($valJumlahAwal + $getStokIn['jml_stokIn']) - $getStokOut['jml_stokOut'];
                 ?>
                 <tr>
