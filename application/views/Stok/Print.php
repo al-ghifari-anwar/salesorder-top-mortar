@@ -165,6 +165,9 @@ function penyebut($nilai)
                 $this->db->where("id_city IN (SELECT id_city FROM tb_city tc WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
                 $getProdukDatasAwal = $this->db->get('tb_produk')->result_array();
 
+                echo json_encode($getProdukDatasAwal);
+                die;
+
                 if ($getProdukDatasAwal != null) {
                     $idProduks = array();
                     foreach ($getProdukDatasAwal as $getProdukDataAwal) {
@@ -176,7 +179,7 @@ function penyebut($nilai)
                     $this->db->where_in('id_produk', $idProduks);
                     $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing <' => $dateFrom, 'tb_surat_jalan.is_closing >=' => $dateCutoff, 'tb_surat_jalan.is_closing' => 1])->row_array();
                 } else {
-                    $jumlahAwalPengeluaran = ['jml_stokOu' => 0];
+                    $jumlahAwalPengeluaran = ['jml_stokOut' => 0];
                 }
 
                 // Jumlah Akhir
