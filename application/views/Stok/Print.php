@@ -162,11 +162,11 @@ function penyebut($nilai)
                 $jumlahAwal = $this->db->get_where('tb_stok', ['id_master_produk' => $id_master_produk, 'created_at <=' => $dateFrom, 'created_at >=' => $dateCutoff, 'id_gudang_stok' => $id_gudang_stok])->row_array();
 
                 $this->db->where('id_master_produk', $id_master_produk);
-                $this->db->where("id_city IN (SELECT id_city FROM tb_city tc WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
+                $this->db->where("id_city IN (SELECT id_city FROM tb_city WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
                 $getProdukDatasAwal = $this->db->get('tb_produk')->result_array();
 
-                echo json_encode($getProdukDatasAwal);
-                die;
+                // echo json_encode($getProdukDatasAwal);
+                // die;
 
                 if ($getProdukDatasAwal != null) {
                     $idProduks = array();
