@@ -165,8 +165,8 @@ function penyebut($nilai)
                 $this->db->where("id_city IN (SELECT id_city FROM tb_city WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
                 $getProdukDatasAwal = $this->db->get('tb_produk')->result_array();
 
-                // echo json_encode($getProdukDatasAwal);
-                // die;
+                echo json_encode($this->db->last_query());
+                die;
 
                 if ($getProdukDatasAwal != null) {
                     $idProduks = array();
