@@ -177,7 +177,7 @@ function penyebut($nilai)
                     $this->db->select('SUM(qty_produk) AS jml_stokOut');
                     $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
                     $this->db->where_in('id_produk', $idProduks);
-                    $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing <' => $dateFrom, 'tb_surat_jalan.is_closing >=' => $dateCutoff, 'tb_surat_jalan.is_closing' => 1])->row_array();
+                    $jumlahAwalPengeluaran = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.date_closing <' => $dateFrom, 'tb_surat_jalan.date_closing >=' => $dateCutoff, 'tb_surat_jalan.is_closing' => 1])->row_array();
 
                     echo $this->db->last_query();
                     die;
