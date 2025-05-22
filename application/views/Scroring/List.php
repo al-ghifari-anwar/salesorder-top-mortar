@@ -132,8 +132,8 @@
                 }
                 // Last Invoices
                 $last_invoices = $this->MInvoice->getLast3ByIdContactNoMerch($selected_contact['id_contact']);
-                echo $this->db->last_query();
-                die;
+                // echo $this->db->last_query();
+                // die;
                 $last_payments = null;
                 $last_array_scoring = array();
                 foreach ($last_invoices as $last_invoice) {
