@@ -132,11 +132,39 @@ function penyebut($nilai)
             <th class="border">Jml Inv</th>
             <th class="border">Jml Inv Sehat</th>
             <th class="border">Jml Inv Trlmbt</th>
-            <th class="border">Score</th>
-            <th class="borde">Score 3 Inv Trakhir</th>
+            <th class="border">Score Invoice</th>
+            <th class="border">Score 3 Inv Trakhir</th>
+            <th class="border">Score Frequency</th>
+            <th class="border">Score Order</th>
+            <th class="border">Score Total</th>
         </tr>
         <?php foreach ($contacts as $contact): ?>
             <?php
+            // Get Score
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $id_contact,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_HTTPHEADER => array(
+                    'Cookie: ci_session=2scmao9aquusdrn7rm2i7vkrifkamkld'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            // if (isset($res['total'])) {
+            $totalScore = $res['total'];
 
             // All Invoices
             $count_late_payment = 0;
@@ -366,6 +394,9 @@ function penyebut($nilai)
                     <td class="border text-purple"><?= $count_late_payment ?></td>
                     <td class="border <?= $color_text ?>"><?= number_format($val_scoring, 2, '.', ',') ?></td>
                     <td class="border <?= $color_text ?>"><?= number_format($last_val_scoring, 2, '.', ',') ?></td>
+                    <td class="border"><?= $total_score['frequency'] ?></td>
+                    <td class="border"><?= $total_score['order'] ?></td>
+                    <td class="border"><?= $total_score['total'] ?></td>
                 </tr>
             <?php endif; ?>
         <?php endforeach; ?>
