@@ -140,6 +140,7 @@ function penyebut($nilai)
         </tr>
         <?php foreach ($contacts as $contact): ?>
             <?php
+            $id_contact = $contact['id_contact'];
             // Get Score
             $curl = curl_init();
 
