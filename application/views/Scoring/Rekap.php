@@ -161,10 +161,10 @@ function penyebut($nilai)
 
             curl_close($curl);
 
-            $res = json_decode($response, true);
+            $totalScore = json_decode($response, true);
 
             // if (isset($res['total'])) {
-            $totalScore = $res['total'];
+            // $totalScore = $res['total'];
 
             // All Invoices
             $count_late_payment = 0;
