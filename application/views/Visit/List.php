@@ -127,6 +127,11 @@
                                             <td>
                                                 <a href="#" class="btn btn-primary" title="Detail" data-toggle="modal" data-target="#modal-detail<?= $data['id_visit'] ?>"><i class="fas fa-eye"></i></a>
                                                 <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve" data-toggle="modal" data-target="#modal-approve<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
+                                                <?php if ($this->session->userdata('id_distributor') == 4): ?>
+                                                    <?php if ($this->session->userdata('id_user') == '72' || $this->session->userdata('id_user') == '121' || $this->session->userdata('id_user') == '124'): ?>
+                                                        <a href="<?= base_url('approve-visit2/' . $data['id_visit']) ?>" class="btn btn-primary" title="Approve" data-toggle="modal" data-target="#modal-approve2<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-approve<?= $data['id_visit'] ?>">
@@ -153,6 +158,38 @@
                                                             <div class="form-group">
                                                                 <label for="">Pesan Approve</label>
                                                                 <textarea name="approve_message" id="" cols="30" rows="5" class="form-control"></textarea>
+                                                            </div>
+                                                            <button class="btn btn-primary float-right">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Approve 2 -->
+                                        <div class="modal fade" id="modal-approve2<?= $data['id_visit'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Approval</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?= base_url('approve-visit2/' . $data['id_visit'] . "/" . $id_city) ?>" method="POST">
+                                                            <?php if ($this->session->userdata('id_distributor') == 4): ?>
+                                                                <div class="form-group">
+                                                                    <label for="">Proyek</label>
+                                                                    <select name="id_proyek" id="" class="form-control select2bs4">
+                                                                        <?php foreach ($proyeks as $proyek): ?>
+                                                                            <option value="<?= $proyek['id_proyek'] ?>"><?= $proyek['name_proyek'] . " - " . $proyek['alamat_proyek'] ?></option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
+                                                            <?php endif; ?>
+                                                            <div class="form-group">
+                                                                <label for="">Pesan Approve</label>
+                                                                <textarea name="approve_message_2" id="" cols="30" rows="5" class="form-control"></textarea>
                                                             </div>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>

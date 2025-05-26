@@ -92,6 +92,34 @@ class Visit extends CI_Controller
         }
     }
 
+    public function approve2($id, $id_city)
+    {
+        $post = $this->input->post();
+
+        $approveData = [
+            'is_approved_2' => 1,
+            'approve_message_2' => $post['approve_message_2'],
+        ];
+
+        $approve = $this->db->update('tb_visit', $approveData, ['id_visit' => $id]);
+
+        $getVisit = $this->db->get_where('tb_visit', ['id_visit' => $id])->row_array();
+        $id_contact = $getVisit['id_contact'];
+
+        if ($approve) {
+            $post = $this->input->post();
+            if (isset($post['id_proyek'])) {
+                $id_proyek = $post['id_proyek'];
+                $this->db->update('tb_contact', ['id_proyek' => $id_proyek], ['id_contact' => $id_contact]);
+            }
+            $this->session->set_flashdata('success', "Berhasil approve visit!");
+            redirect('visit/' . $id_city);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal approve visit!");
+            redirect('visit/' . $id_city);
+        }
+    }
+
     public function lapkurir_city_list()
     {
         if ($this->session->userdata('id_user') == null) {

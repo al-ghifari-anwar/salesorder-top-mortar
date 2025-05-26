@@ -120,6 +120,7 @@ $route['penjualan/(:num)'] = 'Penjualan/index/$1';
 $route['visit'] = 'Visit';
 $route['visit/(:num)'] = 'Visit/visit_by_city/$1';
 $route['approve-visit/(:num)/(:num)'] = 'Visit/approve/$1/$2';
+$route['approve-visit2/(:num)/(:num)'] = 'Visit/approve2/$1/$2';
 // Rencana Visit
 $route['rencana-visit'] = 'Visit/rencana_visit';
 $route['rencana-visit/(:num)'] = 'Visit/rencana_visit_by_city/$1';
