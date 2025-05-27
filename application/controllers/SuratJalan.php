@@ -129,7 +129,7 @@ class SuratJalan extends CI_Controller
         $this->MDetailSuratJalan->setBonusItem($id, $suratjalan['id_promo'], $suratjalan['id_city']);
 
         // $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
-        $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+        // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
         $template_id = '32b18403-e0ee-4cfc-9e2e-b28b95f24e37';
 
         $id_distributor = $this->session->userdata('id_distributor');
@@ -172,7 +172,7 @@ class SuratJalan extends CI_Controller
                         {
                             "key": "3",
                             "value": "address",
-                            "value_text": "' . $suratjalan['address'] . ', ' . $suratjalan['nama_city'] . '"
+                            "value_text": "' . trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'] . '"
                         },
                         {
                             "key": "4",
