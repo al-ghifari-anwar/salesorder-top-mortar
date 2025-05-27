@@ -78,12 +78,19 @@ class MSuratJalan extends CI_Model
             $this->is_cod = 0;
         }
 
-        $query = $this->db->insert('tb_surat_jalan', $this);
+        $getSj = $this->db->get_where('tb_surat_jalan', ['no_surat_jalan' => $this->no_surat_jalan])->row_array();
 
-        if ($query) {
-            redirect('surat-jalan/' . $this->db->insert_id());
+        if ($getSj == null) {
+            $query = $this->db->insert('tb_surat_jalan', $this);
+
+            if ($query) {
+                redirect('surat-jalan/' . $this->db->insert_id());
+            } else {
+                $this->session->set_flashdata('failed', "Gagal menyimpan data surat jalan!");
+                redirect('surat-jalan');
+            }
         } else {
-            $this->session->set_flashdata('failed', "Gagal menyimpan data surat jalan!");
+            $this->session->set_flashdata('failed', "Oops terjadi kesalahan, harap coba lagi!");
             redirect('surat-jalan');
         }
     }
