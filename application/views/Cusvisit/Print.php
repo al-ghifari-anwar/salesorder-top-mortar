@@ -243,7 +243,7 @@ function penyebut($nilai)
                 <td class="text-center border"><?= $total_visitVoucher ?></td>
                 <td class="text-center border"><?= $total_visitPassive ?></td>
                 <td class="text-center border"><?= $total_visitMg ?></td>
-                <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive ?></td>
+                <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive + $total_visitMg + $total_visitVoucher ?></td>
             </tr>
         <?php endif; ?>
     </table>
