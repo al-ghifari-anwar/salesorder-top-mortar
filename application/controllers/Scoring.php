@@ -212,7 +212,9 @@ class Scoring extends CI_Controller
     {
         $id_contact = $selected_contact['id_contact'];
 
-        $orders = $this->MDetailSuratJalan->getClosingItemByIdContact($id_contact);
+        $lastMonth = date("m", strtotime("-1 month"));
+
+        $orders = $this->MDetailSuratJalan->getClosingItemByIdContact($id_contact, $lastMonth);
 
         $count_orders = $orders['qty_produk'];
 
