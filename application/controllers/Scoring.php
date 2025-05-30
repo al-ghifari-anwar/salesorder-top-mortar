@@ -222,14 +222,8 @@ class Scoring extends CI_Controller
 
         if ($count_orders >= 100) {
             $score = 100;
-        } else if ($count_orders < 100 && $count_orders >= 90) {
-            $score = 90;
-        } else if ($count_orders < 90 && $count_orders >= 80) {
-            $score = 80;
-        } else if ($count_orders < 80 && $count_orders >= 70) {
-            $score = 70;
-        } else if ($count_orders < 70) {
-            $score = 65;
+        } else if ($count_orders < 100) {
+            $score = $count_orders;
         }
 
         return number_format($score, 2, '.', ',');
