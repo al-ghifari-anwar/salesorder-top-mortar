@@ -88,10 +88,10 @@ class PriorityStore extends CI_Controller
 
         if ($update) {
             $this->session->set_flashdata('success', "Berhasil menambah toko prioritas!");
-            redirect('prioritystore/' . $id_city);
+            redirect('prioritystore/');
         } else {
             $this->session->set_flashdata('failed', "Gagal menambah toko prioritas");
-            redirect('prioritystore/' . $id_city);
+            redirect('prioritystore/');
         }
     }
 
@@ -117,10 +117,10 @@ class PriorityStore extends CI_Controller
 
         if ($update) {
             $this->session->set_flashdata('success', "Berhasil menghapus toko prioritas!");
-            redirect('prioritystore/' . $id_city);
+            redirect('prioritystore/');
         } else {
             $this->session->set_flashdata('failed', "Gagal menghapus toko prioritas");
-            redirect('prioritystore/' . $id_city);
+            redirect('prioritystore/');
         }
     }
 }
