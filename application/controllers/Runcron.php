@@ -179,6 +179,12 @@ class Runcron extends CI_Controller
                                                     // return $this->output->set_output(json_encode($result));
                                                     $this->db->delete('tb_payment', ['id_payment' => $id_payment]);
 
+                                                    $invoiceData = [
+                                                        'status_invoice' => 'waiting',
+                                                    ];
+
+                                                    $updateStatusInv = $this->db->update('tb_invoice', $invoiceData, ['id_invoice' => $id_invoice]);
+
                                                     $logData = [
                                                         'source_account' => $source_account,
                                                         'to_account' => $norek_company,
