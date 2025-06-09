@@ -64,7 +64,7 @@
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $gudang['id_gudang_stok'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
                                                 <a href="<?= base_url('gudang/delete/') . $gudang['id_gudang_stok'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
-                                                <a href="<?= base_url('gudang/minimum/') . $gudang['id_gudang_stok'] ?>" class="btn btn-danger" title="Minimum Stok"><i class="fas fa-gear"></i> Atur Minimum Stok</a>
+                                                <a href="<?= base_url('gudang/minimum/') . $gudang['id_gudang_stok'] ?>" class="btn btn-purple" title="Minimum Stok"><i class="fas fa-gear"></i> Atur Minimum Stok</a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $gudang['id_gudang_stok'] ?>">
