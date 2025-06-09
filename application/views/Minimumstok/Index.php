@@ -50,24 +50,25 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Gudang</th>
+                                        <th>Nama Produk</th>
+                                        <th>Stok Minimum</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($gudangs as $gudang) : ?>
+                                    foreach ($minimums as $minimum) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $gudang['name_gudang_stok'] ?></td>
+                                            <td><?= $minimum['name_master_produk'] ?></td>
+                                            <td><?= $minimum['minimum_stok'] ?></td>
                                             <td>
-                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $gudang['id_gudang_stok'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('gudang/delete/') . $gudang['id_gudang_stok'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
-                                                <a href="<?= base_url('minimumstok/') . $gudang['id_gudang_stok'] ?>" class="btn bg-purple" title="Minimum Stok"><i class="fas fa-cog"></i>&nbsp; Atur Minimum Stok</a>
+                                                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $minimum['id_minimum_stok'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
+                                                <a href="<?= base_url('minimumstok/delete/') . $minimum['id_minimum_stok'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="modal-edit<?= $gudang['id_gudang_stok'] ?>">
+                                        <div class="modal fade" id="modal-edit<?= $minimum['id_minimum_stok'] ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -77,10 +78,21 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('gudang/update/') . $gudang['id_gudang_stok'] ?>" method="POST">
+                                                        <form action="<?= base_url('minimumstok/update/') ?>" method="POST">
+                                                            <input type="hidden" name="id_gudang_stok" value="<?= $gudang['id_gudang_stok'] ?>">
+                                                            <input type="hidden" name="id_minimum_stok" value="<?= $minimum['id_minimum_stok'] ?>">
+                                                            <input type="hidden" name="old_id_master_produk" value="<?= $minimum['id_master_produk'] ?>">
                                                             <div class="form-group">
-                                                                <label for="">Nama</label>
-                                                                <input type="text" name="name_gudang_stok" id="" class="form-control" value="<?= $gudang['name_gudang_stok'] ?>">
+                                                                <label for="">Produk</label>
+                                                                <select name="id_master_produk" id="" class="form-control select2bs4">
+                                                                    <?php foreach ($produks as $produk): ?>
+                                                                        <option value="<?= $produk['id_master_produk'] ?>" <?= $minimum['id_master_produk'] == $produk['id_master_produk'] ? 'selected' : '' ?>><?= $produk['name_master_produk'] ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Stok Minimal</label>
+                                                                <input type="numeric" name="minimum_stok" id="" class="form-control" value="<?= $minimum['minimum_stok'] ?>">
                                                             </div>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>
@@ -122,10 +134,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('gudang/create') ?>" method="POST">
+                <form action="<?= base_url('minimumstok/create') ?>" method="POST">
+                    <input type="hidden" name="id_gudang_stok" value="<?= $gudang['id_gudang_stok'] ?>">
                     <div class="form-group">
-                        <label for="">Nama</label>
-                        <input type="text" name="name_gudang_stok" id="" class="form-control">
+                        <label for="">Produk</label>
+                        <select name="id_master_produk" id="" class="form-control select2bs4">
+                            <?php foreach ($produks as $produk): ?>
+                                <option value="<?= $produk['id_master_produk'] ?>"><?= $produk['name_master_produk'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Stok Minimal</label>
+                        <input type="numeric" name="minimum_stok" id="" class="form-control" value="1">
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>
