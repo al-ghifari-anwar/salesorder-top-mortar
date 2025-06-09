@@ -126,10 +126,12 @@
                                             <td><?= normalizer_normalize($data['laporan_visit'], Normalizer::FORM_KC) ?> <?= $data['pay_date'] != null ? ' - Tanggal dijanjikan: ' . date("d F Y", strtotime($data['pay_date'])) : ''  ?></td>
                                             <td>
                                                 <a href="#" class="btn btn-primary" title="Detail" data-toggle="modal" data-target="#modal-detail<?= $data['id_visit'] ?>"><i class="fas fa-eye"></i></a>
-                                                <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve" data-toggle="modal" data-target="#modal-approve<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
+                                                <?php if ($data['is_approved'] == 0): ?>
+                                                    <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve" data-toggle="modal" data-target="#modal-approve<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
+                                                <?php endif; ?>
                                                 <?php if ($this->session->userdata('id_distributor') == 4): ?>
                                                     <?php if ($this->session->userdata('id_user') == '72' || $this->session->userdata('id_user') == '121' || $this->session->userdata('id_user') == '124'): ?>
-                                                        <a href="<?= base_url('approve-visit2/' . $data['id_visit']) ?>" class="btn btn-primary" title="Approve" data-toggle="modal" data-target="#modal-approve2<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
+                                                        <a href="#" class="btn btn-primary mx-1" title="Approve" data-toggle="modal" data-target="#modal-approve2<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                             </td>
