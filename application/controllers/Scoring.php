@@ -256,7 +256,7 @@ class Scoring extends CI_Controller
                 $monthPeriod = $period->format('Y-m');
                 // Get Invoice On period
                 $monthInv = $this->MInvoice->getByIdContactAndMonth($id_contact, $monthPeriod);
-                if ($monthInv) {
+                if (count($monthInv) > 0) {
                     $inv += count($monthInv);
                 }
             }
