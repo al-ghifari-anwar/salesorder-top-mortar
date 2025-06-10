@@ -251,7 +251,7 @@ class Scoring extends CI_Controller
             $inv = 0;
             foreach ($periods as $period) {
                 $month += 1;
-                $score = 100;
+                // $score = 100;
 
                 $monthPeriod = $period->format('Y-m');
                 // Get Invoice On period
@@ -260,6 +260,8 @@ class Scoring extends CI_Controller
                     $inv += count($monthInv);
                 }
             }
+
+            $score = ($inv / $month) * 100;
 
             $array_months = array();
 
@@ -280,7 +282,7 @@ class Scoring extends CI_Controller
             //     }
             // }
 
-            return number_format($inv, 2, '.', ',');
+            return number_format($score, 2, '.', ',');
         } else {
             return number_format(0, 2, '.', ',');
         }
