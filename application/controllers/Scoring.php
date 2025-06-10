@@ -170,7 +170,7 @@ class Scoring extends CI_Controller
             'payment' => $paymentScore,
             'frequency' => $frequencyScore,
             'order' => $orderScore,
-            'total' => $totalScore,
+            'total' => number_format($totalScore, 2, '.', ','),
         ];
 
         return $this->output->set_output(json_encode($scoreData));
