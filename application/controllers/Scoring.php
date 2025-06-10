@@ -280,7 +280,7 @@ class Scoring extends CI_Controller
             //     }
             // }
 
-            return number_format($month, 2, '.', ',');
+            return number_format($inv, 2, '.', ',');
         } else {
             return number_format(0, 2, '.', ',');
         }
