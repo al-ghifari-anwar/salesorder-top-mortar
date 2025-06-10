@@ -246,25 +246,41 @@ class Scoring extends CI_Controller
                 new DateTime($date_now)
             );
 
-            $array_months = array();
-            // Scoring System
-            $score = 100;
+            // New Scoring
+            $month = 0;
+            $inv = 0;
             foreach ($periods as $period) {
-                $month = $period->format('Y-m');
+                $month += 1;
+                $score = 100;
+
+                $monthPeriod = $period->format('Y-m');
                 // Get Invoice On period
-                $monthInv = $this->MInvoice->getByIdContactAndMonth($id_contact, $month);
+                $monthInv = $this->MInvoice->getByIdContactAndMonth($id_contact, $monthPeriod);
                 if ($monthInv) {
-                    if ($score < 100) {
-                        $score += 10;
-                    }
-                } else {
-                    if ($score > 0) {
-                        $score -= 10;
-                    }
+                    $inv += count($monthInv);
                 }
             }
 
-            return number_format($score, 2, '.', ',');
+            $array_months = array();
+
+            // Scoring System
+            // $score = 100;
+            // foreach ($periods as $period) {
+            //     $month = $period->format('Y-m');
+            // Get Invoice On period
+            //     $monthInv = $this->MInvoice->getByIdContactAndMonth($id_contact, $month);
+            //     if ($monthInv) {
+            //         if ($score < 100) {
+            //             $score += 10;
+            //         }
+            //     } else {
+            //         if ($score > 0) {
+            //             $score -= 10;
+            //         }
+            //     }
+            // }
+
+            return number_format($month, 2, '.', ',');
         } else {
             return number_format(0, 2, '.', ',');
         }
