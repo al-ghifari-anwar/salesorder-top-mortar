@@ -282,7 +282,7 @@ class Scoring extends CI_Controller
             //     }
             // }
 
-            return number_format($score, 2, '.', ',');
+            return number_format($score > 100 ? 100 : $score, 2, '.', ',');
         } else {
             return number_format(0, 2, '.', ',');
         }
