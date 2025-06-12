@@ -190,8 +190,8 @@ class Runcron extends CI_Controller
                                                         'to_account' => $norek_company,
                                                         'amount_log_bca' => $amountValue,
                                                         'status_log_bca' => 'failed',
-                                                        'desc_log_bca' => "Error on API connection",
-                                                        'ref_log_bca' => $resData['referenceNo'],
+                                                        'desc_log_bca' => "Error on API connection: " . json_encode($res['data']),
+                                                        'ref_log_bca' => '-',
                                                         'created_at' => date("Y-m-d H:i:s"),
                                                         'updated_at' => date("Y-m-d H:i:s"),
                                                     ];
