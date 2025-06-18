@@ -131,7 +131,7 @@ class Scoring extends CI_Controller
 
                     if ($countVisit >= 8) {
                         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
-                        $getWaitingInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting'])->result_array();
+                        $getWaitingInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'id_contact' => $id_contact])->result_array();
 
                         if (count($getWaitingInvoice) > 0) {
                             $badScoreData = [
