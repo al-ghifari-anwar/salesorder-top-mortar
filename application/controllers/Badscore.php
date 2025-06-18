@@ -38,7 +38,8 @@ class Badscore extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Toko Skor Jelek';
-        $data['contacts'] = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'is_bad_score' => 1])->result_array();
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_bad_score.id_contact');
+        $data['contacts'] = $this->db->get_where('tb_bad_score', ['id_city' => $id_city])->result_array();
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
