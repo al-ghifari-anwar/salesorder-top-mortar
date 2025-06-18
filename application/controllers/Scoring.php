@@ -27,7 +27,7 @@ class Scoring extends CI_Controller
         }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
-        $this->load->view('Scroring/CityList');
+        $this->load->view('Scoring/CityList');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
@@ -60,7 +60,7 @@ class Scoring extends CI_Controller
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
-        $this->load->view('Scroring/List');
+        $this->load->view('Scoring/List');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
