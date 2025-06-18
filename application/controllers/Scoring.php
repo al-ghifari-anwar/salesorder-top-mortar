@@ -137,7 +137,7 @@ class Scoring extends CI_Controller
                             'last_score' => $totalScore,
                         ];
 
-                        $this->db->insert('tb_visit', $badScoreData);
+                        $this->db->insert('tb_bad_score', $badScoreData);
                     } else {
                         $badScoreData = [
                             'id_contact' => $id_contact,
@@ -146,7 +146,7 @@ class Scoring extends CI_Controller
                             'last_score' => $totalScore,
                         ];
 
-                        $this->db->insert('tb_visit', $badScoreData);
+                        $this->db->insert('tb_bad_score', $badScoreData);
                     }
                 }
                 // }
