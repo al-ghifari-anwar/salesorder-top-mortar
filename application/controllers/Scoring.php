@@ -96,7 +96,7 @@ class Scoring extends CI_Controller
         $contacts = $this->db->get('tb_contact')->result_array();
 
         foreach ($contacts as $contact) {
-            if ($contact['id_distributor'] != 6) {
+            if ($contact['id_distributor'] != 6 && $contact['id_distributor'] != 4) {
                 $id_contact = $contact['id_contact'];
 
                 // Get Score
