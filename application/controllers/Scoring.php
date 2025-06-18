@@ -130,14 +130,28 @@ class Scoring extends CI_Controller
                     $countVisit = count($getVisit);
 
                     if ($countVisit >= 8) {
-                        $badScoreData = [
-                            'id_contact' => $id_contact,
-                            'is_approved' => 1,
-                            'type_approval' => 'auto',
-                            'last_score' => $totalScore,
-                        ];
+                        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
+                        $getWaitingInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting'])->result_array();
 
-                        $this->db->insert('tb_bad_score', $badScoreData);
+                        if (count($getWaitingInvoice) > 0) {
+                            $badScoreData = [
+                                'id_contact' => $id_contact,
+                                'is_approved' => 0,
+                                'type_approval' => 'pending',
+                                'last_score' => $totalScore,
+                            ];
+
+                            $this->db->insert('tb_bad_score', $badScoreData);
+                        } else {
+                            $badScoreData = [
+                                'id_contact' => $id_contact,
+                                'is_approved' => 1,
+                                'type_approval' => 'auto',
+                                'last_score' => $totalScore,
+                            ];
+
+                            $this->db->insert('tb_bad_score', $badScoreData);
+                        }
                     } else {
                         $badScoreData = [
                             'id_contact' => $id_contact,
