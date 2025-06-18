@@ -125,12 +125,29 @@ class Scoring extends CI_Controller
                 // if (isset($res['total'])) {
                 $totalScore = $res['total'];
 
-                if ($totalScore < 60) {
-                    $contactData = [
-                        'is_bad_score' => 1,
-                    ];
+                if ($totalScore < 70) {
+                    $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact])->result_array();
+                    $countVisit = count($getVisit);
 
-                    $this->db->update('tb_contact', $contactData, ['id_contact' => $id_contact]);
+                    if ($countVisit >= 8) {
+                        $badScoreData = [
+                            'id_contact' => $id_contact,
+                            'is_approved' => 1,
+                            'type_approval' => 'auto',
+                            'last_score' => $totalScore,
+                        ];
+
+                        $this->db->insert('tb_visit', $badScoreData);
+                    } else {
+                        $badScoreData = [
+                            'id_contact' => $id_contact,
+                            'is_approved' => 0,
+                            'type_approval' => 'pending',
+                            'last_score' => $totalScore,
+                        ];
+
+                        $this->db->insert('tb_visit', $badScoreData);
+                    }
                 }
                 // }
             }
