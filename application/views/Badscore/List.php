@@ -53,7 +53,7 @@
                                         <th>Reputation</th>
                                         <th>Approved</th>
                                         <th>Status Approval</th>
-                                        <th>Skor Akhir</th>
+                                        <th>Skor Terakhir</th>
                                         <th>Tgl</th>
                                     </tr>
                                 </thead>
