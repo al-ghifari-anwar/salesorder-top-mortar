@@ -393,8 +393,8 @@ function penyebut($nilai)
                     <td class="border"><?= $count_invoice ?></td>
                     <td class="border text-blue"><?= $count_invoice - $count_late_payment ?></td>
                     <td class="border text-purple"><?= $count_late_payment ?></td>
-                    <td class="border <?= $color_text ?>"><?= number_format($val_scoring, 2, '.', ',') ?></td>
-                    <td class="border <?= $color_text ?>"><?= number_format($last_val_scoring, 2, '.', ',') ?></td>
+                    <td class="border"><?= number_format($total_score['payment'], 2, '.', ',') ?></td>
+                    <td class="border"><?= number_format($last_val_scoring, 2, '.', ',') ?></td>
                     <td class="border"><?= $totalScore['frequency'] ?></td>
                     <td class="border"><?= $totalScore['order'] ?></td>
                     <td class="border"><?= $totalScore['total'] ?></td>
