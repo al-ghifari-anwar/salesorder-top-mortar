@@ -52,10 +52,8 @@
                                         <th>Nomor HP</th>
                                         <th>Status</th>
                                         <th>Reputation</th>
-                                        <th>Score Pembayaran</th>
-                                        <th>Score Freq</th>
-                                        <th>Score Jml Order</th>
-                                        <th>Total Score</th>
+                                        <th>Skor Akhir</th>
+                                        <th>Tgl</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,31 +62,8 @@
                                     foreach ($contacts as $data) : ?>
                                         <?php
                                         $id_contact = $data['id_contact'];
-                                        $id_promo = $data['id_promo'];
-                                        $getPromo = $this->db->get('tb_promo', ['id_promo' => $id_promo])->row_array();
-
-                                        // Get Score
-                                        $curl = curl_init();
-
-                                        curl_setopt_array($curl, array(
-                                            CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $id_contact,
-                                            CURLOPT_RETURNTRANSFER => true,
-                                            CURLOPT_ENCODING => '',
-                                            CURLOPT_MAXREDIRS => 10,
-                                            CURLOPT_TIMEOUT => 0,
-                                            CURLOPT_FOLLOWLOCATION => true,
-                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                            CURLOPT_CUSTOMREQUEST => 'POST',
-                                            CURLOPT_HTTPHEADER => array(
-                                                'Cookie: ci_session=2scmao9aquusdrn7rm2i7vkrifkamkld'
-                                            ),
-                                        ));
-
-                                        $response = curl_exec($curl);
-
-                                        curl_close($curl);
-
-                                        $scoreRes = json_decode($response, true);
+                                        $id_bad_score = $data['id_bad_score'];
+                                        $badscore = $this->db->get_where('tb_bad_score', ['id_bad_score' => $id_bad_score])->row_array();
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
@@ -97,10 +72,8 @@
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
-                                            <td><?= $scoreRes['payment'] ?></td>
-                                            <td><?= $scoreRes['frequency'] ?></td>
-                                            <td><?= $scoreRes['order'] ?></td>
-                                            <td><?= number_format($scoreRes['total'], 2, '.', ',') ?></td>
+                                            <td><?= $data['last_score'] ?></td>
+                                            <td><?= date("d F Y - H:i", strtotime($badscore['created_at'])) ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
