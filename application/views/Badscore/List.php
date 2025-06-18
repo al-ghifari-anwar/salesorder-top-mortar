@@ -48,10 +48,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Toko</th>
-                                        <th>Pemilik</th>
                                         <th>Nomor HP</th>
                                         <th>Status</th>
                                         <th>Reputation</th>
+                                        <th>Approved</th>
+                                        <th>Status Approval</th>
                                         <th>Skor Akhir</th>
                                         <th>Tgl</th>
                                     </tr>
@@ -68,11 +69,12 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
-                                            <td><?= $data['store_owner'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
-                                            <td><?= $data['last_score'] ?></td>
+                                            <td><?= $badscore['is_approved'] == 1 ? 'Ya' : 'Tidak' ?></td>
+                                            <td><?= $badscore['type_approval'] ?></td>
+                                            <td><?= $badscore['last_score'] ?></td>
                                             <td><?= date("d F Y - H:i", strtotime($badscore['created_at'])) ?></td>
                                         </tr>
 
