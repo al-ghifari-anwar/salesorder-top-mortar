@@ -264,21 +264,6 @@
                     }
                 }
 
-                if ($val_scoring > 100) {
-                    $val_scoring = 100;
-                } else if ($val_scoring <= 100 && $val_scoring > 0) {
-                    $val_scoring = $val_scoring;
-                } else if ($val_scoring < 0) {
-                    $val_scoring = 0;
-                }
-
-                if ($last_val_scoring > 100) {
-                    $last_val_scoring = 100;
-                } else if ($last_val_scoring <= 100 && $last_val_scoring > 0) {
-                    $last_val_scoring = $last_val_scoring;
-                } else if ($last_val_scoring < 0) {
-                    $last_val_scoring = 0;
-                }
                 ?>
                 <div class="row">
                     <div class="col-12">
@@ -327,6 +312,23 @@
                                 } else if ($last_val_scoring <= 80) {
                                     $color_text = 'text-danger';
                                     $last_progress_color = 'danger';
+                                }
+
+
+                                if ($val_scoring > 100) {
+                                    $val_scoring = 100;
+                                } else if ($val_scoring <= 100 && $val_scoring > 0) {
+                                    $val_scoring = $val_scoring;
+                                } else if ($val_scoring < 0) {
+                                    $val_scoring = 0;
+                                }
+
+                                if ($last_val_scoring > 100) {
+                                    $last_val_scoring = 100;
+                                } else if ($last_val_scoring <= 100 && $last_val_scoring > 0) {
+                                    $last_val_scoring = $last_val_scoring;
+                                } else if ($last_val_scoring < 0) {
+                                    $last_val_scoring = 0;
                                 }
                                 ?>
                                 <div class="row">
