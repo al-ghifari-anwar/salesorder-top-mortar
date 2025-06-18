@@ -413,6 +413,6 @@ class Scoring extends CI_Controller
             $val_scoring = 0;
         }
 
-        return $val_scoring;
+        return number_format($val_scoring, 2, '.', ',');
     }
 }
