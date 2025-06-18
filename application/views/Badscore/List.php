@@ -68,7 +68,7 @@
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['nama'] ?></td>
+                                            <td><?= $data['nama'] ?> (<?= $data['id_contact'] ?>)</td>
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['store_status'] ?></td>
                                             <td><?= $data['reputation'] ?></td>
