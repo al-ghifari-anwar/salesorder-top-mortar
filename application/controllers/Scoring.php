@@ -91,8 +91,9 @@ class Scoring extends CI_Controller
         $this->output->set_content_type('application/json');
 
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $this->db->where_not_in('store_status', ['data', 'active']);
-        $contacts = $this->db->get_where('tb_contact', ['is_bad_score' => 0])->result_array();
+        $this->db->where_in('store_status', ['passive', 'data']);
+        $this->db->where('id_contact NOT IN (SELECT id_contact FROM tb_bad_score)', null, false);
+        $contacts = $this->db->get('tb_contact')->result_array();
 
         foreach ($contacts as $contact) {
             if ($contact['id_distributor'] != 6) {
@@ -282,7 +283,15 @@ class Scoring extends CI_Controller
             //     }
             // }
 
-            return number_format($score > 100 ? 100 : $score, 2, '.', ',');
+            if ($score > 100) {
+                $score = 100;
+            } else if ($score <= 100 && $score > 0) {
+                $score = $score;
+            } else if ($score < 0) {
+                $score = 0;
+            }
+
+            return number_format($score, 2, '.', ',');
         } else {
             return number_format(0, 2, '.', ',');
         }
@@ -395,6 +404,14 @@ class Scoring extends CI_Controller
         }
 
         $val_scoring = number_format($total_score / $count_invoice, 2, '.', '.');
+
+        if ($val_scoring > 100) {
+            $val_scoring = 100;
+        } else if ($val_scoring <= 100 && $val_scoring > 0) {
+            $val_scoring = $val_scoring;
+        } else if ($val_scoring < 0) {
+            $val_scoring = 0;
+        }
 
         return $val_scoring;
     }
