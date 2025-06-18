@@ -263,6 +263,22 @@
                         }
                     }
                 }
+
+                if ($val_scoring > 100) {
+                    $val_scoring = 100;
+                } else if ($val_scoring <= 100 && $val_scoring > 0) {
+                    $val_scoring = $val_scoring;
+                } else if ($val_scoring < 0) {
+                    $val_scoring = 0;
+                }
+
+                if ($last_val_scoring > 100) {
+                    $last_val_scoring = 100;
+                } else if ($last_val_scoring <= 100 && $last_val_scoring > 0) {
+                    $last_val_scoring = $last_val_scoring;
+                } else if ($last_val_scoring < 0) {
+                    $last_val_scoring = 0;
+                }
                 ?>
                 <div class="row">
                     <div class="col-12">
