@@ -212,7 +212,7 @@ class Tukang extends CI_Controller
                 $this->session->set_flashdata('success', "Berhasil kirim voucher!");
                 redirect('sebarvctukang/' . $id_city);
             } else {
-                $this->session->set_flashdata('failed', "Gagal kirim notif voucher! ");
+                $this->session->set_flashdata('failed', "Gagal kirim notif voucher! " . json_encode($resArray));
                 redirect('sebarvctukang/' . $id_city);
             }
         } else {
