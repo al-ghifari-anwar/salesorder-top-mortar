@@ -187,13 +187,13 @@ class Tukang extends CI_Controller
                     ],
                     'buttons' => [
                         [
-                            'index' => 1,
                             'type' => 'text',
+                            'index' => 1,
                             'payload' => 'penukaranstore',
                         ],
                         [
-                            'index' => 2,
                             'type' => 'text',
+                            'index' => 2,
                             'payload' => 'referal/' . $voucherCode,
                         ],
                     ]
