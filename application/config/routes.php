@@ -343,6 +343,8 @@ $route['scoring/setbad'] = 'Scoring/setBadScore';
 // Bad Score
 $route['badscore'] = 'Badscore/city_list';
 $route['badscore/(:num)'] = 'Badscore/list/$1';
+$route['badscore/approve/(:num)'] = 'Badscore/approve/$1';
+$route['badscore/tampilkan/(:num)'] = 'Badscore/tampilkan/$1';
 // Minimum stok
 $route['minimumstok/(:num)'] = 'Minimumstok/index/$1';
 $route['minimumstok/create'] = 'Minimumstok/create';

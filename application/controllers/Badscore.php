@@ -47,4 +47,42 @@ class Badscore extends CI_Controller
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
+
+    public function approve($id_contact)
+    {
+        $badscoreData = [
+            'is_approved' => 1,
+            'type_approval' => 'approved_by_' . $this->session->userdata('username'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ];
+
+        $save = $this->db->update('tb_bad_score', $badscoreData, ['id_contact' => $id_contact]);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil approve!");
+            redirect('badscore');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal approve!");
+            redirect('badscore');
+        }
+    }
+
+    public function tampilkan($id_contact)
+    {
+        $badscoreData = [
+            'is_approved' => 0,
+            'type_approval' => 'pending_by_' . $this->session->userdata('username'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ];
+
+        $save = $this->db->update('tb_bad_score', $badscoreData, ['id_contact' => $id_contact]);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil menampilkan toko!");
+            redirect('badscore');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menampilkan toko!");
+            redirect('badscore');
+        }
+    }
 }

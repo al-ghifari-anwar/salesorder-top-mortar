@@ -79,10 +79,10 @@
                                             <td><?= date("d F Y - H:i", strtotime($badscore['created_at'])) ?></td>
                                             <td>
                                                 <?php if ($badscore['is_approved'] == 0): ?>
-                                                    <a href="#" class="btn btn-danger mr-1"><i class="fas fa-store-slash"></i> Approve</a>
+                                                    <a href="<?= base_url('badscore/approve/' . $data['id_contact']) ?>" class="btn btn-danger mr-1"><i class="fas fa-store-slash"></i> Approve</a>
                                                 <?php endif ?>
                                                 <?php if ($badscore['is_approved'] == 1): ?>
-                                                    <a href="#" class="btn btn-primary mr-1"><i class="fas fa-eye"></i> Tampilkan Lagi</a>
+                                                    <a href="<?= base_url('badscore/tampilkan/' . $data['id_contact']) ?>" class="btn btn-primary mr-1"><i class="fas fa-eye"></i> Tampilkan Lagi</a>
                                                 <?php endif ?>
                                             </td>
                                         </tr>
