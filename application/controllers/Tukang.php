@@ -192,7 +192,7 @@ class Tukang extends CI_Controller
                             'payload' => 'penukaranstore',
                         ],
                         [
-                            'index' => 2,
+                            'index' => 1,
                             'type' => 'text',
                             'payload' => 'referal/' . $voucherCode,
                         ],
