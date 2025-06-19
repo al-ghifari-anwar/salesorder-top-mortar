@@ -166,7 +166,7 @@ class Tukang extends CI_Controller
             // Send message
             $jsonRequest = [
                 'to' => $nomor_hp,
-                'msgType' => 'image',
+                'msgType' => 'text',
                 'templateId' => '2c188c43-d6c8-4385-985e-02284980eabb',
                 'values' => [
                     'body' => [
