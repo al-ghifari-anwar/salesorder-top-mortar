@@ -150,8 +150,6 @@
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
-                                </tbody>
-                                <tfoot>
                                     <tr>
                                         <th></th>
                                         <th>Total</th>
@@ -165,7 +163,10 @@
                                             <?php endif; ?>
                                         </th>
                                     </tr>
-                                </tfoot>
+                                </tbody>
+                                <!-- <tfoot> -->
+
+                                <!-- </tfoot> -->
                             </table>
                         </div>
                     </div>
