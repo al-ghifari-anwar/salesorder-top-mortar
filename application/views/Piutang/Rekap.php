@@ -153,7 +153,8 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th colspan="2">Total</th>
+                                        <th></th>
+                                        <th>Total</th>
                                         <th>Rp. <?= number_format($totalAll0to7, 0, ',', '.') ?></th>
                                         <th>Rp. <?= number_format($totalAll8to15, 0, ',', '.') ?></th>
                                         <th>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></th>
