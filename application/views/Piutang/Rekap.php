@@ -150,22 +150,23 @@
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
-                                    <tr>
-                                        <th></th>
-                                        <th>Total</th>
-                                        <th>Rp. <?= number_format($totalAll0to7, 0, ',', '.') ?></th>
-                                        <th>Rp. <?= number_format($totalAll8to15, 0, ',', '.') ?></th>
-                                        <th>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></th>
-                                        <th>Rp. <?= number_format($totalAllPiutang, 0, ',', '.') ?></th>
-                                        <th>
-                                            <?php if ($totalAll16 > 0): ?>
-                                                <?= number_format(($totalAll16 / $totalAllPiutang) * 100, 2, '.', ',') ?>%
-                                            <?php endif; ?>
-                                        </th>
-                                    </tr>
-                                </tbody>
-                                <!-- <tfoot> -->
 
+                                </tbody>
+
+                                <!-- <tfoot> -->
+                                <tr>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th>Rp. <?= number_format($totalAll0to7, 0, ',', '.') ?></th>
+                                    <th>Rp. <?= number_format($totalAll8to15, 0, ',', '.') ?></th>
+                                    <th>Rp. <?= number_format($totalAll16, 0, ',', '.') ?></th>
+                                    <th>Rp. <?= number_format($totalAllPiutang, 0, ',', '.') ?></th>
+                                    <th>
+                                        <?php if ($totalAll16 > 0): ?>
+                                            <?= number_format(($totalAll16 / $totalAllPiutang) * 100, 2, '.', ',') ?>%
+                                        <?php endif; ?>
+                                    </th>
+                                </tr>
                                 <!-- </tfoot> -->
                             </table>
                         </div>
