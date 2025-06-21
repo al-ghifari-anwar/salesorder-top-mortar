@@ -59,25 +59,7 @@
         "lengthChange": true,
         "autoWidth": true,
         'footer': true,
-        "buttons": [{
-            extends: "copy",
-            footer: true
-        }, {
-            extends: "csv",
-            footer: true
-        }, {
-            extends: "excel",
-            footer: true
-        }, {
-            extends: "pdf",
-            footer: true
-        }, {
-            extends: "print",
-            footer: true
-        }, {
-            extends: "colvis",
-            footer: true
-        }]
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#table-print_wrapper .col-md-6:eq(0)');
 
     //Initialize Select2 Elements
