@@ -180,13 +180,51 @@ function penyebut($nilai)
 
                 $jatuhTempo = date('Y-m-d', strtotime("+" . $contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
 
-                if ($payments) {
+                if ($jatuhTempo <= date("Y-m-d")) {
+                    if ($payments) {
 
-                    foreach ($payments as $payment) {
-                        $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
-                        if ($datePayment > $jatuhTempo) {
+                        foreach ($payments as $payment) {
+                            $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
+                            if ($datePayment > $jatuhTempo) {
+                                $count_late_payment += 1;
+                                $date1 = new DateTime($datePayment);
+                                $date2 = new DateTime($jatuhTempo);
+                                $days  = $date2->diff($date1)->format('%a');
+
+                                $scoreData = [
+                                    'id_invoice' => $invoice['id_invoice'],
+                                    'no_invoice' => $invoice['no_invoice'],
+                                    'status' => 'late',
+                                    'days_late' => $days,
+                                    'date_jatem' => $jatuhTempo,
+                                    'date_payment' => $datePayment,
+                                    'percent_score' => 100 - $days,
+                                    'is_cod' => $sj['is_cod'],
+                                    'date_invoice' => $invoice['date_invoice'],
+                                ];
+
+                                array_push($array_scoring, $scoreData);
+                            } else {
+                                $scoreData = [
+                                    'id_invoice' => $invoice['id_invoice'],
+                                    'no_invoice' => $invoice['no_invoice'],
+                                    'status' => 'good',
+                                    'days_late' => 0,
+                                    'date_jatem' => $jatuhTempo,
+                                    'date_payment' => $datePayment,
+                                    'percent_score' => 100,
+                                    'is_cod' => $sj['is_cod'],
+                                    'date_invoice' => $invoice['date_invoice'],
+                                ];
+
+                                array_push($array_scoring, $scoreData);
+                            }
+                        }
+                    } else {
+                        $dateNow = date("Y-m-d");
+                        if ($dateNow > $jatuhTempo) {
                             $count_late_payment += 1;
-                            $date1 = new DateTime($datePayment);
+                            $date1 = new DateTime($dateNow);
                             $date2 = new DateTime($jatuhTempo);
                             $days  = $date2->diff($date1)->format('%a');
 
@@ -196,7 +234,7 @@ function penyebut($nilai)
                                 'status' => 'late',
                                 'days_late' => $days,
                                 'date_jatem' => $jatuhTempo,
-                                'date_payment' => $datePayment,
+                                'date_payment' => $dateNow,
                                 'percent_score' => 100 - $days,
                                 'is_cod' => $sj['is_cod'],
                                 'date_invoice' => $invoice['date_invoice'],
@@ -210,7 +248,7 @@ function penyebut($nilai)
                                 'status' => 'good',
                                 'days_late' => 0,
                                 'date_jatem' => $jatuhTempo,
-                                'date_payment' => $datePayment,
+                                'date_payment' => $dateNow,
                                 'percent_score' => 100,
                                 'is_cod' => $sj['is_cod'],
                                 'date_invoice' => $invoice['date_invoice'],
@@ -218,42 +256,6 @@ function penyebut($nilai)
 
                             array_push($array_scoring, $scoreData);
                         }
-                    }
-                } else {
-                    $dateNow = date("Y-m-d");
-                    if ($dateNow > $jatuhTempo) {
-                        $count_late_payment += 1;
-                        $date1 = new DateTime($dateNow);
-                        $date2 = new DateTime($jatuhTempo);
-                        $days  = $date2->diff($date1)->format('%a');
-
-                        $scoreData = [
-                            'id_invoice' => $invoice['id_invoice'],
-                            'no_invoice' => $invoice['no_invoice'],
-                            'status' => 'late',
-                            'days_late' => $days,
-                            'date_jatem' => $jatuhTempo,
-                            'date_payment' => $dateNow,
-                            'percent_score' => 100 - $days,
-                            'is_cod' => $sj['is_cod'],
-                            'date_invoice' => $invoice['date_invoice'],
-                        ];
-
-                        array_push($array_scoring, $scoreData);
-                    } else {
-                        $scoreData = [
-                            'id_invoice' => $invoice['id_invoice'],
-                            'no_invoice' => $invoice['no_invoice'],
-                            'status' => 'good',
-                            'days_late' => 0,
-                            'date_jatem' => $jatuhTempo,
-                            'date_payment' => $dateNow,
-                            'percent_score' => 100,
-                            'is_cod' => $sj['is_cod'],
-                            'date_invoice' => $invoice['date_invoice'],
-                        ];
-
-                        array_push($array_scoring, $scoreData);
                     }
                 }
             }
