@@ -382,11 +382,11 @@ function penyebut($nilai)
             }
             $last_val_scoring = number_format($last_total_score / $last_count_invoice, 2, '.', '.');
             if ($last_val_scoring > 90 && $last_val_scoring <= 100) {
-                $color_text = 'text-success';
+                $last_color_text = 'text-success';
             } else if ($last_val_scoring > 80 && $last_val_scoring <= 90) {
-                $color_text = 'text-teal';
+                $last_color_text = 'text-teal';
             } else if ($last_val_scoring <= 80) {
-                $color_text = 'text-danger';
+                $last_color_text = 'text-danger';
             }
 
             if ($val_scoring > 100) {
@@ -415,7 +415,7 @@ function penyebut($nilai)
                     <td class="border text-blue"><?= $count_invoice - $count_late_payment ?></td>
                     <td class="border text-purple"><?= $count_late_payment ?></td>
                     <td class="border <?= $color_text ?>"><?= $val_scoring  ?></td>
-                    <td class="border <?= $color_text ?>"><?= $last_val_scoring ?></td>
+                    <td class="border <?= $last_color_text ?>"><?= $last_val_scoring ?></td>
                     <td class="border"><?= $totalScore['frequency'] ?></td>
                     <td class="border"><?= $totalScore['order'] ?></td>
                     <td class="border"><?= $totalScore['total'] ?></td>
