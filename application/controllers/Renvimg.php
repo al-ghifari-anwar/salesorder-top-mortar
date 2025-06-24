@@ -42,7 +42,7 @@ class Renvimg extends CI_Controller
         $data['toko'] = $this->MContact->getAllForRenviMg($id_city);
         $this->db->select("tb_rencana_visit.*, tb_contact.nama, tb_contact.nomorhp, tb_contact.id_city, tb_contact.store_status, tb_contact.store_owner, tb_contact.maps_url, tb_contact.created_at AS created_at_store, tb_contact.reputation");
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_rencana_visit.id_contact');
-        $this->db->where('id_contact NOT IN (SELECT id_contact FROM tb_bad_score WHERE is_approved = 1)', null, false);
+        $this->db->where('tb_sontact.id_contact NOT IN (SELECT id_contact FROM tb_bad_score WHERE is_approved = 1)', null, false);
         $this->db->group_by('tb_rencana_visit.id_contact');
         $data['renvimg'] = $this->db->get_where('tb_rencana_visit', ['id_city' => $id_city, 'type_rencana' => 'mg', 'is_visited' => 0])->result_array();
         $data['id_city'] = $id_city;
