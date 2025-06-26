@@ -70,7 +70,6 @@
                                             <td><?= $masterprodukSatuan['name_satuan'] ?></td>
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $masterproduk['id_master_produk'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('masterproduk/delete/') . $masterproduk['id_master_produk'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $masterproduk['id_master_produk'] ?>">

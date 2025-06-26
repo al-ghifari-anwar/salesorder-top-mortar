@@ -82,7 +82,9 @@ class Masterproduk extends CI_Controller
 
     public function delete($id)
     {
-        $insert = $this->db->delete('tb_master_produk', ['id_master_produk' => $id]);
+        // $insert = $this->db->delete('tb_master_produk', ['id_master_produk' => $id]);
+
+        $insert = false;
 
         if ($insert) {
             $this->session->set_flashdata('success', "Berhasil menghapus data masterproduk!");
