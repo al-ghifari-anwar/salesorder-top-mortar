@@ -131,7 +131,13 @@ class Masterproduk extends CI_Controller
                     }
                 }
             } else {
-                continue;
+                $id_master_produk = $masterProduk['id_master_produk'];
+
+                $dataProduk = [
+                    'id_master_produk' => $id_master_produk
+                ];
+
+                $updateProduk = $this->db->update('tb_produk', $dataProduk, ['nama_produk' => $nama_produk]);
             }
         }
 
