@@ -17,6 +17,8 @@ class Maxchat extends CI_Controller
 
     public function inbound()
     {
+        $OPENAI_API_KEY = 'sk-...'; // Ganti dengan key kamu
+
         $json = file_get_contents("php://input");
 
         $vars = json_decode($json, true);
@@ -42,13 +44,91 @@ class Maxchat extends CI_Controller
         $getOutbound = $this->db->get_where('tb_outbound_msg', ['to_outbound_msg' => $target_number])->row_array();
 
         if (!$getOutbound) {
-            // Nothing  to do
-            $logData = [
-                'to_number' => $target_number,
-                'status' => 'No Outbound'
+            // Koneksi ke API Openchat
+            $OPENAI_API_KEY = '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'; // Ganti dengan key kamu
+            $message = $vars['text'];
+
+            // Siapkan payload
+            $openaiPayload = [
+                "model" => "gpt-4", // atau "gpt-3.5-turbo"
+                "messages" => [
+                    [
+                        "role" => "system",
+                        "content" => "Kamu adalah sales Top Mortar Indonesia yang ramah dan informatif. Jika ada pertanyaan terkait stok atau pemesanan, gunakan endpoint API dari sistem internal untuk menjawab. Jangan pernah membalas dengan informasi produk lain selain top mortar indonesia"
+                    ],
+                    [
+                        "role" => "user",
+                        "content" => $message
+                    ]
+                ],
+                "temperature" => 0.7
             ];
 
-            $this->db->insert('tb_log_vc_maxchat', $logData);
+            // Kirim request
+            $ch = curl_init("https://api.openai.com/v1/chat/completions");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                "Content-Type: application/json",
+                "Authorization: Bearer $OPENAI_API_KEY"
+            ]);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($openaiPayload));
+
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            // Ambil jawaban AI
+            $responseData = json_decode($response, true);
+            $openaiResponse = $responseData['choices'][0]['message']['content'] ?? 'Mohon maaf, terjadi kesalahan.';
+
+            // Send WA balasan
+            $messageRequest = [
+                'to' => $target_number,
+                'msgType' => 'image',
+                'templateId' => 'b75d51f9-c925-4a62-8b93-dd072600b95b',
+                'values' => [
+                    'body' => [
+                        [
+                            'index' => 1,
+                            'type' => 'text',
+                            'text' => $vars['username']
+                        ],
+                        [
+                            'index' => 2,
+                            'type' => 'text',
+                            'text' => $openaiResponse
+                        ]
+                    ]
+                ]
+            ];
+
+            $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $messageRequest);
+
+            // $res = json_decode($response, true);
+            // echo $response;
+            // die;
+
+            // $status = $res['status'];
+
+            if (isset($resArray['content'])) {
+                $logData = [
+                    'to_number' => $target_number,
+                    'status' => 'Succes send AI response',
+                ];
+
+                $this->db->insert('tb_log_vc_maxchat', $logData);
+
+                $this->session->set_flashdata('success', "Berhasil kirim balasan AI!");
+            } else {
+                $logData = [
+                    'to_number' => $target_number,
+                    'status' => 'Fail send AI response',
+                ];
+
+                $this->db->insert('tb_log_vc_maxchat', $logData);
+
+                $this->session->set_flashdata('failed', "Gagal kirim balasan AI! ");
+            }
         } else {
             if (str_contains($getOutbound['id_maxchat'], 'broadcast')) {
                 $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $target_number])->row_array();
