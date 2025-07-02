@@ -126,7 +126,7 @@ class Maxchat extends CI_Controller
                 }
             } else {
                 // Koneksi ke API Openchat
-                $OPENAI_API_KEY = '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'; // Ganti dengan key kamu
+                $OPENAI_API_KEY = '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'; // Ganti dengan key kamu
                 $message = $vars['text'];
 
                 // Siapkan payload
