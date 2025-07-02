@@ -194,7 +194,7 @@ class Maxchat extends CI_Controller
                 if (isset($resArray['content'])) {
                     $logData = [
                         'to_number' => $target_number,
-                        'status' => 'Succes send AI response',
+                        'status' => 'Succes send AI response. ' . json_encode($responseData),
                     ];
 
                     $this->db->insert('tb_log_vc_maxchat', $logData);
@@ -203,7 +203,7 @@ class Maxchat extends CI_Controller
                 } else {
                     $logData = [
                         'to_number' => $target_number,
-                        'status' => 'Fail send AI response',
+                        'status' => 'Fail send AI response. '  . json_encode($responseData),
                     ];
 
                     $this->db->insert('tb_log_vc_maxchat', $logData);
