@@ -125,8 +125,9 @@ class Maxchat extends CI_Controller
                     }
                 }
             } else {
+                $openai = $this->db->get_where('tb_openai', ['id_openai' => 1])->row_array();
                 // Koneksi ke API Openchat
-                $OPENAI_API_KEY = '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'; // Ganti dengan key kamu
+                $OPENAI_API_KEY = $openai['keys'];
                 $message = $vars['text'];
 
                 // Siapkan payload
