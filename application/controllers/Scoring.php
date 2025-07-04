@@ -386,8 +386,9 @@ class Scoring extends CI_Controller
 
                             array_push($array_scoring, $scoreData);
                         } else {
+                            $dateNow = date("Y-m-d");
                             $count_late_payment += 1;
-                            $date1 = new DateTime($datePayment);
+                            $date1 = new DateTime($dateNow);
                             $date2 = new DateTime($jatuhTempo);
                             $days  = $date2->diff($date1)->format('%a');
 
