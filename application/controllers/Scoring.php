@@ -371,19 +371,40 @@ class Scoring extends CI_Controller
 
                         array_push($array_scoring, $scoreData);
                     } else {
-                        $scoreData = [
-                            'id_invoice' => $invoice['id_invoice'],
-                            'no_invoice' => $invoice['no_invoice'],
-                            'status' => 'good',
-                            'days_late' => 0,
-                            'date_jatem' => $jatuhTempo,
-                            'date_payment' => $datePayment,
-                            'percent_score' => 100,
-                            'is_cod' => $sj['is_cod'],
-                            'date_invoice' => $invoice['date_invoice'],
-                        ];
+                        if ($invoice['status_invoice'] == 'paid') {
+                            $scoreData = [
+                                'id_invoice' => $invoice['id_invoice'],
+                                'no_invoice' => $invoice['no_invoice'],
+                                'status' => 'good',
+                                'days_late' => 0,
+                                'date_jatem' => $jatuhTempo,
+                                'date_payment' => $datePayment,
+                                'percent_score' => 100,
+                                'is_cod' => $sj['is_cod'],
+                                'date_invoice' => $invoice['date_invoice'],
+                            ];
 
-                        array_push($array_scoring, $scoreData);
+                            array_push($array_scoring, $scoreData);
+                        } else {
+                            $count_late_payment += 1;
+                            $date1 = new DateTime($datePayment);
+                            $date2 = new DateTime($jatuhTempo);
+                            $days  = $date2->diff($date1)->format('%a');
+
+                            $scoreData = [
+                                'id_invoice' => $invoice['id_invoice'],
+                                'no_invoice' => $invoice['no_invoice'],
+                                'status' => 'late',
+                                'days_late' => $days,
+                                'date_jatem' => $jatuhTempo,
+                                'date_payment' => $datePayment,
+                                'percent_score' => 100 - $days,
+                                'is_cod' => $sj['is_cod'],
+                                'date_invoice' => $invoice['date_invoice'],
+                            ];
+
+                            array_push($array_scoring, $scoreData);
+                        }
                     }
                 }
             } else {

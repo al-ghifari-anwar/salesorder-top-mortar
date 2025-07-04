@@ -44,12 +44,7 @@ class Maxchat extends CI_Controller
         $getOutbound = $this->db->get_where('tb_outbound_msg', ['to_outbound_msg' => $target_number])->row_array();
 
         if (!$getOutbound) {
-            $logData = [
-                'to_number' => $target_number,
-                'status' => 'Message not a broadcast'
-            ];
-
-            $this->db->insert('tb_log_vc_maxchat', $logData);
+            $this->replyWithAI($target_number, $vars);
         } else {
             if (str_contains($getOutbound['id_maxchat'], 'broadcast')) {
                 $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $target_number])->row_array();
@@ -125,93 +120,98 @@ class Maxchat extends CI_Controller
                     }
                 }
             } else {
-                $openai = $this->db->get_where('tb_openai', ['id_openai' => 1])->row_array();
-                // Koneksi ke API Openchat
-                $OPENAI_API_KEY = $openai['keys'];
-                $message = $vars['text'];
-
-                // Siapkan payload
-                $openaiPayload = [
-                    "model" => "gpt-4", // atau "gpt-3.5-turbo"
-                    "messages" => [
-                        [
-                            "role" => "system",
-                            "content" => "Kamu adalah sales Top Mortar Indonesia yang ramah dan informatif. Jika ada pertanyaan terkait stok atau pemesanan, gunakan endpoint API dari sistem internal untuk menjawab. Jangan pernah membalas dengan informasi produk lain selain top mortar indonesia"
-                        ],
-                        [
-                            "role" => "user",
-                            "content" => $message
-                        ]
-                    ],
-                    "temperature" => 0.7
-                ];
-
-                // Kirim request
-                $ch = curl_init("https://api.openai.com/v1/chat/completions");
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    "Content-Type: application/json",
-                    "Authorization: Bearer $OPENAI_API_KEY"
-                ]);
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($openaiPayload));
-
-                $response = curl_exec($ch);
-                curl_close($ch);
-
-                // Ambil jawaban AI
-                $responseData = json_decode($response, true);
-                $openaiResponse = $responseData['choices'][0]['message']['content'] ?? 'Mohon maaf, terjadi kesalahan.';
-
-                // Send WA balasan
-                $messageRequest = [
-                    'to' => $target_number,
-                    'msgType' => 'image',
-                    'templateId' => 'b75d51f9-c925-4a62-8b93-dd072600b95b',
-                    'values' => [
-                        'body' => [
-                            [
-                                'index' => 1,
-                                'type' => 'text',
-                                'text' => $vars['username']
-                            ],
-                            [
-                                'index' => 2,
-                                'type' => 'text',
-                                'text' => $openaiResponse
-                            ]
-                        ]
-                    ]
-                ];
-
-                $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $messageRequest);
-
-                // $res = json_decode($response, true);
-                // echo $response;
-                // die;
-
-                // $status = $res['status'];
-
-                if (isset($resArray['content'])) {
-                    $logData = [
-                        'to_number' => $target_number,
-                        'status' => 'Succes send AI response. ' . json_encode($responseData),
-                    ];
-
-                    $this->db->insert('tb_log_vc_maxchat', $logData);
-
-                    $this->session->set_flashdata('success', "Berhasil kirim balasan AI!");
-                } else {
-                    $logData = [
-                        'to_number' => $target_number,
-                        'status' => 'Fail send AI response. '  . json_encode($responseData),
-                    ];
-
-                    $this->db->insert('tb_log_vc_maxchat', $logData);
-
-                    $this->session->set_flashdata('failed', "Gagal kirim balasan AI! ");
-                }
+                $this->replyWithAI($target_number, $vars);
             }
+        }
+    }
+
+    public function replyWithAI($target_number, $vars)
+    {
+        $openai = $this->db->get_where('tb_openai', ['id_openai' => 1])->row_array();
+        // Koneksi ke API Openchat
+        $OPENAI_API_KEY = $openai['keys'];
+        $message = $vars['text'];
+
+        // Siapkan payload
+        $openaiPayload = [
+            "model" => "gpt-4", // atau "gpt-3.5-turbo"
+            "messages" => [
+                [
+                    "role" => "system",
+                    "content" => "Kamu adalah sales Top Mortar Indonesia yang ramah dan informatif. Jika ada pertanyaan terkait stok atau pemesanan, gunakan endpoint API dari sistem internal untuk menjawab. Jangan pernah membalas dengan informasi produk lain selain top mortar indonesia"
+                ],
+                [
+                    "role" => "user",
+                    "content" => $message
+                ]
+            ],
+            "temperature" => 0.7
+        ];
+
+        // Kirim request
+        $ch = curl_init("https://api.openai.com/v1/chat/completions");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Authorization: Bearer $OPENAI_API_KEY"
+        ]);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($openaiPayload));
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        // Ambil jawaban AI
+        $responseData = json_decode($response, true);
+        $openaiResponse = $responseData['choices'][0]['message']['content'] ?? 'Mohon maaf, terjadi kesalahan.';
+
+        // Send WA balasan
+        $messageRequest = [
+            'to' => $target_number,
+            'msgType' => 'image',
+            'templateId' => 'b75d51f9-c925-4a62-8b93-dd072600b95b',
+            'values' => [
+                'body' => [
+                    [
+                        'index' => 1,
+                        'type' => 'text',
+                        'text' => $vars['username']
+                    ],
+                    [
+                        'index' => 2,
+                        'type' => 'text',
+                        'text' => $openaiResponse
+                    ]
+                ]
+            ]
+        ];
+
+        $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $messageRequest);
+
+        // $res = json_decode($response, true);
+        // echo $response;
+        // die;
+
+        // $status = $res['status'];
+
+        if (isset($resArray['content'])) {
+            $logData = [
+                'to_number' => $target_number,
+                'status' => 'Succes send AI response. ' . json_encode($responseData),
+            ];
+
+            $this->db->insert('tb_log_vc_maxchat', $logData);
+
+            $this->session->set_flashdata('success', "Berhasil kirim balasan AI!");
+        } else {
+            $logData = [
+                'to_number' => $target_number,
+                'status' => 'Fail send AI response. '  . json_encode($responseData),
+            ];
+
+            $this->db->insert('tb_log_vc_maxchat', $logData);
+
+            $this->session->set_flashdata('failed', "Gagal kirim balasan AI! ");
         }
     }
 
