@@ -142,81 +142,81 @@ class Runcron extends CI_Controller
                                     } else {
                                         if ($amountValue != 30000) {
                                             if ($amountValue != 623400) {
-                                                if ($amountValue != 300000) {
+                                                // if ($amountValue != 300000) {
 
-                                                    // !! Send 
-                                                    $curl = curl_init();
+                                                // !! Send 
+                                                $curl = curl_init();
 
-                                                    curl_setopt_array($curl, array(
-                                                        CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
-                                                        CURLOPT_RETURNTRANSFER => true,
-                                                        CURLOPT_ENCODING => '',
-                                                        CURLOPT_MAXREDIRS => 10,
-                                                        CURLOPT_TIMEOUT => 0,
-                                                        CURLOPT_FOLLOWLOCATION => true,
-                                                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                                        CURLOPT_CUSTOMREQUEST => 'POST',
-                                                        CURLOPT_POSTFIELDS => array('amount' => $amountValue, 'toName' => $name_company, 'toAccount' => $norek_company, 'remark' => 'Auto Tf Inv' . substr($name_company, 0, 9)),
-                                                        CURLOPT_HTTPHEADER => array(
-                                                            'x-api-key: ' . $api_key,
-                                                            'x-timestamp: ' . date("Y-m-d H:i:s")
-                                                        ),
-                                                    ));
+                                                curl_setopt_array($curl, array(
+                                                    CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
+                                                    CURLOPT_RETURNTRANSFER => true,
+                                                    CURLOPT_ENCODING => '',
+                                                    CURLOPT_MAXREDIRS => 10,
+                                                    CURLOPT_TIMEOUT => 0,
+                                                    CURLOPT_FOLLOWLOCATION => true,
+                                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                                    CURLOPT_CUSTOMREQUEST => 'POST',
+                                                    CURLOPT_POSTFIELDS => array('amount' => $amountValue, 'toName' => $name_company, 'toAccount' => $norek_company, 'remark' => 'Auto Tf Inv' . substr($name_company, 0, 9)),
+                                                    CURLOPT_HTTPHEADER => array(
+                                                        'x-api-key: ' . $api_key,
+                                                        'x-timestamp: ' . date("Y-m-d H:i:s")
+                                                    ),
+                                                ));
 
-                                                    $response = curl_exec($curl);
+                                                $response = curl_exec($curl);
 
-                                                    curl_close($curl);
+                                                curl_close($curl);
 
-                                                    $res = json_decode($response, true);
+                                                $res = json_decode($response, true);
 
 
-                                                    if ($res['code'] != 200) {
-                                                        // $result = [
-                                                        //     'code' => 400,
-                                                        //     'status' => 'failed',
-                                                        //     'msg' => 'All saved, but payment not transfered',
-                                                        // ];
+                                                if ($res['code'] != 200) {
+                                                    // $result = [
+                                                    //     'code' => 400,
+                                                    //     'status' => 'failed',
+                                                    //     'msg' => 'All saved, but payment not transfered',
+                                                    // ];
 
-                                                        // return $this->output->set_output(json_encode($result));
-                                                        $this->db->delete('tb_payment', ['id_payment' => $id_payment]);
+                                                    // return $this->output->set_output(json_encode($result));
+                                                    $this->db->delete('tb_payment', ['id_payment' => $id_payment]);
 
-                                                        $invoiceData = [
-                                                            'status_invoice' => 'waiting',
-                                                        ];
+                                                    $invoiceData = [
+                                                        'status_invoice' => 'waiting',
+                                                    ];
 
-                                                        $updateStatusInv = $this->db->update('tb_invoice', $invoiceData, ['id_invoice' => $id_invoice]);
+                                                    $updateStatusInv = $this->db->update('tb_invoice', $invoiceData, ['id_invoice' => $id_invoice]);
 
-                                                        $logData = [
-                                                            'source_account' => $source_account,
-                                                            'to_account' => $norek_company,
-                                                            'amount_log_bca' => $amountValue,
-                                                            'status_log_bca' => 'failed',
-                                                            'desc_log_bca' => "Error on API connection: " . json_encode($res['data']),
-                                                            'ref_log_bca' => '-',
-                                                            'created_at' => date("Y-m-d H:i:s"),
-                                                            'updated_at' => date("Y-m-d H:i:s"),
-                                                        ];
+                                                    $logData = [
+                                                        'source_account' => $source_account,
+                                                        'to_account' => $norek_company,
+                                                        'amount_log_bca' => $amountValue,
+                                                        'status_log_bca' => 'failed',
+                                                        'desc_log_bca' => "Error on API connection: " . json_encode($res['data']),
+                                                        'ref_log_bca' => '-',
+                                                        'created_at' => date("Y-m-d H:i:s"),
+                                                        'updated_at' => date("Y-m-d H:i:s"),
+                                                    ];
 
-                                                        $saveLog = $this->db->insert('tb_log_bca', $logData);
-                                                    } else {
-                                                        $resData = $res['data'];
+                                                    $saveLog = $this->db->insert('tb_log_bca', $logData);
+                                                } else {
+                                                    $resData = $res['data'];
 
-                                                        $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
+                                                    $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
 
-                                                        $logData = [
-                                                            'source_account' => $source_account,
-                                                            'to_account' => $norek_company,
-                                                            'amount_log_bca' => $amountValue,
-                                                            'status_log_bca' => $statusIntra,
-                                                            'desc_log_bca' => $resData['responseMessage'],
-                                                            'ref_log_bca' => $resData['referenceNo'],
-                                                            'created_at' => date("Y-m-d H:i:s"),
-                                                            'updated_at' => date("Y-m-d H:i:s"),
-                                                        ];
+                                                    $logData = [
+                                                        'source_account' => $source_account,
+                                                        'to_account' => $norek_company,
+                                                        'amount_log_bca' => $amountValue,
+                                                        'status_log_bca' => $statusIntra,
+                                                        'desc_log_bca' => $resData['responseMessage'],
+                                                        'ref_log_bca' => $resData['referenceNo'],
+                                                        'created_at' => date("Y-m-d H:i:s"),
+                                                        'updated_at' => date("Y-m-d H:i:s"),
+                                                    ];
 
-                                                        $saveLog = $this->db->insert('tb_log_bca', $logData);
-                                                    }
+                                                    $saveLog = $this->db->insert('tb_log_bca', $logData);
                                                 }
+                                                // }
                                             }
                                         }
                                     }
@@ -260,67 +260,67 @@ class Runcron extends CI_Controller
                                 } else {
                                     if ($amountValue != 30000) {
                                         if ($amountValue != 623400) {
-                                            if ($amountValue != 300000) {
-                                                // !! Send 
-                                                $curl = curl_init();
+                                            // if ($amountValue != 300000) {
+                                            // !! Send 
+                                            $curl = curl_init();
 
-                                                curl_setopt_array($curl, array(
-                                                    CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
-                                                    CURLOPT_RETURNTRANSFER => true,
-                                                    CURLOPT_ENCODING => '',
-                                                    CURLOPT_MAXREDIRS => 10,
-                                                    CURLOPT_TIMEOUT => 0,
-                                                    CURLOPT_FOLLOWLOCATION => true,
-                                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                                    CURLOPT_CUSTOMREQUEST => 'POST',
-                                                    CURLOPT_POSTFIELDS => array('amount' => $amountValue, 'toName' => $name_company, 'toAccount' => $norek_company, 'remark' => 'Auto Tf Inv' . substr($name_company, 0, 9)),
-                                                    CURLOPT_HTTPHEADER => array(
-                                                        'x-api-key: ' . $api_key,
-                                                        'x-timestamp: ' . date("Y-m-d H:i:s")
-                                                    ),
-                                                ));
+                                            curl_setopt_array($curl, array(
+                                                CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
+                                                CURLOPT_RETURNTRANSFER => true,
+                                                CURLOPT_ENCODING => '',
+                                                CURLOPT_MAXREDIRS => 10,
+                                                CURLOPT_TIMEOUT => 0,
+                                                CURLOPT_FOLLOWLOCATION => true,
+                                                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                                CURLOPT_CUSTOMREQUEST => 'POST',
+                                                CURLOPT_POSTFIELDS => array('amount' => $amountValue, 'toName' => $name_company, 'toAccount' => $norek_company, 'remark' => 'Auto Tf Inv' . substr($name_company, 0, 9)),
+                                                CURLOPT_HTTPHEADER => array(
+                                                    'x-api-key: ' . $api_key,
+                                                    'x-timestamp: ' . date("Y-m-d H:i:s")
+                                                ),
+                                            ));
 
-                                                $response = curl_exec($curl);
+                                            $response = curl_exec($curl);
 
-                                                curl_close($curl);
+                                            curl_close($curl);
 
-                                                $res = json_decode($response, true);
+                                            $res = json_decode($response, true);
 
-                                                if ($res['code'] != 200) {
+                                            if ($res['code'] != 200) {
 
-                                                    $this->db->delete('tb_payment', ['id_payment' => $id_payment]);
+                                                $this->db->delete('tb_payment', ['id_payment' => $id_payment]);
 
-                                                    $logData = [
-                                                        'source_account' => $source_account,
-                                                        'to_account' => $norek_company,
-                                                        'amount_log_bca' => $amountValue,
-                                                        'status_log_bca' => 'failed',
-                                                        'desc_log_bca' => "Error on API connection",
-                                                        'ref_log_bca' => $resData['referenceNo'],
-                                                        'created_at' => date("Y-m-d H:i:s"),
-                                                        'updated_at' => date("Y-m-d H:i:s"),
-                                                    ];
+                                                $logData = [
+                                                    'source_account' => $source_account,
+                                                    'to_account' => $norek_company,
+                                                    'amount_log_bca' => $amountValue,
+                                                    'status_log_bca' => 'failed',
+                                                    'desc_log_bca' => "Error on API connection",
+                                                    'ref_log_bca' => $resData['referenceNo'],
+                                                    'created_at' => date("Y-m-d H:i:s"),
+                                                    'updated_at' => date("Y-m-d H:i:s"),
+                                                ];
 
-                                                    $saveLog = $this->db->insert('tb_log_bca', $logData);
-                                                } else {
-                                                    $resData = $res['data'];
+                                                $saveLog = $this->db->insert('tb_log_bca', $logData);
+                                            } else {
+                                                $resData = $res['data'];
 
-                                                    $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
+                                                $statusIntra = $resData['responseMessage'] == 'Successful' ? 'success' : 'failed';
 
-                                                    $logData = [
-                                                        'source_account' => $source_account,
-                                                        'to_account' => $norek_company,
-                                                        'amount_log_bca' => $amountValue,
-                                                        'status_log_bca' => $statusIntra,
-                                                        'desc_log_bca' => $resData['responseMessage'],
-                                                        'ref_log_bca' => $resData['referenceNo'],
-                                                        'created_at' => date("Y-m-d H:i:s"),
-                                                        'updated_at' => date("Y-m-d H:i:s"),
-                                                    ];
+                                                $logData = [
+                                                    'source_account' => $source_account,
+                                                    'to_account' => $norek_company,
+                                                    'amount_log_bca' => $amountValue,
+                                                    'status_log_bca' => $statusIntra,
+                                                    'desc_log_bca' => $resData['responseMessage'],
+                                                    'ref_log_bca' => $resData['referenceNo'],
+                                                    'created_at' => date("Y-m-d H:i:s"),
+                                                    'updated_at' => date("Y-m-d H:i:s"),
+                                                ];
 
-                                                    $saveLog = $this->db->insert('tb_log_bca', $logData);
-                                                }
+                                                $saveLog = $this->db->insert('tb_log_bca', $logData);
                                             }
+                                            // }
                                         }
                                     }
                                 }
