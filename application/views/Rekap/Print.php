@@ -133,7 +133,7 @@ function penyebut($nilai)
                     $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
                     ?>
                     <tr>
-                        <td class="text-center"><?= $noInv++; ?></td>
+                        <td class="text-right"><?= $noInv++; ?></td>
                         <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
                         <td class="text-center">
