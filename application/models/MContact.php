@@ -104,7 +104,7 @@ class MContact extends CI_Model
     public function getAllForVouchers($id_city)
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $this->db->where_in('tb_contact.store_status', ['passive', 'data']);
+        $this->db->where_in('tb_contact.store_status', ['passive', 'data', 'active']);
         $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city])->result_array();
         return $query;
     }
