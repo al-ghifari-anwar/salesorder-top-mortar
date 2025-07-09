@@ -247,7 +247,7 @@ class MDetailSuratJalan extends CI_Model
         $dateCutoff = "2025-02-20 00:00:00";
         $this->db->select('SUM(qty_produk) AS jml_stokOut');
         $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
-        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_detail_surat_jalan');
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
         $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk');
         $this->db->where("tb_produk.id_city IN (SELECT id_city FROM tb_city WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
         $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateCutoff, 'tb_surat_jalan.is_closing' => 1])->row_array();
@@ -321,7 +321,7 @@ class MDetailSuratJalan extends CI_Model
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
 
         if ($query) {
-            $this->session->set_flashdata('success', "Notifikasi Trial Stok! q:" . $queryOut);
+            // $this->session->set_flashdata('success', "Notifikasi Trial Stok! q:" . $queryOut);
             redirect('surat-jalan/' . $this->id_surat_jalan);
         } else {
             $this->session->set_flashdata('failed', "Gagal menyimpan data surat jalan!");
