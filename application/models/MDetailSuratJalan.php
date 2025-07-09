@@ -320,7 +320,7 @@ class MDetailSuratJalan extends CI_Model
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
 
         if ($query) {
-            $this->session->set_flashdata('success', "Notifikasi Trial Stok! current:" . $currentStok);
+            $this->session->set_flashdata('success', "Notifikasi Trial Stok! out:" . $stokOut);
             redirect('surat-jalan/' . $this->id_surat_jalan);
         } else {
             $this->session->set_flashdata('failed', "Gagal menyimpan data surat jalan!");
