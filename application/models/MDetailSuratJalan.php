@@ -260,6 +260,7 @@ class MDetailSuratJalan extends CI_Model
         // echo 'out' . $stokOut;
         // echo $this->db->last_query();
         // die;
+        $queryOut =  $this->db->last_query();
 
         if ($this->session->userdata('id_distributor') != 6) {
             // echo 'out' . $stokOut;
@@ -320,7 +321,7 @@ class MDetailSuratJalan extends CI_Model
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
 
         if ($query) {
-            $this->session->set_flashdata('success', "Notifikasi Trial Stok! out:" . $stokOut);
+            $this->session->set_flashdata('success', "Notifikasi Trial Stok! q:" . $queryOut);
             redirect('surat-jalan/' . $this->id_surat_jalan);
         } else {
             $this->session->set_flashdata('failed', "Gagal menyimpan data surat jalan!");
