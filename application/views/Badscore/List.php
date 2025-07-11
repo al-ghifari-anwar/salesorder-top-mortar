@@ -53,6 +53,7 @@
                                         <th>Reputation</th>
                                         <th>Approved</th>
                                         <th>Status Approval</th>
+                                        <th>Skor Payment</th>
                                         <th>Skor Terakhir</th>
                                         <th>Tgl</th>
                                         <th>Aksi</th>
@@ -66,6 +67,29 @@
                                         $id_contact = $data['id_contact'];
                                         $id_bad_score = $data['id_bad_score'];
                                         $badscore = $this->db->get_where('tb_bad_score', ['id_bad_score' => $id_bad_score])->row_array();
+
+                                        // Get Score
+                                        $curl = curl_init();
+
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $id_contact,
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => '',
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 0,
+                                            CURLOPT_FOLLOWLOCATION => true,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => 'POST',
+                                            CURLOPT_HTTPHEADER => array(
+                                                'Cookie: ci_session=2scmao9aquusdrn7rm2i7vkrifkamkld'
+                                            ),
+                                        ));
+
+                                        $response = curl_exec($curl);
+
+                                        curl_close($curl);
+
+                                        $resultScore = json_decode($response, true);
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
@@ -75,6 +99,7 @@
                                             <td><?= $data['reputation'] ?></td>
                                             <td><?= $badscore['is_approved'] == 1 ? 'Ya' : 'Tidak' ?></td>
                                             <td><?= $badscore['type_approval'] ?></td>
+                                            <td><?= $resultScore['payment'] ?></td>
                                             <td><?= $badscore['last_score'] ?></td>
                                             <td><?= date("d F Y - H:i", strtotime($badscore['created_at'])) ?></td>
                                             <td>
