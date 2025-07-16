@@ -350,3 +350,6 @@ $route['minimumstok/(:num)'] = 'Minimumstok/index/$1';
 $route['minimumstok/create'] = 'Minimumstok/create';
 $route['minimumstok/update'] = 'Minimumstok/update';
 $route['minimumstok/delete/(:num)'] = 'Minimumstok/delete/$1';
+// Invoice COD
+$route['invoicecod/waiting'] = 'Invoicecod/waitingCity';
+$route['invoicecod/waiting/(:num)'] = 'Invoicecod/waiting/$1';
