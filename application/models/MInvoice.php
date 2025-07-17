@@ -60,6 +60,16 @@ class MInvoice extends CI_Model
         return $query;
     }
 
+    public function getCodWaiting()
+    {
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $this->db->order_by('id_invoice', 'DESC');
+        $query = $this->db->get_where('tb_invoice', ['tb_surat_jalan.is_cod' => 1, 'tb_invoice.status_invoice' => 'waiting', 'total_invoice >' => '1000'])->result_array();
+        return $query;
+    }
+
     public function getSentInvoice($id_city)
     {
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');

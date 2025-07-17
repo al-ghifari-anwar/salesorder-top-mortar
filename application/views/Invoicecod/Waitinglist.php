@@ -26,7 +26,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Invoice</a></li>
-                        <li class="breadcrumb-item active"><?= $city['nama_city'] ?></li>
+                        <li class="breadcrumb-item active"></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -47,6 +47,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Toko</th>
+                                        <th>Kota</th>
                                         <th>No Invoice</th>
                                         <th>No DO</th>
                                         <th>Jatem</th>
@@ -70,6 +72,8 @@
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
+                                            <td><?= $data['nama'] ?></td>
+                                            <td><?= $data['nama_city'] ?></td>
                                             <td><?= $data['no_invoice'] ?></td>
                                             <td><?= $data['no_surat_jalan'] ?></td>
                                             <td><?= date("d F Y - H:i", strtotime($date_jatem)) ?></td>

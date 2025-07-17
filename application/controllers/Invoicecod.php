@@ -36,13 +36,11 @@ class Invoicecod extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function waiting($id_city)
+    public function waiting()
     {
-        $city = $this->MCity->getById($id_city);
-        $data['title'] = 'Invoice COD Belum Lunas - ' . $city['nama_city'];
-        $data['cities'] = $this->MCity->getAll();
-        $data['city'] = $city;
-        $data['invoice'] = $this->MInvoice->getCodWaitingByCity($id_city);
+        // $city = $this->MCity->getById($id_city);
+        $data['title'] = 'Invoice COD Belum Lunas';
+        $data['invoice'] = $this->MInvoice->getCodWaiting();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Invoicecod/Waitinglist');
