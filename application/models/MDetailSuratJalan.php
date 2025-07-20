@@ -267,7 +267,7 @@ class MDetailSuratJalan extends CI_Model
             // echo 'in' . $stokIn;
             // die;
             if ($post['qty_produk'] > $currentStok) {
-                $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok: <b>" . $currentStok . "</b>");
+                $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok bebas: <b>" . $currentStok . "</b>");
                 redirect('surat-jalan/' . $post['id_surat_jalan']);
             }
 
@@ -321,7 +321,7 @@ class MDetailSuratJalan extends CI_Model
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
 
         if ($query) {
-            // $this->session->set_flashdata('success', "Notifikasi Trial Stok! q:" . $queryOut);
+            $this->session->set_flashdata('success', "Berhasil Sisa Stok Bebas:" . $currentStok);
             redirect('surat-jalan/' . $this->id_surat_jalan);
         } else {
             $this->session->set_flashdata('failed', "Gagal menyimpan data surat jalan!");
