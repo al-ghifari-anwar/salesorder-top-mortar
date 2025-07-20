@@ -169,19 +169,19 @@ class MDetailSuratJalan extends CI_Model
                 $produk = $this->db->get_where('tb_produk', ['id_produk' => $id_produk])->row_array();
                 $id_master_produk = $produk['id_master_produk'];
                 $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
+                $dateCutoff = "2025-07-20 00:00:00";
 
                 $this->db->select('SUM(jml_stok) AS jml_stokIn');
-                $getStokIn = $this->db->get_where('tb_stok', ['id_gudang_stok' => $id_gudang_stok, 'id_master_produk' => $id_master_produk, 'status_stok' => 'in'])->row_array();
+                $getStokIn = $this->db->get_where('tb_stok', ['id_gudang_stok' => $id_gudang_stok, 'id_master_produk' => $id_master_produk, 'status_stok' => 'in', 'tb_stok.created_at > ' => $dateCutoff])->row_array();
 
                 $stokIn = $getStokIn['jml_stokIn'];
 
-                $dateCutoff = "2025-07-20 00:00:00";
                 $this->db->select('SUM(qty_produk) AS jml_stokOut');
                 $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
                 $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
                 $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk');
                 $this->db->where("tb_produk.id_city IN (SELECT id_city FROM tb_city WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
-                $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'tb_detail_surat_jalan.created_at >' => $dateCutoff])->row_array();
+                $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'tb_surat_jalan.dalivery_date >' => $dateCutoff])->row_array();
 
 
                 $stokOut = $getStokOut['jml_stokOut'];
