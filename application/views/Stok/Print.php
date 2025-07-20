@@ -113,8 +113,8 @@ function penyebut($nilai)
             <th class="border">Pemasukan</th>
             <th class="border">Pengeluaran</th>
             <th class="border">Stok Bayangan</th>
-            <th class="border">Stok Bebas</th>
             <th class="border">Jumlah Akhir</th>
+            <th class="border">Stok Bebas</th>
         </tr>
         <?php if ($masterProduks != null) : ?>
             <?php
