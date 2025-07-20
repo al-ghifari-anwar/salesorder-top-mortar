@@ -236,15 +236,16 @@ class MDetailSuratJalan extends CI_Model
         $retur = $post['is_retur'];
         $is_voucher = $post['is_voucher'];
 
+        $dateCutoff = "2025-07-20 00:00:00";
+
         $id_master_produk = $produk['id_master_produk'];
         $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
 
         $this->db->select('SUM(jml_stok) AS jml_stokIn');
-        $getStokIn = $this->db->get_where('tb_stok', ['id_gudang_stok' => $id_gudang_stok, 'id_master_produk' => $id_master_produk, 'status_stok' => 'in'])->row_array();
+        $getStokIn = $this->db->get_where('tb_stok', ['id_gudang_stok' => $id_gudang_stok, 'id_master_produk' => $id_master_produk, 'status_stok' => 'in', 'tb_stok.created_at >' => $dateCutoff])->row_array();
 
         $stokIn = $getStokIn['jml_stokIn'];
 
-        $dateCutoff = "2025-07-20 00:00:00";
         $this->db->select('SUM(qty_produk) AS jml_stokOut');
         $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
