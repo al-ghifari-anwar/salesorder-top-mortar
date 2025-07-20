@@ -155,7 +155,7 @@ function penyebut($nilai)
                     $getStokOut = ['jml_stokOut' => 0];
                 }
 
-                $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-20 00:00:00"));
+                $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-07-20 00:00:00"));
 
                 // Jumlah Awal
                 $this->db->select('SUM(jml_stok) AS jml_stokAwal');

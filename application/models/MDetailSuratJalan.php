@@ -175,7 +175,7 @@ class MDetailSuratJalan extends CI_Model
 
                 $stokIn = $getStokIn['jml_stokIn'];
 
-                $dateCutoff = "2025-02-20 00:00:00";
+                $dateCutoff = "2025-07-20 00:00:00";
                 $this->db->select('SUM(qty_produk) AS jml_stokOut');
                 $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
                 $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
@@ -244,7 +244,7 @@ class MDetailSuratJalan extends CI_Model
 
         $stokIn = $getStokIn['jml_stokIn'];
 
-        $dateCutoff = "2025-02-20 00:00:00";
+        $dateCutoff = "2025-07-20 00:00:00";
         $this->db->select('SUM(qty_produk) AS jml_stokOut');
         $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
@@ -353,7 +353,7 @@ class MDetailSuratJalan extends CI_Model
 
         $stokIn = $getStokIn['jml_stokIn'];
 
-        $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-02-20 00:00:00"));
+        $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-07-20 00:00:00"));
         $this->db->select('SUM(qty_produk) AS jml_stokOut');
         $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['id_produk' => $id_produk, 'created_at >' => $dateCutoff])->row_array();
 
