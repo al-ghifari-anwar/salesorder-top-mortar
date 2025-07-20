@@ -112,6 +112,7 @@ function penyebut($nilai)
             <th class="border">Jumlah Awal</th>
             <th class="border">Pemasukan</th>
             <th class="border">Pengeluaran</th>
+            <th class="border">Stok Bayangan</th>
             <th class="border">Jumlah Akhir</th>
         </tr>
         <?php if ($masterProduks != null) : ?>
@@ -151,8 +152,14 @@ function penyebut($nilai)
                     $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
                     $this->db->where_in('id_produk', $idProduks);
                     $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.date_closing >' => $dateFrom, 'tb_surat_jalan.date_closing <' => $dateTo, 'tb_surat_jalan.is_closing' => 1])->row_array();
+
+                    $this->db->select('SUM(qty_produk) AS jml_stokOut');
+                    $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
+                    $this->db->where_in('id_produk', $idProduks);
+                    $getStokOutAll = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.date_closing >' => $dateFrom, 'tb_surat_jalan.date_closing <' => $dateTo])->row_array();
                 } else {
                     $getStokOut = ['jml_stokOut' => 0];
+                    $getStokOutAll = ['jml_stokOut' => 0];
                 }
 
                 $dateCutoff = date("Y-m-d H:i:s", strtotime("2025-07-20 00:00:00"));
@@ -193,6 +200,8 @@ function penyebut($nilai)
                 $jmlKluarAwal = $jumlahAwalPengeluaran['jml_stokOut'] != null ? $jumlahAwalPengeluaran['jml_stokOut'] : 0;
                 $valPemasukan = $getStokIn['jml_stokIn'] != null ? $getStokIn['jml_stokIn'] : 0;
                 $valPengeluaran = $getStokOut['jml_stokOut'] != null ? $getStokOut['jml_stokOut'] : 0;
+                $valPengeluaranAll = $getStokOutAll['jml_stokOut'] != null ? $getStokOutAll['jml_stokOut'] : 0;
+                $valStokBayangan = $valPengeluaranAll - $valPengeluaran;
                 $valJumlahAwal = $jmlAwal - $jmlKluarAwal;
                 $valJumlahAkhir = ($valJumlahAwal + $getStokIn['jml_stokIn']) - $getStokOut['jml_stokOut'];
                 ?>
@@ -203,6 +212,7 @@ function penyebut($nilai)
                     <td class="text-center border-r"><?= $valJumlahAwal ?></td>
                     <td class="text-center border-r"><?= $valPemasukan ?></td>
                     <td class="text-center border-r"><?= $valPengeluaran ?></td>
+                    <td class="text-center border-r"><?= $valStokBayangan ?></td>
                     <td class="text-center border-r"><?= $valJumlahAkhir ?></td>
                 </tr>
             <?php endforeach; ?>
