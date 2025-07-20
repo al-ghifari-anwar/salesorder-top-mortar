@@ -113,6 +113,7 @@ function penyebut($nilai)
             <th class="border">Pemasukan</th>
             <th class="border">Pengeluaran</th>
             <th class="border">Stok Bayangan</th>
+            <th class="border">Stok Bebas</th>
             <th class="border">Jumlah Akhir</th>
         </tr>
         <?php if ($masterProduks != null) : ?>
@@ -214,6 +215,7 @@ function penyebut($nilai)
                     <td class="text-center border-r"><?= $valPengeluaran ?></td>
                     <td class="text-center border-r"><?= $valStokBayangan ?></td>
                     <td class="text-center border-r"><?= $valJumlahAkhir ?></td>
+                    <td class="text-center border-r"><?= $valJumlahAkhir  - $valStokBayangan ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>
