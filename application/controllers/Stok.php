@@ -24,7 +24,7 @@ class Stok extends CI_Controller
         // if ($this->session->userdata('level_user') == 'admin_c') {
         //     $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         // } else {
-        $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['id_distributor' => $this->session->userdata('id_distributor'), 'is_active' => 1])->result_array();
         // }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
