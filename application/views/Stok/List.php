@@ -52,7 +52,7 @@
                                                             <i class="far fa-calendar-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control float-right" id="reservation" name="date_range" value="<?= "02/20/2025" . ' - ' . date('m/d/Y') ?>">
+                                                    <input type="text" class="form-control float-right" id="reservation" name="date_range" value="<?= "07/20/2025" . ' - ' . date('m/d/Y') ?>">
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
