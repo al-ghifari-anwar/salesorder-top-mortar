@@ -327,6 +327,14 @@ class Sjstok extends CI_Controller
 
         if ($updateSjstok) {
             foreach ($detailSjstoks as $detailSjstok) {
+                $cekStokFilter = [
+                    'id_gudang_stok' => $sjstok['id_gudang_stok'],
+                    'id_master_produk' => $sjstok['id_master_produk'],
+                    'qty_rechieved' => $sjstok['qty_rechieved'],
+                    'DATE(created_at) =' => date("Y-m-d"),
+                ];
+                $cekStok = $this->db->get_where('tb_stok', $cekStokFilter)->row_array();
+
                 $dataStok = [
                     'id_gudang_stok' => $sjstok['id_gudang_stok'],
                     'id_master_produk' => $detailSjstok['id_master_produk'],

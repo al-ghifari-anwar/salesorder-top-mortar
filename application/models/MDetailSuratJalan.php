@@ -162,7 +162,7 @@ class MDetailSuratJalan extends CI_Model
             $this->db->select("tb_produk.id_produk, SUM(qty_produk) AS qty_produk, harga_produk ");
             $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
             $this->db->group_by("id_produk");
-            $items = $this->db->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->result_array();
+            $items = $this->db->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan, 'is_bonus' => 0])->result_array();
 
             foreach ($items as $item) {
                 $id_produk = $item['id_produk'];
