@@ -31,7 +31,9 @@
                     </li>
                 </ul>
 
-                <h1><?= base_url() ?></h1>
+                <?php if (base_url() == "https://dev-order.topmortarindonesia.com/" || base_url() == "http://localhost/salesorder/"): ?>
+                    <a href="#" class="btn btn-warning"><i class="fas fa-exclamation-triangle"></i>&nbsp; Development Site. Semua data hanya dummy. <b>[Versi Database: 5 Juli 2025]</b></a>
+                <?php endif; ?>
 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
