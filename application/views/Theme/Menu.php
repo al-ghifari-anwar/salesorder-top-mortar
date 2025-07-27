@@ -17,6 +17,7 @@
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <?php if ($this->session->userdata('level_user') != null) : ?>
+                <!-- https://dev-order.topmortarindonesia.com/ -->
                 <!-- Left navbar links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -29,6 +30,8 @@
                         <a href="#" class="nav-link">Contact</a>
                     </li>
                 </ul>
+
+                <h1><?= base_url() ?></h1>
 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
