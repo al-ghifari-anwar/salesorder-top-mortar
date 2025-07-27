@@ -555,6 +555,15 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
+                                            <a href="<?= base_url('apporder') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-shopping-bag"></i>
+                                                <p>
+                                                    Pesanan Top Seller
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('surat-jalan') ?>" class="nav-link">
                                                 <i class="nav-icon fas fa-th"></i>
                                                 <p>

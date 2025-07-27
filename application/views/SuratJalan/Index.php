@@ -50,6 +50,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>No Surat Jalan</th>
+                                        <th>Order Via</th>
                                         <th>Toko</th>
                                         <th>Nomor HP</th>
                                         <th>Kota</th>
@@ -66,6 +67,7 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['no_surat_jalan'] ?></td>
+                                            <td><?= $data['id_apporder'] != 0 ? 'Aplikasi' : 'Reguler' ?></td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['nama_city'] ?></td>

@@ -389,6 +389,17 @@ class MDetailSuratJalan extends CI_Model
         }
     }
 
+    public function create($detailSuratJalanData)
+    {
+        $query = $this->db->insert('tb_detail_surat_jalan', $detailSuratJalanData);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function delete($id)
     {
         $query = $this->db->delete('tb_detail_surat_jalan', ['id_detail_surat_jalan' => $id]);

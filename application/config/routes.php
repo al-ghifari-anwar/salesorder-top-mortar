@@ -353,3 +353,6 @@ $route['minimumstok/delete/(:num)'] = 'Minimumstok/delete/$1';
 // Invoice COD
 $route['invoicecod/waiting'] = 'Invoicecod/waiting';
 // $route['invoicecod/waiting/(:num)'] = 'Invoicecod/waiting/$1';
+// Apporder
+$route['apporder'] = 'Apporder/index';
+$route['apporder/approve/(:num)'] = 'Apporder/approve/$1';
