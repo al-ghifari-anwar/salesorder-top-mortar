@@ -358,5 +358,6 @@ $route['apporder'] = 'Apporder/index';
 $route['apporder/approve/(:num)'] = 'Apporder/approve/$1';
 // Topseller
 $route['topseller/setting/global'] = 'TopsellerSetting/index';
+$route['topseller/setting/global/update'] = 'TopsellerSetting/update';
 $route['topseller/setting/discount'] = 'TopsellerDiscount/index';
 $route['topseller/setting/discount/update'] = 'TopsellerDiscount/update';
