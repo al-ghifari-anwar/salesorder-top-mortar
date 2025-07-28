@@ -65,6 +65,23 @@
                             </div>
                         </li>
                     <?php endif; ?>
+                    <!-- Menu Top Seller -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="fas fa-shopping-basket"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                            <span class="dropdown-header">Menu Setting Top Seller</span>
+                            <div class="dropdown-divider"></div>
+                            <a href="<?= base_url('topseller/setting/global') ?>" class="dropdown-item">
+                                <i class="fas fa-cogs mr-2"></i> Global
+                            </a>
+                            <a href="<?= base_url('topseller/setting/discount') ?>" class="dropdown-item">
+                                <i class="fas fa-percentage mr-2"></i> Diskon Aplikasi
+                            </a>
+                        </div>
+                    </li>
+
                     <!-- Menu Dropdown Menu -->
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -83,11 +100,7 @@
                             <i class="fas fa-expand-arrows-alt"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                            <i class="fas fa-th-large"></i>
-                        </a>
-                    </li>
+
                 </ul>
             <?php endif; ?>
         </nav>
