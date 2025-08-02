@@ -218,9 +218,11 @@ class Visit extends CI_Controller
         $id_user = $this->input->post("id_user");
         $bulan = $this->input->post("bulan");
 
-        if ($bulan) {
+        if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, $id_user, $bulan);
+            $dateFrom = date('Y-m-d', $dates[0]);
+            $dateTo = date('Y-m-d', $dates[1]);
+            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, $id_user, $dateFrom, $dateTo);
         } else {
             // $invoice = $this->MInvoice->getAll();
             $data['visit'] = $this->MVisit->getAllByCity($id_city);
@@ -241,11 +243,18 @@ class Visit extends CI_Controller
     public function lap_absen_renvis($id_city, $type)
     {
         $post = $this->input->post();
-        $month = $post['bulan'];
+        // $month = $post['bulan'];
+
+        $dateRange = $post['date_range'];
+
+        $dates = explode('-', $dateRange);
+        $dateFrom = date("Y-m-d", strtotime($dates[0]));
+        $dateTo = date("Y-m-d", strtotime($dates[1]));
 
         $data['city'] = $this->MCity->getById($id_city);
-        $data['user'] = $this->MVisit->getGroupedContactGlobal($id_city, $month, $type);
-        $data['month'] = $month;
+        $data['user'] = $this->MVisit->getGroupedContactGlobal($id_city, $type, $dateFrom, $dateTo);
+        $data['dateFrom'] = $dateFrom;
+        $data['dateTo'] = $dateTo;
         $data['type'] = $type;
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);

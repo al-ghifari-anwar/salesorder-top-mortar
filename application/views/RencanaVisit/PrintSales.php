@@ -103,7 +103,7 @@ function penyebut($nilai)
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Absen Sales <?= $city['nama_city'] ?> (Rencana Visit)</h1>
-    <h4 class="text-center">Bulan <?= date("F", strtotime("2023-" . $month . "-01")) ?></h4>
+    <h4 class="text-center">Tanggal <?= date('d F Y', strtotime($dateFrom)) . " - " . date('d F Y', strtotime($dateTo)) ?></h4>
     <table class="border">
         <tr>
             <th class="border">Customer</th>
@@ -123,7 +123,7 @@ function penyebut($nilai)
 
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                 $this->db->group_by('DATE(tb_visit.date_visit)');
-                $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $id_user, 'MONTH(date_visit)' => $month, 'tb_contact.id_city' => $id_city])->result_array();
+                $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $id_user, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'tb_contact.id_city' => $id_city])->result_array();
 
                 ?>
                 <tr>
