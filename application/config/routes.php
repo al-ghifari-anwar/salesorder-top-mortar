@@ -361,3 +361,7 @@ $route['topseller/setting/global'] = 'TopsellerSetting/index';
 $route['topseller/setting/global/update'] = 'TopsellerSetting/update';
 $route['topseller/setting/discount'] = 'TopsellerDiscount/index';
 $route['topseller/setting/discount/update'] = 'TopsellerDiscount/update';
+// Rekap Toko Baru
+$route['rekaptokobaru'] = 'Rekaptokobaru/index';
+$route['rekaptokobaru/(:num)'] = 'Rekaptokobaru/list/$1';
+$route['rekaptokobaru/print'] = 'Rekaptokobaru/print';

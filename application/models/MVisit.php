@@ -57,6 +57,27 @@ class MVisit extends CI_Model
         return $query;
     }
 
+    public function getGroupedContactGlobalMonth($id_city, $type, $month)
+    {
+        $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+        $this->db->where('MONTH(date_visit)', $month);
+        $this->db->where('YEAR(date_visit)', date("Y"));
+        if ($type != 'sales') {
+            $this->db->where('tb_user.level_user', $type);
+        } else {
+            $this->db->where_in('tb_user.level_user', ['sales', 'penagihan', 'marketing']);
+        }
+        $this->db->where('tb_contact.id_city', $id_city);
+        $this->db->group_by('tb_user.id_user');
+        $query = $this->db->get('tb_visit')->result_array();
+        // echo $this->db->last_query();
+        // die;
+
+        return $query;
+    }
+
     public function getGroupedCourierGlobal($id_city, $month, $type)
     {
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');

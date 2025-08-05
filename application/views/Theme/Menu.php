@@ -755,6 +755,15 @@
                                                 </p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('rekaptokobaru') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-newspaper"></i>
+                                                <p>
+                                                    Rekap Toko Baru
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'admin_c') : ?>
