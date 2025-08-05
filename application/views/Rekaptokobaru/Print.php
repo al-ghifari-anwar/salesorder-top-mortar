@@ -111,7 +111,7 @@ function penyebut($nilai)
             <th class="border">Address</th>
             <th class="border">Tanggal</th>
         </tr>
-        <?php if ($id_user == 0): ?>
+        <?php if ($id_user == 0) { ?>
             <?php foreach ($users as $user): ?>
                 <tr>
                     <th colspan="4" class="border text-left" style="color: blue;">User: <?= $user['full_name'] ?></th>
@@ -134,8 +134,7 @@ function penyebut($nilai)
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endforeach; ?>
-        <?php endif; ?>
-        <?php if ($id_user != 0): ?>
+        <?php } else if ($id_user != 0) { ?>
             <?php foreach ($contacts as $contact): ?>
                 <?php
                 $id_user = $users['id_user'];
@@ -153,7 +152,7 @@ function penyebut($nilai)
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
-        <?php endif; ?>
+        <?php } ?>
     </table>
 </body>
 

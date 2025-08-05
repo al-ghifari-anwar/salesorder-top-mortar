@@ -67,6 +67,7 @@ class Rekaptokobaru extends CI_Controller
         $data['dateFrom'] = $dateFrom;
         $data['dateTo'] = $dateTo;
         // PDF
+        // $this->load->view('Rekaptokobaru/Print', $data);
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Rekaptokobaru/Print', $data, true);
