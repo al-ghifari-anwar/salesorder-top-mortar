@@ -156,7 +156,7 @@ class Voucher extends CI_Controller
             $contact = $this->MContact->getById($id_contact);
 
             // Get Vuchers
-            $dateNow = date("m-d");
+            $dateNow = date("Y-m-d");
             $getVoucher = $this->db->query("SELECT * FROM tb_voucher WHERE id_contact = '$id_contact' AND is_claimed = 0 AND date_voucher LIKE '%$dateNow%' ")->result_array();
             $vouchers = "";
             foreach ($getVoucher as $voucherArr) {
