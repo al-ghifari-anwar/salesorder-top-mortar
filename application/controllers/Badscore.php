@@ -40,6 +40,7 @@ class Badscore extends CI_Controller
         $data['title'] = 'Toko Skor Jelek';
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_bad_score.id_contact');
         $data['contacts'] = $this->db->get_where('tb_bad_score', ['id_city' => $id_city])->result_array();
+        $data['id_city'] = $id_city;
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -48,7 +49,7 @@ class Badscore extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function approve($id_contact)
+    public function approve($id_contact, $id_city)
     {
         $badscoreData = [
             'is_approved' => 1,
@@ -60,14 +61,14 @@ class Badscore extends CI_Controller
 
         if ($save) {
             $this->session->set_flashdata('success', "Berhasil approve!");
-            redirect('badscore');
+            redirect('badscore/' . $id_city);
         } else {
             $this->session->set_flashdata('failed', "Gagal approve!");
-            redirect('badscore');
+            redirect('badscore/' . $id_city);
         }
     }
 
-    public function tampilkan($id_contact)
+    public function tampilkan($id_contact, $id_city)
     {
         $badscoreData = [
             'is_approved' => 0,
@@ -79,10 +80,10 @@ class Badscore extends CI_Controller
 
         if ($save) {
             $this->session->set_flashdata('success', "Berhasil menampilkan toko!");
-            redirect('badscore');
+            redirect('badscore/' . $id_city);
         } else {
             $this->session->set_flashdata('failed', "Gagal menampilkan toko!");
-            redirect('badscore');
+            redirect('badscore/' . $id_city);
         }
     }
 }
