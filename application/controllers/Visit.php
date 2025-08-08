@@ -256,6 +256,10 @@ class Visit extends CI_Controller
         $data['dateFrom'] = $dateFrom;
         $data['dateTo'] = $dateTo;
         $data['type'] = $type;
+
+        $user = $this->MVisit->getGroupedContactGlobal($id_city, $type, $dateFrom, $dateTo);
+        // echo json_encode($user);
+        // die;
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);

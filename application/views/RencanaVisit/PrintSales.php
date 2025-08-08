@@ -125,9 +125,11 @@ function penyebut($nilai)
                 $this->db->group_by('DATE(tb_visit.date_visit)');
                 $dateGroup = $this->db->get_where("tb_visit", ['tb_visit.id_user' => $id_user, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'tb_contact.id_city' => $id_city])->result_array();
 
+                // $this->db->last_query();
                 ?>
                 <tr>
-                    <th colspan="7" class="border text-left" style="color: blue;">User: <?= $user['full_name'] ?></th>
+                    <th colspan="7" class="border text-left" style="color: blue;">User: <?= $user['full_name'] ?> </th>
+
                 </tr>
                 <?php
                 $total = 0;
