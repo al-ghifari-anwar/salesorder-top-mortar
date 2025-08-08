@@ -123,7 +123,7 @@ function penyebut($nilai)
 
                 $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                 $this->db->group_by('DATE(tb_visit.date_visit)');
-                $dateGroup = $this->db->get_where("tb_visit", ['id_user' => $id_user, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'tb_contact.id_city' => $id_city])->result_array();
+                $dateGroup = $this->db->get_where("tb_visit", ['tb_visit.id_user' => $id_user, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'tb_contact.id_city' => $id_city])->result_array();
 
                 ?>
                 <tr>
@@ -139,12 +139,12 @@ function penyebut($nilai)
 
                     $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                     $this->db->order_by('tb_visit.date_visit', 'DESC');
-                    $visitByDate = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'tb_visit.is_deleted' => 0, 'tb_contact.id_city' => $id_city, 'is_approved' => 1, 'source_visit !=' => 'normal'])->result_array();
+                    $visitByDate = $this->db->get_where('tb_visit', ['tb_visit.id_user' => $id_user, 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'tb_visit.is_deleted' => 0, 'tb_contact.id_city' => $id_city, 'is_approved' => 1, 'source_visit !=' => 'normal'])->result_array();
 
                     $this->db->select("COUNT(*) AS total_visit");
                     $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                     $this->db->group_by('tb_visit.id_contact');
-                    $getTotal = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'tb_visit.is_deleted' => 0, 'tb_contact.id_city' => $id_city, 'is_approved' => 1, 'source_visit !=' => 'normal'])->num_rows();
+                    $getTotal = $this->db->get_where('tb_visit', ['tb_visit.id_user' => $id_user, 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'tb_visit.is_deleted' => 0, 'tb_contact.id_city' => $id_city, 'is_approved' => 1, 'source_visit !=' => 'normal'])->num_rows();
                     $total += $getTotal;
                     ?>
                     <?php foreach ($visitByDate as $visit) : ?>
