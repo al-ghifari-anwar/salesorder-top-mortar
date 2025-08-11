@@ -68,6 +68,8 @@ class Piutang extends CI_Controller
             // $invoice = $this->MInvoice->getAll();
         }
 
+        // echo json_encode($invoice);
+        // die;
         $data['invoice'] = $invoice;
         $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
         $data['dateTo'] = date("Y-m-d H:i:s", strtotime($dates[1] . " 23:59:59"));

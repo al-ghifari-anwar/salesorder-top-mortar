@@ -57,6 +57,7 @@ class Rekap extends CI_Controller
 
     public function rekap()
     {
+        ini_set('pcre.backtrack_limit', '5000000');
         $dateRange = $this->input->post("date_range");
         $id_contact = $this->input->post("id_contact");
         $no_invoice = $this->input->post("no_invoice");
