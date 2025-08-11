@@ -83,7 +83,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <?php if ($suratjalan['is_finished'] == 0 || $suratjalan['is_closing'] == 0) : ?>
+                            <?php if ($suratjalan['is_finished'] == 0 && $suratjalan['is_closing'] == 0) : ?>
                                 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                     Tambah Produk
                                 </button>
@@ -103,7 +103,7 @@
                                         <th>Harga</th>
                                         <th>QTY</th>
                                         <th>Is Free / Retur</th>
-                                        <?php if ($suratjalan['is_finished'] == 0 || $suratjalan['is_closing'] == 0) : ?>
+                                        <?php if ($suratjalan['is_finished'] == 0 && $suratjalan['is_closing'] == 0) : ?>
                                             <th>Aksi</th>
                                         <?php endif; ?>
                                     </tr>
@@ -118,7 +118,7 @@
                                             <td><?= $data['price'] ?></td>
                                             <td><?= $data['qty_produk'] ?></td>
                                             <td><?= $data['is_bonus'] == 1 || $data['is_bonus'] == 2 ? 'Yes' : 'No' ?></td>
-                                            <?php if ($suratjalan['is_finished'] == 0 || $suratjalan['is_closing'] == 0) : ?>
+                                            <?php if ($suratjalan['is_finished'] == 0 && $suratjalan['is_closing'] == 0) : ?>
                                                 <td>
                                                     <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_detail_surat_jalan'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
                                                     <a href="<?= base_url('delete-detsuratjalan/') . $data['id_detail_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
