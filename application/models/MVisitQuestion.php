@@ -12,7 +12,7 @@ class MVisitQuestion extends CI_Model
     public function get()
     {
         $this->db->order_by('created_at', 'DESC');
-        $result = $this->db->get('tb_visit_question')->result_array();
+        $result = $this->db->get_where('tb_visit_question', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
 
         return $result;
     }
