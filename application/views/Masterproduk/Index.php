@@ -44,7 +44,7 @@
                             <button type="button" class="btn btn-primary float-right mx-1" data-toggle="modal" data-target="#modal-insert">
                                 Tambah Data
                             </button>
-                            <a href="<?= base_url('masterproduk/sync') ?>" class="btn bg-teal float-right mx-1"><i class="fas fa-sync"></i></a>
+                            <!-- <a href="<?= base_url('masterproduk/sync') ?>" class="btn bg-teal float-right mx-1"><i class="fas fa-sync"></i></a> -->
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
