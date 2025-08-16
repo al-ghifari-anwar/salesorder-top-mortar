@@ -6,6 +6,10 @@ class Checklistrenvi extends CI_Controller
     {
         parent::__construct();
         $this->load->model('MRenvi');
+
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
     }
 
     public function index()
