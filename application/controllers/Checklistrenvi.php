@@ -10,6 +10,12 @@ class Checklistrenvi extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
+
+        if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'sales' || $this->session->userdata('level_user') == 'penagihan') {
+            // redirect('');
+        } else {
+            redirect('');
+        }
     }
 
     public function index()
