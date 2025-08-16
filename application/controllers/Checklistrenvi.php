@@ -202,7 +202,7 @@ class Checklistrenvi extends CI_Controller
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Checklistrenvi/Print', $data, true);
+        $html = $this->load->view('ChecklistRenvi/Print', $data, true);
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
