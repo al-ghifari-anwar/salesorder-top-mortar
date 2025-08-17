@@ -46,7 +46,7 @@
                             </button> -->
                         </div>
                         <div class="card-body">
-                            <table id="table" class="table table-bordered table-striped">
+                            <table id="table-no-paging" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="checkAll"></th>

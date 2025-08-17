@@ -49,6 +49,16 @@
         });
     });
 
+    $('#table-no-paging').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+    });
+
     $("#table-print").DataTable({
         "lengthMenu": [
             [10, 25, 50, 100, -1],
