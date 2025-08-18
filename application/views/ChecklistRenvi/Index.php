@@ -61,13 +61,25 @@
                                     <?php
                                     $no = 1;
                                     foreach ($renvis as $renvi): ?>
+                                        <?php
+                                        $created_at = date('Y-m-d', strtotime($renvi['created_at']));
+
+                                        $date1 = new DateTime(date("Y-m-d"));
+                                        $date2 = new DateTime($created_at);
+                                        $days  = $date2->diff($date1)->format('%a');
+                                        $operan = "";
+                                        if ($date1 < $date2) {
+                                            $operan = "-";
+                                        }
+                                        $days = $operan . $days;
+                                        ?>
                                         <tr>
                                             <td><input type="checkbox" class="checkItem" value="<?= $renvi['id_renvis_jatem'] ?>"></td>
                                             <td><?= $no++; ?></td>
                                             <td><?= $renvi['nama'] ?></td>
                                             <td><?= $renvi['type_renvis'] ?></td>
                                             <td><?= $renvi['jatuh_tempo'] ?></td>
-                                            <td><?= $renvi['days'] ?></td>
+                                            <td><?= $days ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
