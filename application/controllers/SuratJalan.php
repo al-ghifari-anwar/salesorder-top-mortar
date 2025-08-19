@@ -18,6 +18,7 @@ class SuratJalan extends CI_Controller
         $this->load->model('MCity');
         $this->load->model('MKendaraan');
         $this->load->model('MVoucher');
+        $this->load->model('MaxchatHelper');
         $this->load->library('form_validation');
     }
 
@@ -138,66 +139,94 @@ class SuratJalan extends CI_Controller
         $integration_id = $qontak['integration_id'];
         $wa_token = $qontak['token'];
 
-        $curl = curl_init();
+        if ($id_distributor != 8) {
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
-                    "to_number": "' . $suratjalan['phone_user'] . '",
-                    "to_name": "' . $suratjalan['full_name'] . '",
-                    "message_template_id": "' . $template_id . '",
-                    "channel_integration_id": "' . $integration_id . '",
-                    "language": {
-                        "code": "id"
-                    },
-                    "parameters": {
-                        "body": [
-                        {
-                            "key": "1",
-                            "value": "nama",
-                            "value_text": "' . $suratjalan['full_name'] . '"
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                        "to_number": "' . $suratjalan['phone_user'] . '",
+                        "to_name": "' . $suratjalan['full_name'] . '",
+                        "message_template_id": "' . $template_id . '",
+                        "channel_integration_id": "' . $integration_id . '",
+                        "language": {
+                            "code": "id"
                         },
-                        {
-                            "key": "2",
-                            "value": "store",
-                            "value_text": "' . $suratjalan['nama'] . '"
-                        },
-                        {
-                            "key": "3",
-                            "value": "address",
-                            "value_text": "' . trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'] . '"
-                        },
-                        {
-                            "key": "4",
-                            "value": "no_surat",
-                            "value_text": "' . $suratjalan['no_surat_jalan'] . '"
+                        "parameters": {
+                            "body": [
+                            {
+                                "key": "1",
+                                "value": "nama",
+                                "value_text": "' . $suratjalan['full_name'] . '"
+                            },
+                            {
+                                "key": "2",
+                                "value": "store",
+                                "value_text": "' . $suratjalan['nama'] . '"
+                            },
+                            {
+                                "key": "3",
+                                "value": "address",
+                                "value_text": "' . trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'] . '"
+                            },
+                            {
+                                "key": "4",
+                                "value": "no_surat",
+                                "value_text": "' . $suratjalan['no_surat_jalan'] . '"
+                            }
+                            ]
                         }
+                        }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            // echo $response;
+            // die;
+
+            $res = json_decode($response, true);
+
+            $status = $res['status'];
+        } else {
+            $message = 'Pesanan perlu dikirim. Nomor SJ: ' . $suratjalan['no_surat_jalan'] . '. Alamat: ' . trim(preg_replace('/\s+/', ' ', $suratjalan['address']));
+            $jsonRequest = [
+                'to' => $suratjalan['phone_user'],
+                'msgType' => 'text',
+                'templateId' => 'b75d51f9-c925-4a62-8b93-dd072600b95b',
+                'values' => [
+                    'body' => [
+                        [
+                            'index' => 1,
+                            'type' => 'text',
+                            'text' => $suratjalan['full_name']
+                        ],
+                        [
+                            'index' => 2,
+                            'type' => 'text',
+                            'text' => trim(preg_replace('/\s+/', ' ', $message))
                         ]
-                    }
-                    }',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $wa_token,
-                'Content-Type: application/json'
-            ),
-        ));
+                    ],
+                ]
+            ];
 
-        $response = curl_exec($curl);
+            $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $jsonRequest);
 
-        curl_close($curl);
-
-        // echo $response;
-        // die;
-
-        $res = json_decode($response, true);
-
-        $status = $res['status'];
+            $status = isset($resArray['content']) ? 'success' : 'no';
+        }
 
         if ($status == "success") {
             $this->db->update('tb_surat_jalan', ['is_finished' => 1], ['id_surat_jalan' => $suratjalan['id_surat_jalan']]);
