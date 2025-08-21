@@ -27,6 +27,7 @@ class Checklistrenvi extends CI_Controller
         $jatem1s = $this->MRenvi->getJatem1($id_city);
         $jatem2s = $this->MRenvi->getJatem2($id_city);
         $jatem3s = $this->MRenvi->getJatem3($id_city);
+        $mingguans = $this->MRenvi->getMingguan($id_city);
 
         $renvis = array();
 
@@ -97,6 +98,29 @@ class Checklistrenvi extends CI_Controller
             $created_at = $jatem3['created_at'];
             $jatem3['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
             $renvis[] = $jatem3;
+        }
+
+        foreach ($mingguans as $mingguan) {
+            $id_inv = $mingguan['id_invoice'];
+            $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
+            $jatuhTempo = date('d M Y', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($jatuhTempo);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+            $mingguan['days'] = $days;
+            $mingguan['jatuh_tempo'] = $jatuhTempo;
+            $mingguan['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+            $id_con = $mingguan['id_contact'];
+            $dateJatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND DATE(date_visit) >= '$dateJatem' AND source_visit IN ('jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $created_at = $mingguan['created_at'];
+            $mingguan['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $renvis[] = $mingguan;
         }
 
         // echo json_encode($renvi);
