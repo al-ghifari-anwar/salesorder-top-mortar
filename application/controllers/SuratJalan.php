@@ -18,7 +18,7 @@ class SuratJalan extends CI_Controller
         $this->load->model('MCity');
         $this->load->model('MKendaraan');
         $this->load->model('MVoucher');
-        $this->load->model('MaxchatHelper');
+        $this->load->model('Maxchathelper');
         $this->load->library('form_validation');
     }
 
