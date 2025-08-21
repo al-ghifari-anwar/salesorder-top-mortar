@@ -121,6 +121,7 @@ class Checklistrenvi extends CI_Controller
             $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND DATE(date_visit) >= '$dateJatem' AND source_visit IN ('jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
             $created_at = $mingguan['created_at'];
             $mingguan['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $mingguan['type_renvis'] = $$mingguan['type_rencana'];
             $renvis[] = $mingguan;
         }
 
@@ -247,6 +248,7 @@ class Checklistrenvi extends CI_Controller
             $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND DATE(date_visit) >= '$dateJatem' AND source_visit IN ('jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
             $created_at = $mingguan['created_at'];
             $mingguan['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $mingguan['type_renvis'] = $$mingguan['type_rencana'];
             $renvis[] = $mingguan;
         }
 
