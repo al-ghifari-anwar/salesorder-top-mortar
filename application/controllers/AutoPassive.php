@@ -31,9 +31,9 @@ class AutoPassive extends CI_Controller
                             'id_invoice' => 0,
                         ];
 
-                        echo json_encode($renviPassiveData);
+                        // echo json_encode($renviPassiveData);
 
-                        // $this->db->insert('tb_rencana_visit', $renviPassiveData);
+                        $this->db->insert('tb_rencana_visit', $renviPassiveData);
                     }
                 }
             }
