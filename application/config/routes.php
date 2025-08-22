@@ -365,3 +365,5 @@ $route['topseller/setting/discount/update'] = 'TopsellerDiscount/update';
 $route['rekaptokobaru'] = 'Rekaptokobaru/index';
 $route['rekaptokobaru/(:num)'] = 'Rekaptokobaru/list/$1';
 $route['rekaptokobaru/print'] = 'Rekaptokobaru/print';
+// Auto Passive
+$route['autopassive'] = 'AutoPassive/top';
