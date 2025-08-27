@@ -33,4 +33,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="<?= base_url('assets') ?>/plugins/jquery/jquery.min.js"></script>
     <!-- Circle Progress -->
     <script src="<?= base_url('assets') ?>/plugins/circle-progress/circle-progress.min.js" type="module"></script>
+    <!-- Auto numeric -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.8.1/autoNumeric.min.js"></script>
 </head>

@@ -44,6 +44,9 @@
                             <a href="<?= base_url('all-payment') ?>" class="btn btn-primary float-right">
                                 Lihat Semua Pembayaran
                             </a>
+                            <a href="#" data-toggle="modal" data-target="#addModal" class="btn btn-outline-success float-right mr-3">
+                                Tambah Transit Manual
+                            </a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
@@ -133,3 +136,56 @@
     </div>
 </aside>
 <!-- /.control-sidebar -->
+
+
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data Pembayaran Transit</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('insert-transit') ?>" method="POST">
+                    <div class="form-group">
+                        <label for="">Nominal</label>
+                        <input type="number" name="amount_payment" id="amount_payment" class="form-control" onkeyup="formatMoney(this)">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tanggal</label>
+                        <input type="date" name="date_payment" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Remark</label>
+                        <textarea name="remark_payment" id="" cols="30" rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Sumber Rekening</label>
+                        <select name="source" id="" class="form-select select2bs4">
+                            <option value="8880762231">8880762231 - Top 1</option>
+                            <option value="8880964519">8880964519 - Top 2</option>
+                            <option value="8881051362">8881051362 - Top 3</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary float-right">Simpan</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script>
+    // $(document).ready(function() {
+    //     $("#amount_payment").autoNumeric(
+    //         'init', {
+    //             aSep: ',',
+    //             mDec: '0',
+    //             vMax: '99999999999999999999999999'
+    //         }
+    //     );
+    // });
+</script>

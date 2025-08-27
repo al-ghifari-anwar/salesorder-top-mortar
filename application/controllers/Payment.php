@@ -51,6 +51,29 @@ class Payment extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function insertTransit()
+    {
+        $post = $this->input->post();
+
+        $paymentData = [
+            'amount_payment' => $post['amount_payment'],
+            'date_payment' => date('Y-m-d H:i:s', strtotime($post['date_payment'])),
+            'remark_payment' => $post['remark_payment'],
+            'id_invoice' => 0,
+            'source' => $post['source'],
+        ];
+
+        $save = $this->db->insert('tb_payment', $paymentData);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Success menambah transit!");
+            redirect('payment-transit');
+        } else {
+            $this->session->set_flashdata('failed', "Failed!");
+            redirect('payment-transit');
+        }
+    }
+
     public function all()
     {
         $data['title'] = 'Semua Pembayaran';
