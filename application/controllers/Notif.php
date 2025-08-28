@@ -290,7 +290,7 @@ class Notif extends CI_Controller
         $files = glob(FCPATH . "assets/tmp/inv/" . $fileNameSearch . "*");
 
         if ($files) {
-            $replaceFilePath = str_replace("/home/admin/web/order.topmortarindonesia.com/public_html/", "https://order.topmortarindonesia.com/", $files[0]);
+            $replaceFilePath = str_replace("/home/admin2/web/order.topmortarindonesia.com/public_html/", "https://order.topmortarindonesia.com/", $files[0]);
             echo json_encode($replaceFilePath);
 
             // Send Invoice
