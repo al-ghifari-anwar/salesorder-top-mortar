@@ -70,7 +70,7 @@ class Manualvisit extends CI_Controller
             'laporan_visit' => $laporan_visit,
             'source_visit' => $source_visit,
             'id_user' => $id_user,
-            'date_visit' => date("Y-m-d H:i:s", $date_visit),
+            'date_visit' => date("Y-m-d H:i:s", strtotime($date_visit)),
             'is_manual' => 1,
             'manual_user' => $manual_user,
             'is_pay' => $is_pay,
