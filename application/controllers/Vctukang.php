@@ -57,14 +57,14 @@ class Vctukang extends CI_Controller
 
         if ($no_seri == null) {
             $this->session->set_flashdata('failed', "Nomor seri tidak boleh kosong!");
-            redirect('vctukang');
+            return redirect('vctukang');
         } else {
             $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
             $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $no_seri])->row_array();
 
             if (!$getTukang) {
                 $this->session->set_flashdata('failed', "Nomor seri tidak terdaftar!");
-                redirect('vctukang');
+                return redirect('vctukang');
             } else {
                 $id_tukang = $getTukang['id_tukang'];
 
@@ -75,10 +75,10 @@ class Vctukang extends CI_Controller
                     if ($getVoucherTukang) {
                         if ($getVoucherTukang['is_claimed'] == 1) {
                             $this->session->set_flashdata('failed', "Nomor seri sudah pernah di claim!");
-                            redirect('vctukang');
+                            return redirect('vctukang');
                         } else {
                             $this->session->set_flashdata('failed', "Nomor seri sudah terverifikasi, silahkan kunjungi toko untuk claim");
-                            redirect('vctukang');
+                            return redirect('vctukang');
                         }
                     } else {
                         // Read Logo File
@@ -195,10 +195,10 @@ class Vctukang extends CI_Controller
                             $this->MVoucherTukang->create($id_tukang, $no_seri);
 
                             $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
-                            redirect('vctukang');
+                            return redirect('vctukang');
                         } else {
                             $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
-                            redirect('vctukang');
+                            return redirect('vctukang');
                         }
                     }
                 } else {
@@ -316,10 +316,10 @@ class Vctukang extends CI_Controller
                         $this->MVoucherTukang->create($id_tukang, $no_seri);
 
                         $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp!");
-                        redirect('vctukang');
+                        return redirect('vctukang');
                     } else {
                         $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
-                        redirect('vctukang');
+                        return redirect('vctukang');
                     }
                 }
             }
@@ -341,7 +341,7 @@ class Vctukang extends CI_Controller
 
         if ($nomorhp == null) {
             $this->session->set_flashdata('failed', "Nomor hp tidak boleh kosong!");
-            redirect('vctukang/self');
+            return redirect('vctukang/self');
         } else {
             $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
             $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $nomorhp])->row_array();
@@ -349,7 +349,7 @@ class Vctukang extends CI_Controller
             if ($getTukang) {
                 if ($getTukang['is_demo'] == 0) {
                     $this->session->set_flashdata('failed', "Nomor anda sudah terdaftar dan tidak dapat mendapat potongan lagi");
-                    redirect('vctukang/self');
+                    return redirect('vctukang/self');
                 } else {
                     $data = [
                         'nama' => $nama,
@@ -377,10 +377,10 @@ class Vctukang extends CI_Controller
                         if ($getVoucherTukang) {
                             if ($getVoucherTukang['is_claimed'] == 1) {
                                 $this->session->set_flashdata('failed', "Nomor sudah pernah di claim!");
-                                redirect('vctukang/self');
+                                return redirect('vctukang/self');
                             } else {
                                 $this->session->set_flashdata('failed', "Nomor sudah terverifikasi, silahkan kunjungi toko untuk claim");
-                                redirect('vctukang/self');
+                                return redirect('vctukang/self');
                             }
                         } else {
                             // Read Logo File
@@ -498,10 +498,10 @@ class Vctukang extends CI_Controller
                                 $this->MVoucherTukang->create($id_tukang, $nomorhp);
 
                                 $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp! Id: " . $data['id']);
-                                redirect('vctukang/self');
+                                return redirect('vctukang/self');
                             } else {
                                 $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
-                                redirect('vctukang/self');
+                                return redirect('vctukang/self');
                             }
                         }
                     }
@@ -533,10 +533,10 @@ class Vctukang extends CI_Controller
                     if ($getVoucherTukang) {
                         if ($getVoucherTukang['is_claimed'] == 1) {
                             $this->session->set_flashdata('failed', "Nomor sudah pernah di claim!");
-                            redirect('vctukang/self');
+                            return redirect('vctukang/self');
                         } else {
                             $this->session->set_flashdata('failed', "Nomor sudah terverifikasi, silahkan kunjungi toko untuk claim");
-                            redirect('vctukang/self');
+                            return redirect('vctukang/self');
                         }
                     } else {
                         // Read Logo File
@@ -654,10 +654,10 @@ class Vctukang extends CI_Controller
                             $this->MVoucherTukang->create($id_tukang, $nomorhp);
 
                             $this->session->set_flashdata('success', "Berhasil verifikasi, silahkan cek QR yang telah kami kirim melalui WhatsApp! Id: " . $data['id']);
-                            redirect('vctukang/self');
+                            return redirect('vctukang/self');
                         } else {
                             $this->session->set_flashdata('failed', "Gagal memverifikasi nomor seri, silahkan coba lagi!");
-                            redirect('vctukang/self');
+                            return redirect('vctukang/self');
                         }
                     }
                 }
@@ -722,10 +722,10 @@ class Vctukang extends CI_Controller
                     $this->db->insert('tb_voucher_tukang', $data);
 
                     $this->session->set_flashdata('success', "Berhasil claim voucher");
-                    redirect('vctukang/toko/' . $id_tukang);
+                    return redirect('vctukang/toko/' . $id_tukang);
                 } else {
                     $this->session->set_flashdata('failed', "Gagal claim voucher, silahkan coba lagi!");
-                    redirect('vctukang/toko/' . $id_tukang);
+                    return redirect('vctukang/toko/' . $id_tukang);
                 }
             } else {
                 // TF interbank
@@ -760,15 +760,15 @@ class Vctukang extends CI_Controller
                     $this->db->insert('tb_voucher_tukang', $data);
 
                     $this->session->set_flashdata('success', "Berhasil claim voucher");
-                    redirect('vctukang/toko/' . $id_tukang);
+                    return redirect('vctukang/toko/' . $id_tukang);
                 } else {
                     $this->session->set_flashdata('failed', "Gagal claim voucher, silahkan coba lagi!");
-                    redirect('vctukang/toko/' . $id_tukang);
+                    return redirect('vctukang/toko/' . $id_tukang);
                 }
             }
         } else {
             $this->session->set_flashdata('failed', "Nomor seri sudah terpakai!");
-            redirect('vctukang/toko/' . $id_tukang);
+            return redirect('vctukang/toko/' . $id_tukang);
         }
     }
 }
