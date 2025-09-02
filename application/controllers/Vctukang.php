@@ -437,102 +437,103 @@ class Vctukang extends CI_Controller
                         // $message = $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
                         $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
                         // Send message
-                        // $curl = curl_init();
+                        $curl = curl_init();
 
-                        // curl_setopt_array($curl, array(
-                        //     CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
-                        //     CURLOPT_RETURNTRANSFER => true,
-                        //     CURLOPT_ENCODING => '',
-                        //     CURLOPT_MAXREDIRS => 10,
-                        //     CURLOPT_TIMEOUT => 0,
-                        //     CURLOPT_FOLLOWLOCATION => true,
-                        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        //     CURLOPT_CUSTOMREQUEST => 'POST',
-                        //     CURLOPT_POSTFIELDS => '{
-                        //                 "to_number": "' . $nomor_hp . '",
-                        //                 "to_name": "' . $nama . '",
-                        //                 "message_template_id": "' . $template_id . '",
-                        //                 "channel_integration_id": "' . $integration_id . '",
-                        //                 "language": {
-                        //                     "code": "id"
-                        //                 },
-                        //                 "parameters": {
-                        //                     "header":{
-                        //                         "format":"IMAGE",
-                        //                         "params": [
-                        //                             {
-                        //                                 "key":"url",
-                        //                                 "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
-                        //                             },
-                        //                             {
-                        //                                 "key":"filename",
-                        //                                 "value":"qrtukang.png"
-                        //                             }
-                        //                         ]
-                        //                     },
-                        //                     "body": [
-                        //                         {
-                        //                             "key": "1",
-                        //                             "value": "nama",
-                        //                             "value_text": "' . $message . '"
-                        //                         }
-                        //                     ]
-                        //                 }
-                        //                 }',
-                        //     CURLOPT_HTTPHEADER => array(
-                        //         'Authorization: Bearer ' . $wa_token,
-                        //         'Content-Type: application/json'
-                        //     ),
-                        // ));
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'POST',
+                            CURLOPT_POSTFIELDS => '{
+                                        "to_number": "' . $nomor_hp . '",
+                                        "to_name": "' . $nama . '",
+                                        "message_template_id": "' . $template_id . '",
+                                        "channel_integration_id": "' . $integration_id . '",
+                                        "language": {
+                                            "code": "id"
+                                        },
+                                        "parameters": {
+                                            "header":{
+                                                "format":"IMAGE",
+                                                "params": [
+                                                    {
+                                                        "key":"url",
+                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
+                                                    },
+                                                    {
+                                                        "key":"filename",
+                                                        "value":"qrtukang.png"
+                                                    }
+                                                ]
+                                            },
+                                            "body": [
+                                                {
+                                                    "key": "1",
+                                                    "value": "nama",
+                                                    "value_text": "' . $message . '"
+                                                }
+                                            ]
+                                        }
+                                        }',
+                            CURLOPT_HTTPHEADER => array(
+                                'Authorization: Bearer ' . $wa_token,
+                                'Content-Type: application/json'
+                            ),
+                        ));
 
-                        // $response = curl_exec($curl);
+                        $response = curl_exec($curl);
 
-                        // curl_close($curl);
+                        curl_close($curl);
 
-                        // $res = json_decode($response, true);
+                        $res = json_decode($response, true);
                         // echo $response;
-                        $image = "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name;
+                        // $image = "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name;
 
-                        $jsonRequest = [
-                            'to' => $nomor_hp,
-                            'msgType' => 'text',
-                            'templateId' => '2c188c43-d6c8-4385-985e-02284980eabb',
-                            'values' => [
-                                'body' => [
-                                    [
-                                        'index' => 1,
-                                        'type' => 'text',
-                                        'text' => $nama
-                                    ],
-                                    [
-                                        'index' => 2,
-                                        'type' => 'text',
-                                        'text' => $message
-                                    ]
-                                ],
-                                'header' => [
-                                    'type' => 'image',
-                                    'attachmentUrl' => $image
-                                ],
-                                'buttons' => [
-                                    [
-                                        'type' => 'text',
-                                        'index' => 1,
-                                        'payload' => 'penukaranstore',
-                                    ],
-                                    [
-                                        'type' => 'text',
-                                        'index' => 2,
-                                        'payload' => 'referal/' . $voucherCode,
-                                    ],
-                                ]
-                            ]
-                        ];
+                        // $jsonRequest = [
+                        //     'to' => $nomor_hp,
+                        //     'msgType' => 'text',
+                        //     'templateId' => '2c188c43-d6c8-4385-985e-02284980eabb',
+                        //     'values' => [
+                        //         'body' => [
+                        //             [
+                        //                 'index' => 1,
+                        //                 'type' => 'text',
+                        //                 'text' => $nama
+                        //             ],
+                        //             [
+                        //                 'index' => 2,
+                        //                 'type' => 'text',
+                        //                 'text' => $message
+                        //             ]
+                        //         ],
+                        //         'header' => [
+                        //             'type' => 'image',
+                        //             'attachmentUrl' => $image
+                        //         ],
+                        //         'buttons' => [
+                        //             [
+                        //                 'type' => 'text',
+                        //                 'index' => 1,
+                        //                 'payload' => 'penukaranstore',
+                        //             ],
+                        //             [
+                        //                 'type' => 'text',
+                        //                 'index' => 2,
+                        //                 'payload' => 'referal/' . $voucherCode,
+                        //             ],
+                        //         ]
+                        //     ]
+                        // ];
 
-                        $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $jsonRequest);
+                        // $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $jsonRequest);
 
-                        $status = isset($resArray['content']) == 'success';
-                        // $data = $res['data'][0];
+                        // $status = isset($resArray['content']) == 'success';
+                        $status = $res['status'];
+                        $data = $res['data'][0];
 
                         if ($status == "success") {
                             $this->MVoucherTukang->create($id_tukang, $nomorhp);
@@ -632,105 +633,105 @@ class Vctukang extends CI_Controller
                         // $message = $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
                         $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
                         // Send message
-                        // $curl = curl_init();
+                        $curl = curl_init();
 
-                        // curl_setopt_array($curl, array(
-                        //     CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
-                        //     CURLOPT_RETURNTRANSFER => true,
-                        //     CURLOPT_ENCODING => '',
-                        //     CURLOPT_MAXREDIRS => 10,
-                        //     CURLOPT_TIMEOUT => 0,
-                        //     CURLOPT_FOLLOWLOCATION => true,
-                        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        //     CURLOPT_CUSTOMREQUEST => 'POST',
-                        //     CURLOPT_POSTFIELDS => '{
-                        //                 "to_number": "' . $nomor_hp . '",
-                        //                 "to_name": "' . $nama . '",
-                        //                 "message_template_id": "' . $template_id . '",
-                        //                 "channel_integration_id": "' . $integration_id . '",
-                        //                 "language": {
-                        //                     "code": "id"
-                        //                 },
-                        //                 "parameters": {
-                        //                     "header":{
-                        //                         "format":"IMAGE",
-                        //                         "params": [
-                        //                             {
-                        //                                 "key":"url",
-                        //                                 "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
-                        //                             },
-                        //                             {
-                        //                                 "key":"filename",
-                        //                                 "value":"qrtukang.png"
-                        //                             }
-                        //                         ]
-                        //                     },
-                        //                     "body": [
-                        //                         {
-                        //                             "key": "1",
-                        //                             "value": "nama",
-                        //                             "value_text": "' . $message . '"
-                        //                         }
-                        //                     ]
-                        //                 }
-                        //                 }',
-                        //     CURLOPT_HTTPHEADER => array(
-                        //         'Authorization: Bearer ' . $wa_token,
-                        //         'Content-Type: application/json'
-                        //     ),
-                        // ));
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'POST',
+                            CURLOPT_POSTFIELDS => '{
+                                        "to_number": "' . $nomor_hp . '",
+                                        "to_name": "' . $nama . '",
+                                        "message_template_id": "' . $template_id . '",
+                                        "channel_integration_id": "' . $integration_id . '",
+                                        "language": {
+                                            "code": "id"
+                                        },
+                                        "parameters": {
+                                            "header":{
+                                                "format":"IMAGE",
+                                                "params": [
+                                                    {
+                                                        "key":"url",
+                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
+                                                    },
+                                                    {
+                                                        "key":"filename",
+                                                        "value":"qrtukang.png"
+                                                    }
+                                                ]
+                                            },
+                                            "body": [
+                                                {
+                                                    "key": "1",
+                                                    "value": "nama",
+                                                    "value_text": "' . $message . '"
+                                                }
+                                            ]
+                                        }
+                                        }',
+                            CURLOPT_HTTPHEADER => array(
+                                'Authorization: Bearer ' . $wa_token,
+                                'Content-Type: application/json'
+                            ),
+                        ));
 
-                        // $response = curl_exec($curl);
+                        $response = curl_exec($curl);
 
-                        // curl_close($curl);
+                        curl_close($curl);
 
-                        // $res = json_decode($response, true);
+                        $res = json_decode($response, true);
                         // echo $response;
 
-                        $image = "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name;
+                        // $image = "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name;
 
-                        $jsonRequest = [
-                            'to' => $nomor_hp,
-                            'msgType' => 'text',
-                            'templateId' => '2c188c43-d6c8-4385-985e-02284980eabb',
-                            'values' => [
-                                'body' => [
-                                    [
-                                        'index' => 1,
-                                        'type' => 'text',
-                                        'text' => $nama
-                                    ],
-                                    [
-                                        'index' => 2,
-                                        'type' => 'text',
-                                        'text' => $message
-                                    ]
-                                ],
-                                'header' => [
-                                    'type' => 'image',
-                                    'attachmentUrl' => $image
-                                ],
-                                'buttons' => [
-                                    [
-                                        'type' => 'text',
-                                        'index' => 1,
-                                        'payload' => 'penukaranstore',
-                                    ],
-                                    [
-                                        'type' => 'text',
-                                        'index' => 2,
-                                        'payload' => 'referal/' . $voucherCode,
-                                    ],
-                                ]
-                            ]
-                        ];
+                        // $jsonRequest = [
+                        //     'to' => $nomor_hp,
+                        //     'msgType' => 'text',
+                        //     'templateId' => '2c188c43-d6c8-4385-985e-02284980eabb',
+                        //     'values' => [
+                        //         'body' => [
+                        //             [
+                        //                 'index' => 1,
+                        //                 'type' => 'text',
+                        //                 'text' => $nama
+                        //             ],
+                        //             [
+                        //                 'index' => 2,
+                        //                 'type' => 'text',
+                        //                 'text' => $message
+                        //             ]
+                        //         ],
+                        //         'header' => [
+                        //             'type' => 'image',
+                        //             'attachmentUrl' => $image
+                        //         ],
+                        //         'buttons' => [
+                        //             [
+                        //                 'type' => 'text',
+                        //                 'index' => 1,
+                        //                 'payload' => 'penukaranstore',
+                        //             ],
+                        //             [
+                        //                 'type' => 'text',
+                        //                 'index' => 2,
+                        //                 'payload' => 'referal/' . $voucherCode,
+                        //             ],
+                        //         ]
+                        //     ]
+                        // ];
 
-                        $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $jsonRequest);
+                        // $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $jsonRequest);
 
-                        $status = isset($resArray['content']) == 'success';
+                        // $status = isset($resArray['content']) == 'success';
 
-                        // $status = $res['status'];
-                        // $data = $res['data'][0];
+                        $status = $res['status'];
+                        $data = $res['data'][0];
 
                         if ($status == "success") {
                             $this->MVoucherTukang->create($id_tukang, $nomorhp);
