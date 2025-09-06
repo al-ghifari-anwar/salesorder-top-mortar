@@ -185,6 +185,7 @@ class Notif extends CI_Controller
             $dataNotif = [
                 'id_surat_jalan' => $invoice['id_surat_jalan'],
                 'type_notif_invoice' => 'sj',
+                'id_msg' => $id_msgSj,
                 'is_sent' => 0
             ];
 
@@ -289,6 +290,7 @@ class Notif extends CI_Controller
                 $dataNotif = [
                     'id_surat_jalan' => $invoice['id_surat_jalan'],
                     'type_notif_invoice' => 'inv',
+                    'id_msg' => $id_msgInv,
                     'is_sent' => 0
                 ];
 
@@ -610,6 +612,7 @@ class Notif extends CI_Controller
                     if ($logData['status'] != 'failed') {
                         $notifInvoiceData = [
                             'id_surat_jalan' => $id_surat_jalan,
+                            'id_msg' => $id_msg,
                             'is_sent' => 1,
                         ];
 
@@ -753,6 +756,7 @@ class Notif extends CI_Controller
                 if ($logData['status'] != 'failed') {
                     $notifInvoiceData = [
                         'id_surat_jalan' => $id_surat_jalan,
+                        'id_msg' => $id_msg,
                         'is_sent' => 1,
                     ];
 
