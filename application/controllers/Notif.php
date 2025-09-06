@@ -616,7 +616,7 @@ class Notif extends CI_Controller
                             'is_sent' => 1,
                         ];
 
-                        $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan]);
+                        $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'inv']);
                     }
 
                     $result = [
@@ -760,7 +760,7 @@ class Notif extends CI_Controller
                         'is_sent' => 1,
                     ];
 
-                    $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan]);
+                    $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'sj']);
                 }
 
                 $result = [
@@ -772,6 +772,65 @@ class Notif extends CI_Controller
                 $this->output->set_output(json_encode($result));
             }
             // }
+        }
+    }
+
+    public function cekNotifLog()
+    {
+        $notifInvoices = $this->db->get_where('tb_notif_invoice', ['is_sent' => 1])->result_array();
+
+        foreach ($notifInvoices as $notifInvoice) {
+            $id_surat_jalan = $notifInvoice['id_surat_jalan'];
+
+            $invoice = $this->db->get_where('tb_invoice', ['id_surat_jalan' => $id_surat_jalan])->row_array();
+
+            $id_invoice = $invoice['id_invoice'];
+
+            $invoice = $this->MInvoice->getById($id_invoice);
+            $contact = $this->MContact->getById($invoice['id_contact']);
+
+            // Send Message
+            $id_distributor = $contact['id_distributor'];
+
+            $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+
+            $wa_token = $qontak['token'];
+            $integration_id = $qontak['integration_id'];
+
+            // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $notifInvoice['id_msg'] . '/whatsapp/log',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
+                ),
+            ));
+
+            $responseLog = curl_exec($curl);
+
+            curl_close($curl);
+
+            $resLog = json_decode($responseLog, true);
+            $logData = $resLog['data'];
+
+            if ($logData['status'] != 'failed') {
+                $notifInvoiceData = [
+                    'id_surat_jalan' => $id_surat_jalan,
+                    'id_msg' => $notifInvoice['id_msg'],
+                    'is_sent' => 1,
+                ];
+
+                $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => $notifInvoice['type_notif_invoice']]);
+            }
         }
     }
 }
