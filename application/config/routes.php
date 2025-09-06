@@ -337,6 +337,7 @@ $route['runcron/stmt'] = 'Runcron/stmt';
 $route['notif/invoice'] = 'Notif/send_invoice';
 $route['notif/invoice/backup'] = 'Notif/send_invoice_backup';
 $route['notif/invoice/backupapi'] = 'Notif/send_backup_api';
+$route['notif/invoice/backupsj'] = 'Notif/send_sj_backup';
 // Invoice Change
 $route['invoice/change/(:num)'] = 'Invoice/changeTermin/$1';
 // Combine Scoring

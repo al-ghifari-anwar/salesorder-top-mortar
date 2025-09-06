@@ -566,4 +566,150 @@ class Notif extends CI_Controller
             }
         }
     }
+
+    public function send_sj_backup()
+    {
+        $this->output->set_content_type('application/json');
+
+        $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
+
+        $id_invoice = $post['id_invoice'];
+
+        $invoice = $this->MInvoice->getById($id_invoice);
+        $contact = $this->MContact->getById($invoice['id_contact']);
+        $data['invoice'] = $invoice;
+        $data['store'] = $this->MContact->getById($invoice['id_contact']);
+        $data['kendaraan'] = $this->MKendaraan->getById($invoice['id_kendaraan']);
+        $data['courier'] = $this->MUser->getById($invoice['id_courier']);
+        $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
+        $data['id_distributor'] = $contact['id_distributor'];
+
+        $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
+
+        // Send Message
+        $id_distributor = $contact['id_distributor'];
+        $nomorhp = $contact['nomorhp'];
+        $nama = $contact['nama'];
+        $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
+        $message = "Berikut adalah invoice pembelian anda.";
+        $full_name = "-";
+        $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
+        $messageSj = "Berikut adalah surat jalan anda";
+
+        $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+
+        $wa_token = $qontak['token'];
+        $integration_id = $qontak['integration_id'];
+
+
+        // Send SJ
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                        "to_number": "' . $nomorhp . '",
+                        "to_name": "' . $nama . '",
+                        "message_template_id": "' . $templateSj . '",
+                        "channel_integration_id": "' . $integration_id . '",
+                        "language": {
+                            "code": "id"
+                        },
+                        "parameters": {
+                            "header":{
+                                "format":"IMAGE",
+                                "params": [
+                                    {
+                                        "key":"url",
+                                        "value":"' . $proofClosing . '"
+                                    },
+                                    {
+                                        "key":"filename",
+                                        "value":"' . $invoice['proof_closing'] . '"
+                                    }
+                                ]
+                            },
+                            "body": [
+                            {
+                                "key": "1",
+                                "value": "message",
+                                "value_text": "' . trim(preg_replace('/\s+/', ' ', $messageSj)) . '"
+                            }
+                            ]
+                        }
+                        }',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $wa_token,
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $resSj = json_decode($response, true);
+
+        if ($resSj['status'] == 'success') {
+            $data = $resSj['data'];
+            $id_qontak_msg = $data['id'];
+
+            // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_qontak_msg . '/whatsapp/log',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
+                ),
+            ));
+
+            $responseLog = curl_exec($curl);
+
+            curl_close($curl);
+
+            $resLog = json_decode($responseLog, true);
+            $logData = $resLog['data'];
+
+            if ($logData['status'] == 'failed') {
+                $dataNotif = [
+                    'id_surat_jalan' => $invoice['id_surat_jalan'],
+                    'is_sent' => 0
+                ];
+
+                $this->db->insert('tb_notif_invoice', $dataNotif);
+            }
+
+            $result = [
+                'code' => 200,
+                'status' => 'ok',
+                'detailSj' => $resSj
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        } else {
+            $result = [
+                'code' => 400,
+                'status' => 'failed',
+                'detailSj' => $resSj
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        }
+    }
 }

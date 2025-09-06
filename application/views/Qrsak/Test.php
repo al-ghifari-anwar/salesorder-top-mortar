@@ -14,6 +14,7 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 10px;
             margin: 0, 0, 0, 0;
+            background-color: black;
         }
 
         .border {
