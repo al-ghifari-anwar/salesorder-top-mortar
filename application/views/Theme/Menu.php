@@ -545,6 +545,12 @@
                                                 <p>Blast Tukang</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('qrsak') ?>" class="nav-link">
+                                                <i class="fas fa-qrcode nav-icon"></i>
+                                                <p>QR dalam Sak</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             <?php endif; ?>

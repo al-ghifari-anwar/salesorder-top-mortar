@@ -369,3 +369,6 @@ $route['rekaptokobaru/(:num)'] = 'Rekaptokobaru/list/$1';
 $route['rekaptokobaru/print'] = 'Rekaptokobaru/print';
 // Auto Passive
 $route['autopassive'] = 'AutoPassive/top';
+// QR dalam sak
+$route['qrsak'] = 'Qrsak/index';
+$route['qrsak/test'] = 'Qrsak/test';
