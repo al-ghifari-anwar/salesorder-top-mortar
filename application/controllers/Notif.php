@@ -820,7 +820,7 @@ class Notif extends CI_Controller
             curl_close($curl);
 
             $resLog = json_decode($responseLog, true);
-            $logData = $resLog['data'];
+            $logData = $resLog['data'][0];
 
             if ($logData['status'] == 'failed') {
                 $notifInvoiceData = [
