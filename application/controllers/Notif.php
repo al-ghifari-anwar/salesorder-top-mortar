@@ -179,7 +179,7 @@ class Notif extends CI_Controller
         curl_close($curl);
 
         $resLogSj = json_decode($responseLog, true);
-        $logSjData = $resLogSj['data'];
+        $logSjData = $resLogSj['data'][0];
 
         if ($logSjData['status'] == 'failed') {
             $dataNotif = [
@@ -284,7 +284,7 @@ class Notif extends CI_Controller
             curl_close($curl);
 
             $resLog = json_decode($responseLog, true);
-            $logData = $resLog['data'];
+            $logData = $resLog['data'][0];
 
             if ($logData['status'] == 'failed') {
                 $dataNotif = [
@@ -607,7 +607,7 @@ class Notif extends CI_Controller
                     curl_close($curl);
 
                     $resLog = json_decode($responseLog, true);
-                    $logData = $resLog['data'];
+                    $logData = $resLog['data'][0];
 
                     if ($logData['status'] != 'failed') {
                         $notifInvoiceData = [
@@ -751,7 +751,7 @@ class Notif extends CI_Controller
                 curl_close($curl);
 
                 $resLog = json_decode($responseLog, true);
-                $logData = $resLog['data'];
+                $logData = $resLog['data'][0];
 
                 if ($logData['status'] != 'failed') {
                     $notifInvoiceData = [
