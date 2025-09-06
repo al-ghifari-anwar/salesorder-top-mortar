@@ -97,7 +97,6 @@ class Notif extends CI_Controller
         $wa_token = $qontak['token'];
         $integration_id = $qontak['integration_id'];
 
-
         // Send SJ
         $curl = curl_init();
 
@@ -152,6 +151,45 @@ class Notif extends CI_Controller
         curl_close($curl);
 
         $resSj = json_decode($response, true);
+
+        $resDataSj = $resSj['data'];
+
+        $id_msgSj = $resDataSj['id'];
+
+        // Cek Log SJ 5f70dd63-7959-4a1c-8e52-e65a1eb40487
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_msgSj . '/whatsapp/log',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $wa_token,
+                'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
+            ),
+        ));
+
+        $responseLog = curl_exec($curl);
+
+        curl_close($curl);
+
+        $resLogSj = json_decode($responseLog, true);
+        $logSjData = $resLogSj['data'];
+
+        if ($logSjData['status'] == 'failed') {
+            $dataNotif = [
+                'id_surat_jalan' => $invoice['id_surat_jalan'],
+                'type_notif_invoice' => 'sj',
+                'is_sent' => 0
+            ];
+
+            $this->db->insert('tb_notif_invoice', $dataNotif);
+        }
 
         // Send Invoice
         $curl = curl_init();
@@ -220,13 +258,13 @@ class Notif extends CI_Controller
 
         if ($res['status'] == 'success') {
             $data = $res['data'];
-            $id_qontak_msg = $data['id'];
+            $id_msgInv = $data['id'];
 
             // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_qontak_msg . '/whatsapp/log',
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_msgInv . '/whatsapp/log',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -250,6 +288,7 @@ class Notif extends CI_Controller
             if ($logData['status'] == 'failed') {
                 $dataNotif = [
                     'id_surat_jalan' => $invoice['id_surat_jalan'],
+                    'type_notif_invoice' => 'inv',
                     'is_sent' => 0
                 ];
 
@@ -265,13 +304,6 @@ class Notif extends CI_Controller
 
             return $this->output->set_output(json_encode($result));
         } else {
-            $dataNotif = [
-                'id_surat_jalan' => $invoice['id_surat_jalan'],
-                'is_sent' => 0
-            ];
-
-            $this->db->insert('tb_notif_invoice', $dataNotif);
-
             $result = [
                 'code' => 400,
                 'status' => 'failed',
@@ -577,12 +609,6 @@ class Notif extends CI_Controller
 
         $invoice = $this->MInvoice->getById($id_invoice);
         $contact = $this->MContact->getById($invoice['id_contact']);
-        $data['invoice'] = $invoice;
-        $data['store'] = $this->MContact->getById($invoice['id_contact']);
-        $data['kendaraan'] = $this->MKendaraan->getById($invoice['id_kendaraan']);
-        $data['courier'] = $this->MUser->getById($invoice['id_courier']);
-        $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
-        $data['id_distributor'] = $contact['id_distributor'];
 
         $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
 
@@ -590,9 +616,6 @@ class Notif extends CI_Controller
         $id_distributor = $contact['id_distributor'];
         $nomorhp = $contact['nomorhp'];
         $nama = $contact['nama'];
-        $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
-        $message = "Berikut adalah invoice pembelian anda.";
-        $full_name = "-";
         $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
         $messageSj = "Berikut adalah surat jalan anda";
 
