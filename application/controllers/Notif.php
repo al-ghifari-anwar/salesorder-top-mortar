@@ -822,11 +822,11 @@ class Notif extends CI_Controller
             $resLog = json_decode($responseLog, true);
             $logData = $resLog['data'];
 
-            if ($logData['status'] != 'failed') {
+            if ($logData['status'] == 'failed') {
                 $notifInvoiceData = [
                     'id_surat_jalan' => $id_surat_jalan,
                     'id_msg' => $notifInvoice['id_msg'],
-                    'is_sent' => 1,
+                    'is_sent' => 0,
                 ];
 
                 $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => $notifInvoice['type_notif_invoice']]);
