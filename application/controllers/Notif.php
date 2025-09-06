@@ -459,7 +459,7 @@ class Notif extends CI_Controller
         $this->output->set_content_type('application/json');
 
         // $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
-        $notifInvoices = $this->db->get_where('tb_notif_invoice', ['is_sent' => 0])->result_array();
+        $notifInvoices = $this->db->get_where('tb_notif_invoice', ['is_sent' => 0, 'type_notif_invoice' => 'inv'])->result_array();
 
         foreach ($notifInvoices as $notifInvoice) {
             $id_surat_jalan = $notifInvoice['id_surat_jalan'];
