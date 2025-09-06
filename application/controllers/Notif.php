@@ -578,14 +578,43 @@ class Notif extends CI_Controller
                 curl_close($curl);
 
                 $res = json_decode($response, true);
+                $resData = $res['data'];
 
                 if ($res['status'] == 'success') {
-                    $notifInvoiceData = [
-                        'id_surat_jalan' => $id_surat_jalan,
-                        'is_sent' => 1,
-                    ];
+                    $id_msg = $resData['id'];
+                    // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
+                    $curl = curl_init();
 
-                    $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan]);
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_msg . '/whatsapp/log',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'GET',
+                        CURLOPT_HTTPHEADER => array(
+                            'Authorization: Bearer ' . $wa_token,
+                            'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
+                        ),
+                    ));
+
+                    $responseLog = curl_exec($curl);
+
+                    curl_close($curl);
+
+                    $resLog = json_decode($responseLog, true);
+                    $logData = $resLog['data'];
+
+                    if ($logData['status'] != 'failed') {
+                        $notifInvoiceData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'is_sent' => 1,
+                        ];
+
+                        $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan]);
+                    }
 
                     $result = [
                         'code' => 200,
@@ -603,41 +632,54 @@ class Notif extends CI_Controller
     {
         $this->output->set_content_type('application/json');
 
-        $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
+        // $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
+        $notifInvoices = $this->db->get_where('tb_notif_invoice', ['is_sent' => 0, 'type_notif_invoice' => 'inv'])->result_array();
 
-        $id_invoice = $post['id_invoice'];
+        foreach ($notifInvoices as $notifInvoice) {
+            $id_surat_jalan = $notifInvoice['id_surat_jalan'];
 
-        $invoice = $this->MInvoice->getById($id_invoice);
-        $contact = $this->MContact->getById($invoice['id_contact']);
+            $invoice = $this->db->get_where('tb_invoice', ['id_surat_jalan' => $id_surat_jalan])->row_array();
 
-        $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
+            $id_invoice = $invoice['id_invoice'];
 
-        // Send Message
-        $id_distributor = $contact['id_distributor'];
-        $nomorhp = $contact['nomorhp'];
-        $nama = $contact['nama'];
-        $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
-        $messageSj = "Berikut adalah surat jalan anda";
+            $invoice = $this->MInvoice->getById($id_invoice);
+            $contact = $this->MContact->getById($invoice['id_contact']);
+            $data['invoice'] = $invoice;
+            $data['store'] = $this->MContact->getById($invoice['id_contact']);
+            $data['kendaraan'] = $this->MKendaraan->getById($invoice['id_kendaraan']);
+            $data['courier'] = $this->MUser->getById($invoice['id_courier']);
+            $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
+            $data['id_distributor'] = $contact['id_distributor'];
 
-        $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+            $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
 
-        $wa_token = $qontak['token'];
-        $integration_id = $qontak['integration_id'];
+            // Send Message
+            $id_distributor = $contact['id_distributor'];
+            $nomorhp = $contact['nomorhp'];
+            $nama = $contact['nama'];
+            $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
+            $messageSj = "Berikut adalah surat jalan anda";
 
+            $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
 
-        // Send SJ
-        $curl = curl_init();
+            $wa_token = $qontak['token'];
+            $integration_id = $qontak['integration_id'];
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+            // if ($files) {
+
+            // Send SJ
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
                         "to_number": "' . $nomorhp . '",
                         "to_name": "' . $nama . '",
                         "message_template_id": "' . $templateSj . '",
@@ -668,71 +710,64 @@ class Notif extends CI_Controller
                             ]
                         }
                         }',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $wa_token,
-                'Content-Type: application/json'
-            ),
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-
-        $resSj = json_decode($response, true);
-
-        if ($resSj['status'] == 'success') {
-            $data = $resSj['data'];
-            $id_qontak_msg = $data['id'];
-
-            // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_qontak_msg . '/whatsapp/log',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_HTTPHEADER => array(
                     'Authorization: Bearer ' . $wa_token,
-                    'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
+                    'Content-Type: application/json'
                 ),
             ));
 
-            $responseLog = curl_exec($curl);
+            $response = curl_exec($curl);
 
             curl_close($curl);
 
-            $resLog = json_decode($responseLog, true);
-            $logData = $resLog['data'];
+            $res = json_decode($response, true);
+            $resData = $res['data'];
 
-            if ($logData['status'] == 'failed') {
-                $dataNotif = [
-                    'id_surat_jalan' => $invoice['id_surat_jalan'],
-                    'is_sent' => 0
+            if ($res['status'] == 'success') {
+                $id_msg = $resData['id'];
+                // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_msg . '/whatsapp/log',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $wa_token,
+                        'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
+                    ),
+                ));
+
+                $responseLog = curl_exec($curl);
+
+                curl_close($curl);
+
+                $resLog = json_decode($responseLog, true);
+                $logData = $resLog['data'];
+
+                if ($logData['status'] != 'failed') {
+                    $notifInvoiceData = [
+                        'id_surat_jalan' => $id_surat_jalan,
+                        'is_sent' => 1,
+                    ];
+
+                    $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan]);
+                }
+
+                $result = [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'detail' => $res
                 ];
 
-                $this->db->insert('tb_notif_invoice', $dataNotif);
+                $this->output->set_output(json_encode($result));
             }
-
-            $result = [
-                'code' => 200,
-                'status' => 'ok',
-                'detailSj' => $resSj
-            ];
-
-            return $this->output->set_output(json_encode($result));
-        } else {
-            $result = [
-                'code' => 400,
-                'status' => 'failed',
-                'detailSj' => $resSj
-            ];
-
-            return $this->output->set_output(json_encode($result));
+            // }
         }
     }
 }
