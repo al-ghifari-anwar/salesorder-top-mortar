@@ -96,7 +96,7 @@ class MPayment extends CI_Model
     public function setPaymentInv($id)
     {
         $post = $this->input->post();
-        $id_invoice = $post['id_invoice'];
+        $id_invoice = isset($post['id_invoice']) ? $post['id_invoice'] : 0;
         $getInv = $this->db->get_where('tb_invoice', ['id_invoice' => $id_invoice])->row_array();
         $id_surat_jalan = $getInv['id_surat_jalan'];
         $getItem = $this->db->query("SELECT SUM(qty_produk) AS qty_total FROM tb_detail_surat_jalan WHERE id_surat_jalan = '$id_surat_jalan' AND is_bonus = 0")->row_array();
@@ -112,6 +112,9 @@ class MPayment extends CI_Model
         }
         $days = $operan . $days;
 
+        if ($id_invoice == 0) {
+            return false;
+        }
 
         $this->id_invoice = $post['id_invoice'];
         $this->potongan_payment = $post['potongan'] * $getItem['qty_total'];
