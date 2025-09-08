@@ -2,7 +2,7 @@
 $renvisArray = array();
 
 foreach ($renvis as $renvi) {
-    $id_contact = $data['id_contact'];
+    $id_contact = $renvi['id_contact'];
     $bad_score = $this->db->get_where('tb_bad_score', ['id_contact' => $id_contact])->row_array();
 
     if ($bad_score) {
