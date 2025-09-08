@@ -1,3 +1,20 @@
+<?php
+$renvisArray = array();
+
+foreach ($renvis as $renvi) {
+    $id_contact = $data['id_contact'];
+    $bad_score = $this->db->get_where('tb_bad_score', ['id_contact' => $id_contact])->row_array();
+
+    if ($bad_score) {
+        if ($bad_score['is_approved'] != 1) {
+            array_push($renvisArray, $renvi);
+        }
+    } else {
+        array_push($renvisArray, $renvi);
+    }
+}
+?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -64,11 +81,7 @@
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($renvis as $data) : ?>
-                                        <?php
-                                        $id_contact = $data['id_contact'];
-                                        $bad_score = $this->db->get_where('tb_bad_score', ['id_contact' => $id_contact])->row_array();
-                                        ?>
+                                    foreach ($renvisArray as $data) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama'] ?></td>
