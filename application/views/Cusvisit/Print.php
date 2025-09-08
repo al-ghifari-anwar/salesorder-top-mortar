@@ -32,7 +32,7 @@ function penyebut($nilai)
 $contactArray = array();
 
 foreach ($contacts as $contactRow) {
-    $id_contact = $renvi['id_contact'];
+    $id_contact = $contactRow['id_contact'];
     $bad_score = $this->db->get_where('tb_bad_score', ['id_contact' => $id_contact])->row_array();
 
     if ($bad_score) {
