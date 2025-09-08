@@ -65,18 +65,24 @@
                                     <?php
                                     $no = 1;
                                     foreach ($renvis as $data) : ?>
-                                        <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $data['nama'] ?></td>
-                                            <td><?= $data['nomorhp'] ?></td>
-                                            <td><?= $data['store_status'] ?></td>
-                                            <td><?= $data['reputation'] ?></td>
-                                            <td><?= date("d F, Y", strtotime($data['date_renvis'])) ?></td>
-                                            <td><?= $data['interval_renvis'] ?> Hari</td>
-                                            <td>
-                                                <a href="<?= base_url('renvis/delete/' . $data['id_antrian_renvis'] . "/" . $data['id_contact']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                        $id_contact = $data['id_contact'];
+                                        $bad_score = $this->db->get_where('tb_bad_score', ['id_contact' => $id_contact])->row_array();
+                                        ?>
+                                        <?php if ($bad_score == null): ?>
+                                            <tr>
+                                                <td><?= $no++; ?></td>
+                                                <td><?= $data['nama'] ?></td>
+                                                <td><?= $data['nomorhp'] ?></td>
+                                                <td><?= $data['store_status'] ?></td>
+                                                <td><?= $data['reputation'] ?></td>
+                                                <td><?= date("d F, Y", strtotime($data['date_renvis'])) ?></td>
+                                                <td><?= $data['interval_renvis'] ?> Hari</td>
+                                                <td>
+                                                    <a href="<?= base_url('renvis/delete/' . $data['id_antrian_renvis'] . "/" . $data['id_contact']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
