@@ -28,6 +28,23 @@ function penyebut($nilai)
     return $temp;
 }
 ?>
+<?php
+$contactArray = array();
+
+foreach ($contacts as $contactRow) {
+    $id_contact = $renvi['id_contact'];
+    $bad_score = $this->db->get_where('tb_bad_score', ['id_contact' => $id_contact])->row_array();
+
+    if ($bad_score) {
+        if ($bad_score['is_approved'] != 1) {
+            array_push($contactArray, $contactRow);
+        }
+    } else {
+        array_push($contactArray, $contactRow);
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,19 +134,19 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Total</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
-        <?php if ($contacts == null) : ?>
+        <?php if ($contactArray == null) : ?>
             <tr>
                 <td colspan="9">No Data</td>
             </tr>
         <?php endif; ?>
-        <?php if ($contacts != null) :
+        <?php if ($contactArray != null) :
             $no = 1;
             $total_visitTagihan = 0;
             $total_visitPassive = 0;
             $total_visitMg = 0;
             $total_visitVoucher = 0;
         ?>
-            <?php foreach ($contacts as $contact) : ?>
+            <?php foreach ($contactArray as $contact) : ?>
                 <?php
                 $id_contact = $contact['id_contact'];
                 $this->db->group_by('DATE(tb_visit.date_visit)');
