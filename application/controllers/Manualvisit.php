@@ -56,7 +56,7 @@ class Manualvisit extends CI_Controller
         $is_pay = $post['is_pay'];
         $pay_value = $post['pay_value'];
         $id_city = $post['id_city'];
-        $date_visit = $post['date_visit'];
+        $date_visit = $post['date_visit'] . ' ' . date("H:i:s");
 
         $getContact = $this->MContact->getById($id_contact);
 
