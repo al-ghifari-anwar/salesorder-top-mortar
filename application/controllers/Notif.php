@@ -190,6 +190,15 @@ class Notif extends CI_Controller
             ];
 
             $this->db->insert('tb_notif_invoice', $dataNotif);
+        } else {
+            $dataNotif = [
+                'id_surat_jalan' => $invoice['id_surat_jalan'],
+                'type_notif_invoice' => 'sj',
+                'id_msg' => $id_msgSj,
+                'is_sent' => 1
+            ];
+
+            $this->db->insert('tb_notif_invoice', $dataNotif);
         }
 
         // Send Invoice
@@ -292,6 +301,15 @@ class Notif extends CI_Controller
                     'type_notif_invoice' => 'inv',
                     'id_msg' => $id_msgInv,
                     'is_sent' => 0
+                ];
+
+                $this->db->insert('tb_notif_invoice', $dataNotif);
+            } else {
+                $dataNotif = [
+                    'id_surat_jalan' => $invoice['id_surat_jalan'],
+                    'type_notif_invoice' => 'inv',
+                    'id_msg' => $id_msgInv,
+                    'is_sent' => 1
                 ];
 
                 $this->db->insert('tb_notif_invoice', $dataNotif);
