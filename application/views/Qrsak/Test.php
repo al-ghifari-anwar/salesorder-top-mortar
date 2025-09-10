@@ -81,9 +81,9 @@
         }
     </style>
     <div class="row" style="background-color: black;">
-        <?php for ($i = 0; $i < $qty_qrsak; $i++): ?>
-            <img src="<?= base_url('assets/img/qrsak/frame.jpg') ?>" alt="" width="183">
-        <?php endfor; ?>
+        <?php foreach ($images as $image): ?>
+            <img src="<?= base_url('assets/img/qrsak/' . $image['img_framed_name']) ?>" alt="" width="183">
+        <?php endforeach; ?>
     </div>
 </body>
 

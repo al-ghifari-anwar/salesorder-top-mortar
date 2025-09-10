@@ -374,3 +374,4 @@ $route['autopassive'] = 'AutoPassive/top';
 // QR dalam sak
 $route['qrsak'] = 'Qrsak/index';
 $route['qrsak/test'] = 'Qrsak/test';
+$route['qrsak/testimg'] = 'Qrsak/testImage';
