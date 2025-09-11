@@ -192,16 +192,16 @@ class MDetailSuratJalan extends CI_Model
 
                 if (floor($multiplier) > 0) {
                     if ($this->session->userdata('id_distributor') != 6) {
-                        if ($currentStok >= $promo['bonus_promo']) {
-                            $this->id_surat_jalan = $id_surat_jalan;
-                            $this->id_produk = $item['id_produk'];
-                            $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
-                            $this->price = $item['harga_produk'];
-                            $this->amount = 0;
-                            $this->is_bonus = 1;
+                        // if ($currentStok >= $promo['bonus_promo']) {
+                        $this->id_surat_jalan = $id_surat_jalan;
+                        $this->id_produk = $item['id_produk'];
+                        $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
+                        $this->price = $item['harga_produk'];
+                        $this->amount = 0;
+                        $this->is_bonus = 1;
 
-                            $this->db->insert('tb_detail_surat_jalan', $this);
-                        }
+                        $this->db->insert('tb_detail_surat_jalan', $this);
+                        // }
                     } else {
                         $this->id_surat_jalan = $id_surat_jalan;
                         $this->id_produk = $item['id_produk'];
