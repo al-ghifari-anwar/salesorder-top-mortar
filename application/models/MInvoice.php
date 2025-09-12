@@ -66,7 +66,7 @@ class MInvoice extends CI_Model
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $this->db->order_by('id_invoice', 'DESC');
-        $query = $this->db->get_where('tb_invoice', ['tb_surat_jalan.is_cod' => 1, 'tb_invoice.status_invoice' => 'waiting', 'total_invoice >' => '1000'])->result_array();
+        $query = $this->db->get_where('tb_invoice', ['tb_surat_jalan.is_cod' => 1, 'tb_invoice.status_invoice' => 'waiting', 'total_invoice >' => '1000', 'tb_city.id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         return $query;
     }
 
