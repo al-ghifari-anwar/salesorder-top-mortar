@@ -30,7 +30,7 @@ class Runcron extends CI_Controller
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://central.topmortarindonesia.com/stmt',
+                    CURLOPT_URL => 'https://central.miraswift.com/stmt',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -148,7 +148,7 @@ class Runcron extends CI_Controller
                                                 $curl = curl_init();
 
                                                 curl_setopt_array($curl, array(
-                                                    CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
+                                                    CURLOPT_URL => 'https://central.miraswift.com/intra',
                                                     CURLOPT_RETURNTRANSFER => true,
                                                     CURLOPT_ENCODING => '',
                                                     CURLOPT_MAXREDIRS => 10,
@@ -265,7 +265,7 @@ class Runcron extends CI_Controller
                                             $curl = curl_init();
 
                                             curl_setopt_array($curl, array(
-                                                CURLOPT_URL => 'https://central.topmortarindonesia.com/intra',
+                                                CURLOPT_URL => 'https://central.miraswift.com/intra',
                                                 CURLOPT_RETURNTRANSFER => true,
                                                 CURLOPT_ENCODING => '',
                                                 CURLOPT_MAXREDIRS => 10,
