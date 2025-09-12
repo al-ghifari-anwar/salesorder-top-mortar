@@ -375,3 +375,8 @@ $route['autopassive'] = 'AutoPassive/top';
 $route['qrsak'] = 'Qrsak/index';
 $route['qrsak/test'] = 'Qrsak/test';
 $route['qrsak/testimg'] = 'Qrsak/testImage';
+// Konten Blast
+$route['kontenmsg'] = 'Kontenmsg/index';
+$route['kontenmsg/create'] = 'Kontenmsg/create';
+$route['kontenmsg/update/(:num)'] = 'Kontenmsg/update/$1';
+$route['kontenmsg/delete/(:num)'] = 'Kontenmsg/delete/$1';

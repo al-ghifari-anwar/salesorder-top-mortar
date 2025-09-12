@@ -534,6 +534,12 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
+                                            <a href="<?= base_url('kontenmsg') ?>" class="nav-link">
+                                                <i class="fas fa-user-astronaut nav-icon"></i>
+                                                <p>Konten</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('marketing/tukang') ?>" class="nav-link">
                                                 <i class="fas fa-user-astronaut nav-icon"></i>
                                                 <p>Blast Tukang</p>
@@ -542,7 +548,7 @@
                                         <li class="nav-item">
                                             <a href="<?= base_url('marketing/rekap/tukang') ?>" class="nav-link">
                                                 <i class="fas fa-list-alt nav-icon"></i>
-                                                <p>Blast Tukang</p>
+                                                <p>Rekap Blast Tukang</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
