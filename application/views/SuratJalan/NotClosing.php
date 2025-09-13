@@ -67,7 +67,7 @@
                                             <td><?= $data['nomorhp'] ?></td>
                                             <td><?= $data['nama_city'] ?></td>
                                             <td><?= $data['full_name'] ?></td>
-                                            <td><?= date("d M Y", strtotime($data['dalivery_date'])) ?></td>
+                                            <td><?= date("d M Y - H:i", strtotime($data['dalivery_date'])) ?></td>
                                             <td>
                                                 <?php if ($data['is_closing'] == 0) : ?>
                                                     <i class="fas fa-times-circle"></i>
