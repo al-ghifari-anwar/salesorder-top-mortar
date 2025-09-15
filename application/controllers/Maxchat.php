@@ -44,7 +44,7 @@ class Maxchat extends CI_Controller
         $getOutbound = $this->db->get_where('tb_outbound_msg', ['to_outbound_msg' => $target_number])->row_array();
 
         if (!$getOutbound) {
-            $this->replyWithAI($target_number, $vars);
+            // $this->replyWithAI($target_number, $vars);
         } else {
             if (str_contains($getOutbound['id_maxchat'], 'broadcast')) {
                 $getTukang = $this->db->get_where('tb_tukang', ['nomorhp' => $target_number])->row_array();
@@ -120,7 +120,7 @@ class Maxchat extends CI_Controller
                     }
                 }
             } else {
-                $this->replyWithAI($target_number, $vars);
+                // $this->replyWithAI($target_number, $vars);
             }
         }
     }
