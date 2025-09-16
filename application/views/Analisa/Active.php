@@ -46,7 +46,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-10">
-                                    <form action="<?= base_url('analisa/passive') ?>" method="POST">
+                                    <form action="<?= base_url('analisa/active') ?>" method="POST">
                                         <div class="row">
                                             <label for="">Kota: </label>
                                             <div class="form-group ml-3">
