@@ -6,6 +6,9 @@ class TopsellerDiscount extends CI_Controller
     {
         parent::__construct();
         $this->load->model('MDiscountApp');
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
     }
 
     public function index()

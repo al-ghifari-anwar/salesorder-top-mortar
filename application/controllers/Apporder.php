@@ -12,6 +12,9 @@ class Apporder extends CI_Controller
         $this->load->model('MSuratJalan');
         $this->load->model('MDetailSuratJalan');
         $this->load->model('MUser');
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
     }
 
     public function index()
