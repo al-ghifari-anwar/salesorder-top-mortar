@@ -86,14 +86,18 @@
                                                             <div class="form-group">
                                                                 <label for="">Nama</label>
                                                                 <input type="text" name="name_master_produk" id="" class="form-control" value="<?= $masterproduk['name_master_produk'] ?>">
-                                                                <div class="form-group">
-                                                                    <label for="">Satuan</label>
-                                                                    <select name="id_satuan" id="" class="form-control select2bs4">
-                                                                        <?php foreach ($satuans as $satuan): ?>
-                                                                            <option value="<?= $satuan['id_satuan'] ?>" <?= $satuan['id_satuan'] == $masterproduk['id_satuan'] ? 'selected' : '' ?>><?= $satuan['name_satuan'] ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Image</label>
+                                                                <input type="file" name="img_master_produk" class="form-control-file">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Satuan</label>
+                                                                <select name="id_satuan" id="" class="form-control select2bs4">
+                                                                    <?php foreach ($satuans as $satuan): ?>
+                                                                        <option value="<?= $satuan['id_satuan'] ?>" <?= $satuan['id_satuan'] == $masterproduk['id_satuan'] ? 'selected' : '' ?>><?= $satuan['name_satuan'] ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
                                                             </div>
                                                             <button class="btn btn-primary float-right">Simpan</button>
                                                         </form>
@@ -139,6 +143,10 @@
                     <div class="form-group">
                         <label for="">Nama</label>
                         <input type="text" name="name_master_produk" id="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Image</label>
+                        <input type="file" name="img_master_produk" class="form-control-file">
                     </div>
                     <div class="form-group">
                         <label for="">Satuan</label>

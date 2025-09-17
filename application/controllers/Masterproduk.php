@@ -33,9 +33,20 @@ class Masterproduk extends CI_Controller
             redirect('masterproduk');
         } else {
             $post = $this->input->post();
+
+            $img_master_produk = '-';
+
+            $uploadImg = $this->uploadImage($post['name_master_produk'] . '-' . time());
+
+            if ($uploadImg['status'] == 'success') {
+                $uploadData = $uploadImg['message'];
+                $img_master_produk = base_url('assets/img/produk_img/') . $uploadData['file_name'];
+            }
+
             $dataMasterproduk = [
                 'id_satuan' => $post['id_satuan'],
                 'name_master_produk' => $post['name_master_produk'],
+                'img_master_produk' => $img_master_produk,
                 'id_distributor' => $this->session->userdata('id_distributor'),
                 'updated_at' => date("Y-m-d H:i:s")
             ];
@@ -61,9 +72,22 @@ class Masterproduk extends CI_Controller
             redirect('masterproduk');
         } else {
             $post = $this->input->post();
+
+            $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id])->row_array();
+
+            $img_master_produk = $masterProduk['img_master_produk'];
+
+            $uploadImg = $this->uploadImage($post['name_master_produk'] . '-' . time());
+
+            if ($uploadImg['status'] == 'success') {
+                $uploadData = $uploadImg['message'];
+                $img_master_produk = base_url('assets/img/produk_img/') . $uploadData['file_name'];
+            }
+
             $dataMasterproduk = [
                 'id_satuan' => $post['id_satuan'],
                 'name_master_produk' => $post['name_master_produk'],
+                'img_master_produk' => $post['img_master_produk'],
                 'id_distributor' => $this->session->userdata('id_distributor'),
                 'updated_at' => date("Y-m-d H:i:s")
             ];
@@ -143,5 +167,27 @@ class Masterproduk extends CI_Controller
 
         $this->session->set_flashdata('success', "Berhasil sync data master produk!");
         redirect('masterproduk');
+    }
+
+    public function uploadImage($nama)
+    {
+        $file_name = str_replace(' ', '-', $nama);
+        $config['upload_path']          = FCPATH . '/assets/img/produk_img/';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png';
+        $config['file_name']            = $file_name;
+        $config['overwrite']            = true;
+        $config['max_size']             = 12000; //10MB
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('img_master_produk')) {
+            $data['error'] = $this->upload->display_errors();
+
+            return ['status' => 'error', 'message' => $this->upload->display_errors()];
+        } else {
+            $uploaded_data = $this->upload->data();
+
+            return ['status' => 'success', 'message' => $uploaded_data];
+        }
     }
 }
