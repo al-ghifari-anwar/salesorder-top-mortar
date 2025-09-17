@@ -405,6 +405,14 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="<?= base_url('promoseller') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-file-image"></i>
+                                                <p>
+                                                    Banner Promo
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('kontenseller') ?>" class="nav-link">
                                                 <i class="nav-icon fas fa-images"></i>
                                                 <p>

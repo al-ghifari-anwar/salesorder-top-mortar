@@ -380,3 +380,8 @@ $route['kontenmsg'] = 'Kontenmsg/index';
 $route['kontenmsg/create'] = 'Kontenmsg/create';
 $route['kontenmsg/update/(:num)'] = 'Kontenmsg/update/$1';
 $route['kontenmsg/delete/(:num)'] = 'Kontenmsg/delete/$1';
+// Promo Top Seller
+$route['promoseller'] = 'PromoTopseller/index';
+$route['promoseller/create'] = 'PromoTopseller/create';
+$route['promoseller/update/(:num)'] = 'PromoTopseller/update/$1';
+$route['promoseller/delete/(:num)'] = 'PromoTopseller/delete/$1';
