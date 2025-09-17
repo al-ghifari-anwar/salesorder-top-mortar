@@ -11,6 +11,7 @@ class Apporder extends CI_Controller
         $this->load->model('MContact');
         $this->load->model('MSuratJalan');
         $this->load->model('MDetailSuratJalan');
+        $this->load->model('MUser');
     }
 
     public function index()
@@ -38,7 +39,8 @@ class Apporder extends CI_Controller
 
         $approderDetails = $this->MApporderDetail->getByIdApporder($apporder['id_apporder']);
 
-        $id_courier = 18;
+        $courier = $this->MUser->getCourierByIdCity($id_city);
+        $id_courier = $courier['id_user'];
 
         $suratJalanData = [
             'user_approved_apporder' => $this->session->userdata('id_user'),
