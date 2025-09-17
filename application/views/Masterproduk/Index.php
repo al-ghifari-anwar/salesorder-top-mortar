@@ -82,7 +82,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('masterproduk/update/') . $masterproduk['id_master_produk'] ?>" method="POST">
+                                                        <form action="<?= base_url('masterproduk/update/') . $masterproduk['id_master_produk'] ?>" method="POST" enctype="multipart/form-data">
                                                             <div class="form-group">
                                                                 <label for="">Nama</label>
                                                                 <input type="text" name="name_master_produk" id="" class="form-control" value="<?= $masterproduk['name_master_produk'] ?>">
@@ -139,7 +139,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('masterproduk/create') ?>" method="POST">
+                <form action="<?= base_url('masterproduk/create') ?>" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="">Nama</label>
                         <input type="text" name="name_master_produk" id="" class="form-control">
