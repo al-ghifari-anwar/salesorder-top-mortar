@@ -14,6 +14,13 @@ class MPayment extends CI_Model
         return $result;
     }
 
+    public function getByRemarkAndAmount($remark, $amount)
+    {
+        $result = $this->db->get_where('tb_payment', ['remark_payment' => $remark, 'amount_payment' => $amount])->row_array();
+
+        return $result;
+    }
+
     public function getAll()
     {
         $this->db->join('tb_invoice', 'tb_invoice.id_invoice = tb_payment.id_invoice');

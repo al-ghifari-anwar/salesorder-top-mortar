@@ -77,7 +77,7 @@ class Runcron extends CI_Controller
                             $id_invoice = $checkInv['id_invoice'];
                             $id_contact = $checkInv['id_contact'];
 
-                            $checkPayment = $this->MPayment->getByRemark($remark);
+                            $checkPayment = $this->MPayment->getByRemarkAndAmount($remark, $amountValue);
 
                             if ($checkPayment) {
                                 // $result = [
