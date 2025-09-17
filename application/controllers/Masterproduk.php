@@ -87,7 +87,7 @@ class Masterproduk extends CI_Controller
             $dataMasterproduk = [
                 'id_satuan' => $post['id_satuan'],
                 'name_master_produk' => $post['name_master_produk'],
-                'img_master_produk' => $post['img_master_produk'],
+                'img_master_produk' => $img_master_produk,
                 'id_distributor' => $this->session->userdata('id_distributor'),
                 'updated_at' => date("Y-m-d H:i:s")
             ];
