@@ -94,7 +94,7 @@ class SuratJalan extends CI_Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => array('id_surat_jalan' => '9842'),
+                CURLOPT_POSTFIELDS => array('id_surat_jalan' => $id_surat_jalan),
             ));
 
             $response = curl_exec($curl);
@@ -105,14 +105,14 @@ class SuratJalan extends CI_Controller
 
             if ($res['response'] == 200) {
                 $this->session->set_flashdata('success', "Berhasil closing");
-                redirect('surat-jalan/' . $suratJalan['id_city']);
+                redirect('suratjalan/' . $suratJalan['id_city']);
             } else {
                 $this->session->set_flashdata('failed', "Gagal.");
-                redirect('surat-jalan/' . $suratJalan['id_city']);
+                redirect('suratjalan/' . $suratJalan['id_city']);
             }
         } else {
             $this->session->set_flashdata('failed', "Gagal");
-            redirect('surat-jalan/' . $suratJalan['id_city']);
+            redirect('suratjalan/' . $suratJalan['id_city']);
         }
     }
 
