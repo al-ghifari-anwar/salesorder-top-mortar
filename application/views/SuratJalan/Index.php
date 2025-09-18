@@ -93,7 +93,7 @@
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                                 <?php if (base_url() == 'https://dev-order.topmortarindonesia.com/') : ?>
-                                                    <a href="<?= base_url('surat-jalan/closing/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
+                                                    <a href="<?= base_url('surat-jalan/closing/') . $data['id_surat_jalan'] ?>" class="btn btn-info m-1" title="Closing"> Closing</a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
