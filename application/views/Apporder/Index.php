@@ -59,7 +59,7 @@
                                     $no = 1;
                                     foreach ($apporders as $apporder): ?>
                                         <?php
-                                        $getApporder = $this->MApporder->getById($id_apporder);
+                                        $getApporder = $this->MApporder->getById($apporder['id_apporder']);
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
