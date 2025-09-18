@@ -58,13 +58,16 @@
                                     <?php
                                     $no = 1;
                                     foreach ($apporders as $apporder): ?>
+                                        <?php
+                                        $getApporder = $this->MApporder->getById($id_apporder);
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $apporder['id_apporder'] ?></td>
                                             <td><?= $apporder['nama'] ?></td>
                                             <td><?= $apporder['nomorhp'] ?></td>
                                             <td><?= $apporder['nama_city'] ?></td>
-                                            <td><?= date('d M Y - H:i', strtotime($apporder['created_at'])) ?></td>
+                                            <td><?= date('d M Y - H:i', strtotime($getApporder['created_at'])) ?></td>
                                             <td>
                                                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-detail<?= $apporder['id_apporder'] ?>"><i class="fas fa-eye"></i></a>
                                             </td>
