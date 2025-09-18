@@ -385,3 +385,5 @@ $route['promoseller'] = 'PromoTopseller/index';
 $route['promoseller/create'] = 'PromoTopseller/create';
 $route['promoseller/update/(:num)'] = 'PromoTopseller/update/$1';
 $route['promoseller/delete/(:num)'] = 'PromoTopseller/delete/$1';
+// CLosing manual
+$route['surat-jalan/closing/(:num)'] = 'SuratJalan/closing/$1';
