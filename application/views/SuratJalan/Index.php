@@ -92,6 +92,9 @@
                                                         <a href="<?= base_url('print-tempinv/') . $data['id_surat_jalan'] ?>" class="btn btn-warning" title="Print Invoice COD" target="__blank"><i class="fas fa-print"></i></a>
                                                     <?php endif; ?>
                                                 <?php endif; ?>
+                                                <?php if (base_url() == 'https://dev-order.topmortarindonesia.com/') : ?>
+                                                    <a href="<?= base_url('surat-jalan/closing/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

@@ -68,6 +68,54 @@ class SuratJalan extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function closing($id_surat_jalan)
+    {
+        $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
+
+        $suratJalanData = [
+            'is_closing' => 1,
+            'date_closing' => date('Y-m-d H:i:s'),
+            'proof_closing' => '-',
+            'distance' => 0,
+        ];
+
+        $save = $this->db->update('tb_surat_jalan', $suratJalanData, ['id_surat_jalan' => $id_surat_jalan]);
+
+        if ($save) {
+            // Set invoice
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://devsaleswa.topmortarindonesia.com//invoiceTopSeller.php',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array('id_surat_jalan' => '9842'),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            if ($res['response'] == 200) {
+                $this->session->set_flashdata('success', "Berhasil closing");
+                redirect('surat-jalan/' . $suratJalan['id_city']);
+            } else {
+                $this->session->set_flashdata('failed', "Gagal.");
+                redirect('surat-jalan/' . $suratJalan['id_city']);
+            }
+        } else {
+            $this->session->set_flashdata('failed', "Gagal");
+            redirect('surat-jalan/' . $suratJalan['id_city']);
+        }
+    }
+
     public function not_closing()
     {
         $data['title'] = 'Surat Jalan Belum Colsing';

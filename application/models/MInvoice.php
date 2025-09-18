@@ -27,6 +27,7 @@ class MInvoice extends CI_Model
         $this->db->where('tb_invoice.total_invoice', $amount);
         $this->db->where('tb_invoice.status_invoice', 'waiting');
         $this->db->where('tb_city.id_distributor', $id_distributor);
+        $this->db->where('tb_surat_jalan.id_apporder', 0);
         $result = $this->db->get('tb_invoice')->row_array();
 
         return $result;
