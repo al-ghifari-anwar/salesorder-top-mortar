@@ -183,7 +183,7 @@
                                                 </div>
 
                                                 <a href="<?= base_url('apporder/approve/') . $apporder['id_apporder'] ?>" class="btn btn-success float-right ml-3"><i class="fas fa-check"></i>&nbsp; Terima Pesanan</a>
-                                                <a href="#" class="btn btn-danger float-right ml-3"><i class="fas fa-times"></i>&nbsp; Tolak Pesanan</a>
+                                                <a href="<?= base_url('apporder/reject/') . $apporder['id_apporder'] ?>" class="btn btn-danger float-right ml-3"><i class="fas fa-times"></i>&nbsp; Tolak Pesanan</a>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->

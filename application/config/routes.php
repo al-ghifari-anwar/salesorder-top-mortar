@@ -360,6 +360,7 @@ $route['invoicecod/waiting'] = 'Invoicecod/waiting';
 // Apporder
 $route['apporder'] = 'Apporder/index';
 $route['apporder/approve/(:num)'] = 'Apporder/approve/$1';
+$route['apporder/reject/(:num)'] = 'Apporder/reject/$1';
 // Topseller
 $route['topseller/setting/global'] = 'TopsellerSetting/index';
 $route['topseller/setting/global/update'] = 'TopsellerSetting/update';
