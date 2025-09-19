@@ -30,4 +30,15 @@ class MApporderDetail extends CI_Model
             return false;
         }
     }
+
+    public function deleteByIdApporder($id_apporder)
+    {
+        $query = $this->db->delete('tb_apporder_detail', ['id_apporder' => $id_apporder]);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

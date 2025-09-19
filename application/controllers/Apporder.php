@@ -156,4 +156,27 @@ class Apporder extends CI_Controller
             redirect('apporder');
         }
     }
+
+    public function reject($id_apporder)
+    {
+        $apporder = $this->MApporder->getById($id_apporder);
+
+        $id_contact = $apporder['id_contact'];
+
+        $contact = $this->MContact->getById($id_contact);
+
+        $id_distributor = $contact['id_distributor'];
+        $id_city = $contact['id_city'];
+
+        $save = $this->MApporder->delete($id_apporder);
+
+        if ($save) {
+            $this->MApporderDetail->deleteByIdApporder($id_apporder);
+            $this->session->set_flashdata('success', "Pesanan berhasil dibatalkan");
+            redirect('apporder');
+        } else {
+            $this->session->set_flashdata('failed', "Terjadi kesalahan, harap coba lagi");
+            redirect('apporder');
+        }
+    }
 }
