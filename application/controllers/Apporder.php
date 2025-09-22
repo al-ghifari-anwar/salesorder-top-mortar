@@ -75,7 +75,7 @@ class Apporder extends CI_Controller
                     'price' => $approderDetail['price_produk'],
                     'qty_produk' => $approderDetail['qty_apporder_detail'],
                     'amount' => $approderDetail['total_apporder_detail'],
-                    'is_bonus' => 0,
+                    'is_bonus' => $approderDetail['is_bonus'] == 0 ? 0 : 1,
                     'no_voucher' => '',
                 ];
 
