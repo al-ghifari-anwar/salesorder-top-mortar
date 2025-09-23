@@ -226,7 +226,7 @@ class Runcron extends CI_Controller
                         } else {
                             $id_invoice = 0;
 
-                            $checkPayment = $this->MPayment->getByRemark($remark);
+                            $checkPayment = $this->MPayment->getByRemarkAndAmount($remark, $amountValue);
 
                             if ($checkPayment) {
                                 // $result = [
