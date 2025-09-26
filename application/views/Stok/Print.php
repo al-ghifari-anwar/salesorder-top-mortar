@@ -213,7 +213,7 @@ function penyebut($nilai)
                     <td class="text-center border-r"><?= $valJumlahAwal ?></td>
                     <td class="text-center border-r"><?= $valPemasukan ?></td>
                     <td class="text-center border-r"><?= $valPengeluaran ?></td>
-                    <td class="text-center border-r"><?= $valStokBayangan ?></td>
+                    <td class="text-center border-r"><?= $valStokBayangan < 0 ? 0 : $valStokBayangan ?></td>
                     <td class="text-center border-r"><?= $valJumlahAkhir ?></td>
                     <td class="text-center border-r"><?= $valJumlahAkhir  - $valStokBayangan ?></td>
                 </tr>
