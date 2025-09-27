@@ -14,6 +14,7 @@ class MApporder extends CI_Model
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_apporder.id_contact');
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $this->db->where('id_apporder NOT IN (SELECT id_apporder FROM tb_surat_jalan)', null, false);
+        $this->db->order_by('id_apporder', 'DESC');
         $query = $this->db->get('tb_apporder')->result_array();
 
         return $query;
