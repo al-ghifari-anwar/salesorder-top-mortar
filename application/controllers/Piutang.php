@@ -26,6 +26,8 @@ class Piutang extends CI_Controller
     public function index()
     {
         $data['title'] = 'Piutang';
+        $data['menuGroup'] = 'Piutang';
+        $data['menu'] = 'Piutang';
         $data['toko'] = $this->MContact->getAllDefault();
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
@@ -42,6 +44,8 @@ class Piutang extends CI_Controller
     public function jatuh_tempo()
     {
         $data['title'] = 'Piutang Jatuh Tempo';
+        $data['menuGroup'] = 'Piutang';
+        $data['menu'] = 'PiutangJatem';
         $data['toko'] = $this->MContact->getAllDefault();
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
@@ -117,6 +121,8 @@ class Piutang extends CI_Controller
     public function rekap()
     {
         $data['title'] = 'Rekap Piutang';
+        $data['menuGroup'] = 'Piutang';
+        $data['menu'] = 'RekapPiutang';
         $data['city'] = $this->MCity->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

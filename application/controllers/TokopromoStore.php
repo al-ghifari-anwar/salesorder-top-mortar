@@ -25,6 +25,8 @@ class TokopromoStore extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Top Mortar Toko Promo';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'TokoPromo';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -40,6 +42,8 @@ class TokopromoStore extends CI_Controller
     public function index()
     {
         $data['title'] = 'Top Mortar Toko Promo';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'TokoPromo';
         $data['contacts'] = $this->MContact->getAllForPriority();
         $data['contactPriors'] = $this->MContact->getAllTokopromo();
         $this->load->view('Theme/Header', $data);
@@ -96,6 +100,8 @@ class TokopromoStore extends CI_Controller
     public function penukaran($id_contact)
     {
         $data['title'] = 'Penukaran Top Mortar Toko Promo';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'TokoPromo';
         $data['contact'] = $this->MContact->getById($id_contact);
         $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
         $data['vouchers'] = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact, 'is_claimed' => 1])->result_array();

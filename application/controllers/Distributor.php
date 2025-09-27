@@ -18,6 +18,8 @@ class Distributor extends CI_Controller
     public function index()
     {
         $data['title'] = 'Distributor';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Distributor';
         $data['dst'] = $this->MDistributor->getAll();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

@@ -26,6 +26,8 @@ class Cusvisit extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Customer Visit';
+        $data['menuGroup'] = 'Visit';
+        $data['menu'] = 'CusVisit';
         if ($this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'sales') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -41,6 +43,8 @@ class Cusvisit extends CI_Controller
     public function index($id_city)
     {
         $data['title'] = 'Customer Visit';
+        $data['menuGroup'] = 'Visit';
+        $data['menu'] = 'CusVisit';
         $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

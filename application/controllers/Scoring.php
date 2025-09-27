@@ -20,6 +20,8 @@ class Scoring extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Scoring Toko';
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'Scoring';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -40,6 +42,9 @@ class Scoring extends CI_Controller
         $post = $this->input->post();
 
         $city = $this->MCity->getById($id_city);
+
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'Scoring';
 
         if (!$post) {
             $data['title'] = 'Scoring Toko - Kota ' . $city['nama_city'];
@@ -73,6 +78,8 @@ class Scoring extends CI_Controller
         $city = $this->MCity->getById($id_city);
 
         $data['title'] = 'Scoring Toko - Kota ' . $city['nama_city'];
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'Scoring';
         $data['city'] = $city;
         $data['contacts'] = $this->db->get_where('tb_contact', ['id_city' => $id_city])->result_array();
 

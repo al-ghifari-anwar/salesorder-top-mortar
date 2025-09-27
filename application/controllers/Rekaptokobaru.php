@@ -16,6 +16,8 @@ class Rekaptokobaru extends CI_Controller
     public function index()
     {
         $data['title'] = 'Rekap Toko Baru';
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'RekapTokoBaru';
         $data['city'] = $this->MCity->getAll();
         // echo json_encode($data);
         // die;
@@ -29,6 +31,8 @@ class Rekaptokobaru extends CI_Controller
     public function list($id_city)
     {
         $data['title'] = 'Rekap Toko Baru';
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'RekapTokoBaru';
         $data['city'] = $this->MCity->getById($id_city);
         $this->db->where_in('level_user', ['sales', 'penagihan', 'mg']);
         $data['users'] = $this->db->get_where('tb_user', ['id_city' => $id_city, 'phone_user !=' => '0'])->result_array();

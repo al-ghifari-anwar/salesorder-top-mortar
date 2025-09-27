@@ -26,6 +26,8 @@ class Penukaranstore extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Lokasi Penukaran Voucher';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['city'] = $this->MCity->getAllNoLogin();
 
         $this->load->view('Theme/Header', $data);
@@ -39,6 +41,8 @@ class Penukaranstore extends CI_Controller
     {
         $this->session->unset_userdata('locationData');
         $data['title'] = 'Lokasi Penukaran Voucher';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -68,6 +72,8 @@ class Penukaranstore extends CI_Controller
         // echo json_encode($this->session->userdata());
         // die;
         $data['title'] = 'List Toko Penukaran Voucher';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['loc_user'] = $this->session->userdata('locationData');
         $data['contactPriors'] = $this->MContact->getAllTopSellerNoLogin();
 

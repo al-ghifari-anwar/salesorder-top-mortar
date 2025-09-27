@@ -16,6 +16,8 @@ class Company extends CI_Controller
     public function index()
     {
         $data['title'] = 'Company';
+        $data['menuGroup'] = 'Setting';
+        $data['menu'] = 'Company';
         $data['company'] = $this->MCompany->getByIdDistributor($this->session->userdata('id_distributor'));
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

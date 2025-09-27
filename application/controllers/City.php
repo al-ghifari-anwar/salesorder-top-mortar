@@ -16,6 +16,8 @@ class City extends CI_Controller
     public function index()
     {
         $data['title'] = 'Kota';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'Kota';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {

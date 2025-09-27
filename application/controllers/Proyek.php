@@ -16,6 +16,8 @@ class Proyek extends CI_Controller
     public function index()
     {
         $data['title'] = 'Proyek';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['proyeks'] = $this->MProyek->getAll();
 
         $this->load->view('Theme/Header', $data);

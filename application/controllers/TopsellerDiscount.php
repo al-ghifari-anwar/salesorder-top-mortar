@@ -14,6 +14,8 @@ class TopsellerDiscount extends CI_Controller
     public function index()
     {
         $data['title'] = 'Discount Top Seller';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['discountApp'] = $this->MDiscountApp->get();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

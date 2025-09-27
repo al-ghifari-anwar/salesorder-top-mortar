@@ -22,6 +22,8 @@ class Voucher extends CI_Controller
     public function index()
     {
         $data['title'] = 'Voucher';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Voucher';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -40,6 +42,8 @@ class Voucher extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Voucher List';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Voucher';
         $data['city'] = $this->MCity->getAll();
         $data['voucher'] = $this->MVoucher->getByCity($id_city);
         $data['contact'] = $this->MContact->getAllForVouchers($id_city);
@@ -248,6 +252,8 @@ class Voucher extends CI_Controller
     public function claim()
     {
         $this->form_validation->set_rules('no_voucher1', 'Nomor Voucher', 'required');
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Voucher';
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Claim Voucher';

@@ -24,6 +24,8 @@ class Status extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Rekap Status';
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'RekapStatus';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -42,6 +44,8 @@ class Status extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Rekap Status';
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'RekapStatus';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
         $data['id_city'] = $id_city;

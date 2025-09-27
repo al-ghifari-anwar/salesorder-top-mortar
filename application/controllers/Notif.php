@@ -21,6 +21,8 @@ class Notif extends CI_Controller
     public function index()
     {
         $data['title'] = 'Laporan Toko Passive';
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'Notif';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {

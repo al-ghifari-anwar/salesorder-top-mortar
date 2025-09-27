@@ -18,6 +18,8 @@ class Toko extends CI_Controller
     {
         $post = $this->input->post();
         $data['title'] = 'Toko';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'Toko';
         $data['cities'] = $this->MCity->getAll();
 
         if ($this->session->userdata('level_user') == 'admin_c') {

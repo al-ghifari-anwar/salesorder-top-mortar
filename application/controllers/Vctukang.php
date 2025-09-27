@@ -30,6 +30,8 @@ class Vctukang extends CI_Controller
     public function index()
     {
         $data['title'] = 'Voucher';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Vctukang/Index');
@@ -40,6 +42,8 @@ class Vctukang extends CI_Controller
     public function self()
     {
         $data['title'] = 'Voucher Tukang';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         // $data['contact'] = $this->MContact->getById($id_contact);
         $this->db->where('is_display', '1');
         $data['cities'] = $this->db->get('tb_city')->result_array();
@@ -751,6 +755,8 @@ class Vctukang extends CI_Controller
     public function toko($id_tukang)
     {
         $data['title'] = 'Voucher';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['tukang'] = $this->db->get_where('tb_tukang', ['id_tukang' => $id_tukang])->row_array();
         $data['banks'] = $this->db->get('tb_bank')->result_array();
         $this->load->view('Theme/Header', $data);

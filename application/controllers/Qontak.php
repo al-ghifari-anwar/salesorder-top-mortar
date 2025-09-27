@@ -16,6 +16,8 @@ class Qontak extends CI_Controller
     public function index()
     {
         $data['title'] = 'Qontak';
+        $data['menuGroup'] = 'Setting';
+        $data['menu'] = 'Qontak';
         $data['qontak'] = $this->db->get_where('tb_qontak', ['id_distributor' => $this->session->userdata('id_distributor')])->row_array();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

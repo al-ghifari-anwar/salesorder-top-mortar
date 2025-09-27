@@ -24,6 +24,8 @@ class Renvis extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Rencana Visit';
+        $data['menuGroup'] = 'InputRenvi';
+        $data['menu'] = 'Renvis';
         if ($this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'sales') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -39,6 +41,8 @@ class Renvis extends CI_Controller
     public function index($id_city)
     {
         $data['title'] = 'Rencana Visit';
+        $data['menuGroup'] = 'InputRenvi';
+        $data['menu'] = 'Renvis';
         $data['toko'] = $this->MContact->getAllForRenvis($id_city);
         $this->db->select("tb_antrian_renvis.*, tb_contact.nama, tb_contact.nomorhp, tb_contact.id_city, tb_contact.store_status, tb_contact.store_owner, tb_contact.maps_url, tb_contact.created_at AS created_at_store, tb_contact.reputation");
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_antrian_renvis.id_contact');
@@ -97,6 +101,8 @@ class Renvis extends CI_Controller
     {
         $data['city'] = $this->MCity->getById($id_city);
         $data['contacts'] = $this->MContact->getAllNoFilter($id_city);
+        $data['menuGroup'] = 'InputRenvi';
+        $data['menu'] = 'Renvis';
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);

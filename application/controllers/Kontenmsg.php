@@ -14,6 +14,8 @@ class Kontenmsg extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Blast Konten';
+        $data['menuGroup'] = 'Marketing';
+        $data['menu'] = 'Kontenmsg';
         $data['kontenmsgs'] = $this->MKontenmsg->get();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

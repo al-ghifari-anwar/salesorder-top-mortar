@@ -29,6 +29,8 @@ class Tokopromo extends CI_Controller
     public function index($id_contact)
     {
         $data['title'] = 'Top Mortar Toko Promo';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['contact'] = $this->MContact->getById($id_contact);
         $data['catcus'] = $this->db->get('tb_catcus')->result_array();
         $this->load->view('Theme/Header', $data);

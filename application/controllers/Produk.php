@@ -19,6 +19,8 @@ class Produk extends CI_Controller
     public function index()
     {
         $data['title'] = 'Produk';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'ProdukPerKota';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -34,6 +36,8 @@ class Produk extends CI_Controller
     public function produk_by_city($id_city)
     {
         $data['title'] = 'Produk';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'ProdukPerKota';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
         $data['produk'] = $this->MProduk->getByCity($id_city);
@@ -49,6 +53,8 @@ class Produk extends CI_Controller
     public function stok_by_produk($id_city, $id_produk)
     {
         $data['title'] = 'Stok Produk';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'ProdukPerKota';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
         $data['produk'] = $this->MProduk->getById($id_produk);

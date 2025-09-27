@@ -20,6 +20,8 @@ class Apporder extends CI_Controller
     public function index()
     {
         $data['title'] = 'Pesanan Top Seller';
+        $data['menuGroup'] = 'SJ';
+        $data['menu'] = 'Apporder';
         $data['apporders'] = $this->MApporder->get();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

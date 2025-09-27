@@ -29,6 +29,8 @@ class Priority extends CI_Controller
     public function index($id_contact)
     {
         $data['title'] = 'Top Mortar Priority';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['contact'] = $this->MContact->getById($id_contact);
         $data['catcus'] = $this->db->get('tb_catcus')->result_array();
         $data['users'] = $this->db->get_where('tb_user', ['is_add_tukang' => 1])->result_array();

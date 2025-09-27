@@ -28,6 +28,8 @@ class Visit extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Visit';
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'Visit';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -46,6 +48,8 @@ class Visit extends CI_Controller
             redirect('login');
         }
 
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'Visit';
         $dateRange = $this->input->post("date_range");
         $id_user = $this->input->post("id_user");
         $bulan = $this->input->post("bulan");
@@ -126,6 +130,8 @@ class Visit extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Visit';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'LapKurir';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -147,6 +153,8 @@ class Visit extends CI_Controller
         $dateRange = $this->input->post("date_range");
         $id_user = $this->input->post("id_user");
 
+        $data['menuGroup'] = '';
+        $data['menu'] = 'LapKurir';
         if ($dateRange) {
             $dates = explode("-", $dateRange);
             $data['visit'] = $this->MVisit->getByCityAndDateCourier($id_city, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_user);
@@ -196,6 +204,8 @@ class Visit extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Visit';
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'RencanaVisit';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -213,6 +223,8 @@ class Visit extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'RencanaVisit';
 
         $dateRange = $this->input->post("date_range");
         $id_user = $this->input->post("id_user");

@@ -15,8 +15,8 @@ class VisitQuestion extends CI_Controller
     public function index()
     {
         $data['title'] = 'Checklist Visit';
-        $data['menuGroup'] = 'sales';
-        $data['menu'] = 'ckecklist-visit';
+        $data['menuGroup'] = 'Sales';
+        $data['menu'] = 'ChecklistVisit';
         $data['questions'] = $this->MVisitQuestion->get();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

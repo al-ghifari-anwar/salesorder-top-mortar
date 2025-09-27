@@ -39,6 +39,8 @@ class Marketing extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Blast Konten Tukang';
+        $data['menuGroup'] = 'Marketing';
+        $data['menu'] = 'BlastTukang';
         $data['kontens'] = $this->MMarketingMessage->getTukang();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -55,6 +57,8 @@ class Marketing extends CI_Controller
         $daterange = $this->input->post('daterange');
         $status_watzap_tukang = $this->input->post('status_watzap_tukang');
         $data['title'] = 'Rekap Blast Konten Tukang';
+        $data['menuGroup'] = 'Marketing';
+        $data['menu'] = 'RekapBlast';
 
         $dateFrom = date("Y-m-d");
         $dateTo = date("Y-m-d");

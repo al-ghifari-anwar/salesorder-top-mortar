@@ -15,6 +15,8 @@ class Gudang extends CI_Controller
     public function index()
     {
         $data['title'] = 'Gudang';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'Gudang';
         $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

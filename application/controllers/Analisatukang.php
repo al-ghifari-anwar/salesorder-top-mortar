@@ -14,6 +14,8 @@ class Analisatukang extends CI_Controller
     public function user()
     {
         $data['title'] = 'Admin Lapangan / SPG untuk Tukang';
+        $data['menuGroup'] = 'AnalisaTukang';
+        $data['menu'] = 'SPG';
 
         $this->db->where("level_user IN ('penagihan', 'sales', 'marketing')", NULL, FALSE);
         $data['users'] = $this->db->get_where('tb_user', ['password !=' => '0'])->result_array();
@@ -54,7 +56,8 @@ class Analisatukang extends CI_Controller
     public function laporan()
     {
         $data['title'] = 'Rekap Target Tukang';
-
+        $data['menuGroup'] = 'AnalisaTukang';
+        $data['menu'] = 'Rekap';
         $this->db->where("level_user IN ('penagihan', 'sales', 'marketing')", NULL, FALSE);
         $data['users'] = $this->db->get_where('tb_user', ['password !=' => '0', 'is_add_tukang' => 1])->result_array();
 

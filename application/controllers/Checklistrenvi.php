@@ -21,7 +21,8 @@ class Checklistrenvi extends CI_Controller
     public function index()
     {
         $data['title'] = 'Checlist Renvi';
-
+        $data['menuGroup'] = 'ChecklistRenvi';
+        $data['menu'] = 'ChecklistRenvi';
         $id_city = $this->session->userdata('id_city');
 
         $jatem1s = $this->MRenvi->getJatem1($id_city);

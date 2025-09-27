@@ -26,6 +26,8 @@ class Akunseller extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Top Mortar Seller';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'AkunSeller';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -41,6 +43,8 @@ class Akunseller extends CI_Controller
     public function penukaran_store($id_contact)
     {
         $data['title'] = 'Penukaran Top Mortar Seller';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'AkunSeller';
         $data['contact'] = $this->MContact->getById($id_contact);
         // $this->db->join('tb_tukang', 'tb_tukang.id_tukang = tb_voucher_tukang.id_tukang');
         $data['vouchers'] = $this->db->get_where('tb_voucher_tukang', ['id_contact' => $id_contact, 'is_claimed' => 1])->result_array();
@@ -54,6 +58,8 @@ class Akunseller extends CI_Controller
     public function index()
     {
         $data['title'] = 'Top Mortar Seller';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'AkunSeller';
         // $data['contacts'] = $this->MContact->getAllForPriority($id_city);
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['contactPriors'] = $this->MContact->getAllTopSellerCity($this->session->userdata('id_city'));
@@ -72,6 +78,8 @@ class Akunseller extends CI_Controller
     public function quota($id_contact)
     {
         $data['title'] = 'Top Mortar Seller';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'AkunSeller';
         $data['contact'] = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
         $data['quotas'] = $this->db->get_where('tb_quota_toko', ['id_contact' => $id_contact])->result_array();
         // $data['city'] = $this->MCity->getById($id_city);
@@ -170,6 +178,8 @@ class Akunseller extends CI_Controller
     public function penukaran()
     {
         $data['title'] = 'Penukaran Voucher Tukang Top Mortar';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'Penukaran';
         $dateRange = $this->input->post("date_range");
 
         $data['vouchers'] = $this->MVoucherTukang->getForPenukaran(date("Y-m-d"), date("Y-m-d"));
@@ -190,6 +200,8 @@ class Akunseller extends CI_Controller
     public function data_tukang()
     {
         $data['title'] = 'Validasi Voucher Tukang Top Mortar';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'ValidasiTukang';
         $data['catcuss'] = $this->db->get('tb_catcus')->result_array();
         $data['skills'] = $this->db->get('tb_skill')->result_array();
         $data['vouchers'] = $this->MVoucherTukang->getForValidasi();

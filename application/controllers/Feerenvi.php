@@ -24,6 +24,8 @@ class Feerenvi extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Rekap Fee Renvi';
+        $data['menuGroup'] = 'Visit';
+        $data['menu'] = 'TotalRenvi';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -42,6 +44,8 @@ class Feerenvi extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Rekap Fee Renvi';
+        $data['menuGroup'] = 'Visit';
+        $data['menu'] = 'TotalRenvi';
         $data['cities'] = $this->MCity->getAll();
         $data['city'] = $this->MCity->getById($id_city);
         $data['id_city'] = $id_city;

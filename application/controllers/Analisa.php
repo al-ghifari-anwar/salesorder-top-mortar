@@ -23,6 +23,8 @@ class Analisa extends CI_Controller
     public function passive()
     {
         $data['title'] = 'Toko Passive Dengan Pembayaran Bagus';
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'PassiveRutin';
 
         $id_city = $this->input->post("id_city");
 
@@ -46,6 +48,8 @@ class Analisa extends CI_Controller
     public function passive_order_5()
     {
         $data['title'] = 'Toko Passive Dengan Pembayaran Bagus';
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'Passive5';
 
         $id_city = $this->input->post("id_city");
 
@@ -69,6 +73,8 @@ class Analisa extends CI_Controller
     public function active()
     {
         $data['title'] = 'Toko Active Dengan Pembayaran Bagus';
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'ActiveRutin';
 
         $id_city = $this->input->post("id_city");
 

@@ -23,6 +23,8 @@ class Penjualan extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Produk';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Penjualan';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -49,8 +51,11 @@ class Penjualan extends CI_Controller
     public function index($id_city)
     {
         $data['title'] = 'Penjualan Produk';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Penjualan';
         $data['city'] = $this->MCity->getById($id_city);
         $dateRange = $this->input->post("date_range");
+
         if ($dateRange) {
             $dates = explode("-", $dateRange);
             $data['items'] = $this->MDetailSuratJalan->getSoldItemsByDate($id_city, date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")));
@@ -67,6 +72,8 @@ class Penjualan extends CI_Controller
     public function detail($id)
     {
         $data['title'] = 'Penjualan Produk';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Penjualan';
         $data['suratjalan'] = $this->MSuratJalan->getById($id);
         $suratjalan = $this->MSuratJalan->getById($id);
         $data['toko'] = $this->MContact->getById($suratjalan['id_contact']);

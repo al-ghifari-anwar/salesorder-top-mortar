@@ -25,6 +25,8 @@ class SuratJalan extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Surat Jalan';
+        $data['menuGroup'] = 'SJ';
+        $data['menu'] = 'SJ';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -40,6 +42,8 @@ class SuratJalan extends CI_Controller
     public function index($id_city)
     {
         $data['title'] = 'Surat Jalan';
+        $data['menuGroup'] = 'SJ';
+        $data['menu'] = 'SJ';
         $data['suratjalan'] = $this->MSuratJalan->getByCity($id_city);
         $data['toko'] = $this->MContact->getAll($id_city);
         $data['kurir'] = $this->MUser->getAllDefault();
@@ -54,6 +58,8 @@ class SuratJalan extends CI_Controller
     public function detail($id)
     {
         $data['title'] = 'Surat Jalan';
+        $data['menuGroup'] = 'SJ';
+        $data['menu'] = 'SJ';
         $data['suratjalan'] = $this->MSuratJalan->getById($id);
         $suratjalan = $this->MSuratJalan->getById($id);
         $data['toko'] = $this->MContact->getById($suratjalan['id_contact']);
@@ -119,6 +125,8 @@ class SuratJalan extends CI_Controller
     public function not_closing()
     {
         $data['title'] = 'Surat Jalan Belum Colsing';
+        $data['menuGroup'] = 'SJ';
+        $data['menu'] = 'NotClosing';
         $data['suratjalan'] = $this->MSuratJalan->getNotClosing();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

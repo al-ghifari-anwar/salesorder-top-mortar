@@ -15,6 +15,8 @@ class Topevent extends CI_Controller
         $daterange = $this->input->post('daterange');
 
         $data['title'] = 'Peserta Event Lomba';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
 
         if ($daterange) {
             $dates = explode("-", $daterange);

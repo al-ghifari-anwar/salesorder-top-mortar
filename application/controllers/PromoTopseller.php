@@ -11,6 +11,8 @@ class PromoTopseller extends CI_Controller
     public function index()
     {
         $data['title'] = 'Banner Promo Top Seller';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'Promo';
         $data['promotopsellers'] = $this->MPromoTopseller->get();
 
         $this->load->view('Theme/Header', $data);

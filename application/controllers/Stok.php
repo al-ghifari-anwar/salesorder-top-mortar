@@ -24,6 +24,8 @@ class Stok extends CI_Controller
         // if ($this->session->userdata('level_user') == 'admin_c') {
         //     $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         // } else {
+        $data['menuGroup'] = 'Stok';
+        $data['menu'] = 'Stok';
         $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['id_distributor' => $this->session->userdata('id_distributor'), 'is_active' => 1])->result_array();
         // }
         $this->load->view('Theme/Header', $data);
@@ -36,6 +38,8 @@ class Stok extends CI_Controller
     public function list($id_gudang_stok)
     {
         $data['title'] = 'Stok Produk';
+        $data['menuGroup'] = 'Stok';
+        $data['menu'] = 'Stok';
         $data['id_gudang_stok'] = $id_gudang_stok;
 
         $this->load->view('Theme/Header', $data);
@@ -83,6 +87,8 @@ class Stok extends CI_Controller
         $post = $this->input->post();
         $dateRange = $post["date_range"];
         $id_gudang_stok = $post["id_gudang_stok"];
+        $data['menuGroup'] = 'Stok';
+        $data['menu'] = 'Stok';
 
         // ID DIST
         if ($this->session->userdata('id_distributor') == 7) {

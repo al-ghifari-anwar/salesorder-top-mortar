@@ -25,6 +25,8 @@ class Absen extends CI_Controller
     public function index()
     {
         $data['title'] = 'Absensi Harian';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Absen';
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Absen/Index');

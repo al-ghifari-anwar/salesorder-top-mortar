@@ -15,6 +15,8 @@ class Logbca extends CI_Controller
         $daterange = $this->input->post('daterange');
 
         $data['title'] = 'Log BCA';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'LogBCA';
 
         if ($daterange) {
             $dates = explode("-", $daterange);

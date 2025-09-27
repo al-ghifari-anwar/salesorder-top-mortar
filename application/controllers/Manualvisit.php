@@ -19,6 +19,8 @@ class Manualvisit extends CI_Controller
     public function index()
     {
         $data['title'] = 'Manual Visit';
+        $data['menuGroup'] = 'Visit';
+        $data['menu'] = 'ManualVisit';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -34,6 +36,8 @@ class Manualvisit extends CI_Controller
     public function city($id_city)
     {
         $data['title'] = 'Manual Visit';
+        $data['menuGroup'] = 'Visit';
+        $data['menu'] = 'ManualVisit';
         $data['contacts'] = $this->MContact->getAll($id_city);
         $data['users'] = $this->MUser->getAllForManualRenvi($id_city);
         $data['id_city'] = $id_city;

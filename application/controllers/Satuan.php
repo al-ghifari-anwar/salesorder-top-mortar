@@ -14,8 +14,8 @@ class Satuan extends CI_Controller
     public function index()
     {
         $data['title'] = 'Satuan';
-        $data['menuGroup'] = 'master';
-        $data['menu'] = 'satuan';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'Satuan';
         $data['satuans'] = $this->MSatuan->get();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

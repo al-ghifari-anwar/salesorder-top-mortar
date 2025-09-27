@@ -25,6 +25,8 @@ class Rekap extends CI_Controller
     public function city_list()
     {
         $data['title'] = 'Rekap Invoice';
+        $data['menuGroup'] = 'Invoice';
+        $data['menu'] = 'RekapInvoice';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -40,6 +42,8 @@ class Rekap extends CI_Controller
     public function index($id_city)
     {
         $data['title'] = 'Rekap Invoice';
+        $data['menuGroup'] = 'Invoice';
+        $data['menu'] = 'RekapInvoice';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
             $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));

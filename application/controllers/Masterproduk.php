@@ -15,6 +15,8 @@ class Masterproduk extends CI_Controller
     public function index()
     {
         $data['title'] = 'Master Produk';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'MasterProduk';
         $data['masterproduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         $data['satuans'] = $this->db->get('tb_satuan')->result_array();
         $this->load->view('Theme/Header', $data);

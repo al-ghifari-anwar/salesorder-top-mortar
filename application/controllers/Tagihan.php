@@ -19,6 +19,8 @@ class Tagihan extends CI_Controller
         $id_distributor = $this->session->userdata('id_distributor');
 
         $data['title'] = 'Tagihan';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['tagihans'] = $this->MTagihan->getByIdDistributor($id_distributor);
 
         $this->load->view('Theme/Header', $data);
@@ -40,6 +42,8 @@ class Tagihan extends CI_Controller
 
 
         $data['title'] = 'Detail_Tagihan_#' . $tagihan['no_tagihan'];
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $data['tagihan'] = $tagihan;
         $data['tagihanDetails'] = $tagihanDetails;
         $data['distributor'] = $distributor;

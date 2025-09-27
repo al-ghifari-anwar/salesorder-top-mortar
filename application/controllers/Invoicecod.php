@@ -24,6 +24,8 @@ class Invoicecod extends CI_Controller
     public function waitingCity()
     {
         $data['title'] = 'Invoice COD Belum Lunas';
+        $data['menuGroup'] = 'Invoice';
+        $data['menu'] = 'CodBlmLunas';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -40,6 +42,8 @@ class Invoicecod extends CI_Controller
     {
         // $city = $this->MCity->getById($id_city);
         $data['title'] = 'Invoice COD Belum Lunas';
+        $data['menuGroup'] = 'Invoice';
+        $data['menu'] = 'CodBlmLunas';
         $data['invoice'] = $this->MInvoice->getCodWaiting();
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

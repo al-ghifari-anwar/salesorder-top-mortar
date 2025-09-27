@@ -17,6 +17,8 @@ class Kendaraan extends CI_Controller
     public function index()
     {
         $data['title'] = 'Kendaraan';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'Kendaraan';
         $data['kurir'] = $this->MUser->getAllDefault();
         $data['kendaraan'] = $this->MKendaraan->getAll();
         $this->load->view('Theme/Header', $data);

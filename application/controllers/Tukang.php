@@ -35,6 +35,8 @@ class Tukang extends CI_Controller
     {
         $id_distributor = $this->session->userdata('id_distributor');
         $data['title'] = 'Data Tukang Top Mortar';
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'Tukang';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $this->db->join('tb_city', 'tb_city.id_city = tb_tukang.id_city');
             $this->db->join('tb_skill', 'tb_skill.id_skill = tb_tukang.id_skill');
@@ -70,6 +72,8 @@ class Tukang extends CI_Controller
     public function sebar_vc_city()
     {
         $data['title'] = 'Sebar Voucher Tukang';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'Sebarvctukang';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -85,6 +89,8 @@ class Tukang extends CI_Controller
     public function sebar_vc($id_city)
     {
         $data['title'] = 'Data Tukang Top Mortar';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'Sebarvctukang';
         $data['city'] = $this->MCity->getById($id_city);
         $data['tukangs'] = $this->db->get_where('tb_tukang', ['id_city' => $id_city])->result_array();
         $data['vctukangs'] = $this->MVoucherTukang->getVoucherDigital($id_city);

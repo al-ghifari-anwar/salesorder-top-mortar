@@ -16,6 +16,8 @@ class Sjstok extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Tambah Stok';
+        $data['menuGroup'] = 'Stok';
+        $data['menu'] = 'Sjstok';
         $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         $this->db->order_by('created_at', 'DESC');
         $data['sjstoks'] = $this->db->get_where('tb_sj_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
@@ -63,6 +65,8 @@ class Sjstok extends CI_Controller
         $id_gudang_stok = $sjstok['id_gudang_stok'];
 
         $data['title'] = 'Detail Tambah Stok';
+        $data['menuGroup'] = 'Stok';
+        $data['menu'] = 'Sjstok';
         $data['gudang'] = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
         $data['citys'] = $this->db->get_where('tb_city', ['id_gudang_stok' => $id_gudang_stok])->result_array();
         $data['sjstok'] = $sjstok;
@@ -260,6 +264,8 @@ class Sjstok extends CI_Controller
         $id_gudang_stok = $sjstok['id_gudang_stok'];
 
         $data['title'] = 'Konfirmasi Penerimaan Stok';
+        $data['menuGroup'] = 'Stok';
+        $data['menu'] = 'Sjstok';
         $data['gudang'] = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
         $data['citys'] = $this->db->get_where('tb_city', ['id_gudang_stok' => $id_gudang_stok])->result_array();
         $data['sjstok'] = $sjstok;
@@ -356,6 +362,8 @@ class Sjstok extends CI_Controller
     public function adjustment()
     {
         $data['title'] = 'Adjustment Stok';
+        $data['menuGroup'] = 'Stok';
+        $data['menu'] = 'Sjstok';
 
         $this->db->order_by('created_at', 'DESC');
         $data['adjustments'] = $this->db->get_where('tb_stok', ['is_adjustment' => 1])->result_array();

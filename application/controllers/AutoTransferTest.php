@@ -21,6 +21,8 @@ class AutoTransferTest extends CI_Controller
     public function index()
     {
         $data['title'] = 'Laporan Auto Transfer Test';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

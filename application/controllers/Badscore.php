@@ -20,6 +20,8 @@ class Badscore extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Toko Skor Jelek';
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'Badscore';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
@@ -38,6 +40,8 @@ class Badscore extends CI_Controller
             redirect('login');
         }
         $data['title'] = 'Toko Skor Jelek';
+        $data['menuGroup'] = 'Analisa';
+        $data['menu'] = 'Badscore';
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_bad_score.id_contact');
         $data['contacts'] = $this->db->get_where('tb_bad_score', ['id_city' => $id_city])->result_array();
         $data['id_city'] = $id_city;

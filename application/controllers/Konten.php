@@ -16,6 +16,8 @@ class Konten extends CI_Controller
     public function index()
     {
         $data['title'] = 'Konten';
+        $data['menuGroup'] = 'TopSeller';
+        $data['menu'] = 'Konten';
         $data['konten'] = $this->MKonten->getAll();
 
         $this->load->view('Theme/Header', $data);

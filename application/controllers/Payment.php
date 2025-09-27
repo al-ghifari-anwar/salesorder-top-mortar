@@ -26,6 +26,8 @@ class Payment extends CI_Controller
     public function index()
     {
         $data['title'] = 'Rincian Pembayaran';
+        $data['menuGroup'] = 'Pembayaran';
+        $data['menu'] = 'RincianPembayaran';
         $data['city'] = $this->MCity->getAll();
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
@@ -42,6 +44,8 @@ class Payment extends CI_Controller
     public function unmatch()
     {
         $data['title'] = 'Pembayaran Transit';
+        $data['menuGroup'] = 'Pembayaran';
+        $data['menu'] = 'Transit';
         $data['payment'] = $this->MPayment->getUnmatch();
         $data['invoice'] = $this->MInvoice->getUnpaid();
         $this->load->view('Theme/Header', $data);
@@ -77,6 +81,8 @@ class Payment extends CI_Controller
     public function all()
     {
         $data['title'] = 'Semua Pembayaran';
+        $data['menuGroup'] = 'Pembayaran';
+        $data['menu'] = 'Transit';
         $data['payment'] = $this->MPayment->getAll();
         $data['invoice'] = $this->MInvoice->getUnpaid();
         $this->load->view('Theme/Header', $data);

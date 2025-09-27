@@ -17,6 +17,8 @@ class Minimumstok extends CI_Controller
         $gudang = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
 
         $data['title'] = 'Stok Minimal ' . $gudang['name_gudang_stok'];
+        $data['menuGroup'] = 'Data';
+        $data['menu'] = 'Gudang';
         $data['gudang'] = $gudang;
 
         $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_minimum_stok.id_master_produk');

@@ -29,6 +29,8 @@ class Referal extends CI_Controller
     public function index($id_md5)
     {
         $data['title'] = 'Referal Voucher';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $voucher = $this->MVoucherTukang->getByIdMd5($id_md5);
         $id_tukang = $voucher['id_tukang'];
         $data['voucher'] = $voucher;
@@ -359,6 +361,8 @@ class Referal extends CI_Controller
     public function complete_verify()
     {
         $data['title'] = 'Referal Voucher';
+        $data['menuGroup'] = '';
+        $data['menu'] = '';
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Referal/Complete');
