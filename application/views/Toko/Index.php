@@ -100,7 +100,7 @@
                                     foreach ($toko as $data) : ?>
                                         <?php
                                         $id_promo = $data['id_promo'];
-                                        $getPromo = $this->db->get('tb_promo', ['id_promo' => $id_promo])->row_array();
+                                        $getPromo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
