@@ -21,7 +21,14 @@ class Toko extends CI_Controller
         $data['menuGroup'] = 'Data';
         $data['menu'] = 'Toko';
         $data['cities'] = $this->MCity->getAll();
+        $data['promos'] = $this->db->get('tb_promo')->result_array();
 
+        $id_promo = 0;
+        if (isset($post['id_promo'])) {
+            $id_promo = $post['id_promo'];
+        }
+
+        $data['id_promo_filter'] = $id_promo;
         if ($this->session->userdata('level_user') == 'admin_c') {
             $id_city = $this->session->userdata('id_city');
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $id_city])->result_array();
