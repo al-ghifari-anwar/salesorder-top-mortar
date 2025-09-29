@@ -123,7 +123,7 @@
                                                 <td><?= $data['maps_url'] ?></td>
                                                 <td><?= $data['address'] ?></td>
                                                 <td><?= $data['store_status'] ?></td>
-                                                <td><?= $getPromo['nama_promo'] ?></td>
+                                                <td><?= $getPromo != null ? 'Blm Setting Promo' : $getPromo['nama_promo'] ?></td>
                                                 <td><?= $data['termin_payment'] ?></td>
                                                 <td><?= $data['reputation'] ?></td>
                                                 <td><?= $data['payment_method'] ?></td>
