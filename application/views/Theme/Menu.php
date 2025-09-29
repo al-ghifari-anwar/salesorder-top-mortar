@@ -111,7 +111,8 @@
             <!-- Brand Logo -->
             <a href="<?= base_url() ?>" class="brand-link">
                 <?php if ($this->session->userdata('id_user') != null): ?>
-                    <img src="<?= base_url('assets/img/company_img/') . $getCompany['img_company'] ?>" alt="Logo" class="brand-image" style="opacity: .8">
+                    <img src="<?= $getCompany ? base_url('assets/img/company_img/') . $getCompany['img_company'] :
+                                    '-' ?>" alt="Logo" class="brand-image" style="opacity: .8">
                 <?php endif; ?>
                 <span class="brand-text font-weight-light">.</span>
             </a>
