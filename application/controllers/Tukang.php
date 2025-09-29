@@ -170,55 +170,110 @@ class Tukang extends CI_Controller
             $image = "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name;
 
             // Send message
-            $jsonRequest = [
-                'to' => $nomor_hp,
-                'msgType' => 'text',
-                'templateId' => '2c188c43-d6c8-4385-985e-02284980eabb',
-                'values' => [
-                    'body' => [
-                        [
-                            'index' => 1,
-                            'type' => 'text',
-                            'text' => $nama
-                        ],
-                        [
-                            'index' => 2,
-                            'type' => 'text',
-                            'text' => $message
-                        ]
-                    ],
-                    'header' => [
-                        'type' => 'image',
-                        'attachmentUrl' => $image
-                    ],
-                    'buttons' => [
-                        [
-                            'type' => 'text',
-                            'index' => 1,
-                            'payload' => 'penukaranstore',
-                        ],
-                        [
-                            'type' => 'text',
-                            'index' => 2,
-                            'payload' => 'referal/' . $voucherCode,
-                        ],
-                    ]
-                ]
-            ];
+            // $jsonRequest = [
+            //     'to' => $nomor_hp,
+            //     'msgType' => 'text',
+            //     'templateId' => '2c188c43-d6c8-4385-985e-02284980eabb',
+            //     'values' => [
+            //         'body' => [
+            //             [
+            //                 'index' => 1,
+            //                 'type' => 'text',
+            //                 'text' => $nama
+            //             ],
+            //             [
+            //                 'index' => 2,
+            //                 'type' => 'text',
+            //                 'text' => $message
+            //             ]
+            //         ],
+            //         'header' => [
+            //             'type' => 'image',
+            //             'attachmentUrl' => $image
+            //         ],
+            //         'buttons' => [
+            //             [
+            //                 'type' => 'text',
+            //                 'index' => 1,
+            //                 'payload' => 'penukaranstore',
+            //             ],
+            //             [
+            //                 'type' => 'text',
+            //                 'index' => 2,
+            //                 'payload' => 'referal/' . $voucherCode,
+            //             ],
+            //         ]
+            //     ]
+            // ];
 
-            $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $jsonRequest);
+            // $resArray = $this->Maxchathelper->postCurl(1, 'https://app.maxchat.id/api/messages/push', $jsonRequest);
 
             // $res = json_decode($response, true);
             // echo $response;
             // die;
 
-            // $status = $res['status'];
+            // Send message
+            $curl = curl_init();
 
-            if (isset($resArray['content'])) {
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                                        "to_number": "' . $nomor_hp . '",
+                                        "to_name": "' . $nama . '",
+                                        "message_template_id": "' . $template_id . '",
+                                        "channel_integration_id": "' . $integration_id . '",
+                                        "language": {
+                                            "code": "id"
+                                        },
+                                        "parameters": {
+                                            "header":{
+                                                "format":"IMAGE",
+                                                "params": [
+                                                    {
+                                                        "key":"url",
+                                                        "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
+                                                    },
+                                                    {
+                                                        "key":"filename",
+                                                        "value":"qrtukang.png"
+                                                    }
+                                                ]
+                                            },
+                                            "body": [
+                                                {
+                                                    "key": "1",
+                                                    "value": "nama",
+                                                    "value_text": "' . $message . '"
+                                                }
+                                            ]
+                                        }
+                                        }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
+
+            $status = $res['status'];
+
+            if ($status == 'success') {
                 $this->session->set_flashdata('success', "Berhasil kirim voucher!");
                 redirect('sebarvctukang/' . $id_city);
             } else {
-                $this->session->set_flashdata('failed', "Gagal kirim notif voucher! " . json_encode($resArray));
+                $this->session->set_flashdata('failed', "Gagal kirim notif voucher! " . json_encode($res));
                 redirect('sebarvctukang/' . $id_city);
             }
         } else {
