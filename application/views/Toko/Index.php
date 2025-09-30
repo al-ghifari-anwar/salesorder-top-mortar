@@ -107,35 +107,24 @@
                                     <?php
                                     $no = 1;
                                     foreach ($toko as $data) : ?>
-                                        <?php if ($id_promo_filter == 0): ?>
-                                            <?php
-                                            $id_promo = $data['id_promo'];
-                                            $getPromo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
-                                            ?>
-                                            <tr>
-                                                <td><?= $no++; ?></td>
-                                                <td><?= $data['nama'] ?></td>
-                                                <td><?= $data['store_owner'] ?></td>
-                                                <td><?= $data['nomorhp'] ?></td>
-                                                <td><?= $data['nomorhp_2'] ?></td>
-                                                <td><?= $data['tgl_lahir'] ?></td>
-                                                <td><?= $data['nama_city'] ?></td>
-                                                <td><?= $data['maps_url'] ?></td>
-                                                <td><?= $data['address'] ?></td>
-                                                <td><?= $data['store_status'] ?></td>
-                                                <td><?= $getPromo == null ? 'Blm Setting Promo' : $getPromo['nama_promo'] ?></td>
-                                                <td><?= $data['termin_payment'] ?></td>
-                                                <td><?= $data['reputation'] ?></td>
-                                                <td><?= $data['payment_method'] ?></td>
-                                                <td><?= $data['tagih_mingguan'] == 1 ? 'Yes' : 'No' ?></td>
-                                            </tr>
-                                        <?php endif; ?>
-                                        <?php if ($id_promo_filter != 0): ?>
-                                            <?php
-                                            $id_promo = $data['id_promo'];
-                                            $getPromo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
-                                            ?>
-                                            <?php if ($id_promo == $id_promo_filter): ?>
+                                        <?php
+                                        $getBadscore = $this->db->get_where('tb_bad_score', ['id_contact' => $data['id_contact']])->row_array();
+
+                                        $isBad = 1;
+                                        if ($getBadscore) {
+                                            if ($getBadscore['is_approved'] != 1) {
+                                                $isBad = 0;
+                                            }
+                                        } else {
+                                            $isBad = 0;
+                                        }
+                                        ?>
+                                        <?php if ($isBad == 0): ?>
+                                            <?php if ($id_promo_filter == 0): ?>
+                                                <?php
+                                                $id_promo = $data['id_promo'];
+                                                $getPromo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+                                                ?>
                                                 <tr>
                                                     <td><?= $no++; ?></td>
                                                     <td><?= $data['nama'] ?></td>
@@ -147,12 +136,37 @@
                                                     <td><?= $data['maps_url'] ?></td>
                                                     <td><?= $data['address'] ?></td>
                                                     <td><?= $data['store_status'] ?></td>
-                                                    <td><?= $getPromo['nama_promo'] ?></td>
+                                                    <td><?= $getPromo == null ? 'Blm Setting Promo' : $getPromo['nama_promo'] ?></td>
                                                     <td><?= $data['termin_payment'] ?></td>
                                                     <td><?= $data['reputation'] ?></td>
                                                     <td><?= $data['payment_method'] ?></td>
                                                     <td><?= $data['tagih_mingguan'] == 1 ? 'Yes' : 'No' ?></td>
                                                 </tr>
+                                            <?php endif; ?>
+                                            <?php if ($id_promo_filter != 0): ?>
+                                                <?php
+                                                $id_promo = $data['id_promo'];
+                                                $getPromo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+                                                ?>
+                                                <?php if ($id_promo == $id_promo_filter): ?>
+                                                    <tr>
+                                                        <td><?= $no++; ?></td>
+                                                        <td><?= $data['nama'] ?></td>
+                                                        <td><?= $data['store_owner'] ?></td>
+                                                        <td><?= $data['nomorhp'] ?></td>
+                                                        <td><?= $data['nomorhp_2'] ?></td>
+                                                        <td><?= $data['tgl_lahir'] ?></td>
+                                                        <td><?= $data['nama_city'] ?></td>
+                                                        <td><?= $data['maps_url'] ?></td>
+                                                        <td><?= $data['address'] ?></td>
+                                                        <td><?= $data['store_status'] ?></td>
+                                                        <td><?= $getPromo['nama_promo'] ?></td>
+                                                        <td><?= $data['termin_payment'] ?></td>
+                                                        <td><?= $data['reputation'] ?></td>
+                                                        <td><?= $data['payment_method'] ?></td>
+                                                        <td><?= $data['tagih_mingguan'] == 1 ? 'Yes' : 'No' ?></td>
+                                                    </tr>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
