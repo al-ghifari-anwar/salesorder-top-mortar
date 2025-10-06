@@ -142,7 +142,7 @@ class Runcron extends CI_Controller
                                         // return $this->output->set_output(json_encode($result));
                                     } else {
                                         if ($amountValue != 3) {
-                                            if ($amountValue != 698000) {
+                                            if ($amountValue != 340600) {
                                                 if ($amountValue != 1050000) {
 
                                                     // !! Send 
@@ -260,7 +260,7 @@ class Runcron extends CI_Controller
                                     // return $this->output->set_output(json_encode($result));
                                 } else {
                                     if ($amountValue != 3) {
-                                        if ($amountValue != 698000) {
+                                        if ($amountValue != 340600) {
                                             if ($amountValue != 1050000) {
                                                 // !! Send 
                                                 $curl = curl_init();
