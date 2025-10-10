@@ -36,6 +36,7 @@ class Checklistrenvi extends CI_Controller
             $id_inv = $jatem1['id_invoice'];
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem1'")->row_array();
             $jatuhTempo = date('d M Y', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -46,6 +47,7 @@ class Checklistrenvi extends CI_Controller
             $days = $operan . $days;
             $jatem1['days'] = $days;
             $jatem1['jatuh_tempo'] = $jatuhTempo;
+            $jatem1['jatem'] = $jatem;
             $jatem1['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $jatem1['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
@@ -59,6 +61,7 @@ class Checklistrenvi extends CI_Controller
             $id_inv = $jatem2['id_invoice'];
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem2'")->row_array();
             $jatuhTempo = date('d M Y', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -69,6 +72,7 @@ class Checklistrenvi extends CI_Controller
             $days = $operan . $days;
             $jatem2['days'] = $days;
             $jatem2['jatuh_tempo'] = $jatuhTempo;
+            $jatem2['jatem'] = $jatem;
             $jatem2['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $jatem2['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
@@ -82,6 +86,7 @@ class Checklistrenvi extends CI_Controller
             $id_inv = $jatem3['id_invoice'];
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
             $jatuhTempo = date('d M Y', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -92,6 +97,7 @@ class Checklistrenvi extends CI_Controller
             $days = $operan . $days;
             $jatem3['days'] = $days;
             $jatem3['jatuh_tempo'] = $jatuhTempo;
+            $jatem3['jatem'] = $jatem;
             $jatem3['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $jatem3['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
@@ -106,6 +112,7 @@ class Checklistrenvi extends CI_Controller
             $mingguan['id_renvis_jatem'] = $mingguan['id_rencana_visit'];
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
             $jatuhTempo = date('d M Y', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -116,6 +123,7 @@ class Checklistrenvi extends CI_Controller
             $days = $operan . $days;
             $mingguan['days'] = $days;
             $mingguan['jatuh_tempo'] = $jatuhTempo;
+            $mingguan['jatem'] = $jatem;
             $mingguan['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $mingguan['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
@@ -160,6 +168,7 @@ class Checklistrenvi extends CI_Controller
             $id_inv = $jatem1['id_invoice'];
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem1'")->row_array();
             $jatuhTempo = date('d M Y', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -170,6 +179,7 @@ class Checklistrenvi extends CI_Controller
             $days = $operan . $days;
             $jatem1['days'] = $days;
             $jatem1['jatuh_tempo'] = $jatuhTempo;
+            $jatem1['jatem'] = $jatem;
             $jatem1['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $jatem1['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
@@ -184,6 +194,7 @@ class Checklistrenvi extends CI_Controller
             $id_inv = $jatem2['id_invoice'];
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem2'")->row_array();
             $jatuhTempo = date('d M Y', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -194,6 +205,7 @@ class Checklistrenvi extends CI_Controller
             $days = $operan . $days;
             $jatem2['days'] = $days;
             $jatem2['jatuh_tempo'] = $jatuhTempo;
+            $jatem2['jatem'] = $jatem;
             $jatem2['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $jatem2['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
@@ -208,6 +220,7 @@ class Checklistrenvi extends CI_Controller
             $id_inv = $jatem3['id_invoice'];
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
             $jatuhTempo = date('d M Y', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -218,6 +231,7 @@ class Checklistrenvi extends CI_Controller
             $days = $operan . $days;
             $jatem3['days'] = $days;
             $jatem3['jatuh_tempo'] = $jatuhTempo;
+            $jatem3['jatem'] = $jatem;
             $jatem3['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $jatem3['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
@@ -233,6 +247,7 @@ class Checklistrenvi extends CI_Controller
             $mingguan['selected'] = in_array($mingguan['id_renvis_jatem'], $selectedIds) ? 'yes' : 'no';
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
             $jatuhTempo = date('d M Y', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -243,6 +258,7 @@ class Checklistrenvi extends CI_Controller
             $days = $operan . $days;
             $mingguan['days'] = $days;
             $mingguan['jatuh_tempo'] = $jatuhTempo;
+            $mingguan['jatem'] = $jatem;
             $mingguan['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $mingguan['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));

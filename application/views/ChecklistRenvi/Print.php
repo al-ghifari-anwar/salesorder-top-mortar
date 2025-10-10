@@ -127,6 +127,20 @@ function penyebut($nilai)
                 $operan = "-";
             }
             $days = $operan . $days;
+
+            // Jatem Days
+            $date1jatem = new DateTime(date("Y-m-d"));
+            $date2jatem = new DateTime($renvi['jatem']);
+            $daysJatem  = $date2jatem->diff($date1jatem)->format('%a');
+            $operanJatem = "";
+            if ($date1jatem < $date2jatem) {
+                $operanJatem = "-";
+            }
+            $daysJatem = $operanJatem . $daysJatem;
+
+            // Invoice
+            $jatem = $renvi['jatem'];
+            $total_inv = $this->db->query("SELECT SUM(total_invoice) AS total_invoice FROM tb_invoice JOIN tb_surat_jalan ON tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan WHERE id_contact = '$id_contact' AND status_invoice = 'waiting' AND DATE(date_invoice) <= '$jatem' ")->row_array();
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
@@ -134,7 +148,9 @@ function penyebut($nilai)
                 <td class="text-center"><?= $renvi['type_renvis'] ?></td>
                 <td class="text-center"><?= $renvi['jatuh_tempo'] ?></td>
                 <td class="text-center"><?= $days ?></td>
+                <td class="text-center"><?= $daysJatem ?></td>
                 <td class="text-center"><?= $renvi['selected'] ?></td>
+                <td>Rp. <?= number_format($total_inv['total_invoice'], 0, ',', '.') ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
