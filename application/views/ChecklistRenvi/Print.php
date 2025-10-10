@@ -110,6 +110,8 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Kategori</th>
             <th style="border-bottom: 1px solid black;">Jatuh Tempo</th>
             <th style="border-bottom: 1px solid black;">Hari</th>
+            <th style="border-bottom: 1px solid black;">Umur Hutang</th>
+            <th style="border-bottom: 1px solid black;">Total</th>
             <th style="border-bottom: 1px solid black;">Selected</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
@@ -149,8 +151,8 @@ function penyebut($nilai)
                 <td class="text-center"><?= $renvi['jatuh_tempo'] ?></td>
                 <td class="text-center"><?= $days ?></td>
                 <td class="text-center"><?= $daysJatem ?></td>
-                <td class="text-center"><?= $renvi['selected'] ?></td>
                 <td>Rp. <?= number_format($total_inv['total_invoice'], 0, ',', '.') ?></td>
+                <td class="text-center"><?= $renvi['selected'] ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
