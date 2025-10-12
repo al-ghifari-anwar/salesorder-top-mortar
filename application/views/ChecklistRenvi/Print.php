@@ -150,7 +150,7 @@ function penyebut($nilai)
                 // Jatem Days
                 $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
                 $dateInv1 = new DateTime(date("Y-m-d"));
-                $dateInv2 = new DateTime($renvi['jatem']);
+                $dateInv2 = new DateTime($jatemInv);
                 $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
                 $operanInvJatem = "";
                 if ($dateInv1 < $dateInv2) {
