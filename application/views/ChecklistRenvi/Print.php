@@ -157,8 +157,15 @@ function penyebut($nilai)
                     $operanInvJatem = "-";
                 }
                 $daysInvJatem = $operanInvJatem . $daysInvJatem;
-                if ($daysInvJatem > "0") {
-                    $total_invoice += $invoice['total_invoice'];
+
+                if ($renvi['type_renvis'] != 'tagih_mingguan') {
+                    if ($daysInvJatem > 0) {
+                        $total_invoice += $invoice['total_invoice'];
+                    }
+                } else {
+                    if ($daysInvJatem < 0) {
+                        $total_invoice += $invoice['total_invoice'];
+                    }
                 }
             }
             ?>
