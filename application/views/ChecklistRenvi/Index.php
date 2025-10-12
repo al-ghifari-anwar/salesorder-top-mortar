@@ -88,8 +88,25 @@
                                         $daysJatem = $operanJatem . $daysJatem;
 
                                         // Invoice
-                                        $jatem = $renvi['jatem'];
-                                        $total_inv = $this->db->query("SELECT SUM(total_invoice) AS total_invoice FROM tb_invoice JOIN tb_surat_jalan ON tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan WHERE id_contact = '$id_contact' AND status_invoice = 'waiting' AND DATE(date_invoice) <= '$jatem' ")->row_array();
+                                        $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
+
+                                        $total_invoice = 0;
+                                        foreach ($invoices as $invoice) {
+                                            // Jatem Days
+                                            $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                                            $dateInv1 = new DateTime(date("Y-m-d"));
+                                            $dateInv2 = new DateTime($renvi['jatem']);
+                                            $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                                            $operanInvJatem = "";
+                                            if ($dateInv1 < $dateInv2) {
+                                                $operanInvJatem = "-";
+                                            }
+                                            $daysInvJatem = $operanInvJatem . $daysInvJatem;
+                                            if ($daysInvJatem > "0") {
+                                                $total_invoice += $invoice['total_invoice'];
+                                            }
+                                        }
+
                                         ?>
                                         <tr>
                                             <td><input type="checkbox" class="checkItem" value="<?= $renvi['id_renvis_jatem'] ?>"></td>
@@ -99,7 +116,7 @@
                                             <td><?= $renvi['jatuh_tempo'] ?></td>
                                             <td><?= $days ?></td>
                                             <td><?= $daysJatem ?></td>
-                                            <td>Rp. <?= number_format($total_inv['total_invoice'], 0, ',', '.') ?></td>
+                                            <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
