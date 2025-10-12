@@ -102,7 +102,8 @@
                                                 $operanInvJatem = "-";
                                             }
                                             $daysInvJatem = $operanInvJatem . $daysInvJatem;
-                                            if ($daysInvJatem > "0") {
+
+                                            if ($daysInvJatem > 0) {
                                                 $total_invoice += $invoice['total_invoice'];
                                             }
                                         }
