@@ -158,13 +158,16 @@ function penyebut($nilai)
                 }
                 $daysInvJatem = $operanInvJatem . $daysInvJatem;
 
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
+
                 if ($renvi['type_renvis'] != 'tagih_mingguan') {
                     if ($daysInvJatem > 0) {
-                        $total_invoice += $invoice['total_invoice'];
+                        $total_invoice += $sisaHutang;
                     }
                 } else {
                     if ($daysInvJatem < 0) {
-                        $total_invoice += $invoice['total_invoice'];
+                        $total_invoice += $sisaHutang;
                     }
                 }
             }
