@@ -92,6 +92,7 @@
 
                                         $total_invoice = 0;
                                         foreach ($invoices as $invoice) {
+                                            $id_invoice = $invoice['id_invoice'];
                                             // Jatem Days
                                             $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
                                             $dateInv1 = new DateTime(date("Y-m-d"));
