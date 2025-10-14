@@ -32,6 +32,8 @@ class Apporder extends CI_Controller
 
     public function approve($id_apporder)
     {
+        $id_courier = 0;
+
         $apporder = $this->MApporder->getById($id_apporder);
 
         $id_contact = $apporder['id_contact'];
@@ -41,11 +43,20 @@ class Apporder extends CI_Controller
         $id_distributor = $contact['id_distributor'];
         $id_city = $contact['id_city'];
 
+        $city = $this->MCity->getById($id_city);
+
+        $nama_city = trim(preg_replace("/\\d+/", "", $city['nama_city']));
 
         $approderDetails = $this->MApporderDetail->getByIdApporder($apporder['id_apporder']);
 
         $courier = $this->MUser->getCourierByIdCity($id_city);
-        $id_courier = $courier['id_user'];
+
+        if ($courier) {
+            $id_courier = $courier['id_user'];
+        } else {
+            $courier = $this->MUser->getCourierByCityGroup($nama_city);
+            $id_courier = $courier['id_user'];
+        }
 
         $suratJalanData = [
             'user_approved_apporder' => $this->session->userdata('id_user'),
