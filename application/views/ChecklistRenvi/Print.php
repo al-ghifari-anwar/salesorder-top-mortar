@@ -143,7 +143,8 @@ function penyebut($nilai)
 
             // Invoice
             // Invoice
-            $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
+            $id_invoice = $renvi['id_invoice'];
+            $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
 
             $total_invoice = 0;
             foreach ($invoices as $invoice) {
