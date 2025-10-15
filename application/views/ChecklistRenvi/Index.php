@@ -93,7 +93,7 @@
 
                                         $total_invoice = 0;
 
-                                        if ($invoices) {
+                                        if (count($invoices) > 0) {
                                             foreach ($invoices as $invoice) {
                                                 $id_invoice = $invoice['id_invoice'];
                                                 // Jatem Days
