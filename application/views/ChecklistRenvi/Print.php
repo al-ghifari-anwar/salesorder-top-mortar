@@ -173,6 +173,36 @@ function penyebut($nilai)
                     }
                 }
             }
+
+            if ($total_invoice == 0) {
+                $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
+                foreach ($invoices as $invoice) {
+                    $id_invoice = $invoice['id_invoice'];
+                    // Jatem Days
+                    $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    $dateInv1 = new DateTime(date("Y-m-d"));
+                    $dateInv2 = new DateTime($jatemInv);
+                    $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                    $operanInvJatem = "";
+                    if ($dateInv1 < $dateInv2) {
+                        $operanInvJatem = "-";
+                    }
+                    $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $invoice['total_invoice'] - $payment['amount_payment'];
+
+                    if ($renvi['type_renvis'] != 'tagih_mingguan') {
+                        if ($daysInvJatem > 0) {
+                            $total_invoice += $sisaHutang;
+                        }
+                    } else {
+                        if ($daysInvJatem < 0) {
+                            $total_invoice += $sisaHutang;
+                        }
+                    }
+                }
+            }
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
