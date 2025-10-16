@@ -111,7 +111,7 @@
                                             $sisaHutang = $invoice['total_invoice'] - $amountPayment;
 
                                             if ($renvi['type_renvis'] != 'tagih_mingguan') {
-                                                if ($daysInvJatem > 0) {
+                                                if ($daysInvJatem >= 0) {
                                                     $total_invoice += $sisaHutang;
                                                 }
                                             } else {
