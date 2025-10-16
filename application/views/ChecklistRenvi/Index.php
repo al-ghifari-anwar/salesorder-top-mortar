@@ -53,7 +53,7 @@
                                         <th>No</th>
                                         <th>Toko</th>
                                         <th>Kategori</th>
-                                        <th>Jatem</th>
+                                        <th>Last Visit</th>
                                         <th>Hari</th>
                                         <th>Umur Hutang</th>
                                         <th>Total</th>
@@ -157,7 +157,7 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= $renvi['nama'] ?></td>
                                             <td><?= $renvi['type_renvis'] ?></td>
-                                            <td><?= $renvi['jatuh_tempo'] ?></td>
+                                            <td><?= date('d M Y', strtotime($renvi['created_at'])) ?></td>
                                             <td><?= $days ?></td>
                                             <td><?= $daysJatem ?></td>
                                             <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>

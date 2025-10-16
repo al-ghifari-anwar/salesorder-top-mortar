@@ -108,7 +108,7 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Toko</th>
             <th style="border-bottom: 1px solid black;">Kategori</th>
-            <th style="border-bottom: 1px solid black;">Jatuh Tempo</th>
+            <th style="border-bottom: 1px solid black;">Last Visit</th>
             <th style="border-bottom: 1px solid black;">Hari</th>
             <th style="border-bottom: 1px solid black;">Umur Hutang</th>
             <th style="border-bottom: 1px solid black;">Total</th>
@@ -209,7 +209,7 @@ function penyebut($nilai)
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $renvi['nama'] ?></td>
                 <td class="text-center"><?= $renvi['type_renvis'] ?></td>
-                <td class="text-center"><?= $renvi['jatuh_tempo'] ?></td>
+                <td class="text-center"><?= date('d M Y', strtotime($renvi['created_at'])) ?></td>
                 <td class="text-center"><?= $days ?></td>
                 <td class="text-center"><?= $daysJatem ?></td>
                 <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
