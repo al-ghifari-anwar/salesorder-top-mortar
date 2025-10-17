@@ -77,8 +77,8 @@
                                             $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
                                             $last_visit = date('d M Y', strtotime($renvi['created_at']));
                                         }
-                                        $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
-                                        $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                                        // $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                                        // $last_visit = date('d M Y', strtotime($renvi['created_at']));
 
                                         $created_at = date('Y-m-d', strtotime($renvi['created_at']));
 
