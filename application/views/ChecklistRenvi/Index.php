@@ -68,21 +68,9 @@
                                         $id_invoice = $renvi['id_invoice'];
                                         $id_contact = $renvi['id_contact'];
 
-                                        $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_invoice' AND type_renvis = '$type_renvis'")->row_array();
-
                                         $last_visit = '';
-                                        if ($count['jmlRenvis'] == 1) {
-                                            $last_visit = date('d M Y', strtotime($renvi['jatem']));
-                                        } else {
-                                            $dateJatem = $renvi['jatem'];
-
-                                            $visit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) >= '$dateJatem' AND source_visit IN ('jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
-
-                                            if ($visit) {
-                                                $last_visit = date('d M Y', strtotime($visit['date_visit']));
-                                            } else {
-                                                $last_visit = date('d M Y', strtotime($renvi['jatem']));
-                                            }
+                                        if ($renvi['is_new'] == 1) {
+                                            $last_visit = $renvi['jatuh_tempo'];
                                         }
 
                                         $created_at = date('Y-m-d', strtotime($renvi['created_at']));
