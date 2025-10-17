@@ -64,7 +64,6 @@
                                     $no = 1;
                                     foreach ($renvis as $renvi): ?>
                                         <?php
-                                        $id_renvi = $renvi['id_renvi'];
                                         $type_renvis = $renvi['type_renvis'];
                                         $id_invoice = $renvi['id_invoice'];
                                         $id_contact = $renvi['id_contact'];
