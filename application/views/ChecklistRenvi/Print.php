@@ -122,6 +122,13 @@ function penyebut($nilai)
             $id_contact = $renvi['id_contact'];
             $created_at = date('Y-m-d', strtotime($renvi['created_at']));
 
+            $last_visit = '';
+            if ($renvi['is_new'] == 1) {
+                $last_visit = $renvi['jatuh_tempo'];
+            } else {
+                $last_visit = date('d M Y', strtotime($renvi['created_at']));
+            }
+
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($created_at);
             $days  = $date2->diff($date1)->format('%a');
