@@ -71,6 +71,8 @@
                                         $last_visit = '';
                                         if ($renvi['is_new'] == 1) {
                                             $last_visit = $renvi['jatuh_tempo'];
+                                        } else {
+                                            $last_visit = date('d M Y', strtotime($renvi['created_at']));
                                         }
 
                                         $created_at = date('Y-m-d', strtotime($renvi['created_at']));
