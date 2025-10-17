@@ -374,6 +374,7 @@ $route['rekaptokobaru/print'] = 'Rekaptokobaru/print';
 $route['autopassive'] = 'AutoPassive/top';
 // QR dalam sak
 $route['qrsak'] = 'Qrsak/index';
+$route['qrsak/create'] = 'Qrsak/create';
 $route['qrsak/test'] = 'Qrsak/test';
 $route['qrsak/testimg'] = 'Qrsak/testImage';
 // Konten Blast
