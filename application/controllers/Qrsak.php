@@ -20,7 +20,7 @@ class Qrsak extends CI_Controller
     {
         $data['title'] = 'Program QR Uang Tunai';
         $data['menuGroup'] = 'Marketing';
-        $data['menu'] = 'Program QR Uang Tunai';
+        $data['menu'] = 'Qrsak';
 
         $data['qrsaks'] = $this->MQrsak->get();
 

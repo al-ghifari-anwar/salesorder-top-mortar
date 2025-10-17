@@ -560,7 +560,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="<?= base_url('qrsak') ?>" class="nav-link <?= $menu == 'QRSak' ? 'active' : '' ?>">
+                                            <a href="<?= base_url('qrsak') ?>" class="nav-link <?= $menu == 'Qrsak' ? 'active' : '' ?>">
                                                 <i class="fas fa-qrcode nav-icon"></i>
                                                 <p>QR dalam Sak</p>
                                             </a>
