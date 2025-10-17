@@ -135,7 +135,7 @@ class Checklistrenvi extends CI_Controller
             $renvis[] = $mingguan;
         }
 
-        echo json_encode($renvi);
+        echo json_encode($renvis);
         die;
 
         $data['renvis'] = $renvis;
