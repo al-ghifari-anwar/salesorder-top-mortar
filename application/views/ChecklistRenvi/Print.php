@@ -123,14 +123,17 @@ function penyebut($nilai)
             $created_at = date('Y-m-d', strtotime($renvi['created_at']));
 
             $last_visit = '';
+            $date_last_for_counter = '';
             if ($renvi['is_new'] == 1) {
+                $date_last_for_counter = date('Y-m-d', strtotime($renvi['jatem']));
                 $last_visit = $renvi['jatuh_tempo'];
             } else {
+                $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
                 $last_visit = date('d M Y', strtotime($renvi['created_at']));
             }
 
             $date1 = new DateTime(date("Y-m-d"));
-            $date2 = new DateTime($created_at);
+            $date2 = new DateTime($date_last_for_counter);
             $days  = $date2->diff($date1)->format('%a');
             $operan = "";
             if ($date1 < $date2) {
