@@ -78,7 +78,11 @@
 
                                             $visit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) >= '$dateJatem' AND source_visit IN ('jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
-                                            $last_visit = date('d M Y', strtotime($visit['date_visit']));
+                                            if ($visit) {
+                                                $last_visit = date('d M Y', strtotime($visit['date_visit']));
+                                            } else {
+                                                $last_visit = date('d M Y', strtotime($renvi['jatem']));
+                                            }
                                         }
 
                                         $created_at = date('Y-m-d', strtotime($renvi['created_at']));
