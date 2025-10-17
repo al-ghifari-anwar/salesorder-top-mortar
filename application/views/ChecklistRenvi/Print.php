@@ -102,6 +102,7 @@ function penyebut($nilai)
         }
     </style>
     <h3 class="text-center"><?= $this->session->userdata('full_name') ?></h3>
+    <h3 class="text-center"><?= date('d F Y') . ' - ' . date('H:i:s') ?></h3>
     <h1 class="text-center">Checklist Renvi</h1>
     <table>
         <tr>
@@ -219,7 +220,7 @@ function penyebut($nilai)
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $renvi['nama'] ?></td>
                 <td class="text-center"><?= $renvi['type_renvis'] ?></td>
-                <td class="text-center"><?= date('d M Y', strtotime($renvi['created_at'])) ?></td>
+                <td class="text-center"><?= $last_visit ?></td>
                 <td class="text-center"><?= $days ?></td>
                 <td class="text-center"><?= $daysJatem ?></td>
                 <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
