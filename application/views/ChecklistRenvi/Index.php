@@ -137,7 +137,7 @@
                                                     $total_invoice += $sisaHutang;
                                                 }
                                             } else {
-                                                if ($daysInvJatem < 0) {
+                                                if ($daysInvJatem <= 0) {
                                                     $total_invoice += $sisaHutang;
                                                 }
                                             }
