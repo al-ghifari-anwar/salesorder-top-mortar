@@ -52,7 +52,7 @@ class Checklistrenvi extends CI_Controller
             $jatem1['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
             $id_con = $jatem1['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
-            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND DATE(date_visit) >= '$dateJatem' AND source_visit IN ('jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
             $created_at = $jatem1['created_at'];
             $jatem1['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
             $renvis[] = $jatem1;
