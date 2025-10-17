@@ -64,7 +64,23 @@
                                     $no = 1;
                                     foreach ($renvis as $renvi): ?>
                                         <?php
+                                        $id_renvi = $renvi['id_renvi'];
+                                        $type_renvis = $renvi['type_renvis'];
+                                        $id_invoice = $renvi['id_invoice'];
                                         $id_contact = $renvi['id_contact'];
+
+                                        $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_invoice' AND type_renvis = '$type_renvis'")->row_array();
+
+                                        $last_visit = '';
+                                        if ($count['jmlRenvis'] == 1) {
+                                            $last_visit = date('d M Y', strtotime($renvi['jatem']));
+                                        } else {
+                                            $dateJatem = $renvi['jatem'];
+
+                                            $visit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND DATE(date_visit) >= '$dateJatem' AND source_visit IN ('jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                                            $last_visit = date('d M Y', strtotime($visit['date_visit']));
+                                        }
 
                                         $created_at = date('Y-m-d', strtotime($renvi['created_at']));
 
@@ -88,7 +104,7 @@
                                         $daysJatem = $operanJatem . $daysJatem;
 
                                         // Invoice
-                                        $id_invoice = $renvi['id_invoice'];
+
                                         $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
 
                                         $total_invoice = 0;
@@ -157,7 +173,7 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= $renvi['nama'] ?></td>
                                             <td><?= $renvi['type_renvis'] ?></td>
-                                            <td><?= date('d M Y', strtotime($renvi['created_at'])) ?></td>
+                                            <td><?= $last_visit ?></td>
                                             <td><?= $days ?></td>
                                             <td><?= $daysJatem ?></td>
                                             <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
