@@ -120,6 +120,7 @@ function penyebut($nilai)
         $no = 1;
         foreach ($renvis as $renvi): ?>
             <?php
+            $type_renvis = $renvi['type_renvis'];
             $id_contact = $renvi['id_contact'];
             $created_at = date('Y-m-d', strtotime($renvi['created_at']));
 
