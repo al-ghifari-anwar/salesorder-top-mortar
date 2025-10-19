@@ -126,8 +126,16 @@ function penyebut($nilai)
             $last_visit = '';
             $date_last_for_counter = '';
             if ($renvi['is_new'] == 1) {
-                $date_last_for_counter = date('Y-m-d', strtotime($renvi['jatem']));
-                $last_visit = $renvi['jatuh_tempo'];
+                if ($type_renvis == 'jatem1') {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['jatem']));
+                    $last_visit = $renvi['jatuh_tempo'];
+                } else if ($type_renvis == 'tagih_mingguan') {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['date_invoice']));
+                    $last_visit = date('d M Y', strtotime($renvi['date_invoice']));
+                } else {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                }
             } else {
                 $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
                 $last_visit = date('d M Y', strtotime($renvi['created_at']));
