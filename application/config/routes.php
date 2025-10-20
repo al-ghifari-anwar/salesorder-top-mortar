@@ -375,8 +375,10 @@ $route['autopassive'] = 'AutoPassive/top';
 // QR dalam sak
 $route['qrsak'] = 'Qrsak/index';
 $route['qrsak/create'] = 'Qrsak/create';
-$route['qrsak/test'] = 'Qrsak/test';
-$route['qrsak/testimg'] = 'Qrsak/testImage';
+$route['qrsak/detail/(:num)'] = 'Qrsak/detail/$1';
+$route['qrsak/insert-value-batch'] = 'Qrsak/insertValueBatch';
+// $route['qrsak/test'] = 'Qrsak/test';
+// $route['qrsak/testimg'] = 'Qrsak/testImage';
 // Konten Blast
 $route['kontenmsg'] = 'Kontenmsg/index';
 $route['kontenmsg/create'] = 'Kontenmsg/create';

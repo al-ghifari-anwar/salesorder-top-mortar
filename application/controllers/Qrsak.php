@@ -11,6 +11,9 @@ class Qrsak extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
         $this->load->model('MQrsak');
         $this->load->model('MQrsakDetail');
         $this->load->model('MUser');
@@ -27,6 +30,24 @@ class Qrsak extends CI_Controller
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Qrsak/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function detail($id_qrsak)
+    {
+        $qrsak = $this->MQrsak->getById($id_qrsak);
+        $data['title'] = 'Detail QR #' . $qrsak['code_qrsak'];
+        $data['menuGroup'] = 'Marketing';
+        $data['menu'] = 'Qrsak';
+
+        $data['qrsak'] = $qrsak;
+        $data['qrsak_details'] = $this->MQrsakDetail->getByIdQrsak($id_qrsak);
+        $data['qrsak_batchs'] = $this->MQrsakDetail->getActiveGroupedBatch($id_qrsak);
+
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Qrsak/Detail');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
@@ -104,6 +125,29 @@ class Qrsak extends CI_Controller
             // redirect(base_url('assets/pdf/qrsak/' . $filename));
             $this->session->set_flashdata('success', "Berhasil membuat QR!");
             redirect('qrsak');
+        }
+    }
+
+    public function insertValueBatch()
+    {
+        $post = $this->input->post();
+
+        $id_qrsak = $post['id_qrsak'];
+        $batch_qrsak_detail = $post['batch_qrsak_detail'];
+        $value_qrsak_detail = $post['value_qrsak_detail'];
+
+        $qrsakDetailData = [
+            'value_qrsak_detail' => $value_qrsak_detail,
+        ];
+
+        $save = $this->MQrsakDetail->updateByBatch($id_qrsak, $batch_qrsak_detail, $qrsakDetailData);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil setting Value untuk batch " . $batch_qrsak_detail);
+            redirect('qrsak/detail/' . $id_qrsak);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal setting Value untuk batch " . $batch_qrsak_detail);
+            redirect('qrsak/detail/' . $id_qrsak);
         }
     }
 

@@ -42,7 +42,7 @@
                     <div class="card">
                         <div class="card-header">
                             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
-                                Tambah Data
+                                Set Value berdasarkan No Batch
                             </button>
                         </div>
                         <div class="card-body">
@@ -51,29 +51,36 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode</th>
-                                        <th>Dibuat Oleh</th>
-                                        <th>Jumlah QR</th>
-                                        <th>Dibuat Pada</th>
+                                        <th>No Batch</th>
+                                        <th>Value</th>
+                                        <th>Aktif</th>
+                                        <th>Tgl Aktif</th>
+                                        <th>Redeem</th>
+                                        <th>Tgl Redeem</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($qrsaks as $qrsak) : ?>
+                                    foreach ($qrsak_details as $qrsak_detail) : ?>
                                         <?php
-                                        $user = $this->MUser->getById($qrsak['created_user']);
+                                        // $user = $this->MUser->getById($qrsak_detail['created_user']);
 
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $qrsak['code_qrsak'] ?></td>
-                                            <td><?= $user['full_name'] ?></td>
-                                            <td><?= $qrsak['qty_qrsak'] ?></td>
-                                            <td><?= date('d M Y', strtotime($qrsak['created_at'])) ?></td>
+                                            <td><?= str_replace('https://qrpromo.topmortarindonesia.com/redeem/', '', $qrsak_detail['code_qrsak_detail']) ?></td>
+                                            <td><?= $qrsak_detail['batch_qrsak_detail'] ?></td>
+                                            <td><?= $qrsak_detail['value_qrsak_detail'] ?></td>
+                                            <td><?= $qrsak_detail['is_active'] == 1 ? 'YES' : 'NO' ?></td>
+                                            <td><?= $qrsak_detail['active_date'] == null ? '-' : date('d M Y', strtotime($qrsak_detail['active_date'])) ?></td>
+                                            <td><?= $qrsak_detail['is_redeemed'] == 1 ? 'YES' : 'NO' ?></td>
+                                            <td><?= $qrsak_detail['redeemed_date'] == null ? '-' : date('d M Y', strtotime($qrsak_detail['redeemed_date'])) ?></td>
                                             <td>
-                                                <a href="<?= base_url('qrsak/detail/' . $qrsak['id_qrsak']) ?>" class="btn btn-primary m-1"><i class="fas fa-eye"></i></a>
-                                                <a href="<?= base_url('assets/pdf/qrsak/' . $qrsak['pdf_qrsak']) ?>" class="btn btn-success m-1" target="_blank"><i class="fas fa-print"></i></a>
+                                                <?php if ($qrsak_detail['is_active'] == 1): ?>
+                                                    <a href="#" data-toggle="modal" data-target="value-modal<?= $qrsak_detail['id_qrsak_detail'] ?>" class="btn btn-success"><i class="fas fa-money-bill"></i></a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -104,16 +111,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data <?= $title ?></h4>
+                <h4 class="modal-title">Tambah Value <?= $title ?></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('qrsak/create') ?>" method="POST">
+                <form action="<?= base_url('qrsak/insert-value-batch') ?>" method="POST">
+                    <input type="hidden" value="<?= $qrsak['id_qrsak'] ?>" name="id_qrsak">
                     <div class="form-group">
-                        <label for="">Jumlah Halaman (1 Halaman berisi 48 QR)</label>
-                        <input type="number" name="jml_page" id="" class="form-control">
+                        <label for="">No Batch</label>
+                        <select name="batch_qrsak_detail" id="" class="form-control select2bs4">
+                            <option value="">--- Pilih No Batch ---</option>
+                            <?php foreach ($qrsak_batchs as $qrsak_batch): ?>
+                                <option value="<?= $qrsak_batch['batch_qrsak_detail'] ?>"><?= $qrsak_batch['batch_qrsak_detail'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Value (Rupiah)</label>
+                        <input type="number" name="value_qrsak_detail" id="" class="form-control">
                     </div>
 
                     <button class="btn btn-primary float-right">Simpan</button>
