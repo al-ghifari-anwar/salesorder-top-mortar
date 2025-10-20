@@ -191,6 +191,8 @@ function penyebut($nilai)
                 } else {
                     if ($daysInvJatem <= 0) {
                         $total_invoice += $sisaHutang;
+                    } else {
+                        $total_invoice += $sisaHutang;
                     }
                 }
             }
