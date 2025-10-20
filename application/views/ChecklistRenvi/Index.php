@@ -111,7 +111,7 @@
 
                                         // Invoice
 
-                                        $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
+                                        $invoices = $this->MInvoice->getByIdInvoiceWaiting($renvi['id_invoice']);
 
                                         $total_invoice = 0;
 
