@@ -130,6 +130,7 @@ foreach ($contacts as $contactRow) {
             <th style="border-bottom: 1px solid black;">Visit Tagihan</th>
             <th style="border-bottom: 1px solid black;">Visit Voucher</th>
             <th style="border-bottom: 1px solid black;">Visit Passive</th>
+            <th style="border-bottom: 1px solid black;">Visit Aktif</th>
             <th style="border-bottom: 1px solid black;">Visit MG</th>
             <th style="border-bottom: 1px solid black;">Total</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
@@ -143,6 +144,7 @@ foreach ($contacts as $contactRow) {
             $no = 1;
             $total_visitTagihan = 0;
             $total_visitPassive = 0;
+            $total_visitActive = 0;
             $total_visitMg = 0;
             $total_visitVoucher = 0;
         ?>
@@ -154,6 +156,7 @@ foreach ($contacts as $contactRow) {
 
                 $getVisitTagihan = 0;
                 $getVisitPassive = 0;
+                $getVisitActive = 0;
                 $getVisitVoucher = 0;
                 $getVisitMg = 0;
                 foreach ($getVisit as $getVisit) {
@@ -166,23 +169,28 @@ foreach ($contacts as $contactRow) {
                         } else {
                             $date_visit = date("Y-m-d", strtotime($getVisit['date_visit']));
 
-                            $getVisitPV = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $date_visit, 'source_visit !=' => 'normal', 'is_approved' => 1, 'is_deleted' => 0])->result_array();
+                            // 'source_visit !=' => 'normal', 
+                            $getVisitPV = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $date_visit, 'is_approved' => 1, 'is_deleted' => 0])->result_array();
 
-                            $jmlVoucher = 0;
-                            $jmlPassive = 0;
+                            if ($getVisitPV['source_visit'] != 'normal') {
+                                $jmlVoucher = 0;
+                                $jmlPassive = 0;
 
-                            foreach ($getVisitPV as $visitPV) {
-                                if ($visitPV['source_visit'] == 'voucher' || $visitPV['source_visit'] == 'renvisales') {
-                                    $jmlVoucher += 1;
-                                } else if ($visitPV['source_visit'] == 'passive') {
-                                    $jmlPassive += 1;
+                                foreach ($getVisitPV as $visitPV) {
+                                    if ($visitPV['source_visit'] == 'voucher' || $visitPV['source_visit'] == 'renvisales') {
+                                        $jmlVoucher += 1;
+                                    } else if ($visitPV['source_visit'] == 'passive') {
+                                        $jmlPassive += 1;
+                                    }
                                 }
-                            }
 
-                            if ($jmlVoucher > 0) {
-                                $getVisitVoucher += 1;
-                            } else if ($jmlVoucher == 0 && $jmlPassive > 0) {
-                                $getVisitPassive += 1;
+                                if ($jmlVoucher > 0) {
+                                    $getVisitVoucher += 1;
+                                } else if ($jmlVoucher == 0 && $jmlPassive > 0) {
+                                    $getVisitPassive += 1;
+                                }
+                            } else {
+                                $getVisitActive += 1;
                             }
                         }
                     } else if ($user['level_user'] == 'marketing') {
@@ -199,6 +207,7 @@ foreach ($contacts as $contactRow) {
                     $total_visitPassive += $getVisitPassive;
                     $total_visitMg += $getVisitMg;
                     $total_visitVoucher += $getVisitVoucher;
+                    $total_visitActive += $getVisitActive;
                 ?>
                     <tr>
                         <td><?= $no++; ?></td>
@@ -251,6 +260,9 @@ foreach ($contacts as $contactRow) {
                         <td class="text-center">
                             <?= 0 ?>
                         </td>
+                        <td class="text-center">
+                            <?= 0 ?>
+                        </td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -259,6 +271,7 @@ foreach ($contacts as $contactRow) {
                 <td class="text-center border"><?= $total_visitTagihan ?></td>
                 <td class="text-center border"><?= $total_visitVoucher ?></td>
                 <td class="text-center border"><?= $total_visitPassive ?></td>
+                <td class="text-center border"><?= $total_visitActive ?></td>
                 <td class="text-center border"><?= $total_visitMg ?></td>
                 <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive + $total_visitMg + $total_visitVoucher ?></td>
             </tr>
