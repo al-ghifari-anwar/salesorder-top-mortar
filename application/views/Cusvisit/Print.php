@@ -152,7 +152,7 @@ foreach ($contacts as $contactRow) {
                 <?php
                 $id_contact = $contact['id_contact'];
                 $this->db->group_by('DATE(tb_visit.date_visit)');
-                $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo, 'source_visit !=' => 'normal', 'is_approved' => 1, 'is_deleted' => 0])->result_array();
+                $getVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo,  'is_approved' => 1, 'is_deleted' => 0])->result_array();
 
                 $getVisitTagihan = 0;
                 $getVisitPassive = 0;
