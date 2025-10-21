@@ -164,15 +164,16 @@ foreach ($contacts as $contactRow) {
                     $user = $this->MUser->getById($id_user);
 
                     if ($user['level_user'] != 'marketing') {
-                        if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly' || $getVisit['source_visit'] == 'renvipenagihan') {
-                            $getVisitTagihan += 1;
-                        } else {
-                            $date_visit = date("Y-m-d", strtotime($getVisit['date_visit']));
+                        if ($getVisit['source_visit'] != 'normal') {
+                            if ($getVisit['source_visit'] == 'jatem1' || $getVisit['source_visit'] == 'jatem2' || $getVisit['source_visit'] == 'jatem3' || $getVisit['source_visit'] == 'weekly' || $getVisit['source_visit'] == 'renvipenagihan') {
+                                $getVisitTagihan += 1;
+                            } else {
+                                $date_visit = date("Y-m-d", strtotime($getVisit['date_visit']));
 
-                            // 'source_visit !=' => 'normal', 
-                            $getVisitPV = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $date_visit, 'is_approved' => 1, 'is_deleted' => 0])->result_array();
+                                // 'source_visit !=' => 'normal', 
+                                $getVisitPV = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit) >=' => $date_visit, 'source_visit !=' => 'normal', 'is_approved' => 1, 'is_deleted' => 0])->result_array();
 
-                            if ($getVisitPV['source_visit'] != 'normal') {
+                                // if ($getVisitPV['source_visit'] != 'normal') {
                                 $jmlVoucher = 0;
                                 $jmlPassive = 0;
 
@@ -189,9 +190,12 @@ foreach ($contacts as $contactRow) {
                                 } else if ($jmlVoucher == 0 && $jmlPassive > 0) {
                                     $getVisitPassive += 1;
                                 }
-                            } else {
-                                $getVisitActive += 1;
+                                // } else {
+                                //     $getVisitActive += 1;
+                                // }
                             }
+                        } else {
+                            $getVisitActive += 1;
                         }
                     } else if ($user['level_user'] == 'marketing') {
                         if ($getVisit['source_visit'] == 'mg') {
