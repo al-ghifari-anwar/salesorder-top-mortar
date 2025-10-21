@@ -109,7 +109,7 @@ class Merchandise extends CI_Controller
     {
         $file_name = str_replace(' ', '-', $nama);
         $config['upload_path']          = FCPATH . '/assets/img/merch_img/';
-        $config['allowed_types']        = 'gif|jpg|jpeg|png|JPG|JPEG|PNG|GIF';
+        $config['allowed_types']        = '*';
         $config['file_name']            = $file_name;
         $config['overwrite']            = true;
         $config['max_size']             = 12000; //10MB
