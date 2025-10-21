@@ -224,6 +224,9 @@ foreach ($contacts as $contactRow) {
                             <?= $getVisitPassive == null ? 0 : $getVisitPassive ?>
                         </td>
                         <td class="text-center">
+                            <?= $getVisitActive == null ? 0 : $getVisitActive ?>
+                        </td>
+                        <td class="text-center">
                             <?= $getVisitMg == null ? 0 : $getVisitMg ?>
                         </td>
                         <td class="text-center">
@@ -267,13 +270,13 @@ foreach ($contacts as $contactRow) {
                 <?php endif; ?>
             <?php endforeach; ?>
             <tr>
-                <td class="text-right border" colspan="4">Total Visit</td>
+                <td class="text-right border" colspan="5">Total Visit</td>
                 <td class="text-center border"><?= $total_visitTagihan ?></td>
                 <td class="text-center border"><?= $total_visitVoucher ?></td>
                 <td class="text-center border"><?= $total_visitPassive ?></td>
                 <td class="text-center border"><?= $total_visitActive ?></td>
                 <td class="text-center border"><?= $total_visitMg ?></td>
-                <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive + $total_visitMg + $total_visitVoucher ?></td>
+                <td class="text-center border"><?= $total_visitTagihan + $total_visitPassive + $total_visitMg + $total_visitVoucher + $total_visitActive ?></td>
             </tr>
         <?php endif; ?>
     </table>
