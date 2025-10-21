@@ -51,6 +51,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
+                                        <th>Kota</th>
                                         <th>Nomor HP</th>
                                         <th>Total</th>
                                         <th>Aksi</th>
@@ -71,6 +72,7 @@
                                             <tr>
                                                 <td><?= $no++; ?></td>
                                                 <td><?= $contact['nama'] ?></td>
+                                                <td><?= $contact['nama_city'] ?></td>
                                                 <td><?= $contact['nomorhp'] ?></td>
                                                 <td><?= $sj['total_invoice'] ?></td>
                                                 <td>
