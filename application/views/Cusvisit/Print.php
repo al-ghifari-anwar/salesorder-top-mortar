@@ -274,7 +274,7 @@ foreach ($contacts as $contactRow) {
                 <?php endif; ?>
             <?php endforeach; ?>
             <tr>
-                <td class="text-right border" colspan="5">Total Visit</td>
+                <td class="text-right border" colspan="4">Total Visit</td>
                 <td class="text-center border"><?= $total_visitTagihan ?></td>
                 <td class="text-center border"><?= $total_visitVoucher ?></td>
                 <td class="text-center border"><?= $total_visitPassive ?></td>
