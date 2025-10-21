@@ -371,7 +371,7 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'finance') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'marketing') : ?>
                                 <li class="nav-item <?= $menuGroup == 'TopSeller' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'TopSeller' ? 'active' : '' ?>">
                                         <i class="nav-icon fab fa-google-play"></i>
@@ -381,6 +381,14 @@
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('merchandise') ?>" class="nav-link <?= $menu == 'MerchPoin' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-box"></i>
+                                                <p>
+                                                    Merchandise Poin
+                                                </p>
+                                            </a>
+                                        </li>
                                         <li class="nav-item">
                                             <a href="<?= base_url('akunseller') ?>" class="nav-link <?= $menu == 'AkunSeller' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-user-check"></i>

@@ -391,3 +391,8 @@ $route['promoseller/update/(:num)'] = 'PromoTopseller/update/$1';
 $route['promoseller/delete/(:num)'] = 'PromoTopseller/delete/$1';
 // CLosing manual
 $route['surat-jalan/closing/(:num)'] = 'SuratJalan/closing/$1';
+// Merchandise
+$route['merchandise'] = 'Merchandise/index';
+$route['merchandise/create'] = 'Merchandise/create';
+$route['merchandise/update/(:num)'] = 'Merchandise/update/$1';
+$route['merchandise/delete/(:num)'] = 'Merchandise/delete/$1';
