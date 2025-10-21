@@ -498,6 +498,14 @@
                                                 </p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('report-active-zero') ?>" class="nav-link <?= $menu == 'ReportActiveZero' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-money-check"></i>
+                                                <p>
+                                                    Toko Aktif Penjualan Rp 0
+                                                </p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item <?= $menuGroup == 'AnalisaTukang' ? 'menu-open' : '' ?>">
