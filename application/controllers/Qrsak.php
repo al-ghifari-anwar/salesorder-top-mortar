@@ -5,6 +5,7 @@ use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use Endroid\QrCode\Writer\PngWriter;
 use claviska\SimpleImage;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
 
 class Qrsak extends CI_Controller
 {
@@ -16,6 +17,7 @@ class Qrsak extends CI_Controller
         }
         $this->load->model('MQrsak');
         $this->load->model('MQrsakDetail');
+        $this->load->model('MQrsakFile');
         $this->load->model('MUser');
     }
 
@@ -30,6 +32,23 @@ class Qrsak extends CI_Controller
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Qrsak/Index');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function file($id_qrsak)
+    {
+        $qrsak = $this->MQrsak->getById($id_qrsak);
+        $data['title'] = 'File QR #' . $qrsak['code_qrsak'];
+        $data['menuGroup'] = 'Marketing';
+        $data['menu'] = 'Qrsak';
+
+        $data['qrsak'] = $qrsak;
+        $data['qrsak_files'] = $this->MQrsakFile->getByIdQrsak($id_qrsak);
+
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Qrsak/File');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
@@ -54,6 +73,28 @@ class Qrsak extends CI_Controller
 
     public function create()
     {
+        $qrsakData = [
+            'id_distributor' => $this->session->userdata('id_distributor'),
+            'code_qrsak' => 'qrsak_' . date('Ymd_His') . '_' . uniqid(),
+            'created_user' => $this->session->userdata('id_user')
+        ];
+
+        $save = $this->MQrsak->create($qrsakData);
+
+        if ($save) {
+            $id_qrsak = $this->db->insert_id();
+
+            $this->session->set_flashdata('success', "Berhasil membuat qr ");
+            redirect('qrsak/file/' . $id_qrsak);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal membuat qr ");
+            redirect('qrsak');
+        }
+    }
+
+
+    public function createFile()
+    {
         $post = $this->input->post();
 
         $jmlPage = $post['jml_page'];
@@ -66,21 +107,20 @@ class Qrsak extends CI_Controller
 
         $data['title'] = 'QR#' . $filename;
 
-        $qrsakData = [
-            'id_distributor' => $this->session->userdata('id_distributor'),
-            'code_qrsak' => 'qrsak_' . date('Ymd_His') . '_' . uniqid(),
-            'qty_qrsak' => $jmlQr,
-            'pdf_qrsak' => $filename,
-            'created_user' => $this->session->userdata('id_user')
+        $qrsakFileData = [
+            'id_qrsak' => $post['id_qrsak'],
+            'qty_qrsak_file' => $jmlQr,
+            'pdf_qrsak_file' => $filename,
         ];
 
-        $save = $this->MQrsak->create($qrsakData);
+        $save = $this->MQrsakFile->create($qrsakFileData);
 
         if (!$save) {
             $this->session->set_flashdata('failed', "Gagal menyimpan data!");
-            redirect('qrsak');
+            redirect('qrsak/file/' . $post['id_qrsak']);
         } else {
-            $id_qrsak = $this->db->insert_id();
+            $id_qrsak = $post['id_qrsak'];
+            $id_qrsak_file = $this->db->insert_id();
 
             $images = array();
 
@@ -89,6 +129,7 @@ class Qrsak extends CI_Controller
 
                 $qrsakDetailData = [
                     'id_qrsak' => $id_qrsak,
+                    'id_qrsak_file' => $id_qrsak_file,
                     'code_qrsak_detail' => $qrImage['qr_content'],
                     'batch_qrsak_detail' => '',
                 ];
@@ -124,7 +165,7 @@ class Qrsak extends CI_Controller
 
             // redirect(base_url('assets/pdf/qrsak/' . $filename));
             $this->session->set_flashdata('success', "Berhasil membuat QR!");
-            redirect('qrsak');
+            redirect('qrsak/file/' . $post['id_qrsak']);
         }
     }
 
@@ -151,6 +192,29 @@ class Qrsak extends CI_Controller
         }
     }
 
+    public function insertValue()
+    {
+        $post = $this->input->post();
+
+        $id_qrsak = $post['id_qrsak'];
+        $id_qrsak_detail = $post['id_qrsak_detail'];
+        $value_qrsak_detail = $post['value_qrsak_detail'];
+
+        $qrsakDetailData = [
+            'value_qrsak_detail' => $value_qrsak_detail,
+        ];
+
+        $save = $this->MQrsakDetail->update($id_qrsak_detail, $qrsakDetailData);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil setting Value qr ");
+            redirect('qrsak/detail/' . $id_qrsak);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal setting Value qr ");
+            redirect('qrsak/detail/' . $id_qrsak);
+        }
+    }
+
     public function generateImage($code)
     {
         // Read Logo File
@@ -159,14 +223,18 @@ class Qrsak extends CI_Controller
         $logoImageReader->fromFile($logoPath)->bestFit(100, 100);
         // Next, create a slightly larger image,
         // fill it with a rounded white square,
+        // $logoImageReader = new SimpleImage();
+        // $logoImageReader->fromFile(FCPATH . "assets/img/logo_retina.png")
+        //     ->bestFit(60, 60)
+        //     ->toFile($logoPath, 'image/png');
         // and overlay the resized logo
         $logoImageBuilder = new SimpleImage();
         $logoImageBuilder->fromNew(110, 110)->roundedRectangle(0, 0, 210, 210, 10, 'white', 'filled')->overlay($logoImageReader);
 
-        $logoData = $logoImageBuilder->toDataUri('image/png', 100);
+        $logoData = $logoImageBuilder->toDataUri('image/png', 50);
 
         // Generate QR
-        $image_name = 'QRSAK_' . $code . '_' . date("YmdHis") . '.png'; //buat name dari qr code sesuai dengan nim
+        $image_name = 'QRSAK_' . $code . '_' . date("YmdHis") . '.jpg'; //buat name dari qr code sesuai dengan nim
 
         $qrContent = 'https://qrpromo.topmortarindonesia.com/redeem/' . md5("Top" . md5(uniqid() . time()));
 
@@ -178,7 +246,7 @@ class Qrsak extends CI_Controller
             ->logoPath($logoData)
             ->logoResizeToWidth(100)
             ->encoding(new Encoding('ISO-8859-1'))
-            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+            ->errorCorrectionLevel(new ErrorCorrectionLevelLow())
             ->build()
             ->saveToFile(FCPATH . "./assets/img/qrsak/" . $image_name);
 
@@ -191,7 +259,7 @@ class Qrsak extends CI_Controller
         $frameBuilder->fromFile(FCPATH . "./assets/img/qrsak/frame.jpg")
             ->autoOrient()
             ->overlay($qrImageLoader, 'center', 1, 0, 0)
-            ->toFile(FCPATH . "./assets/img/qrsak/framed_" . $image_name, 'image/png');
+            ->toFile(FCPATH . "./assets/img/qrsak/framed_" . $image_name, 'image/jpeg', 60);
 
         $result = [
             'img_name' => $image_name,

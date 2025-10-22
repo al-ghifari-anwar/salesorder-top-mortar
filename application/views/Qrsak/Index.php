@@ -52,7 +52,6 @@
                                         <th>No</th>
                                         <th>Kode</th>
                                         <th>Dibuat Oleh</th>
-                                        <th>Jumlah QR</th>
                                         <th>Dibuat Pada</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -69,11 +68,10 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= $qrsak['code_qrsak'] ?></td>
                                             <td><?= $user['full_name'] ?></td>
-                                            <td><?= $qrsak['qty_qrsak'] ?></td>
                                             <td><?= date('d M Y', strtotime($qrsak['created_at'])) ?></td>
                                             <td>
                                                 <a href="<?= base_url('qrsak/detail/' . $qrsak['id_qrsak']) ?>" class="btn btn-primary m-1"><i class="fas fa-eye"></i></a>
-                                                <a href="<?= base_url('assets/pdf/qrsak/' . $qrsak['pdf_qrsak']) ?>" class="btn btn-success m-1" target="_blank"><i class="fas fa-print"></i></a>
+                                                <a href="<?= base_url('qrsak/file/' . $qrsak['id_qrsak']) ?>" class="btn btn-success m-1"><i class="fas fa-file"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -112,11 +110,9 @@
             <div class="modal-body">
                 <form action="<?= base_url('qrsak/create') ?>" method="POST">
                     <div class="form-group">
-                        <label for="">Jumlah Halaman (1 Halaman berisi 48 QR)</label>
-                        <input type="number" name="jml_page" id="" class="form-control">
+                        <p class="text-center">Akan mebuat kloter QR baru?</p>
                     </div>
-
-                    <button class="btn btn-primary float-right">Simpan</button>
+                    <button class="btn btn-primary float-right">Ya, Buat</button>
                 </form>
             </div>
         </div>

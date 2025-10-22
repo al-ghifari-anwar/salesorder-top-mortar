@@ -79,10 +79,37 @@
                                             <td><?= $qrsak_detail['redeemed_date'] == null ? '-' : date('d M Y', strtotime($qrsak_detail['redeemed_date'])) ?></td>
                                             <td>
                                                 <?php if ($qrsak_detail['is_active'] == 1): ?>
-                                                    <a href="#" data-toggle="modal" data-target="value-modal<?= $qrsak_detail['id_qrsak_detail'] ?>" class="btn btn-success"><i class="fas fa-money-bill"></i></a>
+                                                    <a href="#" data-toggle="modal" data-target="#value-modal<?= $qrsak_detail['id_qrsak_detail'] ?>" class="btn btn-success"><i class="fas fa-money-bill"></i></a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
+                                        <div class="modal fade" id="value-modal<?= $qrsak_detail['id_qrsak_detail'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Ubah Value <?= str_replace('https://qrpromo.topmortarindonesia.com/redeem/', '', $qrsak_detail['code_qrsak_detail']) ?></h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?= base_url('qrsak/insert-value') ?>" method="POST">
+                                                            <input type="hidden" value="<?= $qrsak['id_qrsak'] ?>" name="id_qrsak">
+                                                            <input type="hidden" value="<?= $qrsak_detail['id_qrsak_detail'] ?>" name="id_qrsak_detail">
+                                                            <div class="form-group">
+                                                                <label for="">Value (Rupiah)</label>
+                                                                <input type="number" name="value_qrsak_detail" id="" class="form-control">
+                                                            </div>
+
+                                                            <button class="btn btn-primary float-right">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
