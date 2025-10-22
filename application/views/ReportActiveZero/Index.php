@@ -68,16 +68,18 @@
                                         $sj = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact])->row_array();
 
                                         ?>
-                                        <?php if ($sj['total_invoice'] == 0): ?>
-                                            <tr>
-                                                <td><?= $no++; ?></td>
-                                                <td><?= $contact['nama'] ?></td>
-                                                <td><?= $contact['nama_city'] ?></td>
-                                                <td><?= $contact['nomorhp'] ?></td>
-                                                <td><?= $sj['total_invoice'] ?></td>
-                                                <td>
-                                                </td>
-                                            </tr>
+                                        <?php if ($sj['total_invoice'] != null): ?>
+                                            <?php if ($sj['total_invoice'] == 0): ?>
+                                                <tr>
+                                                    <td><?= $no++; ?></td>
+                                                    <td><?= $contact['nama'] ?></td>
+                                                    <td><?= $contact['nama_city'] ?></td>
+                                                    <td><?= $contact['nomorhp'] ?></td>
+                                                    <td><?= $sj['total_invoice'] ?></td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </tbody>
