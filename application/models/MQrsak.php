@@ -5,6 +5,7 @@ class MQrsak extends CI_Model
 {
     public function get()
     {
+        $this->db->order_by('created_at', 'DESC');
         $query = $this->db->get_where('tb_qrsak', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
 
         return $query;

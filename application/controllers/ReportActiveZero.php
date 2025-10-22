@@ -14,7 +14,7 @@ class ReportActiveZero extends CI_Controller
         $data['menuGroup'] = 'Analisa';
         $data['menu'] = 'ReportActiveZero';
 
-        $data['contacts'] = $this->MContact->getAllByStatus('active');
+        $data['contacts'] = $this->MContact->getAllByStatus('passive');
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
