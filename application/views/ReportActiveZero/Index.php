@@ -63,22 +63,37 @@
                                     foreach ($contacts as $contact) : ?>
                                         <?php
                                         $id_contact = $contact['id_contact'];
+
+                                        $badscore = $this->db->get_where('tb_bad_score', ['id_contact' => $id_contact])->row_array();
+
+                                        $isBad = true;
+
+                                        if ($badscore) {
+                                            if ($badscore['is_approved'] != 1) {
+                                                $isBad = false;
+                                            }
+                                        } else {
+                                            $isBad = false;
+                                        }
+
                                         $this->db->select('SUM(total_invoice) as total_invoice');
                                         $this->db->join('tb_invoice', 'tb_invoice.id_surat_jalan = tb_surat_jalan.id_surat_jalan');
                                         $sj = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact])->row_array();
 
                                         ?>
-                                        <?php if ($sj['total_invoice'] != null): ?>
-                                            <?php if ($sj['total_invoice'] == 0): ?>
-                                                <tr>
-                                                    <td><?= $no++; ?></td>
-                                                    <td><?= $contact['nama'] ?></td>
-                                                    <td><?= $contact['nama_city'] ?></td>
-                                                    <td><?= $contact['nomorhp'] ?></td>
-                                                    <td><?= $sj['total_invoice'] ?></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
+                                        <?php if ($isBad == false): ?>
+                                            <?php if ($sj['total_invoice'] != null): ?>
+                                                <?php if ($sj['total_invoice'] == 0): ?>
+                                                    <tr>
+                                                        <td><?= $no++; ?></td>
+                                                        <td><?= $contact['nama'] ?></td>
+                                                        <td><?= $contact['nama_city'] ?></td>
+                                                        <td><?= $contact['nomorhp'] ?></td>
+                                                        <td><?= $sj['total_invoice'] ?></td>
+                                                        <td>
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
