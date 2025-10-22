@@ -10,7 +10,7 @@ class ReportActiveZero extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Toko Aktif Penjualan 0';
+        $data['title'] = 'Toko Passive Penjualan 0';
         $data['menuGroup'] = 'Analisa';
         $data['menu'] = 'ReportActiveZero';
 
