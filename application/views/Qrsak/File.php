@@ -42,7 +42,7 @@
                     <div class="card">
                         <div class="card-header">
                             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
-                                Tambah Data
+                                Tambah File
                             </button>
                         </div>
                         <div class="card-body">
