@@ -29,6 +29,13 @@ class MQrsakDetail extends CI_Model
         return $query;
     }
 
+    public function getByCode($code_qrsak_detail)
+    {
+        $query = $this->db->get_where('tb_qrsak_detail', ['code_qrsak_detail' => $code_qrsak_detail])->row_array();
+
+        return $query;
+    }
+
     public function getById($id_qrsak_detail)
     {
         $query = $this->db->get_where('tb_qrsak_detail', ['id_qrsak_detail' => $id_qrsak_detail])->row_array();

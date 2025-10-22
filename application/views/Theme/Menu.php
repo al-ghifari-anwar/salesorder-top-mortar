@@ -148,6 +148,25 @@
                                     </a>
                                 </li> -->
                             <?php endif; ?>
+                            <?php if ($this->session->userdata('level_user') == 'scanner'): ?>
+                                <li class="nav-item <?= $menuGroup == 'ScanQrUangTunai' ? 'menu-open' : '' ?>">
+                                    <a href="#" class="nav-link <?= $menuGroup == 'ScanQrUangTunai' ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-qrcode"></i>
+                                        <p>
+                                            Scan QR Uang Tunai
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('scanqrsak') ?>" class="nav-link <?= $menu == 'Scanqrsak' ? 'active' : '' ?>">
+                                                <i class="fas fa-qrcode nav-icon"></i>
+                                                <p>Scan</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance'): ?>
                                 <li class="nav-item">
                                     <a href="<?= base_url('logbca') ?>" class="nav-link <?= $menu == 'LogBCA' ? 'active' : '' ?>">
