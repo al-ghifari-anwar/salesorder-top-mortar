@@ -95,8 +95,40 @@
                                                 <?php if (base_url() == 'https://dev-order.topmortarindonesia.com/') : ?>
                                                     <a href="<?= base_url('surat-jalan/closing/') . $data['id_surat_jalan'] ?>" class="btn btn-info m-1" title="Closing"> Closing</a>
                                                 <?php endif; ?>
+                                                <?php if ($data['is_closing'] == 0): ?>
+                                                    <a href="#" data-toggle="modal" data-target="#closing-modal<?= $data['id_surat_jalan'] ?>" class="btn btn-info m-1" title="Bypass Closing"> Bypass Closing</a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
+                                        <div class="modal fade" id="closing-modal<?= $data['id_surat_jalan'] ?>">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Bypass Closing</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?= base_url('closing-suratjalan') ?>" method="POST" enctype="multipart/form-data">
+                                                            <input type="hidden" name="id_surat_jalan" value="<?= $data['id_surat_jalan'] ?>">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group" hidden>
+                                                                        <label for="">Foto</label>
+                                                                        <input type="file" name="pic" class="form-control" value="0">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <button class="btn btn-primary float-right">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

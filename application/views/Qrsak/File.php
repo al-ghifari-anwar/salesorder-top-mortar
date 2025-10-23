@@ -67,6 +67,7 @@
                                             <td><?= date('d M Y', strtotime($qrsak_file['created_at'])) ?></td>
                                             <td>
                                                 <a href="<?= base_url('assets/pdf/qrsak/' . $qrsak_file['pdf_qrsak_file']) ?>" class="btn btn-success m-1" target="_blank"><i class="fas fa-print"></i></a>
+                                                <a href="<?= base_url('qrsak/file/delete/' . $qrsak_file['id_qrsak_file']) ?>" class="btn btn-success m-1" target="_blank"><i class="fas fa-print"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

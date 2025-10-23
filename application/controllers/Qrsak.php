@@ -215,6 +215,11 @@ class Qrsak extends CI_Controller
         }
     }
 
+    public function deleteFile($id_qrsak_file)
+    {
+        // $save = $this->MQrsakFile->delete($id_qrsak_file);
+    }
+
     public function generateImage($code)
     {
         // Read Logo File

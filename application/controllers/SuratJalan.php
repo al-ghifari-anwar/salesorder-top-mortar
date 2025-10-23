@@ -74,6 +74,110 @@ class SuratJalan extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function bypassClosing()
+    {
+        $post = $this->input->post();
+
+        $id_surat_jalan = $post['id_surat_jalan'];
+
+        $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
+
+        if (!empty($_FILES['pic']['name'])) {
+
+            // Tentukan path penyimpanan sementara
+            $upload_path = FCPATH . 'assets/img/closing_img/';
+
+            if (!is_dir($upload_path)) {
+                mkdir($upload_path, 0777, true);
+            }
+
+            // Konfigurasi upload
+            $config['upload_path']   = $upload_path;
+            $config['allowed_types'] = 'jpg|jpeg|png';
+            $config['max_size']      = 2048; // dalam KB
+            $config['file_name']     = 'pic_' . time();
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('pic')) {
+                $upload_data = $this->upload->data();
+                $file_path = $upload_data['full_path']; // path lengkap ke file
+
+                // Kirim ke endpoint eksternal via CURL
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/suratjalan.php',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => array(
+                        'command' => 'closing',
+                        'id_surat_jalan' => $id_surat_jalan,
+                        'distance' => '0',
+                        'pic' => new CURLFILE($file_path),
+                    ),
+                ));
+
+                $response = curl_exec($curl);
+                curl_close($curl);
+
+                // Hapus file sementara
+                unlink($file_path);
+
+                // Decode response
+                $resClosing = json_decode($response, true);
+
+                // Debug atau kirim ke view
+                if ($resClosing['status'] == 'success') {
+                    // Set invoice
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://devsaleswa.topmortarindonesia.com//invoiceTopSeller.php',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => array('id_surat_jalan' => $id_surat_jalan),
+                    ));
+
+                    $response = curl_exec($curl);
+
+                    curl_close($curl);
+
+                    $res = json_decode($response, true);
+
+                    if ($res['response'] == 200) {
+                        $this->session->set_flashdata('success', "Berhasil closing");
+                        redirect('suratjalan/' . $suratJalan['id_city']);
+                    } else {
+                        $this->session->set_flashdata('failed', "Closing berhasil, gagal membuat invoice");
+                        redirect('suratjalan/' . $suratJalan['id_city']);
+                    }
+                } else {
+                    $this->session->set_flashdata('failed', "Gagal, Koneksi putus");
+                    redirect('suratjalan/' . $suratJalan['id_city']);
+                }
+            } else {
+                // echo json_encode(['error' => $this->upload->display_errors()]);
+                $this->session->set_flashdata('failed', "Gagal, " . json_encode($this->upload->display_errors()));
+                redirect('suratjalan/' . $suratJalan['id_city']);
+            }
+        } else {
+            // echo json_encode(['error' => 'Tidak ada file yang diupload']);
+            $this->session->set_flashdata('failed', "Gagal, Tidak ada file yang diupload");
+            redirect('suratjalan/' . $suratJalan['id_city']);
+        }
+    }
+
     public function closing($id_surat_jalan)
     {
         $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
