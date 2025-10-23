@@ -96,12 +96,12 @@
                                                     <a href="<?= base_url('surat-jalan/closing/') . $data['id_surat_jalan'] ?>" class="btn btn-info m-1" title="Closing"> Closing</a>
                                                 <?php endif; ?>
                                                 <?php if ($data['is_closing'] == 0): ?>
-                                                    <a href="#" data-toggle="modal" data-target="#closing-modal<?= $data['id_surat_jalan'] ?>" class="btn btn-info m-1" title="Bypass Closing"> Bypass Closing</a>
+                                                    <a href="#" data-toggle="modal" data-target="#closing-modal<?= $data['id_surat_jalan'] ?>" class="btn btn-danger m-1" title="Bypass Closing"> Bypass Closing</a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="closing-modal<?= $data['id_surat_jalan'] ?>">
-                                            <div class="modal-dialog modal-lg">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Bypass Closing</h4>
@@ -114,9 +114,9 @@
                                                             <input type="hidden" name="id_surat_jalan" value="<?= $data['id_surat_jalan'] ?>">
                                                             <div class="row">
                                                                 <div class="col-12">
-                                                                    <div class="form-group" hidden>
+                                                                    <div class="form-group">
                                                                         <label for="">Foto</label>
-                                                                        <input type="file" name="pic" class="form-control" value="0">
+                                                                        <input type="file" name="pic" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </div>
