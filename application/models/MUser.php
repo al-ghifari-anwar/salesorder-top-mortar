@@ -20,7 +20,7 @@ class MUser extends CI_Model
 
     public function getCourierByIdCity($id_city)
     {
-        $query = $this->db->get_where('tb_user', ['id_city' => $id_city, 'level_user' => 'courier'])->row_array();
+        $query = $this->db->get_where('tb_user', ['id_city' => $id_city, 'level_user' => 'courier', 'password !=' => '0'])->row_array();
 
         return $query;
     }
@@ -29,7 +29,7 @@ class MUser extends CI_Model
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         $this->db->like('tb_city.nama_city', $nama_city);
-        $query = $this->db->get_where('tb_user', ['level_user' => 'courier'])->row_array();
+        $query = $this->db->get_where('tb_user', ['level_user' => 'courier', 'password !=' => '0'])->row_array();
 
         return $query;
     }
