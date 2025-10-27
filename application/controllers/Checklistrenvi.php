@@ -373,7 +373,7 @@ class Checklistrenvi extends CI_Controller
             $this->session->set_flashdata('success', "Berhasil mengirim data!");
             redirect('checklistrenvi');
         } else {
-            $this->session->set_flashdata('failed', "Gagal mengirim data!");
+            $this->session->set_flashdata('failed', "Gagal mengirim data! . " . json_encode($res));
             redirect('checklistrenvi');
         }
     }
