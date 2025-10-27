@@ -261,7 +261,7 @@ class Qrsak extends CI_Controller
 
         // Set Frame
         $frameBuilder = new SimpleImage();
-        $frameBuilder->fromFile(FCPATH . "./assets/img/qrsak/frame2.png")
+        $frameBuilder->fromFile(FCPATH . "./assets/img/qrsak/fram2.png")
             ->autoOrient()
             ->overlay($qrImageLoader, 'center', 1, 0, 0)
             ->toFile(FCPATH . "./assets/img/qrsak/framed_" . $image_name, 'image/jpeg', 60);
