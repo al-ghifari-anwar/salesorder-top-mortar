@@ -146,7 +146,7 @@ function penyebut($nilai)
                     $this->db->select("COUNT(*) AS total_visit");
                     $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
                     $this->db->group_by('tb_visit.id_contact');
-                    $getTotal = $this->db->get_where('tb_visit', ['tb_visit.id_user' => $id_user, 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'tb_visit.is_deleted' => 0, 'tb_contact.id_city' => $id_city, 'is_approved' => 1, 'source_visit !=' => 'normal'])->num_rows();
+                    $getTotal = $this->db->get_where('tb_visit', ['tb_visit.id_user' => $id_user, 'DATE(date_visit)' => date("Y-m-d", strtotime($dateGroup['date_visit'])), 'tb_visit.is_deleted' => 0, 'tb_contact.id_city' => $id_city, 'is_approved' => 1])->num_rows();
                     $total += $getTotal;
                     ?>
                     <?php foreach ($visitByDate as $visit) : ?>
@@ -161,6 +161,8 @@ function penyebut($nilai)
                                     echo "Passive";
                                 } else if ($visit['source_visit'] == 'mg') {
                                     echo "MG";
+                                } else if ($visit['source_visit'] == 'normal') {
+                                    echo "Aktif";
                                 }
                                 ?>
                             </td>
