@@ -600,6 +600,12 @@
                                                 <p>QR dalam Sak</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('confirmqrsak') ?>" class="nav-link <?= $menu == 'Confirmqrsak' ? 'active' : '' ?>">
+                                                <i class="fas fa-qrcode nav-icon"></i>
+                                                <p>Scan QR Pertama</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             <?php endif; ?>
