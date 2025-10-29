@@ -154,6 +154,16 @@ class Notif extends CI_Controller
 
         $resSj = json_decode($response, true);
 
+        if (!isset($resSj['data'])) {
+            $result = [
+                'code' => 400,
+                'status' => 'failed',
+                'detail' => $resSj,
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        }
+
         $resDataSj = $resSj['data'];
 
         $id_msgSj = $resDataSj['id'];
