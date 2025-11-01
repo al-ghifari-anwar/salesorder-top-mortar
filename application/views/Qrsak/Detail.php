@@ -78,7 +78,7 @@
                                             <td><?= $qrsak_detail['is_active'] == 1 ? 'YES' : 'NO' ?></td>
                                             <td><?= $qrsak_detail['active_date'] == null ? '-' : date('d M Y', strtotime($qrsak_detail['active_date'])) ?></td>
                                             <td><?= $qrsak_detail['is_confirm'] == 1 ? 'YES' : 'NO' ?></td>
-                                            <td><?= $qrsak_detail['confirm_date'] == null ? '-' : date('d M Y', strtotime($qrsak_detail['active_date'])) ?></td>
+                                            <td><?= $qrsak_detail['confirm_date'] == null ? '-' : date('d M Y', strtotime($qrsak_detail['confirm_date'])) ?></td>
                                             <td><?= $qrsak_detail['is_redeemed'] == 1 ? 'YES' : 'NO' ?></td>
                                             <td><?= $qrsak_detail['redeemed_date'] == null ? '-' : date('d M Y', strtotime($qrsak_detail['redeemed_date'])) ?></td>
                                             <td>
