@@ -218,7 +218,7 @@ class Jadwalvisit extends CI_Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Jadwalvisit/Print', $data, true);
-        $mpdf->AddPage('P');
+        $mpdf->AddPage('L');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
         // $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
