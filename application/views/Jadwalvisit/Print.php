@@ -116,6 +116,7 @@ function penyebut($nilai)
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php
+        $jadwalVisits = array();
         $no = 1;
         foreach ($renvis as $renvi): ?>
             <?php
@@ -154,17 +155,6 @@ function penyebut($nilai)
             }
             $days = $operan . $days;
 
-            // Jatem Days
-            $date1jatem = new DateTime(date("Y-m-d"));
-            $date2jatem = new DateTime($renvi['jatem']);
-            $daysJatem  = $date2jatem->diff($date1jatem)->format('%a');
-            $operanJatem = "";
-            if ($date1jatem < $date2jatem) {
-                $operanJatem = "-";
-            }
-            $daysJatem = $operanJatem . $daysJatem;
-
-            // Invoice
             // Invoice
             $id_invoice = $renvi['id_invoice'];
             $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
@@ -229,6 +219,28 @@ function penyebut($nilai)
                     }
                 }
             }
+
+            // Jatem Days
+            $date1jatem = new DateTime(date("Y-m-d"));
+            $date2jatem = new DateTime($renvi['jatem']);
+            $daysJatem  = $date2jatem->diff($date1jatem)->format('%a');
+            $operanJatem = "";
+            if ($date1jatem < $date2jatem) {
+                $operanJatem = "-";
+            }
+            $daysJatem = $operanJatem . $daysJatem;
+
+            $renvisFilter = [
+                'nama' => $renvi['nama'],
+                'last_visit' => $last_visit,
+                'days' => $days,
+                'daysJatem' => $daysJatem,
+                'total_invoice' => $total_invoice,
+            ];
+
+            if ($no <= 10) {
+                array_push($jadwalVisits, $renvisFilter);
+            }
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
@@ -238,6 +250,17 @@ function penyebut($nilai)
                 <td class="text-center"><?= $days ?></td>
                 <td class="text-center"><?= $daysJatem ?></td>
                 <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
+            </tr>
+        <?php endforeach; ?>
+        <?php foreach ($jadwalVisits as $jadwalVisit): ?>
+            <tr>
+                <td class="text-center"><?= $no++; ?></td>
+                <td><?= $jadwalVisit['nama'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['type_renvis'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['last_visit'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['days'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['daysJatem'] ?></td>
+                <td>Rp. <?= number_format($jadwalVisit['total_invoice'], 0, ',', '.') ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
