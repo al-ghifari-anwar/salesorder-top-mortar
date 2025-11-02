@@ -182,19 +182,21 @@ class Jadwalvisit extends CI_Controller
 
         $data['renvis'] = $renvis;
 
+        $this->load->view('Jadwalvisit/Print', $data);
+
         // Buat direktori penyimpanan sementara
         // $folderPath = FCPATH . 'assets/tmp/renvis/';
         // Nama file berdasarkan invoice ID + timestamp
         // $fileName = 'renvi_' . $this->session->userdata('id_user') . '_' . time() . '.pdf';
         // $filePath = $folderPath . $fileName;
 
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Jadwalvisit/Print', $data, true);
-        $mpdf->AddPage('P');
-        $mpdf->WriteHTML($html);
+        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        // $mpdf->SetMargins(0, 0, 5);
+        // $html = $this->load->view('Jadwalvisit/Print', $data, true);
+        // $mpdf->AddPage('P');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output();
         // $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
-        $mpdf->Output();
 
         // $user = $this->db->get_where('tb_user', ['id_user' => $this->session->userdata('id_user')])->row_array();
     }
