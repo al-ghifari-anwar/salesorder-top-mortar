@@ -240,7 +240,9 @@ function penyebut($nilai)
             ];
 
             if ($no <= 10) {
-                array_push($jadwalVisits, $renvisFilter);
+                if ($days == 0 || $days >= 7) {
+                    array_push($jadwalVisits, $renvisFilter);
+                }
             }
             ?>
             <tr>
