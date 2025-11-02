@@ -398,6 +398,36 @@ function penyebut($nilai)
             }
             ?>
         <?php endforeach; ?>
+        <?php
+        // Filter 3 (Toko yang akan passive)
+        if (count($jadwalVisits) <= 10) {
+            $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
+
+            foreach ($contactActives as $contactActive) {
+                $id_contact = $$contactActive['id_contact'];
+                $lastOrder = $this->db->query("SELECT MAX(date_closing) as date_closing, id_contact FROM tb_surat_jalan WHERE id_contact = '$id_contact' AND is_closing = 1 GROUP BY id_contact")->row_array();
+
+                if ($lastOrder != null) {
+                    $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
+                    $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
+                    $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
+
+                    if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
+                        $renvisFilter = [
+                            'nama' => $contactActive['nama'],
+                            'type_renvis' => 'Akan passive',
+                            'last_visit' => '-',
+                            'days' => '-',
+                            'daysJatem' => '-',
+                            'total_invoice' => '-',
+                        ];
+
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
+                }
+            }
+        }
+        ?>
         <tr>
             <td colspan="7" class="border">Hasil Filter</td>
         </tr>
