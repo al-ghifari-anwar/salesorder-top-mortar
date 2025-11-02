@@ -255,16 +255,18 @@ function penyebut($nilai)
                 }
             }
             ?>
-            <tr>
-                <td class="text-center"><?= $no++; ?></td>
-                <td><?= $renvi['nama'] ?></td>
-                <td>-</td>
-                <td class="text-center"><?= $renvi['type_renvis'] ?></td>
-                <td class="text-center"><?= $last_visit ?></td>
-                <td class="text-center"><?= $days ?></td>
-                <td class="text-center"><?= $daysJatem ?></td>
-                <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
-            </tr>
+            <?php if ($renvi['cluster'] == $cluster): ?>
+                <tr>
+                    <td class="text-center"><?= $no++; ?></td>
+                    <td><?= $renvi['nama'] ?></td>
+                    <td>-</td>
+                    <td class="text-center"><?= $renvi['type_renvis'] ?></td>
+                    <td class="text-center"><?= $last_visit ?></td>
+                    <td class="text-center"><?= $days ?></td>
+                    <td class="text-center"><?= $daysJatem ?></td>
+                    <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
+                </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
         <?php
         // Filter 2 (Hari Bayar, Free Cluster & days 0 - 7)
