@@ -237,6 +237,7 @@ function penyebut($nilai)
             $daysJatem = $operanJatem . $daysJatem;
 
             $renvisFilter = [
+                'filter' => 'Cluster ' . $cluster . ', 0 & 7 Hari',
                 'nama' => $renvi['nama'],
                 'type_renvis' => $renvi['type_renvis'],
                 'last_visit' => $last_visit,
@@ -379,6 +380,7 @@ function penyebut($nilai)
             $daysJatem = $operanJatem . $daysJatem;
 
             $renvisFilter = [
+                'filter' => 'Cluster Lain di hari bayar ' . $renvi['hari_bayar'] . ',  0 & 7 Hari',
                 'nama' => $renvi['nama'],
                 'type_renvis' => $renvi['type_renvis'],
                 'last_visit' => $last_visit,
@@ -415,6 +417,7 @@ function penyebut($nilai)
 
                     if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
                         $renvisFilter = [
+                            'filter' => 'Toko akan pasif dalam 2 minggu',
                             'nama' => $contactActive['nama'],
                             'type_renvis' => 'Akan passive',
                             'last_visit' => '-',
@@ -426,6 +429,29 @@ function penyebut($nilai)
                         array_push($jadwalVisits, $renvisFilter);
                     }
                 }
+            }
+        }
+        ?>
+        <?php
+        // Filter 4 (Toko data / baru)
+        if (count($jadwalVisits) <= 10) {
+            $id_city = $city['id_city'];
+            $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
+
+            foreach ($contactDatas as $contactData) {
+                $id_contact = $contactActive['id_contact'];
+
+                $renvisFilter = [
+                    'filter' => 'Toko Baru',
+                    'nama' => $contactData['nama'],
+                    'type_renvis' => 'Toko Baru',
+                    'last_visit' => '-',
+                    'days' => '-',
+                    'daysJatem' => '-',
+                    'total_invoice' => 0,
+                ];
+
+                array_push($jadwalVisits, $renvisFilter);
             }
         }
         ?>
