@@ -401,6 +401,7 @@ function penyebut($nilai)
         <?php
         // Filter 3 (Toko yang akan passive)
         if (count($jadwalVisits) <= 10) {
+            $id_city = $city['id_city'];
             $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
 
             foreach ($contactActives as $contactActive) {
