@@ -254,7 +254,7 @@ function penyebut($nilai)
             </tr>
         <?php endforeach; ?>
         <?php
-        $noJadwal = 0;
+        $noJadwal = 1;
         foreach ($jadwalVisits as $jadwalVisit): ?>
             <tr>
                 <td class="text-center"><?= $noJadwal++; ?></td>
