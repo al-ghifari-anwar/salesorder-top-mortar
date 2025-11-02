@@ -473,7 +473,7 @@ function penyebut($nilai)
             $days = $operan . $days;
 
             $renvisFilter = [
-                'filter' => 'Passive 0 & 7 Hari',
+                'filter' => 'Passive',
                 'nama' => $renvisPassive['nama'],
                 'type_renvis' => $renvisPassive['type_renvis'],
                 'last_visit' => $last_visit,
