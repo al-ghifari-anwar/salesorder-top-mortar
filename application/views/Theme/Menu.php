@@ -973,6 +973,15 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('jadwalvisit') ?>" class="nav-link <?= $menu == 'JadwalVisit' ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-calendar"></i>
+                                        <p>
+                                            Jadwal Visit
+                                            <span class="right badge badge-success">New</span>
+                                        </p>
+                                    </a>
+                                </li>
                             <?php endif; ?>
                         </ul>
                     <?php endif; ?>
