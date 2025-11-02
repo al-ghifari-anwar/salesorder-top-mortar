@@ -253,9 +253,11 @@ function penyebut($nilai)
                 <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
             </tr>
         <?php endforeach; ?>
-        <?php foreach ($jadwalVisits as $jadwalVisit): ?>
+        <?php
+        $noJadwal = 0;
+        foreach ($jadwalVisits as $jadwalVisit): ?>
             <tr>
-                <td class="text-center"><?= $no++; ?></td>
+                <td class="text-center"><?= $noJadwal++; ?></td>
                 <td><?= $jadwalVisit['nama'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['type_renvis'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['last_visit'] ?></td>
