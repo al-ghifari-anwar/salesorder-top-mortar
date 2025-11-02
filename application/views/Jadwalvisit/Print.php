@@ -437,7 +437,7 @@ function penyebut($nilai)
         <?php
         // Filter 4 (Toko data / baru)
         $id_city = $city['id_city'];
-        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
+        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
 
         foreach ($contactDatas as $contactData) {
             if (count($jadwalVisits) <= 10) {
