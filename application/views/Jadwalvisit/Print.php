@@ -118,6 +118,9 @@ function penyebut($nilai)
         <?php
         $jadwalVisits = array();
         ?>
+        <tr>
+            <td colspan="7" class="border">Data Mentah</td>
+        </tr>
         <?php
         // Filter 1 (Cluster & days 0 - 7)
         $no = 1;
@@ -395,6 +398,9 @@ function penyebut($nilai)
             }
             ?>
         <?php endforeach; ?>
+        <tr>
+            <td colspan="7" class="border">Hasil Filter</td>
+        </tr>
         <?php
         $noJadwal = 1;
         foreach ($jadwalVisits as $jadwalVisit): ?>
