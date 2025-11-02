@@ -120,7 +120,7 @@ function penyebut($nilai)
         $jadwalVisits = array();
         ?>
         <tr>
-            <td colspan="7" class="border">Data Mentah</td>
+            <td colspan="8" class="border">Data Mentah</td>
         </tr>
         <?php
         // Filter 1 (Cluster & days 0 - 7)
@@ -516,7 +516,7 @@ function penyebut($nilai)
         }
         ?>
         <tr>
-            <td colspan="7" class="border">Hasil Filter</td>
+            <td colspan="8" class="border">Hasil Filter</td>
         </tr>
         <?php
         $noJadwal = 1;
