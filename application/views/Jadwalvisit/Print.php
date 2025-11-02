@@ -405,7 +405,7 @@ function penyebut($nilai)
             $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
 
             foreach ($contactActives as $contactActive) {
-                $id_contact = $$contactActive['id_contact'];
+                $id_contact = $contactActive['id_contact'];
                 $lastOrder = $this->db->query("SELECT MAX(date_closing) as date_closing, id_contact FROM tb_surat_jalan WHERE id_contact = '$id_contact' AND is_closing = 1 GROUP BY id_contact")->row_array();
 
                 if ($lastOrder != null) {
