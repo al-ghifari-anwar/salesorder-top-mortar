@@ -232,6 +232,7 @@ function penyebut($nilai)
 
             $renvisFilter = [
                 'nama' => $renvi['nama'],
+                'type_renvis' => $renvi['type_renvis'],
                 'last_visit' => $last_visit,
                 'days' => $days,
                 'daysJatem' => $daysJatem,
