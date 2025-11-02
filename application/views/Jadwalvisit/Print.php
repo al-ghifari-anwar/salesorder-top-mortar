@@ -458,7 +458,7 @@ function penyebut($nilai)
         }
         ?>
         <?php
-        // Filter 5
+        // Filter 5 (Toko passive)
         foreach ($renvisPassives as $renvisPassive) {
             $date_last_for_counter = date('Y-m-d', strtotime($renvisPassive['created_at']));
             $last_visit = date('d M Y', strtotime($renvisPassive['created_at']));
@@ -491,6 +491,30 @@ function penyebut($nilai)
             }
         }
         ?>
+        <?php
+        // Filter 6 (Janji Bayar)
+        $id_city = $city['id_city'];
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+        $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
+
+        foreach ($janjiBayars as $janjiBayar) {
+            if (count($jadwalVisits) <= 10) {
+                $id_contact = $janjiBayar['id_contact'];
+
+                $renvisFilter = [
+                    'filter' => 'Janji Bayar',
+                    'nama' => $contactData['nama'],
+                    'type_renvis' => 'Janji Bayar',
+                    'last_visit' => '-',
+                    'days' => '-',
+                    'daysJatem' => '-',
+                    'total_invoice' => 0,
+                ];
+
+                array_push($jadwalVisits, $renvisFilter);
+            }
+        }
+        ?>
         <tr>
             <td colspan="7" class="border">Hasil Filter</td>
         </tr>
@@ -500,7 +524,7 @@ function penyebut($nilai)
             <tr>
                 <td class="text-center"><?= $noJadwal++; ?></td>
                 <td><?= $jadwalVisit['nama'] ?></td>
-                <td class="text-center"><?= $jadwalVisit['filter'] ?></td>
+                <td class="text-left"><?= $jadwalVisit['filter'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['type_renvis'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['last_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['days'] ?></td>
