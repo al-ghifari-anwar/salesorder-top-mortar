@@ -43,7 +43,7 @@ class Jadwalvisit extends CI_Controller
     {
         $id_city = $_GET['ct'];
 
-
+        $data['city'] = $this->MCity->getById($id_city);
 
         $cluster = 0;
         if (date('D') == 'Mon' || date('D') == 'Thu') {
