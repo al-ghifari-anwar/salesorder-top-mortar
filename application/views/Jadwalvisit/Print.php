@@ -407,7 +407,7 @@ function penyebut($nilai)
         <?php
         // Filter 3 (Toko yang akan passive)
         $id_city = $city['id_city'];
-        $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
+        $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
 
         foreach ($contactActives as $contactActive) {
             $id_contact = $contactActive['id_contact'];
