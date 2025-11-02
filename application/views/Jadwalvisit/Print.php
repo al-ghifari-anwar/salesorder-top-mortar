@@ -501,14 +501,42 @@ function penyebut($nilai)
             if (count($jadwalVisits) <= 10) {
                 $id_contact = $janjiBayar['id_contact'];
 
+                $date_last_for_counter = date('Y-m-d', strtotime($janjiBayar['date_visit']));
+                $last_visit = date('d M Y', strtotime($janjiBayar['date_visit']));
+
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($date_last_for_counter);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+
+                $id_invoice = $janjiBayar['id_invoice'];
+                // Jatem Days
+                $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                $dateInv1 = new DateTime(date("Y-m-d"));
+                $dateInv2 = new DateTime($jatemInv);
+                $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                $operanInvJatem = "";
+                if ($dateInv1 < $dateInv2) {
+                    $operanInvJatem = "-";
+                }
+                $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
+                $sisaHutang = $invoice['total_invoice'] - $amountPayment;
+
                 $renvisFilter = [
                     'filter' => 'Janji Bayar',
                     'nama' => $janjiBayar['nama'],
                     'type_renvis' => 'Janji Bayar',
-                    'last_visit' => '-',
-                    'days' => '-',
-                    'daysJatem' => '-',
-                    'total_invoice' => 0,
+                    'last_visit' => $last_visit,
+                    'days' => $days,
+                    'daysJatem' => $daysInvJatem,
+                    'total_invoice' => $sisaHutang,
                 ];
 
                 array_push($jadwalVisits, $renvisFilter);
