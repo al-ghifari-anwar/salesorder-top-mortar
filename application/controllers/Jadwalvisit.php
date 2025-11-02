@@ -75,8 +75,10 @@ class Jadwalvisit extends CI_Controller
         $jatem2s = $this->MRenvi->getJatem2($id_city);
         $jatem3s = $this->MRenvi->getJatem3($id_city);
         $mingguans = $this->MRenvi->getMingguan($id_city);
+        $passives = $this->MRenvi->getPassive($id_city);
 
         $renvis = array();
+        $renvisPassives = array();
 
         foreach ($jatem1s as $jatem1) {
             $id_inv = $jatem1['id_invoice'];
@@ -180,7 +182,30 @@ class Jadwalvisit extends CI_Controller
             $renvis[] = $mingguan;
         }
 
+        foreach ($passives as $passive) {
+            $id_con = $passive['id_contact'];
+            $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_rencana_visit WHERE id_contact = '$id_con' AND type_rencana = 'passive'")->row_array();
+            $date_margin = date("Y-m-d", strtotime("-1 month"));
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','voucher','passive','renvisales') AND date_visit >= '$date_margin' ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $passive['last_visit'] = $lastVisit == null ? '0000-00-00' : $lastVisit['date_visit'];
+            $created_at = $passive['created_at'];
+            $passive['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $passive['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+            $passive['type_renvis'] = $passive['type_rencana'];
+
+            $getBadScore = $this->db->query("SELECT * FROM tb_bad_score WHERE id_contact = '$id_con'")->row_array();
+
+            if ($getBadScore) {
+                if ($getBadScore['is_approved'] != 1) {
+                    $renvisPassives[] = $passive;
+                }
+            } else {
+                $renvisPassives[] = $passive;
+            }
+        }
+
         $data['renvis'] = $renvis;
+        $data['renvisPassives'] = $renvisPassives;
 
         $this->load->view('Jadwalvisit/Print', $data);
 

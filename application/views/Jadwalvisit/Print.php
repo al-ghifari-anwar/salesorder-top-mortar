@@ -457,6 +457,40 @@ function penyebut($nilai)
             }
         }
         ?>
+        <?php
+        // Filter 5
+        foreach ($renvisPassives as $renvisPassive) {
+            $date_last_for_counter = date('Y-m-d', strtotime($renvisPassive['created_at']));
+            $last_visit = date('d M Y', strtotime($renvisPassive['created_at']));
+
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($date_last_for_counter);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+
+            $renvisFilter = [
+                'filter' => 'Passive 0 & 7 Hari',
+                'nama' => $renvisPassive['nama'],
+                'type_renvis' => $renvisPassive['type_renvis'],
+                'last_visit' => $last_visit,
+                'days' => $days,
+                'daysJatem' => '-',
+                'total_invoice' => 0,
+            ];
+
+            if ($renvisPassive['cluster'] == $cluster) {
+                if (count($jadwalVisits) <= 10) {
+                    if ($days == 0 || $days >= 7) {
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
+                }
+            }
+        }
+        ?>
         <tr>
             <td colspan="7" class="border">Hasil Filter</td>
         </tr>
