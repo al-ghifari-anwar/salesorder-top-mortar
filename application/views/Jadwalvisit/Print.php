@@ -420,7 +420,7 @@ function penyebut($nilai)
                             'last_visit' => '-',
                             'days' => '-',
                             'daysJatem' => '-',
-                            'total_invoice' => '-',
+                            'total_invoice' => 0,
                         ];
 
                         array_push($jadwalVisits, $renvisFilter);
