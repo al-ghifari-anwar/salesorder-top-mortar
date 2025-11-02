@@ -108,6 +108,7 @@ function penyebut($nilai)
         <tr>
             <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Toko</th>
+            <th style="border-bottom: 1px solid black;">Filter</th>
             <th style="border-bottom: 1px solid black;">Kategori</th>
             <th style="border-bottom: 1px solid black;">Last Visit</th>
             <th style="border-bottom: 1px solid black;">Hari</th>
@@ -257,6 +258,7 @@ function penyebut($nilai)
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $renvi['nama'] ?></td>
+                <td>-</td>
                 <td class="text-center"><?= $renvi['type_renvis'] ?></td>
                 <td class="text-center"><?= $last_visit ?></td>
                 <td class="text-center"><?= $days ?></td>
@@ -402,20 +404,20 @@ function penyebut($nilai)
         <?php endforeach; ?>
         <?php
         // Filter 3 (Toko yang akan passive)
-        if (count($jadwalVisits) <= 10) {
-            $id_city = $city['id_city'];
-            $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
+        $id_city = $city['id_city'];
+        $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
 
-            foreach ($contactActives as $contactActive) {
-                $id_contact = $contactActive['id_contact'];
-                $lastOrder = $this->db->query("SELECT MAX(date_closing) as date_closing, id_contact FROM tb_surat_jalan WHERE id_contact = '$id_contact' AND is_closing = 1 GROUP BY id_contact")->row_array();
+        foreach ($contactActives as $contactActive) {
+            $id_contact = $contactActive['id_contact'];
+            $lastOrder = $this->db->query("SELECT MAX(date_closing) as date_closing, id_contact FROM tb_surat_jalan WHERE id_contact = '$id_contact' AND is_closing = 1 GROUP BY id_contact")->row_array();
 
-                if ($lastOrder != null) {
-                    $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
-                    $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
-                    $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
+            if ($lastOrder != null) {
+                $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
+                $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
+                $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
 
-                    if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
+                if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
+                    if (count($jadwalVisits) <= 10) {
                         $renvisFilter = [
                             'filter' => 'Toko akan pasif dalam 2 minggu',
                             'nama' => $contactActive['nama'],
@@ -434,11 +436,11 @@ function penyebut($nilai)
         ?>
         <?php
         // Filter 4 (Toko data / baru)
-        if (count($jadwalVisits) <= 10) {
-            $id_city = $city['id_city'];
-            $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
+        $id_city = $city['id_city'];
+        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster])->result_array();
 
-            foreach ($contactDatas as $contactData) {
+        foreach ($contactDatas as $contactData) {
+            if (count($jadwalVisits) <= 10) {
                 $id_contact = $contactActive['id_contact'];
 
                 $renvisFilter = [
@@ -464,6 +466,7 @@ function penyebut($nilai)
             <tr>
                 <td class="text-center"><?= $noJadwal++; ?></td>
                 <td><?= $jadwalVisit['nama'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['filter'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['type_renvis'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['last_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['days'] ?></td>
