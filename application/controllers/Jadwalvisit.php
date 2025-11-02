@@ -54,6 +54,8 @@ class Jadwalvisit extends CI_Controller
             $cluster = 2;
         }
 
+        $data['cluster'] = $cluster;
+
         $jatem1s = $this->MRenvi->getJatem1Cluster($id_city, $cluster);
         $jatem2s = $this->MRenvi->getJatem2Cluster($id_city, $cluster);
         $jatem3s = $this->MRenvi->getJatem3Cluster($id_city, $cluster);
