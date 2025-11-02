@@ -484,9 +484,9 @@ function penyebut($nilai)
 
             if ($renvisPassive['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 10) {
-                    if ($days == 0 || $days >= 7) {
-                        array_push($jadwalVisits, $renvisFilter);
-                    }
+                    // if ($days == 0 || $days >= 7) {
+                    array_push($jadwalVisits, $renvisFilter);
+                    // }
                 }
             }
         }
