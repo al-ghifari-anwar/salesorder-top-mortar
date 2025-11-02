@@ -503,7 +503,7 @@ function penyebut($nilai)
 
                 $renvisFilter = [
                     'filter' => 'Janji Bayar',
-                    'nama' => $contactData['nama'],
+                    'nama' => $janjiBayar['nama'],
                     'type_renvis' => 'Janji Bayar',
                     'last_visit' => '-',
                     'days' => '-',
