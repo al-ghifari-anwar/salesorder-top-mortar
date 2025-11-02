@@ -117,6 +117,9 @@ function penyebut($nilai)
         </tr>
         <?php
         $jadwalVisits = array();
+        ?>
+        <?php
+        // Filter 1 (Cluster & days 0 - 7)
         $no = 1;
         foreach ($renvis as $renvi): ?>
             <?php
@@ -239,9 +242,11 @@ function penyebut($nilai)
                 'total_invoice' => $total_invoice,
             ];
 
-            if ($no <= 10) {
-                if ($days == 0 || $days >= 7) {
-                    array_push($jadwalVisits, $renvisFilter);
+            if ($renvi['cluster'] == $cluster) {
+                if (count($jadwalVisits) <= 10) {
+                    if ($days == 0 || $days >= 7) {
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
                 }
             }
             ?>
@@ -254,6 +259,141 @@ function penyebut($nilai)
                 <td class="text-center"><?= $daysJatem ?></td>
                 <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
             </tr>
+        <?php endforeach; ?>
+        <?php
+        // Filter 2 (Hari Bayar, Free Cluster & days 0 - 7)
+        $no = 1;
+        foreach ($renvis as $renvi): ?>
+            <?php
+            $type_renvis = $renvi['type_renvis'];
+            $id_contact = $renvi['id_contact'];
+            $created_at = date('Y-m-d', strtotime($renvi['created_at']));
+
+            $last_visit = '';
+            $date_last_for_counter = '';
+            if ($renvi['is_new'] == 1) {
+                if ($type_renvis == 'jatem1') {
+                    // $date_last_for_counter = date('Y-m-d', strtotime($renvi['jatem']));
+                    // $last_visit = $renvi['jatuh_tempo'];
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                } else if ($type_renvis == 'tagih_mingguan') {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                    // $date_last_for_counter = date('Y-m-d', strtotime($renvi['date_invoice']));
+                    // $last_visit = date('d M Y', strtotime($renvi['date_invoice']));
+                } else {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                }
+            } else {
+                $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                $last_visit = date('d M Y', strtotime($renvi['created_at']));
+            }
+
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($date_last_for_counter);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+
+            // Invoice
+            $id_invoice = $renvi['id_invoice'];
+            $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
+
+            $total_invoice = 0;
+            foreach ($invoices as $invoice) {
+                $id_invoice = $invoice['id_invoice'];
+                // Jatem Days
+                $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                $dateInv1 = new DateTime(date("Y-m-d"));
+                $dateInv2 = new DateTime($jatemInv);
+                $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                $operanInvJatem = "";
+                if ($dateInv1 < $dateInv2) {
+                    $operanInvJatem = "-";
+                }
+                $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
+                $sisaHutang = $invoice['total_invoice'] - $amountPayment;
+
+                if ($renvi['type_renvis'] != 'tagih_mingguan') {
+                    if ($daysInvJatem >= 0) {
+                        $total_invoice += $sisaHutang;
+                    }
+                } else {
+                    if ($daysInvJatem <= 0) {
+                        $total_invoice += $sisaHutang;
+                    } else {
+                        $total_invoice += $sisaHutang;
+                    }
+                }
+            }
+
+            if ($total_invoice == 0) {
+                $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
+                foreach ($invoices as $invoice) {
+                    $id_invoice = $invoice['id_invoice'];
+                    // Jatem Days
+                    $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    $dateInv1 = new DateTime(date("Y-m-d"));
+                    $dateInv2 = new DateTime($jatemInv);
+                    $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                    $operanInvJatem = "";
+                    if ($dateInv1 < $dateInv2) {
+                        $operanInvJatem = "-";
+                    }
+                    $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $invoice['total_invoice'] - $payment['amount_payment'];
+
+                    if ($renvi['type_renvis'] != 'tagih_mingguan') {
+                        if ($daysInvJatem >= 0) {
+                            $total_invoice += $sisaHutang;
+                        }
+                    } else {
+                        if ($daysInvJatem <= 0) {
+                            $total_invoice += $sisaHutang;
+                        }
+                    }
+                }
+            }
+
+            // Jatem Days
+            $date1jatem = new DateTime(date("Y-m-d"));
+            $date2jatem = new DateTime($renvi['jatem']);
+            $daysJatem  = $date2jatem->diff($date1jatem)->format('%a');
+            $operanJatem = "";
+            if ($date1jatem < $date2jatem) {
+                $operanJatem = "-";
+            }
+            $daysJatem = $operanJatem . $daysJatem;
+
+            $renvisFilter = [
+                'nama' => $renvi['nama'],
+                'type_renvis' => $renvi['type_renvis'],
+                'last_visit' => $last_visit,
+                'days' => $days,
+                'daysJatem' => $daysJatem,
+                'total_invoice' => $total_invoice,
+            ];
+
+            if (count($jadwalVisits) <= 10) {
+                if ($renvi['cluster'] != 1) {
+                    if ($renvi['hari_bayar'] == $dayName) {
+                        if ($days == 0 || $days >= 7) {
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
+                    }
+                }
+            }
+            ?>
         <?php endforeach; ?>
         <?php
         $noJadwal = 1;
