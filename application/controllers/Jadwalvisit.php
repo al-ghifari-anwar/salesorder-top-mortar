@@ -43,10 +43,19 @@ class Jadwalvisit extends CI_Controller
     {
         $id_city = $_GET['ct'];
 
-        $jatem1s = $this->MRenvi->getJatem1($id_city);
-        $jatem2s = $this->MRenvi->getJatem2($id_city);
-        $jatem3s = $this->MRenvi->getJatem3($id_city);
-        $mingguans = $this->MRenvi->getMingguan($id_city);
+        $jatem1s = $this->MRenvi->getJatem1Cluster($id_city);
+        $jatem2s = $this->MRenvi->getJatem2Cluster($id_city);
+        $jatem3s = $this->MRenvi->getJatem3Cluster($id_city);
+        $mingguans = $this->MRenvi->getMingguanCluster($id_city);
+
+        $cluster = 0;
+        if (date('D') == 'Mon' || date('D') == 'Thu') {
+            $cluster = 1;
+        } else if (date('D') == 'Tue' || date('D') == 'Fri') {
+            $cluster = 2;
+        } else if (date('D') == 'Wed' || date('D') == 'Sat') {
+            $cluster = 2;
+        }
 
         $renvis = array();
 
