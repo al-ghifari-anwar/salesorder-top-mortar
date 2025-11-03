@@ -109,6 +109,7 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Toko</th>
             <th style="border-bottom: 1px solid black;">Alamat</th>
+            <th style="border-bottom: 1px solid black;">Cluster</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php
@@ -119,6 +120,7 @@ function penyebut($nilai)
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $contact['nama'] ?></td>
                 <td><?= $contact['address'] ?></td>
+                <td><?= $contact['cluster'] ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
