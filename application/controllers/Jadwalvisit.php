@@ -811,6 +811,8 @@ class Jadwalvisit extends CI_Controller
             }
         }
 
+        echo json_encode($jadwalVisits);
+
         foreach ($jadwalVisits as $jadwalVisit) {
             $jadwalVisitData = [
                 'id_city' => $city['id_city'],
