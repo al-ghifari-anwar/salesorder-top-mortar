@@ -517,7 +517,6 @@ class Jadwalvisit extends CI_Controller
                 $daysJatem = $operanJatem . $daysJatem;
 
                 $renvisFilter = [
-                    'id_rencana_visit' => $renvi['id_rencana_visit'],
                     'id_contact' => $renvi['id_contact'],
                     'filter' => 'Cluster ' . $cluster . ', 0 & 7 Hari',
                     'nama' => $renvi['nama'],
@@ -649,7 +648,6 @@ class Jadwalvisit extends CI_Controller
             $daysJatem = $operanJatem . $daysJatem;
 
             $renvisFilter = [
-                'id_rencana_visit' => $renvi['id_rencana_visit'],
                 'id_contact' => $renvi['id_contact'],
                 'filter' => 'Cluster Lain di hari bayar ' . $renvi['hari_bayar'] . ',  0 & 7 Hari',
                 'nama' => $renvi['nama'],
