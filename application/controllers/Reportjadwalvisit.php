@@ -74,7 +74,7 @@ class Reportjadwalvisit extends CI_Controller
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->not_like('source_visit', 'absen');
-        $data['visits'] = $this->db->get_where('tb_visit', ['date_visit' => $date, 'tb_contact.id_city' => $id_city,])->result_array();
+        $data['visits'] = $this->db->get_where('tb_visit', ['date_visit' => $date, 'tb_contact.id_city' => $id_city])->result_array();
 
         // $this->load->view('Jadwalvisit/Print', $data);
 
@@ -87,7 +87,7 @@ class Reportjadwalvisit extends CI_Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Reportjadwalvisit/Print', $data, true);
-        $mpdf->AddPage('L');
+        $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
         // $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);

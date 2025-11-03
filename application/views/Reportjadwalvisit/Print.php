@@ -101,9 +101,9 @@ function penyebut($nilai)
             height: 50%;
         }
     </style>
-    <h3 class="text-center"><?= $this->session->userdata('full_name') ?></h3>
+    <!-- <h3 class="text-center"><?= $this->session->userdata('full_name') ?></h3> -->
     <h3 class="text-center"><?= date('d F Y') . ' - ' . date('H:i:s') ?></h3>
-    <h1 class="text-center">Jadwal Visit (<?= $city['nama_city'] ?>) - Cluster <?= $cluster ?></h1>
+    <h1 class="text-center">Report Jadwal Visit (<?= $city['nama_city'] ?>) - Cluster <?= $cluster ?></h1>
     <table>
         <tr>
             <th style="border-bottom: 1px solid black;">No.</th>
