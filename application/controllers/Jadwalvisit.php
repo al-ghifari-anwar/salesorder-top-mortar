@@ -668,107 +668,65 @@ class Jadwalvisit extends CI_Controller
                     }
                 }
             }
-        }
+            // Filter 3
+            // Filter 3 (Toko yang akan passive)
+            $id_city = $city['id_city'];
+            $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
 
-        // Filter 3
-        // Filter 3 (Toko yang akan passive)
-        $id_city = $city['id_city'];
-        $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
+            foreach ($contactActives as $contactActive) {
+                $id_contact = $contactActive['id_contact'];
+                $lastOrder = $this->db->query("SELECT MAX(date_closing) as date_closing, id_contact FROM tb_surat_jalan WHERE id_contact = '$id_contact' AND is_closing = 1 GROUP BY id_contact")->row_array();
 
-        foreach ($contactActives as $contactActive) {
-            $id_contact = $contactActive['id_contact'];
-            $lastOrder = $this->db->query("SELECT MAX(date_closing) as date_closing, id_contact FROM tb_surat_jalan WHERE id_contact = '$id_contact' AND is_closing = 1 GROUP BY id_contact")->row_array();
+                if ($lastOrder != null) {
+                    $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
+                    $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
+                    $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
 
-            if ($lastOrder != null) {
-                $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
-                $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
-                $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
+                    if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
+                        if (count($jadwalVisits) <= 9) {
+                            $renvisFilter = [
+                                'id_contact' => $contactActive['id_contact'],
+                                'filter' => 'Toko akan pasif dalam 2 minggu',
+                                'nama' => $contactActive['nama'],
+                                'type_renvis' => 'Akan passive',
+                                'last_visit' => '-',
+                                'days' => '-',
+                                'daysJatem' => '-',
+                                'total_invoice' => 0,
+                            ];
 
-                if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
-                    if (count($jadwalVisits) <= 9) {
-                        $renvisFilter = [
-                            'id_contact' => $contactActive['id_contact'],
-                            'filter' => 'Toko akan pasif dalam 2 minggu',
-                            'nama' => $contactActive['nama'],
-                            'type_renvis' => 'Akan passive',
-                            'last_visit' => '-',
-                            'days' => '-',
-                            'daysJatem' => '-',
-                            'total_invoice' => 0,
-                        ];
-
-                        array_push($jadwalVisits, $renvisFilter);
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
                     }
                 }
             }
-        }
 
-        // Filter 4 (Toko data / baru)
-        $id_city = $city['id_city'];
-        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
+            // Filter 4 (Toko data / baru)
+            $id_city = $city['id_city'];
+            $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
 
-        foreach ($contactDatas as $contactData) {
-            if (count($jadwalVisits) <= 9) {
-                $id_contact = $contactActive['id_contact'];
-
-                $renvisFilter = [
-                    'id_contact' => $contactData['id_contact'],
-                    'filter' => 'Toko Baru',
-                    'nama' => $contactData['nama'],
-                    'type_renvis' => 'Toko Baru',
-                    'last_visit' => '-',
-                    'days' => '-',
-                    'daysJatem' => '-',
-                    'total_invoice' => 0,
-                ];
-
-                array_push($jadwalVisits, $renvisFilter);
-            }
-        }
-        // Filter 5 (Toko passive)
-        foreach ($renvisPassives as $renvisPassive) {
-            $date_last_for_counter = date('Y-m-d', strtotime($renvisPassive['created_at']));
-            $last_visit = date('d M Y', strtotime($renvisPassive['created_at']));
-
-            $date1 = new DateTime(date("Y-m-d"));
-            $date2 = new DateTime($date_last_for_counter);
-            $days  = $date2->diff($date1)->format('%a');
-            $operan = "";
-            if ($date1 < $date2) {
-                $operan = "-";
-            }
-            $days = $operan . $days;
-
-            $renvisFilter = [
-                'id_contact' => $renvisPassive['id_contact'],
-                'filter' => 'Passive',
-                'nama' => $renvisPassive['nama'],
-                'type_renvis' => $renvisPassive['type_renvis'],
-                'last_visit' => $last_visit,
-                'days' => $days,
-                'daysJatem' => '-',
-                'total_invoice' => 0,
-            ];
-
-            if ($renvisPassive['cluster'] == $cluster) {
+            foreach ($contactDatas as $contactData) {
                 if (count($jadwalVisits) <= 9) {
-                    // if ($days == 0 || $days >= 7) {
+                    $id_contact = $contactActive['id_contact'];
+
+                    $renvisFilter = [
+                        'id_contact' => $contactData['id_contact'],
+                        'filter' => 'Toko Baru',
+                        'nama' => $contactData['nama'],
+                        'type_renvis' => 'Toko Baru',
+                        'last_visit' => '-',
+                        'days' => '-',
+                        'daysJatem' => '-',
+                        'total_invoice' => 0,
+                    ];
+
                     array_push($jadwalVisits, $renvisFilter);
-                    // }
                 }
             }
-        }
-        // Filter 6 (Janji Bayar)
-        $id_city = $city['id_city'];
-        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
-        $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
-
-        foreach ($janjiBayars as $janjiBayar) {
-            if (count($jadwalVisits) <= 9) {
-                $id_contact = $janjiBayar['id_contact'];
-
-                $date_last_for_counter = date('Y-m-d', strtotime($janjiBayar['date_visit']));
-                $last_visit = date('d M Y', strtotime($janjiBayar['date_visit']));
+            // Filter 5 (Toko passive)
+            foreach ($renvisPassives as $renvisPassive) {
+                $date_last_for_counter = date('Y-m-d', strtotime($renvisPassive['created_at']));
+                $last_visit = date('d M Y', strtotime($renvisPassive['created_at']));
 
                 $date1 = new DateTime(date("Y-m-d"));
                 $date2 = new DateTime($date_last_for_counter);
@@ -779,57 +737,98 @@ class Jadwalvisit extends CI_Controller
                 }
                 $days = $operan . $days;
 
-                $id_invoice = $janjiBayar['id_invoice'];
-                // Jatem Days
-                $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
-                $dateInv1 = new DateTime(date("Y-m-d"));
-                $dateInv2 = new DateTime($jatemInv);
-                $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
-                $operanInvJatem = "";
-                if ($dateInv1 < $dateInv2) {
-                    $operanInvJatem = "-";
-                }
-                $daysInvJatem = $operanInvJatem . $daysInvJatem;
-
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
-                $sisaHutang = $invoice['total_invoice'] - $amountPayment;
-
                 $renvisFilter = [
-                    'id_contact' => $janjiBayar['id_contact'],
-                    'filter' => 'Janji Bayar',
-                    'nama' => $janjiBayar['nama'],
-                    'type_renvis' => 'Janji Bayar',
+                    'id_contact' => $renvisPassive['id_contact'],
+                    'filter' => 'Passive',
+                    'nama' => $renvisPassive['nama'],
+                    'type_renvis' => $renvisPassive['type_renvis'],
                     'last_visit' => $last_visit,
                     'days' => $days,
-                    'daysJatem' => $daysInvJatem,
-                    'total_invoice' => $sisaHutang,
+                    'daysJatem' => '-',
+                    'total_invoice' => 0,
                 ];
 
-                array_push($jadwalVisits, $renvisFilter);
+                if ($renvisPassive['cluster'] == $cluster) {
+                    if (count($jadwalVisits) <= 9) {
+                        // if ($days == 0 || $days >= 7) {
+                        array_push($jadwalVisits, $renvisFilter);
+                        // }
+                    }
+                }
             }
-        }
+            // Filter 6 (Janji Bayar)
+            $id_city = $city['id_city'];
+            $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+            $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
 
-        // echo json_encode($jadwalVisits);
+            foreach ($janjiBayars as $janjiBayar) {
+                if (count($jadwalVisits) <= 9) {
+                    $id_contact = $janjiBayar['id_contact'];
 
-        foreach ($jadwalVisits as $jadwalVisit) {
-            $jadwalVisitData = [
-                'id_city' => $city['id_city'],
-                'id_contact' => $jadwalVisit['id_contact'],
-                'cluster_jadwal_visit' => $cluster,
-                'date_jadwal_visit' => date('Y-m-d'),
-                'filter_jadwal_visit' => $jadwalVisit['filter'],
-                'kategori_jadwal_visit' => $jadwalVisit['type_renvis'],
-                'last_visit' => $jadwalVisit['last_visit'],
-                'days_jadwal_visit' => $jadwalVisit['days_jadwal_visit'],
-            ];
+                    $date_last_for_counter = date('Y-m-d', strtotime($janjiBayar['date_visit']));
+                    $last_visit = date('d M Y', strtotime($janjiBayar['date_visit']));
 
-            $save = $this->db->insert('tb_jadwal_visit', $jadwalVisitData);
+                    $date1 = new DateTime(date("Y-m-d"));
+                    $date2 = new DateTime($date_last_for_counter);
+                    $days  = $date2->diff($date1)->format('%a');
+                    $operan = "";
+                    if ($date1 < $date2) {
+                        $operan = "-";
+                    }
+                    $days = $operan . $days;
 
-            if ($save) {
-                echo json_encode(['status' => 'ok']);
-            } else {
-                echo json_encode(['status' => 'failed']);
+                    $id_invoice = $janjiBayar['id_invoice'];
+                    // Jatem Days
+                    $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    $dateInv1 = new DateTime(date("Y-m-d"));
+                    $dateInv2 = new DateTime($jatemInv);
+                    $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                    $operanInvJatem = "";
+                    if ($dateInv1 < $dateInv2) {
+                        $operanInvJatem = "-";
+                    }
+                    $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
+                    $sisaHutang = $invoice['total_invoice'] - $amountPayment;
+
+                    $renvisFilter = [
+                        'id_contact' => $janjiBayar['id_contact'],
+                        'filter' => 'Janji Bayar',
+                        'nama' => $janjiBayar['nama'],
+                        'type_renvis' => 'Janji Bayar',
+                        'last_visit' => $last_visit,
+                        'days' => $days,
+                        'daysJatem' => $daysInvJatem,
+                        'total_invoice' => $sisaHutang,
+                    ];
+
+                    array_push($jadwalVisits, $renvisFilter);
+                }
+            }
+
+            // echo json_encode($jadwalVisits);
+
+            foreach ($jadwalVisits as $jadwalVisit) {
+                $jadwalVisitData = [
+                    'id_city' => $city['id_city'],
+                    'id_contact' => $jadwalVisit['id_contact'],
+                    'cluster_jadwal_visit' => $cluster,
+                    'date_jadwal_visit' => date('Y-m-d'),
+                    'filter_jadwal_visit' => $jadwalVisit['filter'],
+                    'kategori_jadwal_visit' => $jadwalVisit['type_renvis'],
+                    'last_visit' => $jadwalVisit['last_visit'],
+                    'days_jadwal_visit' => $jadwalVisit['days_jadwal_visit'],
+                ];
+
+                $save = $this->db->insert('tb_jadwal_visit', $jadwalVisitData);
+
+                if ($save) {
+                    echo json_encode(['status' => 'ok']);
+                } else {
+                    echo json_encode(['status' => 'failed']);
+                }
             }
         }
     }
