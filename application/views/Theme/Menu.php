@@ -761,10 +761,10 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="<?= base_url('clustertoko') ?>" class="nav-link <?= $menu == 'ClusterToko' ? 'active' : '' ?>">
+                                            <a href="<?= base_url('tokonocluster') ?>" class="nav-link <?= $menu == 'TokoNoCluster' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-map-marked"></i>
                                                 <p>
-                                                    Toko Blm Setting Cluster
+                                                    Toko Tanpa Cluster
                                                     <span class="right badge badge-success">New</span>
                                                 </p>
                                             </a>
