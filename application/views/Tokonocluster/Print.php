@@ -116,6 +116,18 @@ function penyebut($nilai)
         // Filter 1 (Cluster & days 0 - 7)
         $no = 1;
         foreach ($contacts as $contact): ?>
+            <?php
+            $id_contact = $contact['id_contact'];
+            $getBadScore = $this->db->get_where('tb_bad_score', ['id_contact' => $id_contact])->row_array();
+
+            $isBad = false;
+
+            if ($getBadScore) {
+                if ($getBadScore['is_approved'] == 1) {
+                    $isBad = true;
+                }
+            }
+            ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $contact['nama'] ?></td>
