@@ -232,6 +232,7 @@ class Jadwalvisit extends CI_Controller
 
     public function save()
     {
+        $this->db->where_in('id_distributor', [1, 5]);
         $citys = $this->db->get('tb_city')->result_array();
 
         foreach ($citys as $city) {
@@ -724,7 +725,6 @@ class Jadwalvisit extends CI_Controller
                 array_push($jadwalVisits, $renvisFilter);
             }
         }
-
         // Filter 5 (Toko passive)
         foreach ($renvisPassives as $renvisPassive) {
             $date_last_for_counter = date('Y-m-d', strtotime($renvisPassive['created_at']));
@@ -758,7 +758,6 @@ class Jadwalvisit extends CI_Controller
                 }
             }
         }
-
         // Filter 6 (Janji Bayar)
         $id_city = $city['id_city'];
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
@@ -811,7 +810,7 @@ class Jadwalvisit extends CI_Controller
             }
         }
 
-        echo json_encode($jadwalVisits);
+        // echo json_encode($jadwalVisits);
 
         foreach ($jadwalVisits as $jadwalVisit) {
             $jadwalVisitData = [
