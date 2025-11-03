@@ -43,7 +43,7 @@ class Tokonocluster extends CI_Controller
     {
         $id_city = $_GET['ct'];
 
-        $data['contacts'] = $this->db->get_where('tb_contact', ['cluster' => 0])->result_array();
+        $data['contacts'] = $this->db->get_where('tb_contact', ['cluster' => 0, 'id_city' => $id_city])->result_array();
 
         // $this->load->view('Jadwalvisit/Print', $data);
 
@@ -56,7 +56,7 @@ class Tokonocluster extends CI_Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Tokonocluster/Print', $data, true);
-        $mpdf->AddPage('L');
+        $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
         // $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
