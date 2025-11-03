@@ -232,7 +232,7 @@ class Jadwalvisit extends CI_Controller
 
     public function save()
     {
-        $citys = $this->db->get();
+        $citys = $this->db->get('tb_city');
 
         foreach ($citys as $city) {
             $id_city = $city['id_city'];
