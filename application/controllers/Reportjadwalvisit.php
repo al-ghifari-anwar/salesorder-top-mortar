@@ -74,7 +74,7 @@ class Reportjadwalvisit extends CI_Controller
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->not_like('source_visit', 'absen');
-        $data['visits'] = $this->db->get_where('tb_visit', ['date_visit' => $date, 'tb_contact.id_city' => $id_city])->result_array();
+        $data['visits'] = $this->db->get_where('tb_visit', ['DATE(date_visit)' => $date, 'tb_contact.id_city' => $id_city])->result_array();
 
         // $this->load->view('Jadwalvisit/Print', $data);
 
