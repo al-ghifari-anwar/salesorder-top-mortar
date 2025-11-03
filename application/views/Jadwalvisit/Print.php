@@ -248,7 +248,7 @@ function penyebut($nilai)
             ];
 
             if ($renvi['cluster'] == $cluster) {
-                if (count($jadwalVisits) <= 10) {
+                if (count($jadwalVisits) <= 9) {
                     if ($days == 0 || $days >= 7) {
                         array_push($jadwalVisits, $renvisFilter);
                     }
@@ -393,7 +393,7 @@ function penyebut($nilai)
                 'total_invoice' => $total_invoice,
             ];
 
-            if (count($jadwalVisits) <= 10) {
+            if (count($jadwalVisits) <= 9) {
                 if ($renvi['cluster'] != 1) {
                     if ($renvi['hari_bayar'] == $dayName) {
                         if ($days == 0 || $days >= 7) {
@@ -419,7 +419,7 @@ function penyebut($nilai)
                 $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
 
                 if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
-                    if (count($jadwalVisits) <= 10) {
+                    if (count($jadwalVisits) <= 9) {
                         $renvisFilter = [
                             'filter' => 'Toko akan pasif dalam 2 minggu',
                             'nama' => $contactActive['nama'],
@@ -442,7 +442,7 @@ function penyebut($nilai)
         $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
 
         foreach ($contactDatas as $contactData) {
-            if (count($jadwalVisits) <= 10) {
+            if (count($jadwalVisits) <= 9) {
                 $id_contact = $contactActive['id_contact'];
 
                 $renvisFilter = [
@@ -485,7 +485,7 @@ function penyebut($nilai)
             ];
 
             if ($renvisPassive['cluster'] == $cluster) {
-                if (count($jadwalVisits) <= 10) {
+                if (count($jadwalVisits) <= 9) {
                     // if ($days == 0 || $days >= 7) {
                     array_push($jadwalVisits, $renvisFilter);
                     // }
@@ -500,7 +500,7 @@ function penyebut($nilai)
         $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
 
         foreach ($janjiBayars as $janjiBayar) {
-            if (count($jadwalVisits) <= 10) {
+            if (count($jadwalVisits) <= 9) {
                 $id_contact = $janjiBayar['id_contact'];
 
                 $date_last_for_counter = date('Y-m-d', strtotime($janjiBayar['date_visit']));
