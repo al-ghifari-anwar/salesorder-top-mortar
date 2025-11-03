@@ -961,7 +961,7 @@
                                 </li>
 
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'sales' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'penagihan'): ?>
+                            <?php if ($this->session->userdata('level_user') == 'sales' || $this->session->userdata('level_user') == 'penagihan'): ?>
                                 <li class="nav-item <?= $menuGroup == 'ChecklistRenvi' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'ChecklistRenvi' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-file"></i>
