@@ -761,6 +761,15 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="<?= base_url('reportjadwalvisit') ?>" class="nav-link <?= $menu == 'ReportJadwalVisit' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-paperclip"></i>
+                                                <p>
+                                                    Report Jadwal Visit
+                                                    <span class="right badge badge-success">New</span>
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('tokonocluster') ?>" class="nav-link <?= $menu == 'TokoNoCluster' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-map-marked"></i>
                                                 <p>
