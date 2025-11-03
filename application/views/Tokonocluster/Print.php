@@ -128,12 +128,15 @@ function penyebut($nilai)
                 }
             }
             ?>
-            <tr>
-                <td class="text-center"><?= $no++; ?></td>
-                <td><?= $contact['nama'] ?></td>
-                <td><?= $contact['address'] ?></td>
-                <td><?= $contact['cluster'] ?></td>
-            </tr>
+
+            <?php if ($isBad == false): ?>
+                <tr>
+                    <td class="text-center"><?= $no++; ?></td>
+                    <td><?= $contact['nama'] ?></td>
+                    <td><?= $contact['address'] ?></td>
+                    <td><?= $contact['cluster'] ?></td>
+                </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
     </table>
 </body>
