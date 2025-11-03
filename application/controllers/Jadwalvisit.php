@@ -819,7 +819,7 @@ class Jadwalvisit extends CI_Controller
                     'filter_jadwal_visit' => $jadwalVisit['filter'],
                     'kategori_jadwal_visit' => $jadwalVisit['type_renvis'],
                     'last_visit' => $jadwalVisit['last_visit'],
-                    'days_jadwal_visit' => $jadwalVisit['days_jadwal_visit'],
+                    'days_jadwal_visit' => $jadwalVisit['days'],
                 ];
 
                 $save = $this->db->insert('tb_jadwal_visit', $jadwalVisitData);
