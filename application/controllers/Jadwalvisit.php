@@ -179,7 +179,7 @@ class Jadwalvisit extends CI_Controller
             $id_con = $mingguan['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
             //  AND DATE(date_visit) >= '$dateJatem'
-            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
             $created_at = $mingguan['created_at'];
             $mingguan['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
             $mingguan['type_renvis'] = $mingguan['type_rencana'];
