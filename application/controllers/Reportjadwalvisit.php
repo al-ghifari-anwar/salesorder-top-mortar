@@ -23,7 +23,7 @@ class Reportjadwalvisit extends CI_Controller
     {
         $data['title'] = 'Report Jadwal Visit';
         $data['menuGroup'] = 'Visit';
-        $data['menu'] = 'ReportJadwalVIsit';
+        $data['menu'] = 'ReportJadwalVisit';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
             $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));
