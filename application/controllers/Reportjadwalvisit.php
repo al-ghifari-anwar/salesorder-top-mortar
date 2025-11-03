@@ -21,9 +21,9 @@ class Reportjadwalvisit extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Rekap Invoice';
-        $data['menuGroup'] = 'Invoice';
-        $data['menu'] = 'RekapInvoice';
+        $data['title'] = 'Report Jadwal Visit';
+        $data['menuGroup'] = 'Visit';
+        $data['menu'] = 'ReportJadwalVIsit';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
             $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));
