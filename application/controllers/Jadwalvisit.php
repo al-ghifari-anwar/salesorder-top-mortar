@@ -823,7 +823,13 @@ class Jadwalvisit extends CI_Controller
                 'days_jadwal_visit' => $jadwalVisit['days_jadwal_visit'],
             ];
 
-            $this->db->insert('tb_jadwal_visit', $jadwalVisitData);
+            $save = $this->db->insert('tb_jadwal_visit', $jadwalVisitData);
+
+            if ($save) {
+                echo json_encode(['status' => 'ok']);
+            } else {
+                echo json_encode(['status' => 'failed']);
+            }
         }
     }
 }
