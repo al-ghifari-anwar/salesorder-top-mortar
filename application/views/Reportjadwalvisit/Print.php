@@ -141,7 +141,7 @@ function penyebut($nilai)
                 <td><?= $jadwalVisit['nama'] ?></td>
                 <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
-                <td class="text-center"><?= $jadwalVisit['last_visit'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
                 <td class="text-center <?= $status_color ?>"><?= $visit ? 'Yes' : 'No' ?></td>
             </tr>
