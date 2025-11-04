@@ -183,7 +183,7 @@
                                         <tr>
                                             <td><input type="checkbox" class="checkItem" value="<?= $renvi['id_renvis_jatem'] ?>"></td>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $renvi['nama'] ?></td>
+                                            <td><?= $renvi['nama'] ?> (<?= $renvi['cluster'] ?>)</td>
                                             <td><?= $renvi['type_renvis'] ?></td>
                                             <td><?= $last_visit ?></td>
                                             <td><?= $days ?></td>
