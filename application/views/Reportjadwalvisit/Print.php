@@ -100,6 +100,14 @@ function penyebut($nilai)
         .page {
             height: 50%;
         }
+
+        .text-red {
+            color: red;
+        }
+
+        .text-green {
+            color: green;
+        }
     </style>
     <!-- <h3 class="text-center"><?= $this->session->userdata('full_name') ?></h3> -->
     <h3 class="text-center"><?= date('d F Y', strtotime($date)) . ' - ' . date('H:i:s') ?></h3>
@@ -122,6 +130,11 @@ function penyebut($nilai)
             <?php
             $id_contact = $jadwalVisit['id_contact'];
             $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d')])->row_array();
+
+            $status_color = 'text-red';
+            if ($visit) {
+                $status_color = 'text-green';
+            }
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
@@ -130,7 +143,7 @@ function penyebut($nilai)
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['last_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
-                <td class="text-center"><?= $visit ? 'Yes' : 'No' ?></td>
+                <td class="text-center <?= $status_color ?>"><?= $visit ? 'Yes' : 'No' ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
