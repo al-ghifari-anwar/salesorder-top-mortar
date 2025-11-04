@@ -64,13 +64,13 @@ class Cusvisit extends CI_Controller
         $data['dateTo'] = date("Y-m-d", strtotime($dates[1]));
 
         // Test
-        $this->load->view('Cusvisit/Print', $data);
+        // $this->load->view('Cusvisit/Print', $data);
         // PDF
-        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        // $mpdf->SetMargins(0, 0, 5);
-        // $html = $this->load->view('Cusvisit/Print', $data, true);
-        // $mpdf->AddPage('P');
-        // $mpdf->WriteHTML($html);
-        // $mpdf->Output();
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Cusvisit/Print', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }
