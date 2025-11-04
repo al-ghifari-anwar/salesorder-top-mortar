@@ -191,7 +191,6 @@ class Notif extends CI_Controller
         curl_close($curl);
 
         $resLogSj = json_decode($responseLog, true);
-        $logSjData = $resLogSj['data'][0];
 
         if (!isset($logSjData['data'])) {
             $result = [
@@ -203,6 +202,8 @@ class Notif extends CI_Controller
 
             return $this->output->set_output(json_encode($result));
         }
+
+        $logSjData = $resLogSj['data'][0];
 
         if ($logSjData['status'] == 'failed') {
             $dataNotif = [
