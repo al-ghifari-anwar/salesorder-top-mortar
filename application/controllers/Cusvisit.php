@@ -7,9 +7,6 @@ class Cusvisit extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('id_user') == null) {
-            redirect('login');
-        }
         $this->load->model('MSuratJalan');
         $this->load->model('MContact');
         $this->load->model('MProduk');
@@ -25,6 +22,9 @@ class Cusvisit extends CI_Controller
 
     public function city_list()
     {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
         $data['title'] = 'Customer Visit';
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'CusVisit';
@@ -42,6 +42,9 @@ class Cusvisit extends CI_Controller
 
     public function index($id_city)
     {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
         $data['title'] = 'Customer Visit';
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'CusVisit';
@@ -55,8 +58,8 @@ class Cusvisit extends CI_Controller
 
     public function print($id_city)
     {
-        $post = $this->input->post();
-        $dateRange = $post['date_range'];
+        // $post = $this->input->post();
+        $dateRange = $_GET['date_range'];
         $dates = explode("-", $dateRange);
         $data['city'] = $this->MCity->getById($id_city);
         $data['contacts'] = $this->MContact->getAllNoFilter($id_city);

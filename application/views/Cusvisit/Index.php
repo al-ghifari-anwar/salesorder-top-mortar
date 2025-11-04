@@ -42,7 +42,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-10">
-                                    <form action="<?= base_url('cusvisit/print/') . $id_city ?>" method="POST" target="_blank">
+                                    <form action="<?= base_url('cusvisit/print/') . $id_city ?>" method="GET" target="_blank">
                                         <div class="row">
                                             <label>Date range:</label>
                                             <div class="form-group ml-3">
