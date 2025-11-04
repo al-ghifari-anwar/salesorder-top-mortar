@@ -261,7 +261,7 @@ function penyebut($nilai)
                     <td><?= $renvi['nama'] ?></td>
                     <td>-</td>
                     <td class="text-center"><?= $renvi['type_renvis'] ?></td>
-                    <td class="text-center"><?= $last_visit ?></td>
+                    <td class="text-center"><?= $daysJatem != 0 ? $last_visit : 'Blm Visit' ?></td>
                     <td class="text-center"><?= $days ?></td>
                     <td class="text-center"><?= $daysJatem ?></td>
                     <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
@@ -556,7 +556,7 @@ function penyebut($nilai)
                 <td><?= $jadwalVisit['nama'] ?></td>
                 <td class="text-left"><?= $jadwalVisit['filter'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['type_renvis'] ?></td>
-                <td class="text-center"><?= $jadwalVisit['last_visit'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['daysJatem'] != 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center"><?= $jadwalVisit['days'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['daysJatem'] ?></td>
                 <td>Rp. <?= number_format($jadwalVisit['total_invoice'], 0, ',', '.') ?></td>
