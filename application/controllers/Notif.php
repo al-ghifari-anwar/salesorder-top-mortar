@@ -193,6 +193,17 @@ class Notif extends CI_Controller
         $resLogSj = json_decode($responseLog, true);
         $logSjData = $resLogSj['data'][0];
 
+        if (!isset($logSjData['data'])) {
+            $result = [
+                'code' => 400,
+                'status' => 'failed',
+                'detail' => $resLogSj,
+                'detailSj' => $resSj
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        }
+
         if ($logSjData['status'] == 'failed') {
             $dataNotif = [
                 'id_surat_jalan' => $invoice['id_surat_jalan'],
