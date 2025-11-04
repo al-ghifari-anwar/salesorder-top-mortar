@@ -711,6 +711,7 @@ class Jadwalvisit extends CI_Controller
                                 'days' => '-',
                                 'daysJatem' => '-',
                                 'total_invoice' => 0,
+                                'is_new' => 0,
                             ];
 
                             array_push($jadwalVisits, $renvisFilter);
