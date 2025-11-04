@@ -49,7 +49,7 @@ class Reportjadwalvisit extends CI_Controller
         } else if (date('D', strtotime($date)) == 'Tue' || date('D', strtotime($date)) == 'Fri') {
             $cluster = 2;
         } else if (date('D', strtotime($date)) == 'Wed' || date('D', strtotime($date)) == 'Sat') {
-            $cluster = 2;
+            $cluster = 3;
         }
 
         if (date('D', strtotime($date)) == 'Mon') {
