@@ -839,6 +839,7 @@ class Jadwalvisit extends CI_Controller
                     'date_jadwal_visit' => date('Y-m-d'),
                     'filter_jadwal_visit' => $jadwalVisit['filter'],
                     'kategori_jadwal_visit' => $jadwalVisit['type_renvis'],
+                    'is_new' => $jadwalVisit['is_new'],
                     'last_visit' => $jadwalVisit['last_visit'],
                     'days_jadwal_visit' => $jadwalVisit['days'],
                 ];
