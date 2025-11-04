@@ -246,7 +246,7 @@ class Jadwalvisit extends CI_Controller
             } else if (date('D') == 'Tue' || date('D') == 'Fri') {
                 $cluster = 2;
             } else if (date('D') == 'Wed' || date('D') == 'Sat') {
-                $cluster = 2;
+                $cluster = 3;
             }
 
             if (date('D') == 'Mon') {
