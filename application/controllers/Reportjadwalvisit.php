@@ -69,7 +69,7 @@ class Reportjadwalvisit extends CI_Controller
         $data['cluster'] = $cluster;
         $data['dayName'] = $dayName;
 
-        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_jadwal_visit.id_contact');
         $data['jadwalVisits'] = $this->db->get_where('tb_jadwal_visit', ['DATE(date_jadwal_visit)' => $date, 'tb_jadwal_visit.id_city' => $id_city, 'tb_jadwal_visit.cluster_jadwal_visit' => $cluster])->result_array();
 
         // $this->load->view('Jadwalvisit/Print', $data);
