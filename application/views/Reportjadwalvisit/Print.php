@@ -35,7 +35,7 @@ function penyebut($nilai)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist Visit - <?= $this->session->userdata('full_name') ?></title>
+    <title>Checklist JadwalVisit - <?= $this->session->userdata('full_name') ?></title>
 </head>
 
 <body>
@@ -108,24 +108,28 @@ function penyebut($nilai)
         <tr>
             <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Toko</th>
-            <th style="border-bottom: 1px solid black;">Sales</th>
-            <th style="border-bottom: 1px solid black;">Type</th>
-            <th style="border-bottom: 1px solid black;">Distance</th>
+            <th style="border-bottom: 1px solid black;">Filter</th>
+            <th style="border-bottom: 1px solid black;">Kategori</th>
+            <th style="border-bottom: 1px solid black;">Last Visit</th>
+            <th style="border-bottom: 1px solid black;">Hari</th>
+            <th style="border-bottom: 1px solid black;">Tervisit</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php
         // Filter 1 (Cluster & days 0 - 7)
         $no = 1;
-        foreach ($visits as $visit): ?>
+        foreach ($jadwalVisits as $jadwalVisit): ?>
             <?php
 
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $visit['nama'] ?></td>
-                <td><?= $visit['full_name'] ?></td>
-                <td class="text-center"><?= $visit['source_visit'] ?></td>
-                <td class="text-center"><?= $visit['distance_visit'] ?></td>
+                <td><?= $jadwalVisit['nama'] ?></td>
+                <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['last_visit'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
+                <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

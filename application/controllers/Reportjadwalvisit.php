@@ -25,10 +25,8 @@ class Reportjadwalvisit extends CI_Controller
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'ReportJadwalVisit';
         if ($this->session->userdata('level_user') == 'admin_c') {
-            $data['toko'] = $this->MContact->getAll($this->session->userdata('id_city'));
             $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));
         } else {
-            $data['toko'] = $this->MContact->getAllDefault();
             $data['city'] = $this->MCity->getAll();
         }
         $this->load->view('Theme/Header', $data);
@@ -46,25 +44,25 @@ class Reportjadwalvisit extends CI_Controller
         $data['city'] = $this->MCity->getById($id_city);
 
         $cluster = 0;
-        if (date('D') == 'Mon' || date('D') == 'Thu') {
+        if (date('D', strtotime($date)) == 'Mon' || date('D', strtotime($date)) == 'Thu') {
             $cluster = 1;
-        } else if (date('D') == 'Tue' || date('D') == 'Fri') {
+        } else if (date('D', strtotime($date)) == 'Tue' || date('D', strtotime($date)) == 'Fri') {
             $cluster = 2;
-        } else if (date('D') == 'Wed' || date('D') == 'Sat') {
+        } else if (date('D', strtotime($date)) == 'Wed' || date('D', strtotime($date)) == 'Sat') {
             $cluster = 2;
         }
 
-        if (date('D') == 'Mon') {
+        if (date('D', strtotime($date)) == 'Mon') {
             $dayName = 'senin';
-        } else if (date('D') == 'Tue') {
+        } else if (date('D', strtotime($date)) == 'Tue') {
             $dayName = 'selasa';
-        } else if (date('D') == 'Wed') {
+        } else if (date('D', strtotime($date)) == 'Wed') {
             $dayName = 'rabu';
-        } else if (date('D') == 'Thu') {
+        } else if (date('D', strtotime($date)) == 'Thu') {
             $dayName = 'kamis';
-        } else if (date('D') == 'Fri') {
+        } else if (date('D', strtotime($date)) == 'Fri') {
             $dayName = 'jumat';
-        } else if (date('D') == 'Sat') {
+        } else if (date('D', strtotime($date)) == 'Sat') {
             $dayName = 'sabtu';
         }
 
@@ -72,9 +70,7 @@ class Reportjadwalvisit extends CI_Controller
         $data['dayName'] = $dayName;
 
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
-        $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
-        $this->db->not_like('source_visit', 'absen');
-        $data['visits'] = $this->db->get_where('tb_visit', ['DATE(date_visit)' => $date, 'tb_contact.id_city' => $id_city])->result_array();
+        $data['jadwalVisits'] = $this->db->get_where('tb_jadwal_visit', ['DATE(date_visit)' => $date, 'tb_jadwal_visit.id_city' => $id_city, 'tb_jadwal_visit.cluster' => $cluster])->result_array();
 
         // $this->load->view('Jadwalvisit/Print', $data);
 
