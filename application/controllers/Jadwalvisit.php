@@ -507,6 +507,13 @@ class Jadwalvisit extends CI_Controller
                     }
                 }
 
+                $is_new = 0;
+                if ($renvi['type_renvis'] == 'jatem1') {
+                    if ($renvi['is_new'] == 1) {
+                        $is_new = 1;
+                    }
+                }
+
                 // Jatem Days
                 $date1jatem = new DateTime(date("Y-m-d"));
                 $date2jatem = new DateTime($renvi['jatem']);
@@ -526,6 +533,7 @@ class Jadwalvisit extends CI_Controller
                     'days' => $days,
                     'daysJatem' => $daysJatem,
                     'total_invoice' => $total_invoice,
+                    'is_new' => $is_new,
                 ];
 
                 if ($renvi['cluster'] == $cluster) {
@@ -639,6 +647,13 @@ class Jadwalvisit extends CI_Controller
                     }
                 }
 
+                $is_new = 0;
+                if ($renvi['type_renvis'] == 'jatem1') {
+                    if ($renvi['is_new'] == 1) {
+                        $is_new = 1;
+                    }
+                }
+
                 // Jatem Days
                 $date1jatem = new DateTime(date("Y-m-d"));
                 $date2jatem = new DateTime($renvi['jatem']);
@@ -658,6 +673,7 @@ class Jadwalvisit extends CI_Controller
                     'days' => $days,
                     'daysJatem' => $daysJatem,
                     'total_invoice' => $total_invoice,
+                    'is_new' => $is_new,
                 ];
 
                 if (count($jadwalVisits) <= 9) {
@@ -720,6 +736,7 @@ class Jadwalvisit extends CI_Controller
                         'days' => '-',
                         'daysJatem' => '-',
                         'total_invoice' => 0,
+                        'is_new' => 0,
                     ];
 
                     array_push($jadwalVisits, $renvisFilter);
@@ -748,6 +765,7 @@ class Jadwalvisit extends CI_Controller
                     'days' => $days,
                     'daysJatem' => '-',
                     'total_invoice' => 0,
+                    'is_new' => 0,
                 ];
 
                 if ($renvisPassive['cluster'] == $cluster) {
@@ -804,6 +822,7 @@ class Jadwalvisit extends CI_Controller
                         'days' => $days,
                         'daysJatem' => $daysInvJatem,
                         'total_invoice' => $sisaHutang,
+                        'is_new' => 0,
                     ];
 
                     array_push($jadwalVisits, $renvisFilter);
