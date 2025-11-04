@@ -227,6 +227,13 @@ function penyebut($nilai)
                 }
             }
 
+            $is_new = 0;
+            if ($renvi['type_renvis'] == 'jatem1') {
+                if ($renvi['is_new'] == 1) {
+                    $is_new = 1;
+                }
+            }
+
             // Jatem Days
             $date1jatem = new DateTime(date("Y-m-d"));
             $date2jatem = new DateTime($renvi['jatem']);
@@ -261,7 +268,7 @@ function penyebut($nilai)
                     <td><?= $renvi['nama'] ?></td>
                     <td>-</td>
                     <td class="text-center"><?= $renvi['type_renvis'] ?></td>
-                    <td class="text-center"><?= $daysJatem != 0 ? $last_visit : 'Blm Visit' ?></td>
+                    <td class="text-center"><?= $is_new == 0 ? $last_visit : 'Blm Visit' ?></td>
                     <td class="text-center"><?= $days ?></td>
                     <td class="text-center"><?= $daysJatem ?></td>
                     <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
