@@ -100,7 +100,7 @@ class Jadwalvisit extends CI_Controller
             $id_con = $jatem1['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
             //  AND DATE(date_visit) >= '$dateJatem'
-            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','mg','passive') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','mg','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
             $created_at = $jatem1['created_at'];
             $jatem1['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
             $renvis[] = $jatem1;
@@ -126,7 +126,7 @@ class Jadwalvisit extends CI_Controller
             $id_con = $jatem2['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
             //  AND DATE(date_visit) >= '$dateJatem'
-            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','mg','passive') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','mg','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
             $created_at = $jatem2['created_at'];
             $jatem2['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
             $renvis[] = $jatem2;
@@ -152,7 +152,7 @@ class Jadwalvisit extends CI_Controller
             $id_con = $jatem3['id_contact'];
             $dateJatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
             //  AND DATE(date_visit) >= '$dateJatem'
-            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','mg','passive') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','mg','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
             $created_at = $jatem3['created_at'];
             $jatem3['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
             $renvis[] = $jatem3;
@@ -190,7 +190,7 @@ class Jadwalvisit extends CI_Controller
             $id_con = $passive['id_contact'];
             $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_rencana_visit WHERE id_contact = '$id_con' AND type_rencana = 'passive'")->row_array();
             $date_margin = date("Y-m-d", strtotime("-1 month"));
-            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','voucher','passive','renvisales','mg') AND date_visit >= '$date_margin' ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','voucher','passive','renvisales','mg','normal') AND date_visit >= '$date_margin' ORDER BY date_visit DESC LIMIT 1")->row_array();
             $passive['last_visit'] = $lastVisit == null ? '0000-00-00' : $lastVisit['date_visit'];
             $created_at = $passive['created_at'];
             $passive['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
