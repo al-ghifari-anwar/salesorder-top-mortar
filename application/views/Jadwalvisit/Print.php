@@ -252,6 +252,7 @@ function penyebut($nilai)
                 'days' => $days,
                 'daysJatem' => $daysJatem,
                 'total_invoice' => $total_invoice,
+                'is_new' => $is_new,
             ];
 
             if ($renvi['cluster'] == $cluster) {
@@ -380,6 +381,13 @@ function penyebut($nilai)
                 }
             }
 
+            $is_new = 0;
+            if ($renvi['type_renvis'] == 'jatem1') {
+                if ($renvi['is_new'] == 1) {
+                    $is_new = 1;
+                }
+            }
+
             // Jatem Days
             $date1jatem = new DateTime(date("Y-m-d"));
             $date2jatem = new DateTime($renvi['jatem']);
@@ -398,6 +406,7 @@ function penyebut($nilai)
                 'days' => $days,
                 'daysJatem' => $daysJatem,
                 'total_invoice' => $total_invoice,
+                'is_new' => $is_new,
             ];
 
             if (count($jadwalVisits) <= 9) {
@@ -435,6 +444,7 @@ function penyebut($nilai)
                             'days' => '-',
                             'daysJatem' => '-',
                             'total_invoice' => 0,
+                            'is_new' => 0,
                         ];
 
                         array_push($jadwalVisits, $renvisFilter);
@@ -460,6 +470,7 @@ function penyebut($nilai)
                     'days' => '-',
                     'daysJatem' => '-',
                     'total_invoice' => 0,
+                    'is_new' => 0,
                 ];
 
                 array_push($jadwalVisits, $renvisFilter);
@@ -489,6 +500,7 @@ function penyebut($nilai)
                 'days' => $days,
                 'daysJatem' => '-',
                 'total_invoice' => 0,
+                'is_new' => 0,
             ];
 
             if ($renvisPassive['cluster'] == $cluster) {
@@ -546,6 +558,7 @@ function penyebut($nilai)
                     'days' => $days,
                     'daysJatem' => $daysInvJatem,
                     'total_invoice' => $sisaHutang,
+                    'is_new' => 0,
                 ];
 
                 array_push($jadwalVisits, $renvisFilter);
@@ -563,7 +576,7 @@ function penyebut($nilai)
                 <td><?= $jadwalVisit['nama'] ?></td>
                 <td class="text-left"><?= $jadwalVisit['filter'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['type_renvis'] ?></td>
-                <td class="text-center"><?= $jadwalVisit['daysJatem'] != 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
+                <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center"><?= $jadwalVisit['days'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['daysJatem'] ?></td>
                 <td>Rp. <?= number_format($jadwalVisit['total_invoice'], 0, ',', '.') ?></td>
