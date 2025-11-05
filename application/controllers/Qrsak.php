@@ -79,7 +79,7 @@ class Qrsak extends CI_Controller
         $data['menu'] = 'Qrsak';
 
         $data['qrsak'] = $qrsak;
-        $data['qrsak_details'] = $this->MQrsakDetail->getByIdQrsak($id_qrsak);
+        $data['qrsak_details'] = $this->MQrsakDetail->getByIdQrsakOrderByRedeem($id_qrsak);
         $data['qrsak_batchs'] = $this->MQrsakDetail->getActiveGroupedBatch($id_qrsak);
 
         $this->load->view('Theme/Header', $data);
