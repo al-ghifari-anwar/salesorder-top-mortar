@@ -59,7 +59,6 @@
                                         <th>Tgl Redeem</th>
                                         <th>Nama</th>
                                         <th>Nomor HP</th>
-                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,11 +81,6 @@
                                             <td><?= $qrsak_detail['redeemed_date'] == null ? '-' : date('d M Y', strtotime($qrsak_detail['redeemed_date'])) ?></td>
                                             <td><?= $qrsakRedeem ? $qrsakRedeem['name_qrsak_redeem'] : '' ?></td>
                                             <td><?= $qrsakRedeem ? $qrsakRedeem['phone_qrsak_redeem'] : '' ?></td>
-                                            <td>
-                                                <?php if ($qrsak_detail['is_active'] == 1): ?>
-                                                    <!-- <a href="#" data-toggle="modal" data-target="#value-modal<?= $qrsak_detail['id_qrsak_detail'] ?>" class="btn btn-success"><i class="fas fa-money-bill"></i></a> -->
-                                                <?php endif; ?>
-                                            </td>
                                         </tr>
                                         <div class="modal fade" id="value-modal<?= $qrsak_detail['id_qrsak_detail'] ?>">
                                             <div class="modal-dialog">
