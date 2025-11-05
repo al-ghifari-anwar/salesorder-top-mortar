@@ -71,7 +71,7 @@
                                             <td><?= date('d M Y', strtotime($qrsak['created_at'])) ?></td>
                                             <td>
                                                 <a href="<?= base_url('qrsak/detail/' . $qrsak['id_qrsak']) ?>" class="btn btn-primary m-1"><i class="fas fa-eye"></i></a>
-                                                <a href="<?= base_url('qrsak/redeem/' . $qrsak['id_qrsak']) ?>" class="btn btn-info m-1"><i class="fas fa-money-bill"></i></a>
+                                                <a href="<?= base_url('qrsak/redeem/' . $qrsak['id_qrsak']) ?>" class="btn btn-warning m-1"><i class="fas fa-money-bill"></i></a>
                                                 <a href="<?= base_url('qrsak/file/' . $qrsak['id_qrsak']) ?>" class="btn btn-success m-1"><i class="fas fa-file"></i></a>
                                             </td>
                                         </tr>

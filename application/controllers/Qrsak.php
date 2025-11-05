@@ -71,6 +71,24 @@ class Qrsak extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function redeem($id_qrsak)
+    {
+        $qrsak = $this->MQrsak->getById($id_qrsak);
+        $data['title'] = 'Detail QR #' . $qrsak['code_qrsak'];
+        $data['menuGroup'] = 'Marketing';
+        $data['menu'] = 'Qrsak';
+
+        $data['qrsak'] = $qrsak;
+        $data['qrsak_details'] = $this->MQrsakDetail->getByIdQrsak($id_qrsak);
+        $data['qrsak_batchs'] = $this->MQrsakDetail->getActiveGroupedBatch($id_qrsak);
+
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Qrsak/Redeem');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
     public function create()
     {
         $qrsakData = [
