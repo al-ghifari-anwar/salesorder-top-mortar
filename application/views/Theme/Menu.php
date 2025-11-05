@@ -778,6 +778,15 @@
                                                 </p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('clustertoko') ?>" class="nav-link <?= $menu == 'ClusterToko' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-store"></i>
+                                                <p>
+                                                    Cluster Toko
+                                                    <span class="right badge badge-success">New</span>
+                                                </p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item <?= $menuGroup == 'Sales' ? 'menu-open' : '' ?>">
