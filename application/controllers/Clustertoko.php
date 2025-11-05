@@ -26,9 +26,9 @@ class Clustertoko extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
-        $data['title'] = 'Toko Tanpa Cluster';
+        $data['title'] = 'Cluster Toko';
         $data['menuGroup'] = 'Visit';
-        $data['menu'] = 'TokoNoCluster';
+        $data['menu'] = 'ClusterToko';
         if ($this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'sales') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else {
