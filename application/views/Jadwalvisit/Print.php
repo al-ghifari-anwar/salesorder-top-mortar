@@ -245,6 +245,7 @@ function penyebut($nilai)
             $daysJatem = $operanJatem . $daysJatem;
 
             $renvisFilter = [
+                'id_contact' => $renvi['id_contact'],
                 'filter' => 'Cluster ' . $cluster . ', 0 & 7 Hari',
                 'nama' => $renvi['nama'],
                 'type_renvis' => $renvi['type_renvis'],
@@ -258,7 +259,9 @@ function penyebut($nilai)
             if ($renvi['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 9) {
                     if ($days == 0 || $days >= 7) {
-                        array_push($jadwalVisits, $renvisFilter);
+                        if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
                     }
                 }
             }
@@ -399,6 +402,7 @@ function penyebut($nilai)
             $daysJatem = $operanJatem . $daysJatem;
 
             $renvisFilter = [
+                'id_contact' => $renvi['id_contact'],
                 'filter' => 'Cluster Lain di hari bayar ' . $renvi['hari_bayar'] . ',  0 & 7 Hari',
                 'nama' => $renvi['nama'],
                 'type_renvis' => $renvi['type_renvis'],
@@ -413,7 +417,9 @@ function penyebut($nilai)
                 if ($renvi['cluster'] != 1) {
                     if ($renvi['hari_bayar'] == $dayName) {
                         if ($days == 0 || $days >= 7) {
-                            array_push($jadwalVisits, $renvisFilter);
+                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
+                            }
                         }
                     }
                 }
@@ -437,6 +443,7 @@ function penyebut($nilai)
                 if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
                     if (count($jadwalVisits) <= 9) {
                         $renvisFilter = [
+                            'id_contact' => $id_contact,
                             'filter' => 'Toko akan pasif dalam 2 minggu',
                             'nama' => $contactActive['nama'],
                             'type_renvis' => 'Akan passive',
@@ -447,7 +454,9 @@ function penyebut($nilai)
                             'is_new' => 0,
                         ];
 
-                        array_push($jadwalVisits, $renvisFilter);
+                        if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
                     }
                 }
             }
@@ -463,6 +472,7 @@ function penyebut($nilai)
                 $id_contact = $contactActive['id_contact'];
 
                 $renvisFilter = [
+                    'id_contact' => $id_contact,
                     'filter' => 'Toko Baru',
                     'nama' => $contactData['nama'],
                     'type_renvis' => 'Toko Baru',
@@ -473,7 +483,9 @@ function penyebut($nilai)
                     'is_new' => 0,
                 ];
 
-                array_push($jadwalVisits, $renvisFilter);
+                if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                    array_push($jadwalVisits, $renvisFilter);
+                }
             }
         }
         ?>
@@ -493,6 +505,7 @@ function penyebut($nilai)
             $days = $operan . $days;
 
             $renvisFilter = [
+                'id_contact' => $id_contact,
                 'filter' => 'Passive',
                 'nama' => $renvisPassive['nama'],
                 'type_renvis' => $renvisPassive['type_renvis'],
@@ -506,7 +519,9 @@ function penyebut($nilai)
             if ($renvisPassive['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 9) {
                     // if ($days == 0 || $days >= 7) {
-                    array_push($jadwalVisits, $renvisFilter);
+                    if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
                     // }
                 }
             }
@@ -551,6 +566,7 @@ function penyebut($nilai)
                 $sisaHutang = $invoice['total_invoice'] - $amountPayment;
 
                 $renvisFilter = [
+                    'id_contact' => $id_contact,
                     'filter' => 'Janji Bayar',
                     'nama' => $janjiBayar['nama'],
                     'type_renvis' => 'Janji Bayar',
@@ -561,7 +577,9 @@ function penyebut($nilai)
                     'is_new' => 0,
                 ];
 
-                array_push($jadwalVisits, $renvisFilter);
+                if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                    array_push($jadwalVisits, $renvisFilter);
+                }
             }
         }
         ?>
