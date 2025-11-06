@@ -505,7 +505,7 @@ function penyebut($nilai)
             $days = $operan . $days;
 
             $renvisFilter = [
-                'id_contact' => $id_contact,
+                'id_contact' => $renvisPassive['id_contact'],
                 'filter' => 'Passive',
                 'nama' => $renvisPassive['nama'],
                 'type_renvis' => $renvisPassive['type_renvis'],
@@ -519,7 +519,7 @@ function penyebut($nilai)
             if ($renvisPassive['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 9) {
                     // if ($days == 0 || $days >= 7) {
-                    if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                    if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                         array_push($jadwalVisits, $renvisFilter);
                     }
                     // }
