@@ -841,8 +841,9 @@ class Jadwalvisit extends CI_Controller
                     $days = $operan . $days;
 
                     $id_invoice = $janjiBayar['id_invoice'];
+                    $invoice = $this->MInvoice->getById($id_invoice);
                     // Jatem Days
-                    $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    $jatemInv = date('Y-m-d', strtotime("+" . $janjiBayar['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
                     $dateInv1 = new DateTime(date("Y-m-d"));
                     $dateInv2 = new DateTime($jatemInv);
                     $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
