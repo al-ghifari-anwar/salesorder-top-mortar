@@ -539,14 +539,16 @@ class Jadwalvisit extends CI_Controller
                 if ($renvi['cluster'] == $cluster) {
                     if (count($jadwalVisits) <= 9) {
                         if ($days == 0 || $days >= 7) {
-                            array_push($jadwalVisits, $renvisFilter);
+                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
+                            }
                         }
                     }
                 }
             }
 
+            // Filter 2
             foreach ($renvis as $renvi) {
-                // Filter 2
                 $type_renvis = $renvi['type_renvis'];
                 $id_contact = $renvi['id_contact'];
                 $created_at = date('Y-m-d', strtotime($renvi['created_at']));
@@ -680,7 +682,9 @@ class Jadwalvisit extends CI_Controller
                     if ($renvi['cluster'] != 1) {
                         if ($renvi['hari_bayar'] == $dayName) {
                             if ($days == 0 || $days >= 7) {
-                                array_push($jadwalVisits, $renvisFilter);
+                                if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                    array_push($jadwalVisits, $renvisFilter);
+                                }
                             }
                         }
                     }
@@ -714,7 +718,9 @@ class Jadwalvisit extends CI_Controller
                                 'is_new' => 0,
                             ];
 
-                            array_push($jadwalVisits, $renvisFilter);
+                            if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
+                            }
                         }
                     }
                 }
@@ -726,7 +732,7 @@ class Jadwalvisit extends CI_Controller
 
             foreach ($contactDatas as $contactData) {
                 if (count($jadwalVisits) <= 9) {
-                    $id_contact = $contactActive['id_contact'];
+                    $id_contact = $contactData['id_contact'];
 
                     $renvisFilter = [
                         'id_contact' => $contactData['id_contact'],
@@ -740,7 +746,9 @@ class Jadwalvisit extends CI_Controller
                         'is_new' => 0,
                     ];
 
-                    array_push($jadwalVisits, $renvisFilter);
+                    if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
                 }
             }
             // Filter 5 (Toko passive)
@@ -772,7 +780,9 @@ class Jadwalvisit extends CI_Controller
                 if ($renvisPassive['cluster'] == $cluster) {
                     if (count($jadwalVisits) <= 9) {
                         // if ($days == 0 || $days >= 7) {
-                        array_push($jadwalVisits, $renvisFilter);
+                        if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
                         // }
                     }
                 }
@@ -826,7 +836,9 @@ class Jadwalvisit extends CI_Controller
                         'is_new' => 0,
                     ];
 
-                    array_push($jadwalVisits, $renvisFilter);
+                    if (array_search($janjiBayar['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
                 }
             }
 
