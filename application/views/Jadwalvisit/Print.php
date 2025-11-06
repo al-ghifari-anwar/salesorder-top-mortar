@@ -518,11 +518,11 @@ function penyebut($nilai)
 
             if ($renvisPassive['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 9) {
-                    // if ($days == 0 || $days >= 7) {
-                    if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                        array_push($jadwalVisits, $renvisFilter);
+                    if ($days == 0 || $days >= 7) {
+                        if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
                     }
-                    // }
                 }
             }
         }
