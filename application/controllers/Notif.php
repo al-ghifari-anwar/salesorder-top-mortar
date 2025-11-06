@@ -41,7 +41,7 @@ class Notif extends CI_Controller
 
         $data['city'] = $this->MCity->getById($id_city);
         $data['contact_passive'] = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'store_status' => 'passive'])->result_array();
-        $data['contact_active'] = $this->db->get_where('tb_contact', ['id_city' => $id_city])->result_array();
+        $data['contact_active'] = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'store_status' => 'active'])->result_array();
         // $html = $this->load->view('Notif/PrintPassive', $data);
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
