@@ -483,9 +483,9 @@ function penyebut($nilai)
                     'is_new' => 0,
                 ];
 
-                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                    array_push($jadwalVisits, $renvisFilter);
-                }
+                // if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                array_push($jadwalVisits, $renvisFilter);
+                // }
             }
         }
         ?>
