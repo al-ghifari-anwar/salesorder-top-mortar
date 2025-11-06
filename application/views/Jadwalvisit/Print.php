@@ -469,7 +469,7 @@ function penyebut($nilai)
 
         foreach ($contactDatas as $contactData) {
             if (count($jadwalVisits) <= 9) {
-                $id_contact = $contactActive['id_contact'];
+                $id_contact = $contactData['id_contact'];
 
                 $renvisFilter = [
                     'id_contact' => $id_contact,
@@ -483,9 +483,9 @@ function penyebut($nilai)
                     'is_new' => 0,
                 ];
 
-                // if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                array_push($jadwalVisits, $renvisFilter);
-                // }
+                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                    array_push($jadwalVisits, $renvisFilter);
+                }
             }
         }
         ?>
