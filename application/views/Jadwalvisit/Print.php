@@ -473,8 +473,8 @@ function penyebut($nilai)
 
                 $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
-                $date_last_for_counter = date('Y-m-d', strtotime($last_visit['date_visit']));
-                $last_visit = date('d M Y', strtotime($last_visit['date_visit']));
+                $date_last_for_counter = date('Y-m-d', strtotime($lastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($lastVisit['date_visit']));
 
                 $date1 = new DateTime(date("Y-m-d"));
                 $date2 = new DateTime($date_last_for_counter);
