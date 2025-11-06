@@ -441,21 +441,37 @@ function penyebut($nilai)
                 $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
 
                 if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
+                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                    $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                    $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+
+                    $date1 = new DateTime(date("Y-m-d"));
+                    $date2 = new DateTime($date_last_for_counter);
+                    $days  = $date2->diff($date1)->format('%a');
+                    $operan = "";
+                    if ($date1 < $date2) {
+                        $operan = "-";
+                    }
+                    $days = $operan . $days;
+
                     if (count($jadwalVisits) <= 9) {
                         $renvisFilter = [
                             'id_contact' => $id_contact,
                             'filter' => 'Toko akan pasif dalam 2 minggu',
                             'nama' => $contactActive['nama'],
                             'type_renvis' => 'Akan passive',
-                            'last_visit' => '-',
-                            'days' => '-',
+                            'last_visit' => $last_visit,
+                            'days' => $days,
                             'daysJatem' => '-',
                             'total_invoice' => 0,
                             'is_new' => 0,
                         ];
 
-                        if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                            array_push($jadwalVisits, $renvisFilter);
+                        if ($days == 0 || $days >= 7) {
+                            if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
+                            }
                         }
                     }
                 }
@@ -497,8 +513,10 @@ function penyebut($nilai)
                     'is_new' => 0,
                 ];
 
-                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                    array_push($jadwalVisits, $renvisFilter);
+                if ($days == 0 || $days >= 7) {
+                    if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
                 }
             }
         }
