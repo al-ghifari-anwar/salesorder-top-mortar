@@ -108,6 +108,7 @@ function penyebut($nilai)
         <tr>
             <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Toko</th>
+            <th style="border-bottom: 1px solid black;">Status</th>
             <th style="border-bottom: 1px solid black;">Alamat</th>
             <th style="border-bottom: 1px solid black;">Cluster</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
@@ -136,6 +137,7 @@ function penyebut($nilai)
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $contact1['nama'] ?></td>
+                    <td><?= $contact1['store_status'] ?></td>
                     <td><?= $contact1['address'] ?></td>
                     <td><?= $contact1['cluster'] ?></td>
                 </tr>
@@ -165,6 +167,7 @@ function penyebut($nilai)
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $contact2['nama'] ?></td>
+                    <td><?= $contact2['store_status'] ?></td>
                     <td><?= $contact2['address'] ?></td>
                     <td><?= $contact2['cluster'] ?></td>
                 </tr>
@@ -194,6 +197,7 @@ function penyebut($nilai)
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $contact3['nama'] ?></td>
+                    <td><?= $contact3['store_status'] ?></td>
                     <td><?= $contact3['address'] ?></td>
                     <td><?= $contact3['cluster'] ?></td>
                 </tr>
@@ -223,6 +227,7 @@ function penyebut($nilai)
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $contact['nama'] ?></td>
+                    <td><?= $contact['store_status'] ?></td>
                     <td><?= $contact['address'] ?></td>
                     <td><?= $contact['cluster'] ?></td>
                 </tr>
