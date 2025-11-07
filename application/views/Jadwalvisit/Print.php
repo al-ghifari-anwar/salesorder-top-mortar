@@ -441,7 +441,7 @@ function penyebut($nilai)
                 $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
 
                 if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
-                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                     $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
                     $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
