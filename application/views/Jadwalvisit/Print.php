@@ -258,11 +258,11 @@ function penyebut($nilai)
 
             if ($renvi['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 10) {
-                    if ($days == 0 || $days >= 7) {
-                        if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                            array_push($jadwalVisits, $renvisFilter);
-                        }
+                    // if ($days == 0 || $days >= 7) {
+                    if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                        array_push($jadwalVisits, $renvisFilter);
                     }
+                    // }
                 }
             }
             ?>
@@ -416,11 +416,11 @@ function penyebut($nilai)
             if (count($jadwalVisits) <= 10) {
                 if ($renvi['cluster'] != 1) {
                     if ($renvi['hari_bayar'] == $dayName) {
-                        if ($days == 0 || $days >= 7) {
-                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                array_push($jadwalVisits, $renvisFilter);
-                            }
+                        // if ($days == 0 || $days >= 7) {
+                        if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
                         }
+                        // }
                     }
                 }
             }
