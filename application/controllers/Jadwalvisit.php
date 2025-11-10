@@ -538,11 +538,11 @@ class Jadwalvisit extends CI_Controller
 
                 if ($renvi['cluster'] == $cluster) {
                     if (count($jadwalVisits) <= 9) {
-                        if ($days == 0 || $days >= 7) {
-                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                array_push($jadwalVisits, $renvisFilter);
-                            }
+                        // if ($days == 0 || $days >= 7) {
+                        if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
                         }
+                        // }
                     }
                 }
             }
@@ -681,11 +681,11 @@ class Jadwalvisit extends CI_Controller
                 if (count($jadwalVisits) <= 9) {
                     if ($renvi['cluster'] != 1) {
                         if ($renvi['hari_bayar'] == $dayName) {
-                            if ($days == 0 || $days >= 7) {
-                                if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                    array_push($jadwalVisits, $renvisFilter);
-                                }
+                            // if ($days == 0 || $days >= 7) {
+                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
                             }
+                            // }
                         }
                     }
                 }
@@ -732,11 +732,11 @@ class Jadwalvisit extends CI_Controller
                                 'is_new' => 0,
                             ];
 
-                            if ($days == 0 || $days >= 7) {
-                                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                                    array_push($jadwalVisits, $renvisFilter);
-                                }
+                            // if ($days == 0 || $days >= 7) {
+                            if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
                             }
+                            // }
                         }
                     }
                 }
@@ -776,11 +776,11 @@ class Jadwalvisit extends CI_Controller
                         'is_new' => 0,
                     ];
 
-                    if ($days == 0 || $days >= 7) {
-                        if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                            array_push($jadwalVisits, $renvisFilter);
-                        }
+                    // if ($days == 0 || $days >= 7) {
+                    if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                        array_push($jadwalVisits, $renvisFilter);
                     }
+                    // }
                 }
             }
             // Filter 5 (Toko passive)
@@ -811,11 +811,11 @@ class Jadwalvisit extends CI_Controller
 
                 if ($renvisPassive['cluster'] == $cluster) {
                     if (count($jadwalVisits) <= 9) {
-                        if ($days == 0 || $days >= 7) {
-                            if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                array_push($jadwalVisits, $renvisFilter);
-                            }
+                        // if ($days == 0 || $days >= 7) {
+                        if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
                         }
+                        // }
                     }
                 }
             }
