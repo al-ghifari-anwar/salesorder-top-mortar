@@ -537,7 +537,7 @@ class Jadwalvisit extends CI_Controller
                 ];
 
                 if ($renvi['cluster'] == $cluster) {
-                    if (count($jadwalVisits) <= 9) {
+                    if (count($jadwalVisits) <= 10) {
                         // if ($days == 0 || $days >= 7) {
                         if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                             array_push($jadwalVisits, $renvisFilter);
@@ -678,7 +678,7 @@ class Jadwalvisit extends CI_Controller
                     'is_new' => $is_new,
                 ];
 
-                if (count($jadwalVisits) <= 9) {
+                if (count($jadwalVisits) <= 10) {
                     if ($renvi['cluster'] != 1) {
                         if ($renvi['hari_bayar'] == $dayName) {
                             // if ($days == 0 || $days >= 7) {
@@ -705,7 +705,7 @@ class Jadwalvisit extends CI_Controller
                     $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
 
                     if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
-                        if (count($jadwalVisits) <= 9) {
+                        if (count($jadwalVisits) <= 10) {
                             $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                             $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
@@ -747,7 +747,7 @@ class Jadwalvisit extends CI_Controller
             $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
 
             foreach ($contactDatas as $contactData) {
-                if (count($jadwalVisits) <= 9) {
+                if (count($jadwalVisits) <= 10) {
                     $id_contact = $contactData['id_contact'];
 
                     $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
@@ -810,7 +810,7 @@ class Jadwalvisit extends CI_Controller
                 ];
 
                 if ($renvisPassive['cluster'] == $cluster) {
-                    if (count($jadwalVisits) <= 9) {
+                    if (count($jadwalVisits) <= 10) {
                         // if ($days == 0 || $days >= 7) {
                         if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                             array_push($jadwalVisits, $renvisFilter);
@@ -825,7 +825,7 @@ class Jadwalvisit extends CI_Controller
             $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
 
             foreach ($janjiBayars as $janjiBayar) {
-                if (count($jadwalVisits) <= 9) {
+                if (count($jadwalVisits) <= 10) {
                     $id_contact = $janjiBayar['id_contact'];
 
                     $date_last_for_counter = date('Y-m-d', strtotime($janjiBayar['date_visit']));
