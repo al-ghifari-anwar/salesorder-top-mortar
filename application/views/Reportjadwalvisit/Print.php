@@ -129,7 +129,7 @@ function penyebut($nilai)
         foreach ($jadwalVisits as $jadwalVisit): ?>
             <?php
             $id_contact = $jadwalVisit['id_contact'];
-            $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d')])->row_array();
+            $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
 
             $status_color = 'text-red';
             if ($visit) {
