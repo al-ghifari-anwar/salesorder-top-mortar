@@ -160,7 +160,7 @@ class SuratJalan extends CI_Controller
                         $curl = curl_init();
 
                         curl_setopt_array($curl, array(
-                            CURLOPT_URL => 'https://devsaleswa.topmortarindonesia.com//delivery.php',
+                            CURLOPT_URL => 'https://saleswa.topmortarindonesia.com//delivery.php',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
