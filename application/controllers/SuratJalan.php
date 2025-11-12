@@ -168,7 +168,7 @@ class SuratJalan extends CI_Controller
                             CURLOPT_FOLLOWLOCATION => true,
                             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                             CURLOPT_CUSTOMREQUEST => 'POST',
-                            CURLOPT_POSTFIELDS => array('endDateTime' => date('Y-m-d H:i:s'), 'endLat' => ' ', 'endLng' => ' ', 'lat' => ' ', 'lng' => ' ', 'id_courier' => $suratJalan['id_courier'], 'id_contact' => $suratJalan['id_contact'], 'startDateTime' => date('Y-m-d ') . '08:00:00', 'startLat' => ' ', 'startLng' => ' ', 'id_surat_jalan' => $id_surat_jalan),
+                            CURLOPT_POSTFIELDS => array('endDateTime' => date('Y-m-d H:i:s'), 'endLat' => ' ', 'endLng' => ' ', 'lat' => ' ', 'lng' => ' ', 'id_courier' => $suratJalan['id_user'], 'id_contact' => $suratJalan['id_contact'], 'startDateTime' => date('Y-m-d ') . '08:00:00', 'startLat' => ' ', 'startLng' => ' ', 'id_surat_jalan' => $id_surat_jalan),
                         ));
 
                         $response = curl_exec($curl);
