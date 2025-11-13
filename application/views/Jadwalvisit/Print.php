@@ -622,11 +622,11 @@ function penyebut($nilai)
                     'is_new' => 0,
                 ];
 
-                if ($days > 3) {
-                    if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                        array_push($jadwalVisits, $renvisFilter);
-                    }
+                // if ($days > 3) {
+                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                    array_push($jadwalVisits, $renvisFilter);
                 }
+                // }
             }
         }
         ?>
