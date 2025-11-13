@@ -651,9 +651,9 @@ function penyebut($nilai)
 
                 $renvisFilter = [
                     'id_contact' => $id_contact,
-                    'filter' => 'Toko Baru',
+                    'filter' => 'Toko Aktif',
                     'nama' => $contactData['nama'],
-                    'type_renvis' => 'Toko Baru',
+                    'type_renvis' => 'Toko Aktif',
                     'last_visit' => $last_visit,
                     'days' => $days,
                     'daysJatem' => '-',
