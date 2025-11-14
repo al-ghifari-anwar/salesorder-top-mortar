@@ -875,7 +875,8 @@ class Notif extends CI_Controller
             curl_close($curl);
 
             $resLog = json_decode($responseLog, true);
-            $logData = ['status' => 'failed'];
+
+            // $logData = ['status' => 'failed'];
 
             if (isset($resLog['data'])) {
                 $logData = $resLog['data'][0];
