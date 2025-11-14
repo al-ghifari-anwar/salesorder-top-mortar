@@ -290,6 +290,8 @@ class Notif extends CI_Controller
 
         $res = json_decode($response, true);
 
+        $resLog = null;
+
         if ($res['status'] == 'success') {
             $data = $res['data'];
             $id_msgInv = $data['id'];
@@ -361,7 +363,7 @@ class Notif extends CI_Controller
                 'code' => 400,
                 'status' => 'failed',
                 'detail' => $res,
-                'logInv' => $responseLog,
+                'logInv' => $resLog,
                 'detailSj' => $resSj,
                 'logSj' => $resLogSj,
             ];
