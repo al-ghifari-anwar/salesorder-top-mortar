@@ -877,25 +877,33 @@ class Notif extends CI_Controller
             $resLog = json_decode($responseLog, true);
 
             // $logData = ['status' => 'failed'];
-            $logData = null;
+            // $logData = null;
 
             if (isset($resLog['data'])) {
                 $logData = $resLog['data'][0];
-            }
+                if ($logData['status'] == 'failed') {
+                    $notifInvoiceData = [
+                        'id_surat_jalan' => $id_surat_jalan,
+                        'id_msg' => $notifInvoice['id_msg'],
+                        'is_sent' => 0,
+                    ];
 
-            if ($logData['status'] == 'failed') {
-                $notifInvoiceData = [
-                    'id_surat_jalan' => $id_surat_jalan,
-                    'id_msg' => $notifInvoice['id_msg'],
-                    'is_sent' => 0,
-                ];
+                    $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => $notifInvoice['type_notif_invoice']]);
+                } else {
+                    $result = [
+                        'code' => 200,
+                        'status' => 'ok',
+                        'msg' => 'No data updated',
+                        'detail' => $resLog,
+                    ];
 
-                $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => $notifInvoice['type_notif_invoice']]);
+                    $this->output->set_output(json_encode($result));
+                }
             } else {
                 $result = [
-                    'code' => 200,
+                    'code' => 400,
                     'status' => 'ok',
-                    'msg' => 'No data updated',
+                    'msg' => 'Error',
                     'detail' => $resLog,
                 ];
 
