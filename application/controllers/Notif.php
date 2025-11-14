@@ -361,7 +361,9 @@ class Notif extends CI_Controller
                 'code' => 400,
                 'status' => 'failed',
                 'detail' => $res,
-                'detailSj' => $resSj
+                'logInv' => $responseLog,
+                'detailSj' => $resSj,
+                'logSj' => $resLogSj,
             ];
 
             return $this->output->set_output(json_encode($result));
