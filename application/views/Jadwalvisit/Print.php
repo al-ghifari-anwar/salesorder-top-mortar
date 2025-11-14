@@ -264,6 +264,12 @@ function penyebut($nilai)
                             array_push($jadwalVisits, $renvisFilter);
                         }
                     }
+
+                    if ($renvi['hari_bayar'] == $dayName) {
+                        if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
+                    }
                     // }
                 }
             }
