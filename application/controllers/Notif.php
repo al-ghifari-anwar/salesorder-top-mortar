@@ -156,7 +156,7 @@ class Notif extends CI_Controller
 
         if (!isset($resSj['data'])) {
             $result = [
-                'code' => 400,
+                'code' => 401,
                 'status' => 'failed',
                 'detail' => $resSj,
             ];
@@ -192,16 +192,16 @@ class Notif extends CI_Controller
 
         $resLogSj = json_decode($responseLog, true);
 
-        if (!isset($logSjData['data'])) {
-            $result = [
-                'code' => 400,
-                'status' => 'failed',
-                'detail' => $resLogSj,
-                'detailSj' => $resSj
-            ];
+        // if (!isset($logSjData['data'])) {
+        //     $result = [
+        //         'code' => 402,
+        //         'status' => 'failed',
+        //         'detail' => $resLogSj,
+        //         'detailSj' => $resSj
+        //     ];
 
-            return $this->output->set_output(json_encode($result));
-        }
+        //     $this->output->set_output(json_encode($result));
+        // }
 
         $logSjData = $resLogSj['data'][0];
 
@@ -360,7 +360,7 @@ class Notif extends CI_Controller
             $this->db->insert('tb_notif_invoice', $dataNotif);
 
             $result = [
-                'code' => 400,
+                'code' => 403,
                 'status' => 'failed',
                 'detail' => $res,
                 'logInv' => $resLog,
