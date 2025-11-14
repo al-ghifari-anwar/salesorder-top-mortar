@@ -885,6 +885,15 @@ class Notif extends CI_Controller
                 ];
 
                 $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => $notifInvoice['type_notif_invoice']]);
+            } else {
+                $result = [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'msg' => 'No data updated',
+                    'detail' => $resLog,
+                ];
+
+                $this->output->set_output(json_encode($result));
             }
         }
     }
