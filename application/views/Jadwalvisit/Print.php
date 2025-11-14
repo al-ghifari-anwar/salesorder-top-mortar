@@ -123,6 +123,67 @@ function penyebut($nilai)
             <td colspan="8" class="border">Data Mentah</td>
         </tr>
         <?php
+        // Filter 0 (Janji Bayar)
+        $id_city = $city['id_city'];
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+        $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
+
+        foreach ($janjiBayars as $janjiBayar) {
+            if (count($jadwalVisits) <= 10) {
+                $id_contact = $janjiBayar['id_contact'];
+
+                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($date_last_for_counter);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+
+                $id_invoice = $janjiBayar['id_invoice'];
+                $invoice = $this->MInvoice->getById($id_invoice);
+                // Jatem Days
+                $jatemInv = date('Y-m-d', strtotime("+" . $janjiBayar['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                $dateInv1 = new DateTime(date("Y-m-d"));
+                $dateInv2 = new DateTime($jatemInv);
+                $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                $operanInvJatem = "";
+                if ($dateInv1 < $dateInv2) {
+                    $operanInvJatem = "-";
+                }
+                $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
+                $sisaHutang = $invoice['total_invoice'] - $amountPayment;
+
+                $renvisFilter = [
+                    'id_contact' => $id_contact,
+                    'filter' => 'Janji Bayar',
+                    'nama' => $janjiBayar['nama'],
+                    'type_renvis' => 'Janji Bayar',
+                    'last_visit' => $last_visit,
+                    'days' => $days,
+                    'daysJatem' => $daysInvJatem,
+                    'total_invoice' => $sisaHutang,
+                    'is_new' => 0,
+                ];
+
+                // if ($days > 3) {
+                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                    array_push($jadwalVisits, $renvisFilter);
+                }
+                // }
+            }
+        }
+        ?>
+        <?php
         // Filter 1 (Cluster & days 0 - 7)
         $no = 1;
         foreach ($renvis as $renvi): ?>
@@ -575,67 +636,7 @@ function penyebut($nilai)
             }
         }
         ?>
-        <?php
-        // Filter 6 (Janji Bayar)
-        $id_city = $city['id_city'];
-        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
-        $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
 
-        foreach ($janjiBayars as $janjiBayar) {
-            if (count($jadwalVisits) <= 10) {
-                $id_contact = $janjiBayar['id_contact'];
-
-                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
-
-                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
-                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
-
-                $date1 = new DateTime(date("Y-m-d"));
-                $date2 = new DateTime($date_last_for_counter);
-                $days  = $date2->diff($date1)->format('%a');
-                $operan = "";
-                if ($date1 < $date2) {
-                    $operan = "-";
-                }
-                $days = $operan . $days;
-
-                $id_invoice = $janjiBayar['id_invoice'];
-                $invoice = $this->MInvoice->getById($id_invoice);
-                // Jatem Days
-                $jatemInv = date('Y-m-d', strtotime("+" . $janjiBayar['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
-                $dateInv1 = new DateTime(date("Y-m-d"));
-                $dateInv2 = new DateTime($jatemInv);
-                $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
-                $operanInvJatem = "";
-                if ($dateInv1 < $dateInv2) {
-                    $operanInvJatem = "-";
-                }
-                $daysInvJatem = $operanInvJatem . $daysInvJatem;
-
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
-                $sisaHutang = $invoice['total_invoice'] - $amountPayment;
-
-                $renvisFilter = [
-                    'id_contact' => $id_contact,
-                    'filter' => 'Janji Bayar',
-                    'nama' => $janjiBayar['nama'],
-                    'type_renvis' => 'Janji Bayar',
-                    'last_visit' => $last_visit,
-                    'days' => $days,
-                    'daysJatem' => $daysInvJatem,
-                    'total_invoice' => $sisaHutang,
-                    'is_new' => 0,
-                ];
-
-                // if ($days > 3) {
-                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                    array_push($jadwalVisits, $renvisFilter);
-                }
-                // }
-            }
-        }
-        ?>
         <?php
         // Filter 7 (Toko Aktif)
         $id_city = $city['id_city'];
