@@ -94,7 +94,7 @@ class SuratJalan extends CI_Controller
             // Konfigurasi upload
             $config['upload_path']   = $upload_path;
             $config['allowed_types'] = 'jpg|jpeg|png';
-            $config['max_size']      = 2048; // dalam KB
+            $config['max_size']      = 10000; // dalam KB
             $config['file_name']     = 'pic_' . time();
 
             $this->load->library('upload', $config);
