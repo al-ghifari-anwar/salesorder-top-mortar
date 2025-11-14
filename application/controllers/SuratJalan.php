@@ -182,7 +182,7 @@ class SuratJalan extends CI_Controller
                         redirect('suratjalan/' . $suratJalan['id_city']);
                     }
                 } else {
-                    $this->session->set_flashdata('failed', "Gagal, Koneksi putus: " . json_encode($resClosing));
+                    $this->session->set_flashdata('failed', "Gagal, Koneksi putus: " . json_encode($response));
                     redirect('suratjalan/' . $suratJalan['id_city']);
                 }
             } else {
