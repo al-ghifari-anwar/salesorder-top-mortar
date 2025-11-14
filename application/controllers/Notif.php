@@ -832,7 +832,7 @@ class Notif extends CI_Controller
 
     public function cekNotifLog()
     {
-        $notifInvoices = $this->db->get_where('tb_notif_invoice', ['is_sent' => 1])->result_array();
+        $notifInvoices = $this->db->get_where('tb_notif_invoice', ['is_sent' => 1, 'DATE(created_at)' => date('Y-m-d')])->result_array();
 
         foreach ($notifInvoices as $notifInvoice) {
             $id_surat_jalan = $notifInvoice['id_surat_jalan'];
