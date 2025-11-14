@@ -486,11 +486,11 @@ function penyebut($nilai)
                 if ($renvi['cluster'] != 1) {
                     if ($renvi['hari_bayar'] == $dayName) {
                         // if ($days == 0 || $days >= 7) {
-                        if ($days > 3) {
-                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                array_push($jadwalVisits, $renvisFilter);
-                            }
+                        // if ($days > 3) {
+                        if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
                         }
+                        // }
                         // }
                     }
                 }
