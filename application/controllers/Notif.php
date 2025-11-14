@@ -348,6 +348,15 @@ class Notif extends CI_Controller
 
             return $this->output->set_output(json_encode($result));
         } else {
+            $dataNotif = [
+                'id_surat_jalan' => $invoice['id_surat_jalan'],
+                'type_notif_invoice' => 'inv',
+                'id_msg' => '-',
+                'is_sent' => 0
+            ];
+
+            $this->db->insert('tb_notif_invoice', $dataNotif);
+
             $result = [
                 'code' => 400,
                 'status' => 'failed',
