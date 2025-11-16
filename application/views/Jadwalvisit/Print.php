@@ -123,19 +123,23 @@ function penyebut($nilai)
             <td colspan="8" class="border">Data Mentah</td>
         </tr>
         <?php
-        // Filter 0 (Janji Bayar)
+        // Filter 1 (Janji Bayar)
         $id_city = $city['id_city'];
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
 
         foreach ($janjiBayars as $janjiBayar) {
-            if (count($jadwalVisits) <= 10) {
+            if (count($jadwalVisits) <= 14) {
+                $date_visit_janji_bayar = date('Y-m-d', strtotime($janjiBayar['date_visit']));
+
                 $id_contact = $janjiBayar['id_contact'];
 
                 $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                 $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
                 $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+
+                $lastPayVisit = $this->db->query("SELECT * FROM tb_visit WHERE is_pay = 'pay' AND DATE(date_visit) > '$date_visit_janji_bayar'")->row_array();
 
                 $date1 = new DateTime(date("Y-m-d"));
                 $date2 = new DateTime($date_last_for_counter);
@@ -176,15 +180,17 @@ function penyebut($nilai)
                 ];
 
                 // if ($days > 3) {
-                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                    array_push($jadwalVisits, $renvisFilter);
+                if (!$lastPayVisit) {
+                    if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
                 }
                 // }
             }
         }
         ?>
         <?php
-        // Filter 1 (Cluster & days 0 - 7)
+        // Filter 2 (Cluster & days 0 - 7)
         $no = 1;
         foreach ($renvis as $renvi): ?>
             <?php
@@ -318,7 +324,7 @@ function penyebut($nilai)
             ];
 
             if ($renvi['cluster'] == $cluster) {
-                if (count($jadwalVisits) <= 10) {
+                if (count($jadwalVisits) <= 14) {
                     // if ($days == 0 || $days >= 7) {
                     if ($days > 3) {
                         if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
@@ -349,7 +355,7 @@ function penyebut($nilai)
             <?php endif; ?>
         <?php endforeach; ?>
         <?php
-        // Filter 2 (Hari Bayar, Free Cluster & days 0 - 7)
+        // Filter 3 (Hari Bayar, Free Cluster & days 0 - 7)
         $no = 1;
         foreach ($renvis as $renvi): ?>
             <?php
@@ -482,7 +488,7 @@ function penyebut($nilai)
                 'is_new' => $is_new,
             ];
 
-            if (count($jadwalVisits) <= 10) {
+            if (count($jadwalVisits) <= 14) {
                 if ($renvi['cluster'] != 1) {
                     if ($renvi['hari_bayar'] == $dayName) {
                         // if ($days == 0 || $days >= 7) {
@@ -498,7 +504,7 @@ function penyebut($nilai)
             ?>
         <?php endforeach; ?>
         <?php
-        // Filter 3 (Toko yang akan passive)
+        // Filter 4 (Toko yang akan passive)
         $id_city = $city['id_city'];
         $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
 
@@ -526,7 +532,7 @@ function penyebut($nilai)
                     }
                     $days = $operan . $days;
 
-                    if (count($jadwalVisits) <= 10) {
+                    if (count($jadwalVisits) <= 14) {
                         $renvisFilter = [
                             'id_contact' => $id_contact,
                             'filter' => 'Toko akan pasif dalam 2 minggu',
@@ -552,12 +558,12 @@ function penyebut($nilai)
         }
         ?>
         <?php
-        // Filter 4 (Toko data / baru)
+        // Filter 5 (Toko data / baru)
         $id_city = $city['id_city'];
         $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
 
         foreach ($contactDatas as $contactData) {
-            if (count($jadwalVisits) <= 10) {
+            if (count($jadwalVisits) <= 14) {
                 $id_contact = $contactData['id_contact'];
 
                 $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3') ORDER BY date_visit DESC LIMIT 1")->row_array();
@@ -597,7 +603,7 @@ function penyebut($nilai)
         }
         ?>
         <?php
-        // Filter 5 (Toko passive)
+        // Filter 6 (Toko passive)
         foreach ($renvisPassives as $renvisPassive) {
             $date_last_for_counter = date('Y-m-d', strtotime($renvisPassive['created_at']));
             $last_visit = date('d M Y', strtotime($renvisPassive['created_at']));
@@ -624,7 +630,7 @@ function penyebut($nilai)
             ];
 
             if ($renvisPassive['cluster'] == $cluster) {
-                if (count($jadwalVisits) <= 10) {
+                if (count($jadwalVisits) <= 14) {
                     // if ($days == 0 || $days >= 7) {
                     if ($days > 3) {
                         if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
@@ -643,7 +649,7 @@ function penyebut($nilai)
         $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
 
         foreach ($contactDatas as $contactData) {
-            if (count($jadwalVisits) <= 10) {
+            if (count($jadwalVisits) <= 14) {
                 $id_contact = $contactData['id_contact'];
 
                 $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
