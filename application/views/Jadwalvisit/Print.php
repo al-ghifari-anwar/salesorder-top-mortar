@@ -179,7 +179,7 @@ function penyebut($nilai)
                     'is_new' => 0,
                 ];
 
-                // if ($days > 3) {
+                // if ($days > $minDayCluster) {
                 if (!$lastPayVisit) {
                     if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
                         array_push($jadwalVisits, $renvisFilter);
@@ -326,7 +326,7 @@ function penyebut($nilai)
             if ($renvi['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 14) {
                     // if ($days == 0 || $days >= 7) {
-                    if ($days > 3) {
+                    if ($days > $minDayCluster) {
                         if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                             array_push($jadwalVisits, $renvisFilter);
                         }
@@ -492,7 +492,7 @@ function penyebut($nilai)
                 if ($renvi['cluster'] != 1) {
                     if ($renvi['hari_bayar'] == $dayName) {
                         // if ($days == 0 || $days >= 7) {
-                        // if ($days > 3) {
+                        // if ($days > $minDayCluster) {
                         if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                             array_push($jadwalVisits, $renvisFilter);
                         }
@@ -546,7 +546,7 @@ function penyebut($nilai)
                         ];
 
                         // if ($days == 0 || $days >= 7) {
-                        if ($days > 3) {
+                        if ($days > $minDayCluster) {
                             if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
                                 array_push($jadwalVisits, $renvisFilter);
                             }
@@ -593,7 +593,7 @@ function penyebut($nilai)
                 ];
 
                 // if ($days == 0 || $days >= 7) {
-                if ($days > 3) {
+                if ($days > $minDayCluster) {
                     if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
                         array_push($jadwalVisits, $renvisFilter);
                     }
@@ -632,7 +632,7 @@ function penyebut($nilai)
             if ($renvisPassive['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 14) {
                     // if ($days == 0 || $days >= 7) {
-                    if ($days > 3) {
+                    if ($days > $minDayCluster) {
                         if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                             array_push($jadwalVisits, $renvisFilter);
                         }
@@ -679,7 +679,7 @@ function penyebut($nilai)
                 ];
 
                 // if ($days == 0 || $days >= 7) {
-                if ($days > 3) {
+                if ($days > $minDayCluster) {
                     if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
                         array_push($jadwalVisits, $renvisFilter);
                     }
