@@ -110,6 +110,7 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Toko</th>
             <th style="border-bottom: 1px solid black;">Status</th>
             <th style="border-bottom: 1px solid black;">Alamat</th>
+            <th style="border-bottom: 1px solid black;">Last Visit</th>
             <th style="border-bottom: 1px solid black;">Cluster</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
@@ -134,11 +135,18 @@ function penyebut($nilai)
             ?>
 
             <?php if ($isBad == false): ?>
+                <?php
+                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3'.'weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+                ?>
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $contact1['nama'] ?></td>
                     <td><?= $contact1['store_status'] ?></td>
                     <td><?= $contact1['address'] ?></td>
+                    <td><?= $last_visit ?></td>
                     <td><?= $contact1['cluster'] ?></td>
                 </tr>
             <?php endif; ?>
@@ -164,11 +172,18 @@ function penyebut($nilai)
             ?>
 
             <?php if ($isBad == false): ?>
+                <?php
+                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3'.'weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+                ?>
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $contact2['nama'] ?></td>
                     <td><?= $contact2['store_status'] ?></td>
                     <td><?= $contact2['address'] ?></td>
+                    <td><?= $last_visit ?></td>
                     <td><?= $contact2['cluster'] ?></td>
                 </tr>
             <?php endif; ?>
@@ -194,11 +209,18 @@ function penyebut($nilai)
             ?>
 
             <?php if ($isBad == false): ?>
+                <?php
+                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3'.'weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+                ?>
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $contact3['nama'] ?></td>
                     <td><?= $contact3['store_status'] ?></td>
                     <td><?= $contact3['address'] ?></td>
+                    <td><?= $last_visit ?></td>
                     <td><?= $contact3['cluster'] ?></td>
                 </tr>
             <?php endif; ?>
@@ -224,11 +246,18 @@ function penyebut($nilai)
             ?>
 
             <?php if ($isBad == false): ?>
+                <?php
+                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3'.'weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+                ?>
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $contact['nama'] ?></td>
                     <td><?= $contact['store_status'] ?></td>
                     <td><?= $contact['address'] ?></td>
+                    <td><?= $last_visit ?></td>
                     <td><?= $contact['cluster'] ?></td>
                 </tr>
             <?php endif; ?>
