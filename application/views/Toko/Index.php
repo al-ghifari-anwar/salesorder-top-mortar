@@ -101,6 +101,7 @@
                                         <th>Reputation</th>
                                         <th>Payment Method</th>
                                         <th>Mingguan</th>
+                                        <th>Kredit Limit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -141,6 +142,7 @@
                                                     <td><?= $data['reputation'] ?></td>
                                                     <td><?= $data['payment_method'] ?></td>
                                                     <td><?= $data['tagih_mingguan'] == 1 ? 'Yes' : 'No' ?></td>
+                                                    <td><?= number_format($data['kredit_limit'], 0, ',', '.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                             <?php if ($id_promo_filter != 0): ?>
