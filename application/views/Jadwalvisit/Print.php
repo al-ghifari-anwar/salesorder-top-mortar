@@ -338,6 +338,12 @@ function penyebut($nilai)
                         }
                     }
                     // }
+
+                    if ($daysJatem == 0 && $daysJatem == 7) {
+                        if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
+                    }
                 }
             }
             ?>
