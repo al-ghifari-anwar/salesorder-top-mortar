@@ -339,7 +339,7 @@ function penyebut($nilai)
                     }
                     // }
 
-                    if ($last_visit == 'Blm Visit') {
+                    if ($is_new == 1) {
                         if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                             array_push($jadwalVisits, $renvisFilter);
                         }
