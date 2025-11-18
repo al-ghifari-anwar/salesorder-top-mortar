@@ -41,6 +41,31 @@ class Haloai extends CI_Controller
 
             $contact['catalog_produks'] = $produks;
 
+            // Score toko
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://order.topmortarindonesia.com/scoring/combine/' . $contact['id_contact'],
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_HTTPHEADER => array(
+                    'Cookie: ci_session=vk5hbn4tegimdup7bt4fqqj8i7nolfba'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $scoring = json_decode($response, true);
+
+            $contact['payment_scoring'] = $scoring['payment'];
+
             $result = [
                 'code' => 200,
                 'status' => 'ok',
