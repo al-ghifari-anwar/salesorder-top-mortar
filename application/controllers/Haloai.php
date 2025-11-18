@@ -33,14 +33,6 @@ class Haloai extends CI_Controller
                 return $this->output->set_output(json_encode($result));
             }
 
-            $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
-
-            $contact['kota'] = $city;
-
-            $produks = $this->db->select('nama_produk, name_satuan')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->where('id_city', $contact['id_city'])->get('tb_produk')->result_array();
-
-            $contact['catalog_produks'] = $produks;
-
             // Score toko
             $curl = curl_init();
 
@@ -65,6 +57,14 @@ class Haloai extends CI_Controller
             $scoring = json_decode($response, true);
 
             $contact['payment_scoring'] = $scoring['payment'];
+
+            $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
+
+            $contact['kota'] = $city;
+
+            $produks = $this->db->select('nama_produk, name_satuan')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->where('id_city', $contact['id_city'])->get('tb_produk')->result_array();
+
+            $contact['catalog_produks'] = $produks;
 
             $result = [
                 'code' => 200,
