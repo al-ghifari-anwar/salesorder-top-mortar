@@ -405,3 +405,4 @@ $route['merchandise/delete/(:num)'] = 'Merchandise/delete/$1';
 $route['report-active-zero'] = 'ReportActiveZero/index';
 // Halo AI store
 $route['haloai/store'] = 'Haloai/getStore';
+$route['haloai/create-order'] = 'Haloai/createOrder';
