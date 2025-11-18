@@ -76,4 +76,15 @@ class Haloai extends CI_Controller
             return $this->output->set_output(json_encode($result));
         }
     }
+
+    public function createOrder()
+    {
+        $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
+
+        $webhookOrderData = [
+            'json_webhook_order' => json_encode($post),
+        ];
+
+        $this->db->insert('webhook_order', $webhookOrderData);
+    }
 }
