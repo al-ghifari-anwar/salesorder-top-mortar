@@ -147,6 +147,13 @@ class MContact extends CI_Model
         return $query;
     }
 
+    public function getByNomorhp($nomorhp)
+    {
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $query = $this->db->get_where('tb_contact', ['nomorhp' => $nomorhp])->row_array();
+        return $query;
+    }
+
     public function insert()
     {
         $post = $this->input->post();

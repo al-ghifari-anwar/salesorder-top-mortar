@@ -6,6 +6,7 @@ class Haloai extends CI_Controller
     {
         parent::__construct();
         $this->output->set_content_type('application/json');
+        $this->load->model('MContact');
     }
 
     public function getStore()
@@ -86,5 +87,36 @@ class Haloai extends CI_Controller
         ];
 
         $this->db->insert('webhook_order', $webhookOrderData);
+
+        $nomorhp = $post['customer']['phone'];
+
+        $contact = $this->MContact->getByNomorhp($nomorhp);
+
+        $sjData = [
+            'no_surat_jalan' => 'DO-41',
+            'id_contact' => $contact['id_contact'],
+            'dalivery_date' => date('Y-m-d H:i:s'),
+            'order_number' => 0,
+            'ship_to_name' => $contact['nama'],
+            'ship_to_address' => $contact['address'],
+            'ship_to_phone' => $contact['nomorhp'],
+            'id_courier' => '-',
+            'id_kendaraan' => '-',
+        ];
+
+        $save = $this->db->insert('tb_surat_jalan', $sjData);
+
+        if (!$save) {
+            echo 'Gagal';
+        } else {
+            $id_surat_jalan = $this->db->insert_id();
+
+            $webhookProducts = $post['daftar_pesanan'];
+
+            foreach ($webhookProducts as $webhookProduct) {
+                $nama_produk = $webhookProduct['Nama Barang'];
+                $qty = $webhookProduct['Quantity'];
+            }
+        }
     }
 }
