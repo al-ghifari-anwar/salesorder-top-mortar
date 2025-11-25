@@ -437,7 +437,7 @@ class Jadwalvisit extends CI_Controller
                     $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
                     $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
 
-                    $lastPayVisit = $this->db->query("SELECT * FROM tb_visit WHERE is_pay = 'pay' AND DATE(date_visit) > '$date_visit_janji_bayar'")->row_array();
+                    $lastPayVisit = $this->db->query("SELECT * FROM tb_visit WHERE is_pay = 'pay' AND DATE(date_visit) > '$date_visit_janji_bayar' AND id_contact = '$id_contact'")->row_array();
 
                     $date1 = new DateTime(date("Y-m-d"));
                     $date2 = new DateTime($date_last_for_counter);
@@ -837,11 +837,11 @@ class Jadwalvisit extends CI_Controller
                             ];
 
                             // if ($days == 0 || $days >= 7) {
-                            if ($days > $minDayCluster) {
-                                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                                    array_push($jadwalVisits, $renvisFilter);
-                                }
+                            // if ($days > $minDayCluster) {
+                            if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
                             }
+                            // }
                             // }
                         }
                     }
