@@ -85,6 +85,8 @@ class Haloai extends CI_Controller
 
         $webhookOrderData = [
             'json_webhook_order' => json_encode($post),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
 
         $this->db->insert('webhook_order', $webhookOrderData);
