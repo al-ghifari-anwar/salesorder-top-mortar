@@ -88,35 +88,53 @@ class Haloai extends CI_Controller
 
         $this->db->insert('webhook_order', $webhookOrderData);
 
-        // $nomorhp = $post['customer']['phone'];
+        $nomorhp = $post['customer']['phone'];
 
-        // $contact = $this->MContact->getByNomorhp($nomorhp);
+        $contact = $this->MContact->getByNomorhp($nomorhp);
 
-        // $sjData = [
-        //     'no_surat_jalan' => 'DO-41',
-        //     'id_contact' => $contact['id_contact'],
-        //     'dalivery_date' => date('Y-m-d H:i:s'),
-        //     'order_number' => 0,
-        //     'ship_to_name' => $contact['nama'],
-        //     'ship_to_address' => $contact['address'],
-        //     'ship_to_phone' => $contact['nomorhp'],
-        //     'id_courier' => '-',
-        //     'id_kendaraan' => '-',
-        // ];
+        $id_city = $contact['id_city'];
 
-        // $save = $this->db->insert('tb_surat_jalan', $sjData);
+        $sjData = [
+            'no_surat_jalan' => 'DO-41',
+            'id_contact' => $contact['id_contact'],
+            'dalivery_date' => date('Y-m-d H:i:s'),
+            'order_number' => 0,
+            'ship_to_name' => $contact['nama'],
+            'ship_to_address' => $contact['address'],
+            'ship_to_phone' => $contact['nomorhp'],
+            'id_courier' => '-',
+            'id_kendaraan' => '-',
+        ];
 
-        // if (!$save) {
-        //     echo 'Gagal';
-        // } else {
-        //     $id_surat_jalan = $this->db->insert_id();
+        $save = $this->db->insert('tb_surat_jalan', $sjData);
 
-        //     $webhookProducts = $post['daftar_pesanan'];
+        if (!$save) {
+            echo 'Gagal';
+        } else {
+            $id_surat_jalan = $this->db->insert_id();
 
-        //     foreach ($webhookProducts as $webhookProduct) {
-        //         $nama_produk = $webhookProduct['Nama Barang'];
-        //         $qty = $webhookProduct['Quantity'];
-        //     }
-        // }
+            $webhookProducts = $post['daftar_pesanan'];
+
+            foreach ($webhookProducts as $webhookProduct) {
+                $nama_produk = $webhookProduct['Nama Barang'];
+                $qty = $webhookProduct['Quantity'];
+
+                $produk = $this->db->get_where('tb_produk', ['id_city' => $id_city, 'nama_produk' => $nama_produk])->row_array();
+
+                $sjDetailData = [
+                    'id_surat_jalan' => $id_surat_jalan,
+                    'id_produk' => $produk['id_produk'],
+                    'price' => $produk['harga_produk'],
+                    'qty_produk' => $qty,
+                    'amount' => $produk['harga_produk'] * $qty,
+                    'is_bonus' => 0,
+                    'created_at' => date('Y-m-d H:i:s'),
+                ];
+
+                $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+            }
+
+            echo 'OK';
+        }
     }
 }
