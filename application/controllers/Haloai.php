@@ -119,6 +119,7 @@ class Haloai extends CI_Controller
             'ship_to_phone' => $contact['nomorhp'],
             'id_courier' => $id_courier,
             'id_kendaraan' => 2,
+            'is_finished' => 1,
         ];
 
         $save = $this->db->insert('tb_surat_jalan', $sjData);
