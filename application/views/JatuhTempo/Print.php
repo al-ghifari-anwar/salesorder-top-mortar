@@ -231,6 +231,7 @@ function penyebut($nilai)
                         <td class="text-center"><?= $no815 ?></td>
                         <td class="text-center"><?= $storeInv2['nama'] ?></td>
                         <td class="text-center"><?= $storeInv2['kode_city'] ?></td>
+                        <td class="text-center"><?= $storeInv2['cluster'] ?></td>
                         <td class="text-center"><?= $storeInv2['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?></td>
                         <td class="text-center">
@@ -304,6 +305,7 @@ function penyebut($nilai)
                         <td class="text-center"><?= $no16 ?></td>
                         <td class="text-center"><?= $storeInv3['nama'] ?></td>
                         <td class="text-center"><?= $storeInv3['kode_city'] ?></td>
+                        <td class="text-center"><?= $storeInv3['cluster'] ?></td>
                         <td class="text-center"><?= $storeInv3['no_invoice'] ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?></td>
                         <td class="text-center">
