@@ -7,6 +7,7 @@ class Haloai extends CI_Controller
         parent::__construct();
         $this->output->set_content_type('application/json');
         $this->load->model('MContact');
+        $this->load->model('MUser');
     }
 
     public function getStore()
@@ -94,16 +95,28 @@ class Haloai extends CI_Controller
 
         $id_city = $contact['id_city'];
 
+        $courier = $this->MUser->getCourierByIdCity($id_city);
+
+        $id_courier = 0;
+
+        if ($courier) {
+            $id_courier = $courier['id_user'];
+        } else {
+            $courier = $this->MUser->getCourierByCityGroup($contact['nama_city']);
+            $id_courier = $courier['id_user'];
+            // 
+        }
+
         $sjData = [
-            'no_surat_jalan' => 'DO-41',
+            'no_surat_jalan' => 'DO-41' . rand(1000, 9999),
             'id_contact' => $contact['id_contact'],
             'dalivery_date' => date('Y-m-d H:i:s'),
             'order_number' => 0,
             'ship_to_name' => $contact['nama'],
             'ship_to_address' => $contact['address'],
             'ship_to_phone' => $contact['nomorhp'],
-            'id_courier' => '-',
-            'id_kendaraan' => '-',
+            'id_courier' => $id_courier,
+            'id_kendaraan' => 2,
         ];
 
         $save = $this->db->insert('tb_surat_jalan', $sjData);
