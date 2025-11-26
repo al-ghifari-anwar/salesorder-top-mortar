@@ -63,7 +63,7 @@ class Haloai extends CI_Controller
 
             $contact['kota'] = $city;
 
-            $produks = $this->db->select('nama_produk, name_satuan')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->where('id_city', $contact['id_city'])->get('tb_produk')->result_array();
+            $produks = $this->db->select('nama_produk, name_satuan, harga_produk')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->where('id_city', $contact['id_city'])->get('tb_produk')->result_array();
 
             $contact['catalog_produks'] = $produks;
 
@@ -88,35 +88,35 @@ class Haloai extends CI_Controller
 
         $this->db->insert('webhook_order', $webhookOrderData);
 
-        $nomorhp = $post['customer']['phone'];
+        // $nomorhp = $post['customer']['phone'];
 
-        $contact = $this->MContact->getByNomorhp($nomorhp);
+        // $contact = $this->MContact->getByNomorhp($nomorhp);
 
-        $sjData = [
-            'no_surat_jalan' => 'DO-41',
-            'id_contact' => $contact['id_contact'],
-            'dalivery_date' => date('Y-m-d H:i:s'),
-            'order_number' => 0,
-            'ship_to_name' => $contact['nama'],
-            'ship_to_address' => $contact['address'],
-            'ship_to_phone' => $contact['nomorhp'],
-            'id_courier' => '-',
-            'id_kendaraan' => '-',
-        ];
+        // $sjData = [
+        //     'no_surat_jalan' => 'DO-41',
+        //     'id_contact' => $contact['id_contact'],
+        //     'dalivery_date' => date('Y-m-d H:i:s'),
+        //     'order_number' => 0,
+        //     'ship_to_name' => $contact['nama'],
+        //     'ship_to_address' => $contact['address'],
+        //     'ship_to_phone' => $contact['nomorhp'],
+        //     'id_courier' => '-',
+        //     'id_kendaraan' => '-',
+        // ];
 
-        $save = $this->db->insert('tb_surat_jalan', $sjData);
+        // $save = $this->db->insert('tb_surat_jalan', $sjData);
 
-        if (!$save) {
-            echo 'Gagal';
-        } else {
-            $id_surat_jalan = $this->db->insert_id();
+        // if (!$save) {
+        //     echo 'Gagal';
+        // } else {
+        //     $id_surat_jalan = $this->db->insert_id();
 
-            $webhookProducts = $post['daftar_pesanan'];
+        //     $webhookProducts = $post['daftar_pesanan'];
 
-            foreach ($webhookProducts as $webhookProduct) {
-                $nama_produk = $webhookProduct['Nama Barang'];
-                $qty = $webhookProduct['Quantity'];
-            }
-        }
+        //     foreach ($webhookProducts as $webhookProduct) {
+        //         $nama_produk = $webhookProduct['Nama Barang'];
+        //         $qty = $webhookProduct['Quantity'];
+        //     }
+        // }
     }
 }
