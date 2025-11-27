@@ -129,7 +129,7 @@ class Haloai extends CI_Controller
         } else {
             $id_surat_jalan = $this->db->insert_id();
 
-            $webhookProducts = $post['daftar_pesanan'];
+            $webhookProducts = $post['daftar_pemesanan'];
 
             foreach ($webhookProducts as $webhookProduct) {
                 $nama_produk = $webhookProduct['Nama Barang'];
