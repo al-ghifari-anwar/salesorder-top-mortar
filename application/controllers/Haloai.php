@@ -110,7 +110,7 @@ class Haloai extends CI_Controller
         }
 
         $sjData = [
-            'no_surat_jalan' => 'DO-41' . rand(1000, 9999),
+            'no_surat_jalan' => 'DO-41' . rand(10000, 99999),
             'id_contact' => $contact['id_contact'],
             'dalivery_date' => date('Y-m-d H:i:s'),
             'order_number' => 0,
@@ -129,7 +129,7 @@ class Haloai extends CI_Controller
         } else {
             $id_surat_jalan = $this->db->insert_id();
 
-            $webhookProducts = $post['daftar_pemesanan'];
+            $webhookProducts = $post['data']['daftar_pemesanan'];
 
             foreach ($webhookProducts as $webhookProduct) {
                 $nama_produk = $webhookProduct['Nama Barang'];
