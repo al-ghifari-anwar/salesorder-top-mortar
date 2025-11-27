@@ -155,24 +155,29 @@ class Haloai extends CI_Controller
                 $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
             }
 
-            // Send notif kurir
-            $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
-            $integration_id = $qontak['integration_id'];
-            $wa_token = $qontak['token'];
-            $template_id = '32b18403-e0ee-4cfc-9e2e-b28b95f24e37';
+            $detailSuratJalan = $this->db->select('COUNT(*) as jml_detail')->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
 
-            $curl = curl_init();
+            if ($detailSuratJalan == 0 || $detailSuratJalan == null) {
+                $this->db->delete('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan]);
+            } else {
+                // Send notif kurir
+                $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+                $integration_id = $qontak['integration_id'];
+                $wa_token = $qontak['token'];
+                $template_id = '32b18403-e0ee-4cfc-9e2e-b28b95f24e37';
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
                     "to_number": "' . $suratJalan['phone_user'] . '",
                     "to_name": "' . $suratJalan['full_name'] . '",
                     "message_template_id": "' . $template_id . '",
@@ -205,30 +210,31 @@ class Haloai extends CI_Controller
                         ]
                     }
                     }',
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $wa_token,
-                    'Content-Type: application/json'
-                ),
-            ));
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $wa_token,
+                        'Content-Type: application/json'
+                    ),
+                ));
 
-            $response = curl_exec($curl);
+                $response = curl_exec($curl);
 
-            curl_close($curl);
+                curl_close($curl);
 
-            $res = json_decode($response, true);
+                $res = json_decode($response, true);
 
-            $resultData = [
-                'no_surat_jalan' => $suratJalan['no_surat_jalan'],
-            ];
+                $resultData = [
+                    'no_surat_jalan' => $suratJalan['no_surat_jalan'],
+                ];
 
-            $result = [
-                'code' => 200,
-                'status' => 'ok',
-                'msg' => 'Success',
-                'data' => $resultData,
-            ];
+                $result = [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'msg' => 'Success',
+                    'data' => $resultData,
+                ];
 
-            return $this->output->set_output(json_encode($result));
+                return $this->output->set_output(json_encode($result));
+            }
         }
     }
 }
