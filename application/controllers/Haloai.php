@@ -216,6 +216,19 @@ class Haloai extends CI_Controller
             curl_close($curl);
 
             $res = json_decode($response, true);
+
+            $resultData = [
+                'no_surat_jalan' => $suratJalan['no_surat_jalan'],
+            ];
+
+            $result = [
+                'code' => 200,
+                'status' => 'ok',
+                'msg' => 'Success',
+                'data' => $resultData,
+            ];
+
+            return $this->output->set_output(json_encode($result));
         }
     }
 }
