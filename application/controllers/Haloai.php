@@ -91,7 +91,7 @@ class Haloai extends CI_Controller
 
         $this->db->insert('webhook_order', $webhookOrderData);
 
-        $nomorhp = $post['customer']['phone'];
+        $nomorhp = $post['ticket']['customer']['phone'];
 
         $contact = $this->MContact->getByNomorhp($nomorhp);
 
