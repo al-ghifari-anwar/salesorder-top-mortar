@@ -8,6 +8,7 @@ class Haloai extends CI_Controller
         $this->output->set_content_type('application/json');
         $this->load->model('MContact');
         $this->load->model('MUser');
+        $this->load->model('MSuratJalan');
     }
 
     public function getStore()
@@ -95,6 +96,8 @@ class Haloai extends CI_Controller
 
         $contact = $this->MContact->getByNomorhp($nomorhp);
 
+        $id_distributor = $contact['id_distributor'];
+
         $id_city = $contact['id_city'];
 
         $courier = $this->MUser->getCourierByIdCity($id_city);
@@ -129,6 +132,8 @@ class Haloai extends CI_Controller
         } else {
             $id_surat_jalan = $this->db->insert_id();
 
+            $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
+
             $webhookProducts = $post['ticket']['data']['daftar_pemesanan'];
 
             foreach ($webhookProducts as $webhookProduct) {
@@ -150,7 +155,67 @@ class Haloai extends CI_Controller
                 $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
             }
 
-            echo 'OK';
+            // Send notif kurir
+            $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+            $integration_id = $qontak['integration_id'];
+            $wa_token = $qontak['token'];
+            $template_id = '32b18403-e0ee-4cfc-9e2e-b28b95f24e37';
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                    "to_number": "' . $suratJalan['phone_user'] . '",
+                    "to_name": "' . $suratJalan['full_name'] . '",
+                    "message_template_id": "' . $template_id . '",
+                    "channel_integration_id": "' . $integration_id . '",
+                    "language": {
+                        "code": "id"
+                    },
+                    "parameters": {
+                        "body": [
+                        {
+                            "key": "1",
+                            "value": "nama",
+                            "value_text": "' . $suratJalan['full_name'] . '"
+                        },
+                        {
+                            "key": "2",
+                            "value": "store",
+                            "value_text": "' . $suratJalan['nama'] . '"
+                        },
+                        {
+                            "key": "3",
+                            "value": "address",
+                            "value_text": "' . trim(preg_replace('/\s+/', ' ', $suratJalan['address'])) . ', ' . $suratJalan['nama_city'] . '"
+                        },
+                        {
+                            "key": "4",
+                            "value": "no_surat",
+                            "value_text": "' . $suratJalan['no_surat_jalan'] . '"
+                        }
+                        ]
+                    }
+                    }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $res = json_decode($response, true);
         }
     }
 }
