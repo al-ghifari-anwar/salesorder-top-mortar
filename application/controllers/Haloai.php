@@ -36,6 +36,10 @@ class Haloai extends CI_Controller
                 return $this->output->set_output(json_encode($result));
             }
 
+            $id_contact = $contact['id_contact'];
+
+            $suratJalan = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact, 'is_closing' => 0])->result_array();
+
             // Score toko
             $curl = curl_init();
 
@@ -69,6 +73,8 @@ class Haloai extends CI_Controller
 
             $contact['catalog_produks'] = $produks;
 
+            $contact['ongoing_order'] = $suratJalan;
+
             $result = [
                 'code' => 200,
                 'status' => 'ok',
@@ -82,6 +88,11 @@ class Haloai extends CI_Controller
 
     public function createOrder()
     {
+        $haloAiToken = 'pat_7911607b2bfbf47d7dfd029c6895cac59e157b0530c651d623c99bc91667d205';
+        $haloAiBusinessId = '019a7616-cbb2-7089-ae65-d629c2d82c01';
+        $haloAiChannelId = '019a7616-cf5b-7769-91ab-c1dacb9e9cf9';
+        $haloAiTemplate = 'order_confirmation';
+
         $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
 
         $webhookOrderData = [
