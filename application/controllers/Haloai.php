@@ -38,7 +38,11 @@ class Haloai extends CI_Controller
 
             $id_contact = $contact['id_contact'];
 
+            $id_promo = $contact['id_promo'];
+
             $suratJalan = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact, 'is_closing' => 0])->result_array();
+
+            $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
 
             // Score toko
             $curl = curl_init();
@@ -68,6 +72,8 @@ class Haloai extends CI_Controller
             $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
 
             $contact['kota'] = $city;
+
+            $contact['promo'] = $promo['nama_promo'];
 
             $produks = $this->db->select('nama_produk, name_satuan, harga_produk')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->where('id_city', $contact['id_city'])->get('tb_produk')->result_array();
 
