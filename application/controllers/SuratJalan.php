@@ -320,10 +320,31 @@ class SuratJalan extends CI_Controller
 
         if ($id_distributor != 8) {
 
+            $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+            $wa_token = $haloai['token_haloai'];
+            $business_id = $haloai['business_id_haloai'];
+            $channel_id = $haloai['channel_id_haloai'];
+            $template = 'notkurir';
+            $message = "Pesanan Baru Status: Perlu di kirim Kurir: " . $suratjalan['full_name'] . ". Nama toko/penerima: " . $suratjalan['nama'] . ". Alamat: " . trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'] . ". No Surat Jalan: *" . $suratjalan['no_surat_jalan'] . "*";
+
+            $haloaiPayload = [
+                'activate_ai_after_send' => false,
+                'channel_id' => $channel_id,
+                'fallback_template_message' => $template,
+                'fallback_template_variables' => [
+                    $suratjalan['full_name'],
+                    $suratjalan['nama'],
+                    trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'],
+                    $suratjalan['no_surat_jalan'],
+                ],
+                'phone_number' => $suratjalan['phone_user'],
+                'text' => trim(preg_replace('/\s+/', ' ', $message)),
+            ];
+
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -331,41 +352,10 @@ class SuratJalan extends CI_Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
-                        "to_number": "' . $suratjalan['phone_user'] . '",
-                        "to_name": "' . $suratjalan['full_name'] . '",
-                        "message_template_id": "' . $template_id . '",
-                        "channel_integration_id": "' . $integration_id . '",
-                        "language": {
-                            "code": "id"
-                        },
-                        "parameters": {
-                            "body": [
-                            {
-                                "key": "1",
-                                "value": "nama",
-                                "value_text": "' . $suratjalan['full_name'] . '"
-                            },
-                            {
-                                "key": "2",
-                                "value": "store",
-                                "value_text": "' . $suratjalan['nama'] . '"
-                            },
-                            {
-                                "key": "3",
-                                "value": "address",
-                                "value_text": "' . trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'] . '"
-                            },
-                            {
-                                "key": "4",
-                                "value": "no_surat",
-                                "value_text": "' . $suratjalan['no_surat_jalan'] . '"
-                            }
-                            ]
-                        }
-                        }',
+                CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                 CURLOPT_HTTPHEADER => array(
                     'Authorization: Bearer ' . $wa_token,
+                    'X-HaloAI-Business-Id: ' . $business_id,
                     'Content-Type: application/json'
                 ),
             ));
