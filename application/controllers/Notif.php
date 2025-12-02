@@ -72,38 +72,61 @@ class Notif extends CI_Controller
         $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
 
         // Buat direktori penyimpanan sementara
-        $folderPath = FCPATH . 'assets/tmp/inv/';
+        $folderPathInv = FCPATH . 'assets/tmp/inv/';
         // Nama file berdasarkan invoice ID + timestamp
-        $fileName = 'inv_' . $invoice['id_surat_jalan'] . '_' . time() . '.pdf';
-        $filePath = $folderPath . $fileName;
+        $fileNameInv = 'inv_' . $invoice['id_surat_jalan'] . '_' . time() . '.pdf';
+        $filePathInv = $folderPathInv . $fileNameInv;
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Invoice/PrintNotif', $data, true);
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
-        $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
+        $mpdf->Output($filePathInv, \Mpdf\Output\Destination::FILE);
 
         // Send Message
         $id_distributor = $contact['id_distributor'];
         $nomorhp = $contact['nomorhp'];
         $nama = $contact['nama'];
-        $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
-        $message = "Berikut adalah invoice pembelian anda.";
-        $full_name = "-";
-        $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
+        $full_name = "PT Top Mortar Indonesia";
+
+
+        $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+        $wa_token = $haloai['token_haloai'];
+        $business_id = $haloai['business_id_haloai'];
+        $channel_id = $haloai['channel_id_haloai'];
+        $templateSj = 'notif_materi_img';
+        $templateInv = 'notif_materi_pdf';
+
         $messageSj = "Berikut adalah surat jalan anda";
-
-        $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
-
-        $wa_token = $qontak['token'];
-        $integration_id = $qontak['integration_id'];
+        $messageInv = "Berikut adalah invoice pembelian anda.";
 
         // Send SJ
+        $haloaiPayload = [
+            'activate_ai_after_send' => false,
+            'channel_id' => $channel_id,
+            "fallback_template_header" => [
+                'filename' => $invoice['proofClosing'],
+                'type' => 'image',
+                'url' => $proofClosing,
+            ],
+            'fallback_template_message' => $templateSj,
+            'fallback_template_variables' => [
+                trim(preg_replace('/\s+/', ' ', $messageSj)),
+            ],
+            "media" => [
+                'filename' => $invoice['proofClosing'],
+                'type' => 'image',
+                'url' => $proofClosing,
+            ],
+            'phone_number' => $nomorhp,
+            'text' => trim(preg_replace('/\s+/', ' ', $messageSj)),
+        ];
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+            CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -111,125 +134,81 @@ class Notif extends CI_Controller
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
-                        "to_number": "' . $nomorhp . '",
-                        "to_name": "' . $nama . '",
-                        "message_template_id": "' . $templateSj . '",
-                        "channel_integration_id": "' . $integration_id . '",
-                        "language": {
-                            "code": "id"
-                        },
-                        "parameters": {
-                            "header":{
-                                "format":"IMAGE",
-                                "params": [
-                                    {
-                                        "key":"url",
-                                        "value":"' . $proofClosing . '"
-                                    },
-                                    {
-                                        "key":"filename",
-                                        "value":"' . $invoice['proof_closing'] . '"
-                                    }
-                                ]
-                            },
-                            "body": [
-                            {
-                                "key": "1",
-                                "value": "message",
-                                "value_text": "' . trim(preg_replace('/\s+/', ' ', $messageSj)) . '"
-                            }
-                            ]
-                        }
-                        }',
+            CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
             CURLOPT_HTTPHEADER => array(
                 'Authorization: Bearer ' . $wa_token,
+                'X-HaloAI-Business-Id: ' . $business_id,
                 'Content-Type: application/json'
             ),
         ));
 
-        $response = curl_exec($curl);
+        $responseSj = curl_exec($curl);
 
         curl_close($curl);
 
-        $resSj = json_decode($response, true);
+        $resSj = json_decode($responseSj, true);
 
-        if (!isset($resSj['data'])) {
-            $result = [
-                'code' => 401,
-                'status' => 'failed',
-                'detail' => $resSj,
-            ];
-
-            return $this->output->set_output(json_encode($result));
-        }
-
-        $resDataSj = $resSj['data'];
-
-        $id_msgSj = $resDataSj['id'];
-
-        // Cek Log SJ 5f70dd63-7959-4a1c-8e52-e65a1eb40487
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_msgSj . '/whatsapp/log',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $wa_token,
-                'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
-            ),
-        ));
-
-        $responseLog = curl_exec($curl);
-
-        curl_close($curl);
-
-        $resLogSj = json_decode($responseLog, true);
-
-        // if (!isset($logSjData['data'])) {
-        //     $result = [
-        //         'code' => 402,
-        //         'status' => 'failed',
-        //         'detail' => $resLogSj,
-        //         'detailSj' => $resSj
-        //     ];
-
-        //     $this->output->set_output(json_encode($result));
-        // }
-
-        $logSjData = $resLogSj['data'][0];
-
-        if ($logSjData['status'] == 'failed') {
+        if ($resSj['status'] == 'error') {
             $dataNotif = [
                 'id_surat_jalan' => $invoice['id_surat_jalan'],
                 'type_notif_invoice' => 'sj',
-                'id_msg' => $id_msgSj,
+                'file_notif_invoice' => $proofClosing,
+                'id_msg' => '-',
                 'is_sent' => 0
             ];
 
             $this->db->insert('tb_notif_invoice', $dataNotif);
         } else {
-            $dataNotif = [
-                'id_surat_jalan' => $invoice['id_surat_jalan'],
-                'type_notif_invoice' => 'sj',
-                'id_msg' => $id_msgSj,
-                'is_sent' => 1
-            ];
+            if ($resSj['delivery_status'] == 'success') {
+                $dataNotif = [
+                    'id_surat_jalan' => $invoice['id_surat_jalan'],
+                    'type_notif_invoice' => 'sj',
+                    'file_notif_invoice' => $proofClosing,
+                    'id_msg' => '-',
+                    'is_sent' => 1
+                ];
 
-            $this->db->insert('tb_notif_invoice', $dataNotif);
+                $this->db->insert('tb_notif_invoice', $dataNotif);
+            } else {
+                $dataNotif = [
+                    'id_surat_jalan' => $invoice['id_surat_jalan'],
+                    'type_notif_invoice' => 'sj',
+                    'file_notif_invoice' => $proofClosing,
+                    'id_msg' => '-',
+                    'is_sent' => 0
+                ];
+
+                $this->db->insert('tb_notif_invoice', $dataNotif);
+            }
         }
 
+
         // Send Invoice
+        $haloaiPayload = [
+            'activate_ai_after_send' => false,
+            'channel_id' => $channel_id,
+            "fallback_template_header" => [
+                'filename' => $fileNameInv,
+                'type' => 'document',
+                'url' => $filePathInv,
+            ],
+            'fallback_template_message' => $templateInv,
+            'fallback_template_variables' => [
+                trim(preg_replace('/\s+/', ' ', $messageInv)),
+            ],
+            "media" => [
+                'filename' => $fileNameInv,
+                'type' => 'document',
+                'url' => $filePathInv,
+            ],
+            'phone_number' => $nomorhp,
+            'text' => trim(preg_replace('/\s+/', ' ', $messageInv)),
+        ];
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+            CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -237,96 +216,38 @@ class Notif extends CI_Controller
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
-                        "to_number": "' . $nomorhp . '",
-                        "to_name": "' . $nama . '",
-                        "message_template_id": "' . $template_id . '",
-                        "channel_integration_id": "' . $integration_id . '",
-                        "language": {
-                            "code": "id"
-                        },
-                        "parameters": {
-                            "header":{
-                                "format":"DOCUMENT",
-                                "params": [
-                                    {
-                                        "key":"url",
-                                        "value":"https://order.topmortarindonesia.com/assets/tmp/inv/' . $fileName . '"
-                                    },
-                                    {
-                                        "key":"filename",
-                                        "value":"' . $fileName . '"
-                                    }
-                                ]
-                            },
-                            "body": [
-                            {
-                                "key": "1",
-                                "value": "nama",
-                                "value_text": "' . $nama . '"
-                            },
-                            {
-                                "key": "2",
-                                "value": "message",
-                                "value_text": "' . trim(preg_replace('/\s+/', ' ', $message)) . '"
-                            },
-                            {
-                                "key": "3",
-                                "value": "sales",
-                                "value_text": "' . $full_name . '"
-                            }
-                            ]
-                        }
-                        }',
+            CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
             CURLOPT_HTTPHEADER => array(
                 'Authorization: Bearer ' . $wa_token,
+                'X-HaloAI-Business-Id: ' . $business_id,
                 'Content-Type: application/json'
             ),
         ));
 
-        $response = curl_exec($curl);
+        $responseInv = curl_exec($curl);
 
         curl_close($curl);
 
-        $res = json_decode($response, true);
+        $resInv = json_decode($responseInv, true);
 
-        $resLog = null;
+        if ($resInv['status'] == 'error') {
+            $dataNotif = [
+                'id_surat_jalan' => $invoice['id_surat_jalan'],
+                'type_notif_invoice' => 'inv',
+                'file_notif_invoice' => $filePathInv,
+                'id_msg' => '-',
+                'is_sent' => 0
+            ];
 
-        if ($res['status'] == 'success') {
-            $data = $res['data'];
-            $id_msgInv = $data['id'];
-
-            // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_msgInv . '/whatsapp/log',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $wa_token,
-                    'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
-                ),
-            ));
-
-            $responseLog = curl_exec($curl);
-
-            curl_close($curl);
-
-            $resLog = json_decode($responseLog, true);
-            $logData = $resLog['data'][0];
-
-            if ($logData['status'] == 'failed') {
+            $this->db->insert('tb_notif_invoice', $dataNotif);
+        } else {
+            if ($resInv['delivery_status'] == 'success') {
                 $dataNotif = [
                     'id_surat_jalan' => $invoice['id_surat_jalan'],
                     'type_notif_invoice' => 'inv',
-                    'id_msg' => $id_msgInv,
-                    'is_sent' => 0
+                    'file_notif_invoice' => $filePathInv,
+                    'id_msg' => '-',
+                    'is_sent' => 1
                 ];
 
                 $this->db->insert('tb_notif_invoice', $dataNotif);
@@ -334,41 +255,13 @@ class Notif extends CI_Controller
                 $dataNotif = [
                     'id_surat_jalan' => $invoice['id_surat_jalan'],
                     'type_notif_invoice' => 'inv',
-                    'id_msg' => $id_msgInv,
-                    'is_sent' => 1
+                    'file_notif_invoice' => $filePathInv,
+                    'id_msg' => '-',
+                    'is_sent' => 0
                 ];
 
                 $this->db->insert('tb_notif_invoice', $dataNotif);
             }
-
-            $result = [
-                'code' => 200,
-                'status' => 'ok',
-                'detail' => $res,
-                'detailSj' => $resSj
-            ];
-
-            return $this->output->set_output(json_encode($result));
-        } else {
-            $dataNotif = [
-                'id_surat_jalan' => $invoice['id_surat_jalan'],
-                'type_notif_invoice' => 'inv',
-                'id_msg' => '-',
-                'is_sent' => 0
-            ];
-
-            $this->db->insert('tb_notif_invoice', $dataNotif);
-
-            $result = [
-                'code' => 403,
-                'status' => 'failed',
-                'detail' => $res,
-                'logInv' => $resLog,
-                'detailSj' => $resSj,
-                'logSj' => $resLogSj,
-            ];
-
-            return $this->output->set_output(json_encode($result));
         }
     }
 
@@ -389,48 +282,53 @@ class Notif extends CI_Controller
         $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
         $data['id_distributor'] = $contact['id_distributor'];
 
-        $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
-
-        // Buat direktori penyimpanan sementara
-        // $folderPath = FCPATH . 'assets/tmp/inv/';
-        // Nama file berdasarkan invoice ID + timestamp
-        // $fileName = 'inv_' . $invoice['id_surat_jalan'] . '_' . time() . '.pdf';
-        // $filePath = $folderPath . $fileName;
-
-        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        // $mpdf->SetMargins(0, 0, 5);
-        // $html = $this->load->view('Invoice/PrintNotif', $data, true);
-        // $mpdf->AddPage('P');
-        // $mpdf->WriteHTML($html);
-        // $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
-
         // Send Message
         $id_distributor = $contact['id_distributor'];
         $nomorhp = $contact['nomorhp'];
         $nama = $contact['nama'];
-        $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
-        $message = "Berikut adalah invoice pembelian anda.";
-        $full_name = "-";
-        $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
-        $messageSj = "Berikut adalah surat jalan anda";
+        $full_name = "PT Top Mortar Indonesia";
 
-        $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+        $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+        $wa_token = $haloai['token_haloai'];
+        $business_id = $haloai['business_id_haloai'];
+        $channel_id = $haloai['channel_id_haloai'];
+        $templateInv = 'notif_materi_pdf';
 
-        $wa_token = $qontak['token'];
-        $integration_id = $qontak['integration_id'];
+        $messageInv = "Berikut adalah invoice pembelian anda.";
 
         $fileNameSearch = 'inv_' . $invoice['id_surat_jalan'];
         $files = glob(FCPATH . "assets/tmp/inv/" . $fileNameSearch . "*");
 
         if ($files) {
             $replaceFilePath = str_replace("/home/admin2/web/order.topmortarindonesia.com/public_html/", "https://order.topmortarindonesia.com/", $files[0]);
-            echo json_encode($replaceFilePath);
+            // echo json_encode($replaceFilePath);
 
             // Send Invoice
+            $haloaiPayload = [
+                'activate_ai_after_send' => false,
+                'channel_id' => $channel_id,
+                "fallback_template_header" => [
+                    'filename' => $fileNameSearch,
+                    'type' => 'document',
+                    'url' => $replaceFilePath,
+                ],
+                'fallback_template_message' => $templateInv,
+                'fallback_template_variables' => [
+                    trim(preg_replace('/\s+/', ' ', $messageInv)),
+                ],
+                "media" => [
+                    'filename' => $fileNameSearch,
+                    'type' => 'document',
+                    'url' => $replaceFilePath,
+                ],
+                'phone_number' => $nomorhp,
+                'text' => trim(preg_replace('/\s+/', ' ', $messageInv)),
+            ];
+
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -438,72 +336,43 @@ class Notif extends CI_Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
-                            "to_number": "' . $nomorhp . '",
-                            "to_name": "' . $nama . '",
-                            "message_template_id": "' . $template_id . '",
-                            "channel_integration_id": "' . $integration_id . '",
-                            "language": {
-                                "code": "id"
-                            },
-                            "parameters": {
-                                "header":{
-                                    "format":"DOCUMENT",
-                                    "params": [
-                                        {
-                                            "key":"url",
-                                            "value":"' . $replaceFilePath . '"
-                                        },
-                                        {
-                                            "key":"filename",
-                                            "value":"' . $fileNameSearch . '"
-                                        }
-                                    ]
-                                },
-                                "body": [
-                                {
-                                    "key": "1",
-                                    "value": "nama",
-                                    "value_text": "' . $nama . '"
-                                },
-                                {
-                                    "key": "2",
-                                    "value": "message",
-                                    "value_text": "' . trim(preg_replace('/\s+/', ' ', $message)) . '"
-                                },
-                                {
-                                    "key": "3",
-                                    "value": "sales",
-                                    "value_text": "' . $full_name . '"
-                                }
-                                ]
-                            }
-                            }',
+                CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                 CURLOPT_HTTPHEADER => array(
                     'Authorization: Bearer ' . $wa_token,
+                    'X-HaloAI-Business-Id: ' . $business_id,
                     'Content-Type: application/json'
                 ),
             ));
 
-            $response = curl_exec($curl);
+            $responseInv = curl_exec($curl);
 
             curl_close($curl);
 
-            $res = json_decode($response, true);
+            $resInv = json_decode($responseInv, true);
 
-            if ($res['status'] == 'success') {
-                $result = [
-                    'code' => 200,
-                    'status' => 'ok',
-                    'detail' => $res
-                ];
+            if ($resInv['status'] == 'success') {
+                if ($resInv['delivery_status'] == 'success') {
+                    $result = [
+                        'code' => 200,
+                        'status' => 'ok',
+                        'detail' => $resInv
+                    ];
 
-                return $this->output->set_output(json_encode($result));
+                    return $this->output->set_output(json_encode($result));
+                } else {
+                    $result = [
+                        'code' => 400,
+                        'status' => 'failed',
+                        'detail' => $resInv
+                    ];
+
+                    return $this->output->set_output(json_encode($result));
+                }
             } else {
                 $result = [
                     'code' => 400,
                     'status' => 'failed',
-                    'detail' => $res
+                    'detail' => $resInv
                 ];
 
                 return $this->output->set_output(json_encode($result));
@@ -534,35 +403,19 @@ class Notif extends CI_Controller
             $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
             $data['id_distributor'] = $contact['id_distributor'];
 
-            $proofClosing = "https://saleswa.topmortarindonesia.com/img/" . $invoice['proof_closing'];
-
-            // Buat direktori penyimpanan sementara
-            // $folderPath = FCPATH . 'assets/tmp/inv/';
-            // Nama file berdasarkan invoice ID + timestamp
-            // $fileName = 'inv_' . $invoice['id_surat_jalan'] . '_' . time() . '.pdf';
-            // $filePath = $folderPath . $fileName;
-
-            // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-            // $mpdf->SetMargins(0, 0, 5);
-            // $html = $this->load->view('Invoice/PrintNotif', $data, true);
-            // $mpdf->AddPage('P');
-            // $mpdf->WriteHTML($html);
-            // $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
-
             // Send Message
             $id_distributor = $contact['id_distributor'];
             $nomorhp = $contact['nomorhp'];
             $nama = $contact['nama'];
-            $template_id = "bd507a74-4fdf-4692-8199-eb4ed8864bc7";
-            $message = "Berikut adalah invoice pembelian anda.";
-            $full_name = "-";
-            $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
-            $messageSj = "Berikut adalah surat jalan anda";
+            $full_name = "PT Top Mortar Indonesia";
 
-            $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+            $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+            $wa_token = $haloai['token_haloai'];
+            $business_id = $haloai['business_id_haloai'];
+            $channel_id = $haloai['channel_id_haloai'];
+            $templateInv = 'notif_materi_pdf';
 
-            $wa_token = $qontak['token'];
-            $integration_id = $qontak['integration_id'];
+            $messageInv = "Berikut adalah invoice pembelian anda.";
 
             $fileNameSearch = 'inv_' . $invoice['id_surat_jalan'];
             $files = glob(FCPATH . "assets/tmp/inv/" . $fileNameSearch . "*");
@@ -572,10 +425,31 @@ class Notif extends CI_Controller
                 // echo json_encode($replaceFilePath);
 
                 // Send Invoice
+                $haloaiPayload = [
+                    'activate_ai_after_send' => false,
+                    'channel_id' => $channel_id,
+                    "fallback_template_header" => [
+                        'filename' => $fileNameSearch,
+                        'type' => 'document',
+                        'url' => $replaceFilePath,
+                    ],
+                    'fallback_template_message' => $templateInv,
+                    'fallback_template_variables' => [
+                        trim(preg_replace('/\s+/', ' ', $messageInv)),
+                    ],
+                    "media" => [
+                        'filename' => $fileNameSearch,
+                        'type' => 'document',
+                        'url' => $replaceFilePath,
+                    ],
+                    'phone_number' => $nomorhp,
+                    'text' => trim(preg_replace('/\s+/', ' ', $messageInv)),
+                ];
+
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                    CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -583,104 +457,40 @@ class Notif extends CI_Controller
                     CURLOPT_FOLLOWLOCATION => true,
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                     CURLOPT_CUSTOMREQUEST => 'POST',
-                    CURLOPT_POSTFIELDS => '{
-                                "to_number": "' . $nomorhp . '",
-                                "to_name": "' . $nama . '",
-                                "message_template_id": "' . $template_id . '",
-                                "channel_integration_id": "' . $integration_id . '",
-                                "language": {
-                                    "code": "id"
-                                },
-                                "parameters": {
-                                    "header":{
-                                        "format":"DOCUMENT",
-                                        "params": [
-                                            {
-                                                "key":"url",
-                                                "value":"' . $replaceFilePath . '"
-                                            },
-                                            {
-                                                "key":"filename",
-                                                "value":"' . $fileNameSearch . '"
-                                            }
-                                        ]
-                                    },
-                                    "body": [
-                                    {
-                                        "key": "1",
-                                        "value": "nama",
-                                        "value_text": "' . $nama . '"
-                                    },
-                                    {
-                                        "key": "2",
-                                        "value": "message",
-                                        "value_text": "' . trim(preg_replace('/\s+/', ' ', $message)) . '"
-                                    },
-                                    {
-                                        "key": "3",
-                                        "value": "sales",
-                                        "value_text": "' . $full_name . '"
-                                    }
-                                    ]
-                                }
-                                }',
+                    CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                     CURLOPT_HTTPHEADER => array(
                         'Authorization: Bearer ' . $wa_token,
+                        'X-HaloAI-Business-Id: ' . $business_id,
                         'Content-Type: application/json'
                     ),
                 ));
 
-                $response = curl_exec($curl);
+                $responseInv = curl_exec($curl);
 
                 curl_close($curl);
 
-                $res = json_decode($response, true);
-                $resData = $res['data'];
+                $resInv = json_decode($responseInv, true);
 
-                if ($res['status'] == 'success') {
-                    $id_msg = $resData['id'];
-                    // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
-                    $curl = curl_init();
-
-                    curl_setopt_array($curl, array(
-                        CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_msg . '/whatsapp/log',
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'GET',
-                        CURLOPT_HTTPHEADER => array(
-                            'Authorization: Bearer ' . $wa_token,
-                            'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
-                        ),
-                    ));
-
-                    $responseLog = curl_exec($curl);
-
-                    curl_close($curl);
-
-                    $resLog = json_decode($responseLog, true);
-                    $logData = $resLog['data'][0];
-
-                    if ($logData['status'] != 'failed') {
-                        $notifInvoiceData = [
-                            'id_surat_jalan' => $id_surat_jalan,
-                            'id_msg' => $id_msg,
-                            'is_sent' => 1,
-                        ];
-
-                        $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'inv']);
-                    }
-
-                    $result = [
-                        'code' => 200,
-                        'status' => 'ok',
-                        'detail' => $res
+                if ($resInv['status'] == 'error') {
+                    $dataNotif = [
+                        'is_sent' => 0
                     ];
 
-                    $this->output->set_output(json_encode($result));
+                    $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'inv']);
+                } else {
+                    if ($resInv['delivery_status'] == 'success') {
+                        $dataNotif = [
+                            'is_sent' => 1
+                        ];
+
+                        $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'inv']);
+                    } else {
+                        $dataNotif = [
+                            'is_sent' => 0
+                        ];
+
+                        $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'inv']);
+                    }
                 }
             }
         }
@@ -690,7 +500,6 @@ class Notif extends CI_Controller
     {
         $this->output->set_content_type('application/json');
 
-        // $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
         $notifInvoices = $this->db->get_where('tb_notif_invoice', ['is_sent' => 0, 'type_notif_invoice' => 'sj'])->result_array();
 
         foreach ($notifInvoices as $notifInvoice) {
@@ -715,21 +524,41 @@ class Notif extends CI_Controller
             $id_distributor = $contact['id_distributor'];
             $nomorhp = $contact['nomorhp'];
             $nama = $contact['nama'];
-            $templateSj = "7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841";
+
+            $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+            $wa_token = $haloai['token_haloai'];
+            $business_id = $haloai['business_id_haloai'];
+            $channel_id = $haloai['channel_id_haloai'];
+            $templateSj = 'notif_materi_img';
+
             $messageSj = "Berikut adalah surat jalan anda";
 
-            $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
-
-            $wa_token = $qontak['token'];
-            $integration_id = $qontak['integration_id'];
-
-            // if ($files) {
-
             // Send SJ
+            $haloaiPayload = [
+                'activate_ai_after_send' => false,
+                'channel_id' => $channel_id,
+                "fallback_template_header" => [
+                    'filename' => $invoice['proofClosing'],
+                    'type' => 'image',
+                    'url' => $proofClosing,
+                ],
+                'fallback_template_message' => $templateSj,
+                'fallback_template_variables' => [
+                    trim(preg_replace('/\s+/', ' ', $messageSj)),
+                ],
+                "media" => [
+                    'filename' => $invoice['proofClosing'],
+                    'type' => 'image',
+                    'url' => $proofClosing,
+                ],
+                'phone_number' => $nomorhp,
+                'text' => trim(preg_replace('/\s+/', ' ', $messageSj)),
+            ];
+
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -737,96 +566,41 @@ class Notif extends CI_Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
-                        "to_number": "' . $nomorhp . '",
-                        "to_name": "' . $nama . '",
-                        "message_template_id": "' . $templateSj . '",
-                        "channel_integration_id": "' . $integration_id . '",
-                        "language": {
-                            "code": "id"
-                        },
-                        "parameters": {
-                            "header":{
-                                "format":"IMAGE",
-                                "params": [
-                                    {
-                                        "key":"url",
-                                        "value":"' . $proofClosing . '"
-                                    },
-                                    {
-                                        "key":"filename",
-                                        "value":"' . $invoice['proof_closing'] . '"
-                                    }
-                                ]
-                            },
-                            "body": [
-                            {
-                                "key": "1",
-                                "value": "message",
-                                "value_text": "' . trim(preg_replace('/\s+/', ' ', $messageSj)) . '"
-                            }
-                            ]
-                        }
-                        }',
+                CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                 CURLOPT_HTTPHEADER => array(
                     'Authorization: Bearer ' . $wa_token,
+                    'X-HaloAI-Business-Id: ' . $business_id,
                     'Content-Type: application/json'
                 ),
             ));
 
-            $response = curl_exec($curl);
+            $responseSj = curl_exec($curl);
 
             curl_close($curl);
 
-            $res = json_decode($response, true);
-            $resData = $res['data'];
+            $resSj = json_decode($responseSj, true);
 
-            if ($res['status'] == 'success') {
-                $id_msg = $resData['id'];
-                // Cek Log 5f70dd63-7959-4a1c-8e52-e65a1eb40487
-                $curl = curl_init();
-
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/' . $id_msg . '/whatsapp/log',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Authorization: Bearer ' . $wa_token,
-                        'Cookie: incap_ses_1756_2992082=Ox9FXS1ko3Vikf0LFJFeGKGyt2gAAAAAQXScjKXeLICe/UQF78vzGQ==; incap_ses_219_2992082=4GjPNG8+XzA1Rt4quwsKA4G1u2gAAAAAWfhLh+XsD0Bo64qAFthTLg==; nlbi_2992082=EiQRTKjoCUbRUjeX3B9AyAAAAAAMWeh7AVkdVtlwZ+4p2rGi; visid_incap_2992082=loW+JnDtRgOZqqa55tsRH55YmWgAAAAAQUIPAAAAAADOFD/DW2Yv8YwghY/luI5g'
-                    ),
-                ));
-
-                $responseLog = curl_exec($curl);
-
-                curl_close($curl);
-
-                $resLog = json_decode($responseLog, true);
-                $logData = $resLog['data'][0];
-
-                if ($logData['status'] != 'failed') {
-                    $notifInvoiceData = [
-                        'id_surat_jalan' => $id_surat_jalan,
-                        'id_msg' => $id_msg,
-                        'is_sent' => 1,
-                    ];
-
-                    $this->db->update('tb_notif_invoice', $notifInvoiceData, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'sj']);
-                }
-
-                $result = [
-                    'code' => 200,
-                    'status' => 'ok',
-                    'detail' => $res
+            if ($resSj['status'] == 'error') {
+                $dataNotif = [
+                    'is_sent' => 0
                 ];
 
-                $this->output->set_output(json_encode($result));
+                $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'sj']);
+            } else {
+                if ($resSj['delivery_status'] == 'success') {
+                    $dataNotif = [
+                        'is_sent' => 1
+                    ];
+
+                    $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'sj']);
+                } else {
+                    $dataNotif = [
+                        'is_sent' => 0
+                    ];
+
+                    $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'sj']);
+                }
             }
-            // }
         }
     }
 
