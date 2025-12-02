@@ -159,7 +159,7 @@ class Notif extends CI_Controller
 
             $this->db->insert('tb_notif_invoice', $dataNotif);
         } else {
-            if ($resSj['delivery_status'] == 'success') {
+            if ($resSj['delivery_status'] != 'failed') {
                 $dataNotif = [
                     'id_surat_jalan' => $invoice['id_surat_jalan'],
                     'type_notif_invoice' => 'sj',
@@ -241,7 +241,7 @@ class Notif extends CI_Controller
 
             $this->db->insert('tb_notif_invoice', $dataNotif);
         } else {
-            if ($resInv['delivery_status'] == 'success') {
+            if ($resInv['delivery_status'] != 'failed') {
                 $dataNotif = [
                     'id_surat_jalan' => $invoice['id_surat_jalan'],
                     'type_notif_invoice' => 'inv',
@@ -351,7 +351,7 @@ class Notif extends CI_Controller
             $resInv = json_decode($responseInv, true);
 
             if ($resInv['status'] == 'success') {
-                if ($resInv['delivery_status'] == 'success') {
+                if ($resInv['delivery_status'] != 'failed') {
                     $result = [
                         'code' => 200,
                         'status' => 'ok',
@@ -478,7 +478,7 @@ class Notif extends CI_Controller
 
                     $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'inv']);
                 } else {
-                    if ($resInv['delivery_status'] == 'success') {
+                    if ($resInv['delivery_status'] != 'failed') {
                         $dataNotif = [
                             'is_sent' => 1
                         ];
@@ -587,7 +587,7 @@ class Notif extends CI_Controller
 
                 $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'sj']);
             } else {
-                if ($resSj['delivery_status'] == 'success') {
+                if ($resSj['delivery_status'] != 'failed') {
                     $dataNotif = [
                         'is_sent' => 1
                     ];
