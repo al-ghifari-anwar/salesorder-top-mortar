@@ -76,6 +76,7 @@ class Notif extends CI_Controller
         // Nama file berdasarkan invoice ID + timestamp
         $fileNameInv = 'inv_' . $invoice['id_surat_jalan'] . '_' . time() . '.pdf';
         $filePathInv = $folderPathInv . $fileNameInv;
+        $fileUrlInv = "https://order.topmortarindonesia.com/assets/tmp/inv/" . $fileNameInv;
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
@@ -188,7 +189,7 @@ class Notif extends CI_Controller
             'activate_ai_after_send' => false,
             'channel_id' => $channel_id,
             "fallback_template_header" => [
-                'filename' => $fileNameInv,
+                'filename' => $fileUrlInv,
                 'type' => 'document',
                 'url' => $filePathInv,
             ],
@@ -197,7 +198,7 @@ class Notif extends CI_Controller
                 trim(preg_replace('/\s+/', ' ', $messageInv)),
             ],
             "media" => [
-                'filename' => $fileNameInv,
+                'filename' => $fileUrlInv,
                 'type' => 'document',
                 'url' => $filePathInv,
             ],
@@ -234,7 +235,7 @@ class Notif extends CI_Controller
             $dataNotif = [
                 'id_surat_jalan' => $invoice['id_surat_jalan'],
                 'type_notif_invoice' => 'inv',
-                'file_notif_invoice' => $filePathInv,
+                'file_notif_invoice' => $fileUrlInv,
                 'id_msg' => '-',
                 'is_sent' => 0
             ];
@@ -245,7 +246,7 @@ class Notif extends CI_Controller
                 $dataNotif = [
                     'id_surat_jalan' => $invoice['id_surat_jalan'],
                     'type_notif_invoice' => 'inv',
-                    'file_notif_invoice' => $filePathInv,
+                    'file_notif_invoice' => $fileUrlInv,
                     'id_msg' => '-',
                     'is_sent' => 1
                 ];
@@ -255,7 +256,7 @@ class Notif extends CI_Controller
                 $dataNotif = [
                     'id_surat_jalan' => $invoice['id_surat_jalan'],
                     'type_notif_invoice' => 'inv',
-                    'file_notif_invoice' => $filePathInv,
+                    'file_notif_invoice' => $fileUrlInv,
                     'id_msg' => '-',
                     'is_sent' => 0
                 ];
