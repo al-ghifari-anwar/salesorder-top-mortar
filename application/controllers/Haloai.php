@@ -101,6 +101,8 @@ class Haloai extends CI_Controller
 
         $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
 
+        $this->db->trans_begin();
+
         $webhookOrderData = [
             'json_webhook_order' => json_encode($post),
             'created_at' => date('Y-m-d H:i:s'),
@@ -194,7 +196,16 @@ class Haloai extends CI_Controller
                 }
             }
 
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                return $this->output->set_status_header(500);
+            } else {
+                $this->db->trans_commit();
+                return $this->output->set_status_header(200);
+            }
+
             $detailSuratJalan = $this->db->select('COUNT(*) as jml_detail')->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
+
 
             if ($detailSuratJalan == 0 || $detailSuratJalan == null) {
                 $this->db->delete('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan]);
