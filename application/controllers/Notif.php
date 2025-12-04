@@ -472,6 +472,14 @@ class Notif extends CI_Controller
 
                 $resInv = json_decode($responseInv, true);
 
+                if (!isset($resInv['status'])) {
+                    $dataNotif = [
+                        'is_sent' => 0
+                    ];
+
+                    $this->db->update('tb_notif_invoice', $dataNotif, ['id_surat_jalan' => $id_surat_jalan, 'type_notif_invoice' => 'inv']);
+                }
+
                 if ($resInv['status'] == 'error') {
                     $dataNotif = [
                         'is_sent' => 0
