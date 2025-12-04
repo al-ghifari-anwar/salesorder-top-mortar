@@ -107,7 +107,7 @@ class Notif extends CI_Controller
             'activate_ai_after_send' => false,
             'channel_id' => $channel_id,
             "fallback_template_header" => [
-                'filename' => $invoice['proofClosing'],
+                'filename' => $invoice['proof_closing'],
                 'type' => 'image',
                 'url' => $proofClosing,
             ],
@@ -116,7 +116,7 @@ class Notif extends CI_Controller
                 trim(preg_replace('/\s+/', ' ', $messageSj)),
             ],
             "media" => [
-                'filename' => $invoice['proofClosing'],
+                'filename' => $invoice['proof_closing'],
                 'type' => 'image',
                 'url' => $proofClosing,
             ],
@@ -539,7 +539,7 @@ class Notif extends CI_Controller
                 'activate_ai_after_send' => false,
                 'channel_id' => $channel_id,
                 "fallback_template_header" => [
-                    'filename' => $invoice['proofClosing'],
+                    'filename' => $invoice['proof_closing'],
                     'type' => 'image',
                     'url' => $proofClosing,
                 ],
@@ -548,7 +548,7 @@ class Notif extends CI_Controller
                     trim(preg_replace('/\s+/', ' ', $messageSj)),
                 ],
                 "media" => [
-                    'filename' => $invoice['proofClosing'],
+                    'filename' => $invoice['proof_closing'],
                     'type' => 'image',
                     'url' => $proofClosing,
                 ],
