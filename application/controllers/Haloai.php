@@ -167,7 +167,7 @@ class Haloai extends CI_Controller
                 $nama_produk = $webhookProduct['Nama Barang'];
                 $qty = $webhookProduct['Quantity'];
 
-                $produk = $this->db->get_where('tb_produk', ['id_city' => $id_city, 'nama_produk' => $nama_produk])->row_array();
+                $produk = $this->db->where('id_city', $id_city)->like('nama_produk', $nama_produk)->or_like('slang_produk', $nama_produk)->get('tb_produk')->row_array();
 
                 $sjDetailData = [
                     'id_surat_jalan' => $id_surat_jalan,
