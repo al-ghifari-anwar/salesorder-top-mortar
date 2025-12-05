@@ -101,6 +101,12 @@ class Haloai extends CI_Controller
 
         $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
 
+        $webhookProducts = json_decode($post['ticket']['data']['daftar_pemesanan'], true);
+
+        if (empty($webhookProducts)) {
+            return $this->output->set_status_header(500);
+        }
+
         $this->db->trans_begin();
 
         $webhookOrderData = [
