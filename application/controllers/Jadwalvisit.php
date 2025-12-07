@@ -16,6 +16,7 @@ class Jadwalvisit extends CI_Controller
         $this->load->model('MVisit');
         $this->load->model('MRenvi');
         $this->load->model('MInvoice');
+        $this->load->model('HTelegram');
         $this->load->library('form_validation');
     }
 
@@ -1005,5 +1006,233 @@ class Jadwalvisit extends CI_Controller
                 }
             }
         }
+    }
+
+    public function sendNotif()
+    {
+        $this->output->set_content_type('application/json');
+
+        $chatId = "-5015093066";
+
+        $date = date('Y-m-d');
+
+        $citys = $this->db->where_in('id_distributor', [1, 7])->get('tb_city')->result_array();
+
+        $resposneTele = array();
+
+        foreach ($citys as $city) {
+            $id_city = $city['id_city'];
+
+            $id_city = $_GET['ct'];
+
+            $data['city'] = $this->MCity->getById($id_city);
+
+            $cluster = 0;
+            $minDayCluster = 0;
+            if (date('D') == 'Mon' || date('D') == 'Thu') {
+                $cluster = 1;
+            } else if (date('D') == 'Tue' || date('D') == 'Fri') {
+                $cluster = 2;
+            } else if (date('D') == 'Wed' || date('D') == 'Sat') {
+                $cluster = 3;
+            }
+
+            if (date('D') == 'Mon') {
+                $minDayCluster = 4;
+                $dayName = 'senin';
+            } else if (date('D') == 'Tue') {
+                $minDayCluster = 4;
+                $dayName = 'selasa';
+            } else if (date('D') == 'Wed') {
+                $minDayCluster = 4;
+                $dayName = 'rabu';
+            } else if (date('D') == 'Thu') {
+                $minDayCluster = 3;
+                $dayName = 'kamis';
+            } else if (date('D') == 'Fri') {
+                $minDayCluster = 3;
+                $dayName = 'jumat';
+            } else if (date('D') == 'Sat') {
+                $minDayCluster = 3;
+                $dayName = 'sabtu';
+            }
+
+            $data['cluster'] = $cluster;
+            $data['dayName'] = $dayName;
+            $data['minDayCluster'] = $minDayCluster;
+
+            $jatem1s = $this->MRenvi->getJatem1($id_city);
+            $jatem2s = $this->MRenvi->getJatem2($id_city);
+            $jatem3s = $this->MRenvi->getJatem3($id_city);
+            $mingguans = $this->MRenvi->getMingguan($id_city);
+            $passives = $this->MRenvi->getPassive($id_city);
+
+            $renvis = array();
+            $renvisPassives = array();
+
+            foreach ($jatem1s as $jatem1) {
+                $id_inv = $jatem1['id_invoice'];
+                $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem1'")->row_array();
+                $jatuhTempo = date('d M Y', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
+                $jatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($jatuhTempo);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+                $jatem1['days'] = $days;
+                $jatem1['jatuh_tempo'] = $jatuhTempo;
+                $jatem1['jatem'] = $jatem;
+                $jatem1['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+                $id_con = $jatem1['id_contact'];
+                $dateJatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
+                //  AND DATE(date_visit) >= '$dateJatem'
+                $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                $created_at = $jatem1['created_at'];
+                $jatem1['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+                $renvis[] = $jatem1;
+            }
+
+            foreach ($jatem2s as $jatem2) {
+                $id_inv = $jatem2['id_invoice'];
+                $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem2'")->row_array();
+                $jatuhTempo = date('d M Y', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
+                $jatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($jatuhTempo);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+                $jatem2['days'] = $days;
+                $jatem2['jatuh_tempo'] = $jatuhTempo;
+                $jatem2['jatem'] = $jatem;
+                $jatem2['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+                $id_con = $jatem2['id_contact'];
+                $dateJatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
+                //  AND DATE(date_visit) >= '$dateJatem'
+                $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                $created_at = $jatem2['created_at'];
+                $jatem2['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+                $renvis[] = $jatem2;
+            }
+
+            foreach ($jatem3s as $jatem3) {
+                $id_inv = $jatem3['id_invoice'];
+                $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
+                $jatuhTempo = date('d M Y', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
+                $jatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($jatuhTempo);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+                $jatem3['days'] = $days;
+                $jatem3['jatuh_tempo'] = $jatuhTempo;
+                $jatem3['jatem'] = $jatem;
+                $jatem3['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+                $id_con = $jatem3['id_contact'];
+                $dateJatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
+                //  AND DATE(date_visit) >= '$dateJatem'
+                $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                $created_at = $jatem3['created_at'];
+                $jatem3['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+                $renvis[] = $jatem3;
+            }
+
+            foreach ($mingguans as $mingguan) {
+                $id_inv = $mingguan['id_invoice'];
+                $mingguan['id_renvis_jatem'] = $mingguan['id_rencana_visit'];
+                $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
+                $jatuhTempo = date('d M Y', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+                $jatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($jatuhTempo);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+                $mingguan['days'] = $days;
+                $mingguan['jatuh_tempo'] = $jatuhTempo;
+                $mingguan['jatem'] = $jatem;
+                $mingguan['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+                $id_con = $mingguan['id_contact'];
+                $dateJatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+                // $dateInvoice = date('Y-m-d', strtotime($mingguan['date_invoice']));
+                //  AND DATE(date_visit) >= '$dateJatem'
+                $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                $created_at = $mingguan['created_at'];
+                $mingguan['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+                $mingguan['type_renvis'] = $mingguan['type_rencana'];
+                $renvis[] = $mingguan;
+            }
+
+            foreach ($passives as $passive) {
+                $id_con = $passive['id_contact'];
+                $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_rencana_visit WHERE id_contact = '$id_con' AND type_rencana = 'passive'")->row_array();
+                $date_margin = date("Y-m-d", strtotime("-1 month"));
+                $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','voucher','passive','renvisales','normal') AND date_visit >= '$date_margin' ORDER BY date_visit DESC LIMIT 1")->row_array();
+                $passive['last_visit'] = $lastVisit == null ? '0000-00-00' : $lastVisit['date_visit'];
+                $created_at = $passive['created_at'];
+                $passive['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+                $passive['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+                $passive['type_renvis'] = $passive['type_rencana'];
+
+                $getBadScore = $this->db->query("SELECT * FROM tb_bad_score WHERE id_contact = '$id_con'")->row_array();
+
+                if ($getBadScore) {
+                    if ($getBadScore['is_approved'] != 1) {
+                        $renvisPassives[] = $passive;
+                    }
+                } else {
+                    $renvisPassives[] = $passive;
+                }
+            }
+
+            $data['renvis'] = $renvis;
+            $data['renvisPassives'] = $renvisPassives;
+
+            // $this->load->view('Jadwalvisit/Print', $data);
+
+            // Buat direktori penyimpanan sementara
+            $folderPath = FCPATH . 'assets/tmp/jadwal_visit/';
+            // Nama file berdasarkan invoice ID + timestamp
+            $fileName = "jadwal_visit_" . $city['nama_city'] . '_' . date('d F Y') . '_' . time() . '.pdf';
+            $filePath = $folderPath . $fileName;
+            $fileUrl = "https://order.topmortarindonesia.com/assets/tmp/jadwal_visit/" . $fileName;
+
+            $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+            $mpdf->SetMargins(0, 0, 5);
+            $html = $this->load->view('Jadwalvisit/Print', $data, true);
+            $mpdf->AddPage('L');
+            $mpdf->WriteHTML($html);
+            // $mpdf->Output();
+            $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
+
+            $message = "*Jadwal Visit*\nKota: *" . $city['nama_city'] . "*\nTanggal: *" . date('d F Y') . "*";
+
+            $send = $this->HTelegram->sendDocumentGroup($chatId, $message, $fileUrl);
+
+            array_push($resposneTele, $send);
+        }
+
+        $result = [
+            'code' => 200,
+            'status' => 'ok',
+            'msg' => 'Success',
+            'data' => $resposneTele,
+        ];
+
+        return $this->output->set_output(json_encode($result));
     }
 }

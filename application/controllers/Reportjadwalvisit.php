@@ -99,7 +99,7 @@ class Reportjadwalvisit extends CI_Controller
 
         $chatId = "-5015093066";
 
-        $date = '2025-12-06';
+        $date = date('Y-m-d');
 
         $citys = $this->db->where_in('id_distributor', [1, 7])->get('tb_city')->result_array();
 
@@ -157,7 +157,7 @@ class Reportjadwalvisit extends CI_Controller
             // $mpdf->Output();
             $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
 
-            $message = "**Jadwal Visit**\nKota: **" . $city['nama_city'] . "**\nTanggal: **" . date('d F Y') . "**";
+            $message = "*Report Jadwal Visit*\nKota: *" . $city['nama_city'] . "*\nTanggal: *" . date('d F Y') . "*";
 
             $send = $this->HTelegram->sendDocumentGroup($chatId, $message, $fileUrl);
 
