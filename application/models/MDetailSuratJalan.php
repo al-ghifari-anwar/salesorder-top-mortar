@@ -311,7 +311,7 @@ class MDetailSuratJalan extends CI_Model
                 // echo json_encode($cekProdukVc);
                 // die;
                 if ($cekProdukVc != null) {
-                    $this->db->where_in('no_voucher', $no_voucher);
+                    $this->db->where_in('no_voucher', explode(',', $no_voucher));
                     $this->db->update('tb_voucher', ['is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
 
                     $this->session->set_flashdata('failed', "Produk dengan voucher telah ditambahkan, tidak bisa menambahkan lagi!");

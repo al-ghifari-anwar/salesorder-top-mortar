@@ -91,4 +91,9 @@ class Reportjadwalvisit extends CI_Controller
 
         // $user = $this->db->get_where('tb_user', ['id_user' => $this->session->userdata('id_user')])->row_array();
     }
+
+    public function sendNotif()
+    {
+        $telegramToken = "8225309963:AAGOiK8LOL_XcdNxixi3RJ50Y4C9b_fLhDc";
+    }
 }
