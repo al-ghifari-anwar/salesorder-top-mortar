@@ -202,22 +202,40 @@ class Haloai extends CI_Controller
                 $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
 
                 if ($id_promo != 0) {
-                    $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+                    if ($produk['is_default_promo'] == 1) {
+                        $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
 
-                    $multiplier = $qty / $promo['kelipatan_promo'];
+                        $multiplier = $qty / $promo['kelipatan_promo'];
 
-                    if (floor($multiplier) > 0) {
-                        $sjDetailData = [
-                            'id_surat_jalan' => $id_surat_jalan,
-                            'id_produk' => $produk['id_produk'],
-                            'price' => $produk['harga_produk'],
-                            'qty_produk' => floor($multiplier) * $promo['bonus_promo'],
-                            'amount' => 0,
-                            'is_bonus' => 1,
-                            'created_at' => date('Y-m-d H:i:s'),
-                        ];
+                        if (floor($multiplier) > 0) {
+                            $sjDetailData = [
+                                'id_surat_jalan' => $id_surat_jalan,
+                                'id_produk' => $produk['id_produk'],
+                                'price' => $produk['harga_produk'],
+                                'qty_produk' => floor($multiplier) * $promo['bonus_promo'],
+                                'amount' => 0,
+                                'is_bonus' => 1,
+                                'created_at' => date('Y-m-d H:i:s'),
+                            ];
 
-                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                            $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                        }
+                    } else {
+                        $multiplier = $qty / $produk['kelipatan_promo'];
+
+                        if (floor($multiplier) > 0) {
+                            $sjDetailData = [
+                                'id_surat_jalan' => $id_surat_jalan,
+                                'id_produk' => $produk['id_produk'],
+                                'price' => $produk['harga_produk'],
+                                'qty_produk' => floor($multiplier) * $produk['bonus_promo'],
+                                'amount' => 0,
+                                'is_bonus' => 1,
+                                'created_at' => date('Y-m-d H:i:s'),
+                            ];
+
+                            $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                        }
                     }
                 }
             }
