@@ -31,5 +31,7 @@ class HTelegram extends CI_Model
         $response = curl_exec($curl);
 
         curl_close($curl);
+
+        return json_decode($response, true);
     }
 }

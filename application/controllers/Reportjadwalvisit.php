@@ -95,11 +95,15 @@ class Reportjadwalvisit extends CI_Controller
 
     public function sendNotif()
     {
+        $this->output->set_content_type('application/json');
+
         $chatId = "-5015093066";
 
         $date = '2025-12-06';
 
         $citys = $this->db->where_in('id_distributor', [1, 7])->get('tb_city')->result_array();
+
+        $resposneTele = array();
 
         foreach ($citys as $city) {
             $id_city = $city['id_city'];
@@ -155,7 +159,18 @@ class Reportjadwalvisit extends CI_Controller
 
             $message = "**Jadwal Visit**\nKota: **" . $city['nama_city'] . "**\nTanggal: **" . date('d F Y') . "**";
 
-            $this->HTelegram->sendDocumentGroup($chatId, $message, $fileUrl);
+            $send = $this->HTelegram->sendDocumentGroup($chatId, $message, $fileUrl);
+
+            array_push($resposneTele, $send);
         }
+
+        $result = [
+            'code' => 200,
+            'status' => 'ok',
+            'msg' => 'Success',
+            'data' => $resposneTele,
+        ];
+
+        return $this->output->set_output(json_encode($result));
     }
 }
