@@ -1016,7 +1016,7 @@ class Jadwalvisit extends CI_Controller
 
         $date = date('Y-m-d');
 
-        $citys = $this->db->where_in('id_distributor', [1, 7])->get('tb_city')->result_array();
+        $citys = $this->db->where('is_notif_jadwal', 1)->get('tb_city')->result_array();
 
         $resposneTele = array();
 
