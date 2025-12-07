@@ -1,0 +1,35 @@
+<?php
+
+
+class HTelegram extends CI_Model
+{
+    public function sendDocumentGroup($chatId, $message, $documentUrl)
+    {
+        $curl = curl_init();
+
+        $telegramPayload = [
+            'chat_id' => $chatId,
+            'document' => $documentUrl,
+            'caption' => $message,
+        ];
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.telegram.org/bot8225309963:AAGOiK8LOL_XcdNxixi3RJ50Y4C9b_fLhDc/sendDocument',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($telegramPayload),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+    }
+}
