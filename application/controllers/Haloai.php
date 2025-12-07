@@ -75,7 +75,7 @@ class Haloai extends CI_Controller
 
             $contact['promo_global'] = $promo ? $promo['nama_promo'] : null;
 
-            $produks = $this->db->select('nama_produk, name_satuan, harga_produk, slang_produk, is_default_promo, kelipatan_promo, bonus_promo')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $contact['id_city'])->get('tb_produk')->result_array();
+            $produks = $this->db->select('nama_produk, name_satuan, harga_produk, slang_produk, is_default_promo, kelipatan_promo, bonus_promo, img_master_produk')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $contact['id_city'])->get('tb_produk')->result_array();
 
             $arrayProduks = array();
 
@@ -92,6 +92,7 @@ class Haloai extends CI_Controller
                     'harga_produk' => $produk['harga_produk'],
                     'slang_produk' => $produk['slang_produk'],
                     'promo_spesifik' => $promoProduk,
+                    'image_produk' => $produk['img_master_produk'],
                 ];
 
                 array_push($arrayProduks, $produkData);
