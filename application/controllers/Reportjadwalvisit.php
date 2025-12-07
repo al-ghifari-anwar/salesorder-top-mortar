@@ -97,7 +97,7 @@ class Reportjadwalvisit extends CI_Controller
     {
         $chatId = "-5015093066";
 
-        $date = $_GET['date'];
+        $date = '2025-12-06';
 
         $citys = $this->db->where_in('id_distributor', [1, 7])->get('tb_city');
 
