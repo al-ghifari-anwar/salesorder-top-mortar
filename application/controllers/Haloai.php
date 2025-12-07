@@ -97,7 +97,7 @@ class Haloai extends CI_Controller
                 array_push($arrayProduks, $produkData);
             }
 
-            $contact['catalog_produks'] = $produks;
+            $contact['catalog_produks'] = $arrayProduks;
 
             $contact['ongoing_order'] = $suratJalan;
 
