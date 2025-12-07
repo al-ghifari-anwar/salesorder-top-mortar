@@ -99,7 +99,7 @@ class Reportjadwalvisit extends CI_Controller
 
         $date = '2025-12-06';
 
-        $citys = $this->db->where_in('id_distributor', [1, 7])->get('tb_city');
+        $citys = $this->db->where_in('id_distributor', [1, 7])->get('tb_city')->result_array();
 
         foreach ($citys as $city) {
             $id_city = $city['id_city'];
