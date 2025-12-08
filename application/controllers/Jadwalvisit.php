@@ -1023,8 +1023,6 @@ class Jadwalvisit extends CI_Controller
         foreach ($citys as $city) {
             $id_city = $city['id_city'];
 
-            $id_city = $_GET['ct'];
-
             $data['city'] = $this->MCity->getById($id_city);
 
             $cluster = 0;
