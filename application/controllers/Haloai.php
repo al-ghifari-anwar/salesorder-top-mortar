@@ -144,6 +144,8 @@ class Haloai extends CI_Controller
 
         $contact = $this->MContact->getByNomorhp($nomorhp);
 
+        $termin_payment = $contact['termin_payment'];
+
         $id_distributor = $contact['id_distributor'];
 
         $id_city = $contact['id_city'];
@@ -173,6 +175,7 @@ class Haloai extends CI_Controller
             'id_courier' => $id_courier,
             'id_kendaraan' => 2,
             'is_finished' => 1,
+            'is_cod' => ($termin_payment >= 0 && $termin_payment < 3) ? 1 : 0,
         ];
 
         $save = $this->db->insert('tb_surat_jalan', $sjData);
