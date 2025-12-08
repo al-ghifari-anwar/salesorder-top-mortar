@@ -157,7 +157,7 @@ class Haloai extends CI_Controller
         if ($courier) {
             $id_courier = $courier['id_user'];
         } else {
-            $courier = $this->MUser->getCourierByCityGroup($contact['nama_city']);
+            $courier = $this->MUser->getCourierByCityGroup(trim(preg_replace("/\\d+/", "", $contact['nama_city'])));
             $id_courier = $courier['id_user'];
             // 
         }
