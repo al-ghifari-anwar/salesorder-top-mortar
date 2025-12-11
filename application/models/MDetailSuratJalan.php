@@ -294,6 +294,8 @@ class MDetailSuratJalan extends CI_Model
             $this->is_bonus = 2;
         }
 
+        $no_voucher = "";
+        $id_surat_jalan = $this->id_surat_jalan;
         if ($is_voucher == true) {
             $jmlVoucher = $post['jml_voucher'];
             if ($this->qty_produk > $jmlVoucher) {
@@ -323,6 +325,20 @@ class MDetailSuratJalan extends CI_Model
         $query = $this->db->insert('tb_detail_surat_jalan', $this);
 
         if ($query) {
+            if (!empty($no_voucher)) {
+                $cekProdukVc = $this->db->where('id_surat_jalan', $id_surat_jalan)->where_in('no_voucher', explode(',', $no_voucher))->get('tb_detail_surat_jalan');
+
+                // echo json_encode($cekProdukVc);
+                // die;
+                if ($cekProdukVc != null) {
+                    $this->db->where_in('no_voucher', explode(',', $no_voucher));
+                    $this->db->update('tb_voucher', ['is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
+
+                    $this->session->set_flashdata('failed', "Produk dengan voucher telah ditambahkan, tidak bisa menambahkan lagi!");
+                    redirect('surat-jalan/' . $this->id_surat_jalan);
+                }
+            }
+
             $this->session->set_flashdata('success', "Berhasil Sisa Stok Bebas:" . $currentStok - $post['qty_produk']);
             redirect('surat-jalan/' . $this->id_surat_jalan);
         } else {
