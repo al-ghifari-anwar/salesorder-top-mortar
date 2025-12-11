@@ -419,9 +419,17 @@ class MDetailSuratJalan extends CI_Model
 
     public function delete($id)
     {
+        $detailSj = $this->db->get_where('tb_detail_surat_jalan', ['id_detail_surat_jalan' => $id])->row_array();
+
         $query = $this->db->delete('tb_detail_surat_jalan', ['id_detail_surat_jalan' => $id]);
 
         if ($query) {
+            if (!empty($detailSj['no_voucher'])) {
+                $no_voucher = explode(',', $detailSj['no_voucher']);
+
+                $this->db->where_in('no_voucher', $no_voucher);
+                $this->db->update('tb_voucher', ['is_used' => 0, 'used_date' => null]);
+            }
             return true;
         } else {
             return false;
