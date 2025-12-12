@@ -26,8 +26,13 @@ class Renvis extends CI_Controller
         $data['title'] = 'Rencana Visit';
         $data['menuGroup'] = 'InputRenvi';
         $data['menu'] = 'Renvis';
+
         if ($this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'sales') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else if ($this->session->userdata('level_user') == 'salesspv') {
+            $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
+            $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
+            $data['city'] = $this->db->like('nama_city', $nama_city)->get('tb_city')->result_array();
         } else {
             $data['city'] = $this->MCity->getAll();
         }
