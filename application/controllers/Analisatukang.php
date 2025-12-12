@@ -64,6 +64,13 @@ class Analisatukang extends CI_Controller
         $data['title'] = 'Rekap Target Tukang';
         $data['menuGroup'] = 'AnalisaTukang';
         $data['menu'] = 'Rekap';
+        $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
+
+        $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
+        if ($this->session->userdata('level_user') == 'salesspv') {
+            $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
+            $this->db->like('nama_city', $nama_city);
+        }
         $this->db->where("level_user IN ('penagihan', 'sales', 'marketing')", NULL, FALSE);
         $data['users'] = $this->db->get_where('tb_user', ['password !=' => '0', 'is_add_tukang' => 1])->result_array();
 
