@@ -73,7 +73,7 @@ class Haloai extends CI_Controller
 
             $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
 
-            $contact['kota'] = $city;
+            $contact['kota'] = $city['nama_city'];
 
             $contact['promo_global'] = $promo ? $promo['nama_promo'] : null;
 
