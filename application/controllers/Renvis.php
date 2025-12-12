@@ -32,7 +32,7 @@ class Renvis extends CI_Controller
         } else if ($this->session->userdata('level_user') == 'salesspv') {
             $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
             $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
-            $data['city'] = $this->db->like('nama_city', $nama_city)->get('tb_city')->result_array();
+            $data['city'] = $this->db->like('nama_city', $nama_city)->get_where('tb_city', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         } else {
             $data['city'] = $this->MCity->getAll();
         }
