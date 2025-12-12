@@ -28,7 +28,17 @@ class Analisa extends CI_Controller
 
         $id_city = $this->input->post("id_city");
 
-        $data['citys'] = $this->MCity->getAll();
+        // $data['citys'] = $this->MCity->getAll();
+        if ($this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'sales') {
+            $data['citys'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else if ($this->session->userdata('level_user') == 'salesspv') {
+            $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
+            $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
+            $data['citys'] = $this->db->like('nama_city', $nama_city)->get_where('tb_city', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        } else {
+            $data['citys'] = $this->MCity->getAll();
+        }
+
         $data['contacts'] = $this->MContact->getAllByStatus('passive');
         $data['selected_city'] = ['id_city' => '0', 'nama_city' => 'Keseluruhan'];
 
