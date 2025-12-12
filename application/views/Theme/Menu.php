@@ -624,97 +624,101 @@
                             <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'courier' || $this->session->userdata('level_user') == 'salesspv') : ?>
 
-                                <li class="nav-item <?= $menuGroup == 'SJ' ? 'menu-open' : '' ?>">
-                                    <a href="#" class="nav-link <?= $menuGroup == 'SJ' ? 'active' : '' ?>">
-                                        <i class="nav-icon fas fa-file"></i>
-                                        <p>
-                                            Surat Jalan
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('apporder') ?>" class="nav-link <?= $menu == 'Apporder' ? 'active' : '' ?>">
-                                                <i class="nav-icon fas fa-shopping-bag"></i>
-                                                <p>
-                                                    Pesanan Top Seller
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('surat-jalan') ?>" class="nav-link  <?= $menu == 'SJ' ? 'active' : '' ?>">
-                                                <i class="nav-icon fas fa-th"></i>
-                                                <p>
-                                                    Surat Jalan
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('sj-not-closing') ?>" class="nav-link <?= $menu == 'NotClosing' ? 'active' : '' ?>">
-                                                <i class="nav-icon fas fa-times-circle"></i>
-                                                <p>
-                                                    Belum Closing
-                                                    <?php
-                                                    $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
-                                                    $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-                                                    $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0, 'tb_city.id_distributor' => $this->session->userdata('id_distributor')]);
-                                                    ?>
-                                                    <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
-                                                </p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                <?php if ($this->session->userdata('level_user') != 'salesspv') : ?>
+                                    <li class="nav-item <?= $menuGroup == 'SJ' ? 'menu-open' : '' ?>">
+                                        <a href="#" class="nav-link <?= $menuGroup == 'SJ' ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-file"></i>
+                                            <p>
+                                                Surat Jalan
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('apporder') ?>" class="nav-link <?= $menu == 'Apporder' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-shopping-bag"></i>
+                                                    <p>
+                                                        Pesanan Top Seller
+                                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('surat-jalan') ?>" class="nav-link  <?= $menu == 'SJ' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-th"></i>
+                                                    <p>
+                                                        Surat Jalan
+                                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('sj-not-closing') ?>" class="nav-link <?= $menu == 'NotClosing' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-times-circle"></i>
+                                                    <p>
+                                                        Belum Closing
+                                                        <?php
+                                                        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+                                                        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+                                                        $sjNotClosing = $this->db->get_where("tb_surat_jalan", ['is_closing' => 0, 'tb_city.id_distributor' => $this->session->userdata('id_distributor')]);
+                                                        ?>
+                                                        <span class="right badge badge-danger"><?= $sjNotClosing->num_rows() ?></span>
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
 
-                                <li class="nav-item  <?= $menuGroup == 'Invoice' ? 'menu-open' : '' ?>">
-                                    <a href="#" class="nav-link  <?= $menuGroup == 'Invoice' ? 'active' : '' ?>">
-                                        <i class="nav-icon fas fa-file-invoice"></i>
-                                        <p>
-                                            Invoice
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('invoice') ?>" class="nav-link  <?= $menu == 'Invoice' ? 'active' : '' ?>">
-                                                <i class="nav-icon fas fa-file-invoice"></i>
-                                                <p>
-                                                    Invoice
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('invoice/sent') ?>" class="nav-link  <?= $menu == 'SentInvoice' ? 'active' : '' ?>">
-                                                <i class="nav-icon fas fa-train"></i>
-                                                <p>
-                                                    Sent Invoice
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('rep-invoice/0') ?>" class="nav-link  <?= $menu == 'RekapInvoice' ? 'active' : '' ?>">
-                                                <i class="nav-icon fas fa-file-archive"></i>
-                                                <p>
-                                                    Rekap Invoice
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('invoicecod/waiting/') ?>" class="nav-link  <?= $menu == 'CodBlmLunas' ? 'active' : '' ?>">
-                                                <i class="nav-icon fas fa-file-archive"></i>
-                                                <p>
-                                                    Invoice COD Belum Lunas
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
-                                                </p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                <?php if ($this->session->userdata('level_user') != 'salesspv'): ?>
+                                    <li class="nav-item  <?= $menuGroup == 'Invoice' ? 'menu-open' : '' ?>">
+                                        <a href="#" class="nav-link  <?= $menuGroup == 'Invoice' ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>
+                                                Invoice
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('invoice') ?>" class="nav-link  <?= $menu == 'Invoice' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-file-invoice"></i>
+                                                    <p>
+                                                        Invoice
+                                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('invoice/sent') ?>" class="nav-link  <?= $menu == 'SentInvoice' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-train"></i>
+                                                    <p>
+                                                        Sent Invoice
+                                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('rep-invoice/0') ?>" class="nav-link  <?= $menu == 'RekapInvoice' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-file-archive"></i>
+                                                    <p>
+                                                        Rekap Invoice
+                                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('invoicecod/waiting/') ?>" class="nav-link  <?= $menu == 'CodBlmLunas' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-file-archive"></i>
+                                                    <p>
+                                                        Invoice COD Belum Lunas
+                                                        <!-- <span class="right badge badge-danger">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
                                 <li class="nav-item <?= $menuGroup == 'Visit' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'Visit' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-map-marked"></i>
@@ -866,15 +870,17 @@
                                     </li>
                                 <?php endif; ?>
                                 <?php if ($this->session->userdata('id_distributor') != '10') : ?>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('voucher') ?>" class="nav-link <?= $menu == 'Voucher' ? 'active' : '' ?>">
-                                            <i class="nav-icon fas fa-ticket-alt"></i>
-                                            <p>
-                                                Voucher
-                                                <!-- <span class="right badge badge-danger">New</span> -->
-                                            </p>
-                                        </a>
-                                    </li>
+                                    <?php if ($this->session->userdata('level_user') != 'salesspv'): ?>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('voucher') ?>" class="nav-link <?= $menu == 'Voucher' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-ticket-alt"></i>
+                                                <p>
+                                                    Voucher
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    <?php endif ?>
                                 <?php endif ?>
 
                                 <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesspv') : ?>
