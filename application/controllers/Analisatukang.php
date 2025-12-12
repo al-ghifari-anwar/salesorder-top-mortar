@@ -17,6 +17,12 @@ class Analisatukang extends CI_Controller
         $data['menuGroup'] = 'AnalisaTukang';
         $data['menu'] = 'SPG';
 
+        $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
+        if ($this->session->userdata('level_user') == 'salesspv') {
+            $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
+            $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
+            $this->db->like('nama_city', $nama_city);
+        }
         $this->db->where("level_user IN ('penagihan', 'sales', 'marketing')", NULL, FALSE);
         $data['users'] = $this->db->get_where('tb_user', ['password !=' => '0'])->result_array();
 
