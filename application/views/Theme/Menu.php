@@ -319,7 +319,7 @@
                                     </ul>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'salesspv') : ?>
                                 <li class="nav-item <?= $menuGroup == 'InputRenvi' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'InputRenvi' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-calendar-plus"></i>
@@ -459,7 +459,7 @@
                                     </ul>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader'): ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'salesspv'): ?>
                                 <li class="nav-item <?= $menuGroup == 'Analisa' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'Analisa' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-chart-line"></i>
@@ -622,7 +622,7 @@
                                     </li>
                                 <?php endif; ?>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'courier') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'courier' || $this->session->userdata('level_user') == 'salesspv') : ?>
 
                                 <li class="nav-item <?= $menuGroup == 'SJ' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'SJ' ? 'active' : '' ?>">
@@ -877,7 +877,7 @@
                                     </li>
                                 <?php endif ?>
 
-                                <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance') : ?>
+                                <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesspv') : ?>
                                     <li class="nav-item">
                                         <a href="<?= base_url('penjualan') ?>" class="nav-link <?= $menu == 'Penjualan' ? 'active' : '' ?>">
                                             <i class="nav-icon fas fa-archive"></i>
