@@ -18,7 +18,16 @@ class Rekaptokobaru extends CI_Controller
         $data['title'] = 'Rekap Toko Baru';
         $data['menuGroup'] = 'Sales';
         $data['menu'] = 'RekapTokoBaru';
-        $data['city'] = $this->MCity->getAll();
+        // $data['city'] = $this->MCity->getAll();
+        if ($this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'sales') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else if ($this->session->userdata('level_user') == 'salesspv') {
+            $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
+            $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
+            $data['city'] = $this->db->like('nama_city', $nama_city)->get_where('tb_city', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
         // echo json_encode($data);
         // die;
         $this->load->view('Theme/Header', $data);
