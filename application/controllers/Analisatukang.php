@@ -16,10 +16,10 @@ class Analisatukang extends CI_Controller
         $data['title'] = 'Admin Lapangan / SPG untuk Tukang';
         $data['menuGroup'] = 'AnalisaTukang';
         $data['menu'] = 'SPG';
+        $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
 
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         if ($this->session->userdata('level_user') == 'salesspv') {
-            $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
             $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
             $this->db->like('nama_city', $nama_city);
         }
