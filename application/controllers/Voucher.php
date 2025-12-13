@@ -26,6 +26,10 @@ class Voucher extends CI_Controller
         $data['menu'] = 'Voucher';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else if ($this->session->userdata('level_user') == 'salesspv') {
+            $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
+            $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
+            $data['city'] = $this->db->like('nama_city', $nama_city)->get_where('tb_city', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         } else {
             $data['city'] = $this->MCity->getAll();
         }
@@ -44,7 +48,16 @@ class Voucher extends CI_Controller
         $data['title'] = 'Voucher List';
         $data['menuGroup'] = '';
         $data['menu'] = 'Voucher';
-        $data['city'] = $this->MCity->getAll();
+        // $data['city'] = $this->MCity->getAll();
+        if ($this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'sales') {
+            $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
+        } else if ($this->session->userdata('level_user') == 'salesspv') {
+            $userCity = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->row_array();
+            $nama_city = trim(preg_replace("/\\d+/", "", $userCity['nama_city']));
+            $data['city'] = $this->db->like('nama_city', $nama_city)->get_where('tb_city', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        } else {
+            $data['city'] = $this->MCity->getAll();
+        }
         $data['voucher'] = $this->MVoucher->getByCity($id_city);
         $data['contact'] = $this->MContact->getAllForVouchers($id_city);
         $data['id_city'] = $id_city;
