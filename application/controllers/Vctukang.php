@@ -126,11 +126,16 @@ class Vctukang extends CI_Controller
                             ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                         $id_distributor = $getTukang['id_distributor'];
-                        $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
-                        $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
-                        $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
-                        $integration_id = $qontak['integration_id'];
-                        $wa_token = $qontak['token'];
+                        // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+                        // $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
+                        // $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+                        // $integration_id = $qontak['integration_id'];
+                        // $wa_token = $qontak['token'];
+                        $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+                        $wa_token = $haloai['token_haloai'];
+                        $business_id = $haloai['business_id_haloai'];
+                        $channel_id = $haloai['channel_id_haloai'];
+                        $template = 'notif_materi_img';
                         // Data
                         $nomor_hp = $getTukang['nomorhp'];
                         $nama = $getTukang['nama'];
@@ -138,11 +143,33 @@ class Vctukang extends CI_Controller
 
                         // $message = "Halo " . $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
                         $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja SK: QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top morta Lihat Lokasi Toko: https://order.topmortarindonesia.com/penukaranstore . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
+
+                        $haloaiPayload = [
+                            'activate_ai_after_send' => false,
+                            'channel_id' => $channel_id,
+                            "fallback_template_header" => [
+                                'filename' => $image_name,
+                                'type' => 'image',
+                                'url' => "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name,
+                            ],
+                            'fallback_template_message' => $template,
+                            'fallback_template_variables' => [
+                                trim(preg_replace('/\s+/', ' ', $message)),
+                            ],
+                            "media" => [
+                                'filename' => $image_name,
+                                'type' => 'image',
+                                'url' => "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name,
+                            ],
+                            'phone_number' => $nomor_hp,
+                            'text' => trim(preg_replace('/\s+/', ' ', $message)),
+                        ];
+
                         // Send message
                         $curl = curl_init();
 
                         curl_setopt_array($curl, array(
-                            CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                            CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -150,39 +177,10 @@ class Vctukang extends CI_Controller
                             CURLOPT_FOLLOWLOCATION => true,
                             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                             CURLOPT_CUSTOMREQUEST => 'POST',
-                            CURLOPT_POSTFIELDS => '{
-                                    "to_number": "' . $nomor_hp . '",
-                                    "to_name": "' . $nama . '",
-                                    "message_template_id": "' . $template_id . '",
-                                    "channel_integration_id": "' . $integration_id . '",
-                                    "language": {
-                                        "code": "id"
-                                    },
-                                    "parameters": {
-                                        "header":{
-                                            "format":"IMAGE",
-                                            "params": [
-                                                {
-                                                    "key":"url",
-                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
-                                                },
-                                                {
-                                                    "key":"filename",
-                                                    "value":"qrtukang.png"
-                                                }
-                                            ]
-                                        },
-                                        "body": [
-                                            {
-                                                "key": "1",
-                                                "value": "nama",
-                                                "value_text": "' . $message . '"
-                                            }
-                                        ]
-                                    }
-                                    }',
+                            CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                             CURLOPT_HTTPHEADER => array(
                                 'Authorization: Bearer ' . $wa_token,
+                                'X-HaloAI-Business-Id: ' . $business_id,
                                 'Content-Type: application/json'
                             ),
                         ));
@@ -247,11 +245,16 @@ class Vctukang extends CI_Controller
                         ->toFile(FCPATH . "./assets/img/qr/framed_" . $image_name, 'image/png');
 
                     $id_distributor = $getTukang['id_distributor'];
-                    $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
-                    $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
-                    $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
-                    $integration_id = $qontak['integration_id'];
-                    $wa_token = $qontak['token'];
+                    // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
+                    // $template_id = '7bf2d2a0-bdd5-4c70-ba9f-a9665f66a841';
+                    // $qontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
+                    // $integration_id = $qontak['integration_id'];
+                    // $wa_token = $qontak['token'];
+                    $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+                    $wa_token = $haloai['token_haloai'];
+                    $business_id = $haloai['business_id_haloai'];
+                    $channel_id = $haloai['channel_id_haloai'];
+                    $template = 'notif_materi_img';
                     // Data
                     $nomor_hp = $getTukang['nomorhp'];
                     $nama = $getTukang['nama'];
@@ -259,11 +262,33 @@ class Vctukang extends CI_Controller
 
                     // $message = "Halo " . $nama . " tukarkan voucher diskon Rp. 10.000 dengan cara tunjukkan qr ini pada toko. ";
                     $message = "Halo " . $nama . " *Beli Top Mortar, Kembaliannya bisa buat beli Kopi!*  Dapatkan *Potongan Langsung Rp.10,000* setiap pembelian produk Top Mortar di toko bangunan terdekat. Tunjukan QR ini pada toko saat berbelanja  SK:  QR hanya berlaku 1x Potongan hanya berlaku per nota belanja Berlaku untuk semua produk top mortar Lihat Lokasi Toko:  https://order.topmortarindonesia.com/penukaranstore . Kirim voucher ke teman via link: https://order.topmortarindonesia.com/referal/" . $voucherCode;
+
+                    $haloaiPayload = [
+                        'activate_ai_after_send' => false,
+                        'channel_id' => $channel_id,
+                        "fallback_template_header" => [
+                            'filename' => $image_name,
+                            'type' => 'image',
+                            'url' => "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name,
+                        ],
+                        'fallback_template_message' => $template,
+                        'fallback_template_variables' => [
+                            trim(preg_replace('/\s+/', ' ', $message)),
+                        ],
+                        "media" => [
+                            'filename' => $image_name,
+                            'type' => 'image',
+                            'url' => "https://order.topmortarindonesia.com/assets/img/qr/framed_" . $image_name,
+                        ],
+                        'phone_number' => $nomor_hp,
+                        'text' => trim(preg_replace('/\s+/', ' ', $message)),
+                    ];
+
                     // Send message
                     $curl = curl_init();
 
                     curl_setopt_array($curl, array(
-                        CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                        CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => '',
                         CURLOPT_MAXREDIRS => 10,
@@ -271,39 +296,10 @@ class Vctukang extends CI_Controller
                         CURLOPT_FOLLOWLOCATION => true,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => 'POST',
-                        CURLOPT_POSTFIELDS => '{
-                                    "to_number": "' . $nomor_hp . '",
-                                    "to_name": "' . $nama . '",
-                                    "message_template_id": "' . $template_id . '",
-                                    "channel_integration_id": "' . $integration_id . '",
-                                    "language": {
-                                        "code": "id"
-                                    },
-                                    "parameters": {
-                                        "header":{
-                                            "format":"IMAGE",
-                                            "params": [
-                                                {
-                                                    "key":"url",
-                                                    "value":"https://order.topmortarindonesia.com/assets/img/qr/framed_' . $image_name . '"
-                                                },
-                                                {
-                                                    "key":"filename",
-                                                    "value":"qrtukang.png"
-                                                }
-                                            ]
-                                        },
-                                        "body": [
-                                            {
-                                                "key": "1",
-                                                "value": "nama",
-                                                "value_text": "' . $message . '"
-                                            }
-                                        ]
-                                    }
-                                    }',
+                        CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                         CURLOPT_HTTPHEADER => array(
                             'Authorization: Bearer ' . $wa_token,
+                            'X-HaloAI-Business-Id: ' . $business_id,
                             'Content-Type: application/json'
                         ),
                     ));
