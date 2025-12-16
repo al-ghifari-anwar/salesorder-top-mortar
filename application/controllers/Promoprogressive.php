@@ -18,6 +18,8 @@ class Promoprogressive extends CI_Controller
         $data['menu'] = 'PromoProgressive';
 
         $data['promos'] = $this->db->get_where('tb_promo_progressive', ['id_distributor' => $this->session->userdata('id_distributor'), 'deleted_at IS NULL'])->result_array();
+        echo $this->db->last_query();
+        die;
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
