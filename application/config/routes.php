@@ -190,6 +190,8 @@ $route['priority/verify/(:num)'] = 'Priority/verify/$1';
 // Absen
 $route['absen'] = 'Absen';
 $route['absen/print'] = 'Absen/print';
+$route['absen-kurir'] = 'Absen/indexKurir';
+$route['absen-kurir/print'] = 'Absen/printKurir';
 // Priority Store
 $route['prioritystore'] = 'PriorityStore/index';
 // $route['prioritystore/(:num)'] = 'PriorityStore/index/$1';

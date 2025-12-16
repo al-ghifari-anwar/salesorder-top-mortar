@@ -138,6 +138,17 @@
                                     </p>
                                 </a>
                             </li>
+                            <?php if ($this->session->userdata('level_user') == 'admindiss'): ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('absen-kurir') ?>" class="nav-link <?= $menu == 'Absen' ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-calendar-check"></i>
+                                        <p>
+                                            Absen Harian
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'marketing'): ?>
                                 <!-- <li class="nav-item">
                                     <a href="<?= base_url('topevent') ?>" class="nav-link">

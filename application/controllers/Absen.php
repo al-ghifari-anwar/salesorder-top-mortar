@@ -65,4 +65,48 @@ class Absen extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
+
+    public function indexKurir()
+    {
+        $data['title'] = 'Absensi Harian';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Absen';
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('Absen/IndexKurir');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function printKurir()
+    {
+        $post = $this->input->post();
+        $dateRange = $post['date_range'];
+        $dates = explode("-", $dateRange);
+        $data['dateFrom'] = date("Y-m-d", strtotime($dates[0]));
+        $data['dateTo'] = date("Y-m-d", strtotime($dates[1]));
+        $data['users'] = $this->MUser->getByDissindo();
+
+        $start = date("Y-m-01", strtotime($dates[0]));
+        $end = date("Y-m-01", strtotime("+1 month", strtotime($dates[0])));
+        // $start = date("2024-08-01");
+        // $end = date("2024-09-01", strtotime("+1 month"));
+        $periods = new DatePeriod(
+            new DateTime($start),
+            new DateInterval('P1D'),
+            new DateTime($end)
+        );
+
+        $data['periods'] = $periods;
+
+        // Test
+        // $this->load->view('Absen/Print', $data);
+        // PDF
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Absen/PrintKurir', $data, true);
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
 }
