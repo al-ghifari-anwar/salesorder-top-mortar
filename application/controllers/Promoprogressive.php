@@ -17,7 +17,7 @@ class Promoprogressive extends CI_Controller
         $data['menuGroup'] = 'Data';
         $data['menu'] = 'PromoProgressive';
 
-        $this->db->where('deleted_at', 'IS NULL', true);
+        $this->db->where('deleted_at IS NULL', null, false);
         $data['promos'] = $this->db->get_where('tb_promo_progressive', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         echo $this->db->last_query();
         die;
