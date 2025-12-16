@@ -148,6 +148,15 @@
                                         </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('lap-kurir') ?>" class="nav-link <?= $menu == 'LapKurir' ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-truck-moving"></i>
+                                        <p>
+                                            Laporan Kurir
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
                             <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'marketing'): ?>
                                 <!-- <li class="nav-item">

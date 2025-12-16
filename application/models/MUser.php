@@ -45,7 +45,7 @@ class MUser extends CI_Model
 
     public function getByDissindo()
     {
-        $this->db->where('tb_user.id_city', 32);
+        $this->db->where_in('tb_user.id_city', [32, 14]);
         $this->db->where('tb_user.level_user', 'courier');
         $query = $this->db->get_where('tb_user', ['password !=' => '0', 'is_absen' => 1])->result_array();
         return $query;
