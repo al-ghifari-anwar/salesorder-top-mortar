@@ -310,6 +310,12 @@
                                                 <p>Tukang</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('promoprogressive') ?>" class="nav-link <?= $menu == 'PromoProgressive' ? 'active' : '' ?>">
+                                                <i class="fas fa-percentage nav-icon"></i>
+                                                <p>Promo Progressive</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item <?= $menuGroup == 'Stok' ? 'menu-open' : '' ?>">
