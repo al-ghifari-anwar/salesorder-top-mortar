@@ -190,9 +190,14 @@ class Haloai extends CI_Controller
 
             $webhookProducts = json_decode($post['ticket']['data']['daftar_pemesanan'], true);
 
+            $total_qty_products = 0;
+            $total_qty_bonus = 0;
+
             foreach ($webhookProducts as $webhookProduct) {
                 $nama_produk = $webhookProduct['Nama Barang'];
                 $qty = $webhookProduct['Quantity'];
+
+                $total_qty_products += $webhookProduct['Quantity'];
 
                 $produk = $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $id_city)->like('tb_produk.nama_produk', $nama_produk)->or_like('tb_master_produk.slang_produk', $nama_produk)->get('tb_produk')->row_array();
 
@@ -209,12 +214,15 @@ class Haloai extends CI_Controller
                 $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
 
                 if ($id_promo != 0) {
+                    // Calculate bonus
                     if ($produk['is_default_promo'] == 1) {
                         $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
 
                         $multiplier = $qty / $promo['kelipatan_promo'];
 
                         if (floor($multiplier) > 0) {
+                            $total_qty_bonus += floor($multiplier) * $promo['bonus_promo'];
+
                             $sjDetailData = [
                                 'id_surat_jalan' => $id_surat_jalan,
                                 'id_produk' => $produk['id_produk'],
@@ -243,6 +251,31 @@ class Haloai extends CI_Controller
 
                             $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
                         }
+                    }
+                }
+            }
+
+            // Set Bonus If Per Produk Not Match Minimum, Use qty Whole Order
+            if ($total_qty_bonus == 0) {
+                if ($contact['id_promo'] != 0) {
+                    $kelipatan_promo = $promo['kelipatan_promo'];
+
+                    $multiplier = $total_qty_products / $kelipatan_promo;
+
+                    if (floor($multiplier) > 0) {
+                        $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
+
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => floor($multiplier) * $promo['bonus_promo'],
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
                     }
                 }
             }

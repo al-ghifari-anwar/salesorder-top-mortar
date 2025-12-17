@@ -435,4 +435,15 @@ class MDetailSuratJalan extends CI_Model
             return false;
         }
     }
+
+    public function getCheapestProduct($id_surat_jalan)
+    {
+        $this->db->join('tb_produk', 'tb_produk.id_produk = tb_cart_detail.id_produk');
+        $this->db->join('tb_master_produk', 'tb_produk.id_master_produk = tb_master_produk.id_master_produk');
+        $this->db->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan');
+        $this->db->order_by('tb_produk.harga_produk', 'ASC');
+        $query = $this->db->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
+
+        return $query;
+    }
 }
