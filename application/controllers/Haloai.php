@@ -142,7 +142,7 @@ class Haloai extends CI_Controller
 
         $nomorhp = $post['ticket']['customer']['phone'];
 
-        $contact = $this->MContact->getByNomorhp($nomorhp);
+        $contact = $this->db->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
 
         $termin_payment = $contact['termin_payment'];
 
