@@ -258,6 +258,8 @@ class Haloai extends CI_Controller
             // Set Bonus If Per Produk Not Match Minimum, Use qty Whole Order
             if ($total_qty_bonus == 0) {
                 if ($contact['id_promo'] != 0) {
+                    $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+
                     $kelipatan_promo = $promo['kelipatan_promo'];
 
                     $multiplier = $total_qty_products / $kelipatan_promo;
