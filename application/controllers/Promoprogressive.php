@@ -18,6 +18,7 @@ class Promoprogressive extends CI_Controller
         $data['menu'] = 'PromoProgressive';
 
         $this->db->where('deleted_at IS NULL', null, false);
+        $this->db->order_by('kelipatan_promo_progressive', 'ASD');
         $data['promos'] = $this->db->get_where('tb_promo_progressive', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         // echo $this->db->last_query();
         // die;
