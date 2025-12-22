@@ -105,6 +105,7 @@
                                         <th>Nama Produk</th>
                                         <th>Harga</th>
                                         <th>QTY</th>
+                                        <th>Subtotal</th>
                                         <th>Is Free / Retur</th>
                                         <?php if ($suratjalan['is_finished'] == 0 && $suratjalan['is_closing'] == 0) : ?>
                                             <th>Aksi</th>
@@ -120,6 +121,7 @@
                                             <td><?= $data['nama_produk'] ?> <b><?= $data['no_voucher'] == null ? '' : '(' . $data['no_voucher'] . ')' ?></b></td>
                                             <td><?= $data['price'] ?></td>
                                             <td><?= $data['qty_produk'] ?></td>
+                                            <td><?= $data['amount'] ?></td>
                                             <td><?= $data['is_bonus'] == 1 || $data['is_bonus'] == 2 ? 'Yes' : 'No' ?></td>
                                             <?php if ($suratjalan['is_finished'] == 0 && $suratjalan['is_closing'] == 0) : ?>
                                                 <td>
