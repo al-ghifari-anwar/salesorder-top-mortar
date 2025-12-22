@@ -10,6 +10,7 @@ class Haloai extends CI_Controller
         $this->load->model('MUser');
         $this->load->model('MSuratJalan');
         $this->load->model('MDetailSuratJalan');
+        $this->load->model('MInvoice');
     }
 
     public function getStore()
