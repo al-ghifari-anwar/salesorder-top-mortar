@@ -188,29 +188,57 @@ class MDetailSuratJalan extends CI_Model
 
                 $currentStok = $stokIn - $stokOut;
 
-                $multiplier = $item['qty_produk'] / $promo['kelipatan_promo'];
+                if ($masterProduk['is_default_promo'] == 1) {
+                    $multiplier = $item['qty_produk'] / $promo['kelipatan_promo'];
 
-                if (floor($multiplier) > 0) {
-                    if ($this->session->userdata('id_distributor') != 6) {
-                        // if ($currentStok >= $promo['bonus_promo']) {
-                        $this->id_surat_jalan = $id_surat_jalan;
-                        $this->id_produk = $item['id_produk'];
-                        $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
-                        $this->price = $item['harga_produk'];
-                        $this->amount = 0;
-                        $this->is_bonus = 1;
+                    if (floor($multiplier) > 0) {
+                        if ($this->session->userdata('id_distributor') != 6) {
+                            // if ($currentStok >= $promo['bonus_promo']) {
+                            $this->id_surat_jalan = $id_surat_jalan;
+                            $this->id_produk = $item['id_produk'];
+                            $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
+                            $this->price = $item['harga_produk'];
+                            $this->amount = 0;
+                            $this->is_bonus = 1;
 
-                        $this->db->insert('tb_detail_surat_jalan', $this);
-                        // }
-                    } else {
-                        $this->id_surat_jalan = $id_surat_jalan;
-                        $this->id_produk = $item['id_produk'];
-                        $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
-                        $this->price = $item['harga_produk'];
-                        $this->amount = 0;
-                        $this->is_bonus = 1;
+                            $this->db->insert('tb_detail_surat_jalan', $this);
+                            // }
+                        } else {
+                            $this->id_surat_jalan = $id_surat_jalan;
+                            $this->id_produk = $item['id_produk'];
+                            $this->qty_produk = floor($multiplier) * $promo['bonus_promo'];
+                            $this->price = $item['harga_produk'];
+                            $this->amount = 0;
+                            $this->is_bonus = 1;
 
-                        $this->db->insert('tb_detail_surat_jalan', $this);
+                            $this->db->insert('tb_detail_surat_jalan', $this);
+                        }
+                    }
+                } else {
+                    $multiplier = $item['qty_produk'] / $masterProduk['kelipatan_promo'];
+
+                    if (floor($multiplier) > 0) {
+                        if ($this->session->userdata('id_distributor') != 6) {
+                            // if ($currentStok >= $promo['bonus_promo']) {
+                            $this->id_surat_jalan = $id_surat_jalan;
+                            $this->id_produk = $item['id_produk'];
+                            $this->qty_produk = floor($multiplier) * $masterProduk['bonus_promo'];
+                            $this->price = $item['harga_produk'];
+                            $this->amount = 0;
+                            $this->is_bonus = 1;
+
+                            $this->db->insert('tb_detail_surat_jalan', $this);
+                            // }
+                        } else {
+                            $this->id_surat_jalan = $id_surat_jalan;
+                            $this->id_produk = $item['id_produk'];
+                            $this->qty_produk = floor($multiplier) * $masterProduk['bonus_promo'];
+                            $this->price = $item['harga_produk'];
+                            $this->amount = 0;
+                            $this->is_bonus = 1;
+
+                            $this->db->insert('tb_detail_surat_jalan', $this);
+                        }
                     }
                 }
             }
