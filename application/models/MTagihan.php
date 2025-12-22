@@ -4,7 +4,7 @@ class MTagihan extends CI_Model
 {
     public function getByIdDistributor($id_distributor)
     {
-        $result = $this->db->order_by('craeted_at', 'DESC')->get_where('tb_tagihan', ['id_distributor' => $id_distributor])->result_array();
+        $result = $this->db->order_by('created_at', 'DESC')->get_where('tb_tagihan', ['id_distributor' => $id_distributor])->result_array();
 
         return $result;
     }
