@@ -54,6 +54,11 @@ class Haloai extends CI_Controller
 
             $contact['payment_scoring'] = $paymentScore;
 
+            // Piutang
+            $piutang = $this->getPiutang($id_contact);
+
+            $contact['piutang'] = $piutang;
+
             $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
 
             $contact['kota'] = $city['nama_city'];
@@ -383,6 +388,30 @@ class Haloai extends CI_Controller
                 return $this->output->set_output(json_encode($result));
             }
         }
+    }
+
+    public function getPiutang($id_contact)
+    {
+        $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
+
+        $total_invoice = 0;
+        $total_paid = 0;
+        $total_sisa_hutang = 0;
+        foreach ($invoices as $invoice) {
+            $id_invoice = $invoice['id_invoice'];
+
+            $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+
+            $sisaHutang = $invoice['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
+
+            $jatuhTempo = date('d M Y', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+
+            $total_invoice += $invoice['total_invoice'];
+            $total_paid += ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
+            $total_sisa_hutang += $sisaHutang;
+        }
+
+        return $total_sisa_hutang;
     }
 
     public function paymentScoring($selected_contact)
