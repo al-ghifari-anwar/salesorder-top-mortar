@@ -119,9 +119,9 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $data['nama_produk'] ?> <b><?= $data['no_voucher'] == null ? '' : '(' . $data['no_voucher'] . ')' ?></b></td>
-                                            <td><?= $data['price'] ?></td>
+                                            <td><?= number_format($data['price'], 2, ',', '.') ?></td>
                                             <td><?= $data['qty_produk'] ?></td>
-                                            <td><?= $data['amount'] ?></td>
+                                            <td><?= number_format($data['amount'], 2, ',', '.') ?></td>
                                             <td><?= $data['is_bonus'] == 1 || $data['is_bonus'] == 2 ? 'Yes' : 'No' ?></td>
                                             <?php if ($suratjalan['is_finished'] == 0 && $suratjalan['is_closing'] == 0) : ?>
                                                 <td>
