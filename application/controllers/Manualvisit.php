@@ -104,20 +104,40 @@ class Manualvisit extends CI_Controller
             }
 
             // Notif to customer
-            $wa_token = $getQontak['token'];
-            $template_id = '9241bf86-ae94-4aa8-8975-551409af90b9';
+            // $wa_token = $getQontak['token'];
+            // $template_id = '9241bf86-ae94-4aa8-8975-551409af90b9';
             $message = "Terimakasih telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". ";
             if ($pay_value <= 0) {
                 $message = "Hari ini kami belum menerima pembayaran mohon dibantu pembayaran nya. Terimakasih";
             }
             $nomor_hp = $getContact['nomorhp'];
             $nama = $getContact['nama'];
-            $integration_id = $getQontak['integration_id'];
+            // $integration_id = $getQontak['integration_id'];
             $full_name = "PT Top Mortar Indonesia";
 
+            $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+            $wa_token = $haloai['token_haloai'];
+            $business_id = $haloai['business_id_haloai'];
+            $channel_id = $haloai['channel_id_haloai'];
+            $template = 'notif_meeting_baru';
+
+            $haloaiPayload = [
+                'activate_ai_after_send' => false,
+                'channel_id' => $channel_id,
+                'fallback_template_message' => $template,
+                'fallback_template_variables' => [
+                    $nama,
+                    trim(preg_replace('/\s+/', ' ', $message)),
+                    $full_name,
+                ],
+                'phone_number' => $nomor_hp,
+                'text' => trim(preg_replace('/\s+/', ' ', $message)),
+            ];
+
             $curl = curl_init();
+
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -125,36 +145,10 @@ class Manualvisit extends CI_Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
-                    "to_number": "' . $nomor_hp . '",
-                    "to_name": "' . $nama . '",
-                    "message_template_id": "' . $template_id . '",
-                    "channel_integration_id": "' . $integration_id . '",
-                    "language": {
-                        "code": "id"
-                    },
-                    "parameters": {
-                        "body": [
-                        {
-                            "key": "1",
-                            "value": "nama",
-                            "value_text": "' . $nama . '"
-                        },
-                        {
-                            "key": "2",
-                            "value": "message",
-                            "value_text": "' . $message . '"
-                        },
-                        {
-                            "key": "3",
-                            "value": "sales",
-                            "value_text": "' . $full_name . '"
-                        }
-                        ]
-                    }
-                    }',
+                CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                 CURLOPT_HTTPHEADER => array(
                     'Authorization: Bearer ' . $wa_token,
+                    'X-HaloAI-Business-Id: ' . $business_id,
                     'Content-Type: application/json'
                 ),
             ));
@@ -168,17 +162,29 @@ class Manualvisit extends CI_Controller
 
             $nomor_hp_admin = "6289636224827";
             $nama_admin = "April";
-            if ($id_distributor == 6) {
-                $nomor_hp_admin = "628";
-                $nama_admin = "Dea";
-            }
+
             $message = "Toko " . $nama . "telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". ";
             if ($pay_value <= 0) {
                 $message = "Toko " . $nama . " hari ini belum melakukan pembayaran ";
             }
+
+            $haloaiPayload = [
+                'activate_ai_after_send' => false,
+                'channel_id' => $channel_id,
+                'fallback_template_message' => $template,
+                'fallback_template_variables' => [
+                    $nama_admin,
+                    trim(preg_replace('/\s+/', ' ', $message)),
+                    $full_name,
+                ],
+                'phone_number' => $nomor_hp_admin,
+                'text' => trim(preg_replace('/\s+/', ' ', $message)),
+            ];
+
             $curl = curl_init();
+
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -186,36 +192,10 @@ class Manualvisit extends CI_Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
-                        "to_number": "' . $nomor_hp_admin . '",
-                        "to_name": "' . $nama_admin . '",
-                        "message_template_id": "' . $template_id . '",
-                        "channel_integration_id": "' . $integration_id . '",
-                        "language": {
-                            "code": "id"
-                        },
-                        "parameters": {
-                            "body": [
-                            {
-                                "key": "1",
-                                "value": "nama",
-                                "value_text": "' . $nama_admin . '"
-                            },
-                            {
-                                "key": "2",
-                                "value": "message",
-                                "value_text": "' . $message . '"
-                            },
-                            {
-                                "key": "3",
-                                "value": "sales",
-                                "value_text": "' . $full_name . '"
-                            }
-                            ]
-                        }
-                        }',
+                CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                 CURLOPT_HTTPHEADER => array(
                     'Authorization: Bearer ' . $wa_token,
+                    'X-HaloAI-Business-Id: ' . $business_id,
                     'Content-Type: application/json'
                 ),
             ));
