@@ -88,6 +88,8 @@
                                 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                     Tambah Produk
                                 </button>
+                            <?php endif; ?>
+                            <?php if ($suratjalan['is_closing'] == 0) : ?>
                                 <?php if ($vouchers != null) : ?>
                                     <button type="button" class="btn btn-warning float-right mr-3" data-toggle="modal" data-target="#modal-insert-vc">
                                         Tambah Produk Voucher

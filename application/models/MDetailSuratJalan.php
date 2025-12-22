@@ -303,8 +303,12 @@ class MDetailSuratJalan extends CI_Model
                 redirect('surat-jalan/' . $this->id_surat_jalan);
             } else {
                 $this->amount = 0;
-                $this->no_voucher = $post['no_vouchers'];
                 $this->is_bonus = 1;
+                if ($post['harga_produk'] > 70000) {
+                    $this->amount = ($post['harga_produk'] - 70000) * $post['qty_produk'];
+                    $this->is_bonus = 0;
+                }
+                $this->no_voucher = $post['no_vouchers'];
                 $id_surat_jalan = $this->id_surat_jalan;
                 $no_voucher = $this->no_voucher;
 
