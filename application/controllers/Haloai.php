@@ -57,7 +57,7 @@ class Haloai extends CI_Controller
             // Piutang
             $piutang = $this->getPiutang($id_contact);
 
-            $contact['piutang'] = $piutang;
+            $contact['piutang'] = $piutang + "";
 
             $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
 
