@@ -534,11 +534,11 @@
                         ];
 
                         // if ($days == 0 || $days >= 7) {
-                        // if ($days > $minDayCluster) {
-                        if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                            array_push($jadwalVisits, $renvisFilter);
+                        if ($days > $minDayCluster) {
+                            if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
+                            }
                         }
-                        // }
                         // }
                     }
                 }
