@@ -53,6 +53,16 @@ class MVoucher extends CI_Model
         return $query;
     }
 
+    public function getByIdContactForHaloAI($id_contact)
+    {
+        // $this->db->join('tb_contact', 'tb_contact.id_contact = tb_voucher.id_contact');
+        $this->db->where('tb_voucher.exp_date >', date('Y-m-d'));
+        $this->db->order_by('tb_voucher.date_voucher', 'DESC');
+        $query = $this->db->get_where('tb_voucher', ['tb_voucher.id_contact' => $id_contact, 'is_used' => 0])->result_array();
+
+        return $query;
+    }
+
     public function getByNomor()
     {
         $post = $this->input->post();

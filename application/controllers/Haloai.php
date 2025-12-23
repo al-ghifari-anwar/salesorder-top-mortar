@@ -12,6 +12,7 @@ class Haloai extends CI_Controller
         $this->load->model('MDetailSuratJalan');
         $this->load->model('MInvoice');
         $this->load->model('MPayment');
+        $this->load->model('MVoucher');
     }
 
     public function getStore()
@@ -58,6 +59,11 @@ class Haloai extends CI_Controller
             $piutang = $this->getPiutang($id_contact);
 
             // $contact['piutang'] = $piutang . "";
+
+            // Voucher
+            $vouchers = $this->MVoucher->getByIdContactForHaloAI($id_contact);
+
+            $contact['jml_voucher'] = count($vouchers) . "";
 
             $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
 
