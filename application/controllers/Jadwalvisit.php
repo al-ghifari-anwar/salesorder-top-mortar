@@ -1016,7 +1016,8 @@ class Jadwalvisit extends CI_Controller
     {
         $this->output->set_content_type('application/json');
 
-        $chatId = "-5015093066";
+        // $chatId = "-5015093066";
+        $chatId = "-1003589286815";
 
         $date = date('Y-m-d');
 
