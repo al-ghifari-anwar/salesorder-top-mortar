@@ -193,11 +193,6 @@ class Haloai extends CI_Controller
 
             $jml_voucher = count($vouchers);
 
-            $vouchersStr = "";
-            foreach ($vouchers as $voucher) {
-                $vouchersStr .= $voucher['no_voucher'] . ",";
-            }
-
             foreach ($webhookProducts as $webhookProduct) {
                 $nama_produk = $webhookProduct['Nama Barang'];
                 $qty = $webhookProduct['Quantity'];
@@ -292,24 +287,31 @@ class Haloai extends CI_Controller
             }
 
             // Add Voucher Thinbed
-            $getThinbed = $this->db->like('name_produk', 'TOP MORTAR THINBED')->get_where('tb_produk', ['id_city' => $id_city])->row_array();
+            if ($jml_voucher > 0) {
+                $vouchersStr = "";
+                foreach ($vouchers as $voucher) {
+                    $vouchersStr .= $voucher['no_voucher'] . ",";
+                }
 
-            $sjDetailData = [
-                'id_surat_jalan' => $id_surat_jalan,
-                'id_produk' => $getThinbed['id_produk'],
-                'price' => $getThinbed['harga_produk'],
-                'qty_produk' => $jml_voucher,
-                'amount' => 0,
-                'is_bonus' => 1,
-                'no_voucher' => $vouchersStr,
-                'created_at' => date('Y-m-d H:i:s'),
-            ];
+                $getThinbed = $this->db->like('name_produk', 'TOP MORTAR THINBED')->get_where('tb_produk', ['id_city' => $id_city])->row_array();
 
-            $saveVoucher = $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                $sjDetailData = [
+                    'id_surat_jalan' => $id_surat_jalan,
+                    'id_produk' => $getThinbed['id_produk'],
+                    'price' => $getThinbed['harga_produk'],
+                    'qty_produk' => $jml_voucher,
+                    'amount' => 0,
+                    'is_bonus' => 1,
+                    'no_voucher' => $vouchersStr,
+                    'created_at' => date('Y-m-d H:i:s'),
+                ];
 
-            if ($saveVoucher) {
-                $this->db->where_in('no_voucher', explode(',', $vouchersStr));
-                $this->db->update('tb_voucher', ['is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
+                $saveVoucher = $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+
+                if ($saveVoucher) {
+                    $this->db->where_in('no_voucher', explode(',', $vouchersStr));
+                    $this->db->update('tb_voucher', ['is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
+                }
             }
 
             if ($this->db->trans_status() === FALSE) {
