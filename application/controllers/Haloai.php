@@ -70,9 +70,11 @@ class Haloai extends CI_Controller
             foreach ($vouchers as $voucher) {
                 $vouchersStr .= $voucher['no_voucher'] . ",";
                 if (!empty($voucherExp)) {
-                    $voucherExp = $voucher['exp_date'];
+                    $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
                 }
             }
+
+            $contact['voucher_expired'] = $voucherExp;
 
             $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
 
