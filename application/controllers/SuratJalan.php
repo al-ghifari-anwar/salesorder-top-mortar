@@ -260,13 +260,92 @@ class SuratJalan extends CI_Controller
 
     public function insert()
     {
-        $this->form_validation->set_rules('order_number', 'Order Number', 'required');
+        $post = $this->input->post();
 
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('failed', "Harap lengkapi form!");
-            redirect('surat-jalan');
+        $id_contact = $post['id_contact'];
+
+        $contact = $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city')->get_where('tb_contact', ['tb_contact.id_contact' => $id_contact])->row_array();
+
+        $id_distributor = $contact['id_distributor'];
+
+        $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+        $wa_token = $haloai['token_haloai'];
+        $business_id = $haloai['business_id_haloai'];
+        $channel_id = $haloai['channel_id_haloai'];
+
+        // Check first number
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp'],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $wa_token,
+                'X-HaloAI-Business-Id: ' . $business_id,
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $responseFirstNumber = curl_exec($curl);
+
+        curl_close($curl);
+
+        $resFirstNumber = json_decode($responseFirstNumber, true);
+
+        if (date('Y-m-d', strtotime($resFirstNumber['data']['lastMessageAt'])) != date('Y-m-d')) {
+            // Check second number
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp_2'],
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $wa_token,
+                    'X-HaloAI-Business-Id: ' . $business_id,
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $responseSecondNumber = curl_exec($curl);
+
+            curl_close($curl);
+
+            $resSecondNumber = json_decode($responseSecondNumber, true);
+
+            if (date('Y-m-d', strtotime($resSecondNumber['data']['lastMessageAt'])) != date('Y-m-d')) {
+                $this->session->set_flashdata('failed', "Tidak dapat membuat surat jalan, karena toko belum openchat pada hari ini!");
+                redirect('surat-jalan');
+            } else {
+                $this->form_validation->set_rules('order_number', 'Order Number', 'required');
+
+                if ($this->form_validation->run() == false) {
+                    $this->session->set_flashdata('failed', "Harap lengkapi form!");
+                    redirect('surat-jalan');
+                } else {
+                    $this->MSuratJalan->insert();
+                }
+            }
         } else {
-            $this->MSuratJalan->insert();
+            $this->form_validation->set_rules('order_number', 'Order Number', 'required');
+
+            if ($this->form_validation->run() == false) {
+                $this->session->set_flashdata('failed', "Harap lengkapi form!");
+                redirect('surat-jalan');
+            } else {
+                $this->MSuratJalan->insert();
+            }
         }
     }
 

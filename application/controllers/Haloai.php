@@ -65,6 +65,15 @@ class Haloai extends CI_Controller
 
             $contact['jml_voucher'] = count($vouchers) . "";
 
+            $vouchersStr = "";
+            $voucherExp = "";
+            foreach ($vouchers as $voucher) {
+                $vouchersStr .= $voucher['no_voucher'] . ",";
+                if (!empty($voucherExp)) {
+                    $voucherExp = $voucher['exp_date'];
+                }
+            }
+
             $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
 
             $contact['kota'] = $city['nama_city'];
