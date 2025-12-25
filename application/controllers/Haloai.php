@@ -304,7 +304,7 @@ class Haloai extends CI_Controller
                     $vouchersStr .= $voucher['no_voucher'] . ",";
                 }
 
-                $getThinbed = $this->db->like('name_produk', 'TOP MORTAR THINBED')->get_where('tb_produk', ['id_city' => $id_city])->row_array();
+                $getThinbed = $this->db->like('nama_produk', 'TOP MORTAR THINBED')->get_where('tb_produk', ['id_city' => $id_city])->row_array();
 
                 $sjDetailData = [
                     'id_surat_jalan' => $id_surat_jalan,
