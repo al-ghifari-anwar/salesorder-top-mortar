@@ -19,6 +19,7 @@ class SuratJalan extends CI_Controller
         $this->load->model('MKendaraan');
         $this->load->model('MVoucher');
         $this->load->model('Maxchathelper');
+        $this->load->model('HTelegram');
         $this->load->library('form_validation');
     }
 
@@ -399,56 +400,58 @@ class SuratJalan extends CI_Controller
 
         if ($id_distributor != 8) {
 
-            $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
-            $wa_token = $haloai['token_haloai'];
-            $business_id = $haloai['business_id_haloai'];
-            $channel_id = $haloai['channel_id_haloai'];
-            $template = 'notkurir';
-            $message = "Pesanan Baru Status: Perlu di kirim Kurir: " . $suratjalan['full_name'] . ". Nama toko/penerima: " . $suratjalan['nama'] . ". Alamat: " . trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'] . ". No Surat Jalan: *" . $suratjalan['no_surat_jalan'] . "*";
+            // $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+            // $wa_token = $haloai['token_haloai'];
+            // $business_id = $haloai['business_id_haloai'];
+            // $channel_id = $haloai['channel_id_haloai'];
+            // $template = 'notkurir';
+            $message = "Pesanan Baru Status: Perlu di kirim \nKurir: " . $suratjalan['full_name'] . ". \nNama toko/penerima: " . $suratjalan['nama'] . ". \nAlamat: " . trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'] . ". \nNo Surat Jalan: *" . $suratjalan['no_surat_jalan'] . "*";
 
-            $haloaiPayload = [
-                'activate_ai_after_send' => false,
-                'channel_id' => $channel_id,
-                'fallback_template_message' => $template,
-                'fallback_template_variables' => [
-                    $suratjalan['full_name'],
-                    $suratjalan['nama'],
-                    trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'],
-                    $suratjalan['no_surat_jalan'],
-                ],
-                'phone_number' => $suratjalan['phone_user'],
-                'text' => trim(preg_replace('/\s+/', ' ', $message)),
-            ];
+            // $haloaiPayload = [
+            //     'activate_ai_after_send' => false,
+            //     'channel_id' => $channel_id,
+            //     'fallback_template_message' => $template,
+            //     'fallback_template_variables' => [
+            //         $suratjalan['full_name'],
+            //         $suratjalan['nama'],
+            //         trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'],
+            //         $suratjalan['no_surat_jalan'],
+            //     ],
+            //     'phone_number' => $suratjalan['phone_user'],
+            //     'text' => trim(preg_replace('/\s+/', ' ', $message)),
+            // ];
 
-            $curl = curl_init();
+            // $curl = curl_init();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $wa_token,
-                    'X-HaloAI-Business-Id: ' . $business_id,
-                    'Content-Type: application/json'
-                ),
-            ));
+            // curl_setopt_array($curl, array(
+            //     CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
+            //     CURLOPT_RETURNTRANSFER => true,
+            //     CURLOPT_ENCODING => '',
+            //     CURLOPT_MAXREDIRS => 10,
+            //     CURLOPT_TIMEOUT => 0,
+            //     CURLOPT_FOLLOWLOCATION => true,
+            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            //     CURLOPT_CUSTOMREQUEST => 'POST',
+            //     CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
+            //     CURLOPT_HTTPHEADER => array(
+            //         'Authorization: Bearer ' . $wa_token,
+            //         'X-HaloAI-Business-Id: ' . $business_id,
+            //         'Content-Type: application/json'
+            //     ),
+            // ));
 
-            $response = curl_exec($curl);
+            // $response = curl_exec($curl);
 
-            curl_close($curl);
+            // curl_close($curl);
 
             // echo $response;
             // die;
 
-            $res = json_decode($response, true);
+            // $res = json_decode($response, true);
 
-            $status = $res['status'];
+            $sendNotifTele = $this->HTelegram->sendTextPrivate($suratjalan['telegram_user'], $message);
+
+            $status = $sendNotifTele['status'];
         } else {
             $message = 'Pesanan perlu dikirim. Nomor SJ: ' . $suratjalan['no_surat_jalan'] . '. Alamat: ' . trim(preg_replace('/\s+/', ' ', $suratjalan['address']));
             $jsonRequest = [
@@ -482,7 +485,7 @@ class SuratJalan extends CI_Controller
             $this->session->set_flashdata('success', "Surat jalan berhasil dibuat!");
             redirect('surat-jalan');
         } else {
-            $this->session->set_flashdata('failed', "Surat jalan terbuat, tetapi notif WA tidak terkirim ke kurir..." . " -> " . json_encode($res));
+            $this->session->set_flashdata('failed', "Surat jalan terbuat, tetapi notif WA tidak terkirim ke kurir..." . " -> " . json_encode($sendNotifTele));
             redirect('surat-jalan');
         }
     }
