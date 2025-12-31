@@ -299,7 +299,7 @@ class SuratJalan extends CI_Controller
 
         $resFirstNumber = json_decode($responseFirstNumber, true);
 
-        if (date('Y-m-d', strtotime($resFirstNumber['data']['lastMessageAt'])) >= date('Y-m-d', strtotime("-2 Days"))) {
+        if (date('Y-m-d', strtotime($resFirstNumber['data']['lastMessageAt'])) >= date('Y-m-d', strtotime("-1 Days"))) {
             // Check second number
             $curl = curl_init();
 
@@ -325,8 +325,8 @@ class SuratJalan extends CI_Controller
 
             $resSecondNumber = json_decode($responseSecondNumber, true);
 
-            if (date('Y-m-d', strtotime($resSecondNumber['data']['lastMessageAt'])) >= date('Y-m-d', strtotime("-2 Days"))) {
-                $this->session->set_flashdata('failed', "Tidak dapat membuat surat jalan, karena toko belum openchat pada hari ini!");
+            if (date('Y-m-d', strtotime($resSecondNumber['data']['lastMessageAt'])) >= date('Y-m-d', strtotime("-1 Days"))) {
+                $this->session->set_flashdata('failed', "Tidak dapat membuat surat jalan, karena toko belum openchat pada hari ini! Openchat terakhir pada: " . $resFirstNumber['data']['lastMessageAt']);
                 redirect('surat-jalan');
             } else {
                 $this->form_validation->set_rules('order_number', 'Order Number', 'required');
