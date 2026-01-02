@@ -20,6 +20,7 @@ class MUser extends CI_Model
 
     public function getCourierByIdCity($id_city)
     {
+        $this->db->order_by('id_user', 'DESC');
         $query = $this->db->get_where('tb_user', ['id_city' => $id_city, 'level_user' => 'courier', 'password !=' => '0'])->row_array();
 
         return $query;
