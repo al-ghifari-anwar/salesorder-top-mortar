@@ -78,12 +78,13 @@ class MVisit extends CI_Model
         return $query;
     }
 
-    public function getGroupedCourierGlobal($id_city, $month, $type)
+    public function getGroupedCourierGlobal($id_city, $month, $type, $year)
     {
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         $this->db->join('tb_gudang', 'tb_gudang.id_gudang = tb_visit.id_contact');
         $this->db->where('MONTH(date_visit)', $month);
+        $this->db->where('YEAR(date_visit)', $year);
         $this->db->where('YEAR(date_visit)', date("Y"));
         if ($type != 'sales') {
             $this->db->where('tb_user.level_user', $type);

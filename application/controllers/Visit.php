@@ -189,10 +189,12 @@ class Visit extends CI_Controller
     {
         $post = $this->input->post();
         $month = $post['bulan'];
+        $year = $post['year'];
 
         $data['city'] = $this->MCity->getById($id_city);
         $data['month'] = $month;
         $data['type'] = $type;
+        $data['year'] = $year;
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
