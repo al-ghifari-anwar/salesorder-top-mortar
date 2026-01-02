@@ -122,6 +122,7 @@ class MVisit extends CI_Model
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $this->db->where_in('tb_user.level_user', ['sales', 'penagihan', 'mg', 'marketing']);
+        $this->db->not_like('tb_visit.source_visit', 'absen');
         if ($this->session->userdata('id_distributor') == 4) {
             $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'is_approved_2' => 0, 'tb_visit.is_deleted' => 0])->result_array();
         } else {
@@ -138,6 +139,7 @@ class MVisit extends CI_Model
 
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+        $this->db->not_like('tb_visit.source_visit', 'absen');
         $query = $this->db->get_where('tb_visit', ['tb_user.id_city' => $id_city, 'is_approved' => 0, 'is_deleted' => 0, 'tb_user.level_user' => 'sales'])->result_array();
 
         return $query;
