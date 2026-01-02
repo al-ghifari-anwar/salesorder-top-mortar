@@ -85,7 +85,6 @@ class MVisit extends CI_Model
         $this->db->join('tb_gudang', 'tb_gudang.id_gudang = tb_visit.id_contact');
         $this->db->where('MONTH(date_visit)', $month);
         $this->db->where('YEAR(date_visit)', $year);
-        $this->db->where('YEAR(date_visit)', date("Y"));
         if ($type != 'sales') {
             $this->db->where('tb_user.level_user', $type);
         } else {
