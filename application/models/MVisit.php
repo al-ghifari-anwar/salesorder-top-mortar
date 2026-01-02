@@ -90,7 +90,7 @@ class MVisit extends CI_Model
         } else {
             $this->db->where_in('tb_user.level_user', ['sales', 'penagihan']);
         }
-        $this->db->where('tb_gudang.id_city', $id_city);
+        $this->db->where('tb_user.id_city', $id_city);
         $this->db->group_by('tb_user.id_user');
         $query = $this->db->get('tb_visit')->result_array();
         // echo $this->db->last_query();
