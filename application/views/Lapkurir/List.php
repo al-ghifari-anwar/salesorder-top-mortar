@@ -67,7 +67,7 @@
                                         <div class="form-group">
                                             <select name="tahun" id="select2bs4" class="form-control select2bs4">
                                                 <option value="2024" <?= date('Y') == "2024" ? 'selected' : '' ?>>2024</option>
-                                                <option value="=2025" <?= date('Y') == "2025" ? 'selected' : '' ?>>2025</option>
+                                                <option value="2025" <?= date('Y') == "2025" ? 'selected' : '' ?>>2025</option>
                                                 <option value="2026" <?= date('Y') == "2026" ? 'selected' : '' ?>>2026</option>
                                             </select>
                                         </div>
