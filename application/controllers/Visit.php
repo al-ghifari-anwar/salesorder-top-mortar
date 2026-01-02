@@ -199,7 +199,7 @@ class Visit extends CI_Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         if ($type == 'courier') {
-            $data['user'] = $this->MVisit->getGroupedCourierGlobal($id_city, $month, $type);
+            $data['user'] = $this->MVisit->getGroupedCourierGlobal($id_city, $month, $type, $year);
             $html = $this->load->view('Visit/Print', $data, true);
         } else if ($type == 'sales') {
             $data['user'] = $this->MVisit->getGroupedContactGlobalMonth($id_city, $type, $month);
