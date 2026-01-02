@@ -189,7 +189,7 @@ class Visit extends CI_Controller
     {
         $post = $this->input->post();
         $month = $post['bulan'];
-        $year = $post['year'];
+        $year = $post['tahun'];
 
         $data['city'] = $this->MCity->getById($id_city);
         $data['month'] = $month;
