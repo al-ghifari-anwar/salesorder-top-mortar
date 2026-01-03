@@ -255,6 +255,8 @@ class Haloai extends CI_Controller
                         $multiplier = $qty / $produk['kelipatan_promo'];
 
                         if (floor($multiplier) > 0) {
+                            $total_qty_bonus += floor($multiplier) * $produk['bonus_promo'];
+
                             $sjDetailData = [
                                 'id_surat_jalan' => $id_surat_jalan,
                                 'id_produk' => $produk['id_produk'],
