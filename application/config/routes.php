@@ -411,3 +411,5 @@ $route['haloai/create-order'] = 'Haloai/createOrder';
 // Send notif jadwal
 $route['jadwalvisit/notif'] = 'Jadwalvisit/sendNotif';
 $route['reportjadwalvisit/notif'] = 'Reportjadwalvisit/sendNotif';
+// Webhook Halo AI
+$route['webhook/haloai/save'] = 'Webhookhaloai/save';
