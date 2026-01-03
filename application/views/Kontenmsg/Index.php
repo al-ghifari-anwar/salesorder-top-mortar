@@ -91,6 +91,10 @@
                                             <label for="">Body</label>
                                             <textarea name="body_kontenmsg" id="" cols="30" rows="5" class="form-control"><?= $kontenmsg['body_kontenmsg'] ?></textarea>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="">Topic</label>
+                                            <textarea name="topic_kontenmsg" id="" cols="30" rows="5" class="form-control"><?= $kontenmsg['topic_kontenmsg'] ?></textarea>
+                                        </div>
                                         <input type=" text" value="data" name="target_status" hidden>
                                         <button class="btn btn-primary float-right">Simpan</button>
                                     </form>
@@ -146,6 +150,10 @@
                     <div class="form-group">
                         <label for="">Body</label>
                         <textarea name="body_kontenmsg" id="" cols="30" rows="5" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Topic</label>
+                        <textarea name="topic_kontenmsg" id="" cols="30" rows="5" class="form-control"></textarea>
                     </div>
                     <input type="text" value="data" name="target_status" hidden>
                     <button class="btn btn-primary float-right">Simpan</button>

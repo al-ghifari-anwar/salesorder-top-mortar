@@ -37,6 +37,7 @@ class Kontenmsg extends CI_Controller
                 'thumbnail_kontenmsg' => $uploadData['file_name'],
                 'link_kontenmsg' => $post['link_kontenmsg'],
                 'body_kontenmsg' => $post['body_kontenmsg'],
+                'topic_kontenmsg' => $post['topic_kontenmsg'],
             ];
 
             $save = $this->MKontenmsg->create($kontenmsgData);
@@ -76,6 +77,7 @@ class Kontenmsg extends CI_Controller
             'thumbnail_kontenmsg' => $thumbnail_kontenmsg,
             'link_kontenmsg' => $post['link_kontenmsg'],
             'body_kontenmsg' => $post['body_kontenmsg'],
+            'topic_kontenmsg' => $post['topic_kontenmsg'],
             'updated_at' => date('Y-m-d H:i:s'),
         ];
 
