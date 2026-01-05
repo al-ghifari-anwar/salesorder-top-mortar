@@ -414,3 +414,4 @@ $route['reportjadwalvisit/notif'] = 'Reportjadwalvisit/sendNotif';
 // Webhook Halo AI
 $route['webhook/haloai/save'] = 'Webhookhaloai/save';
 $route['webhook/haloai/bantuan'] = 'Webhookhaloai/bantuan';
+$route['webhook/haloai/sjgagal'] = 'Webhookhaloai/sjgagal';
