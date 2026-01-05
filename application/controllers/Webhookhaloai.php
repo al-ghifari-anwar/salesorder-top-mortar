@@ -94,9 +94,9 @@ class Webhookhaloai extends CI_Controller
             $customer = $post['customer'];
             $name = $customer['name'];
             $phone = $customer['phone'];
-            $bodyMsg = $post['message']['body'];
+            // $bodyMsg = $post['message']['body'];
 
-            $message = "Halo admin, \nSurat Jalan Gagal Terbuat \nToko: " . $name . "\nNomor: " . $phone . "\nPesan: " . $bodyMsg;
+            $message = "Halo admin, \nSurat Jalan Gagal Terbuat \nToko: " . $name . "\nNomor: " . $phone;
 
             $chatId = "-5138247877";
 
