@@ -50,9 +50,15 @@ class Webhookhaloai extends CI_Controller
         $save = $this->db->insert('tb_webhook_haloai', $webhookData);
 
         if ($save) {
-            // $chatId = "-1003589286815";
+            $customer = $post['customer'];
+            $name = $customer['name'];
+            $phone = $customer['phone'];
 
-            // $this->HTelegram->sendTextPrivate($chatId, "AI Butuh bantuan");
+            $message = "Halo admin, \nAI Butuh Bantuan \nToko: " . $name . "\nNomor: " . $phone;
+
+            $chatId = "-1003589286815";
+
+            $this->HTelegram->sendTextPrivate($chatId, "AI Butuh bantuan");
 
             $result = [
                 'code' => 200,
