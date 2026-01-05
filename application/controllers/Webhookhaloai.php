@@ -2,6 +2,12 @@
 
 class Webhookhaloai extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('HTelegram');
+    }
+
     public function save()
     {
         $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
@@ -44,6 +50,10 @@ class Webhookhaloai extends CI_Controller
         $save = $this->db->insert('tb_webhook_haloai', $webhookData);
 
         if ($save) {
+            // $chatId = "-1003589286815";
+
+            // $this->HTelegram->sendTextPrivate($chatId, "AI Butuh bantuan");
+
             $result = [
                 'code' => 200,
                 'status' => 'ok',
