@@ -53,12 +53,13 @@ class Webhookhaloai extends CI_Controller
             $customer = $post['customer'];
             $name = $customer['name'];
             $phone = $customer['phone'];
+            $bodyMsg = $post['message']['body'];
 
-            $message = "Halo admin, \nAI Butuh Bantuan \nToko: " . $name . "\nNomor: " . $phone;
+            $message = "Halo admin, \nAI Butuh Bantuan \nToko: " . $name . "\nNomor: " . $phone . "\nPesan: " . $bodyMsg;
 
             $chatId = "-1003589286815";
 
-            $this->HTelegram->sendTextPrivate($chatId, "AI Butuh bantuan");
+            $this->HTelegram->sendTextPrivate($chatId, $message);
 
             $result = [
                 'code' => 200,
