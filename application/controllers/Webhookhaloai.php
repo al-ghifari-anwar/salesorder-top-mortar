@@ -125,7 +125,7 @@ class Webhookhaloai extends CI_Controller
         $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
 
         $webhookData = [
-            'type_webhook_haloai' => 'sj-gagal',
+            'type_webhook_haloai' => 'sj-sukses',
             'content_webhook_haloai' => json_encode($post),
         ];
 
