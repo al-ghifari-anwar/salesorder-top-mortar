@@ -391,7 +391,7 @@ class Haloai extends CI_Controller
                 // $business_id = $haloai['business_id_haloai'];
                 // $channel_id = $haloai['channel_id_haloai'];
                 // $template = 'notkurir';
-                $message = "Pesanan Baru Status: Perlu di kirim Kurir: " . $suratjalan['full_name'] . ". Nama toko/penerima: " . $suratjalan['nama'] . ". Alamat: " . trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'] . ". No Surat Jalan: *" . $suratjalan['no_surat_jalan'] . "*";
+                $message = "Pesanan Baru Status: Perlu di kirim Kurir: " . $suratJalan['full_name'] . ". Nama toko/penerima: " . $suratJalan['nama'] . ". Alamat: " . trim(preg_replace('/\s+/', ' ', $suratJalan['address'])) . ', ' . $suratJalan['nama_city'] . ". No Surat Jalan: *" . $suratJalan['no_surat_jalan'] . "*";
 
                 // $haloaiPayload = [
                 //     'activate_ai_after_send' => false,
@@ -432,7 +432,7 @@ class Haloai extends CI_Controller
 
                 // $res = json_decode($response, true);
 
-                $sendNotifTele = $this->HTelegram->sendTextPrivate($suratjalan['telegram_user'], $message);
+                $sendNotifTele = $this->HTelegram->sendTextPrivate($suratJalan['telegram_user'], $message);
 
                 $resultData = [
                     'no_surat_jalan' => $suratJalan['no_surat_jalan'],
