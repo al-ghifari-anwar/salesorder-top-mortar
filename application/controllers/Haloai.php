@@ -443,6 +443,7 @@ class Haloai extends CI_Controller
                     'status' => 'ok',
                     'msg' => 'Success',
                     'data' => $resultData,
+                    'notifResponse' => $sendNotifTele,
                 ];
 
                 return $this->output->set_output(json_encode($result));
