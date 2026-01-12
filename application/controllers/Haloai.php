@@ -376,7 +376,7 @@ class Haloai extends CI_Controller
                 return $this->output->set_status_header(500);
             } else {
                 $this->db->trans_commit();
-                return $this->output->set_status_header(200);
+                // return $this->output->set_status_header(200);
             }
 
             $detailSuratJalan = $this->db->select('COUNT(*) as jml_detail')->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
@@ -449,21 +449,21 @@ class Haloai extends CI_Controller
                 return $this->output->set_output(json_encode($result));
             }
 
-            $sendNotifTele = $this->HTelegram->sendTextPrivate($suratJalan['telegram_user'], $message);
+            // $sendNotifTele = $this->HTelegram->sendTextPrivate($suratJalan['telegram_user'], $message);
 
-            $resultData = [
-                'no_surat_jalan' => $suratJalan['no_surat_jalan'],
-            ];
+            // $resultData = [
+            //     'no_surat_jalan' => $suratJalan['no_surat_jalan'],
+            // ];
 
-            $result = [
-                'code' => 200,
-                'status' => 'ok',
-                'msg' => 'Success!',
-                'data' => $resultData,
-                'notifResponse' => $sendNotifTele,
-            ];
+            // $result = [
+            //     'code' => 200,
+            //     'status' => 'ok',
+            //     'msg' => 'Success!',
+            //     'data' => $resultData,
+            //     'notifResponse' => $sendNotifTele,
+            // ];
 
-            return $this->output->set_output(json_encode($result));
+            // return $this->output->set_output(json_encode($result));
         }
     }
 
