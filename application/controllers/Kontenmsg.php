@@ -24,6 +24,32 @@ class Kontenmsg extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function apilist()
+    {
+        $this->output->set_content_type('application/json');
+
+        $kontenMsg = $this->MKontenmsg->get();
+
+        if ($kontenMsg == null) {
+            $result = [
+                'code' => 404,
+                'status' => 'failed',
+                'msg' => 'Not Found',
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        } else {
+            $result = [
+                'code' => 200,
+                'status' => 'ok',
+                'msg' => 'Success',
+                'data' => $kontenMsg
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        }
+    }
+
     public function create()
     {
         $post = $this->input->post();
