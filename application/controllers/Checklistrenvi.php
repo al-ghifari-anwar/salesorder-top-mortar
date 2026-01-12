@@ -9,15 +9,14 @@ class Checklistrenvi extends CI_Controller
         $this->load->model('MInvoice');
         $this->load->model('HTelegram');
 
-        if ($this->session->userdata('id_user') == null) {
-            redirect('login');
-        }
+        // if ($this->session->userdata('id_user') == null) {
+        //     redirect('login');
+        // }
 
-        if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'sales' || $this->session->userdata('level_user') == 'penagihan') {
-            // redirect('');
-        } else {
-            redirect('');
-        }
+        // if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'sales' || $this->session->userdata('level_user') == 'penagihan') {
+        // } else {
+        //     redirect('');
+        // }
     }
 
     public function index()
