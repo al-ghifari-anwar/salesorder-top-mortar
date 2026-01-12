@@ -448,6 +448,22 @@ class Haloai extends CI_Controller
 
                 return $this->output->set_output(json_encode($result));
             }
+
+            $sendNotifTele = $this->HTelegram->sendTextPrivate($suratJalan['telegram_user'], $message);
+
+            $resultData = [
+                'no_surat_jalan' => $suratJalan['no_surat_jalan'],
+            ];
+
+            $result = [
+                'code' => 200,
+                'status' => 'ok',
+                'msg' => 'Success!',
+                'data' => $resultData,
+                'notifResponse' => $sendNotifTele,
+            ];
+
+            return $this->output->set_output(json_encode($result));
         }
     }
 
