@@ -451,7 +451,7 @@ class SuratJalan extends CI_Controller
 
             $sendNotifTele = $this->HTelegram->sendTextPrivate($suratjalan['telegram_user'], $message);
 
-            $status = $sendNotifTele['status'];
+            $status = $sendNotifTele['ok'] == true ? 'success' : 'failed';
         } else {
             $message = 'Pesanan perlu dikirim. Nomor SJ: ' . $suratjalan['no_surat_jalan'] . '. Alamat: ' . trim(preg_replace('/\s+/', ' ', $suratjalan['address']));
             $jsonRequest = [
@@ -485,7 +485,7 @@ class SuratJalan extends CI_Controller
             $this->session->set_flashdata('success', "Surat jalan berhasil dibuat!");
             redirect('surat-jalan');
         } else {
-            $this->session->set_flashdata('failed', "Surat jalan terbuat, tetapi notif WA tidak terkirim ke kurir..." . " -> " . json_encode($sendNotifTele));
+            $this->session->set_flashdata('failed', "Surat jalan terbuat, tetapi notif tidak terkirim ke kurir..." . " -> " . json_encode($sendNotifTele));
             redirect('surat-jalan');
         }
     }
