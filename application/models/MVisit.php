@@ -152,7 +152,7 @@ class MVisit extends CI_Model
 
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_gudang', 'tb_gudang.id_gudang = tb_visit.id_contact');
-        $query = $this->db->get_where('tb_visit', ['tb_gudang.id_city' => $id_city, 'is_approved' => 0, 'is_deleted' => 0, 'tb_user.level_user' => 'courier'])->result_array();
+        $query = $this->db->get_where('tb_visit', ['tb_user.id_city' => $id_city, 'is_approved' => 0, 'is_deleted' => 0, 'tb_user.level_user' => 'courier'])->result_array();
 
         return $query;
     }
