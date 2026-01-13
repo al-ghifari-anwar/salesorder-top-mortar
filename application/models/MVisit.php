@@ -180,7 +180,7 @@ class MVisit extends CI_Model
         $this->db->join('tb_gudang', 'tb_gudang.id_gudang = tb_visit.id_contact');
         $this->db->where('MONTH(date_visit) =', $bulan);
         $this->db->group_by('tb_visit.id_gudang');
-        $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'tb_user.id_user' => $id_user, 'is_approved' => 0, 'is_deleted' => 0,])->result_array();
+        $query = $this->db->get_where('tb_visit', ['tb_user.id_city' => $id_city, 'tb_user.id_user' => $id_user, 'is_approved' => 0, 'is_deleted' => 0,])->result_array();
 
         return $query;
     }
