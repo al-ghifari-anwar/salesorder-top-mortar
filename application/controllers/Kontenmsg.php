@@ -28,9 +28,9 @@ class Kontenmsg extends CI_Controller
     {
         $this->output->set_content_type('application/json');
 
-        $kontenMsg = $this->MKontenmsg->get();
+        $kontenMsgs = $this->MKontenmsg->get();
 
-        if ($kontenMsg == null) {
+        if ($kontenMsgs == null) {
             $result = [
                 'code' => 404,
                 'status' => 'failed',
@@ -39,11 +39,19 @@ class Kontenmsg extends CI_Controller
 
             return $this->output->set_output(json_encode($result));
         } else {
+            $kontenArray = array();
+
+            foreach ($kontenMsgs as $kontenMsg) {
+                $kontenMsg['thumbnail_kontenmsg'] = "https://order.topmortarindonesia.com/assets/img/kontenmsg_img/" . $kontenMsg['thumbnail_kontenmsg'];
+
+                array_push($kontenArray, $kontenMsg);
+            }
+
             $result = [
                 'code' => 200,
                 'status' => 'ok',
                 'msg' => 'Success',
-                'data' => $kontenMsg
+                'data' => $kontenArray
             ];
 
             return $this->output->set_output(json_encode($result));
