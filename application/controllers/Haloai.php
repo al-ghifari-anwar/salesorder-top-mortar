@@ -29,7 +29,7 @@ class Haloai extends CI_Controller
         } else {
             $nomorhp = $_GET['nomorhp'];
 
-            $contact = $this->db->select('id_contact, nama, nomorhp, tgl_lahir, store_owner, address, store_status, id_city, id_promo, termin_payment, kredit_limit')->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
+            $contact = $this->db->select('id_contact, nama, nomorhp, tgl_lahir, store_owner, address, store_status, id_city, id_promo, termin_payment, kredit_limit, hobi_contact AS hobi')->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
 
             if (!$contact) {
                 $result = [
