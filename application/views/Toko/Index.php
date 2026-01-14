@@ -102,6 +102,10 @@
                                         <th>Payment Method</th>
                                         <th>Mingguan</th>
                                         <th>Kredit Limit</th>
+                                        <th>Hobi</th>
+                                        <th>Hari Bayar</th>
+                                        <th>Jam Bayar</th>
+                                        <th>Cluster</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -143,6 +147,10 @@
                                                     <td><?= $data['payment_method'] ?></td>
                                                     <td><?= $data['tagih_mingguan'] == 1 ? 'Yes' : 'No' ?></td>
                                                     <td><?= number_format($data['kredit_limit'], 0, ',', '.') ?></td>
+                                                    <td><?= $data['hobi_contact'] ?></td>
+                                                    <td><?= $data['hari_bayar'] ?></td>
+                                                    <td><?= $data['jam_bayar'] ?></td>
+                                                    <td><?= $data['cluster'] ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                             <?php if ($id_promo_filter != 0): ?>
