@@ -36,6 +36,19 @@ class MSuratJalan extends CI_Model
         return $query;
     }
 
+    public function getByCityAndDate($id_city, $dateFrom, $dateTo)
+    {
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
+        $this->db->join('tb_user', 'tb_user.id_user = tb_surat_jalan.id_courier');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $this->db->order_by('id_surat_jalan', 'desc');
+        $this->db->where('tb_contact.id_city', $id_city);
+        $this->db->where('DATE(tb_surat_jalan.dalivery_date) >=', $dateFrom);
+        $this->db->where('DATE(tb_surat_jalan.dalivery_date) <=', $dateTo);
+        $query = $this->db->get('tb_surat_jalan')->result_array();
+        return $query;
+    }
+
     public function getNotClosing()
     {
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');

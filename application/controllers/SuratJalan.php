@@ -42,13 +42,27 @@ class SuratJalan extends CI_Controller
 
     public function index($id_city)
     {
+        $get = $this->input->get();
+
+        $dateFrom = date('Y-m-d', strtotime('-1 days'));
+        $dateTo = date('Y-m-d');
+
+        if (isset($get['daterange'])) {
+            $dates = explode(' - ', $get['daterange']);
+            $dateFrom = date('Y-m-d', strtotime($dates[0]));
+            $dateTo = date('Y-m-d', strtotime($dates[1]));
+        }
+
         $data['title'] = 'Surat Jalan';
         $data['menuGroup'] = 'SJ';
         $data['menu'] = 'SJ';
-        $data['suratjalan'] = $this->MSuratJalan->getByCity($id_city);
+        $data['suratjalan'] = $this->MSuratJalan->getByCityAndDate($id_city, $dateFrom, $dateTo);
         $data['toko'] = $this->MContact->getAll($id_city);
         $data['kurir'] = $this->MUser->getAllDefault();
         $data['kendaraan'] = $this->MKendaraan->getAll();
+        $data['city'] = $this->MCity->getById($id_city);
+        $data['dateFrom'] = $dateFrom;
+        $data['dateTo'] = $dateTo;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('SuratJalan/Index');
