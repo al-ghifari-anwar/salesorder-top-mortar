@@ -416,5 +416,6 @@ $route['webhook/haloai/save'] = 'Webhookhaloai/save';
 $route['webhook/haloai/bantuan'] = 'Webhookhaloai/bantuan';
 $route['webhook/haloai/sjgagal'] = 'Webhookhaloai/sjgagal';
 $route['webhook/haloai/sjsukses'] = 'Webhookhaloai/sjsukses';
+$route['webhook/haloai/project'] = 'Webhookhaloai/customerProject';
 // Halo AI Konten
 $route['konten/list'] = 'Kontenmsg/apilist';
