@@ -173,10 +173,10 @@ class Webhookhaloai extends CI_Controller
         $save = $this->db->insert('tb_webhook_haloai', $webhookData);
 
         if ($save) {
-            $name = $post['name'];
+            $name = isset($post['name']) ? $post['name'] : '-';
             $nomorhp = $post['nomorhp'];
-            $name_project = $post['name_project'];
-            $address_project = $post['address_project'];
+            $name_project = isset($post['name_project']) ? $post['name_project'] : '';
+            $address_project = isset($post['address_project']) ? $post['address_project'] : '';
 
             $message = "Project baru dari Halo AI\n" . "Nama: " . $name . "\nNomorhp: " . $nomorhp . "\nProject: " . $name_project . "\nAlamat: " . $address_project;
 
