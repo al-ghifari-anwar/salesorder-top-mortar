@@ -295,19 +295,15 @@
                 'hari_ini' => $dayName,
             ];
 
-            if ($id_contact == 5116) {
-                echo json_encode($renvisFilter);
-            }
+            // if ($id_contact == 5116) {
+            //     echo json_encode($renvisFilter);
+            // }
 
             if ($renvi['cluster'] == $cluster) {
                 if (count($jadwalVisits) <= 14) {
                     // if ($days == 0 || $days >= 7) {
                     if ($days > $minDayCluster) {
                         if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1') {
-                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                array_push($jadwalVisits, $renvisFilter);
-                            }
-                        } else if ($renvi['hari_bayar'] == $dayName) {
                             if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                                 array_push($jadwalVisits, $renvisFilter);
                             }
@@ -485,6 +481,10 @@
                 'total_invoice' => $total_invoice,
                 'is_new' => $is_new,
             ];
+
+            if ($id_contact == 5116) {
+                echo json_encode($renvisFilter);
+            }
 
             if (count($jadwalVisits) <= 14) {
                 if ($renvi['cluster'] != 1) {
