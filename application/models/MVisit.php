@@ -48,6 +48,7 @@ class MVisit extends CI_Model
         } else {
             $this->db->where_in('tb_user.level_user', ['sales', 'penagihan', 'marketing']);
         }
+        $this->db->not_like('tb_visit.source_visit', 'absen');
         $this->db->where('tb_contact.id_city', $id_city);
         $this->db->group_by('tb_user.id_user');
         $query = $this->db->get('tb_visit')->result_array();
