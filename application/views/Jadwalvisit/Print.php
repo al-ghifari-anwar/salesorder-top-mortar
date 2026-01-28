@@ -291,11 +291,12 @@
                 'daysJatem' => $daysJatem,
                 'total_invoice' => $total_invoice,
                 'is_new' => $is_new,
+                'hari_bayar' => $renvi['hari_bayar'],
+                'hari_ini' => $dayName,
             ];
 
             if ($id_contact == 5116) {
                 echo json_encode($renvisFilter);
-                die;
             }
 
             if ($renvi['cluster'] == $cluster) {
