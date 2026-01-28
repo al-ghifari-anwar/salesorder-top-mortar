@@ -233,17 +233,19 @@ class Haloai extends CI_Controller
                     // Calculate bonus
                     if ($produk['is_default_promo'] == 1) {
                         $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+                        $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
 
-                        $multiplier = $qty / $promo['kelipatan_promo'];
+                        // $multiplier = $qty / $promo['kelipatan_promo'];
+                        $bonusQty = $this->setBonusProgressive($qty, $promoList);
 
-                        if (floor($multiplier) > 0) {
-                            $total_qty_bonus += floor($multiplier) * $promo['bonus_promo'];
+                        if ($bonusQty > 0) {
+                            $total_qty_bonus += $bonusQty;
 
                             $sjDetailData = [
                                 'id_surat_jalan' => $id_surat_jalan,
                                 'id_produk' => $produk['id_produk'],
                                 'price' => $produk['harga_produk'],
-                                'qty_produk' => floor($multiplier) * $promo['bonus_promo'],
+                                'qty_produk' => $bonusQty,
                                 'amount' => 0,
                                 'is_bonus' => 1,
                                 'created_at' => date('Y-m-d H:i:s'),
@@ -278,18 +280,22 @@ class Haloai extends CI_Controller
                 if ($contact['id_promo'] != 0) {
                     $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
 
-                    $kelipatan_promo = $promo['kelipatan_promo'];
+                    $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
 
-                    $multiplier = $total_qty_products / $kelipatan_promo;
+                    // $kelipatan_promo = $promo['kelipatan_promo'];
 
-                    if (floor($multiplier) > 0) {
+                    // $multiplier = $total_qty_products / $kelipatan_promo;
+
+                    $bonusQty = $this->setBonusProgressive($total_qty_products, $promoList);
+
+                    if ($bonusQty > 0) {
                         $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
 
                         $sjDetailData = [
                             'id_surat_jalan' => $id_surat_jalan,
                             'id_produk' => $cheapestProduct['id_produk'],
                             'price' => $cheapestProduct['harga_produk'],
-                            'qty_produk' => floor($multiplier) * $promo['bonus_promo'],
+                            'qty_produk' => $bonusQty,
                             'amount' => 0,
                             'is_bonus' => 1,
                             'created_at' => date('Y-m-d H:i:s'),
@@ -630,5 +636,26 @@ class Haloai extends CI_Controller
         }
 
         return number_format($val_scoring, 2, '.', ',');
+    }
+
+    public function setBonusProgressive($qty, $promoList)
+    {
+        $sisaQty   = $qty;
+        $totalBonus = 0;
+
+        foreach ($promoList as $promo) {
+            if ($sisaQty < $promo['kelipatan_promo']) {
+                continue;
+            }
+
+            $kelipatan = floor($sisaQty / $promo['kelipatan_promo']);
+
+            if ($kelipatan > 0) {
+                $totalBonus += $kelipatan * $promo['bonus_promo'];
+                $sisaQty    -= $kelipatan * $promo['kelipatan_promo'];
+            }
+        }
+
+        return $totalBonus;
     }
 }

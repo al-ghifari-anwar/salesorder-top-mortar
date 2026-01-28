@@ -289,45 +289,11 @@ class SuratJalan extends CI_Controller
         $channel_id = $haloai['channel_id_haloai'];
 
         // Check first number
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp'],
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $wa_token,
-                'X-HaloAI-Business-Id: ' . $business_id,
-                'Content-Type: application/json'
-            ),
-        ));
-
-        $responseFirstNumber = curl_exec($curl);
-
-        curl_close($curl);
-
-        $resFirstNumber = json_decode($responseFirstNumber, true);
-
-        if (date('Y-m-d', strtotime($resFirstNumber['data']['lastMessageAt'])) >= date('Y-m-d', strtotime("-2 Days"))) {
-            $this->form_validation->set_rules('order_number', 'Order Number', 'required');
-
-            if ($this->form_validation->run() == false) {
-                $this->session->set_flashdata('failed', "Harap lengkapi form!");
-                redirect('surat-jalan');
-            } else {
-                $this->MSuratJalan->insert();
-            }
-        } else {
-            // Check second number
+        if (base_url() == "https://order.topmortarindonesia.com/") {
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp_2'],
+                CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp'],
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -342,13 +308,13 @@ class SuratJalan extends CI_Controller
                 ),
             ));
 
-            $responseSecondNumber = curl_exec($curl);
+            $responseFirstNumber = curl_exec($curl);
 
             curl_close($curl);
 
-            $resSecondNumber = json_decode($responseSecondNumber, true);
+            $resFirstNumber = json_decode($responseFirstNumber, true);
 
-            if (date('Y-m-d', strtotime($resSecondNumber['data']['lastMessageAt'])) >= date('Y-m-d', strtotime("-2 Days"))) {
+            if (date('Y-m-d', strtotime($resFirstNumber['data']['lastMessageAt'])) >= date('Y-m-d', strtotime("-2 Days"))) {
                 $this->form_validation->set_rules('order_number', 'Order Number', 'required');
 
                 if ($this->form_validation->run() == false) {
@@ -358,8 +324,53 @@ class SuratJalan extends CI_Controller
                     $this->MSuratJalan->insert();
                 }
             } else {
-                $this->session->set_flashdata('failed', "Tidak dapat membuat surat jalan, karena toko belum openchat pada hari ini! Openchat terakhir pada: " . date('Y-m-d', strtotime($resFirstNumber['data']['lastMessageAt'])) . ' | ' . date('Y-m-d', strtotime("-2 Days")));
+                // Check second number
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp_2'],
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $wa_token,
+                        'X-HaloAI-Business-Id: ' . $business_id,
+                        'Content-Type: application/json'
+                    ),
+                ));
+
+                $responseSecondNumber = curl_exec($curl);
+
+                curl_close($curl);
+
+                $resSecondNumber = json_decode($responseSecondNumber, true);
+
+                if (date('Y-m-d', strtotime($resSecondNumber['data']['lastMessageAt'])) >= date('Y-m-d', strtotime("-2 Days"))) {
+                    $this->form_validation->set_rules('order_number', 'Order Number', 'required');
+
+                    if ($this->form_validation->run() == false) {
+                        $this->session->set_flashdata('failed', "Harap lengkapi form!");
+                        redirect('surat-jalan');
+                    } else {
+                        $this->MSuratJalan->insert();
+                    }
+                } else {
+                    $this->session->set_flashdata('failed', "Tidak dapat membuat surat jalan, karena toko belum openchat pada hari ini! Openchat terakhir pada: " . date('Y-m-d', strtotime($resFirstNumber['data']['lastMessageAt'])) . ' | ' . date('Y-m-d', strtotime("-2 Days")));
+                    redirect('surat-jalan');
+                }
+            }
+        } else {
+            $this->form_validation->set_rules('order_number', 'Order Number', 'required');
+
+            if ($this->form_validation->run() == false) {
+                $this->session->set_flashdata('failed', "Harap lengkapi form!");
                 redirect('surat-jalan');
+            } else {
+                $this->MSuratJalan->insert();
             }
         }
     }
@@ -499,6 +510,7 @@ class SuratJalan extends CI_Controller
             $this->session->set_flashdata('success', "Surat jalan berhasil dibuat!");
             redirect('surat-jalan');
         } else {
+            $this->db->update('tb_surat_jalan', ['is_finished' => 1], ['id_surat_jalan' => $suratjalan['id_surat_jalan']]);
             $this->session->set_flashdata('failed', "Surat jalan terbuat, tetapi notif tidak terkirim ke kurir..." . " -> " . json_encode($sendNotifTele));
             redirect('surat-jalan');
         }
