@@ -487,7 +487,7 @@
             }
 
             if (count($jadwalVisits) <= 14) {
-                if ($renvi['cluster'] != 1) {
+                if ($renvi['cluster'] != $cluster) {
                     if ($renvi['hari_bayar'] == $dayName) {
                         // if ($days == 0 || $days >= 7) {
                         // if ($days > $minDayCluster) {
