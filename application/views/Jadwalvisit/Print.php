@@ -482,9 +482,9 @@
                 'is_new' => $is_new,
             ];
 
-            if ($id_contact == 5116) {
-                echo json_encode($renvisFilter);
-            }
+            // if ($id_contact == 5116) {
+            //     echo json_encode($renvisFilter);
+            // }
 
             if (count($jadwalVisits) <= 14) {
                 if ($renvi['cluster'] != $cluster) {
