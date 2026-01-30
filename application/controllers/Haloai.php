@@ -53,7 +53,7 @@ class Haloai extends CI_Controller
 
             $kelipatan_promo_toko = $promo['kelipatan_promo'];
 
-            $otherPromo = $this->db->select('nama_promo')->get_where('tb_promo', ['kelipatan_promo <' => $kelipatan_promo_toko])->result_array();
+            $otherPromo = $this->db->select('nama_promo')->get_where('tb_promo', ['kelipatan_promo <' => $kelipatan_promo_toko, 'is_potongan' => 1])->result_array();
 
             // Score toko
             $paymentScore = $this->paymentScoring($contact);
