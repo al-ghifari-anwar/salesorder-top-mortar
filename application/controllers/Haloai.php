@@ -51,6 +51,10 @@ class Haloai extends CI_Controller
 
             $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
 
+            $kelipatan_promo_toko = $promo['kelipatan_promo'];
+
+            $otherPromo = $this->db->get_where('tb_promo', ['kelipatan_promo <' => $kelipatan_promo_toko])->result_array();
+
             // Score toko
             $paymentScore = $this->paymentScoring($contact);
 
@@ -82,6 +86,8 @@ class Haloai extends CI_Controller
             $contact['kota'] = $city['nama_city'];
 
             $contact['promo_global'] = $promo ? $promo['nama_promo'] : null;
+
+            $contact['promo_lain'] = $otherPromo ? $otherPromo['nama_promo'] : null;
 
             $produks = $this->db->select('nama_produk, name_satuan, harga_produk, slang_produk, is_default_promo, kelipatan_promo, bonus_promo, img_master_produk')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $contact['id_city'])->get('tb_produk')->result_array();
 
