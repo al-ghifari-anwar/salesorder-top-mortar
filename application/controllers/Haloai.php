@@ -51,7 +51,7 @@ class Haloai extends CI_Controller
 
             $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
 
-            $kelipatan_promo_toko = $promo['kelipatan_promo'];
+            $kelipatan_promo_toko = $promo ? $promo['kelipatan_promo'] : 0;
 
             $otherPromo = $this->db->select('nama_promo')->get_where('tb_promo', ['kelipatan_promo <' => $kelipatan_promo_toko, 'is_potongan' => 1])->result_array();
 
