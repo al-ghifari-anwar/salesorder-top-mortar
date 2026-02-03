@@ -102,10 +102,15 @@
             $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
             $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
             $is_visited = 0;
+            $id_distributor = $city['id_distributor'];
 
             $status_color = 'text-red';
 
             if ($jadwalVisit['kategori_jadwal_visit'] == 'Toko Baru' || $jadwalVisit['kategori_jadwal_visit'] == 'passive') {
+
+                $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+                $wa_token = $haloai['token_haloai'];
+                $business_id = $haloai['business_id_haloai'];
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
