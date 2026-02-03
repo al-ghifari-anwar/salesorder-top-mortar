@@ -99,11 +99,48 @@
         foreach ($jadwalVisits as $jadwalVisit): ?>
             <?php
             $id_contact = $jadwalVisit['id_contact'];
+            $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
             $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
+            $is_visited = 0;
 
             $status_color = 'text-red';
-            if ($visit) {
-                $status_color = 'text-green';
+
+            if ($jadwalVisit['kategori_jadwal_visit'] == 'Toko Baru' || $jadwalVisit['kategori_jadwal_visit'] == 'passive') {
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp'],
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $wa_token,
+                        'X-HaloAI-Business-Id: ' . $business_id,
+                        'Content-Type: application/json'
+                    ),
+                ));
+
+                $responseLastMsg = curl_exec($curl);
+
+                curl_close($curl);
+
+                $resLastMsg = json_decode($responseLastMsg, true);
+
+                if (date('Y-m-d', strtotime($resLastMsg['data']['lastMessageAt'])) >= date('Y-m-d')) {
+                    if (!str_contains($resLastMsg['data']['lastMessageText'], "terimakasih atas waktu kunjungannya")) {
+                        $is_visited = 1;
+                        $status_color = 'text-green';
+                    }
+                }
+            } else {
+                if ($visit) {
+                    $status_color = 'text-green';
+                    $is_visited = 1;
+                }
             }
             ?>
             <tr>
@@ -113,7 +150,7 @@
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
-                <td class="text-center <?= $status_color ?>"><?= $visit ? 'Yes' : 'No' ?></td>
+                <td class="text-center <?= $status_color ?>"><?= $is_visited == 1 ? 'Yes' : 'No' ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
