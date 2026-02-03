@@ -135,11 +135,15 @@
 
                 $resLastMsg = json_decode($responseLastMsg, true);
 
-                if (date('Y-m-d', strtotime($resLastMsg['data']['lastMessageAt'])) >= date('Y-m-d')) {
-                    if (!str_contains($resLastMsg['data']['lastMessageText'], "terimakasih atas waktu kunjungannya")) {
-                        $is_visited = 1;
-                        $status_color = 'text-green';
+                if (isset($resLastMsg['data'])) {
+                    if (date('Y-m-d', strtotime($resLastMsg['data']['lastMessageAt'])) >= date('Y-m-d')) {
+                        if (!str_contains($resLastMsg['data']['lastMessageText'], "terimakasih atas waktu kunjungannya")) {
+                            $is_visited = 1;
+                            $status_color = 'text-green';
+                        }
                     }
+                } else {
+                    echo json_encode($resLastMsg);
                 }
             } else {
                 if ($visit) {
