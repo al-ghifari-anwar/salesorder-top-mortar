@@ -78,7 +78,7 @@ class Reportjadwalvisit extends CI_Controller
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_jadwal_visit.id_contact');
         $data['jadwalVisits'] = $this->db->get_where('tb_jadwal_visit', ['DATE(date_jadwal_visit)' => $date, 'tb_jadwal_visit.id_city' => $id_city, 'tb_jadwal_visit.cluster_jadwal_visit' => $cluster])->result_array();
 
-        $this->load->view('Jadwalvisit/Print', $data);
+        $this->load->view('Reportjadwalvisit/Print', $data);
 
         // Buat direktori penyimpanan sementara
         // $folderPath = FCPATH . 'assets/tmp/renvis/';
