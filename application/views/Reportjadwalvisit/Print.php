@@ -142,8 +142,6 @@
                             $status_color = 'text-green';
                         }
                     }
-                } else {
-                    echo json_encode($resLastMsg);
                 }
             } else {
                 if ($visit) {
