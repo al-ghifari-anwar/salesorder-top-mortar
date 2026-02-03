@@ -78,7 +78,7 @@ class Reportjadwalvisit extends CI_Controller
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_jadwal_visit.id_contact');
         $data['jadwalVisits'] = $this->db->get_where('tb_jadwal_visit', ['DATE(date_jadwal_visit)' => $date, 'tb_jadwal_visit.id_city' => $id_city, 'tb_jadwal_visit.cluster_jadwal_visit' => $cluster])->result_array();
 
-        $this->load->view('Reportjadwalvisit/Print', $data);
+        // $this->load->view('Reportjadwalvisit/Print', $data);
 
         // Buat direktori penyimpanan sementara
         // $folderPath = FCPATH . 'assets/tmp/renvis/';
@@ -86,12 +86,12 @@ class Reportjadwalvisit extends CI_Controller
         // $fileName = 'renvi_' . $this->session->userdata('id_user') . '_' . time() . '.pdf';
         // $filePath = $folderPath . $fileName;
 
-        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        // $mpdf->SetMargins(0, 0, 5);
-        // $html = $this->load->view('Reportjadwalvisit/Print', $data, true);
-        // $mpdf->AddPage('P');
-        // $mpdf->WriteHTML($html);
-        // $mpdf->Output();
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Reportjadwalvisit/Print', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
         // $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
 
         // $user = $this->db->get_where('tb_user', ['id_user' => $this->session->userdata('id_user')])->row_array();
