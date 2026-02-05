@@ -105,6 +105,7 @@
             $id_distributor = $city['id_distributor'];
 
             $status_color = 'text-red';
+            $has_session = "";
 
             if ($jadwalVisit['kategori_jadwal_visit'] == 'Toko Baru' || $jadwalVisit['kategori_jadwal_visit'] == 'passive' || $jadwalVisit['kategori_jadwal_visit'] == 'Akan passive' || $jadwalVisit['kategori_jadwal_visit'] == 'Toko Aktif') {
 
@@ -140,7 +141,10 @@
                         if ($resLastMsg['sessionStatus'] != 'expired') {
                             $is_visited = 1;
                             $status_color = 'text-green';
+                            $has_session = "yes" . $contact['nomorhp'];
                         }
+                    } else {
+                        $has_session = "no" . $contact['nomorhp'];
                     }
                 }
             } else {
@@ -152,7 +156,7 @@
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $jadwalVisit['nama'] ?> - <?= isset($resLastMsg['sessionStatus']) ? 'OK' : '' ?></td>
+                <td><?= $jadwalVisit['nama'] ?> - <?= $has_session ?></td>
                 <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
