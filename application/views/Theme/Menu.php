@@ -968,7 +968,15 @@
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview">
-
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('targetvisittagihan') ?>" class="nav-link <?= $menu == 'TargetVisitTagihan' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-money-check-alt"></i>
+                                                <p>
+                                                    Visit Tagihan
+                                                    <span class="right badge badge-success">New</span>
+                                                </p>
+                                            </a>
+                                        </li>
                                         <li class="nav-item">
                                             <a href="<?= base_url('payment') ?>" class="nav-link <?= $menu == 'RincianPembayaran' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-file-invoice-dollar"></i>

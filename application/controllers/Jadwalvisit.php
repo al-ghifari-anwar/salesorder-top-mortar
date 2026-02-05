@@ -999,6 +999,7 @@ class Jadwalvisit extends CI_Controller
                     'is_new' => $jadwalVisit['is_new'],
                     'last_visit' => $jadwalVisit['last_visit'],
                     'days_jadwal_visit' => $jadwalVisit['days'],
+                    'total_invoice' => $jadwalVisit['total_invoice'],
                 ];
 
                 $save = $this->db->insert('tb_jadwal_visit', $jadwalVisitData);
