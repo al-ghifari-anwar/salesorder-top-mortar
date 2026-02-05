@@ -691,9 +691,9 @@
             }
         }
         ?>
-        <tr>
+        <!-- <tr>
             <td colspan="8" class="border">Hasil Filter</td>
-        </tr>
+        </tr> -->
         <?php
         $noJadwal = 1;
         foreach ($jadwalVisits as $jadwalVisit): ?>
