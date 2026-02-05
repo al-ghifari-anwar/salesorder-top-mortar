@@ -136,9 +136,11 @@
                 $resLastMsg = json_decode($responseLastMsg, true);
 
                 if (isset($resLastMsg['data'])) {
-                    if ($resLastMsg['sessionStatus'] != 'expired') {
-                        $is_visited = 1;
-                        $status_color = 'text-green';
+                    if (isset($resLastMsg['sessionStatus'])) {
+                        if ($resLastMsg['sessionStatus'] != 'expired') {
+                            $is_visited = 1;
+                            $status_color = 'text-green';
+                        }
                     }
                 }
             } else {
@@ -150,7 +152,7 @@
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $jadwalVisit['nama'] ?></td>
+                <td><?= $jadwalVisit['nama'] ?> - <?= isset($resLastMsg['sessionStatus']) = 'OK' ?></td>
                 <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
