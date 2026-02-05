@@ -137,8 +137,8 @@
                 $resLastMsg = json_decode($responseLastMsg, true);
 
                 if (isset($resLastMsg['data'])) {
-                    if (isset($resLastMsg['sessionStatus'])) {
-                        if ($resLastMsg['sessionStatus'] != 'expired') {
+                    if (isset($resLastMsg['data']['sessionStatus'])) {
+                        if ($resLastMsg['data']['sessionStatus'] != 'expired') {
                             $is_visited = 1;
                             $status_color = 'text-green';
                             $has_session = "yes" . $contact['nomorhp'];
