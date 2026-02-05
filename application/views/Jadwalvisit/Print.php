@@ -89,9 +89,9 @@
         <?php
         $jadwalVisits = array();
         ?>
-        <tr>
+        <!-- <tr>
             <td colspan="8" class="border">Data Mentah</td>
-        </tr>
+        </tr> -->
         <?php
         // Filter 1 (Janji Bayar)
         $id_city = $city['id_city'];
@@ -336,7 +336,7 @@
             }
             ?>
             <?php if ($renvi['cluster'] == $cluster): ?>
-                <tr>
+                <!-- <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $renvi['nama'] ?></td>
                     <td>-</td>
@@ -345,7 +345,7 @@
                     <td class="text-center"><?= $days ?></td>
                     <td class="text-center"><?= $daysJatem ?></td>
                     <td>Rp. <?= number_format($total_invoice, 0, ',', '.') ?></td>
-                </tr>
+                </tr> -->
             <?php endif; ?>
         <?php endforeach; ?>
         <?php
