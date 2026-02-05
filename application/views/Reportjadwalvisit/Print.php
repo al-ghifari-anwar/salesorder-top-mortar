@@ -106,7 +106,7 @@
 
             $status_color = 'text-red';
 
-            if ($jadwalVisit['kategori_jadwal_visit'] == 'Toko Baru' || $jadwalVisit['kategori_jadwal_visit'] == 'passive') {
+            if ($jadwalVisit['kategori_jadwal_visit'] == 'Toko Baru' || $jadwalVisit['kategori_jadwal_visit'] == 'passive' || $jadwalVisit['kategori_jadwal_visit'] == 'Akan passive' || $jadwalVisit['kategori_jadwal_visit'] == 'Toko Aktif') {
 
                 $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
                 $wa_token = $haloai['token_haloai'];
@@ -136,11 +136,9 @@
                 $resLastMsg = json_decode($responseLastMsg, true);
 
                 if (isset($resLastMsg['data'])) {
-                    if (date('Y-m-d', strtotime($resLastMsg['data']['lastMessageAt'])) >= date('Y-m-d')) {
-                        if (!str_contains($resLastMsg['data']['lastMessageText'], "terimakasih atas waktu kunjungannya")) {
-                            $is_visited = 1;
-                            $status_color = 'text-green';
-                        }
+                    if ($resLastMsg['sessionStatus'] != 'expired') {
+                        $is_visited = 1;
+                        $status_color = 'text-green';
                     }
                 }
             } else {
