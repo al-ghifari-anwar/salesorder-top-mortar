@@ -152,7 +152,7 @@
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $jadwalVisit['nama'] ?> - <?= isset($resLastMsg['sessionStatus']) = 'OK' ?></td>
+                <td><?= $jadwalVisit['nama'] ?> - <?= isset($resLastMsg['sessionStatus']) ? 'OK' : '' ?></td>
                 <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
