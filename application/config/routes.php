@@ -419,3 +419,4 @@ $route['webhook/haloai/sjsukses'] = 'Webhookhaloai/sjsukses';
 $route['webhook/haloai/project'] = 'Webhookhaloai/customerProject';
 // Halo AI Konten
 $route['konten/list'] = 'Kontenmsg/apilist';
+$route['targetvisittagihan'] = 'TargetVisitTagihan/index';
