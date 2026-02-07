@@ -63,12 +63,16 @@
                                     <tr>
                                         <th>Kota</th>
                                         <th>Total Hutang Hari Ini</th>
-                                        <th>Total Tertagih Hari Ini</th>
+                                        <th>Total Pembayaran</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($jadwalVisits as $jadwalVisit): ?>
+                                    <?php
+                                    $totalHutang = 0;
+                                    $totalTertagih = 0;
+                                    foreach ($jadwalVisits as $jadwalVisit): ?>
                                         <?php
+                                        $totalHutang += $jadwalVisit['total_invoice'];
                                         $city = $this->MCity->getById($jadwalVisit['id_city']);
 
                                         $id_city = $jadwalVisit['id_city'];
@@ -78,25 +82,36 @@
                                         // echo json_encode($seperateJadwals);
                                         // die;
 
-                                        $total_invoice = 0;
+                                        $total_payment = 0;
                                         foreach ($seperateJadwals as $seperateJadwal) {
                                             $id_contact = $seperateJadwal['id_contact'];
-                                            $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => $date])->row_array();
 
-                                            if ($visit) {
-                                                if ($visit['is_pay'] == 'pay') {
-                                                    $total_invoice += $visit['pay_value'];
-                                                }
+                                            $payment = $this->db->select('SUM(amount_payment) AS amount_payment')->join('tb_invoice', 'tb_invoice.id_invoice = tb_payment.id_invoice')->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan')->where('tb_surat_jalan.id_contact', $id_contact)->where('tb_invoice.status_invoice', 'waiting')->get('tb_payment')->row_array();
+
+                                            // echo json_encode($payment);
+                                            // die;
+
+                                            if ($payment) {
+                                                $total_payment += $payment['amount_payment'];
                                             }
                                         }
+
+                                        $totalTertagih += $total_payment;
                                         ?>
                                         <tr>
                                             <td><?= $city['nama_city'] ?></td>
                                             <td class="text-right"><?= number_format($jadwalVisit['total_invoice'], 0, ',', '.') ?></td>
-                                            <td class="text-right"><?= number_format($total_invoice, 0, ',', '.') ?></td>
+                                            <td class="text-right"><?= number_format($total_payment, 0, ',', '.') ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th class="text-right"><?= number_format($totalHutang, 0, ',', '.') ?></th>
+                                        <th class="text-right"><?= number_format($totalTertagih, 0, ',', '.') ?></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
