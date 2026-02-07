@@ -86,7 +86,7 @@
                                         foreach ($seperateJadwals as $seperateJadwal) {
                                             $id_contact = $seperateJadwal['id_contact'];
 
-                                            $payment = $this->db->select('SUM(amount_payment) AS amount_payment')->join('tb_invoice', 'tb_invoice.id_invoice = tb_payment.id_invoice')->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan')->where('tb_surat_jalan.id_contact', $id_contact)->where('tb_invoice.status_invoice', 'waiting')->get('tb_payment')->row_array();
+                                            $payment = $this->db->select('SUM(amount_payment) AS amount_payment')->join('tb_invoice', 'tb_invoice.id_invoice = tb_payment.id_invoice')->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan')->where('tb_surat_jalan.id_contact', $id_contact)->where('DATE(tb_payment.date_payment)', $date)->get('tb_payment')->row_array();
 
                                             // echo json_encode($payment);
                                             // die;
