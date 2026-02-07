@@ -225,7 +225,7 @@ class Jadwalvisit extends CI_Controller
         $data['renvis'] = $renvis;
         $data['renvisPassives'] = $renvisPassives;
 
-        $this->load->view('Jadwalvisit/Print', $data);
+        $this->load->view('Jadwalvisit/PrintAdmin', $data);
 
         // Buat direktori penyimpanan sementara
         // $folderPath = FCPATH . 'assets/tmp/renvis/';
