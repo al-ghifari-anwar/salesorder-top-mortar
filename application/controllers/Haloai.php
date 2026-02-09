@@ -336,7 +336,7 @@ class Haloai extends CI_Controller
 
                 if ($saveVoucher) {
                     $this->db->where_in('no_voucher', explode(',', $vouchersStr));
-                    $this->db->update('tb_voucher', ['is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
+                    $this->db->update('tb_voucher', ['is_claimed' => 1, 'is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
                 }
             }
 
