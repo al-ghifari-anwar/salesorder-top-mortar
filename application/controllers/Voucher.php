@@ -419,11 +419,11 @@ class Voucher extends CI_Controller
                 $this->MVoucher->update_claim($vouchers);
                 $this->db->update('tb_rencana_visit', ['is_visited' => 1], ['id_contact' => $id_contact, 'type_rencana' => 'voucher']);
                 $this->session->set_flashdata('success', "Berhasil claim voucher!");
-                redirect('voucher');
+                redirect('voucher/claim');
             }
         } else {
             $this->session->set_flashdata('failed', "Gagal claim voucher!");
-            redirect('voucher');
+            redirect('voucher/claim');
         }
     }
 
