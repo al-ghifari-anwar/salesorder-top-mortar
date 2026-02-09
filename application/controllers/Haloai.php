@@ -74,9 +74,9 @@ class Haloai extends CI_Controller
             $voucherExp = "";
             foreach ($vouchers as $voucher) {
                 $vouchersStr .= $voucher['no_voucher'] . ",";
-                if (!empty($voucherExp)) {
-                    $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
-                }
+                // if (!empty($voucherExp)) {
+                $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
+                // }
             }
 
             $contact['voucher_expired'] = $voucherExp;
