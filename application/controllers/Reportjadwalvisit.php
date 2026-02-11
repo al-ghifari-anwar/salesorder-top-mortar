@@ -78,7 +78,7 @@ class Reportjadwalvisit extends CI_Controller
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_jadwal_visit.id_contact');
         $data['jadwalVisits'] = $this->db->get_where('tb_jadwal_visit', ['DATE(date_jadwal_visit)' => $date, 'tb_jadwal_visit.id_city' => $id_city, 'tb_jadwal_visit.cluster_jadwal_visit' => $cluster])->result_array();
 
-        $tambahanVisit = $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact')->where('tb_contact.id_city', $id_city)->where("tb_visit.id_contact NOT IN (SELECT id_contact FROM tb_jadwal_visit WHERE date_jadwal_visit = '$date')", null, true)->where('tb_visit.date_visit', $date)->get('tb_visit')->result_array();
+        $tambahanVisit = $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact')->where('tb_contact.id_city', $id_city)->where("tb_visit.id_contact NOT IN (SELECT id_contact FROM tb_jadwal_visit WHERE date_jadwal_visit = '$date')", null, true)->where_not_in('source_visit', ['mg', 'absen_in', 'absen_in_store', 'absen_in_bc'])->where('DATE(tb_visit.date_visit)', $date)->get('tb_visit')->result_array();
 
         echo $this->db->last_query();
         echo "<br>";
