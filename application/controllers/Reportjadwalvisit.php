@@ -80,10 +80,12 @@ class Reportjadwalvisit extends CI_Controller
 
         $tambahanVisit = $this->db->where("id_contact NOT IN (SELECT id_contact FROM tb_jadwal_visit WHERE date_jadwal_visit = '$date')", null, true)->where_not_in('source_visit', ['mg', 'absen_in', 'absen_in_store', 'absen_in_bc'])->where('tb_visit.date_visit', $date)->get('tb_visit')->result_array();
 
+        echo $this->db->last_query();
+        echo "<br>";
         echo json_encode($tambahanVisit);
         die;
 
-        $data['tambahanVisit'] = $this->db->where("id_contact NOT IN (SELECT id_contact FROM tb_jadwal_visit WHERE date_jadwal_visit = '$date')", null, true)->where_not_in('source_visit', ['mg', 'absen_in', 'absen_in_store', 'absen_in_bc'])->where('tb_visit.date_visit', $date)->get('tb_visit')->result_array();
+        // $data['tambahanVisit'] = $this->db->where("id_contact NOT IN (SELECT id_contact FROM tb_jadwal_visit WHERE date_jadwal_visit = '$date')", null, true)->where_not_in('source_visit', ['mg', 'absen_in', 'absen_in_store', 'absen_in_bc'])->where('tb_visit.date_visit', $date)->get('tb_visit')->result_array();
 
         // $this->load->view('Reportjadwalvisit/Print', $data);
 
