@@ -296,10 +296,10 @@
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td>[+] <?= $tambahanVisit['nama'] ?></td>
-                <td><?= $tambahanVisit['filter_jadwal_visit'] ?></td>
-                <td class="text-center"><?= $tambahanVisit['kategori_jadwal_visit'] ?></td>
-                <td class="text-center"><?= $tambahanVisit['is_new'] == 0 ? $tambahanVisit['last_visit'] : 'Blm Visit' ?></td>
-                <td class="text-center"><?= $tambahanVisit['days_jadwal_visit'] ?></td>
+                <td><?= "Tambahan" ?></td>
+                <td class="text-center"><?= $tambahanVisit['source_visit'] ?></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
                 <td class="text-center <?= $status_color ?>"><?= $is_visited == 1 ? 'Yes' : 'No' ?></td>
             </tr>
         <?php endforeach; ?>
