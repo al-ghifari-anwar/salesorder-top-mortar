@@ -127,7 +127,9 @@
                                                 <?php endif; ?>
                                                 <?php if ($data['is_closing'] == 0): ?>
                                                     <?php if (base_url() == 'https://order.topmortarindonesia.com/') : ?>
-                                                        <a href="#" data-toggle="modal" data-target="#closing-modal<?= $data['id_surat_jalan'] ?>" class="btn btn-danger m-1" title="Bypass Closing"> Bypass Closing</a>
+                                                        <?php if ($this->session->userdata('level_user') == 'finance'): ?>
+                                                            <a href="#" data-toggle="modal" data-target="#closing-modal<?= $data['id_surat_jalan'] ?>" class="btn btn-danger m-1" title="Bypass Closing"> Bypass Closing</a>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                             </td>
