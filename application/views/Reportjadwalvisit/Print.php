@@ -212,80 +212,81 @@
             $has_session = "";
 
             if ($tambahanVisit['source_visit'] == 'normal' || $tambahanVisit['source_visit'] == 'passive' || $tambahanVisit['source_visit'] == 'voucher' || $tambahanVisit['source_visit'] == 'active') {
+                if ($visit) {
+                    $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+                    $wa_token = $haloai['token_haloai'];
+                    $business_id = $haloai['business_id_haloai'];
 
-                $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
-                $wa_token = $haloai['token_haloai'];
-                $business_id = $haloai['business_id_haloai'];
+                    $curl = curl_init();
 
-                $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp'],
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'GET',
+                        CURLOPT_HTTPHEADER => array(
+                            'Authorization: Bearer ' . $wa_token,
+                            'X-HaloAI-Business-Id: ' . $business_id,
+                            'Content-Type: application/json'
+                        ),
+                    ));
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp'],
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Authorization: Bearer ' . $wa_token,
-                        'X-HaloAI-Business-Id: ' . $business_id,
-                        'Content-Type: application/json'
-                    ),
-                ));
+                    $responseLastMsg = curl_exec($curl);
 
-                $responseLastMsg = curl_exec($curl);
+                    curl_close($curl);
 
-                curl_close($curl);
+                    $resLastMsg = json_decode($responseLastMsg, true);
 
-                $resLastMsg = json_decode($responseLastMsg, true);
-
-                if (isset($resLastMsg['data'])) {
-                    if (isset($resLastMsg['data']['sessionStatus'])) {
-                        if ($resLastMsg['data']['sessionStatus'] != 'expired') {
-                            $is_visited = 1;
-                            $status_color = 'text-green';
-                            $has_session = "yes" . $contact['nomorhp'];
+                    if (isset($resLastMsg['data'])) {
+                        if (isset($resLastMsg['data']['sessionStatus'])) {
+                            if ($resLastMsg['data']['sessionStatus'] != 'expired') {
+                                $is_visited = 1;
+                                $status_color = 'text-green';
+                                $has_session = "yes" . $contact['nomorhp'];
+                            }
+                        } else {
+                            $has_session = "no" . $contact['nomorhp'];
                         }
-                    } else {
-                        $has_session = "no" . $contact['nomorhp'];
                     }
-                }
 
-                $curl = curl_init();
+                    $curl = curl_init();
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp_2'],
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Authorization: Bearer ' . $wa_token,
-                        'X-HaloAI-Business-Id: ' . $business_id,
-                        'Content-Type: application/json'
-                    ),
-                ));
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://www.haloai.co.id/api/open/room/v1/details?phoneNumber=' . $contact['nomorhp_2'],
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'GET',
+                        CURLOPT_HTTPHEADER => array(
+                            'Authorization: Bearer ' . $wa_token,
+                            'X-HaloAI-Business-Id: ' . $business_id,
+                            'Content-Type: application/json'
+                        ),
+                    ));
 
-                $responseLastMsg = curl_exec($curl);
+                    $responseLastMsg = curl_exec($curl);
 
-                curl_close($curl);
+                    curl_close($curl);
 
-                $resLastMsg = json_decode($responseLastMsg, true);
+                    $resLastMsg = json_decode($responseLastMsg, true);
 
-                if (isset($resLastMsg['data'])) {
-                    if (isset($resLastMsg['data']['sessionStatus'])) {
-                        if ($resLastMsg['data']['sessionStatus'] != 'expired') {
-                            $is_visited = 1;
-                            $status_color = 'text-green';
-                            $has_session = "yes" . $contact['nomorhp'];
+                    if (isset($resLastMsg['data'])) {
+                        if (isset($resLastMsg['data']['sessionStatus'])) {
+                            if ($resLastMsg['data']['sessionStatus'] != 'expired') {
+                                $is_visited = 1;
+                                $status_color = 'text-green';
+                                $has_session = "yes" . $contact['nomorhp'];
+                            }
+                        } else {
+                            $has_session = "no" . $contact['nomorhp'];
                         }
-                    } else {
-                        $has_session = "no" . $contact['nomorhp'];
                     }
                 }
             } else {
