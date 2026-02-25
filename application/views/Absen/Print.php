@@ -110,9 +110,9 @@
                     $absen = null;
 
                     if ($level_user == 'sales' || $level_user == 'penagihan') {
-                        $absen = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => $date])->row_array();
+                        $absen = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'date_visit >=' => $date . " 00:00:00", 'date_visit <=' => $date . " 23:59:59"])->row_array();
                     } else {
-                        $absen = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'DATE(date_visit)' => $date, 'source_visit' => 'absen_in'])->row_array();
+                        $absen = $this->db->get_where('tb_visit', ['id_user' => $id_user, 'date_visit >=' => $date . " 00:00:00", 'date_visit <=' => $date . " 23:59:59", 'source_visit' => 'absen_in'])->row_array();
                     }
                     ?>
                     <th class="border <?= $day == 'Sunday' ? 'bg-red' : '' ?>"><?= $absen != null ? 'Y' : '' ?></th>
