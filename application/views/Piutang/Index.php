@@ -76,6 +76,14 @@
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
+                                            <label for="">Kategori:</label>
+                                            <div class="form-group">
+                                                <select name="kategori" id="select2bs4" class="form-control select2bs4">
+                                                    <option value="All">Semua</option>
+                                                    <option value="Jatem">Jatuh Tempo</option>
+                                                    <option value="NotJatem">Belum Jatuh Tempo</option>
+                                                </select>
+                                            </div>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
                                             </div>

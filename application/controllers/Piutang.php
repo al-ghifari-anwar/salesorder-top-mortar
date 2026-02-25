@@ -72,6 +72,7 @@ class Piutang extends CI_Controller
         $dateRange = $this->input->post("date_range");
         $id_contact = $this->input->post("id_contact");
         $id_city = $this->input->post("id_city");
+        $kategori = $this->input->post("kategori");
 
         if ($dateRange) {
             $dates = explode("-", $dateRange);
@@ -89,12 +90,28 @@ class Piutang extends CI_Controller
         // $this->load->view('Piutang/Print', $data);
 
         // PDF
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Piutang/Print', $data, true);
-        $mpdf->AddPage('P');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        if ($kategori == 'All') {
+            $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+            $mpdf->SetMargins(0, 0, 5);
+            $html = $this->load->view('Piutang/Print', $data, true);
+            $mpdf->AddPage('P');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
+        } else if ($kategori == 'Jatem') {
+            $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+            $mpdf->SetMargins(0, 0, 5);
+            $html = $this->load->view('Piutang/PrintJatem', $data, true);
+            $mpdf->AddPage('P');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
+        } else if ($kategori == 'NotJatem') {
+            $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+            $mpdf->SetMargins(0, 0, 5);
+            $html = $this->load->view('Piutang/PrintNotJatem', $data, true);
+            $mpdf->AddPage('P');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
+        }
     }
 
     public function print_jatuh_tempo()
