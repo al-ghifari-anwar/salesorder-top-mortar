@@ -168,7 +168,9 @@ function penyebut($nilai)
                             }
                         }
                     }
-                    $dataInv['invoices'] = $store_invoices;
+                    if (!empty($store_invoices)) {
+                        $dataInv['invoices'] = $store_invoices;
+                    }
                     // $totalAll += $totalStore;
                 }
                 $stores[] = $dataInv;
