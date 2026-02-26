@@ -98,6 +98,7 @@ class Piutang extends CI_Controller
             $mpdf->WriteHTML($html);
             $mpdf->Output();
         } else if ($kategori == 'Jatem') {
+            // $this->load->view('Piutang/PrintJatem', $data);
             $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
             $mpdf->SetMargins(0, 0, 5);
             $html = $this->load->view('Piutang/PrintJatem', $data, true);
