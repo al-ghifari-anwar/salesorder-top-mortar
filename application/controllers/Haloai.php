@@ -187,7 +187,7 @@ class Haloai extends CI_Controller
             'dalivery_date' => date('Y-m-d H:i:s'),
             'order_number' => 0,
             'ship_to_name' => $contact['nama'],
-            'ship_to_address' => $post['ticket']['data']['alamat_cusomer'],
+            'ship_to_address' => $post['ticket']['data']['alamat_customer'],
             'ship_to_phone' => $contact['nomorhp'],
             'id_courier' => $id_courier,
             'id_kendaraan' => 2,
