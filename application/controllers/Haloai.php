@@ -81,7 +81,7 @@ class Haloai extends CI_Controller
 
             $contact['voucher_expired'] = $voucherExp;
 
-            $city = $this->db->select('nama_city')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
+            $city = $this->db->select('nama_city, id_distributor')->where('id_city', $contact['id_city'])->get('tb_city')->row_array();
 
             $contact['kota'] = $city['nama_city'];
 
