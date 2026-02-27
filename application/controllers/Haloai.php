@@ -89,6 +89,8 @@ class Haloai extends CI_Controller
 
             $contact['promo_lain'] = $otherPromo;
 
+            $contact['norek_pembayaran'] = $city['id_distributor'] == 1 ? '8880762231' : '8881051362';
+
             $produks = $this->db->select('nama_produk, name_satuan, harga_produk, slang_produk, is_default_promo, kelipatan_promo, bonus_promo, img_master_produk')->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan')->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $contact['id_city'])->get('tb_produk')->result_array();
 
             $arrayProduks = array();
