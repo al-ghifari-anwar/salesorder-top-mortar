@@ -81,6 +81,7 @@
                                             <label for="">Tahun:</label>
                                             <div class="form-group">
                                                 <select name="tahun" id="select2bs4" class="form-control select2bs4">
+                                                    <option value="2026">2026</option>
                                                     <option value="2025">2025</option>
                                                     <option value="2024">2024</option>
                                                 </select>
