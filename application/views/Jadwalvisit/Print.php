@@ -703,7 +703,7 @@
                 <td class="text-left"><?= $jadwalVisit['filter'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['type_renvis'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
-                <td class="text-center"><?= $jadwalVisit['daysJatem'] != '-' ? $jadwalVisit['daysJatem'] + 30 : '-' ?></td>
+                <td class="text-center"><?= $jadwalVisit['daysJatem'] != '-' ? (int)$jadwalVisit['daysJatem'] + 30 : '-' ?></td>
                 <td class="text-center"><?= $jadwalVisit['daysJatem'] ?></td>
                 <td>Rp. <?= number_format($jadwalVisit['total_invoice'], 0, ',', '.') ?></td>
             </tr>
