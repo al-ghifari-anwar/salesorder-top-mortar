@@ -212,6 +212,8 @@
             $status_color = 'text-red';
             $has_session = "";
 
+            $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
+
             if ($tambahanVisit['source_visit'] == 'normal' || $tambahanVisit['source_visit'] == 'passive' || $tambahanVisit['source_visit'] == 'voucher' || $tambahanVisit['source_visit'] == 'active') {
                 if ($visit) {
                     $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
