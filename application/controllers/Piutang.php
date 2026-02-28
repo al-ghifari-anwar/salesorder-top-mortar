@@ -211,8 +211,8 @@ class Piutang extends CI_Controller
             $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime("2023-09-01 00:00:00")), date('Y-m-d 23:59:59'), $id_contact, $id_city);
 
             $data['invoice'] = $invoice;
-            // $data['dateFrom'] = date("Y-m-d H:i:s", strtotime($dates[0] . " 00:00:00"));
-            // $data['dateTo'] = date("Y-m-d H:i:s", strtotime($dates[1] . " 23:59:59"));
+            $data['dateFrom'] = date("Y-m-d H:i:s", strtotime("2023-09-01 00:00:00"));
+            $data['dateTo'] = date("Y-m-d 23:59:59");
             // PDF
             $this->load->view('JatuhTempo/PrintPerToko', $data);
             // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
