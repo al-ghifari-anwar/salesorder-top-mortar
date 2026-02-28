@@ -214,13 +214,13 @@ class Piutang extends CI_Controller
             $data['dateFrom'] = date("Y-m-d H:i:s", strtotime("2023-09-01 00:00:00"));
             $data['dateTo'] = date("Y-m-d 23:59:59");
             // PDF
-            $this->load->view('JatuhTempo/PrintPerToko', $data);
-            // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-            // $mpdf->SetMargins(0, 0, 5);
-            // $html = $this->load->view('JatuhTempo/PrintPerToko', $data, true);
-            // $mpdf->AddPage('P');
-            // $mpdf->WriteHTML($html);
-            // $mpdf->Output();
+            // $this->load->view('JatuhTempo/PrintPerToko', $data);
+            $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+            $mpdf->SetMargins(0, 0, 5);
+            $html = $this->load->view('JatuhTempo/PrintPerToko', $data, true);
+            $mpdf->AddPage('P');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
         }
     }
 }
