@@ -150,7 +150,7 @@ function penyebut($nilai)
 
                         if ($sisaHutang != 0) {
                             $date1 = new DateTime(date("Y-m-d"));
-                            $date2 = new DateTime($storeInv['date_invoice']);
+                            $date2 = new DateTime($jatuhTempo);
                             $days  = $date2->diff($date1)->format('%a');
                             $operan = "";
                             if ($date1 < $date2) {
@@ -160,6 +160,15 @@ function penyebut($nilai)
                             $jmlHari = $operan . $days;
 
                             if ($jmlHari >= 0) {
+                                $date1 = new DateTime(date("Y-m-d"));
+                                $date2 = new DateTime($storeInv['date_invoice']);
+                                $days  = $date2->diff($date1)->format('%a');
+                                $operan = "";
+                                if ($date1 < $date2) {
+                                    $operan = "-";
+                                }
+                                $jmlHari = $operan . $days;
+
                                 $storeInv['sisaHutang'] = $sisaHutang;
                                 $storeInv['jatem'] = $jatuhTempo;
                                 $storeInv['jmlHari'] = $jmlHari;
