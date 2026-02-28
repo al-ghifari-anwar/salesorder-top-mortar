@@ -113,7 +113,7 @@ $route['piutang'] = 'Piutang';
 $route['print-piutang'] = 'Piutang/print';
 $route['jatuh-tempo'] = 'Piutang/jatuh_tempo';
 $route['print-jatuh-tempo'] = 'Piutang/print_jatuh_tempo';
-$route['wh-tagihan'] = 'Piutang/webhook_tagihan';
+$route['wh-tagihan'] = 'Piutang/webhook_tagihan_new';
 $route['rekap-piutang'] = 'Piutang/rekap';
 // Penjualan
 $route['penjualan'] = 'Penjualan/city_list';
