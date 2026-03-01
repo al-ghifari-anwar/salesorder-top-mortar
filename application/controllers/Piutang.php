@@ -73,10 +73,11 @@ class Piutang extends CI_Controller
         $id_contact = $this->input->post("id_contact");
         $id_city = $this->input->post("id_city");
         $kategori = $this->input->post("kategori");
+        $id_distributor = $this->session->userdata('id_distributor');
 
         if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact, $id_city);
+            $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime($dates[0] . " 00:00:00")), date('Y-m-d H:i:s', strtotime($dates[1] . " 23:59:59")), $id_contact, $id_city, $id_distributor);
         } else {
             // $invoice = $this->MInvoice->getAll();
         }
@@ -208,7 +209,7 @@ class Piutang extends CI_Controller
                 $data['city'] = $this->MCity->getById($id_city);
             }
 
-            $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime("2023-09-01 00:00:00")), date('Y-m-d 23:59:59'), $id_contact, $id_city);
+            $invoice = $this->MInvoice->getGroupedContactUnpaid(date('Y-m-d H:i:s', strtotime("2023-09-01 00:00:00")), date('Y-m-d 23:59:59'), $id_contact, $id_city, $id_distributor);
 
             $data['invoice'] = $invoice;
             $data['dateFrom'] = date("Y-m-d H:i:s", strtotime("2023-09-01 00:00:00"));
