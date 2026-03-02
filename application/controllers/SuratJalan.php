@@ -273,6 +273,19 @@ class SuratJalan extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function can_closing_sj($id_surat_jalan)
+    {
+        $save = $this->db->update('tb_surat_jalan', ['can_closing' => 1], ['id_surat_jalan' => $id_surat_jalan]);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil izinkan closing");
+            redirect('sj-not-closing');
+        } else {
+            $this->session->set_flashdata('failed', "Gagal, harap coba lagi");
+            redirect('sj-not-closing');
+        }
+    }
+
     public function insert()
     {
         $post = $this->input->post();

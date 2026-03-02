@@ -53,7 +53,7 @@
                                         <th>Kurir</th>
                                         <th>Tgl. SJ</th>
                                         <th>Closing</th>
-                                        <!-- <th>Aksi</th> -->
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,12 +76,11 @@
                                                     <a href="https://saleswa.topmortarindonesia.com/img/<?= $data['proof_closing'] ?>" target="__blank"><?= date("d M Y", strtotime($data['date_closing'])) ?> <i class="fas fa-external-link-alt"></i></a>
                                                 <?php endif; ?>
                                             </td>
-                                            <!-- <td>
-                                                <a href="<?= base_url('surat-jalan/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
-                                                <?php if ($data['is_closing'] == 0) : ?>
-                                                    <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                            <td>
+                                                <?php if ($data['can_closing'] == 0) : ?>
+                                                    <a href="<?= base_url('can-closing-sj/') . $data['id_surat_jalan'] ?>" class="btn btn-warning" title="Izinkan Closing"><i class="fas fa-check-double"></i></a>
                                                 <?php endif; ?>
-                                            </td> -->
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
