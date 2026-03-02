@@ -161,7 +161,7 @@ function penyebut($nilai)
 
                             if ($jmlHari >= 0) {
                                 $date1 = new DateTime(date("Y-m-d"));
-                                $date2 = new DateTime($storeInv['date_invoice']);
+                                $date2 = new DateTime(date("Y-m-d", strtotime($storeInv['date_invoice'])));
                                 $days  = $date2->diff($date1)->format('%a');
                                 $operan = "";
                                 if ($date1 < $date2) {
