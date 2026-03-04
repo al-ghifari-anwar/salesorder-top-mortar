@@ -108,6 +108,7 @@ class HaloaiReportVisit extends CI_Controller
                 'code' => 400,
                 'status' => 'failed',
                 'msg' => 'AI failed',
+                'detail' => json_encode($res),
             ];
 
             return $this->output->set_output(json_encode($result));
