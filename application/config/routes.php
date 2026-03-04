@@ -422,3 +422,9 @@ $route['webhook/haloai/project'] = 'Webhookhaloai/customerProject';
 // Halo AI Konten
 $route['konten/list'] = 'Kontenmsg/apilist';
 $route['targetvisittagihan'] = 'TargetVisitTagihan/index';
+// AI Integration
+// Ai Agent
+$route['ai-agent'] = 'AiAgent/index';
+// AI Report Visit
+$route['ai-visitreport'] = 'AiVisitReport/index';
+$route['ai-visitreport/detail/(:num)'] = 'AiVisitReport/detail/$1';

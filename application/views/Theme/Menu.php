@@ -198,8 +198,8 @@
                                 </li>
                             <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance'): ?>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                <li class="nav-item <?= $menuGroup == 'AiIntegration' ? 'menu-open' : '' ?>">
+                                    <a href="#" class="nav-link <?= $menuGroup == 'AiIntegration' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-robot"></i>
                                         <p>
                                             AI Integrations
@@ -208,13 +208,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="<?= base_url('ai-agent') ?>" class="nav-link">
+                                            <a href="<?= base_url('ai-agent') ?>" class="nav-link <?= $menu == 'AiAgent' ? 'active' : '' ?>">
                                                 <i class="fas fa-user-cog nav-icon"></i>
                                                 <p>AI Agent</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="<?= base_url('ai-visitreport') ?>" class="nav-link">
+                                            <a href="<?= base_url('ai-visitreport') ?>" class="nav-link <?= $menu == 'AiVisitReport' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-chart-bar"></i>
                                                 <p>
                                                     AI Visit Report
