@@ -425,6 +425,7 @@ $route['targetvisittagihan'] = 'TargetVisitTagihan/index';
 // AI Integration
 // Ai Agent
 $route['ai-agent'] = 'AiAgent/index';
+$route['ai-agent/detail/(:num)'] = 'AiAgent/detail/$1';
 // AI Report Visit
 $route['ai-visitreport'] = 'AiVisitReport/index';
 $route['ai-visitreport/detail/(:num)'] = 'AiVisitReport/detail/$1';
