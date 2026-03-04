@@ -15,6 +15,7 @@ class MAivisitreport extends CI_Model
     {
         $this->db->where('DATE(tb_ai_reportvisit.created_at) >=', $dateFrom);
         $this->db->where('DATE(tb_ai_reportvisit.created_at) <=', $dateTo);
+        $this->db->order_by('created_at', 'DESC');
 
         $query = $this->db->get('tb_ai_reportvisit')->result_array();
 
