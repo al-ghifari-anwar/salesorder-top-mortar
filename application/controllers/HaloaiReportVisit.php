@@ -32,6 +32,7 @@ class HaloaiReportVisit extends CI_Controller
         $aiAgent = $this->db->get_where('tb_ai_agent', ['id_distributor' => $id_distributor])->row_array();
 
         $postData = [
+            'model-ai' => 'gpt-40-mini',
             'temperature_ai' => 0.4,
             'max_output_token' => 400,
             'toko' => [
