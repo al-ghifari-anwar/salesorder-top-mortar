@@ -37,7 +37,7 @@ class HaloaiReportVisit extends CI_Controller
             'toko' => [
                 'nama' => $contact['nama'],
                 'pemilik' => $contact['store_owner'],
-                'tanggal_terakhir_dikunjungi' => date("Y-m-d", $lastVisit['date_visit']),
+                'tanggal_terakhir_dikunjungi' => date("Y-m-d", strtotime($lastVisit['date_visit'])),
             ],
             'laporan_sales' => $lastVisit['laporan_visit'],
             'base64_system_prompt' => $aiAgent['base64_prompt'],
