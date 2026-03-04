@@ -56,24 +56,11 @@
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
-                                            <!-- <label for="">Toko:</label>
+                                            <!-- <label for="">Kategori:</label>
                                             <div class="form-group">
-                                                <select name="id_contact" id="select2bs41" class="form-control select2bs41">
-                                                    <option value="0">Semua</option>
-                                                    <?php foreach ($toko as $toko) : ?>
-                                                        <option value="<?= $toko['id_contact'] ?>"><?= $toko['nama'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <label for="">Kota:</label>
-                                            <div class="form-group">
-                                                <select name="id_city" id="select2bs4" class="form-control select2bs4">
-                                                    <?php if ($this->session->userdata('level_user') != 'admin_c') : ?>
-                                                        <option value="0">Semua</option>
-                                                    <?php endif; ?>
-                                                    <?php foreach ($city as $city) : ?>
-                                                        <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
-                                                    <?php endforeach; ?>
+                                                <select name="kategori" id="select2bs41" class="form-control select2bs41">
+                                                    <option value="All">Semua</option>
+                                                    <option value="Zero">Tampilkan Kosong Saja</option>
                                                 </select>
                                             </div> -->
                                             <div class="form-group ml-3">

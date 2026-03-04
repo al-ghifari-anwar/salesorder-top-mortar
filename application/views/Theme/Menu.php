@@ -197,6 +197,34 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance'): ?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-robot"></i>
+                                        <p>
+                                            AI Integrations
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('ai-agent') ?>" class="nav-link">
+                                                <i class="fas fa-user-cog nav-icon"></i>
+                                                <p>AI Agent</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('ai-visitreport') ?>" class="nav-link">
+                                                <i class="nav-icon fas fa-chart-bar"></i>
+                                                <p>
+                                                    AI Visit Report
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'stok'): ?>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">

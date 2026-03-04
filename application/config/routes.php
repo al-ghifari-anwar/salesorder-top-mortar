@@ -409,6 +409,7 @@ $route['report-active-zero'] = 'ReportActiveZero/index';
 // Halo AI store
 $route['haloai/store'] = 'Haloai/getStore';
 $route['haloai/create-order'] = 'Haloai/createOrder';
+$route['haloai/report-visit'] = 'HaloaiReportVisit/process';
 // Send notif jadwal
 $route['jadwalvisit/notif'] = 'Jadwalvisit/sendNotif';
 $route['reportjadwalvisit/notif'] = 'Reportjadwalvisit/sendNotif';
