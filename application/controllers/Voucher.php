@@ -160,19 +160,18 @@ class Voucher extends CI_Controller
         $status = $res['status'];
 
         if ($status == 'ok') {
-            // Get Qontak
-            $id_distributor = $this->session->userdata('id_distributor');
-            $qontak = $this->db->query("SELECT * FROM tb_qontak WHERE id_distributor = '$id_distributor'")->row_array();
-            $template_id = "77b9cbfa-4ea7-48d6-a081-da07e7901802";
-            $integration_id = $qontak['integration_id'];
-            $wa_token = $qontak['token'];
-            // $wa_token = 'xz5922BoBI6I9ECLKVZjPMm-7-0sqx0cjIqVVeuWURI';
-            // $wa_token = '_GEJodr1x8u7-nSn4tZK2hNq0M5CARkRp_plNdL2tFw';
-
             // Get Contacts
             $contact = $this->MContact->getById($id_contact);
+            // Get HaloAI
+            $id_distributor = $this->session->userdata('id_distributor');
+            $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+            $wa_token = $haloai['token_haloai'];
+            $business_id = $haloai['business_id_haloai'];
+            $channel_id = $haloai['channel_id_haloai'];
+            $template = 'notif_voucher_1';
 
-            // Get Vuchers
+
+            // Get Vouchers
             $dateNow = date("Y-m-d");
             $getVoucher = $this->db->query("SELECT * FROM tb_voucher WHERE id_contact = '$id_contact' AND is_claimed = 0 AND date_voucher LIKE '%$dateNow%' ")->result_array();
             $vouchers = "";
@@ -180,8 +179,36 @@ class Voucher extends CI_Controller
                 $vouchers .= $voucherArr['no_voucher'] . ",";
             }
 
+            $message = "Hallo " . $contact['nama'] . " Selamat bergabung kembali di keluarga besar Top Mortar! Nikmati layanan 'Pesan Hari Ini, Kirim Hari Ini', dan promo-promo member ekslusif lainnya. Bersama Top Mortar, mari kita maju bersama! Anda mendapatkan " . $jml_voucher . " buah Voucher no seri: " . $vouchers . ".  Tukarkan voucher anda dengan gratis Perekat Bata Ringan sebelum tanggal *" .  date("d M, Y", strtotime("+30 days")) . "* ";
+
+            $haloaiPayload = [
+                'activate_ai_after_send' => false,
+                'channel_id' => $channel_id,
+                "fallback_template_header" => [
+                    'filename' => "send_voucher.mp4",
+                    'type' => 'video',
+                    'url' => "https://saleswa.topmortarindonesia.com/vids/send_voucher.mp4",
+                ],
+                'fallback_template_message' => $template,
+                'fallback_template_variables' => [
+                    $contact['nama'],
+                    trim(preg_replace('/\s+/', ' ', $jml_voucher)),
+                    $vouchers,
+                    date("d M, Y", strtotime("+30 days")),
+                ],
+                "media" => [
+                    'filename' => "send_voucher.mp4",
+                    'type' => 'video',
+                    'url' => "https://saleswa.topmortarindonesia.com/vids/send_voucher.mp4",
+                ],
+                'phone_number' => $contact['nomorhp'],
+                'text' => trim(preg_replace('/\s+/', ' ', $message)),
+            ];
+
+            $curl = curl_init();
+
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct',
+                CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -189,54 +216,10 @@ class Voucher extends CI_Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
-                                        "to_number": "' . $contact['nomorhp'] . '",
-                                        "to_name": "' . $contact['nama'] . '",
-                                        "message_template_id": "' . $template_id . '",
-                                        "channel_integration_id": "' . $integration_id . '",
-                                        "language": {
-                                            "code": "id"
-                                        },
-                                        "parameters": {
-                                            "header":{
-                                                "format":"VIDEO",
-                                                "params": [
-                                                    {
-                                                        "key":"url",
-                                                        "value":"https://saleswa.topmortarindonesia.com/vids/send_voucher.mp4"
-                                                    },
-                                                    {
-                                                        "key":"filename",
-                                                        "value":"bday.jpg"
-                                                    }
-                                                ]
-                                            },
-                                            "body": [
-                                                {
-                                                    "key": "1",
-                                                    "value": "nama",
-                                                    "value_text": "' . $contact['nama'] . '"
-                                                },
-                                                {
-                                                    "key": "2",
-                                                    "value": "jml_voucher",
-                                                    "value_text": "' . $jml_voucher . '"
-                                                },
-                                                {
-                                                    "key": "3",
-                                                    "value": "no_voucher",
-                                                    "value_text": "' . $vouchers . '"
-                                                },
-                                                {
-                                                    "key": "4",
-                                                    "value": "date_voucher",
-                                                    "value_text": "' . date("d M, Y", strtotime("+30 days")) . '"
-                                                }
-                                            ]
-                                        }
-                                        }',
+                CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
                 CURLOPT_HTTPHEADER => array(
                     'Authorization: Bearer ' . $wa_token,
+                    'X-HaloAI-Business-Id: ' . $business_id,
                     'Content-Type: application/json'
                 ),
             ));
