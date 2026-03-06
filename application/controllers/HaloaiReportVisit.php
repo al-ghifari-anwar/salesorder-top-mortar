@@ -22,14 +22,32 @@ class HaloaiReportVisit extends CI_Controller
 
         $nomorhp = $post['nomorhp'];
 
+        // Contact
         $contact = $this->MContact->getByNomorhp($nomorhp);
 
         $id_contact = $contact['id_contact'];
         $id_distributor = $contact['id_distributor'];
 
+        // Last Visit
         $lastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d')])->row_array();
 
+        // AI Agent
         $aiAgent = $this->db->get_where('tb_ai_agent', ['id_distributor' => $id_distributor])->row_array();
+
+        // Voucher
+        $vouchers = $this->MVoucher->getByIdContactForHaloAI($id_contact);
+
+        $vouchersStr = "";
+        $voucherExp = "";
+        foreach ($vouchers as $voucher) {
+            $vouchersStr .= $voucher['no_voucher'] . ",";
+            // if (!empty($voucherExp)) {
+            $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
+            // }
+        }
+
+        $jmlVoucher = count($vouchers) . "";
+        $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
 
         $postData = [
             'model-ai' => 'gpt-40-mini',
@@ -39,6 +57,8 @@ class HaloaiReportVisit extends CI_Controller
                 'nama' => $contact['nama'],
                 'pemilik' => $contact['store_owner'],
                 'tanggal_terakhir_dikunjungi' => date("Y-m-d", strtotime($lastVisit['date_visit'])),
+                'jml_voucher' => $jmlVoucher,
+                'voucher_expired' => $voucherExp,
             ],
             'laporan_sales' => $lastVisit['laporan_visit'],
             'base64_system_prompt' => $aiAgent['base64_prompt'],
