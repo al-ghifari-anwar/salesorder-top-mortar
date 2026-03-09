@@ -84,12 +84,29 @@
                                         $contact = $this->MContact->getById($aiVisitReport['id_contact']);
                                         $user = $this->MUser->getById($aiVisitReport['id_user']);
                                         $visit = $this->db->get_where('tb_visit', ['id_visit' => $id_visit])->row_array();
+
+                                        $bgStatus = "bg-light";
+
+                                        switch ($contact['store_status']) {
+                                            case 'data':
+                                                $bgStatus = 'bg-warning';
+                                                break;
+                                            case 'passive':
+                                                $bgStatus = 'bg-gray';
+                                                break;
+                                            case 'active':
+                                                $bgStatus = 'bg-success';
+                                                break;
+                                            default:
+                                                $bgStatus = "bg-light";
+                                                break;
+                                        }
                                         ?>
                                         <tr>
                                             <td class="text-center"><?= $no++; ?></td>
                                             <td>
                                                 <h5 class="font-weight-bold"><?= $contact['nama'] ?></h5>
-
+                                                <span class="badge <?= $bgStatus ?>"><?= $contact['store_status'] ?></span>
                                                 <span><?= $contact['nomorhp'] ?> | <?= $contact['nama_city'] ?></span>
                                             </td>
                                             <td>
