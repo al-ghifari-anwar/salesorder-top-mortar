@@ -139,7 +139,7 @@ class HaloaiReportVisit extends CI_Controller
 
                         if ($statusVc == 'ok') {
                             // Get HaloAI
-                            $id_distributor = $this->session->userdata('id_distributor');
+                            $id_distributor = $contact['id_distributor'];
                             $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
                             $wa_token = $haloai['token_haloai'];
                             $business_id = $haloai['business_id_haloai'];
