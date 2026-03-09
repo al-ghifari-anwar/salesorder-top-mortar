@@ -44,10 +44,10 @@ class HaloaiReportVisit extends CI_Controller
             // if (!empty($voucherExp)) {
             $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
             // }
+            $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
         }
 
         $jmlVoucher = count($vouchers) . "";
-        $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
 
         $postData = [
             'model-ai' => 'gpt-40-mini',
