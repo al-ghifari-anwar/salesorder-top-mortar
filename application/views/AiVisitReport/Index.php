@@ -69,6 +69,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Time</th>
                                         <th>Toko</th>
                                         <th>Sales</th>
                                         <th>Laporan</th>
@@ -104,6 +105,7 @@
                                         ?>
                                         <tr>
                                             <td class="text-center"><?= $no++; ?></td>
+                                            <td class="text-center"><?= date('H:i', strtotime($aiVisitReport['created_at'])) ?></td>
                                             <td>
                                                 <h5 class="font-weight-bold"><?= $contact['nama'] ?></h5>
                                                 <span class="badge <?= $bgStatus ?>"><?= $contact['store_status'] ?></span>
