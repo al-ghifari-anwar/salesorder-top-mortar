@@ -88,6 +88,9 @@
                             <hr>
                             <b>Rekomendasi WA:</b>
                             <p class="bg-light p-2 rounded-sm"><?= $aiVisitReport['rekomendasi_wa'] ?></p>
+                            <hr>
+                            <b>Status Pemberian Voucher:</b>
+                            <p class="bg-light p-2 rounded-sm"><?= strtoupper($aiVisitReport['voucher_ai_reportvisit']) ?></p>
                         </div>
                     </div>
                 </div>
