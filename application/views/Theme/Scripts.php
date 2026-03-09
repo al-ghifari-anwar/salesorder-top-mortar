@@ -33,7 +33,39 @@
 <!-- ChartJS -->
 <script src="<?= base_url('assets') ?>/plugins/chart.js/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+<!-- Monaco Editor -->
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
 <script>
+    // Tooltip
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    // Monaco Editor
+    require.config({
+        paths: {
+            vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs'
+        }
+    });
+
+    require(['vs/editor/editor.main'], function() {
+
+        var editor = monaco.editor.create(document.getElementById('editor'), {
+            value: `<agent>
+    <identity>
+        <agent_name>Sales Agent</agent_name>
+    </identity>
+</agent>`,
+            language: 'xml',
+            theme: 'vs-light',
+            automaticLayout: true
+        });
+
+        document.querySelector("form").addEventListener("submit", function() {
+            document.getElementById("xml_prompt").value = editor.getValue();
+        });
+
+    });
+
     $(function() {
         bsCustomFileInput.init();
     });
@@ -110,7 +142,7 @@
             }
 
             // Cek apakah link valid dan bukan '#' atau JavaScript void
-            if (target && target !== "#" && !target.startsWith("javascript")) {
+            if (target && target !== "#" && !target.startsWith("javascript") && !target.includes('#')) {
                 e.preventDefault(); // Cegah perpindahan halaman langsung
 
                 $("#loading-screen").fadeIn(); // Tampilkan loading screen

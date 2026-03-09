@@ -19,9 +19,6 @@ class AiAgent extends CI_Controller
 
     public function index()
     {
-        $dateFrom = date('Y-m-d');
-        $dateTo = date("Y-m-d");
-
         $data['title'] = 'AI Visit Report';
         $data['menuGroup'] = 'AiIntegration';
         $data['menu'] = 'AiAgent';
@@ -38,7 +35,7 @@ class AiAgent extends CI_Controller
     public function detail($id_ai_reportvisit)
     {
         $aiAgent = $this->MAiagent->getById($id_ai_reportvisit);
-        $data['title'] = 'AI Visit Report';
+        $data['title'] = 'Setting of ' . $aiAgent['name_ai_agent'] . " Agent";
         $data['menuGroup'] = 'AiIntegration';
         $data['menu'] = 'AiAgent';
 

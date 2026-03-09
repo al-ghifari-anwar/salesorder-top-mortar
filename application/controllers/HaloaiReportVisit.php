@@ -57,6 +57,7 @@ class HaloaiReportVisit extends CI_Controller
                 'nama' => $contact['nama'],
                 'pemilik' => $contact['store_owner'],
                 'tanggal_terakhir_dikunjungi' => date("Y-m-d", strtotime($lastVisit['date_visit'])),
+                'status' => $contact['store_status'],
                 'jml_voucher' => $jmlVoucher,
                 'voucher_expired' => $voucherExp,
             ],

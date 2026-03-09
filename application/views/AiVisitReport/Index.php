@@ -89,6 +89,7 @@
                                             <td class="text-center"><?= $no++; ?></td>
                                             <td>
                                                 <h5 class="font-weight-bold"><?= $contact['nama'] ?></h5>
+
                                                 <span><?= $contact['nomorhp'] ?> | <?= $contact['nama_city'] ?></span>
                                             </td>
                                             <td>
