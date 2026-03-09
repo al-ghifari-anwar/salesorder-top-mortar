@@ -41,7 +41,26 @@
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
+                            <?php
+                            $bgStatus = "bg-light";
+
+                            switch ($contact['store_status']) {
+                                case 'data':
+                                    $bgStatus = 'bg-warning';
+                                    break;
+                                case 'passive':
+                                    $bgStatus = 'bg-gray';
+                                    break;
+                                case 'active':
+                                    $bgStatus = 'bg-success';
+                                    break;
+                                default:
+                                    $bgStatus = "bg-light";
+                                    break;
+                            }
+                            ?>
                             <h5 class="font-weight-bold"><?= $contact['nama'] ?></h5>
+                            <span class="badge <?= $bgStatus ?>"><?= $contact['store_status'] ?></span>
                             <span><?= $contact['nomorhp'] ?> | <?= $contact['nama_city'] ?></span>
                         </div>
                     </div>
