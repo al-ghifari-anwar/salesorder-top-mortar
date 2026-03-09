@@ -98,6 +98,7 @@ class HaloaiReportVisit extends CI_Controller
                 'analisis_spv' => $responseData['analisis_spv'],
                 'saran_strategi' => $responseData['saran_strategi'],
                 'rekomendasi_wa' => $responseData['rekomendasi_wa'],
+                'voucher_ai_reportvisit' => isset($responseData['give_voucher']) ? $responseData['give_voucher'] : 'no',
                 'raw' => $responseData['raw'],
                 'model_ai' => $responseData['model_ai'],
                 'temperature_ai' => $responseData['temperature_ai'],
