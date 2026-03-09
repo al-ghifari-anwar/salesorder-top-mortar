@@ -208,6 +208,49 @@ class HaloaiReportVisit extends CI_Controller
                             $status = $res['status'];
 
                             if ($status == 'success') {
+                                // Send AI wa
+                                $message = $responseData['rekomendasi_wa'];
+
+                                $haloaiPayload = [
+                                    'activate_ai_after_send' => false,
+                                    'channel_id' => $channel_id,
+                                    'fallback_template_message' => $template,
+                                    'fallback_template_variables' => [
+                                        $contact['nama'],
+                                        trim(preg_replace('/\s+/', ' ', $message)),
+                                        "PT Top Mortar Indonesia",
+                                    ],
+                                    'phone_number' => $contact['nomorhp'],
+                                    'text' => trim(preg_replace('/\s+/', ' ', $message)),
+                                ];
+
+                                $curl = curl_init();
+
+                                curl_setopt_array($curl, array(
+                                    CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
+                                    CURLOPT_RETURNTRANSFER => true,
+                                    CURLOPT_ENCODING => '',
+                                    CURLOPT_MAXREDIRS => 10,
+                                    CURLOPT_TIMEOUT => 0,
+                                    CURLOPT_FOLLOWLOCATION => true,
+                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                    CURLOPT_CUSTOMREQUEST => 'POST',
+                                    CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
+                                    CURLOPT_HTTPHEADER => array(
+                                        'Authorization: Bearer ' . $wa_token,
+                                        'X-HaloAI-Business-Id: ' . $business_id,
+                                        'Content-Type: application/json'
+                                    ),
+                                ));
+
+                                $response = curl_exec($curl);
+
+                                curl_close($curl);
+
+                                $res = json_decode($response, true);
+
+                                $status = $res['status'];
+
                                 $result = [
                                     'code' => 200,
                                     'status' => 'success',
