@@ -90,12 +90,13 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Model</label>
+                                                    <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Pricing pada model adalah pricing input/output per 1 Juta token, jumlah token per-request ditentukan oleh kolom maksimal token di bawah."></i>
                                                     <select name="model_ai_agent" id="" class="form-control">
                                                         <?php foreach ($aiModels as $aiModel): ?>
                                                             <?php
-                                                            $pricing = "$" . number_format($aiModel['input'], 2, '.', ',') . "/" . "$" . number_format($aiModel['input'], 2, '.', ',');
+                                                            $pricing = "$" . number_format($aiModel['input'], 2, '.', ',') . "/" . "$" . number_format($aiModel['output'], 2, '.', ',');
                                                             ?>
-                                                            <option value="<?= $aiModel['name'] ?>" <?= $aiModel['name'] == $aiAgent['model_ai_agent'] ? 'selected' : '' ?>><?= $aiModel['name'] . " | Pricing per-1M Token (I/O) " . $pricing ?></option>
+                                                            <option value="<?= $aiModel['name'] ?>" <?= $aiModel['name'] == $aiAgent['model_ai_agent'] ? 'selected' : '' ?>><?= $aiModel['name'] . " | <b>Pricing [" . $pricing . "]</b>" ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
