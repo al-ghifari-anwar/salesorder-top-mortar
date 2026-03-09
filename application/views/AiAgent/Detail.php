@@ -76,7 +76,8 @@
                                 <div class="tab-pane fade show active" id="ai-tabs-setting" role="tabpanel" aria-labelledby="ai-tabs-setting-tab">
                                     <div class="row">
                                         <div class="col-6">
-                                            <form action="<?= base_url('ai-agent/update') ?>" method="post">
+                                            <form action="<?= base_url('ai-agent/update-setting') ?>" method="post">
+                                                <input type="hidden" name="id_ai_agent" value="<?= $aiAgent['id_ai_agent'] ?>">
                                                 <div class="form-group">
                                                     <label for="">Nama Agent</label>
                                                     <input type="text" name="name_ai_agent" id="" class="form-control" value="<?= $aiAgent['name_ai_agent'] ?>">
@@ -90,19 +91,23 @@
                                                 <div class="form-group">
                                                     <label for="">Model</label>
                                                     <select name="model_ai_agent" id="" class="form-control">
-                                                        <option value="gpt-5" <?= $aiAgent['model_ai_agent'] == 'gpt-5' ? 'selected' : '' ?>>gpt-5</option>
-                                                        <option value="gpt-4o-mini" <?= $aiAgent['model_ai_agent'] == 'gpt-4o-mini' ? 'selected' : '' ?>>gpt-4o-mini</option>
+                                                        <?php foreach ($aiModels as $aiModel): ?>
+                                                            <?php
+                                                            $pricing = "$" . number_format($aiModel['input'], 2, '.', ',') . "/" . "$" . number_format($aiModel['input'], 2, '.', ',');
+                                                            ?>
+                                                            <option value="<?= $aiModel['name'] ?>" <?= $aiModel['name'] == $aiAgent['model_ai_agent'] ? 'selected' : '' ?>><?= $aiModel['name'] . " | Pricing per-1M Token (I/O) " . $pricing ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Temperature </label>
                                                     <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Temperatur mempengaruhi kepribadian AI. Dari patuh ke kreatif. Range 0 - 1"></i>
-                                                    <input type="number" id="" class="form-control" value="<?= $aiAgent['temperature_ai_agent'] ?>">
+                                                    <input type="text" id="" class="form-control" name="temperature_ai_agent" value="<?= $aiAgent['temperature_ai_agent'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Max Output Token</label>
                                                     <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Jumlah maximal token output yang dipakai oleh AI"></i>
-                                                    <input type="number" id="" class="form-control" value="<?= $aiAgent['max_output_token_ai_agent'] ?>">
+                                                    <input type="number" id="" class="form-control" name="max_output_token_ai_agent" value="<?= $aiAgent['max_output_token_ai_agent'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary">Simpan</button>
