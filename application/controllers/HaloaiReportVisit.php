@@ -51,8 +51,8 @@ class HaloaiReportVisit extends CI_Controller
 
         $postData = [
             'model-ai' => $aiAgent['model_ai_agent'],
-            'temperature_ai' => $aiAgent['temperature_ai_agent'],
-            'max_output_token' => $aiAgent['max_output_token_ai_agent'],
+            'temperature_ai' => (float)$aiAgent['temperature_ai_agent'],
+            'max_output_token' => (int)$aiAgent['max_output_token_ai_agent'],
             'toko' => [
                 'nama' => $contact['nama'],
                 'pemilik' => $contact['store_owner'],
