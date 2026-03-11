@@ -102,7 +102,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Temperature </label>
-                                                    <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Temperatur mempengaruhi kepribadian AI. Dari patuh ke kreatif. Range 0 - 1"></i>
+                                                    <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Temperatur mempengaruhi kepribadian AI. Dari patuh ke kreatif. Range 0 - 1. Untuk model gpt 5 keatas, wajib diisi 1!"></i>
                                                     <input type="text" id="" class="form-control" name="temperature_ai_agent" value="<?= $aiAgent['temperature_ai_agent'] ?>">
                                                 </div>
                                                 <div class="form-group">
