@@ -143,7 +143,6 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $id_d
                         <th class="text-bot" style="padding-top: 0px; padding-bottom: 0;">
 
                             <h1 class="text-right text-bot">Sales Invoice</h1>
-                            <p><?= $suratjalan['no_surat_jalan'] ?></p>
                         </th>
                     </tr>
                 </table>
