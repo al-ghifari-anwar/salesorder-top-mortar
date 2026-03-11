@@ -156,6 +156,8 @@ class Invoice extends CI_Controller
         }
         $this->load->library('ciqrcode');
         $invoice = $this->MInvoice->getById($id);
+        $suratjalan = $this->MSuratJalan->getById($invoice['id_surat_jalan']);
+        $data['suratjalan'] = $suratjalan;
         $data['invoice'] = $invoice;
         $data['store'] = $this->MContact->getById($invoice['id_contact']);
         $data['kendaraan'] = $this->MKendaraan->getById($invoice['id_kendaraan']);
