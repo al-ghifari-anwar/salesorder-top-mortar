@@ -225,7 +225,7 @@ class HaloaiReportVisit extends CI_Controller
 
                                 if ($status == 'success') {
                                     // Send AI wa
-                                    $message = $responseData['rekomendasi_wa'] . " Ari Setyorini, Sales Manager";
+                                    $message = $responseData['rekomendasi_wa'] . " *Ari Setyorini, Sales Manager*";
 
                                     $haloaiPayload = [
                                         'activate_ai_after_send' => false,
@@ -305,7 +305,7 @@ class HaloaiReportVisit extends CI_Controller
                         $channel_id = $haloai['channel_id_haloai'];
                         $template = 'info_meeting_baru';
 
-                        $message = $responseData['rekomendasi_wa'] . " Ari Setyorini, Sales Manager";
+                        $message = $responseData['rekomendasi_wa'] . " *Ari Setyorini, Sales Manager*";
 
                         $haloaiPayload = [
                             'activate_ai_after_send' => false,
@@ -376,7 +376,7 @@ class HaloaiReportVisit extends CI_Controller
                     $channel_id = $haloai['channel_id_haloai'];
                     $template = 'info_meeting_baru';
 
-                    $message = $responseData['rekomendasi_wa'] . " Ari Setyorini, Sales Manager";
+                    $message = $responseData['rekomendasi_wa'] . " *Ari Setyorini, Sales Manager*";
 
                     $haloaiPayload = [
                         'activate_ai_after_send' => false,
