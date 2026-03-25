@@ -53,7 +53,7 @@ class HaloaiReportVisit extends CI_Controller
         // Get Thinbed
         $this->db->join('tb_city', 'tb_city.id_city = tb_produk.id_city');
         $this->db->like('nama_produk', 'THINBED');
-        $getThinbed = $this->db->get_where('tb_produk', ['id_city' => $id_city])->row_array();
+        $getThinbed = $this->db->get_where('tb_produk', ['tb_produk.id_city' => $id_city])->row_array();
 
         $postData = [
             'model-ai' => $aiAgent['model_ai_agent'],
