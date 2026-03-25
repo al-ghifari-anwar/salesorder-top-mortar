@@ -40,6 +40,7 @@ class MUser extends CI_Model
         if ($this->session->userdata('level_user') == 'admin_c') {
             $this->db->where('tb_user.id_city', $this->session->userdata('id_city'));
         }
+        $this->db->where_in('level_user', ['sales', 'courier', 'penagihan']);
         $query = $this->db->get_where('tb_user', ['id_distributor' => $id_distributor, 'password !=' => '0', 'is_absen' => 1])->result_array();
         return $query;
     }

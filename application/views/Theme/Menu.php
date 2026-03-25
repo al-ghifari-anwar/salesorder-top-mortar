@@ -197,7 +197,7 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance'): ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'marketing'): ?>
                                 <li class="nav-item <?= $menuGroup == 'AiIntegration' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'AiIntegration' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-robot"></i>
