@@ -27,6 +27,7 @@ class HaloaiReportVisit extends CI_Controller
 
         $id_contact = $contact['id_contact'];
         $id_distributor = $contact['id_distributor'];
+        $id_city = $contact['id_city'];
 
         // Last Visit
         $lastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d')])->row_array();
@@ -49,6 +50,11 @@ class HaloaiReportVisit extends CI_Controller
 
         $jmlVoucher = count($vouchers) . "";
 
+        // Get Thinbed
+        $this->db->join('tb_city', 'tb_city.id_city = tb_produk.id_city');
+        $this->db->like('nama_produk', 'THINBED');
+        $getThinbed = $this->db->get_where('tb_produk', ['id_city' => $id_city])->row_array();
+
         $postData = [
             'model-ai' => $aiAgent['model_ai_agent'],
             'temperature_ai' => (float)$aiAgent['temperature_ai_agent'],
@@ -60,6 +66,14 @@ class HaloaiReportVisit extends CI_Controller
                 'status' => $contact['store_status'],
                 'jml_voucher' => $jmlVoucher,
                 'voucher_expired' => $voucherExp,
+            ],
+            'tanggal_hari_ini' => date('Y-m-d'),
+            'produk' => [
+                'nama' => $getThinbed['nama_produk'],
+                'satuan' => 'SAK',
+                'currency' => 'Rupiah',
+                'harga' => (float)$getThinbed['harga_produk'],
+                'formatted_price' => $getThinbed['harga_produk'] . ' / ' . ' SAK',
             ],
             'laporan_sales' => $lastVisit['laporan_visit'],
             'base64_system_prompt' => $aiAgent['base64_prompt'],
