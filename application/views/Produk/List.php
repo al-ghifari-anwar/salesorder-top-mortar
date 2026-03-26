@@ -165,6 +165,7 @@
             </div>
             <div class="modal-body">
                 <form action="<?= base_url('insert-produk') ?>" method="POST">
+                    <input type="hidden" name="id_city" value="<?= $city['id_city'] ?>">
                     <div class="form-group">
                         <label for="">Produk</label>
                         <select name="id_master_produk" id="" class="form-control select2bs4">

@@ -68,20 +68,22 @@ class Produk extends CI_Controller
 
     public function insert()
     {
+        $post = $this->input->post();
+
         $this->form_validation->set_rules('harga_produk', 'Harga Produk', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('failed', "Harap lengkapi form");
-            redirect('produk');
+            redirect('produk/' . $post['id_city']);
         } else {
             $insert = $this->MProduk->insert();
 
             if ($insert) {
                 $this->session->set_flashdata('success', "Berhasil menyimpan data produk!");
-                redirect('produk');
+                redirect('produk/' . $post['id_city']);
             } else {
                 $this->session->set_flashdata('failed', "Gagal menyimpan data produk!");
-                redirect('produk');
+                redirect('produk/' . $post['id_city']);
             }
         }
     }
