@@ -297,15 +297,6 @@
                 $is_visited = 1;
             }
             ?>
-            <tr>
-                <td class="text-center"><?= $no++; ?></td>
-                <td>[+] <?= $tambahanVisit['nama'] ?></td>
-                <td><?= "Tambahan" ?></td>
-                <td class="text-center"><?= $tambahanVisit['source_visit'] ?></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center <?= $status_color ?>"><?= $is_visited == 1 ? 'Yes' : 'No' ?></td>
-            </tr>
         <?php endforeach; ?>
     </table>
 </body>
