@@ -43,4 +43,810 @@ class AddJadwalVisit extends CI_Controller
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
+
+    public function list($id_city)
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $cluster = 0;
+        $minDayCluster = 0;
+        if (date('D') == 'Mon' || date('D') == 'Thu') {
+            $cluster = 1;
+        } else if (date('D') == 'Tue' || date('D') == 'Fri') {
+            $cluster = 2;
+        } else if (date('D') == 'Wed' || date('D') == 'Sat') {
+            $cluster = 3;
+        }
+
+        if (date('D') == 'Mon') {
+            $minDayCluster = 4;
+            $dayName = 'senin';
+        } else if (date('D') == 'Tue') {
+            $minDayCluster = 4;
+            $dayName = 'selasa';
+        } else if (date('D') == 'Wed') {
+            $minDayCluster = 4;
+            $dayName = 'rabu';
+        } else if (date('D') == 'Thu') {
+            $minDayCluster = 3;
+            $dayName = 'kamis';
+        } else if (date('D') == 'Fri') {
+            $minDayCluster = 3;
+            $dayName = 'jumat';
+        } else if (date('D') == 'Sat') {
+            $minDayCluster = 3;
+            $dayName = 'sabtu';
+        }
+
+        $data['cluster'] = $cluster;
+        $data['dayName'] = $dayName;
+
+        $data['title'] = 'Jadwal Visit Tambahan';
+        $data['menuGroup'] = 'Visit';
+        $data['menu'] = 'AddJadwalVisit';
+        $data['city'] = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
+        $data['jadwalVisits'] = $this->getRenvis($id_city);
+
+        $this->load->view('Theme/Header', $data);
+        $this->load->view('Theme/Menu');
+        $this->load->view('AddJadwalvisit/List');
+        $this->load->view('Theme/Footer');
+        $this->load->view('Theme/Scripts');
+    }
+
+    public function create()
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+
+        $post = $this->input->post();
+
+        $jadwalVisitData = json_decode($post['jadwalVisit'], true);
+
+        $save = $this->db->insert('tb_jadwal_visit', $jadwalVisitData);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil tambah renvi");
+            redirect('add-jadwalvisit/' . $post['id_city']);
+        } else {
+            $this->session->set_flashdata('failed', "Terjadi kesalahan, harap coba lagi");
+            redirect('add-jadwalvisit/' . $post['id_city']);
+        }
+    }
+
+    public function getRenvis($id_city)
+    {
+        $cluster = 0;
+        $minDayCluster = 0;
+        if (date('D') == 'Mon' || date('D') == 'Thu') {
+            $cluster = 1;
+        } else if (date('D') == 'Tue' || date('D') == 'Fri') {
+            $cluster = 2;
+        } else if (date('D') == 'Wed' || date('D') == 'Sat') {
+            $cluster = 3;
+        }
+
+        if (date('D') == 'Mon') {
+            $minDayCluster = 4;
+            $dayName = 'senin';
+        } else if (date('D') == 'Tue') {
+            $minDayCluster = 4;
+            $dayName = 'selasa';
+        } else if (date('D') == 'Wed') {
+            $minDayCluster = 4;
+            $dayName = 'rabu';
+        } else if (date('D') == 'Thu') {
+            $minDayCluster = 3;
+            $dayName = 'kamis';
+        } else if (date('D') == 'Fri') {
+            $minDayCluster = 3;
+            $dayName = 'jumat';
+        } else if (date('D') == 'Sat') {
+            $minDayCluster = 3;
+            $dayName = 'sabtu';
+        }
+
+        $data['cluster'] = $cluster;
+        $data['dayName'] = $dayName;
+        $data['minDayCluster'] = $minDayCluster;
+
+        $jatem1s = $this->MRenvi->getJatem1($id_city);
+        $jatem2s = $this->MRenvi->getJatem2($id_city);
+        $jatem3s = $this->MRenvi->getJatem3($id_city);
+        $mingguans = $this->MRenvi->getMingguan($id_city);
+        $passives = $this->MRenvi->getPassive($id_city);
+
+        $renvis = array();
+        $renvisPassives = array();
+
+        foreach ($jatem1s as $jatem1) {
+            $id_inv = $jatem1['id_invoice'];
+            $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem1'")->row_array();
+            $jatuhTempo = date('d M Y', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($jatuhTempo);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+            $jatem1['days'] = $days;
+            $jatem1['jatuh_tempo'] = $jatuhTempo;
+            $jatem1['jatem'] = $jatem;
+            $jatem1['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+            $id_con = $jatem1['id_contact'];
+            $dateJatem = date('Y-m-d', strtotime("+" . $jatem1['termin_payment'] . " days", strtotime($jatem1['date_invoice'])));
+            //  AND DATE(date_visit) >= '$dateJatem'
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $created_at = $jatem1['created_at'];
+            $jatem1['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $renvis[] = $jatem1;
+        }
+
+        foreach ($jatem2s as $jatem2) {
+            $id_inv = $jatem2['id_invoice'];
+            $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem2'")->row_array();
+            $jatuhTempo = date('d M Y', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($jatuhTempo);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+            $jatem2['days'] = $days;
+            $jatem2['jatuh_tempo'] = $jatuhTempo;
+            $jatem2['jatem'] = $jatem;
+            $jatem2['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+            $id_con = $jatem2['id_contact'];
+            $dateJatem = date('Y-m-d', strtotime("+" . $jatem2['termin_payment'] . " days", strtotime($jatem2['date_invoice'])));
+            //  AND DATE(date_visit) >= '$dateJatem'
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $created_at = $jatem2['created_at'];
+            $jatem2['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $renvis[] = $jatem2;
+        }
+
+        foreach ($jatem3s as $jatem3) {
+            $id_inv = $jatem3['id_invoice'];
+            $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
+            $jatuhTempo = date('d M Y', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($jatuhTempo);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+            $jatem3['days'] = $days;
+            $jatem3['jatuh_tempo'] = $jatuhTempo;
+            $jatem3['jatem'] = $jatem;
+            $jatem3['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+            $id_con = $jatem3['id_contact'];
+            $dateJatem = date('Y-m-d', strtotime("+" . $jatem3['termin_payment'] . " days", strtotime($jatem3['date_invoice'])));
+            //  AND DATE(date_visit) >= '$dateJatem'
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $created_at = $jatem3['created_at'];
+            $jatem3['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $renvis[] = $jatem3;
+        }
+
+        foreach ($mingguans as $mingguan) {
+            $id_inv = $mingguan['id_invoice'];
+            $mingguan['id_renvis_jatem'] = $mingguan['id_rencana_visit'];
+            $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_renvis_jatem WHERE id_invoice = '$id_inv' AND type_renvis = 'jatem3'")->row_array();
+            $jatuhTempo = date('d M Y', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+            $jatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($jatuhTempo);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+            $mingguan['days'] = $days;
+            $mingguan['jatuh_tempo'] = $jatuhTempo;
+            $mingguan['jatem'] = $jatem;
+            $mingguan['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+            $id_con = $mingguan['id_contact'];
+            $dateJatem = date('Y-m-d', strtotime("+" . $mingguan['termin_payment'] . " days", strtotime($mingguan['date_invoice'])));
+            //  AND DATE(date_visit) >= '$dateJatem'
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','passive','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $created_at = $mingguan['created_at'];
+            $mingguan['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $mingguan['type_renvis'] = $mingguan['type_rencana'];
+            $renvis[] = $mingguan;
+        }
+
+        foreach ($passives as $passive) {
+            $id_con = $passive['id_contact'];
+            $count = $this->db->query("SELECT COUNT(*) AS jmlRenvis FROM tb_rencana_visit WHERE id_contact = '$id_con' AND type_rencana = 'passive'")->row_array();
+            $date_margin = date("Y-m-d", strtotime("-1 month"));
+            $lastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_con' AND source_visit IN ('jatem1','jatem2','jatem3','weekly','voucher','passive','renvisales','normal') AND date_visit >= '$date_margin' ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $passive['last_visit'] = $lastVisit == null ? '0000-00-00' : $lastVisit['date_visit'];
+            $created_at = $passive['created_at'];
+            $passive['created_at'] = $lastVisit == null ? $created_at : $lastVisit['date_visit'];
+            $passive['is_new'] = $count['jmlRenvis'] == 1 ? "1" : "0";
+            $passive['type_renvis'] = $passive['type_rencana'];
+
+            $getBadScore = $this->db->query("SELECT * FROM tb_bad_score WHERE id_contact = '$id_con'")->row_array();
+
+            if ($getBadScore) {
+                if ($getBadScore['is_approved'] != 1) {
+                    $renvisPassives[] = $passive;
+                }
+            } else {
+                $renvisPassives[] = $passive;
+            }
+        }
+
+        $jadwalVisits = array();
+
+        // Filter 1 (Janji Bayar)
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+        $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
+
+        foreach ($janjiBayars as $janjiBayar) {
+            if (count($jadwalVisits) <= 14) {
+                $date_visit_janji_bayar = date('Y-m-d', strtotime($janjiBayar['date_visit']));
+                $id_contact = $janjiBayar['id_contact'];
+
+                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+
+                $lastPayVisit = $this->db->query("SELECT * FROM tb_visit WHERE is_pay = 'pay' AND DATE(date_visit) > '$date_visit_janji_bayar' AND id_contact = '$id_contact'")->row_array();
+
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($date_last_for_counter);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+
+                $id_invoice = $janjiBayar['id_invoice'];
+                $invoice = $this->MInvoice->getById($id_invoice);
+                // Jatem Days
+                $jatemInv = date('Y-m-d', strtotime("+" . $janjiBayar['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                $dateInv1 = new DateTime(date("Y-m-d"));
+                $dateInv2 = new DateTime($jatemInv);
+                $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                $operanInvJatem = "";
+                if ($dateInv1 < $dateInv2) {
+                    $operanInvJatem = "-";
+                }
+                $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
+                $sisaHutang = $invoice['total_invoice'] - $amountPayment;
+
+                $renvisFilter = [
+                    'id_contact' => $janjiBayar['id_contact'],
+                    'filter' => 'Janji Bayar',
+                    'nama' => $janjiBayar['nama'],
+                    'type_renvis' => 'Janji Bayar',
+                    'last_visit' => $last_visit,
+                    'days' => $days,
+                    'daysJatem' => $daysInvJatem,
+                    'total_invoice' => $sisaHutang,
+                    'is_new' => 0,
+                ];
+
+                // if ($days > $minDayCluster) {
+                if (!$lastPayVisit) {
+                    if (array_search($janjiBayar['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                        array_push($jadwalVisits, $renvisFilter);
+                    }
+                }
+                // }
+            }
+        }
+
+        // Filter 2
+        foreach ($renvis as $renvi) {
+            $type_renvis = $renvi['type_renvis'];
+            $id_contact = $renvi['id_contact'];
+            $created_at = date('Y-m-d', strtotime($renvi['created_at']));
+
+            $last_visit = '';
+            $date_last_for_counter = '';
+            if ($renvi['is_new'] == 1) {
+                if ($type_renvis == 'jatem1') {
+                    // $date_last_for_counter = date('Y-m-d', strtotime($renvi['jatem']));
+                    // $last_visit = $renvi['jatuh_tempo'];
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                } else if ($type_renvis == 'tagih_mingguan') {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                    // $date_last_for_counter = date('Y-m-d', strtotime($renvi['date_invoice']));
+                    // $last_visit = date('d M Y', strtotime($renvi['date_invoice']));
+                } else {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                }
+            } else {
+                $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                $last_visit = date('d M Y', strtotime($renvi['created_at']));
+            }
+
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($date_last_for_counter);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+
+            // Invoice
+            $id_invoice = $renvi['id_invoice'];
+            $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
+
+            $total_invoice = 0;
+            foreach ($invoices as $invoice) {
+                $id_invoice = $invoice['id_invoice'];
+                // Jatem Days
+                $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                $dateInv1 = new DateTime(date("Y-m-d"));
+                $dateInv2 = new DateTime($jatemInv);
+                $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                $operanInvJatem = "";
+                if ($dateInv1 < $dateInv2) {
+                    $operanInvJatem = "-";
+                }
+                $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
+                $sisaHutang = $invoice['total_invoice'] - $amountPayment;
+
+                if ($renvi['type_renvis'] != 'tagih_mingguan') {
+                    if ($daysInvJatem >= 0) {
+                        $total_invoice += $sisaHutang;
+                    }
+                } else {
+                    if ($daysInvJatem <= 0) {
+                        $total_invoice += $sisaHutang;
+                    } else {
+                        $total_invoice += $sisaHutang;
+                    }
+                }
+            }
+
+            if ($total_invoice == 0) {
+                $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
+                foreach ($invoices as $invoice) {
+                    $id_invoice = $invoice['id_invoice'];
+                    // Jatem Days
+                    $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    $dateInv1 = new DateTime(date("Y-m-d"));
+                    $dateInv2 = new DateTime($jatemInv);
+                    $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                    $operanInvJatem = "";
+                    if ($dateInv1 < $dateInv2) {
+                        $operanInvJatem = "-";
+                    }
+                    $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $invoice['total_invoice'] - $payment['amount_payment'];
+
+                    if ($renvi['type_renvis'] != 'tagih_mingguan') {
+                        if ($daysInvJatem >= 0) {
+                            $total_invoice += $sisaHutang;
+                        }
+                    } else {
+                        if ($daysInvJatem <= 0) {
+                            $total_invoice += $sisaHutang;
+                        }
+                    }
+                }
+            }
+
+            $is_new = 0;
+            if ($renvi['type_renvis'] == 'jatem1') {
+                if ($renvi['is_new'] == 1) {
+                    $is_new = 1;
+                }
+            }
+
+            // Jatem Days
+            $date1jatem = new DateTime(date("Y-m-d"));
+            $date2jatem = new DateTime($renvi['jatem']);
+            $daysJatem  = $date2jatem->diff($date1jatem)->format('%a');
+            $operanJatem = "";
+            if ($date1jatem < $date2jatem) {
+                $operanJatem = "-";
+            }
+            $daysJatem = $operanJatem . $daysJatem;
+
+            $renvisFilter = [
+                'id_contact' => $renvi['id_contact'],
+                'filter' => 'Cluster ' . $cluster . ', 0 & 7 Hari',
+                'nama' => $renvi['nama'],
+                'type_renvis' => $renvi['type_renvis'],
+                'last_visit' => $last_visit,
+                'days' => $days,
+                'daysJatem' => $daysJatem,
+                'total_invoice' => $total_invoice,
+                'is_new' => $is_new,
+            ];
+
+            // if ($renvi['cluster'] == $cluster) {
+            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                array_push($jadwalVisits, $renvisFilter);
+            }
+            // if (count($jadwalVisits) <= 14) {
+            //     if ($days > $minDayCluster) {
+            //         if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1') {
+            //             if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+            //                 array_push($jadwalVisits, $renvisFilter);
+            //             }
+            //         }
+            //     }
+
+            //     if ($renvi['hari_bayar'] == $dayName) {
+            //         if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+            //             array_push($jadwalVisits, $renvisFilter);
+            //         }
+            //     }
+
+            //     if ($is_new == 1) {
+            //         if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1' || $renvi['hari_bayar'] == $dayName) {
+            //             if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+            //                 array_push($jadwalVisits, $renvisFilter);
+            //             }
+            //         }
+            //     }
+
+            //     if ($daysJatem == 0 || $daysJatem == 7) {
+            //         if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1' || $renvi['hari_bayar'] == $dayName) {
+            //             if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+            //                 array_push($jadwalVisits, $renvisFilter);
+            //             }
+            //         }
+            //     }
+            // }
+            // }
+        }
+
+        // Filter 3
+        foreach ($renvis as $renvi) {
+            $type_renvis = $renvi['type_renvis'];
+            $id_contact = $renvi['id_contact'];
+            $created_at = date('Y-m-d', strtotime($renvi['created_at']));
+
+            $last_visit = '';
+            $date_last_for_counter = '';
+            if ($renvi['is_new'] == 1) {
+                if ($type_renvis == 'jatem1') {
+                    // $date_last_for_counter = date('Y-m-d', strtotime($renvi['jatem']));
+                    // $last_visit = $renvi['jatuh_tempo'];
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                } else if ($type_renvis == 'tagih_mingguan') {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                    // $date_last_for_counter = date('Y-m-d', strtotime($renvi['date_invoice']));
+                    // $last_visit = date('d M Y', strtotime($renvi['date_invoice']));
+                } else {
+                    $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                }
+            } else {
+                $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
+                $last_visit = date('d M Y', strtotime($renvi['created_at']));
+            }
+
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($date_last_for_counter);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+
+            // Invoice
+            $id_invoice = $renvi['id_invoice'];
+            $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
+
+            $total_invoice = 0;
+            foreach ($invoices as $invoice) {
+                $id_invoice = $invoice['id_invoice'];
+                // Jatem Days
+                $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                $dateInv1 = new DateTime(date("Y-m-d"));
+                $dateInv2 = new DateTime($jatemInv);
+                $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                $operanInvJatem = "";
+                if ($dateInv1 < $dateInv2) {
+                    $operanInvJatem = "-";
+                }
+                $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
+                $sisaHutang = $invoice['total_invoice'] - $amountPayment;
+
+                if ($renvi['type_renvis'] != 'tagih_mingguan') {
+                    if ($daysInvJatem >= 0) {
+                        $total_invoice += $sisaHutang;
+                    }
+                } else {
+                    if ($daysInvJatem <= 0) {
+                        $total_invoice += $sisaHutang;
+                    } else {
+                        $total_invoice += $sisaHutang;
+                    }
+                }
+            }
+
+            if ($total_invoice == 0) {
+                $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
+                foreach ($invoices as $invoice) {
+                    $id_invoice = $invoice['id_invoice'];
+                    // Jatem Days
+                    $jatemInv = date('Y-m-d', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                    $dateInv1 = new DateTime(date("Y-m-d"));
+                    $dateInv2 = new DateTime($jatemInv);
+                    $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                    $operanInvJatem = "";
+                    if ($dateInv1 < $dateInv2) {
+                        $operanInvJatem = "-";
+                    }
+                    $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                    $sisaHutang = $invoice['total_invoice'] - $payment['amount_payment'];
+
+                    if ($renvi['type_renvis'] != 'tagih_mingguan') {
+                        if ($daysInvJatem >= 0) {
+                            $total_invoice += $sisaHutang;
+                        }
+                    } else {
+                        if ($daysInvJatem <= 0) {
+                            $total_invoice += $sisaHutang;
+                        }
+                    }
+                }
+            }
+
+            $is_new = 0;
+            if ($renvi['type_renvis'] == 'jatem1') {
+                if ($renvi['is_new'] == 1) {
+                    $is_new = 1;
+                }
+            }
+
+            // Jatem Days
+            $date1jatem = new DateTime(date("Y-m-d"));
+            $date2jatem = new DateTime($renvi['jatem']);
+            $daysJatem  = $date2jatem->diff($date1jatem)->format('%a');
+            $operanJatem = "";
+            if ($date1jatem < $date2jatem) {
+                $operanJatem = "-";
+            }
+            $daysJatem = $operanJatem . $daysJatem;
+
+            $renvisFilter = [
+                'id_contact' => $renvi['id_contact'],
+                'filter' => 'Cluster Lain di hari bayar ' . $renvi['hari_bayar'] . ',  0 & 7 Hari',
+                'nama' => $renvi['nama'],
+                'type_renvis' => $renvi['type_renvis'],
+                'last_visit' => $last_visit,
+                'days' => $days,
+                'daysJatem' => $daysJatem,
+                'total_invoice' => $total_invoice,
+                'is_new' => $is_new,
+            ];
+
+            // if (count($jadwalVisits) <= 14) {
+            // if ($renvi['cluster'] != $cluster) {
+            // if ($renvi['hari_bayar'] == $dayName) {
+            // if ($days == 0 || $days >= 7) {
+            // if ($days > $minDayCluster) {
+            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                array_push($jadwalVisits, $renvisFilter);
+            }
+            // }
+            // }
+            // }
+            // }
+            // }
+        }
+        // Filter 4
+        // Filter 4 (Toko yang akan passive)
+        $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
+
+        foreach ($contactActives as $contactActive) {
+            $id_contact = $contactActive['id_contact'];
+            $lastOrder = $this->db->query("SELECT MAX(date_closing) as date_closing, id_contact FROM tb_surat_jalan WHERE id_contact = '$id_contact' AND is_closing = 1 GROUP BY id_contact")->row_array();
+
+            if ($lastOrder != null) {
+                $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
+                $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
+                $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
+
+                if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
+                    if (count($jadwalVisits) <= 14) {
+                        $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                        $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                        $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+
+                        $date1 = new DateTime(date("Y-m-d"));
+                        $date2 = new DateTime($date_last_for_counter);
+                        $days  = $date2->diff($date1)->format('%a');
+                        $operan = "";
+                        if ($date1 < $date2) {
+                            $operan = "-";
+                        }
+                        $days = $operan . $days;
+
+                        $renvisFilter = [
+                            'id_contact' => $contactActive['id_contact'],
+                            'filter' => 'Toko akan pasif dalam 2 minggu',
+                            'nama' => $contactActive['nama'],
+                            'type_renvis' => 'Akan passive',
+                            'last_visit' => $last_visit,
+                            'days' => $days,
+                            'daysJatem' => '-',
+                            'total_invoice' => 0,
+                            'is_new' => 0,
+                        ];
+
+                        // if ($days == 0 || $days >= 7) {
+                        // if ($days > $minDayCluster) {
+                        if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                            array_push($jadwalVisits, $renvisFilter);
+                        }
+                        // }
+                        // }
+                    }
+                }
+            }
+        }
+
+        // Filter 5 (Toko data / baru)
+        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
+
+        foreach ($contactDatas as $contactData) {
+            if (count($jadwalVisits) <= 14) {
+                $id_contact = $contactData['id_contact'];
+
+                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($date_last_for_counter);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+
+                $renvisFilter = [
+                    'id_contact' => $contactData['id_contact'],
+                    'filter' => 'Toko Baru',
+                    'nama' => $contactData['nama'],
+                    'type_renvis' => 'Toko Baru',
+                    'last_visit' => $last_visit,
+                    'days' => $days,
+                    'daysJatem' => '-',
+                    'total_invoice' => 0,
+                    'is_new' => 0,
+                ];
+
+                // if ($days == 0 || $days >= 7) {
+                // if ($days > $minDayCluster) {
+                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                    array_push($jadwalVisits, $renvisFilter);
+                }
+                // }
+                // }
+            }
+        }
+        // Filter 6 (Toko passive)
+        foreach ($renvisPassives as $renvisPassive) {
+            $date_last_for_counter = date('Y-m-d', strtotime($renvisPassive['created_at']));
+            $last_visit = date('d M Y', strtotime($renvisPassive['created_at']));
+
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($date_last_for_counter);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
+            }
+            $days = $operan . $days;
+
+            $renvisFilter = [
+                'id_contact' => $renvisPassive['id_contact'],
+                'filter' => 'Passive',
+                'nama' => $renvisPassive['nama'],
+                'type_renvis' => $renvisPassive['type_renvis'],
+                'last_visit' => $last_visit,
+                'days' => $days,
+                'daysJatem' => '-',
+                'total_invoice' => 0,
+                'is_new' => 0,
+            ];
+
+            // if ($renvisPassive['cluster'] == $cluster) {
+            // if (count($jadwalVisits) <= 14) {
+            // if ($days == 0 || $days >= 7) {
+            // if ($days > $minDayCluster) {
+            if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                array_push($jadwalVisits, $renvisFilter);
+            }
+            // }
+            // }
+            // }
+            // }
+        }
+
+
+        // Filter 7 (Toko Aktif)
+        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
+
+        foreach ($contactDatas as $contactData) {
+            if (count($jadwalVisits) <= 14) {
+                $id_contact = $contactData['id_contact'];
+
+                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+
+                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+
+                $date1 = new DateTime(date("Y-m-d"));
+                $date2 = new DateTime($date_last_for_counter);
+                $days  = $date2->diff($date1)->format('%a');
+                $operan = "";
+                if ($date1 < $date2) {
+                    $operan = "-";
+                }
+                $days = $operan . $days;
+
+                $renvisFilter = [
+                    'id_contact' => $id_contact,
+                    'filter' => 'Toko Aktif',
+                    'nama' => $contactData['nama'],
+                    'type_renvis' => 'Toko Aktif',
+                    'last_visit' => $last_visit,
+                    'days' => $days,
+                    'daysJatem' => '-',
+                    'total_invoice' => 0,
+                    'is_new' => 0,
+                ];
+
+                // if ($days == 0 || $days >= 7) {
+                // if ($days > $minDayCluster) {
+                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                    array_push($jadwalVisits, $renvisFilter);
+                }
+                // }
+                // }
+            }
+        }
+
+        return $jadwalVisits;
+    }
 }
