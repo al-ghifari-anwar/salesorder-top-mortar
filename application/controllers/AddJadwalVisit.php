@@ -87,6 +87,7 @@ class AddJadwalVisit extends CI_Controller
         $data['menu'] = 'AddJadwalVisit';
         $data['city'] = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
         $data['jadwalVisits'] = $this->getRenvis($id_city);
+        $data['jadwalVisitTambahans'] = $this->db->get_where('tb_jadwal_visit', ['date_jadwal_visit' => date('Y-m-d'), 'is_tambahan' => 1, 'id_city' => $id_city])->result_array();
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');

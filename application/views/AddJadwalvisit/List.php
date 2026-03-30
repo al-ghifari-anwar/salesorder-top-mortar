@@ -50,7 +50,35 @@
                             </div>
                         </div>
                         <div class="card-body">
-
+                            <table id="table" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Filter</th>
+                                        <th>Kategori</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($jadwalVisitTambahans as $jadwalVisitTambahan) : ?>
+                                        <?php
+                                        $contact = $this->MContact->getById($jadwalVisitTambahan['id_contact']);
+                                        ?>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= $contact['nama'] ?></td>
+                                            <td><?= $jadwalVisitTambahan['filter_jadwal_visit'] ?></td>
+                                            <td><?= $jadwalVisitTambahan['kategori_jadwal_visit'] ?></td>
+                                            <td>
+                                                <a href="<?= base_url('add-jadwalvisit/delete/') . $jadwalVisitTambahan['id_jadwal_visit'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
