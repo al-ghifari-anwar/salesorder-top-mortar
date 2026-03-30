@@ -814,6 +814,15 @@
                                                 <i class="nav-icon fas fa-calendar"></i>
                                                 <p>
                                                     Jadwal Visit
+                                                    <!-- <span class="right badge badge-success">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('add-jadwalvisit') ?>" class="nav-link <?= $menu == 'AddJadwalVisit' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-calendar-plus"></i>
+                                                <p>
+                                                    Jadwal Visit Tambahan
                                                     <span class="right badge badge-success">New</span>
                                                 </p>
                                             </a>
@@ -823,7 +832,7 @@
                                                 <i class="nav-icon fas fa-paperclip"></i>
                                                 <p>
                                                     Report Jadwal Visit
-                                                    <span class="right badge badge-success">New</span>
+                                                    <!-- <span class="right badge badge-success">New</span> -->
                                                 </p>
                                             </a>
                                         </li>
@@ -832,7 +841,7 @@
                                                 <i class="nav-icon fas fa-map-marked"></i>
                                                 <p>
                                                     Toko Tanpa Cluster
-                                                    <span class="right badge badge-success">New</span>
+                                                    <!-- <span class="right badge badge-success">New</span> -->
                                                 </p>
                                             </a>
                                         </li>
@@ -841,7 +850,7 @@
                                                 <i class="nav-icon fas fa-store"></i>
                                                 <p>
                                                     Cluster Toko
-                                                    <span class="right badge badge-success">New</span>
+                                                    <!-- <span class="right badge badge-success">New</span> -->
                                                 </p>
                                             </a>
                                         </li>

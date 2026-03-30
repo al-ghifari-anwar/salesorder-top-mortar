@@ -413,6 +413,11 @@ $route['haloai/report-visit'] = 'HaloaiReportVisit/process';
 // Send notif jadwal
 $route['jadwalvisit/notif'] = 'Jadwalvisit/sendNotif';
 $route['reportjadwalvisit/notif'] = 'Reportjadwalvisit/sendNotif';
+// Add Jadwal Visit
+$route['add-jadwalvisit'] = "AddJadwalVisit/index";
+$route['add-jadwalvisit/(:num)'] = 'AddJadwalVisit/list/$1';
+$route['add-jadwalvisit/create'] = 'AddJadwalVisit/create';
+$route['add-jadwalvisit/delete'] = 'AddJadwalVisit/delete';
 // Webhook Halo AI
 $route['webhook/haloai/save'] = 'Webhookhaloai/save';
 $route['webhook/haloai/bantuan'] = 'Webhookhaloai/bantuan';
