@@ -194,8 +194,8 @@
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $jadwalVisit['nama'] ?></td>
-                <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
+                <td><?= $jadwalVisit['is_tambahan'] == 1 ? "[+] " : '' ?><?= $jadwalVisit['nama'] ?></td>
+                <td><?= $jadwalVisit['is_tambahan'] == 1 ? "Tambahan" : $jadwalVisit['filter_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
@@ -297,6 +297,15 @@
                 $is_visited = 1;
             }
             ?>
+            <!-- <tr>
+                <td class="text-center"><?= $no++; ?></td>
+                <td>[+] <?= $tambahanVisit['nama'] ?></td>
+                <td><?= "Tambahan" ?></td>
+                <td class="text-center"><?= $tambahanVisit['source_visit'] ?></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center <?= $status_color ?>"><?= $is_visited == 1 ? 'Yes' : 'No' ?></td>
+            </tr> -->
         <?php endforeach; ?>
     </table>
 </body>
