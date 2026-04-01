@@ -809,43 +809,43 @@ class AddJadwalVisit extends CI_Controller
         $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
 
         foreach ($contactDatas as $contactData) {
-            if (count($jadwalVisits) <= 14) {
-                $id_contact = $contactData['id_contact'];
+            // if (count($jadwalVisits) <= 14) {
+            $id_contact = $contactData['id_contact'];
 
-                $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+            $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
-                $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
-                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+            $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
+            $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
 
-                $date1 = new DateTime(date("Y-m-d"));
-                $date2 = new DateTime($date_last_for_counter);
-                $days  = $date2->diff($date1)->format('%a');
-                $operan = "";
-                if ($date1 < $date2) {
-                    $operan = "-";
-                }
-                $days = $operan . $days;
-
-                $renvisFilter = [
-                    'id_contact' => $id_contact,
-                    'filter' => 'Toko Aktif',
-                    'nama' => $contactData['nama'],
-                    'type_renvis' => 'Toko Aktif',
-                    'last_visit' => $last_visit,
-                    'days' => $days,
-                    'daysJatem' => '-',
-                    'total_invoice' => 0,
-                    'is_new' => 0,
-                ];
-
-                // if ($days == 0 || $days >= 7) {
-                // if ($days > $minDayCluster) {
-                if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
-                    array_push($jadwalVisits, $renvisFilter);
-                }
-                // }
-                // }
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($date_last_for_counter);
+            $days  = $date2->diff($date1)->format('%a');
+            $operan = "";
+            if ($date1 < $date2) {
+                $operan = "-";
             }
+            $days = $operan . $days;
+
+            $renvisFilter = [
+                'id_contact' => $id_contact,
+                'filter' => 'Toko Aktif',
+                'nama' => $contactData['nama'],
+                'type_renvis' => 'Toko Aktif',
+                'last_visit' => $last_visit,
+                'days' => $days,
+                'daysJatem' => '-',
+                'total_invoice' => 0,
+                'is_new' => 0,
+            ];
+
+            // if ($days == 0 || $days >= 7) {
+            // if ($days > $minDayCluster) {
+            if (array_search($id_contact, array_column($jadwalVisits, 'id_contact')) == "") {
+                array_push($jadwalVisits, $renvisFilter);
+            }
+            // }
+            // }
+            // }
         }
 
         return $jadwalVisits;
