@@ -72,6 +72,8 @@ class Manualvisit extends CI_Controller
 
         $getQontak = $this->db->get_where('tb_qontak', ['id_distributor' => $id_distributor])->row_array();
 
+        $user = $this->db->get_where('tb_user', ['id_user' => $id_user])->row_array();
+
         $data = [
             'id_contact' => $id_contact,
             'distance_visit' => 0.001,
@@ -113,7 +115,7 @@ class Manualvisit extends CI_Controller
             $nomor_hp = $getContact['nomorhp'];
             $nama = $getContact['nama'];
             // $integration_id = $getQontak['integration_id'];
-            $full_name = "PT Top Mortar Indonesia";
+            $full_name = $user['full_name'];
 
             $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
             $wa_token = $haloai['token_haloai'];
