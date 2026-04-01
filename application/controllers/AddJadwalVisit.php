@@ -672,7 +672,7 @@ class AddJadwalVisit extends CI_Controller
         }
         // Filter 4
         // Filter 4 (Toko yang akan passive)
-        $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
+        $contactActives = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'store_status' => 'active'])->result_array();
 
         foreach ($contactActives as $contactActive) {
             $id_contact = $contactActive['id_contact'];
@@ -724,7 +724,7 @@ class AddJadwalVisit extends CI_Controller
         }
 
         // Filter 5 (Toko data / baru)
-        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
+        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'store_status' => 'data'])->result_array();
 
         foreach ($contactDatas as $contactData) {
             // if (count($jadwalVisits) <= 14) {
@@ -806,7 +806,7 @@ class AddJadwalVisit extends CI_Controller
 
 
         // Filter 7 (Toko Aktif)
-        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
+        $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'store_status' => 'active'])->result_array();
 
         foreach ($contactDatas as $contactData) {
             // if (count($jadwalVisits) <= 14) {
