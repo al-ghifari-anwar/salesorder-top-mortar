@@ -33,6 +33,11 @@ class HaloaiReportVisit extends CI_Controller
             // Last Visit
             $lastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d')])->row_array();
 
+            // Checklist Visit
+            $checklistVisit = $this->db->get_where('tb_visit_answer', ['id_visit' => $lastVisit['id_visit']])->result_array();
+
+
+
             // AI Agent
             $aiAgent = $this->db->get_where('tb_ai_agent', ['id_distributor' => $id_distributor])->row_array();
 
@@ -67,6 +72,7 @@ class HaloaiReportVisit extends CI_Controller
                     'status' => $contact['store_status'],
                     'jml_voucher' => $jmlVoucher,
                     'voucher_expired' => $voucherExp,
+                    'visit_checklist' => $checklistVisit,
                 ],
                 'tanggal_hari_ini' => date('Y-m-d'),
                 'produk' => [
