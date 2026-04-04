@@ -42,25 +42,6 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 
-    require(['vs/editor/editor.main'], function() {
-
-        var editor = monaco.editor.create(document.getElementById('editor'), {
-            value: `<agent>
-    <identity>
-        <agent_name>Sales Agent</agent_name>
-    </identity>
-</agent>`,
-            language: 'xml',
-            theme: 'vs-light',
-            automaticLayout: true
-        });
-
-        document.querySelector("form").addEventListener("submit", function() {
-            document.getElementById("xml_prompt").value = editor.getValue();
-        });
-
-    });
-
     $(function() {
         bsCustomFileInput.init();
     });
