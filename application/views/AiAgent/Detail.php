@@ -61,7 +61,7 @@
                                     <a class="nav-link active" id="ai-tabs-setting-tab" data-toggle="pill" href="#ai-tabs-setting" role="tab" aria-controls="ai-tabs-setting" aria-selected="true">AI Settings</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Profile</a>
+                                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Prompting</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Messages</a>
@@ -118,7 +118,13 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
-                                    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+                                    <form action="<?= base_url('ai-agent/update-prompt') ?>" method="post" id="prompt-form">
+                                        <input type="hidden" name="id_ai_agent" value="<?= $aiAgent['id_ai_agent'] ?>">
+                                        <div id="prompt_editor"></div>
+                                        <textarea name="prompt_md" id="prompt_md" style="display:none;"></textarea>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </form>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
                                     Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
@@ -186,3 +192,19 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script>
+    window.onload = function() {
+        const editor = new toastui.Editor({
+            el: document.querySelector('#prompt_editor'),
+            height: '400px',
+            initialEditType: 'markdown',
+            previewStyle: 'vertical',
+            initialValue: <?= json_encode(base64_decode($aiAgent['base64_prompt'])) ?>
+        });
+
+        document.getElementById("prompt-form").addEventListener("submit", function() {
+            document.getElementById("prompt_md").value = editor.getMarkdown();
+            console.log(editor.getMarkdown);
+        });
+    }
+</script>

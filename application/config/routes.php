@@ -432,6 +432,7 @@ $route['targetvisittagihan'] = 'TargetVisitTagihan/index';
 $route['ai-agent'] = 'AiAgent/index';
 $route['ai-agent/detail/(:num)'] = 'AiAgent/detail/$1';
 $route['ai-agent/update-setting'] = 'AiAgent/updateSetting';
+$route['ai-agent/update-prompt'] = 'AiAgent/updatePrompt';
 // AI Report Visit
 $route['ai-visitreport'] = 'AiVisitReport/index';
 $route['ai-visitreport/detail/(:num)'] = 'AiVisitReport/detail/$1';

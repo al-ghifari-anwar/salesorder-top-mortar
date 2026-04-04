@@ -35,4 +35,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="<?= base_url('assets') ?>/plugins/circle-progress/circle-progress.min.js" type="module"></script>
     <!-- Auto numeric -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.8.1/autoNumeric.min.js"></script>
+    <!-- Editor -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 </head>

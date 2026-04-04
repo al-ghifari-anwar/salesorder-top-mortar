@@ -70,6 +70,36 @@ class AiAgent extends CI_Controller
                 'model_ai_agent' => $post['model_ai_agent'],
                 'temperature_ai_agent' => $post['temperature_ai_agent'],
                 'max_output_token_ai_agent' => $post['max_output_token_ai_agent'],
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+
+            $save = $this->db->update('tb_ai_agent', $aiAgentData, ['id_ai_agent' => $id_ai_agent]);
+
+            if ($save) {
+                $this->session->set_flashdata('success', "Berhasil memperbarui AI Setting");
+                redirect('ai-agent/detail/' . $id_ai_agent);
+            } else {
+                $this->session->set_flashdata('failed', "Gagal memperbarui AI Setting");
+                redirect('ai-agent/detail/' . $id_ai_agent);
+            }
+        }
+    }
+
+    public function updatePrompt()
+    {
+        $post = $this->input->post();
+
+        $id_ai_agent = $post['id_ai_agent'];
+
+        $this->form_validation->set_rules('prompt_md', 'Prompt Markdown', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', $this->form_validation->error_string());
+            redirect('ai-agent/detail/' . $id_ai_agent);
+        } else {
+            $aiAgentData = [
+                'base64_prompt' => base64_encode($post['prompt_md']),
+                'updated_at' => date('Y-m-d H:i:s'),
             ];
 
             $save = $this->db->update('tb_ai_agent', $aiAgentData, ['id_ai_agent' => $id_ai_agent]);
