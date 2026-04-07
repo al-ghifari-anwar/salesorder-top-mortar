@@ -473,6 +473,10 @@ class Scoring extends CI_Controller
             $val_scoring = 0;
         }
 
+        if ($selected_contact['store_status'] == 'data') {
+            $val_scoring = 100;
+        }
+
         return number_format($val_scoring, 2, '.', ',');
     }
 }
