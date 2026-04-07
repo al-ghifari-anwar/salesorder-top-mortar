@@ -56,6 +56,13 @@
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
+                                            <label>View:</label>
+                                            <div class="form-group ml-3">
+                                                <select name="view" id="" class="form-control">
+                                                    <option value="Calendar">Calendar</option>
+                                                    <option value="Detail">Detail</option>
+                                                </select>
+                                            </div>
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
                                             </div>

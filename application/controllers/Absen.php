@@ -60,7 +60,11 @@ class Absen extends CI_Controller
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Absen/Print', $data, true);
+        if ($post['view'] == 'Calendar') {
+            $html = $this->load->view('Absen/Print', $data, true);
+        } else {
+            $html = $this->load->view('Absen/PrintDetail', $data, true);
+        }
         $mpdf->AddPage('L');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
