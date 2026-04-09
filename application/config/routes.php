@@ -417,7 +417,7 @@ $route['reportjadwalvisit/notif'] = 'Reportjadwalvisit/sendNotif';
 $route['add-jadwalvisit'] = "AddJadwalVisit/index";
 $route['add-jadwalvisit/(:num)'] = 'AddJadwalVisit/list/$1';
 $route['add-jadwalvisit/create'] = 'AddJadwalVisit/create';
-$route['add-jadwalvisit/delete'] = 'AddJadwalVisit/delete';
+$route['add-jadwalvisit/delete/(:num)'] = 'AddJadwalVisit/delete/$1';
 // Webhook Halo AI
 $route['webhook/haloai/save'] = 'Webhookhaloai/save';
 $route['webhook/haloai/bantuan'] = 'Webhookhaloai/bantuan';

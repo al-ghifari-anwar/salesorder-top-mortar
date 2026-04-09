@@ -117,6 +117,25 @@ class AddJadwalVisit extends CI_Controller
         }
     }
 
+    public function delete($id_jadwal_visit)
+    {
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+
+        $jadwalvisit = $this->db->get_where('tb_jadwal_visit', ['id_jadwal_visit' => $id_jadwal_visit])->row_array();
+
+        $save = $this->db->delete('tb_jadwal_visit', ['id_jadwal_visit' => $id_jadwal_visit]);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil hapus renvi");
+            redirect('add-jadwalvisit/' . $jadwalvisit['id_city']);
+        } else {
+            $this->session->set_flashdata('failed', "Terjadi kesalahan, harap coba lagi");
+            redirect('add-jadwalvisit/' . $jadwalvisit['id_city']);
+        }
+    }
+
     public function getRenvis($id_city)
     {
         $cluster = 0;
