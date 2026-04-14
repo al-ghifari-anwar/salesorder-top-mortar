@@ -175,6 +175,20 @@ class MVisit extends CI_Model
         return $query;
     }
 
+    public function getAllByCityAndDate($id_city, $dateFrom, $dateTo)
+    {
+        $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
+        $this->db->where('DATE(date_visit) >=', $dateFrom);
+        $this->db->where('DATE(date_visit) <=', $dateTo);
+        $this->db->where_in('tb_user.level_user', ['sales', 'penagihan', 'mg', 'marketing']);
+        $this->db->not_like('tb_visit.source_visit', 'absen');
+
+        $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'is_approved' => 0, 'tb_visit.is_deleted' => 0])->result_array();
+
+        return $query;
+    }
+
     public function getByCityAndDateCourier($id_city, $id_user, $bulan)
     {
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
