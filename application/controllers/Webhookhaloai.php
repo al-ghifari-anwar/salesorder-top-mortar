@@ -141,7 +141,7 @@ class Webhookhaloai extends CI_Controller
 
             $chatId = "-5138247877";
 
-            $this->HTelegram->sendTextPrivate($chatId, $message);
+            // $this->HTelegram->sendTextPrivate($chatId, $message);
 
             $result = [
                 'code' => 200,
