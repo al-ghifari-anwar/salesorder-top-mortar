@@ -185,6 +185,7 @@ class MVisit extends CI_Model
         $this->db->where('DATE(date_visit) <=', $dateTo);
         $this->db->where_in('tb_user.level_user', ['sales', 'penagihan', 'mg', 'marketing']);
         $this->db->not_like('tb_visit.source_visit', 'absen');
+        $this->db->limit(5);
 
         $query = $this->db->get_where('tb_visit', ['tb_contact.id_city' => $id_city, 'is_approved' => 0, 'tb_visit.is_deleted' => 0])->result_array();
 
