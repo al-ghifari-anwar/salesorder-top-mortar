@@ -177,6 +177,8 @@ class MVisit extends CI_Model
 
     public function getAllByCityAndDate($id_city, $dateFrom, $dateTo)
     {
+        // echo $dateFrom;
+        // die;
         $this->db->join('tb_user', 'tb_user.id_user = tb_visit.id_user');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $this->db->where('DATE(date_visit) >=', $dateFrom);

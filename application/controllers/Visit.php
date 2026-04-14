@@ -64,11 +64,11 @@ class Visit extends CI_Controller
             $dates = explode("-", $dateRange);
             $dateFrom = date("Y-m-d", strtotime($dates[0]));
             $dateTo = date("Y-m-d", strtotime($dates[1]));
-            $data['visit'] = $this->MVisit->getAllByCityAndDate($id_city, $id_user, $dateFrom, $dateTo);
+            $data['visit'] = $this->MVisit->getAllByCityAndDate($id_city, $dateFrom, $dateTo);
         } else {
             // $invoice = $this->MInvoice->getAll();
             // $data['visit'] = $this->MVisit->getAllByCity($id_city);
-            $data['visit'] = $this->MVisit->getAllByCityAndDate($id_city, $id_user, $dateFrom, $dateTo);
+            $data['visit'] = $this->MVisit->getAllByCityAndDate($id_city, $dateFrom, $dateTo);
         }
 
         $data['dateFrom'] = $dateFrom;
