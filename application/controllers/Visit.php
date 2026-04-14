@@ -54,17 +54,25 @@ class Visit extends CI_Controller
 
         $data['menuGroup'] = 'Sales';
         $data['menu'] = 'Visit';
-        $dateRange = $this->input->post("date_range");
+        $dateRange = $_GET['date_range'];
         $id_user = $this->input->post("id_user");
-        $bulan = $this->input->post("bulan");
 
-        if ($bulan) {
+        $dateFrom = date('Y-m-d');
+        $dateTo = date('Y-m-d');
+
+        if ($dateRange) {
             $dates = explode("-", $dateRange);
-            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, $id_user, $bulan);
+            $dateFrom = date("Y-m-d", strtotime($dates[0]));
+            $dateTo = date("Y-m-d", strtotime($dates[1]));
+            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, $id_user, $dateFrom, $dateTo);
         } else {
             // $invoice = $this->MInvoice->getAll();
-            $data['visit'] = $this->MVisit->getAllByCity($id_city);
+            // $data['visit'] = $this->MVisit->getAllByCity($id_city);
+            $data['visit'] = $this->MVisit->getByCityAndDate($id_city, $id_user, $dateFrom, $dateTo);
         }
+
+        $data['dateFrom'] = $dateFrom;
+        $data['dateTo'] = $dateTo;
         $data['proyeks'] = $this->MProyek->getAll();
         $data['title'] = 'Visit';
         $data['cities'] = $this->MCity->getAll();
