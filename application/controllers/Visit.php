@@ -54,7 +54,7 @@ class Visit extends CI_Controller
 
         $data['menuGroup'] = 'Sales';
         $data['menu'] = 'Visit';
-        $dateRange = $_GET['date_range'];
+        $dateRange = isset($_GET['date_range']) ? $_GET['date_range'] : null;
         $id_user = $this->input->post("id_user");
 
         $dateFrom = date('Y-m-d');
