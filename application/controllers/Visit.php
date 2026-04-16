@@ -103,11 +103,11 @@ class Visit extends CI_Controller
                 $this->db->update('tb_contact', ['id_proyek' => $id_proyek], ['id_contact' => $id_contact]);
             }
             $this->session->set_flashdata('success', "Berhasil approve visit!");
-            redirect('visit/' . $id_city . "?" . $post['rawFilter']);
+            redirect('visit/' . $id_city . "?date_range=" . $post['rawFilter']);
         } else {
             $post = $this->input->post();
             $this->session->set_flashdata('failed', "Gagal approve visit!");
-            redirect('visit/' . $id_city . "?" . $post['rawFilter']);
+            redirect('visit/' . $id_city . "?date_range" . $post['rawFilter']);
         }
     }
 
