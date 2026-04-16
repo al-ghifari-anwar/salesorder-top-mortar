@@ -57,7 +57,7 @@ class Visit extends CI_Controller
         $dateRange = isset($_GET['date_range']) ? $_GET['date_range'] : null;
         $id_user = $this->input->post("id_user");
 
-        $data['rawFilter'] = $_GET['date_range'];
+        $data['rawFilter'] = isset($_GET['date_range']) ? $_GET['date_range'] : rawurlencode(date('Y-m-d') . '-' . date('Y-m-d'));
 
         $dateFrom = date('Y-m-d');
         $dateTo = date('Y-m-d');
