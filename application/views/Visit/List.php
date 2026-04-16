@@ -129,11 +129,6 @@
                                                 <?php if ($data['is_approved'] == 0): ?>
                                                     <a href="<?= base_url('approve-visit/' . $data['id_visit']) ?>" class="btn btn-success" title="Approve" data-toggle="modal" data-target="#modal-approve<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
                                                 <?php endif; ?>
-                                                <?php if ($this->session->userdata('id_distributor') == 4): ?>
-                                                    <?php if ($this->session->userdata('id_user') == '72' || $this->session->userdata('id_user') == '121' || $this->session->userdata('id_user') == '124'): ?>
-                                                        <a href="#" class="btn btn-primary mx-1" title="Approve" data-toggle="modal" data-target="#modal-approve2<?= $data['id_visit'] ?>"><i class="fas fa-check-circle"></i></a>
-                                                    <?php endif; ?>
-                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-approve<?= $data['id_visit'] ?>">
@@ -147,6 +142,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form action="<?= base_url('approve-visit/' . $data['id_visit'] . "/" . $id_city) ?>" method="POST">
+                                                            <input type="hidden" name="rawFilter" value="<?= $rawFilter ?>">
                                                             <?php if ($this->session->userdata('id_distributor') == 4): ?>
                                                                 <div class="form-group">
                                                                     <label for="">Proyek</label>
