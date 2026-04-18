@@ -33,11 +33,63 @@ class HaloaiReportVisit extends CI_Controller
 
         $approveVisit = $this->db->update('tb_visit', ['is_approved' => 1], ['id_visit' => $id_visit]);
 
-        $result = [
-            'code' => 200,
-            'status' => 'ok',
-            'msg' => 'Auto approve is done',
-        ];
+        if ($contact['store_status'] == 'active') {
+            // 
+            $id_contact = $contact['id_contact'];
+            $id_distributor = $contact['id_distributor'];
+            $id_city = $contact['id_city'];
+
+            // Checklist Visit
+            $checklistVisit = $this->db->get_where('tb_visit_answer', ['id_visit' => $lastVisit['id_visit']])->result_array();
+
+            $id_visit = $lastVisit['id_visit'];
+
+            // Check Report First
+            // $checkReportVisit = $this->db->get_where('tb_ai_report_visit', ['id_visit' => $id_visit])->row_array();
+
+            // Voucher
+            $vouchers = $this->MVoucher->getByIdContactForHaloAI($id_contact);
+
+            $vouchersStr = "";
+            $voucherExp = "";
+            foreach ($vouchers as $voucher) {
+                $vouchersStr .= $voucher['no_voucher'] . ",";
+                // if (!empty($voucherExp)) {
+                $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
+                // }
+                // $voucherExp = date('d F Y', strtotime($voucher['exp_date']));
+            }
+
+            $jmlVoucher = count($vouchers) . "";
+
+            $storeData = [
+                'toko' => [
+                    'nama' => $contact['nama'],
+                    'pemilik' => $contact['store_owner'],
+                    'tanggal_terakhir_dikunjungi' => date("Y-m-d", strtotime($lastVisit['date_visit'])),
+                    'status' => $contact['store_status'],
+                    'jml_voucher' => $jmlVoucher,
+                    'voucher_expired' => $voucherExp,
+                    'visit_checklist' => $checklistVisit,
+                ],
+                'tanggal_hari_ini' => date('Y-m-d'),
+                'laporan_sales' => $lastVisit['laporan_visit'],
+            ];
+
+            $result = [
+                'code' => 200,
+                'status' => 'ok',
+                'msg' => 'Store need to analyze',
+                'data' => $storeData,
+            ];
+        } else {
+            $result = [
+                'code' => 400,
+                'status' => 'failed',
+                'msg' => 'Store is active, no need to analyze',
+            ];
+        }
+
 
         return $this->output->set_output(json_encode($result));
     }
