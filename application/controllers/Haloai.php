@@ -558,7 +558,7 @@ class Haloai extends CI_Controller
 
             $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
 
-            $webhookProducts = json_decode($post['ticket']['data']['daftar_pemesanan'], true);
+            $webhookProducts = json_decode($post['data']['daftar_pemesanan'], true);
 
             $total_qty_products = 0;
             $total_qty_bonus = 0;
