@@ -995,7 +995,7 @@
                                     </li>
                                 <?php endif; ?>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'superadmin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader') : ?>
                                 <li class="nav-item <?= $menuGroup == 'Pembayaran' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'Pembayaran' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-file"></i>
