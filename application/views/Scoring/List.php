@@ -196,6 +196,9 @@
                             if ($datePayment > $jatuhTempo) {
                                 // $count_late_payment += 1;
                                 $date1 = new DateTime($datePayment);
+                                if ($invoice['status_invoice'] == 'waiting') {
+                                    $date1 = new DateTime(date('Y-m-d'));
+                                }
                                 $date2 = new DateTime($jatuhTempo);
                                 $days  = $date2->diff($date1)->format('%a');
 
