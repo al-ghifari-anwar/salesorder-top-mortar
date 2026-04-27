@@ -183,359 +183,19 @@ class Haloai extends CI_Controller
             // 
         }
 
-        $sjData = [
-            'no_surat_jalan' => 'DO-41' . rand(10000, 99999),
-            'id_contact' => $contact['id_contact'],
-            'dalivery_date' => date('Y-m-d H:i:s'),
-            'order_number' => 0,
-            'ship_to_name' => $contact['nama'],
-            'ship_to_address' => $post['ticket']['data']['alamat_customer'],
-            'ship_to_phone' => $contact['nomorhp'],
-            'id_courier' => $id_courier,
-            'id_kendaraan' => 2,
-            'is_finished' => 1,
-            'is_cod' => ($termin_payment >= 0 && $termin_payment < 3) ? 1 : 0,
-        ];
+        $dateCutoff = date('Y-m-d', strtotime("-10 minutes"));
 
-        $save = $this->db->insert('tb_surat_jalan', $sjData);
+        $checkSj = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact, 'DATE(dalivery_date) >=' => $dateCutoff])->row_array();
 
-        if (!$save) {
-            echo 'Gagal';
+        if ($checkSj) {
+            $result = [
+                'code' => 400,
+                'status' => 'failed',
+                'msg' => 'SJ already exist',
+            ];
+
+            return $this->output->set_output(json_encode($result));
         } else {
-            $id_surat_jalan = $this->db->insert_id();
-
-            $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
-
-            $webhookProducts = json_decode($post['ticket']['data']['daftar_pemesanan'], true);
-
-            $total_qty_products = 0;
-            $total_qty_bonus = 0;
-
-            $jml_voucher = count($vouchers);
-
-            foreach ($webhookProducts as $webhookProduct) {
-                $nama_produk = $webhookProduct['Nama Barang'];
-                $qty = $webhookProduct['Quantity'];
-
-                $total_qty_products += $webhookProduct['Quantity'];
-
-                $produk = $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $id_city)->like('tb_produk.nama_produk', $nama_produk)->get('tb_produk')->row_array();
-
-                if ($produk == null) {
-                    $produk = $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $id_city)->like('tb_master_produk.slang_produk', $nama_produk)->get('tb_produk')->row_array();
-                }
-
-                $sjDetailData = [
-                    'id_surat_jalan' => $id_surat_jalan,
-                    'id_produk' => $produk['id_produk'],
-                    'price' => $produk['harga_produk'],
-                    'qty_produk' => $qty,
-                    'amount' => $produk['harga_produk'] * $qty,
-                    'is_bonus' => 0,
-                    'created_at' => date('Y-m-d H:i:s'),
-                ];
-
-                $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
-
-                if ($id_promo != 0) {
-                    // Calculate bonus
-                    if ($produk['is_default_promo'] == 1) {
-                        $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
-                        $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
-
-                        // $multiplier = $qty / $promo['kelipatan_promo'];
-                        $bonusQty = $this->setBonusProgressive($qty, $promoList);
-
-                        if ($bonusQty > 0) {
-                            $total_qty_bonus += $bonusQty;
-
-                            $sjDetailData = [
-                                'id_surat_jalan' => $id_surat_jalan,
-                                'id_produk' => $produk['id_produk'],
-                                'price' => $produk['harga_produk'],
-                                'qty_produk' => $bonusQty,
-                                'amount' => 0,
-                                'is_bonus' => 1,
-                                'created_at' => date('Y-m-d H:i:s'),
-                            ];
-
-                            $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
-                        }
-                    } else {
-                        $multiplier = $qty / $produk['kelipatan_promo'];
-
-                        if (floor($multiplier) > 0) {
-                            $total_qty_bonus += floor($multiplier) * $produk['bonus_promo'];
-
-                            $sjDetailData = [
-                                'id_surat_jalan' => $id_surat_jalan,
-                                'id_produk' => $produk['id_produk'],
-                                'price' => $produk['harga_produk'],
-                                'qty_produk' => floor($multiplier) * $produk['bonus_promo'],
-                                'amount' => 0,
-                                'is_bonus' => 1,
-                                'created_at' => date('Y-m-d H:i:s'),
-                            ];
-
-                            $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
-                        }
-                    }
-                }
-            }
-
-            // Set Bonus If Per Produk Not Match Minimum, Use qty Whole Order
-            if ($total_qty_bonus == 0) {
-                if ($contact['id_promo'] != 0) {
-                    $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
-
-                    $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
-
-                    // $kelipatan_promo = $promo['kelipatan_promo'];
-
-                    // $multiplier = $total_qty_products / $kelipatan_promo;
-
-                    $bonusQty = $this->setBonusProgressive($total_qty_products, $promoList);
-
-                    if ($bonusQty > 0) {
-                        $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
-
-                        $sjDetailData = [
-                            'id_surat_jalan' => $id_surat_jalan,
-                            'id_produk' => $cheapestProduct['id_produk'],
-                            'price' => $cheapestProduct['harga_produk'],
-                            'qty_produk' => $bonusQty,
-                            'amount' => 0,
-                            'is_bonus' => 1,
-                            'created_at' => date('Y-m-d H:i:s'),
-                        ];
-
-                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
-                    }
-                }
-            }
-
-            // Add Voucher Thinbed
-            if ($jml_voucher > 0) {
-                $vouchersStr = "";
-                foreach ($vouchers as $voucher) {
-                    $vouchersStr .= $voucher['no_voucher'] . ",";
-                }
-
-                $getThinbed = $this->db->like('nama_produk', 'TOP MORTAR THINBED')->get_where('tb_produk', ['id_city' => $id_city])->row_array();
-
-                $sjDetailData = [
-                    'id_surat_jalan' => $id_surat_jalan,
-                    'id_produk' => $getThinbed['id_produk'],
-                    'price' => $getThinbed['harga_produk'],
-                    'qty_produk' => $jml_voucher,
-                    'amount' => 0,
-                    'is_bonus' => 1,
-                    'no_voucher' => $vouchersStr,
-                    'created_at' => date('Y-m-d H:i:s'),
-                ];
-
-                $saveVoucher = $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
-
-                if ($saveVoucher) {
-                    $this->db->where_in('no_voucher', explode(',', $vouchersStr));
-                    $this->db->update('tb_voucher', ['is_claimed' => 1, 'is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
-                }
-            }
-
-            if ($this->db->trans_status() === FALSE) {
-                $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
-                $wa_token = $haloai['token_haloai'];
-                $business_id = $haloai['business_id_haloai'];
-                $channel_id = $haloai['channel_id_haloai'];
-                $template = 'info_meeting_baru';
-                $message = "Surat Jalan Tidak Terbuat, Toko: " . $suratJalan['nama'];
-
-                $haloaiPayload = [
-                    'activate_ai_after_send' => false,
-                    'channel_id' => $channel_id,
-                    'fallback_template_message' => $template,
-                    'fallback_template_variables' => [
-                        "Bella",
-                        trim(preg_replace('/\s+/', ' ', $message)),
-                        "Automated Message",
-                    ],
-                    'phone_number' => "6282131426363",
-                    'text' => trim(preg_replace('/\s+/', ' ', $message)),
-                ];
-
-                $curl = curl_init();
-
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'POST',
-                    CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
-                    CURLOPT_HTTPHEADER => array(
-                        'Authorization: Bearer ' . $wa_token,
-                        'X-HaloAI-Business-Id: ' . $business_id,
-                        'Content-Type: application/json'
-                    ),
-                ));
-
-                $response = curl_exec($curl);
-
-                curl_close($curl);
-
-                $this->db->trans_rollback();
-                return $this->output->set_status_header(500);
-            } else {
-                $this->db->trans_commit();
-                // return $this->output->set_status_header(200);
-            }
-
-            $detailSuratJalan = $this->db->select('COUNT(*) as jml_detail')->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
-
-
-            if ($detailSuratJalan == 0 || $detailSuratJalan == null) {
-                $this->db->delete('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan]);
-            } else {
-                // Send notif kurir
-                // $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
-                // $wa_token = $haloai['token_haloai'];
-                // $business_id = $haloai['business_id_haloai'];
-                // $channel_id = $haloai['channel_id_haloai'];
-                // $template = 'notkurir';
-                $message = "Pesanan Baru Status: \nPerlu di kirim Kurir: " . $suratJalan['full_name'] . ". \nNama toko/penerima: " . $suratJalan['nama'] . ". \nAlamat: " . trim(preg_replace('/\s+/', ' ', $suratJalan['address'])) . ', ' . $suratJalan['nama_city'] . ". \nNo Surat Jalan: *" . $suratJalan['no_surat_jalan'] . "*";
-
-                // $haloaiPayload = [
-                //     'activate_ai_after_send' => false,
-                //     'channel_id' => $channel_id,
-                //     'fallback_template_message' => $template,
-                //     'fallback_template_variables' => [
-                //         $suratjalan['full_name'],
-                //         $suratjalan['nama'],
-                //         trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'],
-                //         $suratjalan['no_surat_jalan'],
-                //     ],
-                //     'phone_number' => $suratJalan['phone_user'],
-                //     'text' => trim(preg_replace('/\s+/', ' ', $message)),
-                // ];
-
-                // $curl = curl_init();
-
-                // curl_setopt_array($curl, array(
-                //     CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
-                //     CURLOPT_RETURNTRANSFER => true,
-                //     CURLOPT_ENCODING => '',
-                //     CURLOPT_MAXREDIRS => 10,
-                //     CURLOPT_TIMEOUT => 0,
-                //     CURLOPT_FOLLOWLOCATION => true,
-                //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                //     CURLOPT_CUSTOMREQUEST => 'POST',
-                //     CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
-                //     CURLOPT_HTTPHEADER => array(
-                //         'Authorization: Bearer ' . $wa_token,
-                //         'X-HaloAI-Business-Id: ' . $business_id,
-                //         'Content-Type: application/json'
-                //     ),
-                // ));
-
-                // $response = curl_exec($curl);
-
-                // curl_close($curl);
-
-                // $res = json_decode($response, true);
-
-                $sendNotifTele = $this->HTelegram->sendTextPrivate($suratJalan['telegram_user'], $message);
-
-                $resultData = [
-                    'no_surat_jalan' => $suratJalan['no_surat_jalan'],
-                ];
-
-                $result = [
-                    'code' => 200,
-                    'status' => 'ok',
-                    'msg' => 'Success',
-                    'data' => $resultData,
-                    'notifResponse' => $sendNotifTele,
-                ];
-
-                return $this->output->set_output(json_encode($result));
-            }
-
-            // $sendNotifTele = $this->HTelegram->sendTextPrivate($suratJalan['telegram_user'], $message);
-
-            // $resultData = [
-            //     'no_surat_jalan' => $suratJalan['no_surat_jalan'],
-            // ];
-
-            // $result = [
-            //     'code' => 200,
-            //     'status' => 'ok',
-            //     'msg' => 'Success!',
-            //     'data' => $resultData,
-            //     'notifResponse' => $sendNotifTele,
-            // ];
-
-            // return $this->output->set_output(json_encode($result));
-        }
-    }
-
-    public function createOrderNew()
-    {
-        $haloAiToken = 'pat_7911607b2bfbf47d7dfd029c6895cac59e157b0530c651d623c99bc91667d205';
-        $haloAiBusinessId = '019a7616-cbb2-7089-ae65-d629c2d82c01';
-        $haloAiChannelId = '019a7616-cf5b-7769-91ab-c1dacb9e9cf9';
-        $haloAiTemplate = 'order_confirmation';
-
-        $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
-
-        $webhookProducts = json_decode($post['data']['daftar_pemesanan'], true);
-
-        if (empty($webhookProducts)) {
-            return $this->output->set_status_header(500);
-        }
-
-        $this->db->trans_begin();
-
-        $webhookOrderData = [
-            'json_webhook_order' => json_encode($post),
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ];
-
-        $this->db->insert('webhook_order', $webhookOrderData);
-
-        $nomorhp = $post['data']['nomor_customer'];
-
-        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
-        $contact = $this->db->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
-
-        if ($contact) {
-
-            $id_contact = $contact['id_contact'];
-
-            $termin_payment = $contact['termin_payment'];
-
-            $id_distributor = $contact['id_distributor'];
-
-            $id_city = $contact['id_city'];
-
-            $id_promo = $contact['id_promo'];
-
-            $vouchers = $this->MVoucher->getByIdContactForHaloAI($id_contact);
-
-            $courier = $this->MUser->getCourierByIdCity($id_city);
-
-            $id_courier = 0;
-
-            if ($courier) {
-                $id_courier = $courier['id_user'];
-            } else {
-                $courier = $this->MUser->getCourierByCityGroup(trim(preg_replace("/\\d+/", "", $contact['nama_city'])));
-                $id_courier = $courier['id_user'];
-                // 
-            }
 
             $sjData = [
                 'no_surat_jalan' => 'DO-41' . rand(10000, 99999),
@@ -543,7 +203,7 @@ class Haloai extends CI_Controller
                 'dalivery_date' => date('Y-m-d H:i:s'),
                 'order_number' => 0,
                 'ship_to_name' => $contact['nama'],
-                'ship_to_address' => $post['data']['alamat_customer'],
+                'ship_to_address' => $post['ticket']['data']['alamat_customer'],
                 'ship_to_phone' => $contact['nomorhp'],
                 'id_courier' => $id_courier,
                 'id_kendaraan' => 2,
@@ -560,7 +220,7 @@ class Haloai extends CI_Controller
 
                 $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
 
-                $webhookProducts = json_decode($post['data']['daftar_pemesanan'], true);
+                $webhookProducts = json_decode($post['ticket']['data']['daftar_pemesanan'], true);
 
                 $total_qty_products = 0;
                 $total_qty_bonus = 0;
@@ -832,6 +492,376 @@ class Haloai extends CI_Controller
                 // ];
 
                 // return $this->output->set_output(json_encode($result));
+            }
+        }
+    }
+
+    public function createOrderNew()
+    {
+        $haloAiToken = 'pat_7911607b2bfbf47d7dfd029c6895cac59e157b0530c651d623c99bc91667d205';
+        $haloAiBusinessId = '019a7616-cbb2-7089-ae65-d629c2d82c01';
+        $haloAiChannelId = '019a7616-cf5b-7769-91ab-c1dacb9e9cf9';
+        $haloAiTemplate = 'order_confirmation';
+
+        $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
+
+        $webhookProducts = json_decode($post['data']['daftar_pemesanan'], true);
+
+        if (empty($webhookProducts)) {
+            return $this->output->set_status_header(500);
+        }
+
+        $this->db->trans_begin();
+
+        $webhookOrderData = [
+            'json_webhook_order' => json_encode($post),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+
+        $this->db->insert('webhook_order', $webhookOrderData);
+
+        $nomorhp = $post['data']['nomor_customer'];
+
+        $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $contact = $this->db->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
+
+        if ($contact) {
+
+            $id_contact = $contact['id_contact'];
+
+            $termin_payment = $contact['termin_payment'];
+
+            $id_distributor = $contact['id_distributor'];
+
+            $id_city = $contact['id_city'];
+
+            $id_promo = $contact['id_promo'];
+
+            $vouchers = $this->MVoucher->getByIdContactForHaloAI($id_contact);
+
+            $courier = $this->MUser->getCourierByIdCity($id_city);
+
+            $id_courier = 0;
+
+            if ($courier) {
+                $id_courier = $courier['id_user'];
+            } else {
+                $courier = $this->MUser->getCourierByCityGroup(trim(preg_replace("/\\d+/", "", $contact['nama_city'])));
+                $id_courier = $courier['id_user'];
+                // 
+            }
+
+            $dateCutoff = date('Y-m-d', strtotime("-10 minutes"));
+
+            $checkSj = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact, 'DATE(dalivery_date) >=' => $dateCutoff])->row_array();
+
+            if ($checkSj) {
+                $result = [
+                    'code' => 400,
+                    'status' => 'failed',
+                    'msg' => 'SJ already exist',
+                ];
+
+                return $this->output->set_output(json_encode($result));
+            } else {
+
+                $sjData = [
+                    'no_surat_jalan' => 'DO-41' . rand(10000, 99999),
+                    'id_contact' => $contact['id_contact'],
+                    'dalivery_date' => date('Y-m-d H:i:s'),
+                    'order_number' => 0,
+                    'ship_to_name' => $contact['nama'],
+                    'ship_to_address' => $post['data']['alamat_customer'],
+                    'ship_to_phone' => $contact['nomorhp'],
+                    'id_courier' => $id_courier,
+                    'id_kendaraan' => 2,
+                    'is_finished' => 1,
+                    'is_cod' => ($termin_payment >= 0 && $termin_payment < 3) ? 1 : 0,
+                ];
+
+                $save = $this->db->insert('tb_surat_jalan', $sjData);
+
+                if (!$save) {
+                    echo 'Gagal';
+                } else {
+                    $id_surat_jalan = $this->db->insert_id();
+
+                    $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
+
+                    $webhookProducts = json_decode($post['data']['daftar_pemesanan'], true);
+
+                    $total_qty_products = 0;
+                    $total_qty_bonus = 0;
+
+                    $jml_voucher = count($vouchers);
+
+                    foreach ($webhookProducts as $webhookProduct) {
+                        $nama_produk = $webhookProduct['Nama Barang'];
+                        $qty = $webhookProduct['Quantity'];
+
+                        $total_qty_products += $webhookProduct['Quantity'];
+
+                        $produk = $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $id_city)->like('tb_produk.nama_produk', $nama_produk)->get('tb_produk')->row_array();
+
+                        if ($produk == null) {
+                            $produk = $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk')->where('tb_produk.id_city', $id_city)->like('tb_master_produk.slang_produk', $nama_produk)->get('tb_produk')->row_array();
+                        }
+
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $produk['id_produk'],
+                            'price' => $produk['harga_produk'],
+                            'qty_produk' => $qty,
+                            'amount' => $produk['harga_produk'] * $qty,
+                            'is_bonus' => 0,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+
+                        if ($id_promo != 0) {
+                            // Calculate bonus
+                            if ($produk['is_default_promo'] == 1) {
+                                $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+                                $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
+
+                                // $multiplier = $qty / $promo['kelipatan_promo'];
+                                $bonusQty = $this->setBonusProgressive($qty, $promoList);
+
+                                if ($bonusQty > 0) {
+                                    $total_qty_bonus += $bonusQty;
+
+                                    $sjDetailData = [
+                                        'id_surat_jalan' => $id_surat_jalan,
+                                        'id_produk' => $produk['id_produk'],
+                                        'price' => $produk['harga_produk'],
+                                        'qty_produk' => $bonusQty,
+                                        'amount' => 0,
+                                        'is_bonus' => 1,
+                                        'created_at' => date('Y-m-d H:i:s'),
+                                    ];
+
+                                    $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                                }
+                            } else {
+                                $multiplier = $qty / $produk['kelipatan_promo'];
+
+                                if (floor($multiplier) > 0) {
+                                    $total_qty_bonus += floor($multiplier) * $produk['bonus_promo'];
+
+                                    $sjDetailData = [
+                                        'id_surat_jalan' => $id_surat_jalan,
+                                        'id_produk' => $produk['id_produk'],
+                                        'price' => $produk['harga_produk'],
+                                        'qty_produk' => floor($multiplier) * $produk['bonus_promo'],
+                                        'amount' => 0,
+                                        'is_bonus' => 1,
+                                        'created_at' => date('Y-m-d H:i:s'),
+                                    ];
+
+                                    $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                                }
+                            }
+                        }
+                    }
+
+                    // Set Bonus If Per Produk Not Match Minimum, Use qty Whole Order
+                    if ($total_qty_bonus == 0) {
+                        if ($contact['id_promo'] != 0) {
+                            $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+
+                            $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
+
+                            // $kelipatan_promo = $promo['kelipatan_promo'];
+
+                            // $multiplier = $total_qty_products / $kelipatan_promo;
+
+                            $bonusQty = $this->setBonusProgressive($total_qty_products, $promoList);
+
+                            if ($bonusQty > 0) {
+                                $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
+
+                                $sjDetailData = [
+                                    'id_surat_jalan' => $id_surat_jalan,
+                                    'id_produk' => $cheapestProduct['id_produk'],
+                                    'price' => $cheapestProduct['harga_produk'],
+                                    'qty_produk' => $bonusQty,
+                                    'amount' => 0,
+                                    'is_bonus' => 1,
+                                    'created_at' => date('Y-m-d H:i:s'),
+                                ];
+
+                                $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                            }
+                        }
+                    }
+
+                    // Add Voucher Thinbed
+                    if ($jml_voucher > 0) {
+                        $vouchersStr = "";
+                        foreach ($vouchers as $voucher) {
+                            $vouchersStr .= $voucher['no_voucher'] . ",";
+                        }
+
+                        $getThinbed = $this->db->like('nama_produk', 'TOP MORTAR THINBED')->get_where('tb_produk', ['id_city' => $id_city])->row_array();
+
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $getThinbed['id_produk'],
+                            'price' => $getThinbed['harga_produk'],
+                            'qty_produk' => $jml_voucher,
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'no_voucher' => $vouchersStr,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $saveVoucher = $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+
+                        if ($saveVoucher) {
+                            $this->db->where_in('no_voucher', explode(',', $vouchersStr));
+                            $this->db->update('tb_voucher', ['is_claimed' => 1, 'is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
+                        }
+                    }
+
+                    if ($this->db->trans_status() === FALSE) {
+                        $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+                        $wa_token = $haloai['token_haloai'];
+                        $business_id = $haloai['business_id_haloai'];
+                        $channel_id = $haloai['channel_id_haloai'];
+                        $template = 'info_meeting_baru';
+                        $message = "Surat Jalan Tidak Terbuat, Toko: " . $suratJalan['nama'];
+
+                        $haloaiPayload = [
+                            'activate_ai_after_send' => false,
+                            'channel_id' => $channel_id,
+                            'fallback_template_message' => $template,
+                            'fallback_template_variables' => [
+                                "Bella",
+                                trim(preg_replace('/\s+/', ' ', $message)),
+                                "Automated Message",
+                            ],
+                            'phone_number' => "6282131426363",
+                            'text' => trim(preg_replace('/\s+/', ' ', $message)),
+                        ];
+
+                        $curl = curl_init();
+
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'POST',
+                            CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
+                            CURLOPT_HTTPHEADER => array(
+                                'Authorization: Bearer ' . $wa_token,
+                                'X-HaloAI-Business-Id: ' . $business_id,
+                                'Content-Type: application/json'
+                            ),
+                        ));
+
+                        $response = curl_exec($curl);
+
+                        curl_close($curl);
+
+                        $this->db->trans_rollback();
+                        return $this->output->set_status_header(500);
+                    } else {
+                        $this->db->trans_commit();
+                        // return $this->output->set_status_header(200);
+                    }
+
+                    $detailSuratJalan = $this->db->select('COUNT(*) as jml_detail')->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
+
+
+                    if ($detailSuratJalan == 0 || $detailSuratJalan == null) {
+                        $this->db->delete('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan]);
+                    } else {
+                        // Send notif kurir
+                        // $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
+                        // $wa_token = $haloai['token_haloai'];
+                        // $business_id = $haloai['business_id_haloai'];
+                        // $channel_id = $haloai['channel_id_haloai'];
+                        // $template = 'notkurir';
+                        $message = "Pesanan Baru Status: \nPerlu di kirim Kurir: " . $suratJalan['full_name'] . ". \nNama toko/penerima: " . $suratJalan['nama'] . ". \nAlamat: " . trim(preg_replace('/\s+/', ' ', $suratJalan['address'])) . ', ' . $suratJalan['nama_city'] . ". \nNo Surat Jalan: *" . $suratJalan['no_surat_jalan'] . "*";
+
+                        // $haloaiPayload = [
+                        //     'activate_ai_after_send' => false,
+                        //     'channel_id' => $channel_id,
+                        //     'fallback_template_message' => $template,
+                        //     'fallback_template_variables' => [
+                        //         $suratjalan['full_name'],
+                        //         $suratjalan['nama'],
+                        //         trim(preg_replace('/\s+/', ' ', $suratjalan['address'])) . ', ' . $suratjalan['nama_city'],
+                        //         $suratjalan['no_surat_jalan'],
+                        //     ],
+                        //     'phone_number' => $suratJalan['phone_user'],
+                        //     'text' => trim(preg_replace('/\s+/', ' ', $message)),
+                        // ];
+
+                        // $curl = curl_init();
+
+                        // curl_setopt_array($curl, array(
+                        //     CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
+                        //     CURLOPT_RETURNTRANSFER => true,
+                        //     CURLOPT_ENCODING => '',
+                        //     CURLOPT_MAXREDIRS => 10,
+                        //     CURLOPT_TIMEOUT => 0,
+                        //     CURLOPT_FOLLOWLOCATION => true,
+                        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        //     CURLOPT_CUSTOMREQUEST => 'POST',
+                        //     CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
+                        //     CURLOPT_HTTPHEADER => array(
+                        //         'Authorization: Bearer ' . $wa_token,
+                        //         'X-HaloAI-Business-Id: ' . $business_id,
+                        //         'Content-Type: application/json'
+                        //     ),
+                        // ));
+
+                        // $response = curl_exec($curl);
+
+                        // curl_close($curl);
+
+                        // $res = json_decode($response, true);
+
+                        $sendNotifTele = $this->HTelegram->sendTextPrivate($suratJalan['telegram_user'], $message);
+
+                        $resultData = [
+                            'no_surat_jalan' => $suratJalan['no_surat_jalan'],
+                        ];
+
+                        $result = [
+                            'code' => 200,
+                            'status' => 'ok',
+                            'msg' => 'Success',
+                            'data' => $resultData,
+                            'notifResponse' => $sendNotifTele,
+                        ];
+
+                        return $this->output->set_output(json_encode($result));
+                    }
+
+                    // $sendNotifTele = $this->HTelegram->sendTextPrivate($suratJalan['telegram_user'], $message);
+
+                    // $resultData = [
+                    //     'no_surat_jalan' => $suratJalan['no_surat_jalan'],
+                    // ];
+
+                    // $result = [
+                    //     'code' => 200,
+                    //     'status' => 'ok',
+                    //     'msg' => 'Success!',
+                    //     'data' => $resultData,
+                    //     'notifResponse' => $sendNotifTele,
+                    // ];
+
+                    // return $this->output->set_output(json_encode($result));
+                }
             }
         } else {
             $result = [
