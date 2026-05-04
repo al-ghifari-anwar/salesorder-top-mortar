@@ -437,3 +437,5 @@ $route['ai-agent/update-prompt'] = 'AiAgent/updatePrompt';
 // AI Report Visit
 $route['ai-visitreport'] = 'AiVisitReport/index';
 $route['ai-visitreport/detail/(:num)'] = 'AiVisitReport/detail/$1';
+// Cetak Invoice Thermal
+$route['printinv-suratjalan/(:num)'] = 'SuratJalan/printInv/$1';

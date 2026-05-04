@@ -89,6 +89,21 @@ class SuratJalan extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
+    public function printInv($id_surat_jalan)
+    {
+        $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
+
+        $save = $this->db->update('tb_surat_jalan', ['is_print_inv' => 1], ['id_surat_jalan' => $id_surat_jalan]);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil izinkan cetak invoice thermal");
+            redirect('suratjalan/' . $suratJalan['id_city']);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal izinkan cetak invoice thermal");
+            redirect('suratjalan/' . $suratJalan['id_city']);
+        }
+    }
+
     public function bypassClosing()
     {
         $post = $this->input->post();
