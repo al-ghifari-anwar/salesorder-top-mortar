@@ -111,7 +111,7 @@
                 $status_color = 'text-green';
                 $is_visited = 1;
             } else {
-                $status_color = 'text-danger';
+                $status_color = 'text-red';
                 $is_visited = 0;
             }
             ?>
