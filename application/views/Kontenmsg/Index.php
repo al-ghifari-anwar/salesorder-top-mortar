@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Topic</label>
-                                            <textarea name="topic_kontenmsg" id="" cols="30" rows="5" class="form-control"><?= $kontenmsg['topic_kontenmsg'] ?></textarea>
+                                            <textarea name="topic_kontenmsg" id="" cols="30" rows="2" class="form-control"><?= $kontenmsg['topic_kontenmsg'] ?></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Kategori</label>
