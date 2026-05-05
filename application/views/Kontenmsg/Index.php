@@ -99,7 +99,7 @@
                                             <label for="">Kategori</label>
                                             <select name="cat_kontenmsg" id="" class="form-control">
                                                 <option value="Auto" <?= $kontenmsg['cat_kontenmsg'] == 'Auto' ? 'selected' : '' ?>>Auto</option>
-                                                <option value="Manual <?= $kontenmsg['cat_kontenmsg'] == 'Manual' ? 'selected' : '' ?>">Manual</option>
+                                                <option value="Manual" <?= $kontenmsg['cat_kontenmsg'] == 'Manual' ? 'selected' : '' ?>>Manual</option>
                                             </select>
                                         </div>
                                         <input type=" text" value="data" name="target_status" hidden>
