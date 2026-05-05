@@ -187,6 +187,14 @@ class Haloai extends CI_Controller
 
         $checkSj = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact, 'DATE(dalivery_date) >=' => $dateCutoff])->row_array();
 
+        $is_cod = 0;
+
+        if ($termin_payment >= 0 && $termin_payment < 3) {
+            if ($contact['payment_method'] == 'transfer') {
+                $is_cod = 1;
+            }
+        }
+
         if ($checkSj) {
             $result = [
                 'code' => 400,
@@ -208,7 +216,7 @@ class Haloai extends CI_Controller
                 'id_courier' => $id_courier,
                 'id_kendaraan' => 2,
                 'is_finished' => 1,
-                'is_cod' => ($termin_payment >= 0 && $termin_payment < 3) ? 1 : 0,
+                'is_cod' => $is_cod,
             ];
 
             $save = $this->db->insert('tb_surat_jalan', $sjData);
