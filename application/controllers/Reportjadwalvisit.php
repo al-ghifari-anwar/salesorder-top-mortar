@@ -328,23 +328,25 @@ class Reportjadwalvisit extends CI_Controller
 
             $updateJadwal = $this->db->update('tb_jadwal_visit', ['is_yes' => $is_visited], ['id_jadwal_visit' => $id_jadwal_visit]);
 
-            if ($updateJadwal) {
-                $result = [
-                    'code' => 200,
-                    'status' => 'ok',
-                    'msg' => 'Success',
-                ];
+            // if ($updateJadwal) {
 
-                $this->output->set_output(json_encode($result));
-            } else {
-                $result = [
-                    'code' => 400,
-                    'status' => 'failed',
-                    'msg' => 'Failed',
-                ];
+            // } else {
+            //     $result = [
+            //         'code' => 400,
+            //         'status' => 'failed',
+            //         'msg' => 'Failed',
+            //     ];
 
-                $this->output->set_output(json_encode($result));
-            }
+            //     $this->output->set_output(json_encode($result));
+            // }
         }
+
+        $result = [
+            'code' => 200,
+            'status' => 'ok',
+            'msg' => 'Success',
+        ];
+
+        $this->output->set_output(json_encode($result));
     }
 }
