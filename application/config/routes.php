@@ -414,6 +414,7 @@ $route['haloai/report-visit'] = 'HaloaiReportVisit/process';
 // Send notif jadwal
 $route['jadwalvisit/notif'] = 'Jadwalvisit/sendNotif';
 $route['reportjadwalvisit/notif'] = 'Reportjadwalvisit/sendNotif';
+$route['reportjadwalvisit/confirm'] = 'Reportjadwalvisit/confirmVisit';
 // Add Jadwal Visit
 $route['add-jadwalvisit'] = "AddJadwalVisit/index";
 $route['add-jadwalvisit/(:num)'] = 'AddJadwalVisit/list/$1';
