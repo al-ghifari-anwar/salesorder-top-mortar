@@ -28,7 +28,7 @@ class Kontenmsg extends CI_Controller
     {
         $this->output->set_content_type('application/json');
 
-        $kontenMsgs = $this->MKontenmsg->get();
+        $kontenMsgs = $this->MKontenmsg->getByCat('Auto');
 
         if ($kontenMsgs == null) {
             $result = [
@@ -72,6 +72,7 @@ class Kontenmsg extends CI_Controller
                 'link_kontenmsg' => $post['link_kontenmsg'],
                 'body_kontenmsg' => $post['body_kontenmsg'],
                 'topic_kontenmsg' => $post['topic_kontenmsg'],
+                'cat_kontenmsg' => $post['cat_kontenmsg'],
             ];
 
             $save = $this->MKontenmsg->create($kontenmsgData);
@@ -112,6 +113,7 @@ class Kontenmsg extends CI_Controller
             'link_kontenmsg' => $post['link_kontenmsg'],
             'body_kontenmsg' => $post['body_kontenmsg'],
             'topic_kontenmsg' => $post['topic_kontenmsg'],
+            'cat_kontenmsg' => $post['cat_kontenmsg'],
             'updated_at' => date('Y-m-d H:i:s'),
         ];
 

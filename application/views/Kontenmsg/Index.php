@@ -95,6 +95,13 @@
                                             <label for="">Topic</label>
                                             <textarea name="topic_kontenmsg" id="" cols="30" rows="5" class="form-control"><?= $kontenmsg['topic_kontenmsg'] ?></textarea>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="">Kategori</label>
+                                            <select name="cat_kontenmsg" id="" class="form-control">
+                                                <option value="Auto" <?= $kontenmsg['cat_kontenmsg'] == 'Auto' ? 'selected' : '' ?>>Auto</option>
+                                                <option value="Manual <?= $kontenmsg['cat_kontenmsg'] == 'Manual' ? 'selected' : '' ?>">Manual</option>
+                                            </select>
+                                        </div>
                                         <input type=" text" value="data" name="target_status" hidden>
                                         <button class="btn btn-primary float-right">Simpan</button>
                                     </form>
@@ -153,7 +160,14 @@
                     </div>
                     <div class="form-group">
                         <label for="">Topic</label>
-                        <textarea name="topic_kontenmsg" id="" cols="30" rows="5" class="form-control"></textarea>
+                        <textarea name="topic_kontenmsg" id="" cols="30" rows="2" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Kategori</label>
+                        <select name="cat_kontenmsg" id="" class="form-control">
+                            <option value="Auto">Auto</option>
+                            <option value="Manual">Manual</option>
+                        </select>
                     </div>
                     <input type="text" value="data" name="target_status" hidden>
                     <button class="btn btn-primary float-right">Simpan</button>
