@@ -222,7 +222,7 @@ class Reportjadwalvisit extends CI_Controller
         $data['date'] = $date;
 
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_jadwal_visit.id_contact');
-        $jadwalVisits = $this->db->get_where('tb_jadwal_visit', ['DATE(date_jadwal_visit)' => $date, 'tb_jadwal_visit.cluster_jadwal_visit' => $cluster])->result_array();
+        $jadwalVisits = $this->db->get_where('tb_jadwal_visit', ['DATE(date_jadwal_visit)' => $date, 'tb_jadwal_visit.cluster_jadwal_visit' => $cluster, 'is_yes' => 0])->result_array();
 
         foreach ($jadwalVisits as $jadwalVisit) {
             $id_jadwal_visit = $jadwalVisit['id_jadwal_visit'];
