@@ -335,7 +335,7 @@ class Reportjadwalvisit extends CI_Controller
                     'msg' => 'Success',
                 ];
 
-                return $this->output->set_output(json_encode($result));
+                $this->output->set_output(json_encode($result));
             } else {
                 $result = [
                     'code' => 400,
@@ -343,7 +343,7 @@ class Reportjadwalvisit extends CI_Controller
                     'msg' => 'Failed',
                 ];
 
-                return $this->output->set_output(json_encode($result));
+                $this->output->set_output(json_encode($result));
             }
         }
     }
