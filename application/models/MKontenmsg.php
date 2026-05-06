@@ -13,7 +13,7 @@ class MKontenmsg extends CI_Model
     public function getByCat($cat_kontenmsg)
     {
         $this->db->order_by('tb_kontenmsg.created_at', 'DESC');
-        $query = $this->db->get_where('tb_kontenmsg', $cat_kontenmsg)->result_array();
+        $query = $this->db->get_where('tb_kontenmsg', ['cat_kontenmsg' => $cat_kontenmsg])->result_array();
 
         return $query;
     }
