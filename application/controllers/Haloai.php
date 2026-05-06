@@ -204,6 +204,8 @@ class Haloai extends CI_Controller
 
             return $this->output->set_output(json_encode($result));
         } else {
+            // Score toko
+            $paymentScore = $this->paymentScoring($contact);
 
             $sjData = [
                 'no_surat_jalan' => 'DO-41' . rand(10000, 99999),
@@ -217,6 +219,7 @@ class Haloai extends CI_Controller
                 'id_kendaraan' => 2,
                 'is_finished' => 1,
                 'is_cod' => $is_cod,
+                'payment_scoring' => $paymentScore,
             ];
 
             $save = $this->db->insert('tb_surat_jalan', $sjData);
