@@ -705,7 +705,7 @@
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center">
                     <?php if ($jadwalVisit['daysJatem'] == '-') : ?>
-                        <?= $jadwalVisit['daysJatem'] != '-' && $jadwalVisit['daysJatem'] > 0 ? $jadwalVisit['daysJatem'] + 30 : '-' ?>
+                        <?= $jadwalVisit['daysJatem'] != '-' && $jadwalVisit['daysJatem'] > 0 ? $jadwalVisit['daysJatem'] + 30 : $jadwalVisit['days'] ?>
                     <?php endif; ?>
                     <?php if ($jadwalVisit['daysJatem'] != '-') : ?>
                         <?= $jadwalVisit['days'] ?>
