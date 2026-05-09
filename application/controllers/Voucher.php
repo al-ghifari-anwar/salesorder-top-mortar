@@ -271,13 +271,15 @@ class Voucher extends CI_Controller
 
                 $expVoucher = date('Y-m-d H:i:s', strtotime("+1 months", strtotime($dateVoucher)));
 
-                $voucher1Data = [
+                $voucherData = [
                     'id_contact' => $id_contact,
                     'no_voucher' => rand(10000, 99999),
                     'date_voucher' => $dateVoucher,
                     'exp_date' => $expVoucher,
                     'type_voucher' => 'manual',
                 ];
+
+                $this->db->insert('tb_voucher', $voucherData);
             }
 
             $this->session->set_flashdata('success', "Berhasil kirim voucher 500k!");
