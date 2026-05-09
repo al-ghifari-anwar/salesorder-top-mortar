@@ -254,7 +254,7 @@ class Voucher extends CI_Controller
         $id_contact = $post['id_contact'];
 
         if ($post['type_voucher'] == '500') {
-            for ($i = 0; $i < 6; $i++) {
+            for ($i = 0; $i < 7; $i++) {
                 $dateVoucher = date('Y-m-d H:i:s');
 
                 if ($i > 1 && $i <= 3) {
