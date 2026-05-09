@@ -77,7 +77,7 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'finance') : ?>
+                                                <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'admin') : ?>
                                                     <?php if ($data['can_closing'] == 0) : ?>
                                                         <a href="<?= base_url('can-closing-sj/') . $data['id_surat_jalan'] ?>" class="btn btn-warning" title="Izinkan Closing"><i class="fas fa-check-double"></i></a>
                                                     <?php endif; ?>
