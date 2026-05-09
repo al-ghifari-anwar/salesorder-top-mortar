@@ -59,7 +59,7 @@ class Voucher extends CI_Controller
             $data['city'] = $this->MCity->getAll();
         }
         $data['voucher'] = $this->MVoucher->getByCity($id_city);
-        $data['contact'] = $this->MContact->getAllForVouchers($id_city);
+        $data['contacts'] = $this->MContact->getAllForVouchers($id_city);
         $data['id_city'] = $id_city;
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -241,6 +241,46 @@ class Voucher extends CI_Controller
             }
         } else {
             $this->session->set_flashdata('failed', "Gagal kirim voucher!");
+            redirect('voucher-list/' . $id_city);
+        }
+    }
+
+    public function regist_voucher_special($id_city)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+
+        $post = $this->input->post();
+
+        $id_contact = $post['id_contact'];
+
+        if ($post['type_voucher'] == '500') {
+            for ($i = 0; $i < 6; $i++) {
+                $dateVoucher = date('Y-m-d H:i:s');
+
+                if ($i > 1 && $i <= 3) {
+                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+1 months"));
+                }
+
+                if ($i > 3 && $i <= 5) {
+                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+2 months"));
+                }
+
+                if ($i > 5) {
+                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+3 months"));
+                }
+
+                $expVoucher = date('Y-m-d H:i:s', strtotime("+1 months", strtotime($dateVoucher)));
+
+                $voucher1Data = [
+                    'id_contact' => $id_contact,
+                    'no_voucher' => rand(10000, 99999),
+                    'date_voucher' => $dateVoucher,
+                    'exp_date' => $expVoucher,
+                    'type_voucher' => 'manual',
+                ];
+            }
+
+            $this->session->set_flashdata('success', "Berhasil kirim voucher 500k!");
             redirect('voucher-list/' . $id_city);
         }
     }

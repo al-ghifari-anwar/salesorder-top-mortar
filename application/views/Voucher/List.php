@@ -41,7 +41,12 @@
                     <div class="card">
                         <div class="card-header">
                             <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'marketing' || $this->session->userdata('level_user') == 'salesspv') : ?>
-                                <button type="button" class="btn btn-primary float-right mx-1" data-toggle="modal" data-target="#modal-insert">
+                                <button type="button" class="btn bg-purple float-right mx-1" data-toggle="modal" data-target="#modal-insert-special">
+                                    Tambah Voucher Spesial
+                                </button>
+                            <?php endif; ?>
+                            <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'marketing' || $this->session->userdata('level_user') == 'salesspv') : ?>
+                                <button type="button" class="btn btn-success float-right mx-1" data-toggle="modal" data-target="#modal-insert">
                                     Tambah Voucher
                                 </button>
                             <?php endif; ?>
@@ -154,7 +159,7 @@
                     <div class="form-group">
                         <label for="">Nama Toko</label>
                         <select name="id_contact" id="select2bs41" class="select2bs41">
-                            <?php foreach ($contact as $contact) : ?>
+                            <?php foreach ($contacts as $contact) : ?>
                                 <option value="<?= $contact['id_contact'] ?>"><?= $contact['nama'] . " - " . $contact['store_status'] ?></option>
                             <?php endforeach; ?>
                         </select>
@@ -162,6 +167,42 @@
                     <div class="form-group">
                         <label for="">Jumlah Voucher</label>
                         <input type="number" name="jml_voucher" class="form-control">
+                    </div>
+                    <button class="btn btn-primary float-right">Simpan</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-insert-special">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Voucher Toko</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('reg-voucher-special/' . $id_city) ?>" method="POST">
+                    <div class="form-group">
+                        <label for="">Nama Toko</label>
+                        <select name="id_contact" id="select2bs4" class="select2bs4">
+                            <?php foreach ($contacts as $contact) : ?>
+                                <option value="<?= $contact['id_contact'] ?>"><?= $contact['nama'] . " - " . $contact['store_status'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tipe Voucher</label>
+                        <select name="type_voucher" class="form-control">
+                            <option value="500">Voucher 500k</option>
+                            <option value="1000">Voucher 1 jt</option>
+                        </select>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
                 </form>
@@ -186,7 +227,7 @@
                 <form action="<?= base_url('lap-voucher/' . $id_city) ?>" method="POST" target="__blank">
                     <div class="form-group">
                         <label for="">Berdasarkan</label>
-                        <select name="berdasarkan" id="select2bs4" class="select2bs4">
+                        <select name="berdasarkan">
                             <option value="belum-terima">Toko yang belum menerima voucher</option>
                             <option value="expired">Toko dengan voucher expired</option>
                             <option value="claimed">Voucher yang sudah di-claim</option>

@@ -134,6 +134,7 @@ $route['lap-kurir/(:num)'] = 'Visit/lapkurir_by_city/$1';
 // Voucher
 $route['voucher'] = 'Voucher';
 $route['reg-voucher/(:num)'] = 'Voucher/regist_voucher/$1';
+$route['reg-voucher-special/(:num)'] = 'Voucher/regist_voucherspec_special/$1';
 $route['claim'] = 'Voucher/claim';
 $route['claimed'] = 'Voucher/claimed';
 $route['voucher-list/(:num)'] = 'Voucher/list_voucher/$1';
