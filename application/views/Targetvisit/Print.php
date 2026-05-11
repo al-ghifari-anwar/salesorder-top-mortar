@@ -1,33 +1,3 @@
-<?php
-function penyebut($nilai)
-{
-    $nilai = abs($nilai);
-    $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
-    $temp = "";
-    if ($nilai < 12) {
-        $temp = " " . $huruf[$nilai];
-    } else if ($nilai < 20) {
-        $temp = penyebut($nilai - 10) . " belas";
-    } else if ($nilai < 100) {
-        $temp = penyebut($nilai / 10) . " puluh" . penyebut($nilai % 10);
-    } else if ($nilai < 200) {
-        $temp = " seratus" . penyebut($nilai - 100);
-    } else if ($nilai < 1000) {
-        $temp = penyebut($nilai / 100) . " ratus" . penyebut($nilai % 100);
-    } else if ($nilai < 2000) {
-        $temp = " seribu" . penyebut($nilai - 1000);
-    } else if ($nilai < 1000000) {
-        $temp = penyebut($nilai / 1000) . " ribu" . penyebut($nilai % 1000);
-    } else if ($nilai < 1000000000) {
-        $temp = penyebut($nilai / 1000000) . " juta" . penyebut($nilai % 1000000);
-    } else if ($nilai < 1000000000000) {
-        $temp = penyebut($nilai / 1000000000) . " milyar" . penyebut(fmod($nilai, 1000000000));
-    } else if ($nilai < 1000000000000000) {
-        $temp = penyebut($nilai / 1000000000000) . " trilyun" . penyebut(fmod($nilai, 1000000000000));
-    }
-    return $temp;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +5,7 @@ function penyebut($nilai)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= "Laporan Stok " . $gudang['name_gudang_stok']  ?></title>
+    <title><?= "Laporan Target Visit " . $user['full_name']  ?></title>
 </head>
 
 <body>
@@ -100,10 +70,18 @@ function penyebut($nilai)
         .page {
             height: 50%;
         }
+
+        .text-red {
+            color: red;
+        }
+
+        .text-green {
+            color: green;
+        }
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Laporan Target Visit <?= $user['full_name'] ?></h1>
-    <h4 class="text-center">Tanggal <?= date('d M, Y', strtotime($dateFrom)) . " - " . date('d M, Y', strtotime($dateFrom)) ?></h4>
+    <h4 class="text-center">Tanggal <?= date('d M Y', strtotime($dateFrom)) . " - " . date('d M Y', strtotime($dateTo)) ?></h4>
     <table class="border">
         <tr>
             <th class="border">No</th>
@@ -115,11 +93,28 @@ function penyebut($nilai)
         <?php
         $no = 1;
         foreach ($groupedVisits as $groupedVisit): ?>
+            <?php
+            $id_contact = $groupedVisit['id_contact'];
+            $id_user = $groupedVisit['id_user'];
+
+            // Check Yes
+            $checkYes = $this->db->get_where('tb_jadwal_visit', ['id_contact' => $id_contact, 'date_jadwal_visit >=' => $dateFrom, 'date_jadwal_visit <=' => $dateTo, 'is_yes' => 1])->row_array();
+
+            // Date Visit Most
+            $this->db->not_like('source_visit', 'absen');
+            $this->db->order_by('id_visit', 'DESC');
+            $mostVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'id_user' => $id_user])->row_array();
+
+            $nameColor = '';
+            if ($checkYes) {
+                $nameColor = 'txt-green';
+            }
+            ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $groupedVisit['nama'] ?></td>
-                <td><?= "-" ?></td>
-                <td><?= "-" ?></td>
+                <td class="<?= $nameColor ?>"><?= $groupedVisit['nama'] ?></td>
+                <td><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
+                <td><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
                 <td><?= "-" ?></td>
             </tr>
         <?php endforeach; ?>
