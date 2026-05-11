@@ -875,6 +875,15 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="<?= base_url('target-visit') ?>" class="nav-link <?= $menu == 'TargetVisit' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-circle-notch"></i>
+                                                <p>
+                                                    Target Visit
+                                                    <span class="right badge badge-success">New</span>
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('visit') ?>" class="nav-link <?= $menu == 'Visit' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-location-arrow"></i>
                                                 <p>

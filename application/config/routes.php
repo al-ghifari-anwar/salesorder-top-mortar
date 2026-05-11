@@ -441,3 +441,7 @@ $route['ai-visitreport'] = 'AiVisitReport/index';
 $route['ai-visitreport/detail/(:num)'] = 'AiVisitReport/detail/$1';
 // Cetak Invoice Thermal
 $route['printinv-suratjalan/(:num)'] = 'SuratJalan/printInv/$1';
+// Target Visit
+$route['target-visit'] = 'Targetvisit/index';
+$route['target-visit/(:num)'] = 'Targetvisit/list/$1';
+$route['target-visit/print'] = 'Targetvisit/print';
