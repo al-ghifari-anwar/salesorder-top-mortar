@@ -107,14 +107,14 @@
 
             $nameColor = '';
             if ($checkYes) {
-                $nameColor = 'txt-green';
+                $nameColor = 'text-green';
             }
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td class="<?= $nameColor ?>"><?= $groupedVisit['nama'] ?></td>
-                <td><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
-                <td><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
+                <td class="text-center"><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
+                <td class="text-center"><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
                 <td><?= "-" ?></td>
             </tr>
         <?php endforeach; ?>
