@@ -153,10 +153,10 @@ function penyebut($nilai)
                     $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
                     $this->db->where_in('id_produk', $idProduks);
                     $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.date_closing >' => $dateFrom, 'tb_surat_jalan.date_closing <' => $dateTo, 'tb_surat_jalan.is_closing' => 1])->row_array();
-                    // if ($id_master_produk == 120) {
-                    //     echo $this->db->last_query();
-                    //     die;
-                    // }
+                    if ($id_master_produk == 126) {
+                        echo $this->db->last_query();
+                        die;
+                    }
 
                     $this->db->select('SUM(qty_produk) AS jml_stokOut');
                     $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
