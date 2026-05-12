@@ -389,6 +389,7 @@ class SuratJalan extends CI_Controller
                 } else {
                     // $this->session->set_flashdata('failed', "Tidak dapat membuat surat jalan, karena toko belum openchat pada hari ini! Openchat terakhir pada: " . date('Y-m-d', strtotime($resFirstNumber['data']['lastMessageAt'])) . ' | ' . date('Y-m-d', strtotime("-2 Days")));
                     // redirect('surat-jalan');
+                    $this->form_validation->set_rules('order_number', 'Order Number', 'required');
                     if ($this->form_validation->run() == false) {
                         $this->session->set_flashdata('failed', "Harap lengkapi form!");
                         redirect('surat-jalan');
