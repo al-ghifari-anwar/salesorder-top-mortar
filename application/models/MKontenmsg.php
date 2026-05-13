@@ -21,7 +21,7 @@ class MKontenmsg extends CI_Model
     public function getByCatAndHobby($cat_kontenmsg, $hobby_customer)
     {
         $this->db->like('topic_kontenmsg', $hobby_customer);
-        $this->db->or_like('body_kontenmsg', $hobby_customer);
+        // $this->db->or_like('body_kontenmsg', $hobby_customer);
         $this->db->order_by('tb_kontenmsg.created_at', 'DESC');
         $query = $this->db->get_where('tb_kontenmsg', ['cat_kontenmsg' => $cat_kontenmsg])->result_array();
 
