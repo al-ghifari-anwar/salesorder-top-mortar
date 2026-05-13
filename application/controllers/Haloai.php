@@ -590,7 +590,7 @@ class Haloai extends CI_Controller
                     'id_kendaraan' => 2,
                     'is_finished' => 1,
                     'is_cod' => ($termin_payment >= 0 && $termin_payment < 3) ? 1 : 0,
-                    'payment_score' => $paymentScore,
+                    'payment_scoring' => $paymentScore,
                 ];
 
                 $save = $this->db->insert('tb_surat_jalan', $sjData);
