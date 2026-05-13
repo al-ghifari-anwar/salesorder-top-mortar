@@ -69,7 +69,7 @@ class Kontenmsg extends CI_Controller
 
         $contact = $this->MContact->getByNomorhp($nomorhp);
 
-        $kontenMsgs = $this->MKontenmsg->getByCatAndHobby('Auto', $contact['hobi_contact']);
+        $kontenMsgs = $this->MKontenmsg->getByCatAndHobby('Auto', str_replace(', ', '|', $contact['hobi_contact']));
 
         if ($kontenMsgs == null) {
             $result = [
