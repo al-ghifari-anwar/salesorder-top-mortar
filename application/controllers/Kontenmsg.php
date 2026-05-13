@@ -6,6 +6,7 @@ class Kontenmsg extends CI_Controller
     {
         parent::__construct();
         $this->load->model('MKontenmsg');
+        $this->load->model('MContact');
     }
 
     public function index()
@@ -29,6 +30,46 @@ class Kontenmsg extends CI_Controller
         $this->output->set_content_type('application/json');
 
         $kontenMsgs = $this->MKontenmsg->getByCat('Auto');
+
+        if ($kontenMsgs == null) {
+            $result = [
+                'code' => 404,
+                'status' => 'failed',
+                'msg' => 'Not Found',
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        } else {
+            $kontenArray = array();
+
+            foreach ($kontenMsgs as $kontenMsg) {
+                $kontenMsg['thumbnail_kontenmsg'] = "https://order.topmortarindonesia.com/assets/img/kontenmsg_img/" . $kontenMsg['thumbnail_kontenmsg'];
+
+                array_push($kontenArray, $kontenMsg);
+            }
+
+            $result = [
+                'code' => 200,
+                'status' => 'ok',
+                'msg' => 'Success',
+                'data' => $kontenArray
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        }
+    }
+
+    public function apilistnew()
+    {
+        $this->output->set_content_type('application/json');
+
+        $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
+
+        $nomorhp = $post['data']['nomor_customer'];
+
+        $contact = $this->MContact->getByNomorhp($nomorhp);
+
+        $kontenMsgs = $this->MKontenmsg->getByCatAndHobby('Auto', $contact['hobi_contact']);
 
         if ($kontenMsgs == null) {
             $result = [
