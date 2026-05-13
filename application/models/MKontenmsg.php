@@ -20,7 +20,7 @@ class MKontenmsg extends CI_Model
 
     public function getByCatAndHobby($cat_kontenmsg, $hobby_customer)
     {
-        $this->db->select('name_kontenmsg AS judul, thumbnail_kontenmsg AS link_thumbnail, link_kontenmsg AS link_konten, body_kontenmsg AS deskripsi_konten');
+        $this->db->select('id_kontenmsg, name_kontenmsg AS judul, thumbnail_kontenmsg AS link_thumbnail, link_kontenmsg AS link_konten, body_kontenmsg AS deskripsi_konten');
         $this->db->where('topic_kontenmsg REGEXP', $hobby_customer);
         $this->db->order_by('tb_kontenmsg.created_at', 'DESC');
         $query = $this->db->get_where('tb_kontenmsg', ['cat_kontenmsg' => $cat_kontenmsg])->result_array();

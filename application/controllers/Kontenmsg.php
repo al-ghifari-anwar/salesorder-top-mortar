@@ -90,7 +90,7 @@ class Kontenmsg extends CI_Controller
                 $checkSent = $this->db->get_where('tb_sent_konten', ['id_kontenmsg' => $id_kontenmsg, 'id_contact' => $id_contact])->row_array();
 
                 if (!$checkSent) {
-                    $kontenMsg['thumbnail_kontenmsg'] = "https://order.topmortarindonesia.com/assets/img/kontenmsg_img/" . $kontenMsg['thumbnail_kontenmsg'];
+                    $kontenMsg['link_thumbnail'] = "https://order.topmortarindonesia.com/assets/img/kontenmsg_img/" . $kontenMsg['link_thumbnail'];
 
                     array_push($kontenArray, $kontenMsg);
                 }
