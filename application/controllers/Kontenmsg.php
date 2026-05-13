@@ -69,6 +69,8 @@ class Kontenmsg extends CI_Controller
 
         $contact = $this->MContact->getByNomorhp($nomorhp);
 
+        $id_contact = $contact['id_contact'];
+
         $kontenMsgs = $this->MKontenmsg->getByCatAndHobby('Auto', str_replace(', ', '|', $contact['hobi_contact']));
 
         if ($kontenMsgs == null) {
@@ -83,9 +85,15 @@ class Kontenmsg extends CI_Controller
             $kontenArray = array();
 
             foreach ($kontenMsgs as $kontenMsg) {
-                $kontenMsg['thumbnail_kontenmsg'] = "https://order.topmortarindonesia.com/assets/img/kontenmsg_img/" . $kontenMsg['thumbnail_kontenmsg'];
+                $id_kontenmsg = $kontenMsg['id_kontenmsg'];
 
-                array_push($kontenArray, $kontenMsg);
+                $checkSent = $this->db->get_where('tb_sent_konten', ['id_kontenmsg' => $id_kontenmsg, 'id_contact' => $id_contact])->row_array();
+
+                if (!$checkSent) {
+                    $kontenMsg['thumbnail_kontenmsg'] = "https://order.topmortarindonesia.com/assets/img/kontenmsg_img/" . $kontenMsg['thumbnail_kontenmsg'];
+
+                    array_push($kontenArray, $kontenMsg);
+                }
             }
 
             $result = [
