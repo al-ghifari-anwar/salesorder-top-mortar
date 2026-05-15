@@ -107,6 +107,14 @@
             $this->db->order_by('id_visit', 'DESC');
             $mostVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'id_user' => $id_user])->row_array();
 
+            $dateMostVisit = date('Y-m-d', strtotime($mostVisit['date_visit']));
+
+            // Date last visit before most
+            $this->db->not_like('source_visit', 'absen');
+            $this->db->where('DATE(date_visit)', $dateMostVisit);
+            $this->db->order_by('id_visit', 'DESC');
+            $lastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'id_user' => $id_user])->row_array();
+
             $nameColor = '';
             if ($checkYes) {
                 $nameColor = 'text-green';
@@ -118,7 +126,7 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td class="<?= $nameColor ?>"><?= $groupedVisit['nama'] ?></td>
                 <td class="text-center"><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
-                <td class="text-center"><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
+                <td class="text-center"><?= date('d F Y', strtotime($lastVisit['date_visit'])) ?></td>
                 <td class="text-center"><?= $paymentScore ?></td>
             </tr>
         <?php endforeach; ?>
