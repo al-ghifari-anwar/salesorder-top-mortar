@@ -127,7 +127,7 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td class="<?= $nameColor ?>"><?= $groupedVisit['nama'] ?></td>
                 <td class="text-center"><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
-                <td class="text-center"><?= $lastVisit ? date('d F Y', strtotime($lastVisit['date_visit'])) : '-' ?></td>
+                <td class="text-center"><?= $lastVisit != null ? date('d F Y', strtotime($lastVisit['date_visit'])) : '-' ?></td>
                 <td class="text-center"><?= $groupedVisit['jmlVisit'] ?></td>
                 <td class="text-center"><?= $paymentScore ?></td>
             </tr>
