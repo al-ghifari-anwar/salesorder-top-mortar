@@ -111,7 +111,7 @@
 
             // Date last visit before most
             $this->db->not_like('source_visit', 'absen');
-            $this->db->where('DATE(date_visit)', $dateMostVisit);
+            $this->db->where('DATE(date_visit) <', $dateMostVisit);
             $this->db->order_by('id_visit', 'DESC');
             $lastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'id_user' => $id_user])->row_array();
 
