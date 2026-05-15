@@ -8,6 +8,7 @@ class Targetvisit extends CI_Controller
         $this->load->model('MCity');
         $this->load->model('MUser');
         $this->load->model('MContact');
+        $this->load->model('MInvoice');
     }
 
     public function index()
