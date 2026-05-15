@@ -97,6 +97,8 @@
             $id_contact = $groupedVisit['id_contact'];
             $id_user = $groupedVisit['id_user'];
 
+            $contact = $this->MContact->getById($id_contact);
+
             // Check Yes
             $checkYes = $this->db->get_where('tb_jadwal_visit', ['id_contact' => $id_contact, 'date_jadwal_visit >=' => $dateFrom, 'date_jadwal_visit <=' => $dateTo, 'is_yes' => 1])->row_array();
 
@@ -109,13 +111,15 @@
             if ($checkYes) {
                 $nameColor = 'text-green';
             }
+
+            $paymentScore = $this->paymentScoring($contact);
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td class="<?= $nameColor ?>"><?= $groupedVisit['nama'] ?></td>
                 <td class="text-center"><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
                 <td class="text-center"><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
-                <td><?= "-" ?></td>
+                <td class="text-center"><?= $paymentScore ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
