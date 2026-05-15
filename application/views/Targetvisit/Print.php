@@ -88,6 +88,7 @@
             <th class="border">Toko</th>
             <th class="border">Tgl Visit</th>
             <th class="border">Last Visit</th>
+            <th class="border">Jml Visit</th>
             <th class="border">Skor</th>
         </tr>
         <?php
@@ -127,6 +128,7 @@
                 <td class="<?= $nameColor ?>"><?= $groupedVisit['nama'] ?></td>
                 <td class="text-center"><?= date('d F Y', strtotime($mostVisit['date_visit'])) ?></td>
                 <td class="text-center"><?= date('d F Y', strtotime($lastVisit['date_visit'])) ?></td>
+                <td class="text-center"><?= $groupedVisit['jmlVisit'] ?></td>
                 <td class="text-center"><?= $paymentScore ?></td>
             </tr>
         <?php endforeach; ?>

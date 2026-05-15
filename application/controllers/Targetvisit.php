@@ -70,6 +70,7 @@ class Targetvisit extends CI_Controller
         $data['user'] = $this->MUser->getById($id_user);
 
         // Get Visit Group By
+        $this->db->select('tb_visit.id_contact, tb_visit.id_user, tb_contact.nama, COUNT(tb_visit.id_visit) AS jmlVisit');
         $this->db->not_like('source_visit', 'absen');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $this->db->group_by('tb_visit.id_contact');
