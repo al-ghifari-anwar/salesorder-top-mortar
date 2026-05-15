@@ -112,7 +112,7 @@
                 $nameColor = 'text-green';
             }
 
-            $paymentScore = $this->paymentScoring($contact);
+            $paymentScore = $controller->paymentScoring($contact);
             ?>
             <tr>
                 <td class="text-center"><?= $no++; ?></td>

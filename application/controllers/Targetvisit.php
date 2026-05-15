@@ -73,6 +73,9 @@ class Targetvisit extends CI_Controller
         $this->db->group_by('tb_visit.id_contact');
         $data['groupedVisits'] = $this->db->get_where('tb_visit', ['tb_visit.id_user' => $id_user, 'DATE(date_visit) >=' => $dateFrom, 'DATE(date_visit) <=' => $dateTo])->result_array();
 
+        // Scoring
+        $data['controller'] = $this;
+
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Targetvisit/Print', $data, true);
