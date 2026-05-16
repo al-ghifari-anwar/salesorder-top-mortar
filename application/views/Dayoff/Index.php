@@ -79,6 +79,7 @@
                     <div class="form-group">
                         <label for="">User</label>
                         <select name="id_user" id="" class="form-control select2bs4">
+                            <option value="0">Semua User</option>
                             <?php foreach ($users as $user): ?>
                                 <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] . ' - ' . $user['nama_city'] ?></option>
                             <?php endforeach; ?>
