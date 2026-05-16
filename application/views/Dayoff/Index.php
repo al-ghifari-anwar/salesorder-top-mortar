@@ -75,7 +75,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('reg-voucher-special/' . $id_city) ?>" method="POST">
+                <form action="<?= base_url('dayoff/create') ?>" method="POST">
                     <div class="form-group">
                         <label for="">User</label>
                         <select name="id_user" id="" class="form-control select2bs4">
