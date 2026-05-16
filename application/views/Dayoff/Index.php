@@ -21,12 +21,12 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"><?= $title ?> - <?= $city['nama_city'] ?></h1>
+                    <h1 class="m-0"><?= $title ?> </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= base_url('target-visit') ?>"><?= $title ?></a></li>
-                        <li class="breadcrumb-item"><?= $title ?> - <?= $city['nama_city'] ?></li>
+                        <li class="breadcrumb-item"><?= $title ?></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -80,7 +80,7 @@
                         <label for="">User</label>
                         <select name="id_user" id="" class="form-control select2bs4">
                             <?php foreach ($users as $user): ?>
-                                <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] ?></option>
+                                <option value="<?= $user['id_user'] ?>"><?= $user['full_name'] . ' - ' . $user['nama_city'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
