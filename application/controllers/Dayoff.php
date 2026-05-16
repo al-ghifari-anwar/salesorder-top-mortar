@@ -12,9 +12,9 @@ class Dayoff extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
-        $data['title'] = 'Target Visit';
-        $data['menuGroup'] = 'Sales';
-        $data['menu'] = 'TargetVisit';
+        $data['title'] = 'Day Off';
+        $data['menuGroup'] = '';
+        $data['menu'] = 'Dayoff';
 
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         $data['users'] = $this->db->get_where('tb_user', ['phone_user !=' => 0, 'level_user' => 'sales'])->result_array();
