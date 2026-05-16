@@ -149,15 +149,6 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url('dayoff') ?>" class="nav-link <?= $menu == 'Dayoff' ? 'active' : '' ?>">
-                                        <i class="nav-icon fas fa-calendar-minus"></i>
-                                        <p>
-                                            Day Off
-                                            <!-- <span class="right badge badge-danger">New</span> -->
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="<?= base_url('lap-kurir') ?>" class="nav-link <?= $menu == 'LapKurir' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-truck-moving"></i>
                                         <p>
@@ -417,6 +408,15 @@
                                         <i class="nav-icon fas fa-calendar-check"></i>
                                         <p>
                                             Absen Harian
+                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('dayoff') ?>" class="nav-link <?= $menu == 'Dayoff' ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-calendar-minus"></i>
+                                        <p>
+                                            Day Off
                                             <!-- <span class="right badge badge-danger">New</span> -->
                                         </p>
                                     </a>
