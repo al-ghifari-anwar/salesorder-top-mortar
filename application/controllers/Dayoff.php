@@ -19,6 +19,8 @@ class Dayoff extends CI_Controller
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         $data['users'] = $this->db->get_where('tb_user', ['phone_user !=' => 0, 'level_user' => 'sales'])->result_array();
 
+        $data['dayoffs'] = $this->db->join('tb_user', 'tb_user.id_user = tb_day_off.id_user', 'left')->order_by('date_day_off', 'desc')->get('tb_day_off')->result_array();
+
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Dayoff/Index');
@@ -43,6 +45,19 @@ class Dayoff extends CI_Controller
             redirect('dayoff');
         } else {
             $this->session->set_flashdata('failed', 'Gagal menambah data day off');
+            redirect('dayoff');
+        }
+    }
+
+    public function delete($id_day_off)
+    {
+        $save = $this->db->delete('tb_day_off', ['id_day_off' => $id_day_off]);
+
+        if ($save) {
+            $this->session->set_flashdata('success', 'Berhasil menghapus data day off');
+            redirect('dayoff');
+        } else {
+            $this->session->set_flashdata('failed', 'Gagal menghapus data day off');
             redirect('dayoff');
         }
     }

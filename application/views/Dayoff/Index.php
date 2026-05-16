@@ -44,6 +44,28 @@
                             <a href="#" data-toggle="modal" data-target="#modal-insert" class="btn btn-primary float-right">Tambah Data</a>
                         </div>
                         <div class="card-body">
+                            <table class="table table-bordered table-striped" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>User</th>
+                                        <th>Keterangan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($dayoffs as $dayoff): ?>
+                                        <tr>
+                                            <td><?= date('d F Y', strtotime($dayoff['date_day_off'])) ?></td>
+                                            <td><?= $dayoff['full_name'] != null ? $dayoff['full_name'] : 'Semua' ?></td>
+                                            <td><?= $dayoff['desc_day_off'] ?></td>
+                                            <td>
+                                                <a href="<?= base_url('dayoff/delete/' . $dayoff['id_day_off']) ?>" class="btn btn-danger m-1"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
