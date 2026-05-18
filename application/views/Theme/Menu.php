@@ -846,6 +846,15 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="<?= base_url('manualconfirmvisit') ?>" class="nav-link <?= $menu == 'ManualConfirmVisit' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-paperclip"></i>
+                                                <p>
+                                                    Manual Confirm Visit
+                                                    <!-- <span class="right badge badge-success">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('tokonocluster') ?>" class="nav-link <?= $menu == 'TokoNoCluster' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-map-marked"></i>
                                                 <p>

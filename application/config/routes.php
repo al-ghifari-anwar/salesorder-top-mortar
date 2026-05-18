@@ -446,3 +446,7 @@ $route['printinv-suratjalan/(:num)'] = 'SuratJalan/printInv/$1';
 $route['target-visit'] = 'Targetvisit/index';
 $route['target-visit/(:num)'] = 'Targetvisit/list/$1';
 $route['target-visit/print'] = 'Targetvisit/print';
+// 
+$route['manualconfirmvisit'] = 'Manualconfirmvisit/index';
+$route['manualconfirmvisit/(:num)'] = 'Manualconfirmvisit/list/$1';
+$route['manualconfirmvisit/confirm/(:num)'] = 'Manualconfirmvisit/confirm/$1';
