@@ -87,7 +87,7 @@
                                     $no = 1;
                                     foreach ($jadwalvisits as $jadwalvisit): ?>
                                         <?php
-                                        $id_contact = $jadwalVisit['id_contact'];
+                                        $id_contact = $jadwalvisit['id_contact'];
                                         $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
                                         $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
                                         $is_visited = 0;
@@ -96,7 +96,7 @@
                                         $status_color = 'text-red';
                                         $has_session = "";
 
-                                        if ($jadwalVisit['is_yes'] == 1) {
+                                        if ($jadwalvisit['is_yes'] == 1) {
                                             $status_color = 'text-green';
                                             $is_visited = 1;
                                         } else {
