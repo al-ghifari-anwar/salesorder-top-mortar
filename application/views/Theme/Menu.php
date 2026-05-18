@@ -850,7 +850,7 @@
                                                 <i class="nav-icon fas fa-paperclip"></i>
                                                 <p>
                                                     Manual Confirm Visit
-                                                    <!-- <span class="right badge badge-success">New</span> -->
+                                                    <span class="right badge badge-success">New</span>
                                                 </p>
                                             </a>
                                         </li>
