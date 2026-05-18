@@ -49,14 +49,7 @@
                                                 <input type="date" class="form-control float-right" id="" name="date" value="<?= date('Y-m-d') ?>">
                                                 <!-- /.input group -->
                                             </div>
-                                            <label for="">Kota:</label>
-                                            <div class="form-group">
-                                                <select name="ct" id="select2bs4" class="form-control select2bs4">
-                                                    <?php foreach ($city as $city) : ?>
-                                                        <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
+
                                             <!-- <input type="text" name="id_city" value="<?= $id_city ?>" hidden> -->
                                             <div class="form-group ml-3">
                                                 <button type="submit" class="btn btn-primary">Filter</button>
