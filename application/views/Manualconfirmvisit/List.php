@@ -81,6 +81,8 @@
                                     foreach ($jadwalvisits as $jadwalvisit): ?>
                                         <?php
                                         $id_contact = $jadwalvisit['id_contact'];
+                                        $date = $jadwalvisit['date_jadwal_visit'];
+
                                         $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
                                         $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
                                         $is_visited = 0;
