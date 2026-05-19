@@ -55,6 +55,7 @@ class Manualconfirmvisit extends CI_Controller
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'ManualConfirmVisit';
 
+        $data['city'] = $this->MCity->getById($id_city);
         $data['jadwalvisits'] = $this->db->join('tb_contact', 'tb_contact.id_contact = tb_jadwal_visit.id_contact')->where('date_jadwal_visit', $date)->where('tb_jadwal_visit.id_city', $id_city)->get('tb_jadwal_visit')->result_array();
 
         $this->load->view('Theme/Header', $data);
