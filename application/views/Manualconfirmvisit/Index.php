@@ -49,7 +49,7 @@
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="<?= base_url('manualconfirmvisit/') . $data['id_city'] ?>" class="small-box-footer" target="_blank">Buka <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="<?= base_url('manualconfirmvisit/') . $data['id_city'] ?>" class="small-box-footer">Buka <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 <?php endforeach; ?>
