@@ -42,7 +42,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <form action="<?= base_url('manualconfirmvisit/print') ?>" method="GET" target="_blank">
+                                    <form action="<?= base_url('manualconfirmvisit/' . $city['id_city']) ?>" method="GET">
                                         <div class="row">
                                             <label>Date:</label>
                                             <div class="form-group ml-3">
