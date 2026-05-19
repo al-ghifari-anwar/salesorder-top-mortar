@@ -51,7 +51,7 @@ class Manualconfirmvisit extends CI_Controller
             $date = date('Y-m-d', strtotime($_GET['date']));
         }
 
-        $data['title'] = 'Manual Confirm Visit';
+        $data['title'] = 'Manual Confirm Visit - ' . $date;
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'ManualConfirmVisit';
 
