@@ -68,7 +68,7 @@ class Manualconfirmvisit extends CI_Controller
     {
         $jadwalVisit = $this->db->get_where('tb_jadwal_visit', ['id_jadwal_visit' => $id_jadwal_visit])->row_array();
 
-        $save = $this->db->update('tb_jawdal_visit', ['is_yes' => 1], ['id_jawdal_visit' => $id_jadwal_visit]);
+        $save = $this->db->update('tb_jadwal_visit', ['is_yes' => 1], ['id_jadwal_visit' => $id_jadwal_visit]);
 
         if ($save) {
             $this->session->set_flashdata('success', 'Berhasil konfirm visit');
