@@ -91,9 +91,8 @@ class Webhookhaloai extends CI_Controller
         $save = $this->db->insert('tb_webhook_haloai', $webhookData);
 
         if ($save) {
-            $customer = $post['nama_customer'];
-            $name = $customer['nama_customer'];
-            $phone = $customer['nomor_customer'];
+            $name = $post['nama_customer'];
+            $phone = $post['nomor_customer'];
             // $bodyMsg = $post['message']['body'];
 
             $message = "Halo admin, \nSurat Jalan Gagal Terbuat \nToko: " . $name . "\nNomor: " . $phone;
