@@ -107,6 +107,42 @@ class Kontenmsg extends CI_Controller
         }
     }
 
+    public function sent()
+    {
+        $this->output->set_content_type('application/json');
+
+        $post = json_decode(file_get_contents('php://input'), true) != null ? json_decode(file_get_contents('php://input'), true) : $this->input->post();
+
+        $nomorhp = $post['data']['nomor_customer'];
+
+        $contact = $this->MContact->getByNomorhp($nomorhp);
+
+        $id_content = $post['data']['id_kontenmsg'];
+        $id_contact = $contact['id_contact'];
+
+        $saveSent = $this->db->insert('tb_sent_konten', ['id_kontenmsg' => $id_content, 'id_contact' => $id_contact]);
+
+        $kontenMsgs = $this->MKontenmsg->getByCatAndHobby('Auto', str_replace(', ', '|', $contact['hobi_contact']));
+
+        if ($saveSent) {
+            $result = [
+                'code' => 200,
+                'status' => 'ok',
+                'msg' => 'Success',
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        } else {
+            $result = [
+                'code' => 404,
+                'status' => 'failed',
+                'msg' => 'Not Saved',
+            ];
+
+            return $this->output->set_output(json_encode($result));
+        }
+    }
+
     public function create()
     {
         $post = $this->input->post();
