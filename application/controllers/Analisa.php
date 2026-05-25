@@ -39,8 +39,8 @@ class Analisa extends CI_Controller
             $data['citys'] = $this->MCity->getAll();
         }
 
-        $data['contacts'] = $this->MContact->getAllByStatus('passive');
-        $data['selected_city'] = ['id_city' => '0', 'nama_city' => 'Keseluruhan'];
+        $data['contacts'] = null;
+        $data['selected_city'] = ['id_city' => '0', 'nama_city' => '-'];
 
         if ($id_city) {
             $data['contacts'] = $this->MContact->getAllByStatusAndCity($id_city, 'passive');

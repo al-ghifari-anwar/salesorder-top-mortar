@@ -81,45 +81,47 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $no = 1;
-                                    foreach ($contacts as $contact) : ?>
-                                        <?php if ($contact['store_status'] == 'passive'): ?>
-                                            <?php
-                                            $count_late_payment = 0;
-                                            $invoices = $this->MInvoice->getByIdContactNoMerch($contact['id_contact']);
-                                            $payments = null;
-                                            foreach ($invoices as $invoice) {
-                                                $payments = $this->MPayment->getByIdInvoiceOnly($invoice['id_invoice']);
+                                    <?php if ($contacts): ?>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($contacts as $contact) : ?>
+                                            <?php if ($contact['store_status'] == 'passive'): ?>
+                                                <?php
+                                                $count_late_payment = 0;
+                                                $invoices = $this->MInvoice->getByIdContactNoMerch($contact['id_contact']);
+                                                $payments = null;
+                                                foreach ($invoices as $invoice) {
+                                                    $payments = $this->MPayment->getByIdInvoiceOnly($invoice['id_invoice']);
 
-                                                $jatuhTempo = date('Y-m-d', strtotime("+" . $contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                                                    $jatuhTempo = date('Y-m-d', strtotime("+" . $contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
 
-                                                foreach ($payments as $payment) {
-                                                    $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
-                                                    if ($datePayment > $jatuhTempo) {
-                                                        $count_late_payment += 1;
+                                                    foreach ($payments as $payment) {
+                                                        $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
+                                                        if ($datePayment > $jatuhTempo) {
+                                                            $count_late_payment += 1;
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            ?>
-                                            <?php if ($payments): ?>
-                                                <?php if ($count_late_payment == 0): ?>
-                                                    <tr>
-                                                        <td><?= $no++; ?></td>
-                                                        <td><?= $contact['nama'] ?></td>
-                                                        <td><?= $contact['address'] ?></td>
-                                                        <td><?= $contact['nomorhp'] ?></td>
-                                                        <td><?= $contact['store_status'] ?></td>
-                                                        <td><?= $contact['nama_city'] ?></td>
-                                                        <td>
-                                                            <!-- <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $contact['id_city'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
+                                                ?>
+                                                <?php if ($payments): ?>
+                                                    <?php if ($count_late_payment == 0): ?>
+                                                        <tr>
+                                                            <td><?= $no++; ?></td>
+                                                            <td><?= $contact['nama'] ?></td>
+                                                            <td><?= $contact['address'] ?></td>
+                                                            <td><?= $contact['nomorhp'] ?></td>
+                                                            <td><?= $contact['store_status'] ?></td>
+                                                            <td><?= $contact['nama_city'] ?></td>
+                                                            <td>
+                                                                <!-- <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $contact['id_city'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
                                                             <a href="<?= base_url('delete-city/') . $contact['id_city'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a> -->
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             <?php endif; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
