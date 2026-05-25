@@ -234,7 +234,7 @@
                             if ($datePayment > $jatuhTempo) {
                                 // $count_late_payment += 1;
                                 $date1 = new DateTime($datePayment);
-                                if ($invoice['status_invoice'] == 'waiting') {
+                                if ($last_invoice['status_invoice'] == 'waiting') {
                                     $date1 = new DateTime(date('Y-m-d'));
                                 }
                                 $date2 = new DateTime($jatuhTempo);
@@ -307,6 +307,9 @@
                         }
                     }
                 }
+
+                // echo json_encode($last_array_scoring);
+                // die;
 
                 ?>
                 <div class="row">
