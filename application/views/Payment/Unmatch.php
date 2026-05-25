@@ -167,7 +167,7 @@
                             <option value="8880762231">8880762231 - Top 1</option>
                             <option value="8880964519">8880964519 - Top 2</option>
                             <option value="8881051362">8881051362 - Top 3</option>
-                            <option value="8881051362"> - Top Mojokerto</option>
+                            <option value="mojokerto"> - Top Mojokerto</option>
                         </select>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>
