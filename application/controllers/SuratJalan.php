@@ -164,33 +164,12 @@ class SuratJalan extends CI_Controller
 
                 // Debug atau kirim ke view
                 if ($resClosing['status'] == 'success') {
-                    // Set invoice
-                    $curl = curl_init();
-
-                    curl_setopt_array($curl, array(
-                        CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/invoice.php',
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'POST',
-                        CURLOPT_POSTFIELDS => array('id_surat_jalan' => $id_surat_jalan),
-                    ));
-
-                    $response = curl_exec($curl);
-
-                    curl_close($curl);
-
-                    $res = json_decode($response, true);
-
-                    if ($res['response'] == 200) {
-                        // Save delivery
+                    if ($suratJalan['id_apporder'] == 0) {
+                        // Set invoice
                         $curl = curl_init();
 
                         curl_setopt_array($curl, array(
-                            CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/delivery.php',
+                            CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/invoice.php',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -198,18 +177,89 @@ class SuratJalan extends CI_Controller
                             CURLOPT_FOLLOWLOCATION => true,
                             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                             CURLOPT_CUSTOMREQUEST => 'POST',
-                            CURLOPT_POSTFIELDS => array('endDateTime' => date('Y-m-d H:i:s'), 'endLat' => ' ', 'endLng' => ' ', 'lat' => ' ', 'lng' => ' ', 'id_courier' => $suratJalan['id_user'], 'id_contact' => $suratJalan['id_contact'], 'startDateTime' => date('Y-m-d ') . '08:00:00', 'startLat' => ' ', 'startLng' => ' ', 'id_surat_jalan' => $id_surat_jalan),
+                            CURLOPT_POSTFIELDS => array('id_surat_jalan' => $id_surat_jalan),
                         ));
 
                         $response = curl_exec($curl);
 
                         curl_close($curl);
 
-                        $this->session->set_flashdata('success', "Berhasil closing");
-                        redirect('suratjalan/' . $suratJalan['id_city']);
+                        $res = json_decode($response, true);
+
+                        if ($res['response'] == 200) {
+                            // Save delivery
+                            $curl = curl_init();
+
+                            curl_setopt_array($curl, array(
+                                CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/delivery.php',
+                                CURLOPT_RETURNTRANSFER => true,
+                                CURLOPT_ENCODING => '',
+                                CURLOPT_MAXREDIRS => 10,
+                                CURLOPT_TIMEOUT => 0,
+                                CURLOPT_FOLLOWLOCATION => true,
+                                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                CURLOPT_CUSTOMREQUEST => 'POST',
+                                CURLOPT_POSTFIELDS => array('endDateTime' => date('Y-m-d H:i:s'), 'endLat' => ' ', 'endLng' => ' ', 'lat' => ' ', 'lng' => ' ', 'id_courier' => $suratJalan['id_user'], 'id_contact' => $suratJalan['id_contact'], 'startDateTime' => date('Y-m-d ') . '08:00:00', 'startLat' => ' ', 'startLng' => ' ', 'id_surat_jalan' => $id_surat_jalan),
+                            ));
+
+                            $response = curl_exec($curl);
+
+                            curl_close($curl);
+
+                            $this->session->set_flashdata('success', "Berhasil closing");
+                            redirect('suratjalan/' . $suratJalan['id_city']);
+                        } else {
+                            $this->session->set_flashdata('failed', "Closing berhasil, gagal membuat invoice");
+                            redirect('suratjalan/' . $suratJalan['id_city']);
+                        }
                     } else {
-                        $this->session->set_flashdata('failed', "Closing berhasil, gagal membuat invoice");
-                        redirect('suratjalan/' . $suratJalan['id_city']);
+                        // Set invoice
+                        $curl = curl_init();
+
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/invoiceTopSeller.php',
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'POST',
+                            CURLOPT_POSTFIELDS => array('id_surat_jalan' => $id_surat_jalan),
+                        ));
+
+                        $response = curl_exec($curl);
+
+                        curl_close($curl);
+
+                        $res = json_decode($response, true);
+
+                        if ($res['response'] == 200) {
+                            // Save delivery
+                            $curl = curl_init();
+
+                            curl_setopt_array($curl, array(
+                                CURLOPT_URL => 'https://saleswa.topmortarindonesia.com/delivery.php',
+                                CURLOPT_RETURNTRANSFER => true,
+                                CURLOPT_ENCODING => '',
+                                CURLOPT_MAXREDIRS => 10,
+                                CURLOPT_TIMEOUT => 0,
+                                CURLOPT_FOLLOWLOCATION => true,
+                                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                CURLOPT_CUSTOMREQUEST => 'POST',
+                                CURLOPT_POSTFIELDS => array('endDateTime' => date('Y-m-d H:i:s'), 'endLat' => ' ', 'endLng' => ' ', 'lat' => ' ', 'lng' => ' ', 'id_courier' => $suratJalan['id_user'], 'id_contact' => $suratJalan['id_contact'], 'startDateTime' => date('Y-m-d ') . '08:00:00', 'startLat' => ' ', 'startLng' => ' ', 'id_surat_jalan' => $id_surat_jalan),
+                            ));
+
+                            $response = curl_exec($curl);
+
+                            curl_close($curl);
+
+                            $this->session->set_flashdata('success', "Berhasil closing");
+                            redirect('suratjalan/' . $suratJalan['id_city']);
+                        } else {
+                            $this->session->set_flashdata('failed', "Closing berhasil, gagal membuat invoice");
+                            redirect('suratjalan/' . $suratJalan['id_city']);
+                        }
                     }
                 } else {
                     $this->session->set_flashdata('failed', "Gagal, Koneksi putus: " . json_encode($response));
