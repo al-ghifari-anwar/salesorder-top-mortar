@@ -112,6 +112,10 @@
                         <input type="date" name="date_day_off" id="" class="form-control">
                     </div>
                     <div class="form-group">
+                        <label for="">Jumlah Pengurangan</label>
+                        <input type="number" name="jml_day_off" class="form-control" value="10">
+                    </div>
+                    <div class="form-group">
                         <label for="">Keterangan</label>
                         <textarea name="desc_day_off" id="" cols="30" rows="3" class="form-control"></textarea>
                     </div>

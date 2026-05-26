@@ -35,6 +35,7 @@ class Dayoff extends CI_Controller
         $dayoffData = [
             'id_user' => $post['id_user'],
             'date_day_off' => $post['date_day_off'],
+            'jml_day_off' => $post['jml_day_off'],
             'desc_day_off' => $post['desc_day_off'],
         ];
 
