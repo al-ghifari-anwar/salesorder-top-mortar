@@ -89,7 +89,7 @@
                     if ($sj['is_cod'] == 0) {
                         $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
                     } else {
-                        $jatuhTempo = date('Y-m-d', strtotime($invoice['date_invoice']));
+                        $jatuhTempo = date('Y-m-d', strtotime("+3 days", strtotime($invoice['date_invoice'])));
                     }
 
                     if ($payments) {
@@ -241,7 +241,7 @@
                     if ($sj['is_cod'] == 0) {
                         $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($last_invoice['date_invoice'])));
                     } else {
-                        $jatuhTempo = date('Y-m-d', strtotime($last_invoice['date_invoice']));
+                        $jatuhTempo = date('Y-m-d', strtotime("+3 days", strtotime($invoice['date_invoice'])));
                     }
 
                     if ($payments) {
