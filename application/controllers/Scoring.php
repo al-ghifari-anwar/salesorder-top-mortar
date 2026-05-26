@@ -452,7 +452,6 @@ class Scoring extends CI_Controller
 
                     array_push($array_scoring, $scoreData);
                 } else {
-
                     $dateNow = date("Y-m-d");
                     if ($dateNow > $jatuhTempo) {
                         $count_late_payment += 1;
