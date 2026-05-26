@@ -284,6 +284,45 @@ class Voucher extends CI_Controller
 
             $this->session->set_flashdata('success', "Berhasil kirim voucher 500k!");
             redirect('voucher-list/' . $id_city);
+        } else if ($post['type_voucher'] == 1000) {
+            for ($i = 0; $i < 14; $i++) {
+                $dateVoucher = date('Y-m-d H:i:s');
+
+                if ($i > 1 && $i <= 4) {
+                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+1 months"));
+                }
+
+                if ($i > 3 && $i <= 6) {
+                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+2 months"));
+                }
+
+                if ($i > 6 && $i <= 9) {
+                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+3 months"));
+                }
+
+                if ($i > 9 && $i <= 12) {
+                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+4 months"));
+                }
+
+                if ($i > 12) {
+                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+5 months"));
+                }
+
+                $expVoucher = date('Y-m-d H:i:s', strtotime("+1 months", strtotime($dateVoucher)));
+
+                $voucherData = [
+                    'id_contact' => $id_contact,
+                    'no_voucher' => rand(10000, 99999),
+                    'date_voucher' => $dateVoucher,
+                    'exp_date' => $expVoucher,
+                    'type_voucher' => 'manual',
+                ];
+
+                $this->db->insert('tb_voucher', $voucherData);
+
+                $this->session->set_flashdata('success', "Berhasil kirim voucher 1jt!");
+                redirect('voucher-list/' . $id_city);
+            }
         }
     }
 
