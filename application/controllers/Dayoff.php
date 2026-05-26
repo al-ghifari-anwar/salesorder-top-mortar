@@ -19,7 +19,7 @@ class Dayoff extends CI_Controller
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
         $data['users'] = $this->db->get_where('tb_user', ['phone_user !=' => 0, 'level_user' => 'sales'])->result_array();
 
-        $data['dayoffs'] = $this->db->join('tb_user', 'tb_user.id_user = tb_day_off.id_user', 'left')->order_by('date_day_off', 'DESC')->get('tb_day_off')->result_array();
+        $data['dayoffs'] = $this->db->join('tb_user', 'tb_user.id_user = tb_day_off.id_user', 'left')->order_by('date_day_off', 'ASC')->get('tb_day_off')->result_array();
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
