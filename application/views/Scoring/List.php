@@ -173,6 +173,7 @@
                         }
                     } else {
                         if ($invoice['status_invoice'] == 'paid') {
+                            $dateNow = date("Y-m-d");
                             $scoreData = [
                                 'id_invoice' => $invoice['id_invoice'],
                                 'no_invoice' => $invoice['no_invoice'],
