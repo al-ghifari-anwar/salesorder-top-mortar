@@ -319,10 +319,10 @@ class Voucher extends CI_Controller
                 ];
 
                 $this->db->insert('tb_voucher', $voucherData);
-
-                $this->session->set_flashdata('success', "Berhasil kirim voucher 1jt!");
-                redirect('voucher-list/' . $id_city);
             }
+
+            $this->session->set_flashdata('success', "Berhasil kirim voucher 1jt!");
+            redirect('voucher-list/' . $id_city);
         }
     }
 
