@@ -288,24 +288,20 @@ class Voucher extends CI_Controller
             for ($i = 0; $i < 14; $i++) {
                 $dateVoucher = date('Y-m-d H:i:s');
 
-                if ($i > 1 && $i <= 4) {
+                if ($i > 2 && $i <= 5) {
                     $dateVoucher = date('Y-m-d H:i:s', strtotime("+1 months"));
                 }
 
-                if ($i > 3 && $i <= 6) {
+                if ($i > 5 && $i <= 8) {
                     $dateVoucher = date('Y-m-d H:i:s', strtotime("+2 months"));
                 }
 
-                if ($i > 6 && $i <= 9) {
+                if ($i > 8 && $i <= 11) {
                     $dateVoucher = date('Y-m-d H:i:s', strtotime("+3 months"));
                 }
 
-                if ($i > 9 && $i <= 12) {
+                if ($i > 11) {
                     $dateVoucher = date('Y-m-d H:i:s', strtotime("+4 months"));
-                }
-
-                if ($i > 12) {
-                    $dateVoucher = date('Y-m-d H:i:s', strtotime("+5 months"));
                 }
 
                 $expVoucher = date('Y-m-d H:i:s', strtotime("+1 months", strtotime($dateVoucher)));
