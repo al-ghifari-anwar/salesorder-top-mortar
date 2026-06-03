@@ -51,6 +51,7 @@
                                         <th>Tanggal</th>
                                         <th>User</th>
                                         <th>Keterangan</th>
+                                        <th>Jml Pengurangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -63,6 +64,7 @@
                                             <td><?= date('d F Y', strtotime($dayoff['date_day_off'])) ?></td>
                                             <td><?= $dayoff['full_name'] != null ? $dayoff['full_name'] : 'Semua' ?></td>
                                             <td><?= $dayoff['desc_day_off'] ?></td>
+                                            <td><?= $dayoff['jml_day_off'] ?></td>
                                             <td>
                                                 <a href="<?= base_url('dayoff/delete/' . $dayoff['id_day_off']) ?>" class="btn btn-danger m-1"><i class="fas fa-trash"></i></a>
                                             </td>
