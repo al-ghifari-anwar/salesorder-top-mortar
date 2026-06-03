@@ -253,6 +253,32 @@
                                     </ul>
                                 </li>
                             <?php endif; ?>
+
+                            <?php if ($this->session->userdata('level_user') == 'marketing'): ?>
+                                <li class="nav-item <?= $menuGroup == 'Data' ? 'menu-open' : '' ?>">
+                                    <a href="#" class="nav-link <?= $menuGroup == 'Data' ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-database"></i>
+                                        <p>
+                                            Data
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('toko') ?>" class="nav-link <?= $menu == 'Toko' ? 'active' : '' ?>">
+                                                <i class="fas fa-store nav-icon"></i>
+                                                <p>Toko</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('tukang') ?>" class="nav-link <?= $menu == 'Tukang' ? 'active' : '' ?>">
+                                                <i class="fas fa-user-astronaut nav-icon"></i>
+                                                <p>Tukang</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance'): ?>
                                 <li class="nav-item <?= $menuGroup == 'Setting' ? 'menu-open' : '' ?>">
                                     <a href="#" class="nav-link <?= $menuGroup == 'Setting' ? 'active' : '' ?>">
