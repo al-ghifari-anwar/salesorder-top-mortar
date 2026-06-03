@@ -21,6 +21,9 @@ class Dayoff extends CI_Controller
 
         $data['dayoffs'] = $this->db->join('tb_user', 'tb_user.id_user = tb_day_off.id_user', 'left')->order_by('date_day_off', 'DESC')->get('tb_day_off')->result_array();
 
+        // echo $this->db->last_query();
+        // die;
+
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Dayoff/Index');

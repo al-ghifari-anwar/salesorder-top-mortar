@@ -47,6 +47,7 @@
                             <table class="table table-bordered table-striped" id="table">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Tanggal</th>
                                         <th>User</th>
                                         <th>Keterangan</th>
@@ -54,8 +55,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($dayoffs as $dayoff): ?>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($dayoffs as $dayoff): ?>
                                         <tr>
+                                            <td class="text-center"><?= $no++; ?></td>
                                             <td><?= date('d F Y', strtotime($dayoff['date_day_off'])) ?></td>
                                             <td><?= $dayoff['full_name'] != null ? $dayoff['full_name'] : 'Semua' ?></td>
                                             <td><?= $dayoff['desc_day_off'] ?></td>
