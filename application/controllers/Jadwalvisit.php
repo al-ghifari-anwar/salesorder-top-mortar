@@ -455,40 +455,42 @@ class Jadwalvisit extends CI_Controller
 
                     $id_invoice = $janjiBayar['id_invoice'];
                     $invoice = $this->MInvoice->getById($id_invoice);
-                    // Jatem Days
-                    $jatemInv = date('Y-m-d', strtotime("+" . $janjiBayar['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
-                    $dateInv1 = new DateTime(date("Y-m-d"));
-                    $dateInv2 = new DateTime($jatemInv);
-                    $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
-                    $operanInvJatem = "";
-                    if ($dateInv1 < $dateInv2) {
-                        $operanInvJatem = "-";
-                    }
-                    $daysInvJatem = $operanInvJatem . $daysInvJatem;
-
-                    $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                    $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
-                    $sisaHutang = $invoice['total_invoice'] - $amountPayment;
-
-                    $renvisFilter = [
-                        'id_contact' => $janjiBayar['id_contact'],
-                        'filter' => 'Janji Bayar',
-                        'nama' => $janjiBayar['nama'],
-                        'type_renvis' => 'Janji Bayar',
-                        'last_visit' => $last_visit,
-                        'days' => $days,
-                        'daysJatem' => $daysInvJatem,
-                        'total_invoice' => $sisaHutang,
-                        'is_new' => 0,
-                    ];
-
-                    // if ($days > $minDayCluster) {
-                    if (!$lastPayVisit) {
-                        if (array_search($janjiBayar['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                            array_push($jadwalVisits, $renvisFilter);
+                    if ($invoice['status_invoice'] != 'paid') {
+                        // Jatem Days
+                        $jatemInv = date('Y-m-d', strtotime("+" . $janjiBayar['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                        $dateInv1 = new DateTime(date("Y-m-d"));
+                        $dateInv2 = new DateTime($jatemInv);
+                        $daysInvJatem  = $dateInv2->diff($dateInv1)->format('%a');
+                        $operanInvJatem = "";
+                        if ($dateInv1 < $dateInv2) {
+                            $operanInvJatem = "-";
                         }
+                        $daysInvJatem = $operanInvJatem . $daysInvJatem;
+
+                        $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                        $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
+                        $sisaHutang = $invoice['total_invoice'] - $amountPayment;
+
+                        $renvisFilter = [
+                            'id_contact' => $janjiBayar['id_contact'],
+                            'filter' => 'Janji Bayar',
+                            'nama' => $janjiBayar['nama'],
+                            'type_renvis' => 'Janji Bayar',
+                            'last_visit' => $last_visit,
+                            'days' => $days,
+                            'daysJatem' => $daysInvJatem,
+                            'total_invoice' => $sisaHutang,
+                            'is_new' => 0,
+                        ];
+
+                        // if ($days > $minDayCluster) {
+                        if (!$lastPayVisit) {
+                            if (array_search($janjiBayar['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
+                            }
+                        }
+                        // }
                     }
-                    // }
                 }
             }
 
