@@ -328,6 +328,8 @@ class Reportjadwalvisit extends CI_Controller
 
             $updateJadwal = $this->db->update('tb_jadwal_visit', ['is_yes' => $is_visited], ['id_jadwal_visit' => $id_jadwal_visit]);
 
+            $deleteViscon = $this->db->delete('tb_visit_control', ['id_contact' => $id_contact, 'DATE(date_visit_control)' => $date]);
+
             // if ($updateJadwal) {
 
             // } else {
