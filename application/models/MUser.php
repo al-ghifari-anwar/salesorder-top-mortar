@@ -26,6 +26,14 @@ class MUser extends CI_Model
         return $query;
     }
 
+    public function getCourierByGroupCity($grouping_kurir)
+    {
+        $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
+        $query = $this->db->get_where('tb_user', ['tb_city.grouping_kurir' => $grouping_kurir, 'level_user' => 'courier', 'password !=' => '0'])->row_array();
+
+        return $query;
+    }
+
     public function getCourierByCityGroup($nama_city)
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');

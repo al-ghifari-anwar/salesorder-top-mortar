@@ -551,16 +551,25 @@ class Haloai extends CI_Controller
 
             $vouchers = $this->MVoucher->getByIdContactForHaloAI($id_contact);
 
-            $courier = $this->MUser->getCourierByIdCity($id_city);
+            $city = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
 
             $id_courier = 0;
 
-            if ($courier) {
-                $id_courier = $courier['id_user'];
+            if ($city['grouping_kurir'] == 'Not set') {
+                $courier = $this->MUser->getCourierByIdCity($id_city);
+
+
+                if ($courier) {
+                    $id_courier = $courier['id_user'];
+                } else {
+                    $courier = $this->MUser->getCourierByCityGroup(trim(preg_replace("/\\d+/", "", $contact['nama_city'])));
+                    $id_courier = $courier['id_user'];
+                    // 
+                }
             } else {
-                $courier = $this->MUser->getCourierByCityGroup(trim(preg_replace("/\\d+/", "", $contact['nama_city'])));
+                $grouping_kurir = $city['grouping_kurir'];
+                $courier = $this->MUser->getCourierByGroupCity($grouping_kurir);
                 $id_courier = $courier['id_user'];
-                // 
             }
 
             $dateCutoff = date('Y-m-d', strtotime("-10 minutes"));
