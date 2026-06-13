@@ -40,12 +40,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'marketing' || $this->session->userdata('level_user') == 'salesspv') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'marketing' || $this->session->userdata('level_user') == 'salesspv' || $this->session->userdata('level_user') == 'admin') : ?>
                                 <button type="button" class="btn bg-purple float-right mx-1" data-toggle="modal" data-target="#modal-insert-special">
                                     Tambah Voucher Spesial
                                 </button>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'marketing' || $this->session->userdata('level_user') == 'salesspv') : ?>
+                            <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'marketing' || $this->session->userdata('level_user') == 'salesspv' || $this->session->userdata('level_user') == 'admin') : ?>
                                 <button type="button" class="btn btn-success float-right mx-1" data-toggle="modal" data-target="#modal-insert">
                                     Tambah Voucher
                                 </button>
