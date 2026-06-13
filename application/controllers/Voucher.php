@@ -279,7 +279,7 @@ class Voucher extends CI_Controller
                     $dateVoucher = date('Y-m-d H:i:s', strtotime("+3 months"));
                 }
 
-                $expVoucher = date('Y-m-d H:i:s', strtotime("+1 months", strtotime($dateVoucher)));
+                $expVoucher = date('Y-m-d H:i:s', strtotime("+2 months", strtotime($dateVoucher)));
 
                 $voucherData = [
                     'id_contact' => $id_contact,
@@ -295,7 +295,7 @@ class Voucher extends CI_Controller
             $this->session->set_flashdata('success', "Berhasil kirim voucher 500k!");
             redirect('voucher-list/' . $id_city);
         } else if ($post['type_voucher'] == 1000) {
-            for ($i = 0; $i < 14; $i++) {
+            for ($i = 0; $i < 15; $i++) {
                 $dateVoucher = date('Y-m-d H:i:s');
 
                 if ($i > 2 && $i <= 5) {
@@ -314,7 +314,7 @@ class Voucher extends CI_Controller
                     $dateVoucher = date('Y-m-d H:i:s', strtotime("+4 months"));
                 }
 
-                $expVoucher = date('Y-m-d H:i:s', strtotime("+1 months", strtotime($dateVoucher)));
+                $expVoucher = date('Y-m-d H:i:s', strtotime("+2 months", strtotime($dateVoucher)));
 
                 $voucherData = [
                     'id_contact' => $id_contact,
