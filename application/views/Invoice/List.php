@@ -41,6 +41,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
+                            <a href="<?= base_url('invoice/print-all/') . $city['id_city'] ?>" class="btn btn-primary float-right" target="_blank">Print Semua</a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">

@@ -149,6 +149,25 @@ class Invoice extends CI_Controller
         }
     }
 
+    public function printAll($id_city)
+    {
+        ini_set("pcre.backtrack_limit", "5000000"); // Increases limit from 1M to 5M
+        if ($this->session->userdata('id_user') == null) {
+            redirect('login');
+        }
+        $this->load->library('ciqrcode');
+        $invoice = $this->MInvoice->getAll($id_city);
+
+        $data['invoices'] = $invoice;
+
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Invoice/PrintAll', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
+
     public function print($id)
     {
         if ($this->session->userdata('id_user') == null) {
