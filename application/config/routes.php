@@ -452,3 +452,8 @@ $route['target-visit/print'] = 'Targetvisit/print';
 $route['manualconfirmvisit'] = 'Manualconfirmvisit/index';
 $route['manualconfirmvisit/(:num)'] = 'Manualconfirmvisit/list/$1';
 $route['manualconfirmvisit/confirm/(:num)'] = 'Manualconfirmvisit/confirm/$1';
+// Transit TOko
+$route['transittoko'] = 'Transittoko/index';
+$route['transittoko/(:num)'] = 'Transittoko/list/$1';
+$route['transittoko/approve/(:num)'] = 'Transittoko/approve/$1';
+$route['transittoko/kembalikan/(:num)'] = 'Transittoko/kembalikan/$1';

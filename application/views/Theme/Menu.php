@@ -559,6 +559,14 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
+                                            <a href="<?= base_url('transittoko') ?>" class="nav-link <?= $menu == 'TransitToko' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-trash"></i>
+                                                <p>
+                                                    Transit Toko X
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('analisa/passive') ?>" class="nav-link <?= $menu == 'PassiveRutin' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-money-check"></i>
                                                 <p>
