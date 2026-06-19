@@ -100,6 +100,7 @@
                                             <select name="cat_kontenmsg" id="" class="form-control">
                                                 <option value="Auto" <?= $kontenmsg['cat_kontenmsg'] == 'Auto' ? 'selected' : '' ?>>Auto</option>
                                                 <option value="Manual" <?= $kontenmsg['cat_kontenmsg'] == 'Manual' ? 'selected' : '' ?>>Manual</option>
+                                                <option value="Branding" <?= $kontenmsg['cat_kontenmsg'] == 'Branding' ? 'selected' : '' ?>>Branding</option>
                                             </select>
                                         </div>
                                         <input type=" text" value="data" name="target_status" hidden>
@@ -167,6 +168,7 @@
                         <select name="cat_kontenmsg" id="" class="form-control">
                             <option value="Auto">Auto</option>
                             <option value="Manual">Manual</option>
+                            <option value="Branding">Branding</option>
                         </select>
                     </div>
                     <input type="text" value="data" name="target_status" hidden>
