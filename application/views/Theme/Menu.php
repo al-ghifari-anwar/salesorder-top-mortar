@@ -826,6 +826,15 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
+                                            <a href="<?= base_url('visitcontrol') ?>" class="nav-link <?= $menu == 'VisitControl' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-cogs"></i>
+                                                <p>
+                                                    Visit Control
+                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="<?= base_url('feerenvi') ?>" class="nav-link <?= $menu == 'TotalRenvi' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-user-clock"></i>
                                                 <p>
