@@ -195,6 +195,12 @@ class Invoice extends CI_Controller
 
         $image_name = $invoice['id_invoice'] . '.png'; //buat name dari qr code sesuai dengan nim
 
+        $file = FCPATH . $config['imagedir'] . $image_name;
+
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
         $params['data'] = base_url('invoice-confirm/') . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
