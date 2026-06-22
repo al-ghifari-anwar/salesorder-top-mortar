@@ -201,12 +201,14 @@ class Invoice extends CI_Controller
         $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
         $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
-        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        $mpdf->SetMargins(0, 0, 5);
-        $html = $this->load->view('Invoice/Print', $data, true);
-        $mpdf->AddPage('P');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        $this->load->view('Invoice/Print', $data);
+
+        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        // $mpdf->SetMargins(0, 0, 5);
+        // $html = $this->load->view('Invoice/Print', $data, true);
+        // $mpdf->AddPage('P');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output();
     }
 
     public function confirm($id)
