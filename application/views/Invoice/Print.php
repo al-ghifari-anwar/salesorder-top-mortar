@@ -281,7 +281,7 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this
                 <table class="">
                     <tr>
                         <th class="text-center">
-                            <img src="<?= 123 ?>" style="width: 50px;">
+                            <img src="<?= 'https://order.topmortarindonesia.com/assets/img/qr/' . $invoice['id_invoice'] . '.png' ?>" style="width: 50px;">
                         </th>
                     </tr>
                 </table>
@@ -464,7 +464,7 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this
                     <tr>
                         <th class="text-center">
                             <img src="<?= 'https://order.topmortarindonesia.com/assets/img/qr/' . $invoice['id_invoice'] . '.png' ?>" style="width: 50px;">
-                            <p><?= $baseurl ?></p>
+                            <!-- <p><?= $baseurl ?></p> -->
                         </th>
                     </tr>
                 </table>
