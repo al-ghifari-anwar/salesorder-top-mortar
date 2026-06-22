@@ -464,6 +464,7 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this
                     <tr>
                         <th class="text-center">
                             <img src="<?= base_url('assets/img/qr/' . $invoice['id_invoice'] . '.png') ?>" style="width: 50px;">
+                            <p><?= $data['baseurl'] ?></p>
                         </th>
                     </tr>
                 </table>

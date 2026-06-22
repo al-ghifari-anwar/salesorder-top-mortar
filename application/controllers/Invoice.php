@@ -183,7 +183,7 @@ class Invoice extends CI_Controller
         $data['courier'] = $this->MUser->getById($invoice['id_courier']);
         $data['produk'] = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
         // Generate QR
-        $config['cacheable']    = true; //boolean, the default is true
+        $config['cacheable']    = false; //boolean, the default is true
         $config['cachedir']             = './assets/'; //string, the default is application/cache/
         $config['errorlog']             = './assets/'; //string, the default is application/logs/
         $config['imagedir']             = './assets/img/qr/'; //direktori penyimpanan qr code
@@ -206,6 +206,7 @@ class Invoice extends CI_Controller
         $params['size'] = 10;
         $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
         $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+        $data['baseurl'] = $params['data'];
 
         // $this->load->view('Invoice/Print', $data);
 
