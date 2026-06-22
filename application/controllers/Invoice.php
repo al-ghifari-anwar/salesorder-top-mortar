@@ -209,6 +209,7 @@ class Invoice extends CI_Controller
         // echo '<pre>';
         // var_dump($params);
         // die();
+        copy($params['savename'], FCPATH . 'assets/img/qr/' . $invoice['id_invoice'] . '.png');
         $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
         $data['baseurl'] = $params['data'];
 
