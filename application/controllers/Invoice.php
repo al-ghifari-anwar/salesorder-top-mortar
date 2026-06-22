@@ -202,7 +202,7 @@ class Invoice extends CI_Controller
         }
 
         // $params['data'] = base_url('invoice-confirm/') . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
-        $params['data'] = 'https://order.topmortarindonesia.com/invoice-confirm/' . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
+        $params['data'] = '123131231' . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
         $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
