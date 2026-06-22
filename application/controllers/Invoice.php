@@ -206,9 +206,9 @@ class Invoice extends CI_Controller
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
         $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
-        echo '<pre>';
-        var_dump($params);
-        die();
+        // echo '<pre>';
+        // var_dump($params);
+        // die();
         $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
         $data['baseurl'] = $params['data'];
 
