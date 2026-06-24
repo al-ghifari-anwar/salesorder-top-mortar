@@ -16,7 +16,7 @@ class Hobi extends CI_Controller
         $data['menuGroup'] = 'Data';
         $data['menu'] = 'Hobi';
 
-        $data['hobi'] = $this->db->get_where('tb_hobi', ['id_parent_hobi' => 0])->result_array();
+        $data['hobis'] = $this->db->order_by('path_hobi', 'ASC')->get_where('tb_hobi')->result_array();
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
@@ -37,6 +37,14 @@ class Hobi extends CI_Controller
         $save = $this->db->insert('tb_hobi', $hobiData);
 
         if ($save) {
+            $id_hobi = $this->db->insert_id();
+
+            $hobiData = [
+                'path_hobi' => $post['path_hobi'] . '/' . $id_hobi,
+            ];
+
+            $save = $this->db->update('tb_hobi', $hobiData, ['id_hobi' => $id_hobi]);
+
             $this->session->set_flashdata('success', 'Berhasil menyimpan data');
             return redirect('hobi');
         } else {
