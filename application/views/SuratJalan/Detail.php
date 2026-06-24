@@ -51,7 +51,7 @@
                                     <h5><b>Customer Detail:</b></h5>
                                     <h6>Toko: <?= $toko['nama'] ?></h6>
                                     <h6>Nomor HP: <?= $toko['nomorhp'] ?></h6>
-                                    <?php if ($suratjalan['id_apporder']): ?>
+                                    <?php if ($suratjalan['id_apporder'] > 0): ?>
                                         <h2>
                                             <div class="badge badge-danger">Top Seller</div>
                                         </h2>
