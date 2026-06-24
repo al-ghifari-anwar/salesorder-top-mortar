@@ -109,6 +109,15 @@
                                                     Sub
                                                 </button>
 
+                                                <button
+                                                    class="btn btn-xs btn-danger"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-delete<?= $hobi['id_hobi'] ?>">
+
+                                                    <i class="fas fa-trash"></i>
+                                                    Hapus
+                                                </button>
+
                                             </div>
 
                                         </div>
@@ -116,6 +125,29 @@
                                     </div>
 
                                 </div>
+                                <div class="modal fade" id="modal-delete<?= $hobi['id_hobi'] ?>">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <!-- <h4 class="modal-title">Tambah Data Kota</h4> -->
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="<?= base_url('hobi/delete') ?>" method="POST" enctype="multipart/form-data">
+                                                    <input type="hidden" name="id_hobi" value="<?= $hobi['id_hobi'] ?>">
+                                                    <input type="hidden" name="path_hobi" value="<?= $hobi['path_hobi'] ?>">
+                                                    Apakah akan hapus data?
+                                                    <button class="btn btn-danger float-right">Ya, Hapus</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
                                 <div class="modal fade" id="modal-insert<?= $hobi['id_hobi'] ?>">
                                     <div class="modal-dialog">
                                         <div class="modal-content">

@@ -72,4 +72,28 @@ class Hobi extends CI_Controller
             return redirect('hobi');
         }
     }
+
+    public function delete()
+    {
+        $post = $this->input->post();
+
+        $id_hobi = $post['id_hobi'];
+
+        $checkChild = $this->db->get_where('tb_hobi', ['id_parent_hobi' => $id_hobi])->result_array();
+
+        if ($checkChild) {
+            $this->session->set_flashdata('failed', 'Gagal menghapus hobi, karna memiliki sub. Hapus semua sub terlebih dahulu');
+            return redirect('hobi');
+        } else {
+            $save = $this->db->delete('tb_hobi', ['id_hobi' => $id_hobi]);
+
+            if ($save) {
+                $this->session->set_flashdata('success', 'Berhasil menghapus data');
+                return redirect('hobi');
+            } else {
+                $this->session->set_flashdata('failed', 'Gagal menghapus data');
+                return redirect('hobi');
+            }
+        }
+    }
 }
