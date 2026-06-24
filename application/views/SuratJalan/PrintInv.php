@@ -197,7 +197,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     $jmlNotFree = $getNotFree['jmlItem'];
                     $potonganCod = 0;
 
-                    if ($id_surat_jalan['is_tebus_murah'] == 0) {
+                    if ($suratjalan['is_tebus_murah'] == 0) {
                         $potonganCod = 2000 * $jmlNotFree;
                     }
                     ?>
