@@ -195,7 +195,11 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     $id_surat_jalan = $suratjalan['id_surat_jalan'];
                     $getNotFree = $this->db->query("SELECT SUM(qty_produk) AS jmlItem FROM tb_detail_surat_jalan WHERE id_surat_jalan = '$id_surat_jalan' AND is_bonus = 0 GROUP BY id_surat_jalan")->row_array();
                     $jmlNotFree = $getNotFree['jmlItem'];
-                    $potonganCod = 2000 * $jmlNotFree;
+                    $potonganCod = 0;
+
+                    if ($id_surat_jalan['is_tebus_murah'] == 0) {
+                        $potonganCod = 2000 * $jmlNotFree;
+                    }
                     ?>
                     <tr>
                         <td colspan="5" class="text-right border-t">Subtotal</td>
