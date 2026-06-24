@@ -276,6 +276,12 @@
                                                 <p>Tukang</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url('hobi') ?>" class="nav-link <?= $menu == 'Hobi' ? 'active' : '' ?>">
+                                                <i class="fas fa-basketball-ball nav-icon"></i>
+                                                <p>Hobi</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             <?php endif; ?>

@@ -272,6 +272,10 @@
                                 <label for="">Pembayaran COD</label>
                                 <input type="checkbox" name="is_cod" id="is_cod" class="form-check-control">
                             </div>
+                            <div class="form-group">
+                                <label for="">Tebus Murah</label>
+                                <input type="checkbox" name="is_tebus_murah" id="is_tebus_murah" class="form-check-control">
+                            </div>
                             <div class="form-group" id="alert-bad" hidden>
                                 <div class="alert alert-danger fade show" role="alert">
                                     <strong>Status Toko Tidak Bagus</strong>

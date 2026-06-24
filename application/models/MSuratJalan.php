@@ -14,6 +14,7 @@ class MSuratJalan extends CI_Model
     public $id_courier;
     public $id_kendaraan;
     public $is_cod;
+    public $is_tebus_murah;
 
     public function getAll()
     {
@@ -89,6 +90,12 @@ class MSuratJalan extends CI_Model
             $this->is_cod = 1;
         } else {
             $this->is_cod = 0;
+        }
+
+        if ($post['is_tebus_murah'] == true) {
+            $this->is_tebus_murah = 1;
+        } else {
+            $this->is_tebus_murah = 0;
         }
 
         $getSj = $this->db->get_where('tb_surat_jalan', ['no_surat_jalan' => $this->no_surat_jalan])->row_array();
