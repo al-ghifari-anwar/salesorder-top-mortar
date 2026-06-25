@@ -90,6 +90,7 @@
             <th style="border-bottom: 1px solid black;">Kategori</th>
             <th style="border-bottom: 1px solid black;">Last Visit</th>
             <th style="border-bottom: 1px solid black;">Hari</th>
+            <th style="border-bottom: 1px solid black;">Total</th>
             <th style="border-bottom: 1px solid black;">Tervisit</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
@@ -122,6 +123,7 @@
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
+                <td class="text-center"><?= number_format($jadwalVisit['total_invoice'], 0, '.', ',') ?></td>
                 <td class="text-center <?= $status_color ?>"><?= $is_visited == 1 ? 'Yes' : 'No' ?></td>
             </tr>
         <?php endforeach; ?>
