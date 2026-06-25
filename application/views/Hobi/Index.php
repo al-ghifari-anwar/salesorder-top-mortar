@@ -185,7 +185,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form action="<?= base_url('hobi/update/') . $hobi['id_hobi'] ?>" method="POST" enctype="multipart/form-data">
-                                                    <input type="hidden" name="id_parent_hobi" value="<?= $hobi['id_hobi'] ?>">
+                                                    <input type="hidden" name="id_parent_hobi" value="<?= $hobi['id_parent_hobi'] ?>">
                                                     <input type="hidden" name="path_hobi" value="<?= $hobi['path_hobi'] ?>">
                                                     <div class="form-group">
                                                         <label for="">Hobi</label>
