@@ -944,7 +944,7 @@ class Haloai extends CI_Controller
             if ($sj['is_cod'] == 0) {
                 $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
             } else {
-                $jatuhTempo = date('Y-m-d', strtotime($invoice['date_invoice']));
+                $jatuhTempo = date('Y-m-d', strtotime("+3 days", strtotime($invoice['date_invoice'])));
             }
 
             if ($payments) {
@@ -954,8 +954,12 @@ class Haloai extends CI_Controller
                     if ($datePayment > $jatuhTempo) {
                         $count_late_payment += 1;
                         $date1 = new DateTime($datePayment);
+                        if ($invoice['status_invoice'] == 'waiting') {
+                            $date1 = new DateTime(date('Y-m-d'));
+                        }
                         $date2 = new DateTime($jatuhTempo);
                         $days  = $date2->diff($date1)->format('%a');
+
 
                         $scoreData = [
                             'id_invoice' => $invoice['id_invoice'],
@@ -987,49 +991,46 @@ class Haloai extends CI_Controller
                             array_push($array_scoring, $scoreData);
                         } else {
                             $dateNow = date("Y-m-d");
-                            $count_late_payment += 1;
-                            $date1 = new DateTime($dateNow);
-                            $date2 = new DateTime($jatuhTempo);
-                            $days  = $date2->diff($date1)->format('%a');
+                            if ($dateNow > $jatuhTempo) {
+                                $count_late_payment += 1;
+                                $date1 = new DateTime($dateNow);
+                                $date2 = new DateTime($jatuhTempo);
+                                $days  = $date2->diff($date1)->format('%a');
 
-                            $scoreData = [
-                                'id_invoice' => $invoice['id_invoice'],
-                                'no_invoice' => $invoice['no_invoice'],
-                                'status' => 'late',
-                                'days_late' => $days,
-                                'date_jatem' => $jatuhTempo,
-                                'date_payment' => $datePayment,
-                                'percent_score' => 100 - $days,
-                                'is_cod' => $sj['is_cod'],
-                                'date_invoice' => $invoice['date_invoice'],
-                            ];
+                                $scoreData = [
+                                    'id_invoice' => $invoice['id_invoice'],
+                                    'no_invoice' => $invoice['no_invoice'],
+                                    'status' => 'late',
+                                    'days_late' => $days,
+                                    'date_jatem' => $jatuhTempo,
+                                    'date_payment' => $datePayment,
+                                    'percent_score' => 100 - $days,
+                                    'is_cod' => $sj['is_cod'],
+                                    'date_invoice' => $invoice['date_invoice'],
+                                ];
 
-                            array_push($array_scoring, $scoreData);
+                                array_push($array_scoring, $scoreData);
+                            } else {
+                                $scoreData = [
+                                    'id_invoice' => $invoice['id_invoice'],
+                                    'no_invoice' => $invoice['no_invoice'],
+                                    'status' => 'good',
+                                    'days_late' => 0,
+                                    'date_jatem' => $jatuhTempo,
+                                    'date_payment' => $datePayment,
+                                    'percent_score' => 100,
+                                    'is_cod' => $sj['is_cod'],
+                                    'date_invoice' => $invoice['date_invoice'],
+                                ];
+
+                                array_push($array_scoring, $scoreData);
+                            }
                         }
                     }
                 }
             } else {
-                $dateNow = date("Y-m-d");
-                if ($dateNow > $jatuhTempo) {
-                    $count_late_payment += 1;
-                    $date1 = new DateTime($dateNow);
-                    $date2 = new DateTime($jatuhTempo);
-                    $days  = $date2->diff($date1)->format('%a');
-
-                    $scoreData = [
-                        'id_invoice' => $invoice['id_invoice'],
-                        'no_invoice' => $invoice['no_invoice'],
-                        'status' => 'late',
-                        'days_late' => $days,
-                        'date_jatem' => $jatuhTempo,
-                        'date_payment' => $dateNow,
-                        'percent_score' => 100 - $days,
-                        'is_cod' => $sj['is_cod'],
-                        'date_invoice' => $invoice['date_invoice'],
-                    ];
-
-                    array_push($array_scoring, $scoreData);
-                } else {
+                if ($invoice['status_invoice'] == 'paid') {
+                    $dateNow = date("Y-m-d");
                     $scoreData = [
                         'id_invoice' => $invoice['id_invoice'],
                         'no_invoice' => $invoice['no_invoice'],
@@ -1043,6 +1044,42 @@ class Haloai extends CI_Controller
                     ];
 
                     array_push($array_scoring, $scoreData);
+                } else {
+                    $dateNow = date("Y-m-d");
+                    if ($dateNow > $jatuhTempo) {
+                        $count_late_payment += 1;
+                        $date1 = new DateTime($dateNow);
+                        $date2 = new DateTime($jatuhTempo);
+                        $days  = $date2->diff($date1)->format('%a');
+
+                        $scoreData = [
+                            'id_invoice' => $invoice['id_invoice'],
+                            'no_invoice' => $invoice['no_invoice'],
+                            'status' => 'late',
+                            'days_late' => $days,
+                            'date_jatem' => $jatuhTempo,
+                            'date_payment' => $dateNow,
+                            'percent_score' => 100 - $days,
+                            'is_cod' => $sj['is_cod'],
+                            'date_invoice' => $invoice['date_invoice'],
+                        ];
+
+                        array_push($array_scoring, $scoreData);
+                    } else {
+                        $scoreData = [
+                            'id_invoice' => $invoice['id_invoice'],
+                            'no_invoice' => $invoice['no_invoice'],
+                            'status' => 'good',
+                            'days_late' => 0,
+                            'date_jatem' => $jatuhTempo,
+                            'date_payment' => $dateNow,
+                            'percent_score' => 100,
+                            'is_cod' => $sj['is_cod'],
+                            'date_invoice' => $invoice['date_invoice'],
+                        ];
+
+                        array_push($array_scoring, $scoreData);
+                    }
                 }
             }
         }
@@ -1064,6 +1101,10 @@ class Haloai extends CI_Controller
             $val_scoring = $val_scoring;
         } else if ($val_scoring < 0) {
             $val_scoring = 0;
+        }
+
+        if ($selected_contact['store_status'] == 'data') {
+            $val_scoring = 100;
         }
 
         return number_format($val_scoring, 2, '.', ',');
