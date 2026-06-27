@@ -3,6 +3,14 @@
 
 class GetStoreJson extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('MInvoice');
+        $this->load->model('MVoucher');
+        $this->load->model('MPayment');
+    }
+
     public function index()
     {
         $nomorhp = $_GET['nomorhp'];
