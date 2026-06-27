@@ -58,7 +58,7 @@ class GetStoreJson extends CI_Controller
 
         $contact['promo_lain'] = $otherPromo;
 
-        $invoices = $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan')->order_by('tb_inoice.date_invoice', 'DESC')->get_where('tb_invoice', ['id_contact' => $id_contact])->result_array();
+        $invoices = $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan')->order_by('tb_invoice.date_invoice', 'DESC')->get_where('tb_invoice', ['id_contact' => $id_contact])->result_array();
 
         $contact['invoice'] = $invoices;
 
