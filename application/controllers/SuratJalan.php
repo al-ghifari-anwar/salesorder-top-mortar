@@ -93,7 +93,7 @@ class SuratJalan extends CI_Controller
     {
         $suratJalan = $this->MSuratJalan->getById($id_surat_jalan);
 
-        $save = $this->db->update('tb_surat_jalan', ['is_print_inv' => 1], ['id_surat_jalan' => $id_surat_jalan]);
+        $save = $this->db->update('tb_surat_jalan', ['is_print_inv' => 2], ['id_surat_jalan' => $id_surat_jalan]);
 
         if ($save) {
             $this->session->set_flashdata('success', "Berhasil izinkan cetak invoice thermal");
