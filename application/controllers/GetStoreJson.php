@@ -15,9 +15,9 @@ class GetStoreJson extends CI_Controller
     {
         $nomorhp = $_GET['nomorhp'];
 
-        $contact = $this->db->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
+        $contact = $this->db->get_where('tb_contact', ['nomorhp' => $nomorhp])->row_array();
 
-        $contact['termin_payment'] = $contact['termin_payment'] > 0 ? "Tempo " . $contact['termin_payment'] . " hari" : "COD";
+        $contact['termin'] = $contact['termin_payment'] > 0 ? "Tempo " . $contact['termin_payment'] . " hari" : "COD";
 
         $id_contact = $contact['id_contact'];
 
@@ -92,7 +92,6 @@ class GetStoreJson extends CI_Controller
             }
 
             if ($payments) {
-
                 foreach ($payments as $payment) {
                     $datePayment = date("Y-m-d", strtotime($payment['date_payment']));
                     if ($datePayment > $jatuhTempo) {
@@ -252,5 +251,6 @@ class GetStoreJson extends CI_Controller
         }
 
         return number_format($val_scoring, 2, '.', ',');
+        // return $array_scoring;
     }
 }
