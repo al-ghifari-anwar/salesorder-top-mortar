@@ -459,3 +459,5 @@ $route['transittoko/approve/(:num)'] = 'Transittoko/approve/$1';
 $route['transittoko/kembalikan/(:num)'] = 'Transittoko/kembalikan/$1';
 // Visit Control
 $route['visitcontrol'] = 'Visitcontrol/index';
+// Get Store JSON
+$route['store/json'] = 'GetStoreJson/index';
