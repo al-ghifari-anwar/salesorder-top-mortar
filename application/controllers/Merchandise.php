@@ -42,6 +42,7 @@ class Merchandise extends CI_Controller
                 'price_merchandise' => $post['price_merchandise'],
                 'desc_merchandise' => $post['desc_merchandise'],
                 'img_merchandise' => $imageName,
+                'id_user' => $this->session->userdata('id_user'),
             ];
 
             $save = $this->MMerchandise->create($merchandiseData);
