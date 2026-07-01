@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition <?= $this->session->userdata('id_user') != null ? 'sidebar-mini' : 'layout-top-nav' ?>">
     <div id="loading-screen">
         <div class="loader"></div>
         <br>
