@@ -68,7 +68,7 @@
 
                                         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_invoice.id_surat_jalan');
                                         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
-                                        $getInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'tb_contact.id_city' => $id_city])->result_array();
+                                        $getInvoice = $this->db->get_where('tb_invoice', ['status_invoice' => 'waiting', 'tb_contact.id_city' => $id_city, 'is_hide' => 0])->result_array();
 
                                         $totalPiutang = 0;
                                         foreach ($getInvoice as $invoiceTotal) {
