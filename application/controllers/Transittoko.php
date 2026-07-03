@@ -92,7 +92,7 @@ class Transittoko extends CI_Controller
         if ($save) {
             $this->db->delete('tb_transit_toko', ['id_transit_toko' => $id_transit_toko]);
 
-            $this->session->set_flashdata('success', "Berhasil masukkan toko ke kota X");
+            $this->session->set_flashdata('success', "Berhasil kembalikan toko ke Kota Asal");
             redirect('transittoko/' . $id_city);
         } else {
             $this->session->set_flashdata('failed', "Gagal, harap coba lagi");
