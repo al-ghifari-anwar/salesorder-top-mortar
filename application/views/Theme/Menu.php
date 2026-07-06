@@ -770,6 +770,15 @@
                                                         </p>
                                                     </a>
                                                 </li>
+                                                <li class="nav-item">
+                                                    <a href="<?= base_url('sjretur') ?>" class="nav-link  <?= $menu == 'SJRetur' ? 'active' : '' ?>">
+                                                        <i class="nav-icon fas fa-truck-loading"></i>
+                                                        <p>
+                                                            SJ Retur
+                                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                                        </p>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </li>
                                     <?php endif; ?>

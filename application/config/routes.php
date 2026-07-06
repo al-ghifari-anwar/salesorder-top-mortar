@@ -461,3 +461,12 @@ $route['transittoko/kembalikan/(:num)'] = 'Transittoko/kembalikan/$1';
 $route['visitcontrol'] = 'Visitcontrol/index';
 // Get Store JSON
 $route['store/json'] = 'GetStoreJson/index';
+// SJ Retur
+$route['sjretur'] = 'Sjretur/city_list';
+$route['sjretur/(:num)'] = 'Sjretur/index/$1';
+$route['sjretur/create'] = 'Sjretur/create';
+$route['sjretur/detail/(:num)'] = 'Sjretur/detail/$1';
+$route['sjretur/detail/create'] = 'Sjretur/createDetail';
+$route['sjretur/detail/delete/(:num)'] = 'Sjretur/deleteDetail/$1';
+$route['sjretur/finish/(:num)'] = 'Sjretur/finish/$1';
+$route['sjretur/storesj/(:num)'] = 'Sjretur/getStoreSj/$1';

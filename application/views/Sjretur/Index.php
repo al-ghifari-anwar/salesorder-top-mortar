@@ -1,0 +1,323 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <?php if ($this->session->flashdata('success')) : ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Alert!</strong> <?= $this->session->flashdata('success') ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php endif; ?>
+            <?php if ($this->session->flashdata('failed')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Alert!</strong> <?= $this->session->flashdata('failed') ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php endif; ?>
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"><?= $title ?></h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#"><?= $title ?></a> - <?= date('Y-m-d') ?></li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-5">
+                                    <form action="<?= base_url("sjretur/") . $city['id_city'] ?>" method="get">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="form-group ml-3">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="far fa-calendar-alt"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" class="form-control float-right" id="reservation" name="daterange" value="<?= date('m/d/Y', strtotime($dateFrom)) . ' - ' . date('m/d/Y', strtotime($dateTo)) ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                <button type="submit" class="btn btn-primary float-left">
+                                                    Filter
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-5">
+
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
+                                        Tambah Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="table" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No Surat Jalan</th>
+                                        <th>No SJ Retur</th>
+                                        <th>Toko</th>
+                                        <th>Nomor HP</th>
+                                        <th>Tgl. Retur</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($sjretur as $data) : ?>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= $data['no_surat_jalan'] ?></td>
+                                            <td><?= $data['id_apporder'] != 0 ? 'Aplikasi' : 'Reguler' ?></td>
+                                            <td><?= $data['nama'] ?></td>
+                                            <td><?= $data['nomorhp'] ?></td>
+                                            <td><?= $data['nama_city'] ?></td>
+                                            <td><?= $data['full_name'] ?></td>
+                                            <td><?= date("d M Y", strtotime($data['dalivery_date'])) ?></td>
+                                            <td>
+                                                <?php if ($data['is_closing'] == 0) : ?>
+                                                    <i class="fas fa-times-circle"></i>
+                                                <?php endif; ?>
+                                                <?php if ($data['is_closing'] == 1) : ?>
+                                                    <a href="https://saleswa.topmortarindonesia.com/img/<?= $data['proof_closing'] ?>" target="__blank"><?= date("d M Y", strtotime($data['date_closing'])) ?> <i class="fas fa-external-link-alt"></i></a>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <a href="<?= base_url('surat-jalan/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
+                                                <?php if ($data['is_closing'] == 0) : ?>
+                                                    <a href="<?= base_url('print-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-success" title="Cetak" target="__blank"><i class="fas fa-print"></i></a>
+                                                    <?php if ($data['is_print_inv'] == 0): ?>
+                                                        <a href="<?= base_url('printinv-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn bg-purple" title="Cetak Invoice"><i class="fas fa-file-invoice-dollar"></i></a>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader'): ?>
+                                                        <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                    <?php endif; ?>
+                                                    <?php if ($data['is_cod'] == 1) : ?>
+                                                        <a href="<?= base_url('print-tempinv/') . $data['id_surat_jalan'] ?>" class="btn btn-warning" title="Print Invoice COD" target="__blank"><i class="fas fa-print"></i></a>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                                <?php if (base_url() == 'https://dev-order.topmortarindonesia.com/') : ?>
+                                                    <a href="<?= base_url('surat-jalan/closing/') . $data['id_surat_jalan'] ?>" class="btn btn-info m-1" title="Closing"> Closing</a>
+                                                <?php endif; ?>
+                                                <?php if ($data['is_closing'] == 0): ?>
+                                                    <?php if (base_url() == 'https://order.topmortarindonesia.com/') : ?>
+                                                        <?php if ($this->session->userdata('level_user') == 'finance'): ?>
+                                                            <a href="#" data-toggle="modal" data-target="#closing-modal<?= $data['id_surat_jalan'] ?>" class="btn btn-danger m-1" title="Bypass Closing"> Bypass Closing</a>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="closing-modal<?= $data['id_surat_jalan'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Bypass Closing</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?= base_url('closing-suratjalan') ?>" method="POST" enctype="multipart/form-data">
+                                                            <input type="hidden" name="id_surat_jalan" value="<?= $data['id_surat_jalan'] ?>">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <label for="">Foto</label>
+                                                                        <input type="file" name="pic" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <button class="btn btn-primary float-right">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+        <h5>Title</h5>
+        <p>Sidebar content</p>
+    </div>
+</aside>
+<!-- /.control-sidebar -->
+
+<div class="modal fade" id="modal-insert">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data Surat Jalan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('sjretur/create') ?>" method="POST">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="hidden" name="id_city" value="<?= $city['id_city'] ?>">
+                            <div class="form-group">
+                                <label for="">Toko</label>
+                                <select class="form-control select2bs4" name="id_contact" style="width: 100%;" id="id_contact">
+                                    <option value="0">--- PLEASE SELECT STORE ---</option>
+                                    <?php foreach ($toko as $data) : ?>
+                                        <?php
+                                        $id_contact = $data['id_contact'];
+                                        $lastInv = $this->db->query("SELECT MAX(id_invoice) AS id_invoice, MAX(date_invoice) AS date_invoice FROM tb_invoice JOIN tb_surat_jalan ON tb_invoice.id_surat_jalan = tb_surat_jalan.id_surat_jalan WHERE tb_surat_jalan.id_contact = '$id_contact' AND status_invoice = 'waiting'")->row_array();
+
+                                        if ($lastInv['date_invoice'] != null) {
+                                            $jatuhTempo = date('d M Y', strtotime("+" . $data['termin_payment'] . " days", strtotime($lastInv['date_invoice'])));
+                                            $date1 = new DateTime(date("Y-m-d"));
+                                            $date2 = new DateTime($jatuhTempo);
+                                            $days  = $date2->diff($date1)->format('%a');
+                                            $operan = "";
+                                            if ($date1 < $date2) {
+                                                $operan = "-";
+                                            }
+                                            $daysWithOperan = $operan . $days;
+                                        } else {
+                                            $daysWithOperan = 0;
+                                        }
+                                        ?>
+                                        <option value="<?= $data['id_contact'] ?>" shiptoname="<?= $data['nama'] ?>" shipaddress="<?= $data['address'] ?>" shipphone="<?= $data['nomorhp'] ?>" reputation="<?= $data['reputation'] ?>" jatemdays="<?= $daysWithOperan ?>" iscod="<?= $data['termin_payment'] ?>"><?= $data['nama'] . " - " . $data['nomorhp'] . " - " . $data['store_owner'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Surat Jalan</label>
+                                <select class="form-control select2bs4" name="id_surat_jalan" id="suratjalan" style="width: 100%;">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Gudang Retur</label>
+                                <select class="form-control select2bs4" name="id_gudang_retur" style="width: 100%;">
+                                    <?php foreach ($gudangs as $gudang): ?>
+                                        <option value="<?= $gudang['id_gudang_stok'] ?>"><?= $gudang['name_gudang_stok'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group" id="alert-bad" hidden>
+                                <div class="alert alert-danger fade show" role="alert">
+                                    <strong>Status Toko Tidak Bagus</strong>
+                                </div>
+                            </div>
+                            <div class="form-group" id="alert-good" hidden>
+                                <div class="alert alert-success fade show" role="alert">
+                                    <strong>Status Toko Bagus</strong>
+                                </div>
+                            </div>
+                            <div class="form-group" id="alert-jatem" hidden>
+                                <div class="alert alert-warning fade show" role="alert">
+                                    <strong>Toko masih memiliki tanggungan jatuh tempo</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary float-right">Simpan</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script>
+    // function getToko(selectObject) {
+    //     var value = selectObject.shiptoname;
+    //     console.log(value);
+    // }
+    document.getElementById("id_contact").onchange = function() {
+        //Print data toko di field
+        console.log(this.options[this.selectedIndex].getAttribute("shiptoname"));
+        console.log(this.options[this.selectedIndex].getAttribute("shipaddress"));
+
+        // Notif reputasi toko
+        var rep = this.options[this.selectedIndex].getAttribute("reputation");
+        if (rep == 'good') {
+            document.getElementById('alert-good').hidden = false;
+            document.getElementById('alert-bad').hidden = true;
+        } else {
+            document.getElementById('alert-good').hidden = true;
+            document.getElementById('alert-bad').hidden = false;
+        }
+
+        var daysJatem = this.options[this.selectedIndex].getAttribute("jatemdays");
+        if (daysJatem > 7) {
+            document.getElementById('alert-jatem').hidden = false;
+        } else {
+            document.getElementById('alert-jatem').hidden = true;
+        }
+
+        // Get SJ
+        var id_contact = $(this).val();
+        var suratjalan = $('#suratjalan');
+
+        suratjalan.empty().append('<option value="">Memuat...</option>');
+
+        if (id_contact) {
+            $.ajax({
+                url: '<?= base_url() ?>' + '/sjretur/storesj/' + id_contact,
+                type: 'GET',
+                dataType: 'json',
+                success: function(res) {
+                    suratjalan.empty().append('<option value="0">Pilih Surat Jalan</option>');
+                    $.each(res, function(i, d) {
+                        suratjalan.append('<option value="' + d.id_surat_jalan + '">' + d.no_surat_jalan + '</option>');
+                    });
+                    suratjalan.trigger('change'); // refresh select2
+                }
+            });
+        } else {
+            $project.empty().append('<option value="">Pilih Surat Jalan</option>');
+        }
+    };
+</script>
