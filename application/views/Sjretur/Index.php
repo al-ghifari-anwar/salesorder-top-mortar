@@ -91,78 +91,23 @@
                                     <?php
                                     $no = 1;
                                     foreach ($sjretur as $data) : ?>
+                                        <?php
+                                        $suratjalan = $this->db->where('id_surat_jalan', $data['id_surat_jalan'])->get('tb_surat_jalan')->row_array();
+                                        ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $data['no_surat_jalan'] ?></td>
-                                            <td><?= $data['id_apporder'] != 0 ? 'Aplikasi' : 'Reguler' ?></td>
+                                            <td><?= $suratjalan['no_surat_jalan'] ?></td>
+                                            <td><?= $data['no_sjretur'] . str_pad($data['id_sjretur'], 5, "0", STR_PAD_LEFT) ?></td>
                                             <td><?= $data['nama'] ?></td>
                                             <td><?= $data['nomorhp'] ?></td>
-                                            <td><?= $data['nama_city'] ?></td>
-                                            <td><?= $data['full_name'] ?></td>
-                                            <td><?= date("d M Y", strtotime($data['dalivery_date'])) ?></td>
+                                            <td><?= date("d M Y", strtotime($data['date_sjretur'])) ?></td>
                                             <td>
-                                                <?php if ($data['is_closing'] == 0) : ?>
-                                                    <i class="fas fa-times-circle"></i>
-                                                <?php endif; ?>
-                                                <?php if ($data['is_closing'] == 1) : ?>
-                                                    <a href="https://saleswa.topmortarindonesia.com/img/<?= $data['proof_closing'] ?>" target="__blank"><?= date("d M Y", strtotime($data['date_closing'])) ?> <i class="fas fa-external-link-alt"></i></a>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td>
-                                                <a href="<?= base_url('surat-jalan/') . $data['id_surat_jalan'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
-                                                <?php if ($data['is_closing'] == 0) : ?>
-                                                    <a href="<?= base_url('print-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-success" title="Cetak" target="__blank"><i class="fas fa-print"></i></a>
-                                                    <?php if ($data['is_print_inv'] == 0): ?>
-                                                        <a href="<?= base_url('printinv-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn bg-purple" title="Cetak Invoice"><i class="fas fa-file-invoice-dollar"></i></a>
-                                                    <?php endif; ?>
-                                                    <?php if ($this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesleader'): ?>
-                                                        <a href="<?= base_url('delete-suratjalan/') . $data['id_surat_jalan'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
-                                                    <?php endif; ?>
-                                                    <?php if ($data['is_cod'] == 1) : ?>
-                                                        <a href="<?= base_url('print-tempinv/') . $data['id_surat_jalan'] ?>" class="btn btn-warning" title="Print Invoice COD" target="__blank"><i class="fas fa-print"></i></a>
-                                                    <?php endif; ?>
-                                                <?php endif; ?>
-                                                <?php if (base_url() == 'https://dev-order.topmortarindonesia.com/') : ?>
-                                                    <a href="<?= base_url('surat-jalan/closing/') . $data['id_surat_jalan'] ?>" class="btn btn-info m-1" title="Closing"> Closing</a>
-                                                <?php endif; ?>
-                                                <?php if ($data['is_closing'] == 0): ?>
-                                                    <?php if (base_url() == 'https://order.topmortarindonesia.com/') : ?>
-                                                        <?php if ($this->session->userdata('level_user') == 'finance'): ?>
-                                                            <a href="#" data-toggle="modal" data-target="#closing-modal<?= $data['id_surat_jalan'] ?>" class="btn btn-danger m-1" title="Bypass Closing"> Bypass Closing</a>
-                                                        <?php endif; ?>
-                                                    <?php endif; ?>
+                                                <a href="<?= base_url('sjretur/detail/') . $data['id_sjretur'] ?>" class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
+                                                <?php if ($data['is_finished'] == 0): ?>
+                                                    <a href="<?= base_url('sjretur/delete/') . $data['id_sjretur'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="closing-modal<?= $data['id_surat_jalan'] ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Bypass Closing</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="<?= base_url('closing-suratjalan') ?>" method="POST" enctype="multipart/form-data">
-                                                            <input type="hidden" name="id_surat_jalan" value="<?= $data['id_surat_jalan'] ?>">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label for="">Foto</label>
-                                                                        <input type="file" name="pic" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <button class="btn btn-primary float-right">Simpan</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

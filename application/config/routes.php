@@ -465,6 +465,7 @@ $route['store/json'] = 'GetStoreJson/index';
 $route['sjretur'] = 'Sjretur/city_list';
 $route['sjretur/(:num)'] = 'Sjretur/index/$1';
 $route['sjretur/create'] = 'Sjretur/create';
+$route['sjretur/delete/(:num)'] = 'Sjretur/delete/$1';
 $route['sjretur/detail/(:num)'] = 'Sjretur/detail/$1';
 $route['sjretur/detail/create'] = 'Sjretur/createDetail';
 $route['sjretur/detail/delete/(:num)'] = 'Sjretur/deleteDetail/$1';

@@ -92,6 +92,21 @@ class Sjretur extends CI_Controller
         }
     }
 
+    public function delete($id_sjretur)
+    {
+        $sjretur = $this->db->join('tb_contact', 'tb_contact.id_contact = tb_sjretur.id_contact')->where('id_sjretur', $id_sjretur)->get('tb_sjretur')->row_array();
+
+        $save = $this->db->delete('tb_sjretur', ['id_sjretur' => $id_sjretur]);
+
+        if ($save) {
+            $this->session->set_flashdata('success', "Berhasil menghapus retur");
+            redirect('sjretur/' . $sjretur['id_city']);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menghapus retur");
+            redirect('sjretur/' . $sjretur['id_city']);
+        }
+    }
+
     public function detail($id_sjretur)
     {
         $data['title'] = 'Surat Jalan';
@@ -160,7 +175,38 @@ class Sjretur extends CI_Controller
         }
     }
 
-    public function finish($id_sjretur) {}
+    public function finish($id_sjretur)
+    {
+        $sjretur = $this->db->join('tb_contact', 'tb_contact.id_contact = tb_sjretur.id_contact')->where('id_sjretur', $id_sjretur)->get('tb_sjretur')->row_array();
+
+        $this->db->join('tb_detail_surat_jalan', 'tb_detail_surat_jalan.id_detail_surat_jalan = tb_sjretur_detail.id_detail_surat_jalan');
+        $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
+        $this->db->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan');
+        $sjreturdetails = $this->db->where('id_sjretur', $id_sjretur)->get('tb_sjretur_detail')->result_array();
+
+        foreach ($sjreturdetails as $sjreturdetail) {
+            for ($i = 0; $i < $sjreturdetail['qty_sjretur_detail']; $i++) {
+                $voucherData = [
+                    'id_contact' => $sjretur['id_contact'],
+                    'no_voucher' => 'RTR' . str_pad($sjreturdetail['id_sjretur_detail'], 4, "0", STR_PAD_LEFT),
+                    'no_fisik' => '',
+                    'point_voucher' => 1,
+                    'value_voucher' => $sjreturdetail['price'],
+                    'is_claimed' => 1,
+                    'exp_date' => date('Y-m-d H:i:s', strtotime("+1 month")),
+                    'type_voucher' => 'retur',
+                    'id_detail_surat_jalan' => $sjreturdetail['id_detail_surat_jalan'],
+                ];
+
+                $this->db->insert('tb_voucher', $voucherData);
+            }
+        }
+
+        $this->db->update('tb_sjretur', ['is_finished' => 1], ['id_sjretur' => $id_sjretur]);
+
+        $this->session->set_flashdata('success', "SJ retur berhasil dibuat");
+        redirect('sjretur/' . $sjretur['id_city']);
+    }
 
     public function getStoreSj($id_contact)
     {
