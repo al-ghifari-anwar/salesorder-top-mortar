@@ -204,7 +204,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
 
                     if ($suratjalan['is_tebus_murah'] == 0) {
                         $potonganCod = 2000 * $jmlNotFree;
-                        $potonganCod = 500 * $jmlNotFreeTg;
+                        $potonganCodTg = 500 * $jmlNotFreeTg;
                     }
 
                     ?>
@@ -214,7 +214,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     </tr>
                     <tr>
                         <td colspan="5" class="text-right">Potongan</td>
-                        <td><?= number_format($potonganCod, 0, ',', '.') ?></td>
+                        <td><?= number_format($potonganCod + $potonganCodTg, 0, ',', '.') ?></td>
                     </tr>
                     <tr>
                         <td colspan="5" class="text-right">Total</td>
@@ -324,7 +324,17 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     $id_surat_jalan = $suratjalan['id_surat_jalan'];
                     $getNotFree = $this->db->query("SELECT SUM(qty_produk) AS jmlItem FROM tb_detail_surat_jalan WHERE id_surat_jalan = '$id_surat_jalan' AND is_bonus = 0 GROUP BY id_surat_jalan")->row_array();
                     $jmlNotFree = $getNotFree['jmlItem'];
-                    $potonganCod = 2000 * $jmlNotFree;
+
+                    $getNotFreeTg = $this->db->query("SELECT SUM(qty_produk) AS jmlItem FROM tb_detail_surat_jalan JOIN tb_produk ON tb_produk.id_produk = tb_detail_surat_jalan.id_produk WHERE id_surat_jalan = '$id_surat_jalan' AND is_bonus = 0 AND nama_produk LIKE '%tile grout%' GROUP BY id_surat_jalan")->row_array();
+                    $jmlNotFreeTg = $getNotFree['jmlItem'];
+
+                    $potonganCod = 0;
+                    $potonganCodTg = 0;
+
+                    if ($suratjalan['is_tebus_murah'] == 0) {
+                        $potonganCod = 2000 * $jmlNotFree;
+                        $potonganCodTg = 500 * $jmlNotFreeTg;
+                    }
                     ?>
                     <tr>
                         <td colspan="5" class="text-right border-t">Subtotal</td>
@@ -332,7 +342,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     </tr>
                     <tr>
                         <td colspan="5" class="text-right">Potongan</td>
-                        <td><?= number_format($potonganCod, 0, ',', '.') ?></td>
+                        <td><?= number_format($potonganCod + $potonganCodTg, 0, ',', '.') ?></td>
                     </tr>
                     <tr>
                         <td colspan="5" class="text-right">Total</td>
