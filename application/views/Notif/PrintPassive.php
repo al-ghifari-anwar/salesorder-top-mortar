@@ -108,7 +108,7 @@ function penyebut($nilai)
     <table>
         <tr>
             <th style="border-bottom: 1px solid black;">Nama Toko</th>
-            <th style="border-bottom: 1px solid black;">Last Order</th>
+            <th style="border-bottom: 1px solid black;">Tgl Passive</th>
             <th style="border-bottom: 1px solid black;">Reputation</th>
         </tr>
         <tr>
@@ -149,11 +149,12 @@ function penyebut($nilai)
                     $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
                     $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
                     $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
+                    $dateBecomePassive = date('Y-m-d', strtotime("+45 days", strtotime($lastOrder['date_closing'])));
                     ?>
                     <?php if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) : ?>
                         <tr>
                             <td><?= $contact_active['nama'] ?></td>
-                            <td class="text-center"><?= date("d M, Y", strtotime($lastOrder['date_closing'])) ?></td>
+                            <td class="text-center"><?= date("d M, Y", strtotime($dateBecomePassive)) ?></td>
                             <td class="text-center"><?= $contact_active['reputation'] ?></td>
                         </tr>
                     <?php endif; ?>
