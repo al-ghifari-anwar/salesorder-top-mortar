@@ -46,6 +46,9 @@
                                         <th>Toko</th>
                                         <th>Nomor HP</th>
                                         <th>Alamat</th>
+                                        <th>Sales</th>
+                                        <th>Cutoff<br>Terakhir</th>
+                                        <th>Jml Visit</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -55,12 +58,28 @@
                                     foreach ($transits as $data) : ?>
                                         <?php
                                         $contact = $this->MContact->getById($data['id_contact']);
+
+                                        $lastVisit = $this->db->where('id_contact', $data['id_contact'])->order_by('date_visit', 'DESC')->get('tb_visit')->row_array();
+
+                                        $user = $this->db->where('id_user', $lastVisit['id_user'])->get('tb_user')->row_array();
+
+                                        $cutoffVisit = $this->db->where('id_contact', $data['id_contact'])->order_by('created_at', 'DESC')->get('tb_cutoff_visit')->row_array();
+
+
+                                        $visits = $this->db->select('COUNT(*) AS jml_visit')->where('id_contact', $data['id_contact'])->where('id_user', $user['id_user'])->get('tb_visit')->row_array();
+
+                                        if ($cutoffVisit) {
+                                            $visits = $this->db->select('COUNT(*) AS jml_visit')->where('id_contact', $data['id_contact'])->where('id_user', $user['id_user'])->where('DATE(date_visit) >', $cutoffVisit['date_cutoff_visit'])->get('tb_visit')->row_array();
+                                        }
                                         ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $contact['nama'] ?></td>
                                             <td><?= $contact['nomorhp'] ?></td>
                                             <td><?= $contact['address'] ?></td>
+                                            <td><?= $user['full_name'] ?></td>
+                                            <td><?= $cutoffVisit ? date('d F Y', strtotime($cutoffVisit['date_cutoff_visit'])) : "Blm ada cutoff" ?></td>
+                                            <td><?= $visits['jml_visit'] ?></td>
                                             <td>
                                                 <a href="<?= base_url('transittoko/approve/' . $data['id_transit_toko']) ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i>&nbsp; Masukkan Kota X</a>
                                                 <a href="<?= base_url('transittoko/kembalikan/' . $data['id_transit_toko']) ?>" class="btn btn-primary" title="Ubah"><i class="fas fa-recycle"></i>&nbsp; Kembalikan Ke Asal</a>
