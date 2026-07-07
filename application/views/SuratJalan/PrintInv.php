@@ -218,7 +218,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     </tr>
                     <tr>
                         <td colspan="5" class="text-right">Total</td>
-                        <td><?= number_format($totalAmount - $potonganCod, 0, ',', '.') ?></td>
+                        <td><?= number_format($totalAmount - ($potonganCod + $potonganCodTg), 0, ',', '.') ?></td>
                     </tr>
                 </table>
 
@@ -230,7 +230,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
             <table class="" style="width: 90%; margin-right: 20px;">
                 <tr>
                     <td>Terbilang: </td>
-                    <td class="border"><?= penyebut($totalAmount - $potonganCod) ?></td>
+                    <td class="border"><?= penyebut($totalAmount - ($potonganCod + $potonganCodTg)) ?></td>
                 </tr>
             </table>
             <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
@@ -346,7 +346,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     </tr>
                     <tr>
                         <td colspan="5" class="text-right">Total</td>
-                        <td><?= number_format($totalAmount - $potonganCod, 0, ',', '.') ?></td>
+                        <td><?= number_format($totalAmount - ($potonganCod + $potonganCodTg), 0, ',', '.') ?></td>
                     </tr>
                 </table>
 
@@ -356,7 +356,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
             <table class="" style="width: 90%; margin-right: 20px;">
                 <tr>
                     <td>Terbilang: </td>
-                    <td class="border"><?= penyebut($totalAmount - $potonganCod) ?></td>
+                    <td class="border"><?= penyebut($totalAmount - ($potonganCod + $potonganCodTg)) ?></td>
                 </tr>
             </table>
             <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
