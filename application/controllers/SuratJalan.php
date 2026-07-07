@@ -660,13 +660,13 @@ class SuratJalan extends CI_Controller
         $data['courier'] = $this->MUser->getById($suratjalan['id_courier']);
         $data['produk'] = $this->MDetailSuratJalan->getAll($suratjalan['id_surat_jalan']);
 
-        $this->load->view('SuratJalan/PrintInv', $data);
+        // $this->load->view('SuratJalan/PrintInv', $data);
 
-        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        // $mpdf->SetMargins(0, 0, 5);
-        // $html = $this->load->view('SuratJalan/PrintInv', $data, true);
-        // $mpdf->AddPage('P');
-        // $mpdf->WriteHTML($html);
-        // $mpdf->Output();
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('SuratJalan/PrintInv', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }
