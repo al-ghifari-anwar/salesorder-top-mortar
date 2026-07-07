@@ -322,7 +322,7 @@ $getCompany = $this->db->get_where('tb_company', ['id_distributor' => $this->ses
                     <?php endforeach; ?>
                     <?php
                     $id_surat_jalan = $suratjalan['id_surat_jalan'];
-                    $getNotFree = $this->db->query("SELECT SUM(qty_produk) AS jmlItem FROM tb_detail_surat_jalan WHERE id_surat_jalan = '$id_surat_jalan' AND is_bonus = 0 GROUP BY id_surat_jalan")->row_array();
+                    $getNotFree = $this->db->query("SELECT SUM(qty_produk) AS jmlItem FROM tb_detail_surat_jalan JOIN tb_produk ON tb_produk.id_produk = tb_detail_surat_jalan.id_produk WHERE id_surat_jalan = '$id_surat_jalan' AND is_bonus = 0 AND nama_produk NOT LIKE '%tile grout%' GROUP BY id_surat_jalan")->row_array();
                     $jmlNotFree = $getNotFree ? $getNotFree['jmlItem'] : 0;
 
                     $getNotFreeTg = $this->db->query("SELECT SUM(qty_produk) AS jmlItem FROM tb_detail_surat_jalan JOIN tb_produk ON tb_produk.id_produk = tb_detail_surat_jalan.id_produk WHERE id_surat_jalan = '$id_surat_jalan' AND is_bonus = 0 AND nama_produk LIKE '%tile grout%' GROUP BY id_surat_jalan")->row_array();
