@@ -146,12 +146,12 @@ function penyebut($nilai)
                 ?>
                 <?php if ($lastOrder != null) : ?>
                     <?php
-                    $dateMin6Week = date('Y-m-d', strtotime("-6 week"));
+                    $dateMin4Week = date('Y-m-d', strtotime("-4 week"));
                     $dateMin2Month = date("Y-m-d", strtotime("-2 month"));
                     $dateLastOrder = date("Y-m-d", strtotime($lastOrder['date_closing']));
                     $dateBecomePassive = date('Y-m-d', strtotime("+45 days", strtotime($lastOrder['date_closing'])));
                     ?>
-                    <?php if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) : ?>
+                    <?php if ($dateLastOrder >= $dateMin2Month && $dateLastOrder <= $dateMin4Week) : ?>
                         <tr>
                             <td><?= $contact_active['nama'] ?></td>
                             <td class="text-center"><?= date("d M, Y", strtotime($dateBecomePassive)) ?></td>
