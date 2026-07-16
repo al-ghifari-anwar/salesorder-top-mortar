@@ -286,7 +286,7 @@ function penyebut($nilai)
             <?php
             $termin_payment = $storeInv3['is_cod'] == 1 ? $storeInv3['termin_payment'] : 30;
 
-            $jatuhTempo = date('d M Y', strtotime("+" . $storeInv3['termin_payment'] . " days", strtotime($storeInv3['date_invoice'])));
+            $jatuhTempo = date('d M Y', strtotime("+" . $termin_payment . " days", strtotime($storeInv3['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
