@@ -151,6 +151,7 @@ function penyebut($nilai)
                 $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
                 $totalStore1 += $sisaHutang;
 
+                $is_cod = $storeInv['is_cod'] == 1 ? '(COD)' : '';
                 ?>
 
                 <?php if ($sisaHutang > 0) :
@@ -160,7 +161,7 @@ function penyebut($nilai)
                         <td class="text-center"><?= $storeInv['nama'] ?></td>
                         <td class="text-center"><?= $storeInv['kode_city'] ?></td>
                         <td class="text-center"><?= $storeInv['cluster'] ?></td>
-                        <td class="text-center"><?= $storeInv['no_invoice'] ?></td>
+                        <td class="text-center"><?= $storeInv['no_invoice'] . $is_cod ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv['date_invoice'])) ?></td>
                         <td class="text-center">
                             <?php if ($storeInv['termin_payment'] == 0 || $storeInv['termin_payment'] == 1 || $storeInv['termin_payment'] == 2) { ?>
@@ -223,6 +224,7 @@ function penyebut($nilai)
                 $sisaHutang = $storeInv2['total_invoice'] - $payment['amount_payment'];
                 $totalStore2 += $sisaHutang;
 
+                $is_cod = $storeInv2['is_cod'] == 1 ? '(COD)' : '';
                 ?>
 
                 <?php if ($sisaHutang > 0) :
@@ -232,7 +234,7 @@ function penyebut($nilai)
                         <td class="text-center"><?= $storeInv2['nama'] ?></td>
                         <td class="text-center"><?= $storeInv2['kode_city'] ?></td>
                         <td class="text-center"><?= $storeInv2['cluster'] ?></td>
-                        <td class="text-center"><?= $storeInv2['no_invoice'] ?></td>
+                        <td class="text-center"><?= $storeInv2['no_invoice'] . $is_cod ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv2['date_invoice'])) ?></td>
                         <td class="text-center">
                             <?php if ($storeInv2['termin_payment'] == 0 || $storeInv2['termin_payment'] == 1 || $storeInv2['termin_payment'] == 2) { ?>
@@ -296,6 +298,7 @@ function penyebut($nilai)
                 $sisaHutang = $storeInv3['total_invoice'] - $payment['amount_payment'];
                 $totalStore3 += $sisaHutang;
 
+                $is_cod = $storeInv['is_cod'] == 1 ? '(COD)' : '';
                 ?>
                 <?php if ($sisaHutang > 0) :
 
@@ -306,7 +309,7 @@ function penyebut($nilai)
                         <td class="text-center"><?= $storeInv3['nama'] ?></td>
                         <td class="text-center"><?= $storeInv3['kode_city'] ?></td>
                         <td class="text-center"><?= $storeInv3['cluster'] ?></td>
-                        <td class="text-center"><?= $storeInv3['no_invoice'] ?></td>
+                        <td class="text-center"><?= $storeInv3['no_invoice'] . $is_cod ?></td>
                         <td class="text-center"><?= date("d M Y", strtotime($storeInv3['date_invoice'])) ?></td>
                         <td class="text-center">
                             <?php if ($storeInv3['termin_payment'] == 0 || $storeInv3['termin_payment'] == 1 || $storeInv3['termin_payment'] == 2) { ?>
