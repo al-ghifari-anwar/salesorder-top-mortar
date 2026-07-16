@@ -130,7 +130,9 @@ function penyebut($nilai)
         $no07 = 0;
         foreach ($invoice as $storeInv) : ?>
             <?php
-            $jatuhTempo = date('d M Y', strtotime("+" . $storeInv['termin_payment'] . " days", strtotime($storeInv['date_invoice'])));
+            $termin_payment = $storeInv['is_cod'] == 1 ? $storeInv['termin_payment'] : 30;
+
+            $jatuhTempo = date('d M Y', strtotime("+" . $termin_payment . " days", strtotime($storeInv['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -151,7 +153,7 @@ function penyebut($nilai)
                 $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
                 $totalStore1 += $sisaHutang;
 
-                $is_cod = $storeInv['is_cod'] == 1 ? '(COD)' : '';
+                $is_cod = $storeInv['is_cod'] == 1 ? '<b>(COD)</b>' : '';
                 ?>
 
                 <?php if ($sisaHutang > 0) :
@@ -207,7 +209,9 @@ function penyebut($nilai)
         $no815 = 0;
         foreach ($invoice as $storeInv2) : ?>
             <?php
-            $jatuhTempo = date('d M Y', strtotime("+" . $storeInv2['termin_payment'] . " days", strtotime($storeInv2['date_invoice'])));
+            $termin_payment = $storeInv2['is_cod'] == 1 ? $storeInv2['termin_payment'] : 30;
+
+            $jatuhTempo = date('d M Y', strtotime("+" . $termin_payment . " days", strtotime($storeInv2['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
             $days  = $date2->diff($date1)->format('%a');
@@ -224,7 +228,7 @@ function penyebut($nilai)
                 $sisaHutang = $storeInv2['total_invoice'] - $payment['amount_payment'];
                 $totalStore2 += $sisaHutang;
 
-                $is_cod = $storeInv2['is_cod'] == 1 ? '(COD)' : '';
+                $is_cod = $storeInv2['is_cod'] == 1 ? '<b>(COD)</b>' : '';
                 ?>
 
                 <?php if ($sisaHutang > 0) :
@@ -280,6 +284,8 @@ function penyebut($nilai)
         $no16 = 0;
         foreach ($invoice as $storeInv3) : ?>
             <?php
+            $termin_payment = $storeInv3['is_cod'] == 1 ? $storeInv3['termin_payment'] : 30;
+
             $jatuhTempo = date('d M Y', strtotime("+" . $storeInv3['termin_payment'] . " days", strtotime($storeInv3['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
             $date2 = new DateTime($jatuhTempo);
@@ -298,7 +304,7 @@ function penyebut($nilai)
                 $sisaHutang = $storeInv3['total_invoice'] - $payment['amount_payment'];
                 $totalStore3 += $sisaHutang;
 
-                $is_cod = $storeInv['is_cod'] == 1 ? '(COD)' : '';
+                $is_cod = $storeInv['is_cod'] == 1 ? '<b>(COD)</b>' : '';
                 ?>
                 <?php if ($sisaHutang > 0) :
 
