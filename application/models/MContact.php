@@ -15,6 +15,7 @@ class MContact extends CI_Model
     public function getAll($id_city)
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
+        $this->db->order_by('tb_contact.created_at', 'desc');
         $query = $this->db->get_where('tb_contact', ['tb_contact.id_city' => $id_city, 'tb_contact.store_status !=' => 'blacklist', 'tb_contact.address !=' => '', 'tb_contact.maps_url !=' => '', 'tb_contact.termin_payment IS NOT NULL' => null, 'id_promo !=' => 0, 'cluster !=' => 0])->result_array();
         return $query;
     }
@@ -136,6 +137,7 @@ class MContact extends CI_Model
         if ($id_city != 0) {
             $this->db->where('tb_city.id_city', $id_city);
         }
+        $this->db->order_by('tb_contact.created_at', 'desc');
         $query = $this->db->get_where('tb_contact', ['store_status' => $status])->result_array();
         return $query;
     }
