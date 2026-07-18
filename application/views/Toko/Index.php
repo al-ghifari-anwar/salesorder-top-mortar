@@ -106,6 +106,7 @@
                                         <th>Hari Bayar</th>
                                         <th>Jam Bayar</th>
                                         <th>Cluster</th>
+                                        <th>Created At</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -151,6 +152,7 @@
                                                     <td><?= $data['hari_bayar'] ?></td>
                                                     <td><?= $data['jam_bayar'] ?></td>
                                                     <td><?= $data['cluster'] ?></td>
+                                                    <td><?= date('d F Y', strtotime($data['created_at'])) ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                             <?php if ($id_promo_filter != 0): ?>
