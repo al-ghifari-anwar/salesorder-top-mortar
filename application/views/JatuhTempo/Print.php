@@ -149,8 +149,8 @@ function penyebut($nilai)
                 <?php
                 // print_r("If 1");
                 $id_invoice = $storeInv['id_invoice'];
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $sisaHutang = $storeInv['total_invoice'] - $payment['amount_payment'];
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $sisaHutang = $storeInv['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
                 $totalStore1 += $sisaHutang;
 
                 $is_cod = $storeInv['is_cod'] == 1 ? '<b>(COD)</b>' : '';
@@ -300,8 +300,8 @@ function penyebut($nilai)
                 <?php
                 // echo "AWDAWDA";
                 $id_invoice = $storeInv3['id_invoice'];
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $sisaHutang = $storeInv3['total_invoice'] - $payment['amount_payment'];
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $sisaHutang = $storeInv3['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
                 $totalStore3 += $sisaHutang;
 
                 $is_cod = $storeInv['is_cod'] == 1 ? '<b>(COD)</b>' : '';
