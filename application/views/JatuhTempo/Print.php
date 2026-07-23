@@ -224,8 +224,8 @@ function penyebut($nilai)
             <?php if ($daysWithOperan >= 8 && $daysWithOperan <= 15) : ?>
                 <?php
                 $id_invoice = $storeInv2['id_invoice'];
-                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
-                $sisaHutang = $storeInv2['total_invoice'] - $payment['amount_payment'];
+                $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment, SUM(potongan_payment) AS potongan_payment, SUM(adjustment_payment) AS adjustment_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                $sisaHutang = $storeInv2['total_invoice'] - ($payment['amount_payment'] + $payment['potongan_payment'] + $payment['adjustment_payment']);
                 $totalStore2 += $sisaHutang;
 
                 $is_cod = $storeInv2['is_cod'] == 1 ? '<b>(COD)</b>' : '';
