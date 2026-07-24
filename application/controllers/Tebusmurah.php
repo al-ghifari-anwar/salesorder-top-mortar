@@ -4,7 +4,7 @@ class Tebusmurah extends CI_Controller
 {
     public function index()
     {
-        $data['contactTebusmurahs'] = $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city')->where('id_contact IN (SELECT id_contact ON tb_surat_jalan WHERE is_tebus_murah = 1)', null, false)->where('tb_contact.store_status', 'active')->order_by('tb_city.nama_city', 'ASC')->get('tb_contact')->result_array();
+        $data['contactTebusmurahs'] = $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city')->where('tb_contact.store_status', 'active')->where('tb_contact.id_contact IN (SELECT id_contact FROM tb_surat_jalan WHERE is_tebus_murah = 1)', null, false)->order_by('tb_city.nama_city', 'ASC')->get('tb_contact')->result_array();
         // $data = 1;
 
         json_encode($data);
