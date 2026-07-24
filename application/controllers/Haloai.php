@@ -31,6 +31,7 @@ class Haloai extends CI_Controller
 
             $contact = $this->db->select('id_contact, nama, nomorhp, tgl_lahir, store_owner, address, store_status, id_city, id_promo, termin_payment, kredit_limit, hobi_contact AS hobi')->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
 
+
             if (!$contact) {
                 $result = [
                     'code' => 400,
@@ -46,6 +47,15 @@ class Haloai extends CI_Controller
             $id_contact = $contact['id_contact'];
 
             $id_promo = $contact['id_promo'];
+
+            $hobis = $this->db->join('tb_hobi', 'tb_hobi.id_hobi = tb_hobi_toko.id_hobi')->get_where('tb_hobi_toko', ['id_contact' => $id_contact])->result_array();
+
+            $textHobi = "";
+            foreach ($hobis as $key => $hobi) {
+                $textHobi .= $hobi . ",";
+            }
+
+            $contact['hobi'] = $textHobi;
 
             $suratJalan = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact, 'is_closing' => 0])->result_array();
 
