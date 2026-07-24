@@ -52,7 +52,7 @@ class Haloai extends CI_Controller
 
             $textHobi = "";
             foreach ($hobis as $key => $hobi) {
-                $textHobi .= $hobi . ",";
+                $textHobi .= $hobi['name_hobi'] . ",";
             }
 
             $contact['hobi'] = $textHobi;
