@@ -35,7 +35,7 @@ function penyebut($nilai)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= "Rekap Sales " . $city['nama_city']  ?></title>
+    <title><?= "Toko Tebus Murah Aktif per-" . date('d F Y') ?></title>
 </head>
 
 <body>
