@@ -109,11 +109,19 @@ function penyebut($nilai)
             <th style="border-bottom: 1px solid black;">Toko</th>
             <th style="border-bottom: 1px solid black;">Kota</th>
             <th style="border-bottom: 1px solid black;">Tgl SJ Tebus Murah</th>
-            <th style="border-bottom: 1px solid black;">Tgl SJ Lain</th>
         </tr>
         <?php if ($contactTebusmurahs != null) : ?>
             <?php foreach ($contactTebusmurahs as $contactTebusmurah) : ?>
+                <?php
+                $sjTebusmurah = $this->db->where('id_contact', $contactTebusmurah['id_contact'])->where('is_tebus_murah', 1)->get('tb_surat_jalan')->row_array();
 
+                $sjLain = $this->db->where('id_contact', $contactTebusmurah['id_contact'])->where('is_tebus_murah', 0)->get('tb_surat_jalan')->row_array();
+                ?>
+                <?php if (!$sjLain): ?>
+                    <td><?= $contactTebusmurah['nama'] ?></td>
+                    <td><?= $contactTebusmurah['nama_city'] ?></td>
+                    <td><?= $sjTebusmurah['date_closing'] ?></td>
+                <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
     </table>
