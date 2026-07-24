@@ -71,7 +71,14 @@ class Kontenmsg extends CI_Controller
 
         $id_contact = $contact['id_contact'];
 
-        $kontenMsgs = $this->MKontenmsg->getByCatAndHobby('Auto', str_replace(', ', '|', $contact['hobi_contact']));
+        $hobis = $this->db->join('tb_hobi', 'tb_hobi.id_hobi = tb_hobi_toko.id_hobi')->get_where('tb_hobi_toko', ['id_contact' => $id_contact])->result_array();
+
+        $textHobi = "";
+        foreach ($hobis as $key => $hobi) {
+            $textHobi .= $hobi['name_hobi'] . ",";
+        }
+
+        $kontenMsgs = $this->MKontenmsg->getByCatAndHobby('Auto', str_replace(', ', '|', $textHobi));
 
         if ($kontenMsgs == null) {
             $result = [
