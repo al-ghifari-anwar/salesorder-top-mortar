@@ -102,16 +102,20 @@ function penyebut($nilai)
         }
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
-    <h1 class="text-center">Data Toko Tebus Murah</h1>
+    <h1 class="text-center">Data Toko Tebus Murah Aktif</h1>
     <h4 class="text-center">per Tanggal <?= date("d F Y") ?></h4>
     <table>
         <tr>
+            <th style="border-bottom: 1px solid black;">No</th>
             <th style="border-bottom: 1px solid black;">Toko</th>
+            <th style="border-bottom: 1px solid black;">Status</th>
             <th style="border-bottom: 1px solid black;">Kota</th>
             <th style="border-bottom: 1px solid black;">Tgl SJ Tebus Murah</th>
         </tr>
         <?php if ($contactTebusmurahs != null) : ?>
-            <?php foreach ($contactTebusmurahs as $contactTebusmurah) : ?>
+            <?php
+            $no = 1;
+            foreach ($contactTebusmurahs as $contactTebusmurah) : ?>
                 <?php
                 $sjTebusmurah = $this->db->where('id_contact', $contactTebusmurah['id_contact'])->where('is_tebus_murah', 1)->get('tb_surat_jalan')->row_array();
 
@@ -119,7 +123,9 @@ function penyebut($nilai)
                 ?>
                 <?php if (!$sjLain): ?>
                     <tr>
+                        <td><?= $no++; ?></td>
                         <td><?= $contactTebusmurah['nama'] ?></td>
+                        <td><?= $contactTebusmurah['store_status'] ?></td>
                         <td><?= $contactTebusmurah['nama_city'] ?></td>
                         <td><?= $sjTebusmurah['date_closing'] ?></td>
                     </tr>
