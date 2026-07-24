@@ -118,9 +118,11 @@ function penyebut($nilai)
                 $sjLain = $this->db->where('id_contact', $contactTebusmurah['id_contact'])->where('is_tebus_murah', 0)->get('tb_surat_jalan')->row_array();
                 ?>
                 <?php if (!$sjLain): ?>
-                    <td><?= $contactTebusmurah['nama'] ?></td>
-                    <td><?= $contactTebusmurah['nama_city'] ?></td>
-                    <td><?= $sjTebusmurah['date_closing'] ?></td>
+                    <tr>
+                        <td><?= $contactTebusmurah['nama'] ?></td>
+                        <td><?= $contactTebusmurah['nama_city'] ?></td>
+                        <td><?= $sjTebusmurah['date_closing'] ?></td>
+                    </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
