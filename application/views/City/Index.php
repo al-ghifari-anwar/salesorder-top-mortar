@@ -71,7 +71,7 @@
                                             <td><?= ($gudangCity) ? $gudangCity['name_gudang_stok'] : '<p class="text-danger">Blm setting gudang</p>' ?></td>
                                             <td>
                                                 <a class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $data['id_city'] ?>" title="Edit"><i class="fas fa-pen"></i></a>
-                                                <a href="<?= base_url('delete-city/') . $data['id_city'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <!-- <a href="<?= base_url('delete-city/') . $data['id_city'] ?>" class="btn btn-danger" title="Hapus"><i class="fas fa-trash"></i></a> -->
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="modal-edit<?= $data['id_city'] ?>">
