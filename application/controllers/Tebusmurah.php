@@ -8,6 +8,7 @@ class Tebusmurah extends CI_Controller
         // $data = 1;
 
         json_encode($data);
+        die;
         // $html = $this->load->view('Notif/PrintPassive', $data);
         // PDF
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
