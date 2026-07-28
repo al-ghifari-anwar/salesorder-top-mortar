@@ -193,7 +193,7 @@ class Haloai extends CI_Controller
             // 
         }
 
-        $dateCutoff = date('Y-m-d', strtotime("-10 minutes"));
+        $dateCutoff = date('Y-m-d', strtotime("-1 minutes"));
 
         $checkSj = $this->db->get_where('tb_surat_jalan', ['id_contact' => $id_contact, 'DATE(dalivery_date) >=' => $dateCutoff])->row_array();
 
