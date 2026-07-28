@@ -130,6 +130,15 @@
                                                 <?php
                                                 $id_promo = $data['id_promo'];
                                                 $getPromo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+
+                                                $id_contact = $data['id_contact'];
+
+                                                $hobis = $this->db->join('tb_hobi', 'tb_hobi.id_hobi = tb_hobi_toko.id_hobi')->get_where('tb_hobi_toko', ['id_contact' => $id_contact])->result_array();
+
+                                                $textHobi = "";
+                                                foreach ($hobis as $key => $hobi) {
+                                                    $textHobi .= $hobi['name_hobi'] . ",";
+                                                }
                                                 ?>
                                                 <tr>
                                                     <td><?= $no++; ?></td>
@@ -148,7 +157,7 @@
                                                     <td><?= $data['payment_method'] ?></td>
                                                     <td><?= $data['tagih_mingguan'] == 1 ? 'Yes' : 'No' ?></td>
                                                     <td><?= number_format($data['kredit_limit'], 0, ',', '.') ?></td>
-                                                    <td><?= $data['hobi_contact'] ?></td>
+                                                    <td><?= $textHobi ?></td>
                                                     <td><?= $data['hari_bayar'] ?></td>
                                                     <td><?= $data['jam_bayar'] ?></td>
                                                     <td><?= $data['cluster'] ?></td>
