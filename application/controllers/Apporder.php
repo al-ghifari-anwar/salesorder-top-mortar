@@ -54,9 +54,9 @@ class Apporder extends CI_Controller
         if ($courier) {
             $id_courier = $courier['id_user'];
         } else {
-            $courier = $this->MUser->getCourierByCityGroup(trim(preg_replace("/\\d+/", "", $contact['nama_city'])));
+            $grouping_kurir = $city['grouping_kurir'];
+            $courier = $this->MUser->getCourierByGroupCity($grouping_kurir);
             $id_courier = $courier['id_user'];
-            // 
         }
 
         $suratJalanData = [
