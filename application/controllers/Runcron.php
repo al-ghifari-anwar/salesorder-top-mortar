@@ -142,7 +142,7 @@ class Runcron extends CI_Controller
                                         // return $this->output->set_output(json_encode($result));
                                     } else {
                                         if ($amountValue != 1050001) {
-                                            if ($amountValue != 100001) {
+                                            if ($amountValue != 1000001) {
                                                 if ($amountValue != 50001) {
                                                     if ($norek_company != 0) {
                                                         // !! Send 
@@ -261,7 +261,7 @@ class Runcron extends CI_Controller
                                     // return $this->output->set_output(json_encode($result));
                                 } else {
                                     if ($amountValue != 1050001) {
-                                        if ($amountValue != 100001) {
+                                        if ($amountValue != 1000001) {
                                             if ($amountValue != 50001) {
                                                 if ($norek_company != 0) {
                                                     // !! Send 
