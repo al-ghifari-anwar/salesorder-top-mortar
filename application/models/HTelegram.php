@@ -14,7 +14,7 @@ class HTelegram extends CI_Model
         ];
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.telegram.org/bot8494834740:AAEZLYfkzUhrY6GroazEJOf876oToo2-qIw/sendDocument',
+            CURLOPT_URL => 'https://api.telegram.org/bot8494834740:AAGU-lTH1_9mWAwIAIgICkn3mn9unb83nGk/sendDocument',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -45,7 +45,7 @@ class HTelegram extends CI_Model
         ];
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.telegram.org/bot8494834740:AAEZLYfkzUhrY6GroazEJOf876oToo2-qIw/sendMessage',
+            CURLOPT_URL => 'https://api.telegram.org/bot8494834740:AAGU-lTH1_9mWAwIAIgICkn3mn9unb83nGk/sendMessage',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
