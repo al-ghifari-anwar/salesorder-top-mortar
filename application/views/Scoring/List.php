@@ -239,7 +239,7 @@
                     $sj = $this->db->get_where('tb_surat_jalan', ['id_surat_jalan' => $id_surat_jalan])->row_array();
 
                     if ($sj['is_cod'] == 0) {
-                        $jatuhTempo = date('Y-m-d', strtotime("+" . $selected_contact['termin_payment'] . " days", strtotime($last_invoice['date_invoice'])));
+                        $jatuhTempo = date('Y-m-d', strtotime("+30" . " days", strtotime($last_invoice['date_invoice'])));
                     } else {
                         $jatuhTempo = date('Y-m-d', strtotime("+3 days", strtotime($invoice['date_invoice'])));
                     }
