@@ -41,9 +41,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
+                            <!-- <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                 Tambah Data
-                            </button>
+                            </button> -->
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">

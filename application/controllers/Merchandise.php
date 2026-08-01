@@ -26,85 +26,85 @@ class Merchandise extends CI_Controller
         $this->load->view('Theme/Scripts');
     }
 
-    public function create()
-    {
-        $post = $this->input->post();
+    // public function create()
+    // {
+    //     $post = $this->input->post();
 
-        $uploadImg = $this->uploadImage($post['name_merchandise'] . '-' . time());
+    //     $uploadImg = $this->uploadImage($post['name_merchandise'] . '-' . time());
 
-        if ($uploadImg['status'] == 'success') {
-            $uploadData = $uploadImg['message'];
+    //     if ($uploadImg['status'] == 'success') {
+    //         $uploadData = $uploadImg['message'];
 
-            $imageName = base_url('assets/img/merch_img/') . $uploadData['file_name'];
+    //         $imageName = base_url('assets/img/merch_img/') . $uploadData['file_name'];
 
-            $merchandiseData = [
-                'name_merchandise' => $post['name_merchandise'],
-                'price_merchandise' => $post['price_merchandise'],
-                'desc_merchandise' => $post['desc_merchandise'],
-                'img_merchandise' => $imageName,
-                'id_user' => $this->session->userdata('id_user'),
-            ];
+    //         $merchandiseData = [
+    //             'name_merchandise' => $post['name_merchandise'],
+    //             'price_merchandise' => $post['price_merchandise'],
+    //             'desc_merchandise' => $post['desc_merchandise'],
+    //             'img_merchandise' => $imageName,
+    //             'id_user' => $this->session->userdata('id_user'),
+    //         ];
 
-            $save = $this->MMerchandise->create($merchandiseData);
+    //         $save = $this->MMerchandise->create($merchandiseData);
 
-            if ($save) {
-                $this->session->set_flashdata('success', "Berhasil menyimpan merchandise");
-                redirect('merchandise');
-            } else {
-                $this->session->set_flashdata('failed', "Gagal menyimpan merchandise");
-                redirect('merchandise');
-            }
-        } else {
-            $this->session->set_flashdata('failed', "Error upload file: " . $uploadImg['message']);
-            redirect('merchandise');
-        }
-    }
+    //         if ($save) {
+    //             $this->session->set_flashdata('success', "Berhasil menyimpan merchandise");
+    //             redirect('merchandise');
+    //         } else {
+    //             $this->session->set_flashdata('failed', "Gagal menyimpan merchandise");
+    //             redirect('merchandise');
+    //         }
+    //     } else {
+    //         $this->session->set_flashdata('failed', "Error upload file: " . $uploadImg['message']);
+    //         redirect('merchandise');
+    //     }
+    // }
 
-    public function update($id_merchandise)
-    {
-        $post = $this->input->post();
+    // public function update($id_merchandise)
+    // {
+    //     $post = $this->input->post();
 
-        $merchandiseTopseller = $this->MMerchandise->getById($id_merchandise);
+    //     $merchandiseTopseller = $this->MMerchandise->getById($id_merchandise);
 
-        $uploadImg = $this->uploadImage($post['name_merchandise'] . '-' . time());
+    //     $uploadImg = $this->uploadImage($post['name_merchandise'] . '-' . time());
 
-        $imageName = $merchandiseTopseller['img_merchandise'];
+    //     $imageName = $merchandiseTopseller['img_merchandise'];
 
-        if ($uploadImg['status'] == 'success') {
-            $uploadData = $uploadImg['message'];
-            $imageName = base_url('assets/img/merch_img/') . $uploadData['file_name'];
-        }
+    //     if ($uploadImg['status'] == 'success') {
+    //         $uploadData = $uploadImg['message'];
+    //         $imageName = base_url('assets/img/merch_img/') . $uploadData['file_name'];
+    //     }
 
-        $merchandiseData = [
-            'name_merchandise' => $post['name_merchandise'],
-            'price_merchandise' => $post['price_merchandise'],
-            'desc_merchandise' => $post['desc_merchandise'],
-            'img_merchandise' => $imageName,
-        ];
+    //     $merchandiseData = [
+    //         'name_merchandise' => $post['name_merchandise'],
+    //         'price_merchandise' => $post['price_merchandise'],
+    //         'desc_merchandise' => $post['desc_merchandise'],
+    //         'img_merchandise' => $imageName,
+    //     ];
 
-        $save = $this->MMerchandise->update($id_merchandise, $merchandiseData);
+    //     $save = $this->MMerchandise->update($id_merchandise, $merchandiseData);
 
-        if ($save) {
-            $this->session->set_flashdata('success', "Berhasil menyimpan merchandise");
-            redirect('merchandise');
-        } else {
-            $this->session->set_flashdata('failed', "Gagal menyimpan merchandise");
-            redirect('merchandise');
-        }
-    }
+    //     if ($save) {
+    //         $this->session->set_flashdata('success', "Berhasil menyimpan merchandise");
+    //         redirect('merchandise');
+    //     } else {
+    //         $this->session->set_flashdata('failed', "Gagal menyimpan merchandise");
+    //         redirect('merchandise');
+    //     }
+    // }
 
-    public function delete($id_merchandise)
-    {
-        $save = $this->MMerchandise->delete($id_merchandise);
+    // public function delete($id_merchandise)
+    // {
+    //     $save = $this->MMerchandise->delete($id_merchandise);
 
-        if ($save) {
-            $this->session->set_flashdata('success', "Berhasil menghapus merchandise");
-            redirect('merchandise');
-        } else {
-            $this->session->set_flashdata('failed', "Gagal menghapus merchandise");
-            redirect('merchandise');
-        }
-    }
+    //     if ($save) {
+    //         $this->session->set_flashdata('success', "Berhasil menghapus merchandise");
+    //         redirect('merchandise');
+    //     } else {
+    //         $this->session->set_flashdata('failed', "Gagal menghapus merchandise");
+    //         redirect('merchandise');
+    //     }
+    // }
 
     public function uploadImage($nama)
     {
