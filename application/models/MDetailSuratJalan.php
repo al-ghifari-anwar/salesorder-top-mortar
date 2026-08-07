@@ -375,6 +375,142 @@ class MDetailSuratJalan extends CI_Model
         }
     }
 
+    public function insertretur()
+    {
+        $post = $this->input->post();
+        $id_produk = $post['id_produk'];
+        $id_city = $post['id_city'];
+
+        $city = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
+        $id_gudang_stok = $city['id_gudang_stok'];
+        $gudang = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
+
+        $this->id_surat_jalan = $post['id_surat_jalan'];
+        $this->id_produk = $post['id_produk'];
+        $this->qty_produk = $post['qty_produk'];
+
+        $produk = $this->db->get_where('tb_produk', ['id_produk' => $id_produk])->row_array();
+        $this->price = $post['harga_produk'];
+        $retur = $post['is_retur'];
+        $is_voucher = $post['is_voucher'];
+
+        $dateCutoff = "2025-07-20 00:00:00";
+
+        $id_master_produk = $produk['id_master_produk'];
+        $masterProduk = $this->db->get_where('tb_master_produk', ['id_master_produk' => $id_master_produk])->row_array();
+
+        $this->db->select('SUM(jml_stok) AS jml_stokIn');
+        $getStokIn = $this->db->get_where('tb_stok', ['id_gudang_stok' => $id_gudang_stok, 'id_master_produk' => $id_master_produk, 'status_stok' => 'in', 'tb_stok.created_at >' => $dateCutoff])->row_array();
+
+        $stokIn = $getStokIn['jml_stokIn'];
+
+        $this->db->select('SUM(qty_produk) AS jml_stokOut');
+        $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
+        $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
+        $this->db->join('tb_master_produk', 'tb_master_produk.id_master_produk = tb_produk.id_master_produk');
+        $this->db->where("tb_produk.id_city IN (SELECT id_city FROM tb_city WHERE id_gudang_stok = $id_gudang_stok)", NULL, FALSE);
+        $getStokOut = $this->db->get_where('tb_detail_surat_jalan', ['tb_master_produk.id_master_produk' => $id_master_produk, 'tb_surat_jalan.dalivery_date >' => $dateCutoff])->row_array();
+
+
+        $stokOut = $getStokOut['jml_stokOut'];
+
+        $currentStok = $stokIn - $stokOut;
+
+        // echo 'out' . $stokOut;
+        // echo $this->db->last_query();
+        // die;
+        $queryOut =  $this->db->last_query();
+
+        // if ($this->session->userdata('id_distributor') != 6) {
+
+        //     if ($post['qty_produk'] > $currentStok) {
+        //         $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> tidak mencukupi, sisa stok bebas: <b>" . $currentStok . "</b>");
+        //         redirect('surat-jalan/' . $post['id_surat_jalan']);
+        //     }
+
+        //     if ($currentStok <= 0) {
+        //         $this->session->set_flashdata('failed', "Stok <b>" . $masterProduk['name_master_produk'] . "</b> sudah habis");
+        //         redirect('surat-jalan/' . $post['id_surat_jalan']);
+        //     }
+        // }
+
+        if ($this->price == 0) {
+            $this->session->set_flashdata('failed', "Terjadi kesalahan, harap input ulang produk");
+            redirect('surat-jalan/' . $post['id_surat_jalan']);
+        }
+
+        if ($produk['harga_produk'] ==  0) {
+            $this->session->set_flashdata('failed', "Terjadi kesalahan, harap input ulang produk");
+            redirect('surat-jalan/' . $post['id_surat_jalan']);
+        }
+
+        if ($retur == false) {
+            $this->amount = $post['harga_produk'] * $post['qty_produk'];
+            $this->is_bonus = 0;
+        } else {
+            $this->amount = 0;
+            $this->is_bonus = 2;
+        }
+
+        $no_voucher = "";
+        $id_surat_jalan = $this->id_surat_jalan;
+
+        $jmlVoucher = $post['jml_voucher'];
+
+        $priceRetur = $post['price_retur'];
+
+        if ($this->qty_produk > $jmlVoucher) {
+            $this->session->set_flashdata('failed', "Jumlah item tidak sesuai dengan jumlah voucher!");
+            redirect('surat-jalan/' . $this->id_surat_jalan);
+        } else {
+            $this->amount = 0;
+            $this->is_bonus = 1;
+            if ($post['harga_produk'] > 70000) {
+                $this->amount = ($post['harga_produk'] - 70000) * $post['qty_produk'];
+                $this->is_bonus = 0;
+            }
+            $this->no_voucher = $post['no_vouchers'];
+            $id_surat_jalan = $this->id_surat_jalan;
+            $no_voucher = $this->no_voucher;
+
+            $cekProdukVc = $this->db->query("SELECT * FROM tb_detail_surat_jalan WHERE id_surat_jalan = '$id_surat_jalan' AND no_voucher IN ('" . $no_voucher . "')")->result_array();
+
+            // echo json_encode($cekProdukVc);
+            // die;
+            if ($cekProdukVc != null) {
+                $this->db->where_in('no_voucher', explode(',', $no_voucher));
+                $this->db->update('tb_voucher', ['is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
+
+                $this->session->set_flashdata('failed', "Produk dengan voucher telah ditambahkan, tidak bisa menambahkan lagi!");
+                redirect('surat-jalan/' . $this->id_surat_jalan);
+            }
+        }
+
+        $query = $this->db->insert('tb_detail_surat_jalan', $this);
+
+        if ($query) {
+            if (!empty($no_voucher)) {
+                $cekProdukVc = $this->db->where('id_surat_jalan', $id_surat_jalan)->where_in('no_voucher', explode(',', $no_voucher))->get('tb_detail_surat_jalan');
+
+                // echo json_encode($cekProdukVc);
+                // die;
+                if ($cekProdukVc != null) {
+                    $this->db->where_in('no_voucher', explode(',', $no_voucher));
+                    $this->db->update('tb_voucher', ['is_used' => 1, 'used_date' => date('Y-m-d H:i:s')]);
+
+                    $this->session->set_flashdata('failed', "Produk dengan voucher telah ditambahkan, tidak bisa menambahkan lagi!");
+                    redirect('surat-jalan/' . $this->id_surat_jalan);
+                }
+            }
+
+            $this->session->set_flashdata('success', "Berhasil Sisa Stok Bebas:" . $currentStok - $post['qty_produk']);
+            redirect('surat-jalan/' . $this->id_surat_jalan);
+        } else {
+            $this->session->set_flashdata('failed', "Gagal menyimpan data surat jalan!");
+            redirect('surat-jalan');
+        }
+    }
+
     public function update($id)
     {
         $post = $this->input->post();

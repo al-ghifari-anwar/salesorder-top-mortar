@@ -59,7 +59,7 @@
                                         <?php
                                         $contact = $this->MContact->getById($data['id_contact']);
 
-                                        $lastVisit = $this->db->where('id_contact', $data['id_contact'])->order_by('date_visit', 'DESC')->get('tb_visit')->row_array();
+                                        $lastVisit = $this->db->where('id_contact', $data['id_contact'])->not_like('source_visit', 'absen')->order_by('date_visit', 'DESC')->get('tb_visit')->row_array();
 
                                         $user = $this->db->where('id_user', $lastVisit['id_user'])->get('tb_user')->row_array();
 

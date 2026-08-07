@@ -24,6 +24,11 @@
                     <strong><i class="fas fa-exclamation-triangle"></i></strong> Toko ini memiliki kode voucher, claim melalui opsi "Gunakan Voucher" ketika menambah produk
                 </div>
             <?php endif ?>
+            <?php if ($voucherReturs != null) : ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong><i class="fas fa-exclamation-triangle"></i></strong> Toko ini memiliki produk retur, tambahkan melalui tombol "Tambah Produk Retur"
+                </div>
+            <?php endif ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0"><?= $suratjalan['no_surat_jalan'] ?></h1>
@@ -99,6 +104,11 @@
                                     <button type="button" class="btn btn-warning float-right mr-3" data-toggle="modal" data-target="#modal-insert-vc">
                                         Tambah Produk Voucher
                                     </button>
+                                <?php endif; ?>
+                                <?php if ($voucherReturs != null) : ?>
+                                    <!-- <button type="button" class="btn btn-success float-right mr-3" data-toggle="modal" data-target="#modal-insert-retur">
+                                        Tambah Produk Retur
+                                    </button> -->
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
@@ -316,6 +326,79 @@
                                 <strong><i class="fas fa-exclamation-triangle"></i></strong> Toko ini memiliki <?= count($vouchers) ?> kode voucher. (<?= $vouchersStr ?>)
                             </div>
                             <input type="text" value="<?= $vouchersStr ?>" name="no_vouchers" hidden>
+                        <?php endif; ?>
+                    </div>
+                    <button class="btn btn-primary float-right">Simpan</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-insert-retur">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Produk Retur</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('insert-detsuratjalan-retur') ?>" method="POST">
+                    <input type="text" name="id_city" class="form-control" value="<?= $toko['id_city'] ?>" hidden>
+                    <input type="text" name="id_surat_jalan" class="form-control" value="<?= $suratjalan['id_surat_jalan'] ?>" hidden>
+                    <div class="form-group">
+                        <label for="">Produk</label>
+                        <select class="form-control select2bs4" id="id_produk_vc" name="id_produk" style="width: 100%;">
+                            <option value="0">=== PILIH PRODUK ===</option>
+                            <?php foreach ($produk as $data) : ?>
+                                <option value="<?= $data['id_produk'] ?>" price="<?= $data['harga_produk'] ?>"><?= $data['nama_produk'] . " - " . "Rp. " . number_format($data['harga_produk'], 0, ',', '.')  ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Harga</label>
+                        <input type="number" name="harga_produk" class="form-control" id="harga_produk_vc" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="">QTY</label>
+                        <input type="number" name="qty_produk" class="form-control" id="qty_produk">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Biaya retur (Keseluruhan)</label>
+                        <input type="number" name="price_retur" class="form-control" id="price_retur">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <?php if ($voucherReturs != null) : ?>
+                                <div class="col-5 mr-auto">
+                                    <!-- <label for="">Gunakan Voucher</label> -->
+                                    <input type="checkbox" name="is_voucher" id="is_voucher" checked hidden>
+                                </div>
+                            <?php endif; ?>
+                            <div class="col-3 ml-auto">
+                                <!-- <label for="">Is Retur?</label> -->
+                                <input type="checkbox" name="is_retur" id="" hidden>
+                            </div>
+                            <input type="number" value="<?= count($voucherReturs) ?>" hidden name="jml_voucher">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <?php if ($voucherReturs != null) : ?>
+                            <?php
+                            $voucherRetursStr = "";
+                            foreach ($voucherReturs as $voucher) {
+                                $voucherRetursStr .= $voucher['no_voucher'] . ",";
+                            }
+                            ?>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong><i class="fas fa-exclamation-triangle"></i></strong> Toko ini memiliki <?= count($voucherReturs) ?> kode voucher retur. (<?= $voucherRetursStr ?>)
+                            </div>
+                            <input type="text" value="<?= $voucherRetursStr ?>" name="no_vouchers" hidden>
                         <?php endif; ?>
                     </div>
                     <button class="btn btn-primary float-right">Simpan</button>

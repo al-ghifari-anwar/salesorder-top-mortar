@@ -82,6 +82,7 @@ class SuratJalan extends CI_Controller
         $data['produk'] = $this->MProduk->getByCity($toko['id_city']);
         $data['detail'] = $this->MDetailSuratJalan->getAll($suratjalan['id_surat_jalan']);
         $data['vouchers'] = $this->MVoucher->getByIdContact($suratjalan['id_contact']);
+        $data['voucherReturs'] = $this->MVoucher->getReturByIdContact($suratjalan['id_contact']);
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('SuratJalan/Detail');
@@ -469,6 +470,18 @@ class SuratJalan extends CI_Controller
             redirect('surat-jalan/' . $this->input->post('id_surat_jalan'));
         } else {
             $this->MDetailSuratJalan->insert();
+        }
+    }
+
+    public function insertdetailretur()
+    {
+        $this->form_validation->set_rules('qty_produk', 'QTY', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('failed', "Harap lengkapi form!");
+            redirect('surat-jalan/' . $this->input->post('id_surat_jalan'));
+        } else {
+            $this->MDetailSuratJalan->insertretur();
         }
     }
 
