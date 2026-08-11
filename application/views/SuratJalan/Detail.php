@@ -106,9 +106,9 @@
                                     </button>
                                 <?php endif; ?>
                                 <?php if ($voucherReturs != null) : ?>
-                                    <!-- <button type="button" class="btn btn-success float-right mr-3" data-toggle="modal" data-target="#modal-insert-retur">
+                                    <button type="button" class="btn btn-success float-right mr-3" data-toggle="modal" data-target="#modal-insert-retur">
                                         Tambah Produk Retur
-                                    </button> -->
+                                    </button>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
@@ -370,7 +370,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Biaya retur (Keseluruhan)</label>
-                        <input type="number" name="price_retur" class="form-control" id="price_retur">
+                        <input type="number" name="price_retur" class="form-control" id="price_retur" value="0">
                     </div>
                     <div class="form-group">
                         <div class="row">
