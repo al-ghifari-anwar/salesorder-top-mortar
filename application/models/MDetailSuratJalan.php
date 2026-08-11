@@ -391,7 +391,7 @@ class MDetailSuratJalan extends CI_Model
 
         $produk = $this->db->get_where('tb_produk', ['id_produk' => $id_produk])->row_array();
         $this->price = $post['harga_produk'];
-        $retur = $post['is_retur'];
+        $retur = 1;
         $is_voucher = $post['is_voucher'];
 
         $dateCutoff = "2025-07-20 00:00:00";
