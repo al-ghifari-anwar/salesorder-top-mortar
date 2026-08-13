@@ -99,7 +99,7 @@
         $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
 
         foreach ($janjiBayars as $janjiBayar) {
-            if (count($jadwalVisits) <= 14) {
+            if (count($jadwalVisits) <= 9) {
                 $date_visit_janji_bayar = date('Y-m-d', strtotime($janjiBayar['date_visit']));
 
                 $id_contact = $janjiBayar['id_contact'];
@@ -303,7 +303,7 @@
             // }
 
             if ($renvi['cluster'] == $cluster) {
-                if (count($jadwalVisits) <= 14) {
+                if (count($jadwalVisits) <= 9) {
                     // if ($days == 0 || $days >= 7) {
                     if ($days > $minDayCluster) {
                         if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1') {
@@ -489,7 +489,7 @@
             //     echo json_encode($renvisFilter);
             // }
 
-            if (count($jadwalVisits) <= 14) {
+            if (count($jadwalVisits) <= 9) {
                 if ($renvi['cluster'] != $cluster) {
                     if ($renvi['hari_bayar'] == $dayName) {
                         // if ($days == 0 || $days >= 7) {
@@ -533,7 +533,7 @@
                     }
                     $days = $operan . $days;
 
-                    if (count($jadwalVisits) <= 14) {
+                    if (count($jadwalVisits) <= 9) {
                         $renvisFilter = [
                             'id_contact' => $id_contact,
                             'filter' => 'Toko akan pasif dalam 2 minggu',
@@ -564,7 +564,7 @@
         $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'data'])->result_array();
 
         foreach ($contactDatas as $contactData) {
-            if (count($jadwalVisits) <= 14) {
+            if (count($jadwalVisits) <= 9) {
                 $id_contact = $contactData['id_contact'];
 
                 $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3') ORDER BY date_visit DESC LIMIT 1")->row_array();
@@ -636,7 +636,7 @@
             ];
 
             if ($renvisPassive['cluster'] == $cluster) {
-                if (count($jadwalVisits) <= 14) {
+                if (count($jadwalVisits) <= 9) {
                     // if ($days == 0 || $days >= 7) {
                     if ($days > $minDayCluster) {
                         if (array_search($renvisPassive['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
@@ -655,7 +655,7 @@
         $contactDatas = $this->db->get_where('tb_contact', ['id_city' => $id_city, 'cluster' => $cluster, 'store_status' => 'active'])->result_array();
 
         foreach ($contactDatas as $contactData) {
-            if (count($jadwalVisits) <= 14) {
+            if (count($jadwalVisits) <= 9) {
                 $id_contact = $contactData['id_contact'];
 
                 $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
