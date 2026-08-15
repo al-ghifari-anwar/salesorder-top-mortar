@@ -130,7 +130,8 @@ function penyebut($nilai)
         $no07 = 0;
         foreach ($invoice as $storeInv) : ?>
             <?php
-            $termin_payment = $storeInv['is_cod'] == 1 ? $storeInv['termin_payment'] : 30;
+            $termin_payment_calc = $storeInv['termin_payment'] > 30 ? $storeInv['termin_payment'] : 30;
+            $termin_payment = $storeInv['is_cod'] == 1 ? $storeInv['termin_payment'] : $termin_payment_calc;
 
             $jatuhTempo = date('d M Y', strtotime("+" . $termin_payment . " days", strtotime($storeInv['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
@@ -209,7 +210,8 @@ function penyebut($nilai)
         $no815 = 0;
         foreach ($invoice as $storeInv2) : ?>
             <?php
-            $termin_payment = $storeInv2['is_cod'] == 1 ? $storeInv2['termin_payment'] : 30;
+            $termin_payment_calc = $storeInv2['termin_payment'] > 30 ? $storeInv2['termin_payment'] : 30;
+            $termin_payment = $storeInv2['is_cod'] == 1 ? $storeInv2['termin_payment'] : $termin_payment_calc;
 
             $jatuhTempo = date('d M Y', strtotime("+" . $termin_payment . " days", strtotime($storeInv2['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
@@ -284,7 +286,8 @@ function penyebut($nilai)
         $no16 = 0;
         foreach ($invoice as $storeInv3) : ?>
             <?php
-            $termin_payment = $storeInv3['is_cod'] == 1 ? $storeInv3['termin_payment'] : 30;
+            $termin_payment_calc = $storeInv3['termin_payment'] > 30 ? $storeInv3['termin_payment'] : 30;
+            $termin_payment = $storeInv3['is_cod'] == 1 ? $storeInv3['termin_payment'] : $termin_payment_calc;
 
             $jatuhTempo = date('d M Y', strtotime("+" . $termin_payment . " days", strtotime($storeInv3['date_invoice'])));
             $date1 = new DateTime(date("Y-m-d"));
