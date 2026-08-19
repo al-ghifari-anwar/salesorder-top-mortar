@@ -138,8 +138,11 @@ class MContact extends CI_Model
         if ($id_city != 0) {
             $this->db->where('tb_city.id_city', $id_city);
         }
+        if ($status != "all") {
+            $this->db->where('tb_contact.store_status', $status);
+        }
         $this->db->order_by('tb_contact.created_at', 'desc');
-        $query = $this->db->get_where('tb_contact', ['store_status' => $status])->result_array();
+        $query = $this->db->get('tb_contact')->result_array();
         return $query;
     }
 

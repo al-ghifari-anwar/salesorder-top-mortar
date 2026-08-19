@@ -60,6 +60,7 @@
                                             <option value="data">Data (Kuning)</option>
                                             <option value="active">Aktif (Hijau)</option>
                                             <option value="passive">Pasif (Abu-abu)</option>
+                                            <option value="all">Semua</option>
                                         </select>
                                     </div>
                                     <label for="">Promo</label>
