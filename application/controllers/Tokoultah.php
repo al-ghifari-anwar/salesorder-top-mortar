@@ -20,7 +20,7 @@ class Tokoultah extends CI_Controller
         $data['menuGroup'] = 'Marketing';
         $data['menu'] = 'Tokoultah';
 
-        $data['toko'] = $this->db->where('MONTH(tgl_lahir)', date('m'))->where('DATE(tgl_lahir)', date('d'))->get('tb_contact')->result_array();
+        $data['toko'] = $this->db->like('tgl_lahir', date('m-d'))->get('tb_contact')->result_array();
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
