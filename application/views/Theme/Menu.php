@@ -676,7 +676,7 @@
                                             <i class="nav-icon fas fa-shopping-bag"></i>
                                             <p>
                                                 Marketing
-                                                <i class="right fas fa-angle-left"></i>
+                                                <i class="right fas fa-birthday-cake"></i>
                                             </p>
                                         </a>
                                         <ul class="nav nav-treeview">
