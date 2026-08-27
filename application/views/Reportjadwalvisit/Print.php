@@ -92,6 +92,7 @@
             <th style="border-bottom: 1px solid black;">Hari</th>
             <th style="border-bottom: 1px solid black;">Total</th>
             <th style="border-bottom: 1px solid black;">Tervisit</th>
+            <th style="border-bottom: 1px solid black;">Terbalas</th>
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php
@@ -106,6 +107,7 @@
             $id_distributor = $city['id_distributor'];
 
             $status_color = 'text-red';
+            $status_visit_color = 'text-red';
             $has_session = "";
 
             if ($jadwalVisit['is_yes'] == 1) {
@@ -114,6 +116,12 @@
             } else {
                 $status_color = 'text-red';
                 $is_visited = 0;
+            }
+
+            if ($visit) {
+                $status_visit_color = 'text-green';
+            } else {
+                $status_visit_color = 'text-red';
             }
             ?>
             <tr>
@@ -124,6 +132,7 @@
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
                 <td class="text-center"><?= number_format($jadwalVisit['total_invoice'], 0, '.', ',') ?></td>
+                <td class="text-center <?= $status_visit_color ?>"><?= $visit != null ? 'Yes' : 'No' ?></td>
                 <td class="text-center <?= $status_color ?>"><?= $is_visited == 1 ? 'Yes' : 'No' ?></td>
             </tr>
         <?php endforeach; ?>
