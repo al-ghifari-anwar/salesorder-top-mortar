@@ -676,13 +676,13 @@
                                             <i class="nav-icon fas fa-shopping-bag"></i>
                                             <p>
                                                 Marketing
-                                                <i class="right fas fa-birthday-cake"></i>
+                                                <i class="right fas fa-angle-left"></i>
                                             </p>
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item ">
                                                 <a href="<?= base_url('tokoultah') ?>" class="nav-link <?= $menu == 'Tokoultah' ? 'active' : '' ?>">
-                                                    <i class="fas fa-user-astronaut nav-icon"></i>
+                                                    <i class="fas fa-birthday-cake nav-icon"></i>
                                                     <p>Toko Ulang tahun</p>
                                                 </a>
                                             </li>
