@@ -681,6 +681,12 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item ">
+                                                <a href="<?= base_url('tokoultah') ?>" class="nav-link <?= $menu == 'Tokoultah' ? 'active' : '' ?>">
+                                                    <i class="fas fa-user-astronaut nav-icon"></i>
+                                                    <p>Toko Ulang tahun</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item ">
                                                 <a href="<?= base_url('kontenmsg') ?>" class="nav-link <?= $menu == 'Kontenmsg' ? 'active' : '' ?>">
                                                     <i class="fas fa-user-astronaut nav-icon"></i>
                                                     <p>Konten</p>
