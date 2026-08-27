@@ -99,7 +99,6 @@
                                                 <td><?= $getPromo == null ? 'Blm Setting Promo' : $getPromo['nama_promo'] ?></td>
                                                 <td><?= $data['termin_payment'] ?></td>
                                                 <td><?= $data['reputation'] ?></td>
-                                                <td><?= $data['payment_method'] ?></td>
                                                 <td><?= $data['cluster'] ?></td>
                                             </tr>
                                         <?php endif; ?>
