@@ -102,7 +102,7 @@
             <?php
             $id_contact = $jadwalVisit['id_contact'];
             $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
-            $visit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
+            $visit = $this->db->not_like('source_visit', 'absen')->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
             $is_visited = 0;
             $id_distributor = $city['id_distributor'];
 
