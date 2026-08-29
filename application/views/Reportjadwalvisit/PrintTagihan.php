@@ -81,11 +81,12 @@
     </style>
     <!-- <h3 class="text-center"><?= $this->session->userdata('full_name') ?></h3> -->
     <h3 class="text-center"><?= date('d F Y', strtotime($date)) . ' - ' . date('H:i:s') ?></h3>
-    <h1 class="text-center">Tagihan Tidak Tervisit (<?= $city['nama_city'] ?>) - Cluster <?= $cluster ?></h1>
+    <h1 class="text-center">Tagihan Tidak Tervisit - Cluster <?= $cluster ?></h1>
     <table>
         <tr>
             <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Toko</th>
+            <th style="border-bottom: 1px solid black;">Kota</th>
             <th style="border-bottom: 1px solid black;">Filter</th>
             <th style="border-bottom: 1px solid black;">Kategori</th>
             <th style="border-bottom: 1px solid black;">Last Visit</th>
@@ -118,6 +119,7 @@
             <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $jadwalVisit['nama'] ?></td>
+                <td><?= $jadwalVisit['nama_city'] ?></td>
                 <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
