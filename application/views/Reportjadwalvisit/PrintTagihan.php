@@ -118,7 +118,7 @@
             <?php if ($visit): ?>
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
-                    <td><?= $jadwalVisit['nama'] ?></td>
+                    <td><?= $jadwalVisit['nama'] ?> (<?= $jadwalVisit['id_contact'] ?>)</td>
                     <td><?= $jadwalVisit['nama_city'] ?></td>
                     <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
                     <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>

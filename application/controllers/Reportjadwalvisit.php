@@ -236,6 +236,72 @@ class Reportjadwalvisit extends CI_Controller
         $mpdf->Output();
     }
 
+    public function notifTagihan()
+    {
+        $chatId = "-1003589286815";
+        $date = $_GET['date'];
+
+        $cluster = 0;
+        if (date('D', strtotime($date)) == 'Mon' || date('D', strtotime($date)) == 'Thu') {
+            $cluster = 1;
+        } else if (date('D', strtotime($date)) == 'Tue' || date('D', strtotime($date)) == 'Fri') {
+            $cluster = 2;
+        } else if (date('D', strtotime($date)) == 'Wed' || date('D', strtotime($date)) == 'Sat') {
+            $cluster = 3;
+        }
+
+        if (date('D', strtotime($date)) == 'Mon') {
+            $dayName = 'senin';
+        } else if (date('D', strtotime($date)) == 'Tue') {
+            $dayName = 'selasa';
+        } else if (date('D', strtotime($date)) == 'Wed') {
+            $dayName = 'rabu';
+        } else if (date('D', strtotime($date)) == 'Thu') {
+            $dayName = 'kamis';
+        } else if (date('D', strtotime($date)) == 'Fri') {
+            $dayName = 'jumat';
+        } else if (date('D', strtotime($date)) == 'Sat') {
+            $dayName = 'sabtu';
+        }
+
+        $data['cluster'] = $cluster;
+        $data['dayName'] = $dayName;
+        $data['date'] = $date;
+
+        $kategoris = ['jatem1', 'jatem2', 'jatem3', 'Janji Bayar', 'tagih_mingguan'];
+
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_jadwal_visit.id_contact');
+        $this->db->join('tb_city', 'tb_city.id_city = tb_jadwal_visit.id_city');
+        $data['jadwalVisits'] = $this->db->where_in('kategori_jadwal_visit', $kategoris)->get_where('tb_jadwal_visit', ['DATE(date_jadwal_visit)' => $date, 'tb_jadwal_visit.cluster_jadwal_visit' => $cluster])->result_array();
+
+        // Buat direktori penyimpanan sementara
+        $folderPath = FCPATH . 'assets/tmp/report_visit/';
+        // Nama file berdasarkan invoice ID + timestamp
+        $fileName = "tagihan_tidak_tervisit" . '_' . date('d F Y') . '_' . time() . '.pdf';
+        $filePath = $folderPath . $fileName;
+        $fileUrl = "https://order.topmortarindonesia.com/assets/tmp/report_visit/" . $fileName;
+
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Reportjadwalvisit/PrintTagihan', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        // $mpdf->Output();
+        $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
+
+        $message = "*Tagihan Tidak Ter-Visit*\n" . "\nTanggal: *" . date('d F Y') . "*";
+
+        $send = $this->HTelegram->sendDocumentGroup($chatId, $message, $fileUrl);
+
+        array_push($resposneTele, $send);
+        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        // $mpdf->SetMargins(0, 0, 5);
+        // $html = $this->load->view('Reportjadwalvisit/PrintTagihan', $data, true);
+        // $mpdf->AddPage('P');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output();
+    }
+
     public function confirmVisit()
     {
         $date = date('Y-m-d');
