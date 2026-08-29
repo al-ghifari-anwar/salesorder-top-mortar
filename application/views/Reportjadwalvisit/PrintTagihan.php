@@ -92,7 +92,7 @@
             <th style="border-bottom: 1px solid black;">Last Visit</th>
             <th style="border-bottom: 1px solid black;">Hari</th>
             <th style="border-bottom: 1px solid black;">Total</th>
-            <th style="border-bottom: 1px solid black;">Tervisit</th>
+            <!-- <th style="border-bottom: 1px solid black;">Tervisit</th> -->
             <!-- <th style="border-bottom: 1px solid black;">Nama Pelanggan</th> -->
         </tr>
         <?php
@@ -115,17 +115,19 @@
                 $status_visit_color = 'text-red';
             }
             ?>
-            <tr>
-                <td class="text-center"><?= $no++; ?></td>
-                <td><?= $jadwalVisit['nama'] ?></td>
-                <td><?= $jadwalVisit['nama_city'] ?></td>
-                <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
-                <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
-                <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
-                <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
-                <td class="text-center"><?= number_format($jadwalVisit['total_invoice'], 0, '.', ',') ?></td>
-                <td class="text-center <?= $status_visit_color ?>"><?= $visit != null ? 'Yes' : 'No' ?></td>
-            </tr>
+            <?php if ($visit): ?>
+                <tr>
+                    <td class="text-center"><?= $no++; ?></td>
+                    <td><?= $jadwalVisit['nama'] ?></td>
+                    <td><?= $jadwalVisit['nama_city'] ?></td>
+                    <td><?= $jadwalVisit['filter_jadwal_visit'] ?></td>
+                    <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
+                    <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
+                    <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
+                    <td class="text-center"><?= number_format($jadwalVisit['total_invoice'], 0, '.', ',') ?></td>
+                    <!-- <td class="text-center <?= $status_visit_color ?>"><?= $visit != null ? 'Yes' : 'No' ?></td> -->
+                </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
     </table>
 </body>
