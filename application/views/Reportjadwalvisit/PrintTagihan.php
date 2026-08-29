@@ -115,7 +115,7 @@
                 $status_visit_color = 'text-red';
             }
             ?>
-            <?php if ($visit): ?>
+            <?php if (!$visit): ?>
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $jadwalVisit['nama'] ?> (<?= $jadwalVisit['id_contact'] ?>)</td>
