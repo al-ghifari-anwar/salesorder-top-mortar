@@ -911,6 +911,15 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
+                                                <a href="<?= base_url('reportjadwalvisitbulanan') ?>" class="nav-link <?= $menu == 'ReportJadwalVisitBulanan' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <p>
+                                                        Report Jadwal Visit Bulanan
+                                                        <!-- <span class="right badge badge-success">New</span> -->
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
                                                 <a href="<?= base_url('manualconfirmvisit') ?>" class="nav-link <?= $menu == 'ManualConfirmVisit' ? 'active' : '' ?>">
                                                     <i class="nav-icon fas fa-paperclip"></i>
                                                     <p>
