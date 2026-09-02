@@ -53,18 +53,18 @@
                                             <label>Bulan:</label>
                                             <div class="form-group">
                                                 <select name="bulan" id="select2bs4" class="form-control select2bs4">
-                                                    <option value="01" <?= $month == 01 ? 'selected' : '' ?>>Januari</option>
-                                                    <option value="02" <?= $month == 02 ? 'selected' : '' ?>>Februari</option>
-                                                    <option value="03" <?= $month == 03 ? 'selected' : '' ?>>Maret</option>
-                                                    <option value="04" <?= $month == 04 ? 'selected' : '' ?>>April</option>
-                                                    <option value="05" <?= $month == 05 ? 'selected' : '' ?>>Mei</option>
-                                                    <option value="06" <?= $month == 06 ? 'selected' : '' ?>>Juni</option>
-                                                    <option value="07" <?= $month == 07 ? 'selected' : '' ?>>Juli</option>
-                                                    <option value="08" <?= $month == 08 ? 'selected' : '' ?>>Agustus</option>
-                                                    <option value="09" <?= $month == 09 ? 'selected' : '' ?>>September</option>
-                                                    <option value="10" <?= $month == 10 ? 'selected' : '' ?>>Oktober</option>
-                                                    <option value="11" <?= $month == 11 ? 'selected' : '' ?>>November</option>
-                                                    <option value="12" <?= $month == 12 ? 'selected' : '' ?>>Desember</option>
+                                                    <option value="01" <?= $month == '01' ? 'selected' : '' ?>>Januari</option>
+                                                    <option value="02" <?= $month == '02' ? 'selected' : '' ?>>Februari</option>
+                                                    <option value="03" <?= $month == '03' ? 'selected' : '' ?>>Maret</option>
+                                                    <option value="04" <?= $month == '04' ? 'selected' : '' ?>>April</option>
+                                                    <option value="05" <?= $month == '05' ? 'selected' : '' ?>>Mei</option>
+                                                    <option value="06" <?= $month == '06' ? 'selected' : '' ?>>Juni</option>
+                                                    <option value="07" <?= $month == '07' ? 'selected' : '' ?>>Juli</option>
+                                                    <option value="08" <?= $month == '08' ? 'selected' : '' ?>>Agustus</option>
+                                                    <option value="09" <?= $month == '09' ? 'selected' : '' ?>>September</option>
+                                                    <option value="10" <?= $month == '10' ? 'selected' : '' ?>>Oktober</option>
+                                                    <option value="11" <?= $month == '11' ? 'selected' : '' ?>>November</option>
+                                                    <option value="12" <?= $month == '12' ? 'selected' : '' ?>>Desember</option>
                                                 </select>
                                             </div>
                                             <label for="">Kota:</label>
