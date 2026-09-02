@@ -46,7 +46,7 @@
                                         <div class="row">
                                             <label>Tahun:</label>
                                             <div class="form-group">
-                                                <select name="bulan" id="" class="form-control">
+                                                <select name="year" id="" class="form-control">
                                                     <option value="2026" <?= $year == '2026' ? 'selected' : '' ?>>2026</option>
                                                 </select>
                                             </div>
