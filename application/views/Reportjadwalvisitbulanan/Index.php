@@ -52,7 +52,7 @@
                                             </div>
                                             <label>Bulan:</label>
                                             <div class="form-group">
-                                                <select name="bulan" id="select2bs4" class="form-control select2bs4">
+                                                <select name="month" id="select2bs4" class="form-control select2bs4">
                                                     <option value="01" <?= $month == '01' ? 'selected' : '' ?>>Januari</option>
                                                     <option value="02" <?= $month == '02' ? 'selected' : '' ?>>Februari</option>
                                                     <option value="03" <?= $month == '03' ? 'selected' : '' ?>>Maret</option>
