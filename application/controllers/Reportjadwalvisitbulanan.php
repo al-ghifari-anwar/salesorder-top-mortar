@@ -25,6 +25,8 @@ class Reportjadwalvisitbulanan extends CI_Controller
         $data['title'] = 'Report Jadwal Visit Bulanan';
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'ReportJadwalVisitBulanan';
+        $data['year'] = '0';
+        $data['month'] = date('m');
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));
         } else if ($this->session->userdata('level_user') == 'salesspv') {
