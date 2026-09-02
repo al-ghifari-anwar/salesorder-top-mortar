@@ -57,13 +57,13 @@ class Reportjadwalvisitbulanan extends CI_Controller
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_jadwal_visit.id_contact');
         $data['jadwalVisits'] = $this->db->order_by('id_jadwal_visit', 'ASC')->get_where('tb_jadwal_visit', ['MONTH(date_jadwal_visit)' => $month, 'YEAR(date_jadwal_visit)' => $year, 'tb_jadwal_visit.id_city' => $id_city])->result_array();
 
-        $this->load->view('Reportjadwalvisitbulanan/Print', $data);
+        // $this->load->view('Reportjadwalvisitbulanan/Print', $data);
 
-        // $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
-        // $mpdf->SetMargins(0, 0, 5);
-        // $html = $this->load->view('Reportjadwalvisitbulanan/Print', $data, true);
-        // $mpdf->AddPage('P');
-        // $mpdf->WriteHTML($html);
-        // $mpdf->Output();
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+        $mpdf->SetMargins(0, 0, 5);
+        $html = $this->load->view('Reportjadwalvisitbulanan/Print', $data, true);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }
