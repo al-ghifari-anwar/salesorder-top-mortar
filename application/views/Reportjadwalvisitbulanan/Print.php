@@ -101,6 +101,7 @@
         $no = 1;
         foreach ($jadwalVisits as $jadwalVisit): ?>
             <?php
+            $date = $jadwalVisit['date_jadwal_visit'];
             $id_contact = $jadwalVisit['id_contact'];
             $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
             $visit = $this->db->not_like('source_visit', 'absen')->get_where('tb_visit', ['id_contact' => $id_contact, 'DATE(date_visit)' => date('Y-m-d', strtotime($date))])->row_array();
@@ -125,7 +126,6 @@
                 $status_visit_color = 'text-red';
             }
 
-            $date = $jadwalVisit['date_jadwal_visit'];
 
             $cluster = 0;
             if (date('D', strtotime($date)) == 'Mon' || date('D', strtotime($date)) == 'Thu') {
