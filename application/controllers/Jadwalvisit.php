@@ -246,7 +246,7 @@ class Jadwalvisit extends CI_Controller
 
     public function save()
     {
-        $this->db->where_in('id_distributor', [1, 5]);
+        $this->db->where_in('id_distributor', [1, 5, 9]);
         $citys = $this->db->get('tb_city')->result_array();
         $dateNow = date('Y-m-d');
 
