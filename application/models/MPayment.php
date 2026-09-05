@@ -77,6 +77,8 @@ class MPayment extends CI_Model
             $this->db->where('source', '8881051362');
         } else if ($this->session->userdata('id_distributor') == 9) {
             $this->db->where('source', 'mojokerto');
+        } else if ($this->session->userdata('id_distributor') == 10) {
+            $this->db->where('source', '8880762231');
         }
         $query = $this->db->get_where('tb_payment', ['id_invoice' => 0, 'is_removed' => 0])->result_array();
 
