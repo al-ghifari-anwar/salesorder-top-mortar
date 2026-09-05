@@ -239,7 +239,7 @@ class Reportjadwalvisit extends CI_Controller
     public function notifTagihan()
     {
         $chatId = "-1003589286815";
-        $date = $_GET['date'];
+        $date = date('Y-m-d');
 
         $cluster = 0;
         if (date('D', strtotime($date)) == 'Mon' || date('D', strtotime($date)) == 'Thu') {
