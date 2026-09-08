@@ -910,7 +910,7 @@ class Steprenvi extends CI_Controller
                     'number_step_renvi' => $jadwalVisit['number'],
                     'cluster_step_renvi' => $cluster,
                     'date_step_renvi' => date('Y-m-d'),
-                    'source_step_renvi' => $jadwalVisit['type_renvis'],
+                    'source_step_renvi' => $jadwalVisit['source'],
                     'filter_step_renvi' => $jadwalVisit['filter'],
                     'is_new' => $jadwalVisit['is_new'],
                     'last_visit_step_renvi' => $jadwalVisit['last_visit'],
