@@ -472,3 +472,5 @@ $route['sjretur/detail/create'] = 'Sjretur/createDetail';
 $route['sjretur/detail/delete/(:num)'] = 'Sjretur/deleteDetail/$1';
 $route['sjretur/finish/(:num)'] = 'Sjretur/finish/$1';
 $route['sjretur/storesj/(:num)'] = 'Sjretur/getStoreSj/$1';
+// New Step Renvi
+$route['steprenvi/save'] = 'Steprenvi/save';
