@@ -540,19 +540,19 @@ class Steprenvi extends CI_Controller
                         // $date_last_for_counter = date('Y-m-d', strtotime($renvi['jatem']));
                         // $last_visit = $renvi['jatuh_tempo'];
                         $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
-                        $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                        $last_visit = date('Y-m-d', strtotime($renvi['created_at']));
                     } else if ($type_renvis == 'tagih_mingguan') {
                         $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
-                        $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                        $last_visit = date('Y-m-d', strtotime($renvi['created_at']));
                         // $date_last_for_counter = date('Y-m-d', strtotime($renvi['date_invoice']));
-                        // $last_visit = date('d M Y', strtotime($renvi['date_invoice']));
+                        // $last_visit = date('Y-m-d', strtotime($renvi['date_invoice']));
                     } else {
                         $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
-                        $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                        $last_visit = date('Y-m-d', strtotime($renvi['created_at']));
                     }
                 } else {
                     $date_last_for_counter = date('Y-m-d', strtotime($renvi['created_at']));
-                    $last_visit = date('d M Y', strtotime($renvi['created_at']));
+                    $last_visit = date('Y-m-d', strtotime($renvi['created_at']));
                 }
 
                 $date1 = new DateTime(date("Y-m-d"));
@@ -712,7 +712,7 @@ class Steprenvi extends CI_Controller
                         $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                         $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
-                        $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+                        $last_visit = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
 
                         $date1 = new DateTime(date("Y-m-d"));
                         $date2 = new DateTime($date_last_for_counter);
@@ -753,7 +753,7 @@ class Steprenvi extends CI_Controller
             // Filter 5 (Toko passive)
             foreach ($renvisPassives as $renvisPassive) {
                 $date_last_for_counter = date('Y-m-d', strtotime($renvisPassive['created_at']));
-                $last_visit = date('d M Y', strtotime($renvisPassive['created_at']));
+                $last_visit = date('Y-m-d', strtotime($renvisPassive['created_at']));
 
                 $date1 = new DateTime(date("Y-m-d"));
                 $date2 = new DateTime($date_last_for_counter);
@@ -803,7 +803,7 @@ class Steprenvi extends CI_Controller
                 $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                 $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
-                $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+                $last_visit = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
 
                 $date1 = new DateTime(date("Y-m-d"));
                 $date2 = new DateTime($date_last_for_counter);
@@ -852,14 +852,14 @@ class Steprenvi extends CI_Controller
                 $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                 // $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
-                // $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+                // $last_visit = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
 
                 $date_last_for_counter = date('Y-m-d');
-                $last_visit = date('d M Y');
+                $last_visit = date('Y-m-d');
 
                 if ($rowLastVisit) {
                     $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
-                    $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
+                    $last_visit = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
                 }
 
                 $date1 = new DateTime(date("Y-m-d"));
