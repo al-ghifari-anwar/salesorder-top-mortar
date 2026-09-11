@@ -27,6 +27,10 @@ class Stok extends CI_Controller
         $data['menuGroup'] = 'Stok';
         $data['menu'] = 'Stok';
         $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['id_distributor' => $this->session->userdata('id_distributor'), 'is_active' => 1])->result_array();
+        if ($this->session->userdata('id_distributor') == 10) {
+            $this->db->where_in('id_distributor', [$this->session->userdata('id_distributor'), 1]);
+            $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['is_active' => 1])->result_array();
+        }
         // }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
