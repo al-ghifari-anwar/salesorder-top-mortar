@@ -104,7 +104,7 @@ class Stok extends CI_Controller
         $data['gudang'] = $this->db->get_where('tb_gudang_stok', ['id_gudang_stok' => $id_gudang_stok])->row_array();
         $data['masterProduks'] = $this->db->get_where("tb_master_produk", ['id_distributor' => $id_distributor, 'name_master_produk !=' => '-'])->result_array();
         if ($this->session->userdata('id_distributor') == 10) {
-            $this->db->where_in('tb_distributor', [$this->session->userdata('id_distributor'), 1]);
+            $this->db->where_in('id_distributor', [$this->session->userdata('id_distributor'), 1]);
             $data['masterProduks'] = $this->db->get_where("tb_master_produk", ['name_master_produk !=' => '-'])->result_array();
         }
 
