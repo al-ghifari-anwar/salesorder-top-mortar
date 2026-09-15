@@ -1033,7 +1033,7 @@
                                             </a>
                                         </li>
                                     <?php endif; ?>
-                                    <?php if ($this->session->userdata('id_distributor') != '10') : ?>
+                                    <?php if ($this->session->userdata('id_distributor') != '11') : ?>
                                         <li class="nav-item">
                                             <a href="<?= base_url('voucher') ?>" class="nav-link <?= $menu == 'Voucher' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-ticket-alt"></i>
