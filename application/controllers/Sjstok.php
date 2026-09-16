@@ -15,6 +15,18 @@ class Sjstok extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
+
+        $get = $this->input->get();
+
+        $dateFrom = date('Y-m-d', strtotime('-1 days'));
+        $dateTo = date('Y-m-d');
+
+        if (isset($get['daterange'])) {
+            $dates = explode(' - ', $get['daterange']);
+            $dateFrom = date('Y-m-d', strtotime($dates[0]));
+            $dateTo = date('Y-m-d', strtotime($dates[1]));
+        }
+
         $data['title'] = 'Tambah Stok';
         $data['menuGroup'] = 'Stok';
         $data['menu'] = 'Sjstok';
@@ -23,8 +35,15 @@ class Sjstok extends CI_Controller
             $this->db->where_in('id_distributor', [$this->session->userdata('id_distributor'), 1]);
             $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['is_active' => 1])->result_array();
         }
+
+        $this->db->where('DATE(tb_surat_jalan.dalivery_date) >=', $dateFrom);
+        $this->db->where('DATE(tb_surat_jalan.dalivery_date) <=', $dateTo);
         $this->db->order_by('created_at', 'DESC');
         $data['sjstoks'] = $this->db->get_where('tb_sj_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        $data['dateFrom'] = $dateFrom;
+        $data['dateTo'] = $dateTo;
+
+
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Sjstok/Index');

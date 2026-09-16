@@ -41,6 +41,27 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
+                            <form action="<?= base_url("suratjalan") ?>" method="get">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="form-group ml-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control float-right" id="reservation" name="daterange" value="<?= date('m/d/Y', strtotime($dateFrom)) . ' - ' . date('m/d/Y', strtotime($dateTo)) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <button type="submit" class="btn btn-primary float-left">
+                                            Filter
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-insert">
                                 Tambah Data
                             </button>
