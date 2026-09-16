@@ -36,8 +36,8 @@ class Sjstok extends CI_Controller
             $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['is_active' => 1])->result_array();
         }
 
-        $this->db->where('DATE(tb_surat_jalan.dalivery_date) >=', $dateFrom);
-        $this->db->where('DATE(tb_surat_jalan.dalivery_date) <=', $dateTo);
+        $this->db->where('DATE(tb_sj_stok.created_at) >=', $dateFrom);
+        $this->db->where('DATE(tb_sj_stok.created_at) <=', $dateTo);
         $this->db->order_by('created_at', 'DESC');
         $data['sjstoks'] = $this->db->get_where('tb_sj_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
         $data['dateFrom'] = $dateFrom;
