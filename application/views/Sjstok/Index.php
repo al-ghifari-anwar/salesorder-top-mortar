@@ -41,7 +41,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <form action="<?= base_url("suratjalan") ?>" method="get">
+                            <form action="<?= base_url("sjstok") ?>" method="get">
                                 <div class="row">
                                     <div class="col-7">
                                         <div class="form-group ml-3">
