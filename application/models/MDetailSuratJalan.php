@@ -473,6 +473,9 @@ class MDetailSuratJalan extends CI_Model
             $id_surat_jalan = $this->id_surat_jalan;
             $no_voucher = $this->no_voucher;
 
+            // Add Value price Retur
+            $this->amount = $this->amount + $priceRetur;
+
             $cekProdukVc = $this->db->query("SELECT * FROM tb_detail_surat_jalan WHERE id_surat_jalan = '$id_surat_jalan' AND no_voucher IN ('" . $no_voucher . "')")->result_array();
 
             // echo json_encode($cekProdukVc);
