@@ -7,7 +7,7 @@ class HTelegram extends CI_Model
     {
         $tele = $this->db->get_where('tb_telegram')->row_array();
 
-        $apikey = $tele['api_key'];
+        $apikey = $tele['api_key_telegram'];
 
         $curl = curl_init();
 
