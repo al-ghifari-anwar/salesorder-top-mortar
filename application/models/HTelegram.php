@@ -5,6 +5,10 @@ class HTelegram extends CI_Model
 {
     public function sendDocumentGroup($chatId, $message, $documentUrl)
     {
+        $tele = $this->db->get_where('tb_telegram')->row_array();
+
+        $apikey = $tele['api_key'];
+
         $curl = curl_init();
 
         $telegramPayload = [
@@ -14,7 +18,7 @@ class HTelegram extends CI_Model
         ];
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.telegram.org/bot8991694337:AAFB0613trOYjDKE3yKy7Mxw3PkMSKo63Nk/sendDocument',
+            CURLOPT_URL => "https://api.telegram.org/bot$apikey/sendDocument",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -37,6 +41,10 @@ class HTelegram extends CI_Model
 
     public function sendTextPrivate($chatId, $message)
     {
+        $tele = $this->db->get_where('tb_telegram')->row_array();
+
+        $apikey = $tele['api_key'];
+
         $curl = curl_init();
 
         $telegramPayload = [
@@ -45,7 +53,7 @@ class HTelegram extends CI_Model
         ];
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.telegram.org/bot8991694337:AAFB0613trOYjDKE3yKy7Mxw3PkMSKo63Nk/sendMessage',
+            CURLOPT_URL => "https://api.telegram.org/bot$apikey/sendDocument",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
