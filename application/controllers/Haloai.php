@@ -29,6 +29,10 @@ class Haloai extends CI_Controller
         } else {
             $nomorhp = $_GET['nomorhp'];
 
+            if (substr($nomorhp, 0, 1) === '0') {
+                $nomorhp = '62' . substr($nomorhp, 1);
+            }
+
             $contact = $this->db->select('id_contact, nama, nomorhp, tgl_lahir, store_owner, address, store_status, id_city, id_promo, termin_payment, kredit_limit, hobi_contact AS hobi, payment_method')->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
 
 
@@ -543,6 +547,10 @@ class Haloai extends CI_Controller
         $this->db->insert('webhook_order', $webhookOrderData);
 
         $nomorhp = $post['data']['nomor_customer'];
+
+        if (substr($nomorhp, 0, 1) === '0') {
+            $nomorhp = '62' . substr($nomorhp, 1);
+        }
 
         $this->db->join('tb_city', 'tb_city.id_city = tb_contact.id_city');
         $contact = $this->db->where('nomorhp', $nomorhp)->or_where('nomorhp_2', $nomorhp)->get('tb_contact')->row_array();
