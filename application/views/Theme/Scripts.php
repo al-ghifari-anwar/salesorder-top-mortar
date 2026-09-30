@@ -1,9 +1,9 @@
-<!-- ============ 1) Wadah panel chat ============ -->
+<!-- ============ 2) Wadah panel chat ============ -->
 <div
     id="haloai-embed"
     style="position: fixed; bottom: 24px; right: 24px; z-index: 2147483001; display: none; width: 400px; height: 620px; max-width: calc(100vw - 32px); max-height: calc(100vh - 48px);"></div>
 
-<!-- ============ 2) Loader HaloAI (cukup SATU kali per halaman) ============ -->
+<!-- ============ 3) Loader HaloAI ============ -->
 <script
     src="https://www.haloai.co.id/embed/client.js"
     data-channel-id="01a0ec4e-d7a1-75cb-bb06-e9846fb14fcd"
@@ -12,43 +12,67 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- LIVE CHAT TRIAL -->
-<!-- ============ 3) Perekat tombol <-> chat ============ -->
+<!-- ============ 4) Perekat tombol <-> chat ============ -->
 <script>
     (() => {
         const channelId = '01a0ec4e-d7a1-75cb-bb06-e9846fb14fcd';
         const containerId = 'haloai-embed';
         const buttonId = 'live-chat-button';
-        const welcomeMessage = '';
+
+        // Token identitas dari link WhatsApp. Kosong untuk pengunjung biasa —
+        // mereka tetap melihat pre-chat form seperti sebelumnya.
+        const identityToken = new URLSearchParams(window.location.search).get('identity') || '';
+
+        // Kalau pengunjung datang membawa token, chat dibuka otomatis: dia sudah
+        // menyatakan niat chat waktu mengklik link, jadi jangan suruh klik lagi.
+        const autoOpen = identityToken.length > 0;
+
+        const openChat = (api) => {
+            const button = document.getElementById(buttonId);
+            const container = document.getElementById(containerId);
+            if (!button || !container) {
+                return;
+            }
+
+            button.style.display = 'none';
+            container.style.display = 'block';
+
+            const searchParams = {};
+            if (identityToken) {
+                searchParams.identity = identityToken;
+            }
+
+            api
+                .openChatUi(channelId, {
+                    containerId,
+                    backgroundColor: '#ffffff',
+                    searchParams
+                })
+                .catch((error) => {
+                    console.error('HaloAI Embed: gagal membuka chat.', error);
+                    container.style.display = 'none';
+                    button.style.display = '';
+                });
+        };
 
         const attach = (api) => {
             if (!api || typeof api.openChatUi !== 'function') {
                 return;
             }
             const button = document.getElementById(buttonId);
-            const container = document.getElementById(containerId);
-            if (!button || !container || button.dataset.haloaiMounted === 'true') {
+            if (!button || button.dataset.haloaiMounted === 'true') {
                 return;
             }
             button.dataset.haloaiMounted = 'true';
 
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-                button.style.display = 'none';
-                container.style.display = 'block';
-                api
-                    .openChatUi(channelId, {
-                        containerId,
-                        backgroundColor: '#ffffff',
-                        searchParams: {
-                            welcomeMessage
-                        },
-                    })
-                    .catch((error) => {
-                        console.error('HaloAI Embed: gagal membuka chat.', error);
-                        container.style.display = 'none';
-                        button.style.display = '';
-                    });
+                openChat(api);
             });
+
+            if (autoOpen) {
+                openChat(api);
+            }
         };
 
         window.addEventListener('message', (event) => {
@@ -59,13 +83,11 @@
             const button = document.getElementById(buttonId);
             const container = document.getElementById(containerId);
 
-            // Pengunjung menutup panel dari dalam iframe.
             if (event.data.type === 'haloai:close' && button && container) {
                 container.style.display = 'none';
                 button.style.display = '';
             }
 
-            // Channel sedang tidak tersedia -> sembunyikan tombolnya.
             if (event.data.type === 'haloai:channel-unavailable' && event.data.channelId === channelId) {
                 if (button) {
                     button.style.display = 'none';

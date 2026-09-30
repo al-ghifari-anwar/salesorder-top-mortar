@@ -8,6 +8,7 @@
     <strong>Copyright &copy; 2023 <a href="#">PT Top Mortar</a>.</strong> All rights reserved.
 </footer>
 
+<!-- ============ 1) Tombol chat (hapus kalau pakai tombol sendiri) ============ -->
 <button
     id="live-chat-button"
     type="button"
