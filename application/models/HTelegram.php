@@ -53,7 +53,7 @@ class HTelegram extends CI_Model
         ];
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.telegram.org/bot$apikey/sendDocument",
+            CURLOPT_URL => "https://api.telegram.org/bot$apikey/sendMessage",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
