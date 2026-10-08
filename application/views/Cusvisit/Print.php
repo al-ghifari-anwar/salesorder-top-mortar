@@ -234,7 +234,7 @@ foreach ($contacts as $contactRow) {
                             <?= $getVisitMg == null ? 0 : $getVisitMg ?>
                         </td>
                         <td class="text-center">
-                            <?= $getVisitTagihan + $getVisitPassive ?>
+                            <?= $getVisitTagihan + $getVisitPassive + $getVisitVoucher + $getVisitActive + $getVisitMg ?>
                         </td>
                     </tr>
                 <?php endif; ?>
