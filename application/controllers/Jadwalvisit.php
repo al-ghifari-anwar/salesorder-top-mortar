@@ -695,7 +695,7 @@ class Jadwalvisit extends CI_Controller
                 }
             }
 
-            // Filter 2
+            // Filter 2 (Cluster & days 0 - 7)
             foreach ($renvis as $renvi) {
                 $type_renvis = $renvi['type_renvis'];
                 $id_contact = $renvi['id_contact'];
@@ -778,7 +778,7 @@ class Jadwalvisit extends CI_Controller
                     }
                 }
 
-                if ($total_invoice == 0) {
+                if ($total_invoice >= 0) {
                     $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
                     foreach ($invoices as $invoice) {
                         $id_invoice = $invoice['id_invoice'];
@@ -876,7 +876,7 @@ class Jadwalvisit extends CI_Controller
                 }
             }
 
-            // Filter 3
+            // Filter 3 (Hari Bayar, Free Cluster & days 0 - 7)
             foreach ($renvis as $renvi) {
                 $type_renvis = $renvi['type_renvis'];
                 $id_contact = $renvi['id_contact'];
@@ -959,7 +959,7 @@ class Jadwalvisit extends CI_Controller
                     }
                 }
 
-                if ($total_invoice == 0) {
+                if ($total_invoice >= 0) {
                     $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
                     foreach ($invoices as $invoice) {
                         $id_invoice = $invoice['id_invoice'];
