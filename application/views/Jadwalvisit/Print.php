@@ -171,6 +171,17 @@
             $id_contact = $renvi['id_contact'];
             $created_at = date('Y-m-d', strtotime($renvi['created_at']));
 
+            // Last of All Type Visit
+            $allTypLastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact])->row_array();
+            $date1allVisit = new DateTime(date("Y-m-d"));
+            $date2allVisit = new DateTime($allTypLastVisit['date_visit']);
+            $daysAllVisit  = $date2allVisit->diff($date1allVisit)->format('%a');
+            $operan = "";
+            if ($date1allVisit < $date2allVisit) {
+                $operan = "-";
+            }
+            $daysAllVisit = $operan . $daysAllVisit;
+
             $last_visit = '';
             $date_last_for_counter = '';
             if ($renvi['is_new'] == 1) {
@@ -306,7 +317,7 @@
                 if (count($jadwalVisits) <= 9) {
                     // if ($days == 0 || $days >= 7) {
                     if ($days > $minDayCluster) {
-                        if ($days > 7) {
+                        if ($daysAllVisit > 7) {
                             if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1') {
                                 if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                                     array_push($jadwalVisits, $renvisFilter);
@@ -361,6 +372,17 @@
             $type_renvis = $renvi['type_renvis'];
             $id_contact = $renvi['id_contact'];
             $created_at = date('Y-m-d', strtotime($renvi['created_at']));
+
+            // Last of All Type Visit
+            $allTypLastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact])->row_array();
+            $date1allVisit = new DateTime(date("Y-m-d"));
+            $date2allVisit = new DateTime($allTypLastVisit['date_visit']);
+            $daysAllVisit  = $date2allVisit->diff($date1allVisit)->format('%a');
+            $operan = "";
+            if ($date1allVisit < $date2allVisit) {
+                $operan = "-";
+            }
+            $daysAllVisit = $operan . $daysAllVisit;
 
             $last_visit = '';
             $date_last_for_counter = '';
@@ -496,7 +518,7 @@
                     if ($renvi['hari_bayar'] == $dayName) {
                         // if ($days == 0 || $days >= 7) {
                         // if ($days > $minDayCluster) {
-                        if ($days > 7) {
+                        if ($daysAllVisit > 7) {
                             if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                                 array_push($jadwalVisits, $renvisFilter);
                             }
