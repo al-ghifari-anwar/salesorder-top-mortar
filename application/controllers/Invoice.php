@@ -217,31 +217,31 @@ class Invoice extends CI_Controller
 
         if ($suratjalan['id_city'] == '63') {
             // Generate QR Payment
-            $config['cacheable']    = false; //boolean, the default is true
-            $config['cachedir']             = './assets/'; //string, the default is application/cache/
-            $config['errorlog']             = './assets/'; //string, the default is application/logs/
-            $config['imagedir']             = './assets/img/qr-payment/'; //direktori penyimpanan qr code
-            $config['quality']              = true; //boolean, the default is true
-            $config['size']                 = '1024'; //interger, the default is 1024
-            $config['black']                = array(224, 255, 255); // array, default is array(255,255,255)
-            $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
-            $this->ciqrcode->initialize($config);
+            $config_payment['cacheable']    = false; //boolean, the default is true
+            $config_payment['cachedir']             = './assets/'; //string, the default is application/cache/
+            $config_payment['errorlog']             = './assets/'; //string, the default is application/logs/
+            $config_payment['imagedir']             = './assets/img/qr-payment/'; //direktori penyimpanan qr code
+            $config_payment['quality']              = true; //boolean, the default is true
+            $config_payment['size']                 = '1024'; //interger, the default is 1024
+            $config_payment['black']                = array(224, 255, 255); // array, default is array(255,255,255)
+            $config_payment['white']                = array(70, 130, 180); // array, default is array(0,0,0)
+            $this->ciqrcode->initialize($config_payment);
 
-            $image_name = $invoice['id_invoice'] . '.png'; //buat name dari qr code sesuai dengan nim
+            $image_name_payment = $invoice['id_invoice'] . '.png'; //buat name dari qr code sesuai dengan nim
 
-            $file = FCPATH . $config['imagedir'] . $image_name;
+            $file_payment = FCPATH . $config_payment['imagedir'] . $image_name_payment;
 
-            if (file_exists($file)) {
-                unlink($file);
+            if (file_exists($file_payment)) {
+                unlink($file_payment);
             }
 
-            $params['data'] = 'https://pay.topmortarindonesia.com/pay/' . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
-            $params['level'] = 'H'; //H=High
-            $params['size'] = 10;
-            $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+            $params_payment['data'] = 'https://pay.topmortarindonesia.com/pay/' . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
+            $params_payment['level'] = 'H'; //H=High
+            $params_payment['size'] = 10;
+            $params_payment['savename'] = FCPATH . $config_payment['imagedir'] . $image_name_payment; //simpan image QR CODE ke folder assets/images/
 
-            copy($params['savename'], FCPATH . 'assets/img/qr-payment/' . $invoice['id_invoice'] . '.png');
-            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+            copy($params_payment['savename'], FCPATH . 'assets/img/qr-payment/' . $invoice['id_invoice'] . '.png');
+            $this->ciqrcode->generate($params_payment); // fungsi untuk generate QR CODE
 
             $this->load->view('Invoice/Print', $data);
         }
