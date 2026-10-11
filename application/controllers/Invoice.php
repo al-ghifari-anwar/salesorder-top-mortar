@@ -242,6 +242,8 @@ class Invoice extends CI_Controller
 
             copy($params['savename'], FCPATH . 'assets/img/qr-payment/' . $invoice['id_invoice'] . '.png');
             $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
+            $this->load->view('Invoice/Print', $data);
         }
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
