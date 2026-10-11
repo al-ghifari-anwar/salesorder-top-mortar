@@ -456,6 +456,7 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this
                             <td>QR Pembayaran</td>
                         </tr>
                     </table>
+
                 <?php endif; ?>
             </div>
             <div class="column" style="width: 30%;">
