@@ -240,7 +240,7 @@ class Invoice extends CI_Controller
             $params_payment['size'] = 10;
             $params_payment['savename'] = FCPATH . $config_payment['imagedir'] . $image_name_payment; //simpan image QR CODE ke folder assets/images/
 
-            copy($params_payment['savename'], FCPATH . 'assets/img/qr-payment/' . $invoice['id_invoice'] . '.png');
+            // copy($params_payment['savename'], FCPATH . 'assets/img/qr-payment/' . $invoice['id_invoice'] . '.png');
             $this->ciqrcode->generate($params_payment); // fungsi untuk generate QR CODE
 
             $this->load->view('Invoice/Print', $data);
