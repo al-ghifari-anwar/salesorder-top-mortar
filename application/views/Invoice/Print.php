@@ -447,7 +447,7 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this
                 <?php if ($suratjalan['id_city'] == '63'): ?>
                     <table class="">
                         <tr>
-                            <th class="text-center">
+                            <th class="text-left">
                                 <img src="<?= 'https://order.topmortarindonesia.com/assets/img/qr-payment/' . $invoice['id_invoice'] . '.png' ?>" style="width: 50px;">
                                 <!-- <p><?= $baseurl ?></p> -->
                             </th>
