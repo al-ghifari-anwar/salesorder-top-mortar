@@ -215,6 +215,33 @@ class Invoice extends CI_Controller
 
         // $this->load->view('Invoice/Print', $data);
 
+        // Generate QR Payment
+        $config['cacheable']    = false; //boolean, the default is true
+        $config['cachedir']             = './assets/'; //string, the default is application/cache/
+        $config['errorlog']             = './assets/'; //string, the default is application/logs/
+        $config['imagedir']             = './assets/img/qr/'; //direktori penyimpanan qr code
+        $config['quality']              = true; //boolean, the default is true
+        $config['size']                 = '1024'; //interger, the default is 1024
+        $config['black']                = array(224, 255, 255); // array, default is array(255,255,255)
+        $config['white']                = array(70, 130, 180); // array, default is array(0,0,0)
+        $this->ciqrcode->initialize($config);
+
+        $image_name = $invoice['id_invoice'] . '.png'; //buat name dari qr code sesuai dengan nim
+
+        $file = FCPATH . $config['imagedir'] . $image_name;
+
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        $params['data'] = 'https://pay.topmortarindonesia.com/pay/' . $invoice['id_invoice']; //data yang akan di jadikan QR CODE
+        $params['level'] = 'H'; //H=High
+        $params['size'] = 10;
+        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+
+        copy($params['savename'], FCPATH . 'assets/img/qr-payment/' . $invoice['id_invoice'] . '.png');
+        $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Invoice/Print', $data, true);
