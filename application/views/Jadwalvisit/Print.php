@@ -249,6 +249,7 @@
             }
 
             if ($total_invoice >= 0) {
+                $total_invoice = 0;
                 $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
                 foreach ($invoices as $invoice) {
                     $id_invoice = $invoice['id_invoice'];
@@ -451,6 +452,7 @@
             }
 
             if ($total_invoice >= 0) {
+                $total_invoice = 0;
                 $invoices = $this->MInvoice->getByIdContactWaiting($id_contact);
                 foreach ($invoices as $invoice) {
                     $id_invoice = $invoice['id_invoice'];
