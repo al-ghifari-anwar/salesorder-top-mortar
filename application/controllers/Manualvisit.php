@@ -12,6 +12,7 @@ class Manualvisit extends CI_Controller
         $this->load->model('MCity');
         $this->load->model('MContact');
         $this->load->model('MUser');
+        $this->load->model('HTelegram');
         $this->load->library('form_validation');
         date_default_timezone_set('Asia/Jakarta');
     }
@@ -159,52 +160,59 @@ class Manualvisit extends CI_Controller
 
             curl_close($curl);
 
-            // echo $response;
-            // die;
-
-            $nomor_hp_admin = "6289636224827";
-            $nama_admin = "April";
-
-            $message = "Toko " . $nama . "telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". ";
+            $message = "Toko " . $nama . " telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". " . $getContact['nama_city'];
             if ($pay_value <= 0) {
                 $message = "Toko " . $nama . " hari ini belum melakukan pembayaran ";
             }
 
-            $haloaiPayload = [
-                'activate_ai_after_send' => false,
-                'channel_id' => $channel_id,
-                'fallback_template_message' => $template,
-                'fallback_template_variables' => [
-                    $nama_admin,
-                    trim(preg_replace('/\s+/', ' ', $message)),
-                    $full_name,
-                ],
-                'phone_number' => $nomor_hp_admin,
-                'text' => trim(preg_replace('/\s+/', ' ', $message)),
-            ];
+            $this->HTelegram->sendTextPrivate("-5563739964", $message);
 
-            $curl = curl_init();
+            // echo $response;
+            // die;
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $wa_token,
-                    'X-HaloAI-Business-Id: ' . $business_id,
-                    'Content-Type: application/json'
-                ),
-            ));
+            // $nomor_hp_admin = "6289636224827";
+            // $nama_admin = "April";
 
-            $response = curl_exec($curl);
+            // $message = "Toko " . $nama . "telah melakukan pembayaran sebesar Rp. " . number_format($pay_value, 0, ',', '.') . ". ";
+            // if ($pay_value <= 0) {
+            //     $message = "Toko " . $nama . " hari ini belum melakukan pembayaran ";
+            // }
 
-            curl_close($curl);
+            // $haloaiPayload = [
+            //     'activate_ai_after_send' => false,
+            //     'channel_id' => $channel_id,
+            //     'fallback_template_message' => $template,
+            //     'fallback_template_variables' => [
+            //         $nama_admin,
+            //         trim(preg_replace('/\s+/', ' ', $message)),
+            //         $full_name,
+            //     ],
+            //     'phone_number' => $nomor_hp_admin,
+            //     'text' => trim(preg_replace('/\s+/', ' ', $message)),
+            // ];
+
+            // $curl = curl_init();
+
+            // curl_setopt_array($curl, array(
+            //     CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
+            //     CURLOPT_RETURNTRANSFER => true,
+            //     CURLOPT_ENCODING => '',
+            //     CURLOPT_MAXREDIRS => 10,
+            //     CURLOPT_TIMEOUT => 0,
+            //     CURLOPT_FOLLOWLOCATION => true,
+            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            //     CURLOPT_CUSTOMREQUEST => 'POST',
+            //     CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
+            //     CURLOPT_HTTPHEADER => array(
+            //         'Authorization: Bearer ' . $wa_token,
+            //         'X-HaloAI-Business-Id: ' . $business_id,
+            //         'Content-Type: application/json'
+            //     ),
+            // ));
+
+            // $response = curl_exec($curl);
+
+            // curl_close($curl);
 
             $this->session->set_flashdata('success', "Berhasil menambah visit!");
             redirect('manualvisit/' . $id_city);
