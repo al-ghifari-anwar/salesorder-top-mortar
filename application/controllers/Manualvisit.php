@@ -122,7 +122,7 @@ class Manualvisit extends CI_Controller
             $wa_token = $haloai['token_haloai'];
             $business_id = $haloai['business_id_haloai'];
             $channel_id = $haloai['channel_id_haloai'];
-            $template = 'notif_meeting_baru';
+            $template = 'info_meeting_baru';
 
             $haloaiPayload = [
                 'activate_ai_after_send' => false,
