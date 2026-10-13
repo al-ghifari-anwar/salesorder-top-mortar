@@ -214,7 +214,7 @@ class Manualvisit extends CI_Controller
 
             // curl_close($curl);
 
-            $this->session->set_flashdata('success', "Berhasil menambah visit!");
+            $this->session->set_flashdata('success', "Berhasil menambah visit! " . $response);
             redirect('manualvisit/' . $id_city);
         } else {
             $this->session->set_flashdata('failed', "Gagal menambah visit!");
