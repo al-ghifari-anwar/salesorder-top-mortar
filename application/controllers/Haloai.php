@@ -567,7 +567,15 @@ class Haloai extends CI_Controller
 
             $id_promo = $contact['id_promo'];
 
-            $vouchers = $this->MVoucher->getByIdContactForHaloAI($id_contact);
+            $qtyForLimitVoucher = 0;
+
+            foreach ($webhookProducts as $webhookProduct) {
+                $qtyForLimitVoucher += $webhookProduct['Quantity'];
+            }
+
+            $limitVoucher = (int) floor($qtyForLimitVoucher / 10);
+
+            $vouchers = $this->MVoucher->getByIdContactForHaloAIWithLimit($id_contact, $limitVoucher);
 
             $city = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
 
