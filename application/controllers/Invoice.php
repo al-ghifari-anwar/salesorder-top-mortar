@@ -225,12 +225,12 @@ class Invoice extends CI_Controller
             // Read Logo File
             $logoPath = FCPATH . "./assets/img/qris_logo.png";
             $logoImageReader = new SimpleImage();
-            $logoImageReader->fromFile($logoPath)->bestFit(160, 65);
+            $logoImageReader->fromFile($logoPath)->bestFit(240, 98);
             // Next, create a slightly larger image,
             // fill it with a rounded white square,
             // and overlay the resized logo
             $logoImageBuilder = new SimpleImage();
-            $logoImageBuilder->fromNew(175, 75)->roundedRectangle(0, 0, 175, 75, 8, 'white', 'filled')->overlay($logoImageReader);
+            $logoImageBuilder->fromNew(250, 108)->roundedRectangle(0, 0, 250, 108, 8, 'white', 'filled')->overlay($logoImageReader);
 
             $logoData = $logoImageBuilder->toDataUri('image/png', 100);
 
@@ -243,7 +243,7 @@ class Invoice extends CI_Controller
                 ->data($qr_payload)
                 ->size(500)
                 ->logoPath($logoData)
-                ->logoResizeToWidth(100)
+                ->logoResizeToWidth(200)
                 ->encoding(new Encoding('ISO-8859-1'))
                 ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
                 ->build()
