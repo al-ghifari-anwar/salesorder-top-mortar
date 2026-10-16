@@ -298,7 +298,7 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this
                         </th>
                     </tr>
                     <tr>
-                        <th>ADMIN ONLY</th>
+                        <th class="text-center">ADMIN ONLY</th>
                     </tr>
                 </table>
             </div>
