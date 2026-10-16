@@ -243,7 +243,7 @@ class Invoice extends CI_Controller
                 ->data($qr_payload)
                 ->size(500)
                 ->logoPath($logoData)
-                ->logoResizeToWidth(150)
+                ->logoResizeToWidth(100)
                 ->encoding(new Encoding('ISO-8859-1'))
                 ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
                 ->build()
