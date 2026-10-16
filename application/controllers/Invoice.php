@@ -217,7 +217,7 @@ class Invoice extends CI_Controller
 
         if ($suratjalan['id_city'] == '63') {
             // Read Logo File
-            $logoPath = FCPATH . "./assets/img/logo_retina.png";
+            $logoPath = FCPATH . "./assets/img/qris_logo.png";
             $logoImageReader = new SimpleImage();
             $logoImageReader->fromFile($logoPath)->bestFit(100, 100);
             // Next, create a slightly larger image,
