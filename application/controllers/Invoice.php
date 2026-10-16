@@ -243,7 +243,7 @@ class Invoice extends CI_Controller
                 ->data($qr_payload)
                 ->size(500)
                 ->logoPath($logoData)
-                ->logoResizeToWidth(100)
+                ->logoResizeToWidth(150)
                 ->encoding(new Encoding('ISO-8859-1'))
                 ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
                 ->build()
@@ -253,11 +253,11 @@ class Invoice extends CI_Controller
             $qrImageLoader = new SimpleImage();
             $qrImageLoader->fromFile($qrPath)->resize(420, 420);
 
-            $frameBuilder = new SimpleImage();
-            $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_2.jpg")
-                ->autoOrient()
-                ->overlay($qrImageLoader, 'center', 1, 20, -220)
-                ->toFile(FCPATH . "./assets/img/qr-payment/framed_" . $image_name_payment, 'image/png');
+            // $frameBuilder = new SimpleImage();
+            // $frameBuilder->fromFile(FCPATH . "./assets/img/frame_qr_2.jpg")
+            //     ->autoOrient()
+            //     ->overlay($qrImageLoader, 'center', 1, 20, -220)
+            //     ->toFile(FCPATH . "./assets/img/qr-payment/framed_" . $image_name_payment, 'image/png');
         }
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
