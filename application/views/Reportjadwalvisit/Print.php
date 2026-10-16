@@ -128,7 +128,20 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $jadwalVisit['is_tambahan'] == 1 ? "[+] " : '' ?><?= $jadwalVisit['nama'] ?></td>
                 <td><?= $jadwalVisit['is_tambahan'] == 1 ? "Tambahan" : $jadwalVisit['filter_jadwal_visit'] ?></td>
-                <td class="text-center"><?= $jadwalVisit['kategori_jadwal_visit'] ?></td>
+                <td class="text-center">
+                    <!-- <?= $jadwalVisit['kategori_jadwal_visit'] ?> -->
+                    <?php
+                    if (in_array($jadwalVisit['kategori_jadwal_visit'], ['jatem1', 'jatem2', 'jatem3'])) {
+                        if ($jadwalVisit['total_invoice'] == 0) {
+                            echo "antar invoice";
+                        } else {
+                            echo $jadwalVisit['kategori_jadwal_visit'];
+                        }
+                    } else {
+                        echo $jadwalVisit['kategori_jadwal_visit'];
+                    }
+                    ?>
+                </td>
                 <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit'] : 'Blm Visit' ?></td>
                 <td class="text-center"><?= $jadwalVisit['days_jadwal_visit'] ?></td>
                 <td class="text-center"><?= number_format($jadwalVisit['total_invoice'], 0, '.', ',') ?></td>
