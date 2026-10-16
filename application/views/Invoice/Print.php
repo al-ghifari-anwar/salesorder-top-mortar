@@ -265,7 +265,7 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this
                     <table class="">
                         <tr>
                             <th class="text-left">
-                                <img src="<?= 'https://order.topmortarindonesia.com/assets/img/qr-payment/framed_' . $invoice['id_invoice'] . '.png' ?>" style="width: 60px;">
+                                <img src="<?= 'https://order.topmortarindonesia.com/assets/img/qr-payment/' . $invoice['id_invoice'] . '.png' ?>" style="width: 60px;">
                                 <!-- <p><?= $baseurl ?></p> -->
                             </th>
                         </tr>
