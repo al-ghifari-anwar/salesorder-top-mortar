@@ -853,23 +853,29 @@ class Jadwalvisit extends CI_Controller
                         // }
 
                         if ($renvi['hari_bayar'] == $dayName) {
-                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                array_push($jadwalVisits, $renvisFilter);
-                            }
-                        }
-
-                        if ($is_new == 1) {
-                            if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1' || $renvi['hari_bayar'] == $dayName) {
+                            if ($daysAllVisit > 7) {
                                 if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
                                     array_push($jadwalVisits, $renvisFilter);
                                 }
                             }
                         }
 
+                        if ($is_new == 1) {
+                            if ($daysAllVisit > 7) {
+                                if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1' || $renvi['hari_bayar'] == $dayName) {
+                                    if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                        array_push($jadwalVisits, $renvisFilter);
+                                    }
+                                }
+                            }
+                        }
+
                         if ($daysJatem == 0 || $daysJatem == 7) {
                             if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1' || $renvi['hari_bayar'] == $dayName) {
-                                if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                    array_push($jadwalVisits, $renvisFilter);
+                                if ($daysAllVisit > 7) {
+                                    if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                        array_push($jadwalVisits, $renvisFilter);
+                                    }
                                 }
                             }
                         }
