@@ -355,7 +355,7 @@ class Reportjadwalvisit extends CI_Controller
         // $mpdf->Output();
         $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
 
-        $message = "*Tagihan Tidak Ter-Visit*\n" . "\nTanggal: *" . date('d F Y') . "*";
+        $message = "*Toko akan pasif Tidak Ter-Visit*\n" . "\nTanggal: *" . date('d F Y') . "*";
 
         $send = $this->HTelegram->sendDocumentGroup($chatId, $message, $fileUrl);
 
