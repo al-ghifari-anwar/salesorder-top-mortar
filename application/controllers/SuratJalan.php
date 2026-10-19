@@ -635,6 +635,15 @@ class SuratJalan extends CI_Controller
         $insert = $this->MSuratJalan->delete($id);
 
         if ($insert) {
+            $detailSjs = $this->db->where('no_voucher IS NOT NULL', null, false)->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id])->result_array();
+
+            foreach ($detailSjs as $detailSj) {
+                $no_vouchers = $detailSj['no_voucher'];
+                $no_vouchers = explode(',', $no_vouchers);
+
+                $this->db->where_in('no_voucher', $no_vouchers)->update('tb_voucher', ['is_used' => 0, 'used_date' => null]);
+            }
+
             $this->session->set_flashdata('success', "Berhasil megnhapus data suratjalan!");
             redirect('surat-jalan');
         } else {
