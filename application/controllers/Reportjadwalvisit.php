@@ -343,7 +343,7 @@ class Reportjadwalvisit extends CI_Controller
         // Buat direktori penyimpanan sementara
         $folderPath = FCPATH . 'assets/tmp/report_visit/';
         // Nama file berdasarkan invoice ID + timestamp
-        $fileName = "tagihan_tidak_tervisit" . '_' . date('d F Y') . '_' . time() . '.pdf';
+        $fileName = "print_akan_passsive" . '_' . date('d F Y') . '_' . time() . '.pdf';
         $filePath = $folderPath . $fileName;
         $fileUrl = "https://order.topmortarindonesia.com/assets/tmp/report_visit/" . $fileName;
 
