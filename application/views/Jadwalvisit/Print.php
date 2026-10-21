@@ -218,6 +218,7 @@
             $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
 
             $total_invoice = 0;
+            $list_total_invoice = "";
             foreach ($invoices as $invoice) {
                 $id_invoice = $invoice['id_invoice'];
                 // Jatem Days
@@ -238,12 +239,15 @@
                 if ($renvi['type_renvis'] != 'tagih_mingguan') {
                     if ($daysInvJatem >= 0) {
                         $total_invoice += $sisaHutang;
+                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                     }
                 } else {
                     if ($daysInvJatem <= 0) {
                         $total_invoice += $sisaHutang;
+                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                     } else {
                         $total_invoice += $sisaHutang;
+                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                     }
                 }
             }
@@ -270,10 +274,12 @@
                     if ($renvi['type_renvis'] != 'tagih_mingguan') {
                         if ($daysInvJatem >= 0) {
                             $total_invoice += $sisaHutang;
+                            $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                         }
                     } else {
                         if ($daysInvJatem <= 0) {
                             $total_invoice += $sisaHutang;
+                            $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                         }
                     }
                 }
@@ -308,6 +314,7 @@
                 'is_new' => $is_new,
                 'hari_bayar' => $renvi['hari_bayar'],
                 'hari_ini' => $dayName,
+                'list_total_invoice' => $list_total_invoice,
             ];
 
             // if ($id_contact == 5116) {
@@ -425,6 +432,7 @@
             $invoices = $this->MInvoice->getByIdInvoiceWaiting($id_invoice);
 
             $total_invoice = 0;
+            $list_total_invoice = "";
             foreach ($invoices as $invoice) {
                 $id_invoice = $invoice['id_invoice'];
                 // Jatem Days
@@ -445,12 +453,15 @@
                 if ($renvi['type_renvis'] != 'tagih_mingguan') {
                     if ($daysInvJatem >= 0) {
                         $total_invoice += $sisaHutang;
+                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                     }
                 } else {
                     if ($daysInvJatem <= 0) {
                         $total_invoice += $sisaHutang;
+                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                     } else {
                         $total_invoice += $sisaHutang;
+                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                     }
                 }
             }
@@ -477,10 +488,12 @@
                     if ($renvi['type_renvis'] != 'tagih_mingguan') {
                         if ($daysInvJatem >= 0) {
                             $total_invoice += $sisaHutang;
+                            $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                         }
                     } else {
                         if ($daysInvJatem <= 0) {
                             $total_invoice += $sisaHutang;
+                            $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr\n";
                         }
                     }
                 }
@@ -513,6 +526,7 @@
                 'daysJatem' => $daysJatem,
                 'total_invoice' => $total_invoice,
                 'is_new' => $is_new,
+                'list_total_invoice' => $list_total_invoice,
             ];
 
             // if ($id_contact == 5116) {
@@ -762,7 +776,12 @@
                 </td>
                 <td class="text-center"><?= $jadwalVisit['daysJatem'] ?></td>
                 <td>
-                    Rp. <?= number_format($jadwalVisit['total_invoice'], 0, ',', '.') ?>
+                    <?php if (!isset($jadwalVisit['list_total_invoice'])): ?>
+                        Rp. <?= number_format($jadwalVisit['total_invoice'], 0, ',', '.') ?>
+                    <?php endif; ?>
+                    <?php if (isset($jadwalVisit['list_total_invoice'])): ?>
+                        <?= $jadwalVisit['list_total_invoice'] ?>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
