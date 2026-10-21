@@ -172,7 +172,7 @@
             $created_at = date('Y-m-d', strtotime($renvi['created_at']));
 
             // Last of All Type Visit
-            $allTypLastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact])->row_array();
+            $allTypLastVisit = $this->db->order_by('date_visit', 'DESC')->get_where('tb_visit', ['id_contact' => $id_contact])->row_array();
             $date1allVisit = new DateTime(date("Y-m-d"));
             $date2allVisit = new DateTime($allTypLastVisit['date_visit']);
             $daysAllVisit  = $date2allVisit->diff($date1allVisit)->format('%a');
@@ -379,7 +379,7 @@
             $created_at = date('Y-m-d', strtotime($renvi['created_at']));
 
             // Last of All Type Visit
-            $allTypLastVisit = $this->db->get_where('tb_visit', ['id_contact' => $id_contact])->row_array();
+            $allTypLastVisit = $this->db->order_by('date_visit', 'DESC')->get_where('tb_visit', ['id_contact' => $id_contact])->row_array();
             $date1allVisit = new DateTime(date("Y-m-d"));
             $date2allVisit = new DateTime($allTypLastVisit['date_visit']);
             $daysAllVisit  = $date2allVisit->diff($date1allVisit)->format('%a');
