@@ -239,15 +239,15 @@
                 if ($renvi['type_renvis'] != 'tagih_mingguan') {
                     if ($daysInvJatem >= 0) {
                         $total_invoice += $sisaHutang;
-                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
+                        // $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
                     }
                 } else {
                     if ($daysInvJatem <= 0) {
                         $total_invoice += $sisaHutang;
-                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
+                        // $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
                     } else {
                         $total_invoice += $sisaHutang;
-                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
+                        // $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
                     }
                 }
             }
@@ -453,15 +453,15 @@
                 if ($renvi['type_renvis'] != 'tagih_mingguan') {
                     if ($daysInvJatem >= 0) {
                         $total_invoice += $sisaHutang;
-                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
+                        // $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
                     }
                 } else {
                     if ($daysInvJatem <= 0) {
                         $total_invoice += $sisaHutang;
-                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
+                        // $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
                     } else {
                         $total_invoice += $sisaHutang;
-                        $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
+                        // $list_total_invoice .= "Rp. " . number_format($sisaHutang, 0, ',', '.') . " - " . $daysInvJatem . " Hr<br>";
                     }
                 }
             }
