@@ -892,15 +892,17 @@
                                                     </p>
                                                 </a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a href="<?= base_url('add-jadwalvisit') ?>" class="nav-link <?= $menu == 'AddJadwalVisit' ? 'active' : '' ?>">
-                                                    <i class="nav-icon fas fa-calendar-plus"></i>
-                                                    <p>
-                                                        Jadwal Visit Tambahan
-                                                        <span class="right badge badge-success">New</span>
-                                                    </p>
-                                                </a>
-                                            </li>
+                                            <?php if ($this->session->userdata('level_user') != 'marketing' || $this->session->userdata('level_user') != 'finance'): ?>
+                                                <li class="nav-item">
+                                                    <a href="<?= base_url('add-jadwalvisit') ?>" class="nav-link <?= $menu == 'AddJadwalVisit' ? 'active' : '' ?>">
+                                                        <i class="nav-icon fas fa-calendar-plus"></i>
+                                                        <p>
+                                                            Jadwal Visit Tambahan
+                                                            <span class="right badge badge-success">New</span>
+                                                        </p>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('reportjadwalvisit') ?>" class="nav-link <?= $menu == 'ReportJadwalVisit' ? 'active' : '' ?>">
                                                     <i class="nav-icon fas fa-paperclip"></i>
