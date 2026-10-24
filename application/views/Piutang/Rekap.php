@@ -85,7 +85,10 @@
                                         foreach ($getInvoice as $invoice) {
                                             $id_invoice = $invoice['id_invoice'];
                                             // Calculate Hari
-                                            $jatuhTempo = date('d M Y', strtotime("+" . $invoice['termin_payment'] . " days", strtotime($invoice['date_invoice'])));
+                                            $termin_payment_calc = $invoice['termin_payment'] > 30 ? $invoice['termin_payment'] : 30;
+                                            $termin_payment = $invoice['is_cod'] == 1 ? $invoice['termin_payment'] : $termin_payment_calc;
+
+                                            $jatuhTempo = date('d M Y', strtotime("+" . $termin_payment . " days", strtotime($invoice['date_invoice'])));
                                             $date1 = new DateTime(date("Y-m-d"));
                                             $date2 = new DateTime($jatuhTempo);
                                             $days  = $date2->diff($date1)->format('%a');
