@@ -948,6 +948,15 @@
                                                     </p>
                                                 </a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('reportsteprenvi') ?>" class="nav-link <?= $menu == 'ReportStepRenvi' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <p>
+                                                        Report Advanced Renvi
+                                                        <span class="right badge badge-success">New</span>
+                                                    </p>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
                                     <li class="nav-item <?= $menuGroup == 'Sales' ? 'menu-open' : '' ?>">

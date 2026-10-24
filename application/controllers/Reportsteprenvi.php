@@ -24,7 +24,7 @@ class Reportsteprenvi extends CI_Controller
     {
         $data['title'] = 'Report Jadwal Visit';
         $data['menuGroup'] = 'Visit';
-        $data['menu'] = 'ReportJadwalVisit';
+        $data['menu'] = 'ReportStepRenvi';
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));
         } else if ($this->session->userdata('level_user') == 'salesspv') {
