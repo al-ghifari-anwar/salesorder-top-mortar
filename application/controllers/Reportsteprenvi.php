@@ -22,7 +22,7 @@ class Reportsteprenvi extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Report Jadwal Visit';
+        $data['title'] = 'Report Advanced Rencana Visit';
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'ReportStepRenvi';
         if ($this->session->userdata('level_user') == 'admin_c') {
