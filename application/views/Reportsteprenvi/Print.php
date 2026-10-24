@@ -124,29 +124,31 @@
                 $status_visit_color = 'text-red';
             }
             ?>
-            <tr>
-                <td class="text-center"><?= $no++; ?></td>
-                <td><?= $jadwalVisit['nama'] ?></td>
-                <td><?= $jadwalVisit['filter_step_renvi'] ?></td>
-                <td class="text-center">
-                    <?php
-                    if (in_array($jadwalVisit['source_step_renvi'], ['jatem1', 'jatem2', 'jatem3'])) {
-                        if ($jadwalVisit['total_invoice'] == 0) {
-                            echo "antar invoice";
+            <?php if ($jadwalVisit['is_active'] == 1): ?>
+                <tr>
+                    <td class="text-center"><?= $no++; ?></td>
+                    <td><?= $jadwalVisit['nama'] ?></td>
+                    <td><?= $jadwalVisit['filter_step_renvi'] ?></td>
+                    <td class="text-center">
+                        <?php
+                        if (in_array($jadwalVisit['source_step_renvi'], ['jatem1', 'jatem2', 'jatem3'])) {
+                            if ($jadwalVisit['total_invoice'] == 0) {
+                                echo "antar invoice";
+                            } else {
+                                echo $jadwalVisit['source_step_renvi'];
+                            }
                         } else {
                             echo $jadwalVisit['source_step_renvi'];
                         }
-                    } else {
-                        echo $jadwalVisit['source_step_renvi'];
-                    }
-                    ?>
-                </td>
-                <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit_step_renvi'] : 'Blm Visit' ?></td>
-                <td class="text-center"><?= $jadwalVisit['days_step_renvi'] ?></td>
-                <td class="text-center"><?= number_format($jadwalVisit['total_invoice'], 0, '.', ',') ?></td>
-                <td class="text-center <?= $status_visit_color ?>"><?= $visit != null ? 'Yes' : 'No' ?></td>
-                <td class="text-center <?= $status_color ?>"><?= $is_visited == 1 ? 'Yes' : 'No' ?></td>
-            </tr>
+                        ?>
+                    </td>
+                    <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit_step_renvi'] : 'Blm Visit' ?></td>
+                    <td class="text-center"><?= $jadwalVisit['days_step_renvi'] ?></td>
+                    <td class="text-center"><?= number_format($jadwalVisit['total_invoice'], 0, '.', ',') ?></td>
+                    <td class="text-center <?= $status_visit_color ?>"><?= $visit != null ? 'Yes' : 'No' ?></td>
+                    <td class="text-center <?= $status_color ?>"><?= $is_visited == 1 ? 'Yes' : 'No' ?></td>
+                </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
     </table>
 </body>
