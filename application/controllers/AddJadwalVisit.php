@@ -315,6 +315,9 @@ class AddJadwalVisit extends CI_Controller
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_visit.id_contact');
         $janjiBayars = $this->db->get_where('tb_visit', ['pay_date' => date('Y-m-d'), 'tb_contact.id_city' => $id_city])->result_array();
 
+        echo json_encode($janjiBayars);
+        die;
+
         foreach ($janjiBayars as $janjiBayar) {
             // if (count($jadwalVisits) <= 14) {
             $date_visit_janji_bayar = date('Y-m-d', strtotime($janjiBayar['date_visit']));
