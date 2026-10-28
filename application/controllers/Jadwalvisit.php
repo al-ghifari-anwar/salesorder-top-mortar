@@ -853,11 +853,11 @@ class Jadwalvisit extends CI_Controller
                         // }
 
                         if ($renvi['hari_bayar'] == $dayName) {
-                            if ($daysAllVisit > 6) {
-                                if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                    array_push($jadwalVisits, $renvisFilter);
-                                }
+                            // if ($daysAllVisit > 6) {
+                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
                             }
+                            // }
                         }
 
                         if ($is_new == 1) {
