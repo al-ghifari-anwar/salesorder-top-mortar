@@ -42,22 +42,22 @@ class Steprenvi extends CI_Controller
             }
 
             if (date('D') == 'Mon') {
-                $minDayCluster = 9;
+                $minDayCluster = 4;
                 $dayName = 'senin';
             } else if (date('D') == 'Tue') {
-                $minDayCluster = 9;
+                $minDayCluster = 4;
                 $dayName = 'selasa';
             } else if (date('D') == 'Wed') {
-                $minDayCluster = 9;
+                $minDayCluster = 4;
                 $dayName = 'rabu';
             } else if (date('D') == 'Thu') {
-                $minDayCluster = 9;
+                $minDayCluster = 3;
                 $dayName = 'kamis';
             } else if (date('D') == 'Fri') {
-                $minDayCluster = 9;
+                $minDayCluster = 3;
                 $dayName = 'jumat';
             } else if (date('D') == 'Sat') {
-                $minDayCluster = 9;
+                $minDayCluster = 3;
                 $dayName = 'sabtu';
             }
 
