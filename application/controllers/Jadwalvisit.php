@@ -638,7 +638,7 @@ class Jadwalvisit extends CI_Controller
                     $date_visit_janji_bayar = date('Y-m-d', strtotime($janjiBayar['date_visit']));
                     $id_contact = $janjiBayar['id_contact'];
 
-                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly','tagih_mingguan') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                     $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
                     $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
@@ -1058,7 +1058,7 @@ class Jadwalvisit extends CI_Controller
 
                     if ($dateLastOrder <= $dateMin6Week && $dateLastOrder >= $dateMin2Month) {
                         if (count($jadwalVisits) <= 9) {
-                            $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                            $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly','tagih_mingguan') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                             $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
                             $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
@@ -1104,7 +1104,7 @@ class Jadwalvisit extends CI_Controller
                 if (count($jadwalVisits) <= 9) {
                     $id_contact = $contactData['id_contact'];
 
-                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly','tagih_mingguan') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                     // $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
                     // $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
@@ -1201,7 +1201,7 @@ class Jadwalvisit extends CI_Controller
                 if (count($jadwalVisits) <= 9) {
                     $id_contact = $contactData['id_contact'];
 
-                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly') ORDER BY date_visit DESC LIMIT 1")->row_array();
+                    $rowLastVisit = $this->db->query("SELECT * FROM tb_visit WHERE id_contact = '$id_contact' AND DATE(date_visit) < '$dateNow' AND source_visit IN ('voucher','passive','renvisales','mg','normal','jatem1','jatem2','jatem3','weekly','tagih_mingguan') ORDER BY date_visit DESC LIMIT 1")->row_array();
 
                     $date_last_for_counter = date('Y-m-d', strtotime($rowLastVisit['date_visit']));
                     $last_visit = date('d M Y', strtotime($rowLastVisit['date_visit']));
