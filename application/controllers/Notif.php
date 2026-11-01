@@ -103,85 +103,85 @@ class Notif extends CI_Controller
         $messageInv = "Berikut adalah invoice pembelian anda.";
 
         // Send SJ
-        $haloaiPayload = [
-            'activate_ai_after_send' => false,
-            'channel_id' => $channel_id,
-            "fallback_template_header" => [
-                'filename' => $invoice['proof_closing'],
-                'type' => 'image',
-                'url' => $proofClosing,
-            ],
-            'fallback_template_message' => $templateSj,
-            'fallback_template_variables' => [
-                trim(preg_replace('/\s+/', ' ', $messageSj)),
-            ],
-            "media" => [
-                'filename' => $invoice['proof_closing'],
-                'type' => 'image',
-                'url' => $proofClosing,
-            ],
-            'phone_number' => $nomorhp,
-            'text' => trim(preg_replace('/\s+/', ' ', $messageSj)),
-        ];
+        // $haloaiPayload = [
+        //     'activate_ai_after_send' => false,
+        //     'channel_id' => $channel_id,
+        //     "fallback_template_header" => [
+        //         'filename' => $invoice['proof_closing'],
+        //         'type' => 'image',
+        //         'url' => $proofClosing,
+        //     ],
+        //     'fallback_template_message' => $templateSj,
+        //     'fallback_template_variables' => [
+        //         trim(preg_replace('/\s+/', ' ', $messageSj)),
+        //     ],
+        //     "media" => [
+        //         'filename' => $invoice['proof_closing'],
+        //         'type' => 'image',
+        //         'url' => $proofClosing,
+        //     ],
+        //     'phone_number' => $nomorhp,
+        //     'text' => trim(preg_replace('/\s+/', ' ', $messageSj)),
+        // ];
 
-        $curl = curl_init();
+        // $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $wa_token,
-                'X-HaloAI-Business-Id: ' . $business_id,
-                'Content-Type: application/json'
-            ),
-        ));
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => 'https://www.haloai.co.id/api/open/channel/whatsapp/v1/sendMessageByPhoneSync',
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => '',
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 0,
+        //     CURLOPT_FOLLOWLOCATION => true,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => 'POST',
+        //     CURLOPT_POSTFIELDS => json_encode($haloaiPayload),
+        //     CURLOPT_HTTPHEADER => array(
+        //         'Authorization: Bearer ' . $wa_token,
+        //         'X-HaloAI-Business-Id: ' . $business_id,
+        //         'Content-Type: application/json'
+        //     ),
+        // ));
 
-        $responseSj = curl_exec($curl);
+        // $responseSj = curl_exec($curl);
 
-        curl_close($curl);
+        // curl_close($curl);
 
-        $resSj = json_decode($responseSj, true);
+        // $resSj = json_decode($responseSj, true);
 
-        if ($resSj['status'] == 'error') {
-            $dataNotif = [
-                'id_surat_jalan' => $invoice['id_surat_jalan'],
-                'type_notif_invoice' => 'sj',
-                'file_notif_invoice' => $proofClosing,
-                'id_msg' => '-',
-                'is_sent' => 0
-            ];
+        // if ($resSj['status'] == 'error') {
+        //     $dataNotif = [
+        //         'id_surat_jalan' => $invoice['id_surat_jalan'],
+        //         'type_notif_invoice' => 'sj',
+        //         'file_notif_invoice' => $proofClosing,
+        //         'id_msg' => '-',
+        //         'is_sent' => 0
+        //     ];
 
-            $this->db->insert('tb_notif_invoice', $dataNotif);
-        } else {
-            if ($resSj['delivery_status'] != 'failed') {
-                $dataNotif = [
-                    'id_surat_jalan' => $invoice['id_surat_jalan'],
-                    'type_notif_invoice' => 'sj',
-                    'file_notif_invoice' => $proofClosing,
-                    'id_msg' => '-',
-                    'is_sent' => 1
-                ];
+        //     $this->db->insert('tb_notif_invoice', $dataNotif);
+        // } else {
+        //     if ($resSj['delivery_status'] != 'failed') {
+        //         $dataNotif = [
+        //             'id_surat_jalan' => $invoice['id_surat_jalan'],
+        //             'type_notif_invoice' => 'sj',
+        //             'file_notif_invoice' => $proofClosing,
+        //             'id_msg' => '-',
+        //             'is_sent' => 1
+        //         ];
 
-                $this->db->insert('tb_notif_invoice', $dataNotif);
-            } else {
-                $dataNotif = [
-                    'id_surat_jalan' => $invoice['id_surat_jalan'],
-                    'type_notif_invoice' => 'sj',
-                    'file_notif_invoice' => $proofClosing,
-                    'id_msg' => '-',
-                    'is_sent' => 0
-                ];
+        //         $this->db->insert('tb_notif_invoice', $dataNotif);
+        //     } else {
+        //         $dataNotif = [
+        //             'id_surat_jalan' => $invoice['id_surat_jalan'],
+        //             'type_notif_invoice' => 'sj',
+        //             'file_notif_invoice' => $proofClosing,
+        //             'id_msg' => '-',
+        //             'is_sent' => 0
+        //         ];
 
-                $this->db->insert('tb_notif_invoice', $dataNotif);
-            }
-        }
+        //         $this->db->insert('tb_notif_invoice', $dataNotif);
+        //     }
+        // }
 
 
         // Send Invoice

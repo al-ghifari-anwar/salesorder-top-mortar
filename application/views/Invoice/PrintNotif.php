@@ -280,6 +280,13 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $id_d
             </div>
         </div>
     </div>
+    <div class="page">
+        <div class="row">
+            <div class="column" style="width: 100%;">
+                <img src="<?= $invoice['proof_closing'] ?>" alt="">
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
