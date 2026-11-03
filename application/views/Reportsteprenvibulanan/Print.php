@@ -86,10 +86,10 @@
         <tr>
             <th style="border-bottom: 1px solid black;">No.</th>
             <th style="border-bottom: 1px solid black;">Cluster/Hari</th>
+            <th style="border-bottom: 1px solid black;">Tgl Renvi</th>
             <th style="border-bottom: 1px solid black;">Toko</th>
             <th style="border-bottom: 1px solid black;">Filter</th>
             <th style="border-bottom: 1px solid black;">Kategori</th>
-            <th style="border-bottom: 1px solid black;">Last Visit</th>
             <th style="border-bottom: 1px solid black;">Hari</th>
             <th style="border-bottom: 1px solid black;">Total</th>
             <th style="border-bottom: 1px solid black;">Tervisit</th>
@@ -155,6 +155,7 @@
                 <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td class="text-center"><?= $cluster . ' / ' . $dayName ?></td>
+                    <td class="text-center"><?= $jadwalVisit['date_step_renvi'] ?></td>
                     <td><?= $jadwalVisit['nama'] ?></td>
                     <td><?= $jadwalVisit['filter_step_renvi'] ?></td>
                     <td class="text-center">
@@ -170,7 +171,6 @@
                         }
                         ?>
                     </td>
-                    <td class="text-center"><?= $jadwalVisit['is_new'] == 0 ? $jadwalVisit['last_visit_step_renvi'] : 'Blm Visit' ?></td>
                     <td class="text-center"><?= $jadwalVisit['days_step_renvi'] ?></td>
                     <td class="text-center"><?= number_format($jadwalVisit['total_invoice'], 0, '.', ',') ?></td>
                     <td class="text-center <?= $status_visit_color ?>"><?= $visit != null ? 'Yes' : 'No' ?></td>
