@@ -25,6 +25,8 @@ class Reportsteprenvibulanan extends CI_Controller
         $data['title'] = 'Report Advanced Rencana Visit';
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'ReportStepRenviBulanan';
+        $data['year'] = '0';
+        $data['month'] = date('m');
         if ($this->session->userdata('level_user') == 'admin_c') {
             $data['city'] = $this->MCity->getById($this->session->userdata('id_city'));
         } else if ($this->session->userdata('level_user') == 'salesspv') {
