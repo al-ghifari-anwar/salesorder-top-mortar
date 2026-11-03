@@ -898,7 +898,7 @@
                                                         <i class="nav-icon fas fa-calendar-plus"></i>
                                                         <p>
                                                             Jadwal Visit Tambahan
-                                                            <span class="right badge badge-success">New</span>
+                                                            <!-- <span class="right badge badge-success">New</span> -->
                                                         </p>
                                                     </a>
                                                 </li>
@@ -926,7 +926,7 @@
                                                     <i class="nav-icon fas fa-paperclip"></i>
                                                     <p>
                                                         Manual Confirm Visit
-                                                        <span class="right badge badge-success">New</span>
+                                                        <!-- <span class="right badge badge-success">New</span> -->
                                                     </p>
                                                 </a>
                                             </li>
@@ -953,6 +953,15 @@
                                                     <i class="nav-icon fas fa-paperclip"></i>
                                                     <p>
                                                         Report Advanced Renvi
+                                                        <span class="right badge badge-success">New</span>
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('reportsteprenvibulanan') ?>" class="nav-link <?= $menu == 'ReportStepRenviBulanan' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <p>
+                                                        Report Advanced Renvi Bulanan
                                                         <span class="right badge badge-success">New</span>
                                                     </p>
                                                 </a>
