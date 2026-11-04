@@ -1,6 +1,6 @@
 <?php
-echo json_encode($items_total);
-die;
+// echo json_encode($items_total);
+// die;
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -65,7 +65,7 @@ die;
             </div>
             <div class="row">
                 <?php
-                $totalQtyNew = 0;
+                $totalQtyNew = "";
                 foreach ($items_total as $item_total) {
                     $totalQtyNew .= $item_total['qty_produk'] . " " . $item_total['name_satuan'] . ", ";
                 }
