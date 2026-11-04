@@ -63,8 +63,9 @@
                 <?php
                 $totalQty = 0;
                 foreach ($items as $data) :
-                    $totalQty += $data['qty_produk'];
+                    $totalQty .= $item_total['qty_produk'] . " " . $item_total['name_satuan'] . ", ";
                 ?>
+                    ?>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-light">
