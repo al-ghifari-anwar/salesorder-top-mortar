@@ -141,7 +141,7 @@ class Reportsteprenvi extends CI_Controller
         $jadwalVisits = $this->db->get_where('tb_step_renvi', ['DATE(date_step_renvi)' => $date, 'tb_step_renvi.cluster_step_renvi' => $cluster, 'is_yes' => 0])->result_array();
 
         foreach ($jadwalVisits as $jadwalVisit) {
-            $id_jadwal_visit = $jadwalVisit['id_jadwal_visit'];
+            $id_step_renvi = $jadwalVisit['id_step_renvi'];
 
             $id_contact = $jadwalVisit['id_contact'];
             $contact = $this->db->get_where('tb_contact', ['id_contact' => $id_contact])->row_array();
@@ -157,7 +157,7 @@ class Reportsteprenvi extends CI_Controller
 
             $has_session = "";
 
-            if ($jadwalVisit['kategori_jadwal_visit'] == 'Toko Baru' || $jadwalVisit['kategori_jadwal_visit'] == 'passive' || $jadwalVisit['kategori_jadwal_visit'] == 'Akan passive') {
+            if ($jadwalVisit['filter_step_renvi'] == 'Toko Baru' || $jadwalVisit['filter_step_renvi'] == 'Passive' || $jadwalVisit['filter_step_renvi'] == 'Toko akan pasif dalam 2 minggu' || $jadwalVisit['filter_step_renvi'] == 'Toko Aktif') {
                 if ($visit) {
                     $haloai = $this->db->get_where('tb_haloai', ['id_distributor' => $id_distributor])->row_array();
                     $wa_token = $haloai['token_haloai'];
@@ -242,9 +242,7 @@ class Reportsteprenvi extends CI_Controller
                 }
             }
 
-            $updateJadwal = $this->db->update('tb_step_renvi', ['is_yes' => $is_visited], ['id_jadwal_visit' => $id_jadwal_visit]);
-
-            $deleteViscon = $this->db->delete('tb_visit_control', ['id_contact' => $id_contact, 'DATE(date_visit_control)' => $date]);
+            $updateJadwal = $this->db->update('tb_step_renvi', ['is_yes' => $is_visited], ['id_step_renvi' => $id_step_renvi]);
 
             // if ($updateJadwal) {
 
