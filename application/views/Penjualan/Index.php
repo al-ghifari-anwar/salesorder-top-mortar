@@ -1,3 +1,7 @@
+<?php
+echo json_encode($items_total);
+die;
+?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
