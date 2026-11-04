@@ -109,6 +109,7 @@ class MDetailSuratJalan extends CI_Model
         $this->db->select("nama_produk, SUM(qty_produk) AS qty_produk, tb_produk.id_produk, name_satuan");
         $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
+        $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');
         $this->db->join('tb_city', 'tb_city.id_city = tb_produk.id_city');
         $this->db->join('tb_satuan', 'tb_satuan.id_satuan = tb_produk.id_satuan');
         if ($id_city != null) {
