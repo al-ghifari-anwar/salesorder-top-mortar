@@ -61,11 +61,16 @@
             </div>
             <div class="row">
                 <?php
+                $totalQtyNew = 0;
+                foreach ($items_total as $item_total) {
+                    $totalQtyNew .= $item_total['qty_produk'] . " " . $item_total['name_satuan'] . ", ";
+                }
+                ?>
+                <?php
                 $totalQty = 0;
                 foreach ($items as $data) :
-                    $totalQty .= $item_total['qty_produk'] . " " . $item_total['name_satuan'] . ", ";
+                    $totalQty += $data['qty_produk'];
                 ?>
-                    ?>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-light">
@@ -89,7 +94,7 @@
                         <div class="inner">
                             <p style="font-size: 20pt;"><b>TOTAL KESELURUHAN</b></p>
 
-                            <p><?= $totalQty ?></p>
+                            <p><?= $totalQtyNew ?></p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
