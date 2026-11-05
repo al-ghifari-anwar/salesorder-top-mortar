@@ -184,7 +184,7 @@ class Tagihan extends CI_Controller
         $dateFrom = $post['date_from'];
 
         $start = new DateTime($dateFrom . '-01');
-        $end = new DateTime(date('Y-m-01', strtotime("-1 months")));
+        $end = new DateTime(date('Y-m-01'));
 
         $months = [];
 
