@@ -251,7 +251,7 @@ class Tagihan extends CI_Controller
 
                             $this->MTagihandetail->create($tagihanDetailData);
 
-                            $no_tagihan = 'INV/MAS/TSLS/' . date("m/Y") . '/' . str_pad($id_tagihan, 4, '0', STR_PAD_LEFT);
+                            $no_tagihan = 'INV/MAS/TSLS/' . date("m/Y", strtotime($month)) . '/' . str_pad($id_tagihan, 4, '0', STR_PAD_LEFT);
                             $subtotal_tagihan = $subtotalInvoice + $price_abunemen;
 
                             $tagihanData = [
