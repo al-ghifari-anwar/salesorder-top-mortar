@@ -60,7 +60,7 @@ class MDetailSuratJalan extends CI_Model
         if ($id_city != null) {
             $this->db->where('tb_city.id_city', $id_city);
         }
-        $this->db->group_by('tb_produk.id_produk');
+        $this->db->group_by('tb_produk.nama_produk');
         $query = $this->db->get_where('tb_detail_surat_jalan', ['tb_surat_jalan.is_closing' => 1, 'tb_surat_jalan.date_closing >= ' => $dateFrom, 'tb_surat_jalan.date_closing <= ' => $dateTo, 'id_distributor' => $this->session->userdata('id_distributor')])->result_array();
 
         return $query;
