@@ -149,28 +149,17 @@ class Tagihan extends CI_Controller
                     ];
 
                     $save = $this->MTagihan->udpate($id_tagihan, $tagihanData);
-
-                    if (!$save) {
-                        $result = [
-                            'code' => 400,
-                            'status' => 'failed',
-                            'msg' => 'Failed',
-                            'detail' => $this->db->error(),
-                        ];
-
-                        return $this->output->set_output(json_encode($result));
-                    } else {
-                        $result = [
-                            'code' => 200,
-                            'status' => 'ok',
-                            'msg' => 'Suceess'
-                        ];
-
-                        return $this->output->set_output(json_encode($result));
-                    }
                 }
             }
         }
+
+        $result = [
+            'code' => 200,
+            'status' => 'ok',
+            'msg' => 'Suceess'
+        ];
+
+        return $this->output->set_output(json_encode($result));
     }
 
     public function createTagihanDist()
