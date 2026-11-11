@@ -314,13 +314,13 @@
                 if (count($jadwalVisits) <= 9) {
                     // if ($days == 0 || $days >= 7) {
                     if ($days > $minDayCluster) {
-                        if ($daysAllVisit > 6) {
-                            if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1') {
-                                if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
-                                    array_push($jadwalVisits, $renvisFilter);
-                                }
+                        // if ($daysAllVisit > 6) {
+                        if ($renvi['hari_bayar'] == 'bebas' || $renvi['hari_bayar'] == '-' || $renvi['hari_bayar'] == '-1') {
+                            if (array_search($renvi['id_contact'], array_column($jadwalVisits, 'id_contact')) == "") {
+                                array_push($jadwalVisits, $renvisFilter);
                             }
                         }
+                        // }
                     }
 
                     if ($renvi['hari_bayar'] == $dayName) {
