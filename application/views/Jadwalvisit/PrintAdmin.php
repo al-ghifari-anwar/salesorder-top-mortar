@@ -171,7 +171,7 @@
             // Last of All Type Visit
             $allTypLastVisit = $this->db->order_by('date_visit', 'DESC')->get_where('tb_visit', ['id_contact' => $id_contact])->row_array();
             $date1allVisit = new DateTime(date("Y-m-d"));
-            $date2allVisit = new DateTime($allTypLastVisit['date_visit']);
+            $date2allVisit = new DateTime(date("Y-m-d", strtotime($allTypLastVisit['date_visit'])));
             $daysAllVisit  = $date2allVisit->diff($date1allVisit)->format('%a');
             $operan = "";
             if ($date1allVisit < $date2allVisit) {
