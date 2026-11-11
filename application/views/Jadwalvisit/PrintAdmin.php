@@ -299,7 +299,7 @@
                 'type_renvis' => $renvi['type_renvis'],
                 'last_visit' => $last_visit,
                 'days' => $days,
-                'daysJatem' => $daysJatem,
+                'daysJatem' => $daysAllVisit,
                 'total_invoice' => $total_invoice,
                 'is_new' => $is_new,
                 'hari_bayar' => $renvi['hari_bayar'],
