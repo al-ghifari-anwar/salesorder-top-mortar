@@ -156,4 +156,114 @@ class Payment extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
+
+    public function import()
+    {
+        if (empty($_FILES['csv_mutasi']['tmp_name'])) {
+            show_error('File CSV wajib diupload.');
+            return;
+        }
+
+        $bank = $this->input->post('bank');
+
+        if ($bank == 'BCA') {
+            $file = fopen($_FILES['csv_mutasi']['tmp_name'], 'r');
+
+            if ($file === false) {
+                show_error('Gagal membaca file CSV.');
+                return;
+            }
+
+            $rowNumber = 0;
+
+            while (($row = fgetcsv($file, 0, ',')) !== false) {
+                $rowNumber++;
+
+                // Skip informasi rekening dan header
+                if ($rowNumber <= 5) {
+                    continue;
+                }
+
+                // Pastikan kolom tersedia
+                if (count($row) < 6) {
+                    continue;
+                }
+
+                // Ambil data CSV
+                $remark = trim($row[1]);
+                $amount = (float) str_replace(',', '', trim($row[3]));
+                $status = strtoupper(trim($row[4]));
+
+                // Hanya transaksi uang masuk (CR)
+                if ($status !== 'CR') {
+                    continue;
+                }
+
+                // ============================
+                // LOGIC SIMPAN DATABASE DI SINI
+                // ============================
+                // $remark
+                // $jumlah
+                // $status
+                $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this->session->userdata('id_distributor')]);
+
+                $checkInv = $this->MInvoice->getForStmt($amount, $this->session->userdata('id_distributor'));
+
+                if ($checkInv) {
+                    $id_invoice = $checkInv['id_invoice'];
+                    $id_contact = $checkInv['id_contact'];
+
+                    $checkPayment = $this->MPayment->getByRemarkAndAmount($remark, $amount);
+
+                    if (!$checkPayment) {
+                        $invoiceData = [
+                            'status_invoice' => 'paid',
+                        ];
+
+                        $updateStatusInv = $this->db->update('tb_invoice', $invoiceData, ['id_invoice' => $id_invoice]);
+
+                        if ($updateStatusInv) {
+                            $paymentData = [
+                                'amount_payment' => $amount,
+                                'date_payment' => date("Y-m-d H:i:s"),
+                                'remark_payment' => $remark,
+                                'id_invoice' => $id_invoice,
+                                'source' => $distributor['source_account'],
+                            ];
+
+                            $savePayment = $this->db->insert('tb_payment', $paymentData);
+
+                            $id_payment = $this->db->insert_id();
+
+                            continue;
+                        }
+                    }
+                } else {
+                    $id_invoice = 0;
+
+                    $checkPayment = $this->MPayment->getByRemarkAndAmount($remark, $amount);
+
+                    if (!$checkPayment) {
+                        $paymentData = [
+                            'amount_payment' => $amount,
+                            'date_payment' => date("Y-m-d H:i:s"),
+                            'remark_payment' => $remark,
+                            'id_invoice' => $id_invoice,
+                            'source' => $distributor['source_account'],
+                        ];
+
+                        $savePayment = $this->db->insert('tb_payment', $paymentData);
+
+                        $id_payment = $this->db->insert_id();
+
+                        continue;
+                    }
+                }
+            }
+
+            fclose($file);
+        }
+
+        redirect('payment-print');
+    }
 }

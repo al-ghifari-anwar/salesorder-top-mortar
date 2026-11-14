@@ -192,10 +192,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('payment/import') ?>" method="POST">
+                <form action="<?= base_url('payment/import') ?>" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="">File CSV Mutasi</label>
-                        <input type="file" name="csv_mutasi" id="csv_mutasi" class="form-control-file" onkeyup="formatMoney(this)">
+                        <input type="file" name="csv_mutasi" id="csv_mutasi" class="form-control-file" accept=".csv,text/csv">
                     </div>
                     <div class="form-group">
                         <label for="">BANK</label>
