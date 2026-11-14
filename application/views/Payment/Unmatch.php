@@ -182,7 +182,7 @@
     <!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="addModal">
+<div class="modal fade" id="csvModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
