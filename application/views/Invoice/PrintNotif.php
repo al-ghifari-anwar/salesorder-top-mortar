@@ -256,7 +256,7 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $id_d
                 <table class="border" style="width: 100%; margin-right: 20px; margin-top: 0px;">
                     <tr>
                         <td>
-                            Payment: BCA No Rekening <?= $distributor['source_account'] ?> atas nama PT Top Mortar Indonesia<br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
+                            Payment: BCA No Rekening <?= $distributor['source_account'] ?> atas nama <?= $distributor['nama_rekening'] ?><br><b>Harap transfer sesuai dengan nominal hingga digit terakhir</b>
                         </td>
                     </tr>
                 </table>
