@@ -264,6 +264,6 @@ class Payment extends CI_Controller
             fclose($file);
         }
 
-        redirect('payment-print');
+        redirect('payment-transit');
     }
 }
