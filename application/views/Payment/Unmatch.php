@@ -47,6 +47,9 @@
                             <a href="#" data-toggle="modal" data-target="#addModal" class="btn btn-outline-success float-right mr-3">
                                 Tambah Transit Manual
                             </a>
+                            <a href="#" data-toggle="modal" data-target="#csvModal" class="btn btn-outline-dark float-right mr-3">
+                                Import CSV Mutasi
+                            </a>
                         </div>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
