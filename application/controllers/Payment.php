@@ -205,7 +205,7 @@ class Payment extends CI_Controller
                 // $remark
                 // $jumlah
                 // $status
-                $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this->session->userdata('id_distributor')]);
+                $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this->session->userdata('id_distributor')])->row_array();
 
                 $checkInv = $this->MInvoice->getForStmt($amount, $this->session->userdata('id_distributor'));
 
