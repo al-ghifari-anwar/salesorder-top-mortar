@@ -181,7 +181,37 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
+
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data Pembayaran Transit</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('payment/import') ?>" method="POST">
+                    <div class="form-group">
+                        <label for="">File CSV Mutasi</label>
+                        <input type="file" name="csv_mutasi" id="csv_mutasi" class="form-control-file" onkeyup="formatMoney(this)">
+                    </div>
+                    <div class="form-group">
+                        <label for="">BANK</label>
+                        <select name="bank" id="" class="form-select select2bs4">
+                            <option value="BCA">BCA</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary float-right">Simpan</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <script>
     // $(document).ready(function() {
     //     $("#amount_payment").autoNumeric(
