@@ -66,7 +66,7 @@ class MPayment extends CI_Model
         return $query;
     }
 
-    public function getUnmatch()
+    public function getUnmatch($source_account = null)
     {
         $this->db->order_by('date_payment', 'DESC');
         if ($this->session->userdata('id_distributor') == 1) {
@@ -78,8 +78,9 @@ class MPayment extends CI_Model
         } else if ($this->session->userdata('id_distributor') == 9) {
             $this->db->where('source', 'mojokerto');
         } else if ($this->session->userdata('id_distributor') == 10) {
-            $this->db->where('source', '8880762231');
+            $this->db->where('source', '3311180884');
         }
+
         $query = $this->db->get_where('tb_payment', ['id_invoice' => 0, 'is_removed' => 0])->result_array();
 
         return $query;

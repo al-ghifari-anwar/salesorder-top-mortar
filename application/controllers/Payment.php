@@ -43,6 +43,8 @@ class Payment extends CI_Controller
 
     public function unmatch()
     {
+        $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this->session->userdata('id_distributor')])->row_array();
+
         $data['title'] = 'Pembayaran Transit';
         $data['menuGroup'] = 'Pembayaran';
         $data['menu'] = 'Transit';
