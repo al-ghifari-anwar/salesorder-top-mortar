@@ -83,7 +83,7 @@
                             <div class="inner">
                                 <p style="font-size: 20pt;"><b><?= str_replace('TOP MORTAR', '', $data['nama_produk']) ?></b></p>
 
-                                <p><?= $data['qty_produk'] ?> <?= $data['name_satuan'] ?> (<?= $data['qty_produk'] / $totalForPercent * 100 ?>%)</p>
+                                <p><?= $data['qty_produk'] ?> <?= $data['name_satuan'] ?> (<?= number_format($data['qty_produk'] / $totalForPercent * 100, 2, '.', ',') ?>%)</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
