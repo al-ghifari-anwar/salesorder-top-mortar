@@ -668,7 +668,7 @@ class Jadwalvisit extends CI_Controller
                         }
                         $daysInvJatem = $operanInvJatem . $daysInvJatem;
 
-                        $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice'")->row_array();
+                        $payment = $this->db->query("SELECT SUM(amount_payment) AS amount_payment FROM tb_payment WHERE id_invoice = '$id_invoice' AND id_invoice != 0")->row_array();
                         $amountPayment = $payment == null ? 0 : $payment['amount_payment'];
                         $sisaHutang = $invoice['total_invoice'] - $amountPayment;
 

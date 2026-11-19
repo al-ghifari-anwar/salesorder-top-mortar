@@ -66,8 +66,10 @@
             <div class="row">
                 <?php
                 $totalQtyNew = "";
+                $totalForPercent = 0;
                 foreach ($items_total as $item_total) {
                     $totalQtyNew .= $item_total['qty_produk'] . " " . $item_total['name_satuan'] . ", ";
+                    $totalForPercent += $item_total['qty_produk'];
                 }
                 ?>
                 <?php
@@ -81,7 +83,7 @@
                             <div class="inner">
                                 <p style="font-size: 20pt;"><b><?= str_replace('TOP MORTAR', '', $data['nama_produk']) ?></b></p>
 
-                                <p><?= $data['qty_produk'] ?> <?= $data['name_satuan'] ?></p>
+                                <p><?= $data['qty_produk'] ?> <?= $data['name_satuan'] ?> (<?= $data['qty_produk'] / $totalForPercent * 100 ?>%)</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
