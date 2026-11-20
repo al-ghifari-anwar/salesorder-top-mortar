@@ -1149,6 +1149,11 @@ class Haloai extends CI_Controller
         $totalBonus = 0;
 
         foreach ($promoList as $promo) {
+            // if ($sisaQty > 0 && $sisaQty < 10) {
+            //     $totalBonus += 1;
+            //     $sisaQty    -= $sisaQty;
+            // }
+
             if ($sisaQty < $promo['kelipatan_promo']) {
                 continue;
             }
