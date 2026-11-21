@@ -477,3 +477,6 @@ $route['sjretur/finish/(:num)'] = 'Sjretur/finish/$1';
 $route['sjretur/storesj/(:num)'] = 'Sjretur/getStoreSj/$1';
 // New Step Renvi
 $route['steprenvi/save'] = 'Steprenvi/save';
+// Tebusmurah
+$route['tebusmurah-city'] = 'Tebusmurah/cityList';
+$route['tebusmurah-print'] = 'Tebusmurah/print';

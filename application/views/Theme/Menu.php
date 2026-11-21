@@ -629,6 +629,14 @@
                                                     </p>
                                                 </a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('tebusmurah-city') ?>" class="nav-link <?= $menu == 'Tebusmurah' ? 'active' : '' ?>">
+                                                    <i class="nav-icon fas fa-trash"></i>
+                                                    <p>
+                                                        Tebus Murah
+                                                    </p>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
                                     <li class="nav-item <?= $menuGroup == 'AnalisaTukang' ? 'menu-open' : '' ?>">
