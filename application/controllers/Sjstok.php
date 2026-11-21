@@ -31,7 +31,7 @@ class Sjstok extends CI_Controller
         $data['menuGroup'] = 'Stok';
         $data['menu'] = 'Sjstok';
         $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
-        if ($this->session->userdata('id_distributor') == 10) {
+        if ($this->session->userdata('id_distributor') == 10 || $this->session->userdata('id_distributor') == 13) {
             $this->db->where_in('id_distributor', [$this->session->userdata('id_distributor'), 1]);
             $data['gudangs'] = $this->db->get_where('tb_gudang_stok', ['is_active' => 1])->result_array();
         }
