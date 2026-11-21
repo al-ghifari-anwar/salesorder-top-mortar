@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="col-3">
                                         <label for="">Kota:</label>
-                                        <select name="id_city" id="select2bs41" class="form-control select2bs41">
+                                        <select name="ct" id="select2bs41" class="form-control select2bs41">
                                             <option value="0">Semua</option>
                                             <?php foreach ($citys as $city) : ?>
                                                 <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
