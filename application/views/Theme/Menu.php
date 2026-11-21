@@ -1074,14 +1074,34 @@
                                     <?php endif ?>
 
                                     <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesspv') : ?>
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('penjualan') ?>" class="nav-link <?= $menu == 'Penjualan' ? 'active' : '' ?>">
-                                                <i class="nav-icon fas fa-archive"></i>
+                                        <li class="nav-item <?= $menuGroup == 'Piutang' ? 'menu-open' : '' ?>">
+                                            <a href="#" class="nav-link <?= $menuGroup == 'Piutang' ? 'active' : '' ?>">
+                                                <i class="nav-icon fas fa-file"></i>
                                                 <p>
                                                     Penjualan
-                                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                                    <i class="right fas fa-angle-left"></i>
                                                 </p>
                                             </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item">
+                                                    <a href="<?= base_url('penjualan') ?>" class="nav-link <?= $menu == 'Penjualan' ? 'active' : '' ?>">
+                                                        <i class="nav-icon fas fa-archive"></i>
+                                                        <p>
+                                                            Item Penjualan
+                                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                                        </p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="<?= base_url('tabelpenjualan') ?>" class="nav-link <?= $menu == 'TabelPenjualan' ? 'active' : '' ?>">
+                                                        <i class="nav-icon fas fa-table"></i>
+                                                        <p>
+                                                            Tabel Penjualan
+                                                            <!-- <span class="right badge badge-danger">New</span> -->
+                                                        </p>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </li>
 
                                         <li class="nav-item <?= $menuGroup == 'Piutang' ? 'menu-open' : '' ?>">
