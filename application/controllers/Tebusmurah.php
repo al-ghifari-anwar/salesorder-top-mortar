@@ -52,23 +52,12 @@ class Tebusmurah extends CI_Controller
     {
         $id_city = $_GET['id_city'];
 
-        $data['title'] = 'Laporan Toko Tebusmurah';
-        $data['menuGroup'] = 'Analisa';
-        $data['menu'] = 'Tebusmurah';
-
         $data['city'] = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
         $data['contacts'] = $this->db->where('tb_contact.id_city', $id_city)->where('tb_contact.id_contact IN (SELECT id_contact FROM tb_surat_jalan WHERE is_tebus_murah = 1)', null, false)->order_by('tb_contact.nama', 'ASC')->get('tb_contact')->result_array();
-
-        // $this->load->view('Theme/Header', $data);
-        // $this->load->view('Theme/Menu');
-        // $this->load->view('Tebusmurah/PrintRekap');
-        // $this->load->view('Theme/Footer');
-        // $this->load->view('Theme/Scripts');
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
         $mpdf->SetMargins(0, 0, 5);
         $html = $this->load->view('Tebusmurah/PrintRekap', $data, true);
-        $mpdf->AddPage('P');
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
