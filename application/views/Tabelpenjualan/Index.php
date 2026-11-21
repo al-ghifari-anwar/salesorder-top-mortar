@@ -71,6 +71,12 @@
                                 </div>
                             </form>
                         </div>
+                        <?php
+                        $totalPrice = 0;
+                        foreach ($items as $item) {
+                            $totalPrice += $item['harga_produk'] * $item['qty_produk'];
+                        }
+                        ?>
                         <div class="card-body">
                             <table id="table" class="table table-bordered table-striped">
                                 <thead>
@@ -86,11 +92,14 @@
                                     $no = 1;
                                     foreach ($items as $item): ?>
                                         <?php if ($item['harga_produk'] > 1000): ?>
+                                            <?php
+                                            $prosentaseRp = ($item['qty_produk'] * $item['harga_produk']) / $totalPrice * 100;
+                                            ?>
                                             <tr>
                                                 <td><?= $no++; ?></td>
                                                 <td><?= $item['nama_produk'] ?></td>
                                                 <td><?= $item['qty_produk'] . " " . $item['name_satuan'] ?></td>
-                                                <td>0</td>
+                                                <td><?= number_format($prosentaseRp, 2, ',', '.') ?>%</td>
                                             </tr>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
