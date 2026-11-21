@@ -43,17 +43,19 @@
                         <div class="card-header">
                             <form action="<?= base_url('payment-report') ?>" method="POST" target="_blank">
                                 <div class="row">
-                                    <label>Date range:</label>
-                                    <div class="form-group ml-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="far fa-calendar-alt"></i>
-                                                </span>
+                                    <div class="col-4">
+                                        <label>Date range:</label>
+                                        <div class="form-group ml-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control float-right" id="reservation" name="date_range" value="<?= date('m/d/Y', strtotime($dateFrom)) . " - " .  date("m/d/Y", strtotime($dateTo)) ?>">
                                             </div>
-                                            <input type="text" class="form-control float-right" id="reservation" name="date_range" value="<?= date('m/d/Y', strtotime($dateFrom)) . " - " .  date("m/d/Y", strtotime($dateTo)) ?>">
+                                            <!-- /.input group -->
                                         </div>
-                                        <!-- /.input group -->
                                     </div>
                                     <div class="col-3">
                                         <label for="">Kota:</label>
@@ -66,8 +68,11 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group ml-3">
-                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                    <div class="col-3">
+                                        <div class="form-group ml-3">
+                                            <label for="">&nbsp;</label>
+                                            <button type="submit" class="btn btn-primary">Filter</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
