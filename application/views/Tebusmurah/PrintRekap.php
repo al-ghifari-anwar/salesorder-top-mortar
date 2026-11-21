@@ -1,6 +1,6 @@
 <?php
-var_dump($city);
-die;
+// var_dump($city);
+// die;
 ?>
 <!DOCTYPE html>
 <html lang="en">
