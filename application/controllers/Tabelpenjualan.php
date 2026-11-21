@@ -26,7 +26,7 @@ class Tabelpenjualan extends CI_Controller
         $data['menuGroup'] = 'Penjualan';
         $data['menu'] = 'TabelPenjualan';
 
-        $id_city = $this->input->get('ct');
+        $id_city = $this->input->get('ct') ?? null;
         $daterange = $this->input->get('daterange');
 
         $data['citys'] = $this->MCity->getAll();
@@ -40,6 +40,7 @@ class Tabelpenjualan extends CI_Controller
             $dateTo = date('Y-m-d 23:59:59', strtotime($dates[1]));
         }
 
+        $data['ct'] = $id_city;
         $data['items'] = $this->MDetailSuratJalan->getSoldItemsByDate($id_city, $dateFrom, $dateTo);
         $data['items_total'] = $this->MDetailSuratJalan->getSoldItemsByDateGlobalForTotal($id_city, $dateFrom, $dateTo);
         $data['dateFrom'] = $dateFrom;
