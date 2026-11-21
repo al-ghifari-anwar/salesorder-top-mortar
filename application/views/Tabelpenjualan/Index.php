@@ -43,7 +43,7 @@
                         <div class="card-header">
                             <form action="<?= base_url('payment-report') ?>" method="POST" target="_blank">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label>Date range:</label>
                                         <div class="form-group ml-3">
                                             <div class="input-group">
@@ -59,20 +59,16 @@
                                     </div>
                                     <div class="col-3">
                                         <label for="">Kota:</label>
-                                        <div class="row">
-                                            <select name="id_city" id="select2bs41" class="form-control select2bs41">
-                                                <option value="0">Semua</option>
-                                                <?php foreach ($citys as $city) : ?>
-                                                    <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                        <select name="id_city" id="select2bs41" class="form-control select2bs41">
+                                            <option value="0">Semua</option>
+                                            <?php foreach ($citys as $city) : ?>
+                                                <option value="<?= $city['id_city'] ?>"><?= $city['nama_city'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                     <div class="col-3">
-                                        <div class="form-group ml-3">
-                                            <label for="">&nbsp;</label>
-                                            <button type="submit" class="btn btn-primary">Filter</button>
-                                        </div>
+                                        <label for="">&nbsp;</label>
+                                        <button type="submit" class="btn btn-primary">Filter</button>
                                     </div>
                                 </div>
                             </form>
