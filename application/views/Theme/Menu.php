@@ -631,7 +631,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('tebusmurah-city') ?>" class="nav-link <?= $menu == 'Tebusmurah' ? 'active' : '' ?>">
-                                                    <i class="nav-icon fas fa-trash"></i>
+                                                    <i class="nav-icon fas fa-percentage"></i>
                                                     <p>
                                                         Tebus Murah
                                                     </p>
