@@ -103,7 +103,6 @@ function penyebut($nilai)
     </style>
     <h3 class="text-center"><?= $this->session->userdata('nama_distributor') ?></h3>
     <h1 class="text-center">Data Toko Tebus Murah</h1>
-    <h3 class="text-center">Kota <?= $city['nama_city'] ?></h3>
     <table>
         <tr>
             <th style="border-bottom: 1px solid black;">Nama Toko</th>
