@@ -26,7 +26,7 @@ class Tabelpenjualan extends CI_Controller
         $data['menuGroup'] = 'Penjualan';
         $data['menu'] = 'TabelPenjualan';
 
-        $id_city = $this->input->get('ct') ?? null;
+        $id_city = !empty($this->input->get('ct')) ? $this->input->get('ct') : null;
         $daterange = $this->input->get('daterange');
 
         $data['citys'] = $this->MCity->getAll();
