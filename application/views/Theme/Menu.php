@@ -1074,8 +1074,8 @@
                                     <?php endif ?>
 
                                     <?php if ($this->session->userdata('level_user') == 'salesleader' || $this->session->userdata('level_user') == 'admin' || $this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'finance' || $this->session->userdata('level_user') == 'salesspv') : ?>
-                                        <li class="nav-item <?= $menuGroup == 'Piutang' ? 'menu-open' : '' ?>">
-                                            <a href="#" class="nav-link <?= $menuGroup == 'Piutang' ? 'active' : '' ?>">
+                                        <li class="nav-item <?= $menuGroup == 'Penjualan' ? 'menu-open' : '' ?>">
+                                            <a href="#" class="nav-link <?= $menuGroup == 'Penjualan' ? 'active' : '' ?>">
                                                 <i class="nav-icon fas fa-file"></i>
                                                 <p>
                                                     Penjualan

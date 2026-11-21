@@ -23,7 +23,7 @@ class Penjualan extends CI_Controller
     public function index()
     {
         $data['title'] = 'Tabel Penjualan';
-        $data['menuGroup'] = '';
+        $data['menuGroup'] = 'Penjualan';
         $data['menu'] = 'TabelPenjualan';
 
         $id_city = $this->input->get('ct');
