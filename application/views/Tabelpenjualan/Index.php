@@ -99,7 +99,7 @@
                                                 <td><?= $no++; ?></td>
                                                 <td><?= $item['nama_produk'] ?></td>
                                                 <td><?= $item['qty_produk'] . " " . $item['name_satuan'] ?></td>
-                                                <td><?= number_format($prosentaseRp, 2, ',', '.') ?>%</td>
+                                                <td><?= number_format($prosentaseRp, 2, '.', ',') ?>%</td>
                                             </tr>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
