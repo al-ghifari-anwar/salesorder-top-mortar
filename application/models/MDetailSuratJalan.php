@@ -106,7 +106,7 @@ class MDetailSuratJalan extends CI_Model
 
     public function getSoldItemsByDate($id_city = null, $dateFrom = null, $dateTo = null)
     {
-        $this->db->select("nama_produk, SUM(qty_produk) AS qty_produk, tb_produk.id_produk, name_satuan");
+        $this->db->select("nama_produk, SUM(qty_produk) AS qty_produk, tb_produk.id_produk, name_satuan, tb_produk.harga_produk");
         $this->db->join('tb_produk', 'tb_produk.id_produk = tb_detail_surat_jalan.id_produk');
         $this->db->join('tb_surat_jalan', 'tb_surat_jalan.id_surat_jalan = tb_detail_surat_jalan.id_surat_jalan');
         $this->db->join('tb_contact', 'tb_contact.id_contact = tb_surat_jalan.id_contact');

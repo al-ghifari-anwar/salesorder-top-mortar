@@ -21,12 +21,10 @@
             <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">List Kota</h1>
+                    <h1 class="m-0"><?= $title ?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Master</a></li>
-                        <li class="breadcrumb-item active">Kota</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -87,12 +85,14 @@
                                     <?php
                                     $no = 1;
                                     foreach ($items as $item): ?>
-                                        <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $item['nama_produk'] ?></td>
-                                            <td><?= $item['qty_produk'] . " " . $item['name_satuan'] ?></td>
-                                            <td>0</td>
-                                        </tr>
+                                        <?php if ($item['harga_produk'] > 1000): ?>
+                                            <tr>
+                                                <td><?= $no++; ?></td>
+                                                <td><?= $item['nama_produk'] ?></td>
+                                                <td><?= $item['qty_produk'] . " " . $item['name_satuan'] ?></td>
+                                                <td>0</td>
+                                            </tr>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
