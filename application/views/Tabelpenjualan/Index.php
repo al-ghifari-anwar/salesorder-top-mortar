@@ -52,7 +52,7 @@
                                                         <i class="far fa-calendar-alt"></i>
                                                     </span>
                                                 </div>
-                                                <input type="text" class="form-control float-right" id="reservation" name="date_range" value="<?= date('m/d/Y', strtotime($dateFrom)) . " - " .  date("m/d/Y", strtotime($dateTo)) ?>">
+                                                <input type="text" class="form-control float-right" id="reservation" name="daterange" value="<?= date('m/d/Y', strtotime($dateFrom)) . " - " .  date("m/d/Y", strtotime($dateTo)) ?>">
                                             </div>
                                             <!-- /.input group -->
                                         </div>
