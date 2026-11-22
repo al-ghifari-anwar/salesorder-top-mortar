@@ -41,6 +41,7 @@ class Auth extends CI_Controller
                         'phone_user' => $checkUsername['phone_user'],
                         'id_distributor' => $checkUsername['id_distributor'],
                         'nama_distributor' => $checkUsername['nama_distributor'],
+                        'group_distributor' => $checkUsername['group_distributor'],
                         'jenis_distributor' => $checkUsername['jenis_distributor'],
                         'id_city' => $checkUsername['id_city']
                     ];
