@@ -480,3 +480,7 @@ $route['steprenvi/save'] = 'Steprenvi/save';
 // Tebusmurah
 $route['tebusmurah-city'] = 'Tebusmurah/cityList';
 $route['tebusmurah-print'] = 'Tebusmurah/print';
+// Birokrasi
+$route['privacy-policy'] = 'Birokrasi/privacyPolicy';
+$route['delete-account'] = 'Birokrasi/deleteAccount';
+$route['support'] = 'Birokrasi/support';
