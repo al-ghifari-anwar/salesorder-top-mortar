@@ -102,7 +102,7 @@
                     <input type="hidden" name="id_city" value="<?= $city['id_city'] ?>">
                     <div class="form-group">
                         <label for="">Toko</label>
-                        <select name="id_contact" id="id_contact" class="">
+                        <select name="id_contact" id="id_contact" class="select2bs4">
                             <option value="0">=== Pilih Toko ===</option>
                             <?php foreach ($contacts as $contact): ?>
                                 <option value="<?= $contact['id_contact'] ?>" data-status="<?= $contact['store_status'] ?>"><?= $contact['nama'] . " | Cluster: " . $contact['cluster'] . " | Status: " . $contact['store_status'] ?></option>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Kategori Visit</label>
-                        <select name="source_step_renvi" id="source_step_renvi" class="select2bs4">
+                        <select name="source_step_renvi" id="source_step_renvi" class="form-control">
 
                         </select>
                     </div>
