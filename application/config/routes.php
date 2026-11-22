@@ -484,3 +484,8 @@ $route['tebusmurah-print'] = 'Tebusmurah/print';
 $route['privacy-policy'] = 'Birokrasi/privacyPolicy';
 $route['account-deletion'] = 'Birokrasi/deleteAccount';
 $route['support'] = 'Birokrasi/support';
+// Add Advanced Visit
+$route['add-advancedvisit'] = "AddAdvancedVisit/index";
+$route['add-advancedvisit/(:num)'] = 'AddAdvancedVisit/list/$1';
+$route['add-advancedvisit/create'] = 'AddAdvancedVisit/create';
+$route['add-advancedvisit/delete/(:num)'] = 'AddAdvancedVisit/delete/$1';

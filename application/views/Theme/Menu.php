@@ -913,7 +913,7 @@
                                             <?php endif; ?>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('reportjadwalvisit') ?>" class="nav-link <?= $menu == 'ReportJadwalVisit' ? 'active' : '' ?>">
-                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <i class="nav-icon fas fa-file"></i>
                                                     <p>
                                                         Report Jadwal Visit
                                                         <!-- <span class="right badge badge-success">New</span> -->
@@ -922,7 +922,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('reportjadwalvisitbulanan') ?>" class="nav-link <?= $menu == 'ReportJadwalVisitBulanan' ? 'active' : '' ?>">
-                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <i class="nav-icon fas fa-archive"></i>
                                                     <p>
                                                         Report Jadwal Visit Bulanan
                                                         <!-- <span class="right badge badge-success">New</span> -->
@@ -931,7 +931,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('manualconfirmvisit') ?>" class="nav-link <?= $menu == 'ManualConfirmVisit' ? 'active' : '' ?>">
-                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <i class="nav-icon fas fa-check-square"></i>
                                                     <p>
                                                         Manual Confirm Visit
                                                         <!-- <span class="right badge badge-success">New</span> -->
@@ -956,9 +956,20 @@
                                                     </p>
                                                 </a>
                                             </li>
+                                            <?php if ($this->session->userdata('level_user') != 'marketing' || $this->session->userdata('level_user') != 'finance'): ?>
+                                                <li class="nav-item">
+                                                    <a href="<?= base_url('add-advancedvisit') ?>" class="nav-link <?= $menu == 'AddAdvancedVisit' ? 'active' : '' ?>">
+                                                        <i class="nav-icon fas fa-calendar-plus"></i>
+                                                        <p>
+                                                            Advanced Visit Tambahan
+                                                            <!-- <span class="right badge badge-success">New</span> -->
+                                                        </p>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('reportsteprenvi') ?>" class="nav-link <?= $menu == 'ReportStepRenvi' ? 'active' : '' ?>">
-                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <i class="nav-icon fas fa-file"></i>
                                                     <p>
                                                         Report Advanced Renvi
                                                         <span class="right badge badge-success">New</span>
@@ -967,7 +978,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a href="<?= base_url('reportsteprenvibulanan') ?>" class="nav-link <?= $menu == 'ReportStepRenviBulanan' ? 'active' : '' ?>">
-                                                    <i class="nav-icon fas fa-paperclip"></i>
+                                                    <i class="nav-icon fas fa-file-archive"></i>
                                                     <p>
                                                         Report Advanced Renvi Bulanan
                                                         <span class="right badge badge-success">New</span>
