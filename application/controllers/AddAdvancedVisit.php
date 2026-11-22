@@ -172,7 +172,7 @@ class AddAdvancedVisit extends CI_Controller
             'filter_step_renvi' => $source_step_renvi . "_tambahan",
             'is_new' => 0,
             'last_visit_step_renvi' => $allTypLastVisit['date_visit'],
-            'days_step_renvi' => $date2allVisit,
+            'days_step_renvi' => $daysAllVisit,
             'days_jatem_step_renvi' => '-',
             'total_invoice' => 0,
             'is_active' => $is_active,
