@@ -962,7 +962,7 @@
                                                         <i class="nav-icon fas fa-calendar-plus"></i>
                                                         <p>
                                                             Advanced Visit Tambahan
-                                                            <!-- <span class="right badge badge-success">New</span> -->
+                                                            <span class="right badge badge-success">New</span>
                                                         </p>
                                                     </a>
                                                 </li>

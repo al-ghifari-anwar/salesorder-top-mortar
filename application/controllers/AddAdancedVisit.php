@@ -25,9 +25,9 @@ class AddAdvancedVisit extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
-        $data['title'] = 'Jadwal Visit Tambahan';
+        $data['title'] = 'Advanced Visit Tambahan';
         $data['menuGroup'] = 'Visit';
-        $data['menu'] = 'AddJadwalVisit';
+        $data['menu'] = 'AddAdvancedVisit';
         if ($this->session->userdata('level_user') == 'admin_c' || $this->session->userdata('level_user') == 'sales') {
             $data['city'] = $this->db->get_where('tb_city', ['id_city' => $this->session->userdata('id_city')])->result_array();
         } else if ($this->session->userdata('level_user') == 'salesspv') {
@@ -49,6 +49,7 @@ class AddAdvancedVisit extends CI_Controller
         if ($this->session->userdata('id_user') == null) {
             redirect('login');
         }
+
         $cluster = 0;
         $minDayCluster = 0;
         if (date('D') == 'Mon' || date('D') == 'Thu') {
@@ -82,16 +83,16 @@ class AddAdvancedVisit extends CI_Controller
         $data['cluster'] = $cluster;
         $data['dayName'] = $dayName;
 
-        $data['title'] = 'Jadwal Visit Tambahan';
+        $data['title'] = 'Advanced Visit Tambahan';
         $data['menuGroup'] = 'Visit';
         $data['menu'] = 'AddJadwalVisit';
         $data['city'] = $this->db->get_where('tb_city', ['id_city' => $id_city])->row_array();
-        $data['jadwalVisits'] = $this->getRenvis($id_city);
-        $data['jadwalVisitTambahans'] = $this->db->get_where('tb_jadwal_visit', ['date_jadwal_visit' => date('Y-m-d'), 'is_tambahan' => 1, 'id_city' => $id_city])->result_array();
+        $data['contacts'] = $this->db->where('id_city', $id_city)->where('cluster !=', 0)->get('tb_contact')->result_array();
+        $data['jadwalVisitTambahans'] = $this->db->get_where('tb_step_renvi', ['date_step_renvi' => date('Y-m-d'), 'is_tambahan' => 1, 'id_city' => $id_city])->result_array();
 
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
-        $this->load->view('AddJadwalvisit/List');
+        $this->load->view('AddAdvancedvisit/List');
         $this->load->view('Theme/Footer');
         $this->load->view('Theme/Scripts');
     }
