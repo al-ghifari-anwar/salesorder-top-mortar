@@ -94,11 +94,11 @@ class Sjstok extends CI_Controller
         $data['citys'] = $this->db->get_where('tb_city', ['id_gudang_stok' => $id_gudang_stok])->result_array();
         $data['sjstok'] = $sjstok;
         $data['detailSjstoks'] = $this->db->get_where('tb_detail_sj_stok', ['id_sj_stok' => $id_sj_stok])->result_array();
-        // if ($this->session->userdata('id_distributor') == 7 || $this->session->userdata('id_distributor') == 10 || $this->session->userdata('id_distributor') == 13) {
-        //     $data['masterProduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => 1])->result_array();
-        // } else {
-        $data['masterProduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => $this->session->userdata('group_distributor')])->result_array();
-        // }
+        if ($this->session->userdata('id_distributor') == 7 || $this->session->userdata('id_distributor') == 10 || $this->session->userdata('id_distributor') == 13) {
+            $data['masterProduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => 1])->result_array();
+        } else {
+            $data['masterProduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => $this->session->userdata('group_distributor')])->result_array();
+        }
         $this->load->view('Theme/Header', $data);
         $this->load->view('Theme/Menu');
         $this->load->view('Sjstok/Detail');
