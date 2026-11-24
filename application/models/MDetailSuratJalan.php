@@ -230,6 +230,12 @@ class MDetailSuratJalan extends CI_Model
         $totalBonus = 0;
 
         foreach ($promoList as $promo) {
+            if ($sisaQty > 0 && $sisaQty < 10) {
+                $totalBonus += 1;
+                $sisaQty    -= $sisaQty;
+                continue;
+            }
+
             if ($sisaQty < $promo['kelipatan_promo']) {
                 continue;
             }
