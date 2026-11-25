@@ -741,6 +741,8 @@ class Haloai extends CI_Controller
                     $bonusQty = $this->setBonusProgressive($total_sisa_qty_no_bonus, $promoList);
 
                     if ($bonusQty['bonus'] > 0) {
+                        $total_qty_bonus += $bonusQty['bonus'];
+
                         $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
 
                         $sjDetailData = [
@@ -755,6 +757,8 @@ class Haloai extends CI_Controller
 
                         $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
                     } else {
+                        $total_qty_bonus += 1;
+
                         $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
 
                         $sjDetailData = [

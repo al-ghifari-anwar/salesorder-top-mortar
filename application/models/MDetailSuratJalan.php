@@ -238,6 +238,8 @@ class MDetailSuratJalan extends CI_Model
                     $bonusQty = $this->setBonusProgressive($total_sisa_qty_no_bonus, $promoList);
 
                     if ($bonusQty['bonus'] > 0) {
+                        $total_qty_bonus += $bonusQty['bonus'];
+
                         $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
 
                         $sjDetailData = [
@@ -252,6 +254,8 @@ class MDetailSuratJalan extends CI_Model
 
                         $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
                     } else {
+                        $total_qty_bonus += 1;
+
                         $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
 
                         $sjDetailData = [
