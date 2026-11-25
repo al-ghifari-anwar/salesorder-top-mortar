@@ -632,6 +632,8 @@ class SuratJalan extends CI_Controller
 
     public function delete($id)
     {
+        $suratjalan = $this->MSuratJalan->getById($id);
+
         $insert = $this->MSuratJalan->delete($id);
 
         if ($insert) {
@@ -645,10 +647,10 @@ class SuratJalan extends CI_Controller
             }
 
             $this->session->set_flashdata('success', "Berhasil megnhapus data suratjalan!");
-            redirect('surat-jalan');
+            redirect('suratjalan/' . $suratjalan['id_city']);
         } else {
             $this->session->set_flashdata('failed', "Gagal megnhapus data suratjalan!");
-            redirect('surat-jalan');
+            redirect('suratjalan/' . $suratjalan['id_city']);
         }
     }
 
