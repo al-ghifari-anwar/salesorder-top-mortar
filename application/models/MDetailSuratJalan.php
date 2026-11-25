@@ -249,6 +249,7 @@ class MDetailSuratJalan extends CI_Model
                             'qty_produk' => $bonusQty['bonus'],
                             'amount' => 0,
                             'is_bonus' => 1,
+                            'type_bonus' => 'SISA>0',
                             'created_at' => date('Y-m-d H:i:s'),
                         ];
 
@@ -265,6 +266,7 @@ class MDetailSuratJalan extends CI_Model
                             'qty_produk' => 1,
                             'amount' => 0,
                             'is_bonus' => 1,
+                            'type_bonus' => 'SISA_1',
                             'created_at' => date('Y-m-d H:i:s'),
                         ];
 
@@ -295,6 +297,7 @@ class MDetailSuratJalan extends CI_Model
                             'qty_produk' => $bonusQty['bonus'],
                             'amount' => 0,
                             'is_bonus' => 1,
+                            'type_bonus' => 'WHOLE',
                             'created_at' => date('Y-m-d H:i:s'),
                         ];
 
