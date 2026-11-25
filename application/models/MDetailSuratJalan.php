@@ -240,7 +240,7 @@ class MDetailSuratJalan extends CI_Model
 
                     // $multiplier = $total_qty_products / $kelipatan_promo;
 
-                    $bonusQty['bonus'] = $this->setBonusProgressive($total_qty_products, $promoList);
+                    $bonusQty = $this->setBonusProgressive($total_qty_products, $promoList);
 
                     if ($bonusQty['bonus'] > 0) {
                         $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
@@ -276,7 +276,7 @@ class MDetailSuratJalan extends CI_Model
 
                     $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
 
-                    $bonusQty['bonus'] = $this->setBonusProgressive($total_qty_products, $promoList);
+                    $bonusQty = $this->setBonusProgressive($total_qty_products, $promoList);
 
                     if ($bonusQty['bonus'] > 0) {
                         $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
