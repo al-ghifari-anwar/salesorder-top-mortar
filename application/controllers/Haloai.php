@@ -794,7 +794,7 @@ class Haloai extends CI_Controller
                             'id_surat_jalan' => $id_surat_jalan,
                             'id_produk' => $cheapestProduct['id_produk'],
                             'price' => $cheapestProduct['harga_produk'],
-                            'qty_produk' => $bonusQty['bonus'],
+                            'qty_produk' => 1,
                             'amount' => 0,
                             'is_bonus' => 1,
                             'created_at' => date('Y-m-d H:i:s'),
