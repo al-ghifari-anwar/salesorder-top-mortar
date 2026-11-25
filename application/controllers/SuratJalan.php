@@ -608,11 +608,11 @@ class SuratJalan extends CI_Controller
             $this->db->update('tb_surat_jalan', ['is_finished' => 1], ['id_surat_jalan' => $suratjalan['id_surat_jalan']]);
 
             $this->session->set_flashdata('success', "Surat jalan berhasil dibuat!");
-            redirect('surat-jalan');
+            redirect('suratjalan/' . $suratjalan['id_city']);
         } else {
             $this->db->update('tb_surat_jalan', ['is_finished' => 1], ['id_surat_jalan' => $suratjalan['id_surat_jalan']]);
             $this->session->set_flashdata('failed', "Surat jalan terbuat, tetapi notif tidak terkirim ke kurir..." . " -> " . json_encode($sendNotifTele));
-            redirect('surat-jalan');
+            redirect('suratjalan/' . $suratjalan['id_city']);
         }
     }
 
