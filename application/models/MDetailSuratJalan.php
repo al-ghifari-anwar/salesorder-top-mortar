@@ -293,6 +293,8 @@ class MDetailSuratJalan extends CI_Model
 
                         $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
                     } else {
+                        $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
+
                         $sjDetailData = [
                             'id_surat_jalan' => $id_surat_jalan,
                             'id_produk' => $cheapestProduct['id_produk'],
