@@ -229,6 +229,45 @@ class MDetailSuratJalan extends CI_Model
                     }
                 }
 
+                // Add bonus if there is sisa
+                if ($total_sisa_qty_no_bonus > 0) {
+                    $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+
+                    $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
+
+                    $bonusQty = $this->setBonusProgressive($total_sisa_qty_no_bonus, $promoList);
+
+                    if ($bonusQty['bonus'] > 0) {
+                        $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
+
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => $bonusQty['bonus'],
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                    } else {
+                        $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
+
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => 1,
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                    }
+                }
+
                 // Set Bonus If Per Produk Not Match Minimum, Use qty Whole Order
                 if ($total_qty_bonus == 0) {
                     // if ($contact['id_promo'] != 0) {
@@ -268,45 +307,6 @@ class MDetailSuratJalan extends CI_Model
                         $total_sisa_qty_no_bonus += $bonusQty['sisa'];
                     }
                     // }
-                }
-
-                // Add bonus if there is sisa
-                if ($total_sisa_qty_no_bonus > 0) {
-                    $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
-
-                    $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
-
-                    $bonusQty = $this->setBonusProgressive($total_sisa_qty_no_bonus, $promoList);
-
-                    if ($bonusQty['bonus'] > 0) {
-                        $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
-
-                        $sjDetailData = [
-                            'id_surat_jalan' => $id_surat_jalan,
-                            'id_produk' => $cheapestProduct['id_produk'],
-                            'price' => $cheapestProduct['harga_produk'],
-                            'qty_produk' => $bonusQty['bonus'],
-                            'amount' => 0,
-                            'is_bonus' => 1,
-                            'created_at' => date('Y-m-d H:i:s'),
-                        ];
-
-                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
-                    } else {
-                        $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
-
-                        $sjDetailData = [
-                            'id_surat_jalan' => $id_surat_jalan,
-                            'id_produk' => $cheapestProduct['id_produk'],
-                            'price' => $cheapestProduct['harga_produk'],
-                            'qty_produk' => 1,
-                            'amount' => 0,
-                            'is_bonus' => 1,
-                            'created_at' => date('Y-m-d H:i:s'),
-                        ];
-
-                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
-                    }
                 }
             }
         }
