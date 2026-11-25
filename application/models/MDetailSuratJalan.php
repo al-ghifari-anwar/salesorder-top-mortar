@@ -243,31 +243,68 @@ class MDetailSuratJalan extends CI_Model
                     $bonusQty['bonus'] = $this->setBonusProgressive($total_qty_products, $promoList);
 
                     if ($bonusQty['bonus'] > 0) {
-                        $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
+                        $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
 
-                        // $sjDetailData = [
-                        //     'id_surat_jalan' => $id_surat_jalan,
-                        //     'id_produk' => $cheapestProduct['id_produk'],
-                        //     'price' => $cheapestProduct['harga_produk'],
-                        //     'qty_produk' => $bonusQty['bonus'],
-                        //     'amount' => 0,
-                        //     'is_bonus' => 1,
-                        //     'created_at' => date('Y-m-d H:i:s'),
-                        // ];
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => $bonusQty['bonus'],
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
 
-                        // $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
-                        $this->id_surat_jalan = $id_surat_jalan;
-                        $this->id_produk = $cheapestProduct['id_produk'];
-                        $this->qty_produk = $bonusQty['bonus'];
-                        $this->price = $cheapestProduct['harga_produk'];
-                        $this->amount = 0;
-                        $this->is_bonus = 1;
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                        // $this->id_surat_jalan = $id_surat_jalan;
+                        // $this->id_produk = $cheapestProduct['id_produk'];
+                        // $this->qty_produk = $bonusQty['bonus'];
+                        // $this->price = $cheapestProduct['harga_produk'];
+                        // $this->amount = 0;
+                        // $this->is_bonus = 1;
 
-                        $this->db->insert('tb_detail_surat_jalan', $this);
+                        // $this->db->insert('tb_detail_surat_jalan', $this);
                     } else {
                         $total_sisa_qty_no_bonus += $bonusQty['sisa'];
                     }
                     // }
+                }
+
+                // Add bonus if there is sisa
+                if ($total_sisa_qty_no_bonus > 0) {
+                    $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+
+                    $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
+
+                    $bonusQty['bonus'] = $this->setBonusProgressive($total_qty_products, $promoList);
+
+                    if ($bonusQty['bonus'] > 0) {
+                        $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
+
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => $bonusQty['bonus'],
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                    } else {
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => $bonusQty['bonus'],
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                    }
                 }
             }
         }
