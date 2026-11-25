@@ -245,17 +245,25 @@ class MDetailSuratJalan extends CI_Model
                     if ($bonusQty['bonus'] > 0) {
                         $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
 
-                        $sjDetailData = [
-                            'id_surat_jalan' => $id_surat_jalan,
-                            'id_produk' => $cheapestProduct['id_produk'],
-                            'price' => $cheapestProduct['harga_produk'],
-                            'qty_produk' => $bonusQty['bonus'],
-                            'amount' => 0,
-                            'is_bonus' => 1,
-                            'created_at' => date('Y-m-d H:i:s'),
-                        ];
+                        // $sjDetailData = [
+                        //     'id_surat_jalan' => $id_surat_jalan,
+                        //     'id_produk' => $cheapestProduct['id_produk'],
+                        //     'price' => $cheapestProduct['harga_produk'],
+                        //     'qty_produk' => $bonusQty['bonus'],
+                        //     'amount' => 0,
+                        //     'is_bonus' => 1,
+                        //     'created_at' => date('Y-m-d H:i:s'),
+                        // ];
 
-                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                        // $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                        $this->id_surat_jalan = $id_surat_jalan;
+                        $this->id_produk = $cheapestProduct['id_produk'];
+                        $this->qty_produk = $bonusQty['bonus'];
+                        $this->price = $cheapestProduct['harga_produk'];
+                        $this->amount = 0;
+                        $this->is_bonus = 1;
+
+                        $this->db->insert('tb_detail_surat_jalan', $this);
                     } else {
                         $total_sisa_qty_no_bonus += $bonusQty['sisa'];
                     }
