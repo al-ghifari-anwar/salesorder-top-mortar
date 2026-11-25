@@ -656,6 +656,7 @@ class Haloai extends CI_Controller
 
                 $total_qty_products = 0;
                 $total_qty_bonus = 0;
+                $total_sisa_qty_no_bonus = 0;
 
                 $jml_voucher = count($vouchers);
 
@@ -692,20 +693,22 @@ class Haloai extends CI_Controller
                             // $multiplier = $qty / $promo['kelipatan_promo'];
                             $bonusQty = $this->setBonusProgressive($qty, $promoList);
 
-                            if ($bonusQty > 0) {
-                                $total_qty_bonus += $bonusQty;
+                            if ($bonusQty['bonus'] > 0) {
+                                $total_qty_bonus += $bonusQty['bonus'];
 
                                 $sjDetailData = [
                                     'id_surat_jalan' => $id_surat_jalan,
                                     'id_produk' => $produk['id_produk'],
                                     'price' => $produk['harga_produk'],
-                                    'qty_produk' => $bonusQty,
+                                    'qty_produk' => $bonusQty['bonus'],
                                     'amount' => 0,
                                     'is_bonus' => 1,
                                     'created_at' => date('Y-m-d H:i:s'),
                                 ];
 
                                 $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                            } else {
+                                $total_sisa_qty_no_bonus += $bonusQty['sisa'];
                             }
                         } else {
                             $multiplier = $qty / $produk['kelipatan_promo'];
@@ -740,23 +743,62 @@ class Haloai extends CI_Controller
 
                         // $multiplier = $total_qty_products / $kelipatan_promo;
 
-                        $bonusQty = $this->setBonusProgressive($total_qty_products, $promoList);
+                        $bonusQty['bonus'] = $this->setBonusProgressive($total_qty_products, $promoList);
 
-                        if ($bonusQty > 0) {
+                        if ($bonusQty['bonus'] > 0) {
                             $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
 
                             $sjDetailData = [
                                 'id_surat_jalan' => $id_surat_jalan,
                                 'id_produk' => $cheapestProduct['id_produk'],
                                 'price' => $cheapestProduct['harga_produk'],
-                                'qty_produk' => $bonusQty,
+                                'qty_produk' => $bonusQty['bonus'],
                                 'amount' => 0,
                                 'is_bonus' => 1,
                                 'created_at' => date('Y-m-d H:i:s'),
                             ];
 
                             $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                        } else {
+                            $total_sisa_qty_no_bonus = $bonusQty['sisa'];
                         }
+                    }
+                }
+
+                // Add bonus if there is sisa
+                if ($total_sisa_qty_no_bonus > 0) {
+                    $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+
+                    $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
+
+                    $bonusQty['bonus'] = $this->setBonusProgressive($total_qty_products, $promoList);
+
+                    if ($bonusQty['bonus'] > 0) {
+                        $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
+
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => $bonusQty['bonus'],
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                    } else {
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => $bonusQty['bonus'],
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
                     }
                 }
 
@@ -1149,11 +1191,6 @@ class Haloai extends CI_Controller
         $totalBonus = 0;
 
         foreach ($promoList as $promo) {
-            if ($sisaQty > 0 && $sisaQty < 10) {
-                $totalBonus += 1;
-                $sisaQty    -= $sisaQty;
-                continue;
-            }
 
             if ($sisaQty < $promo['kelipatan_promo']) {
                 continue;
@@ -1167,6 +1204,9 @@ class Haloai extends CI_Controller
             }
         }
 
-        return $totalBonus;
+        return [
+            'bonus' => $totalBonus,
+            'sisa' => $sisaQty,
+        ];
     }
 }

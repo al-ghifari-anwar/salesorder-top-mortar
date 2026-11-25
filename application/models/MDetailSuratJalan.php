@@ -172,6 +172,10 @@ class MDetailSuratJalan extends CI_Model
             $this->db->group_by("id_produk");
             $items = $this->db->get_where('tb_detail_surat_jalan', ['id_surat_jalan' => $id_surat_jalan, 'is_bonus' => 0])->result_array();
 
+            $total_qty_products = count($items);
+            $total_sisa_qty_no_bonus = 0;
+            $total_qty_bonus = 0;
+
             foreach ($items as $item) {
                 $id_produk = $item['id_produk'];
                 $produk = $this->db->get_where('tb_produk', ['id_produk' => $id_produk])->row_array();
@@ -183,15 +187,19 @@ class MDetailSuratJalan extends CI_Model
 
                     $multiplier = $item['qty_produk'] / $promo['kelipatan_promo'];
 
-                    if ($bonusQty > 0) {
+                    if ($bonusQty['bonus'] > 0) {
+                        $total_qty_bonus += $bonusQty['bonus'];
+
                         $this->id_surat_jalan = $id_surat_jalan;
                         $this->id_produk = $item['id_produk'];
-                        $this->qty_produk = $bonusQty;
+                        $this->qty_produk = $bonusQty['bonus'];
                         $this->price = $item['harga_produk'];
                         $this->amount = 0;
                         $this->is_bonus = 1;
 
                         $this->db->insert('tb_detail_surat_jalan', $this);
+                    } else {
+                        $total_sisa_qty_no_bonus += $bonusQty['sisa'];
                     }
                 } else {
                     $multiplier = $item['qty_produk'] / $masterProduk['kelipatan_promo'];
@@ -220,6 +228,39 @@ class MDetailSuratJalan extends CI_Model
                         }
                     }
                 }
+
+                // Set Bonus If Per Produk Not Match Minimum, Use qty Whole Order
+                if ($total_qty_bonus == 0) {
+                    // if ($contact['id_promo'] != 0) {
+                    $promo = $this->db->get_where('tb_promo', ['id_promo' => $id_promo])->row_array();
+
+                    $promoList = $this->db->where('kelipatan_promo <=', $promo['kelipatan_promo'])->order_by('kelipatan_promo', 'DESC')->get('tb_promo')->result_array();
+
+                    // $kelipatan_promo = $promo['kelipatan_promo'];
+
+                    // $multiplier = $total_qty_products / $kelipatan_promo;
+
+                    $bonusQty['bonus'] = $this->setBonusProgressive($total_qty_products, $promoList);
+
+                    if ($bonusQty['bonus'] > 0) {
+                        $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
+
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => $bonusQty['bonus'],
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                    } else {
+                        $total_sisa_qty_no_bonus += $bonusQty['sisa'];
+                    }
+                    // }
+                }
             }
         }
     }
@@ -230,12 +271,6 @@ class MDetailSuratJalan extends CI_Model
         $totalBonus = 0;
 
         foreach ($promoList as $promo) {
-            if ($sisaQty > 0 && $sisaQty < 10) {
-                $totalBonus += 1;
-                $sisaQty    -= $sisaQty;
-                continue;
-            }
-
             if ($sisaQty < $promo['kelipatan_promo']) {
                 continue;
             }
@@ -248,7 +283,10 @@ class MDetailSuratJalan extends CI_Model
             }
         }
 
-        return $totalBonus;
+        return [
+            'bonus' => $totalBonus,
+            'sisa' => $sisaQty,
+        ];
     }
 
     public function insert()
