@@ -788,6 +788,8 @@ class Haloai extends CI_Controller
 
                         $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
                     } else {
+                        $cheapestProduct = $this->MDetailSuratJalan->getCheapestProduct($id_surat_jalan);
+
                         $sjDetailData = [
                             'id_surat_jalan' => $id_surat_jalan,
                             'id_produk' => $cheapestProduct['id_produk'],
