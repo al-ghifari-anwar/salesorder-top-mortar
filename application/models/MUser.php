@@ -76,9 +76,9 @@ class MUser extends CI_Model
             $this->db->where_in('tb_city.id_distributor', [$this->session->userdata('id_distributor'), 1, 10, 13, 14, 15, 16, 17, 18, 19]);
         }
 
-        // if (in_array($this->session->userdata('id_distributor'), [1, 10, 13, 14, 15, 16, 17, 18, 19])) {
-        //     $this->db->where_in('tb_city.id_distributor', [$this->session->userdata('id_distributor'), 1]);
-        // }
+        if ($this->session->userdata('group_distributor') == 1) {
+            $this->db->where_in('tb_city.id_distributor', [$this->session->userdata('id_distributor'), 1, 10, 13, 14, 15, 16, 17, 18, 19]);
+        }
 
         $query = $this->db->get_where('tb_user', ['level_user' => 'courier'])->result_array();
         return $query;
