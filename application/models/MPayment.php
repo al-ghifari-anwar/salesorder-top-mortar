@@ -81,6 +81,12 @@ class MPayment extends CI_Model
             $this->db->where('source', '3311180884');
         } else if ($this->session->userdata('id_distributor') == 13) {
             $this->db->where('source', '0184709488');
+        } else if ($this->session->userdata('id_distributor') == 14 || $this->session->userdata('id_distributor') == 15) {
+            $this->db->where('source', '4922562338');
+        } else if ($this->session->userdata('id_distributor') == 16 || $this->session->userdata('id_distributor') == 17 || $this->session->userdata('id_distributor') == 18) {
+            $this->db->where('source', '8881731312');
+        } else if ($this->session->userdata('id_distributor') == 19) {
+            $this->db->where('source', '3680667666');
         }
 
         $query = $this->db->get_where('tb_payment', ['id_invoice' => 0, 'is_removed' => 0])->result_array();
