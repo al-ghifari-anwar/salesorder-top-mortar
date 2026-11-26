@@ -70,14 +70,17 @@ class MUser extends CI_Model
     public function getAllDefault()
     {
         $this->db->join('tb_city', 'tb_city.id_city = tb_user.id_city');
-        if ($this->session->userdata('id_distributor') != 10) {
-            $this->db->where('tb_city.id_distributor', $this->session->userdata('id_distributor'));
-        } else {
-            $this->db->where_in('tb_city.id_distributor', [$this->session->userdata('id_distributor'), 1, 10, 13, 14, 15, 16, 17, 18, 19]);
-        }
+
+
 
         if ($this->session->userdata('group_distributor') == 1) {
             $this->db->where_in('tb_city.id_distributor', [$this->session->userdata('id_distributor'), 1, 10, 13, 14, 15, 16, 17, 18, 19]);
+        } else {
+            if ($this->session->userdata('id_distributor') != 10) {
+                $this->db->where('tb_city.id_distributor', $this->session->userdata('id_distributor'));
+            } else {
+                $this->db->where_in('tb_city.id_distributor', [$this->session->userdata('id_distributor'), 1, 10, 13, 14, 15, 16, 17, 18, 19]);
+            }
         }
 
         $query = $this->db->get_where('tb_user', ['level_user' => 'courier'])->result_array();
