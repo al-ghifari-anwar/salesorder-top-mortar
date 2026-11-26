@@ -256,22 +256,25 @@ class MDetailSuratJalan extends CI_Model
 
                     $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
                 } else {
+
                     $total_qty_bonus += 1;
 
                     $cheapestProduct = $this->getCheapestProduct($id_surat_jalan);
 
-                    $sjDetailData = [
-                        'id_surat_jalan' => $id_surat_jalan,
-                        'id_produk' => $cheapestProduct['id_produk'],
-                        'price' => $cheapestProduct['harga_produk'],
-                        'qty_produk' => 1,
-                        'amount' => 0,
-                        'is_bonus' => 1,
-                        'type_bonus' => 'SISA_1',
-                        'created_at' => date('Y-m-d H:i:s'),
-                    ];
+                    if ($cheapestProduct['harga_produk'] > 1000) {
+                        $sjDetailData = [
+                            'id_surat_jalan' => $id_surat_jalan,
+                            'id_produk' => $cheapestProduct['id_produk'],
+                            'price' => $cheapestProduct['harga_produk'],
+                            'qty_produk' => 1,
+                            'amount' => 0,
+                            'is_bonus' => 1,
+                            'type_bonus' => 'SISA_1',
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
 
-                    $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                        $this->db->insert('tb_detail_surat_jalan', $sjDetailData);
+                    }
                 }
             }
 
