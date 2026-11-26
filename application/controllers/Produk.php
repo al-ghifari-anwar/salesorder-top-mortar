@@ -42,7 +42,7 @@ class Produk extends CI_Controller
         $data['city'] = $this->MCity->getById($id_city);
         $data['produk'] = $this->MProduk->getByCity($id_city);
         $data['satuans'] = $this->MSatuan->get();
-        $data['masterproduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        $data['masterproduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => $this->session->userdata('group_distributor')])->result_array();
         if ($this->session->userdata('id_distributor') == 10) {
             $data['masterproduks'] = $this->db->get_where('tb_master_produk', ['id_distributor' => 1])->result_array();
         }
