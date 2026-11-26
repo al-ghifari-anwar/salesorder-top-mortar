@@ -11,7 +11,7 @@ class MCity extends CI_Model
 
     public function getAll()
     {
-        $query = $this->db->get_where('tb_city', ['id_distributor' => $this->session->userdata('id_distributor')])->result_array();
+        $query = $this->db->get_where('tb_city', ['id_distributor' => $this->session->userdata('group_distributor')])->result_array();
         return $query;
     }
 
