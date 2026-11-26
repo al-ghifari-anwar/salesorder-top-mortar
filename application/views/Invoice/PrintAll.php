@@ -116,6 +116,8 @@ $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $this
         $kendaraan = $this->MKendaraan->getById($invoice['id_kendaraan']);
         $courier = $this->MUser->getById($invoice['id_courier']);
         $produk = $this->MDetailSuratJalan->getAll($invoice['id_surat_jalan']);
+
+        $distributor = $this->db->get_where('tb_distributor', ['id_distributor' => $suratjalan['id_distributor']])->row_array();
         // Generate QR
         $config['cacheable']    = true; //boolean, the default is true
         $config['cachedir']             = './assets/'; //string, the default is application/cache/
