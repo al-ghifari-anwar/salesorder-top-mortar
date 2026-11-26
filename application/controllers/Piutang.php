@@ -76,7 +76,7 @@ class Piutang extends CI_Controller
         $city = $this->MCity->getById($id_city);
 
         $kategori = $this->input->post("kategori");
-        $id_distributor = $this->session->userdata('group_distributor');
+        $id_distributor = $this->session->userdata('id_distributor');
 
         if ($dateRange) {
             $dates = explode("-", $dateRange);
