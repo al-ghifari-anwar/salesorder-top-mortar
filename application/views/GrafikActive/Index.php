@@ -107,53 +107,48 @@
                     borderWidth: 1,
                     hoverBackgroundColor: '#218838',
                     hoverBorderColor: '#218838',
-                    datalabels: {
-                        display: true,
-                        anchor: 'end',
-                        align: 'top',
-                        color: '#495057',
-                        font: {
-                            weight: 'bold',
-                            size: 12
-                        },
-                        formatter: function(value, context) {
-                            return value;
-                        }
-                    }
+
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                animation: {
-                    duration: 500,
-                    onProgress: function() {},
-                    onComplete: function() {
-                        var chartInstance = this.chart;
-                        var ctx = chartInstance.ctx;
+                // animation: {
+                //     duration: 500,
+                //     onProgress: function() {},
+                //     onComplete: function() {
+                //         var chartInstance = this.chart;
+                //         var ctx = chartInstance.ctx;
 
-                        ctx.font = 'bold 12px Arial';
-                        ctx.fillStyle = '#495057';
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'bottom';
+                //         ctx.font = 'bold 12px Arial';
+                //         ctx.fillStyle = '#495057';
+                //         ctx.textAlign = 'center';
+                //         ctx.textBaseline = 'bottom';
 
-                        this.data.datasets.forEach(function(dataset, i) {
-                            var meta = chartInstance.controller.getDatasetMeta(i);
+                //         this.data.datasets.forEach(function(dataset, i) {
+                //             var meta = chartInstance.controller.getDatasetMeta(i);
 
-                            meta.data.forEach(function(bar, index) {
-                                var value = dataset.data[index];
+                //             meta.data.forEach(function(bar, index) {
+                //                 var value = dataset.data[index];
 
-                                ctx.fillText(
-                                    value,
-                                    bar._model.x,
-                                    bar._model.y - 5
-                                );
-                            });
-                        });
-                    }
-                },
+                //                 ctx.fillText(
+                //                     value,
+                //                     bar._model.x,
+                //                     bar._model.y - 5
+                //                 );
+                //             });
+                //         });
+                //     }
+                // },
                 plugins: {
-                    datalabels: false
+                    labels: {
+                        render: 'value',
+                        fontColor: '#495057',
+                        fontSize: 12,
+                        fontStyle: 'bold',
+                        position: 'outside',
+                        showZero: true
+                    }
                 },
                 legend: {
                     display: true,
