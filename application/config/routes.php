@@ -489,3 +489,5 @@ $route['add-advancedvisit'] = "AddAdvancedVisit/index";
 $route['add-advancedvisit/(:num)'] = 'AddAdvancedVisit/list/$1';
 $route['add-advancedvisit/create'] = 'AddAdvancedVisit/create';
 $route['add-advancedvisit/delete/(:num)'] = 'AddAdvancedVisit/delete/$1';
+// Grafik Active
+$route['grafikactive'] = 'GrafikActive/index';
