@@ -141,10 +141,10 @@
                                 </li>
                                 <?php if ($this->session->userdata('level_user') == 'admin'): ?>
                                     <li class="nav-item">
-                                        <a href="<?= base_url() ?>" class="nav-link <?= $menu == 'Dashboard' ? 'active' : '' ?>">
-                                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                                        <a href="<?= base_url() ?>" class="nav-link <?= $menu == 'GrafikActive' ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-chart-bar"></i>
                                             <p>
-                                                Dashboard
+                                                Grafik Toko Aktif
                                             </p>
                                         </a>
                                     </li>
