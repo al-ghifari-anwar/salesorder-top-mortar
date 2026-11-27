@@ -96,22 +96,17 @@
         var ctx = document.getElementById('activeStoreChart').getContext('2d');
 
         new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: chartLabels,
                 datasets: [{
                     label: 'Toko Aktif',
                     data: chartValues,
-                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
-                    borderColor: '#007bff',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#007bff',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHoverRadius: 8,
-                    lineTension: 0.3,
-                    fill: true
+                    backgroundColor: '#28a745',
+                    borderColor: '#28a745',
+                    borderWidth: 1,
+                    hoverBackgroundColor: '#218838',
+                    hoverBorderColor: '#218838'
                 }]
             },
             options: {
@@ -130,12 +125,10 @@
                         }
                     }
                 },
-                hover: {
-                    mode: 'nearest',
-                    intersect: false
-                },
                 scales: {
                     xAxes: [{
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8,
                         gridLines: {
                             display: false
                         }
