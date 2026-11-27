@@ -112,6 +112,21 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        display: true,
+                        anchor: 'end',
+                        align: 'top',
+                        color: '#495057',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        },
+                        formatter: function(value) {
+                            return value;
+                        }
+                    }
+                },
                 legend: {
                     display: true,
                     position: 'top'
