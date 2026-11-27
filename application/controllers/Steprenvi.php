@@ -965,7 +965,7 @@ class Steprenvi extends CI_Controller
 
     public function saveDist()
     {
-        $this->db->where_in('id_distributor', [7]);
+        $this->db->where_in('id_distributor', [13, 14, 15, 16, 17, 18, 19]);
         $citys = $this->db->get('tb_city')->result_array();
         $dateNow = date('Y-m-d');
 
