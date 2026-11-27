@@ -139,6 +139,16 @@
                                         </p>
                                     </a>
                                 </li>
+                                <?php if ($this->session->userdata('level_user') == 'admin'): ?>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url() ?>" class="nav-link <?= $menu == 'Dashboard' ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                                            <p>
+                                                Dashboard
+                                            </p>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
                                 <?php if ($this->session->userdata('level_user') == 'admindiss'): ?>
                                     <li class="nav-item">
                                         <a href="<?= base_url('absen-kurir') ?>" class="nav-link <?= $menu == 'Absen' ? 'active' : '' ?>">
