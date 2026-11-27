@@ -42,7 +42,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-10">
-                                    <form action="<?= base_url('grafikactive') ?>" method="GET" target="_blank">
+                                    <form action="<?= base_url('grafikactive') ?>" method="GET">
                                         <div class="row">
                                             <label for="">Kota:</label>
                                             <div class="form-group">
