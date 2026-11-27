@@ -141,7 +141,7 @@
                                 </li>
                                 <?php if ($this->session->userdata('level_user') == 'admin'): ?>
                                     <li class="nav-item">
-                                        <a href="<?= base_url() ?>" class="nav-link <?= $menu == 'GrafikActive' ? 'active' : '' ?>">
+                                        <a href="<?= base_url('grafikactive') ?>" class="nav-link <?= $menu == 'GrafikActive' ? 'active' : '' ?>">
                                             <i class="nav-icon fas fa-chart-bar"></i>
                                             <p>
                                                 Grafik Toko Aktif
