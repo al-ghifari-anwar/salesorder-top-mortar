@@ -106,7 +106,20 @@
                     borderColor: '#28a745',
                     borderWidth: 1,
                     hoverBackgroundColor: '#218838',
-                    hoverBorderColor: '#218838'
+                    hoverBorderColor: '#218838',
+                    datalabels: {
+                        display: true,
+                        anchor: 'end',
+                        align: 'top',
+                        color: '#495057',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        },
+                        formatter: function(value, context) {
+                            return value;
+                        }
+                    }
                 }]
             },
             options: {
