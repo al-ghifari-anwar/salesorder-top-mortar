@@ -65,7 +65,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-
+                            <div class="chart" style="position: relative; height: 400px;">
+                                <canvas id="activeStoreChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,3 +88,70 @@
     </div>
 </aside>
 <!-- /.control-sidebar -->
+<script>
+    $(document).ready(function() {
+        var chartLabels = <?= json_encode($chartLabels) ?>;
+        var chartValues = <?= json_encode($chartValues) ?>;
+
+        var ctx = document.getElementById('activeStoreChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Toko Aktif',
+                    data: chartValues,
+                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                    borderColor: '#007bff',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#007bff',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 8,
+                    lineTension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.yLabel + ' Toko Aktif';
+                        }
+                    }
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: false
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            precision: 0
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Jumlah Toko Aktif'
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>

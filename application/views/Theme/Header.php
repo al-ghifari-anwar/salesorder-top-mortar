@@ -38,4 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Editor -->
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <!-- ChartJS -->
+    <script src="<?= base_url('assets') ?>/plugins/chart.js/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
 </head>
