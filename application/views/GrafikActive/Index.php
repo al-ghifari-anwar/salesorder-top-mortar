@@ -125,6 +125,33 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                animation: {
+                    duration: 500,
+                    onProgress: function() {},
+                    onComplete: function() {
+                        var chartInstance = this.chart;
+                        var ctx = chartInstance.ctx;
+
+                        ctx.font = 'bold 12px Arial';
+                        ctx.fillStyle = '#495057';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function(dataset, i) {
+                            var meta = chartInstance.controller.getDatasetMeta(i);
+
+                            meta.data.forEach(function(bar, index) {
+                                var value = dataset.data[index];
+
+                                ctx.fillText(
+                                    value,
+                                    bar._model.x,
+                                    bar._model.y - 5
+                                );
+                            });
+                        });
+                    }
+                },
                 plugins: {
                     datalabels: false
                 },
