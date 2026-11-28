@@ -74,7 +74,7 @@ class MPayment extends CI_Model
         } else if ($this->session->userdata('id_distributor') == 6) {
             $this->db->where('source', '8880964519');
         } else if ($this->session->userdata('id_distributor') == 7) {
-            $this->db->where('source', '8881051362');
+            $this->db->where('source', '2711907086');
         } else if ($this->session->userdata('id_distributor') == 9) {
             $this->db->where('source', 'mojokerto');
         } else if ($this->session->userdata('id_distributor') == 10) {
